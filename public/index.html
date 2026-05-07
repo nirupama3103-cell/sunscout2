@@ -229,11 +229,11 @@ let showCount     = PAGE_SIZE;
 let allActivities = [];
 
 const IMG_FALLBACK = {
-  free:    "https://picsum.photos/seed/kids/400/300",
+  free:    "https://illustrations.popsy.co/amber/playing-with-ball.svg",
   paid:    "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&q=75",
   indoor:  "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&q=75",
-  outdoor: "https://picsum.photos/seed/outdoor/400/300",
-  weekend: "https://picsum.photos/seed/weekend/400/300",
+  outdoor: "https://illustrations.popsy.co/amber/camping.svg",
+  weekend: "https://illustrations.popsy.co/amber/teamwork.svg",
 };
 const TAB_EMOJI  = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
 const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
@@ -348,10 +348,17 @@ function getImageSrc(a) {
     return "https://picsum.photos/seed/beach/400/300";
   if (f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0)
     return "https://picsum.photos/seed/playground" + ((a.name||"").length % 3) + "/400/300";
-  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0)
+  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0 || f.indexOf("establishment") >= 0 || f.indexOf("point_of_interest") >= 0)
     return "https://picsum.photos/seed/park" + ((a.name||"").length % 5) + "/400/300";
-  var seeds = { free:"kids", paid:"activity", indoor:"indoor", outdoor:"outdoor", weekend:"weekend" };
-  return "https://picsum.photos/seed/" + (seeds[a.category]||"fun") + "/400/300";
+  // Category cartoon illustrations - kid friendly, always work
+  var cartoons = {
+    free:    "https://illustrations.popsy.co/amber/playing-with-ball.svg",
+    paid:    "https://illustrations.popsy.co/amber/student-with-book.svg",
+    indoor:  "https://illustrations.popsy.co/amber/telescope.svg",
+    outdoor: "https://illustrations.popsy.co/amber/camping.svg",
+    weekend: "https://illustrations.popsy.co/amber/teamwork.svg",
+  };
+  return cartoons[a.category] || cartoons.free;
 }
 
 async function loadActivities() {
