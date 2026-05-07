@@ -343,34 +343,34 @@ function getImageSrc(a) {
     return "/trail.jpg";
 
   if (f.indexOf("festival") >= 0 || f.indexOf("farmers market") >= 0 || f.indexOf("flea market") >= 0 || f.indexOf("art & wine") >= 0 || f.indexOf("rail fair") >= 0 || f.indexOf("concert") >= 0 || f.indexOf("movie") >= 0)
-    return "/weekend.svg";
-
-  if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("science") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("code ninja") >= 0)
-    return "/paid.svg";
-
-  if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0 || f.indexOf("escape room") >= 0)
-    return "/paid.svg";
-
-  if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("basketball") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
-    return "/paid.svg";
-
-  if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("yoga") >= 0 || f.indexOf("music") >= 0 || f.indexOf("gymboree") >= 0)
-    return "/paid.svg";
-
-  if (f.indexOf("art") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("artcircle") >= 0 || f.indexOf("color me mine") >= 0 || f.indexOf("artspark") >= 0)
-    return "/paid.svg";
+    return "/trail.jpg";
 
   if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("natural history") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("winchester") >= 0)
-    return "/paid.svg";
+    return "/museum.jpg";
+
+  if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("science") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("code ninja") >= 0)
+    return "/stem.jpg";
+
+  if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0 || f.indexOf("escape room") >= 0)
+    return "/splash.jpg";
+
+  if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("basketball") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
+    return "/stem.jpg";
+
+  if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("yoga") >= 0 || f.indexOf("music") >= 0 || f.indexOf("gymboree") >= 0)
+    return "/camp.jpg";
+
+  if (f.indexOf("art") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("artcircle") >= 0 || f.indexOf("color me mine") >= 0 || f.indexOf("artspark") >= 0)
+    return "/camp.jpg";
 
   if (f.indexOf("safari kid") >= 0 || f.indexOf("super safari") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("spectrum") >= 0)
-    return "/paid.svg";
+    return "/camp.jpg";
 
   if (f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("steve & kate") >= 0)
-    return "/paid.svg";
+    return "/camp.jpg";
 
   if (f.indexOf("indoor") >= 0 || f.indexOf("community center") >= 0 || f.indexOf("aquatics center") >= 0 || f.indexOf("hakone") >= 0 || f.indexOf("blackberry farm") >= 0)
-    return "/paid.svg";
+    return "/splash.jpg";
 
   if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("garden") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
     return "/park.jpg";
@@ -378,7 +378,7 @@ function getImageSrc(a) {
   if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("shoreline") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("kayak") >= 0 || f.indexOf("boat") >= 0)
     return "/park.jpg";
 
-  var cats = { free: "/park.jpg", paid: "/paid.svg", indoor: "/paid.svg", outdoor: "/trail.jpg", weekend: "/weekend.svg" };
+  var cats = { free: "/park.jpg", paid: "/camp.jpg", indoor: "/museum.jpg", outdoor: "/trail.jpg", weekend: "/trail.jpg" };
   return cats[a.category] || "/park.jpg";
 }
 
