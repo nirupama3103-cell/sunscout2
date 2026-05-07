@@ -624,7 +624,6 @@ export default async function handler(req, res) {
   // Inject hardcoded paid activities
   
   const [ebRes, gpRes, tmRes] = [{status:"fulfilled",value:[]},{status:"fulfilled",value:[]},{status:"fulfilled",value:[]}];
-  ]);
 
   let activities = [];
   const seen = new Set();
