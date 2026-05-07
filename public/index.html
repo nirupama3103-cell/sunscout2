@@ -325,7 +325,7 @@ function getImageSrc(a) {
   var f = ((a.name || "") + " " + (a.desc || "")).toLowerCase();
 
   if (f.indexOf("cherry") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0)
-    return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Cherry_Orchard.jpg/640px-Cherry_Orchard.jpg";
+    return "/cherry.jpg";
 
   if (f.indexOf("horse") >= 0 || f.indexOf("horseback") >= 0 || f.indexOf("riding") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("carriage") >= 0)
     return "/horse.jpg";
@@ -339,20 +339,20 @@ function getImageSrc(a) {
   if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0 || f.indexOf("water park") >= 0 || f.indexOf("waterpark") >= 0)
     return "/splash.jpg";
 
-  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("nature walk") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("wetland") >= 0 || f.indexOf("bird") >= 0)
+  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("nature walk") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("wetland") >= 0 || f.indexOf("bird") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high ropes") >= 0 || f.indexOf("zip line") >= 0 || f.indexOf("zipline") >= 0)
     return "/trail.jpg";
 
   if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("natural history") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("winchester") >= 0)
-    return "/museum.jpg";
+    return "/gemini1.png";
 
   if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("science") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("code ninja") >= 0)
     return "/stem.jpg";
 
   if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0)
-    return "/splash.jpg";
+    return "/gemini2.png";
 
   if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
-    return "/stem.jpg";
+    return "/gemini3.png";
 
   if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("gymboree") >= 0 || f.indexOf("art") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0)
     return "/camp.jpg";
@@ -363,10 +363,10 @@ function getImageSrc(a) {
   if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("garden") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
     return "/park.jpg";
 
-  if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0)
+  if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("shoreline") >= 0)
     return "/park.jpg";
 
-  var cats = { free:"/park.jpg", paid:"/camp.jpg", indoor:"/museum.jpg", outdoor:"/trail.jpg", weekend:"/park.jpg" };
+  var cats = { free:"/park.jpg", paid:"/camp.jpg", indoor:"/gemini1.png", outdoor:"/trail.jpg", weekend:"/park.jpg" };
   return cats[a.category] || "/park.jpg";
 }
 
