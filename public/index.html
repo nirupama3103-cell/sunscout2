@@ -220,16 +220,14 @@ img{max-width:100%;display:block}
 </div>
 
 <script>
-// ── Constants ────────────────────────────────────────────
 const PAGE_SIZE = 8;
-let activeTab   = "free";
-let activeCity  = "Sunnyvale";
-let activeAge   = "all";
-let searchQuery = "";
-let showCount   = PAGE_SIZE;
+let activeTab     = "free";
+let activeCity    = "Sunnyvale";
+let activeAge     = "all";
+let searchQuery   = "";
+let showCount     = PAGE_SIZE;
 let allActivities = [];
 
-// Unsplash fallback images per category — reliable, no key needed
 const IMG_FALLBACK = {
   free:    "https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=75",
   paid:    "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=75",
@@ -237,8 +235,10 @@ const IMG_FALLBACK = {
   outdoor: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=75",
   weekend: "https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=75",
 };
-
-const TAB_EMOJI = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
+const TAB_EMOJI  = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
+const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
+const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
+const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
 
 const CITY_COORDS = {
   "Sunnyvale":     [37.3688, -122.0363],
@@ -249,365 +249,245 @@ const CITY_COORDS = {
   "Saratoga":      [37.2638, -122.0230],
   "Fremont":       [37.5485, -121.9886],
 };
-
 const CITY_FACTS = {
   "Sunnyvale":     "☀️ Sunnyvale averages 257 sunny days a year!",
   "San Jose":      "🌆 San Jose has 200+ parks for families!",
   "Cupertino":     "🍎 Home to Apple HQ and amazing family parks!",
-  "Mountain View": "🏔️ Has one of the Bay Area's best new aquatics centers!",
+  "Mountain View": "🏔️ Has one of the Bay Area best new aquatics centers!",
   "Palo Alto":     "🎓 Home to Stanford and the free Cantor Arts Center!",
   "Saratoga":      "🌸 Gorgeous mountain trails and a world-class library!",
   "Fremont":       "🌉 Gateway to the East Bay with great nature parks!",
 };
-
 const DIY = [
-  { title:"🧪 Kitchen Science Lab",   desc:"Baking soda + vinegar volcano. Zero cost, instant WOW for any age." },
-  { title:"🌿 Nature Scavenger Hunt", desc:"Print a free checklist. Find leaves, rocks, bugs in your backyard." },
-  { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play. Great for all ages." },
+  { title:"🧪 Kitchen Science Lab",   desc:"Baking soda + vinegar volcano. Zero cost, instant WOW." },
+  { title:"🌿 Nature Scavenger Hunt", desc:"Find leaves, rocks, bugs in your backyard." },
+  { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play." },
 ];
 
-const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
-const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
-const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
+function wBtn(fn, label) {
+  return "<button onclick=\"" + fn + "\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">" + label + "</button>";
+}
 
-// ── Weather ──────────────────────────────────────────────
+function goTab(name) {
+  var b = document.querySelector(".tab-btn[data-tab='" + name + "']");
+  if (b) setTab(b);
+}
+
+function surpriseMe() {
+  var tabs = ["free","outdoor","indoor","paid","weekend"];
+  goTab(tabs[Math.floor(Math.random() * tabs.length)]);
+}
+
 async function fetchWeather(city) {
-  const [lat, lon] = CITY_COORDS[city] || [37.3688, -122.0363];
-  const banner = document.getElementById("weatherBanner");
+  var co = CITY_COORDS[city] || [37.3688,-122.0363];
+  var banner = document.getElementById("weatherBanner");
   if (!banner) return;
   try {
-    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit`);
-    const d = await r.json();
-    const t = Math.round(d.current_weather?.temperature ?? 72);
-    let msg, bg;
-    const wBtn = (tab, label) => { const q = ".tab-btn[data-tab='" + tab + "']"; return '<button onclick="setTab(document.querySelector(\'' + q + '\'))" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">' + label + '</button>'; };
-    const btn = wBtn;
+    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + co[0] + "&longitude=" + co[1] + "&current_weather=true&temperature_unit=fahrenheit");
+    var d = await r.json();
+    var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
+    var msg, bg;
     if (t >= 90) {
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
-      msg = `🔥 <strong>${t}°F in ${city}</strong> — Heat Alert! Beat the heat indoors.${btn("indoor","🏛️ Go Indoor →")}`;
-      setTab(document.querySelector('.tab-btn[data-tab="indoor"]'));
+      msg = "🔥 <strong>" + t + "°F in " + city + "</strong> — Heat Alert!" + wBtn("goTab('indoor')", "🏛️ Go Indoor →");
+      goTab("indoor");
     } else if (t >= 70) {
       bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
-      msg = `☀️ <strong>${t}°F in ${city}</strong> — Warm & beautiful! Perfect for outdoor fun.${btn("outdoor","🌳 Go Outdoor →")}`;
+      msg = "☀️ <strong>" + t + "°F in " + city + "</strong> — Perfect outdoor weather!" + wBtn("goTab('outdoor')", "🌳 Go Outdoor →");
     } else if (t >= 56) {
-      const surprises = ["🎪 Try something new today!","🎨 Perfect day for an art adventure!","🚴 Explore somewhere you've never been!","🎭 Surprise the kids!"];
+      var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
       bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]} <button onclick="surpriseMe()" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">✨ Surprise Me →</button>`;
+      msg = "🌤️ <strong>" + t + "°F in " + city + "</strong> — " + s[Math.floor(Math.random()*s.length)] + wBtn("surpriseMe()", "✨ Surprise Me →");
     } else {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
-      msg = `🧥 <strong>${t}°F in ${city}</strong> — Cool day! Still great outside.${btn("outdoor","🌳 Go Outdoor →")}`;
+      msg = "🧥 <strong>" + t + "°F in " + city + "</strong> — Cool day!" + wBtn("goTab('outdoor')", "🌳 Go Outdoor →");
     }
-    banner.style.display = "block"; banner.style.background = bg;
     banner.style.display    = "block";
+    banner.style.background = bg;
     banner.innerHTML        = msg;
   } catch(e) {
-    banner.style.display = "block"; banner.style.background = "#74b9ff";
-    msg = `🌤️ <strong>SunScout</strong> — Find the best activities near you!`;
-    // Show a default friendly banner even if weather fails
-    banner.style.display = "block"; banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
     banner.style.display    = "block";
-    banner.innerHTML        = `☀️ <strong>Great day in ${city}!</strong> Check out today's activities below.`;
+    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
+    banner.innerHTML        = "☀️ <strong>Great day in " + city + "!</strong> Check out activities below.";
   }
 }
 
-function switchToIndoor() {
-  const btn = document.querySelector('.tab-btn[data-tab="indoor"]');
-  if (btn) setTab(btn);
-}
-
-// ── Surprise Me ─────────────────────────────────────────
-function surpriseMe() {
-  const tabs = ["free","outdoor","indoor","paid","weekend"];
-  const pick = tabs[Math.floor(Math.random()*tabs.length)];
-  const btn  = document.querySelector(`.tab-btn[data-tab="${pick}"]`);
-  if (btn) setTab(btn);
-}
-
-// ── Image helper ─────────────────────────────────────────
-// Returns a safe image src — API proxy first, then category Unsplash fallback
 function getImageSrc(a) {
-  const name = (a.name || "").toLowerCase();
-  const desc = (a.desc || "").toLowerCase();
-  const full = name + " " + desc;
-  // Specific keywords first
-  if (full.includes("library")||full.includes("storytime")||full.includes("reading"))
+  var f = ((a.name||"") + " " + (a.desc||"")).toLowerCase();
+  if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0)
     return "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400&q=80";
-  if (full.includes("pool")||full.includes("swim")||full.includes("splash")||full.includes("aquatic"))
+  if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0)
     return "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=400&q=80";
-  if (full.includes("museum"))
+  if (f.indexOf("museum") >= 0)
     return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&q=80";
-  if (full.includes("trail")||full.includes("hike")||full.includes("refuge"))
+  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("refuge") >= 0)
     return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80";
-  if (full.includes("farm")||full.includes("orchard")||full.includes("berry pick")||full.includes("cherry pick")||full.includes("fruit pick"))
-    return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=80";
-  if (full.includes("pony")||full.includes("horse"))
+  if (f.indexOf("pony") >= 0 || f.indexOf("horse") >= 0)
     return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&q=80";
-  if (full.includes("camp"))
+  if (f.indexOf("farm") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0)
+    return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=80";
+  if (f.indexOf("camp") >= 0)
     return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80";
-  if (full.includes("stem")||full.includes("science")||full.includes("coding")||full.includes("robot"))
+  if (f.indexOf("stem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0)
     return "https://images.unsplash.com/photo-1532094349884-543559c05265?w=400&q=80";
-  if (full.includes("yoga")||full.includes("dance")||full.includes("ballet"))
+  if (f.indexOf("yoga") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("ballet") >= 0)
     return "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80";
-  if (full.includes("art")||full.includes("craft")||full.includes("pottery"))
+  if (f.indexOf("art") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("pottery") >= 0)
     return "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80";
-  if (full.includes("trampoline"))
+  if (f.indexOf("trampoline") >= 0)
     return "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=400&q=80";
-  if (full.includes("ymca"))
+  if (f.indexOf("ymca") >= 0)
     return "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80";
-  if (full.includes("bowling"))
+  if (f.indexOf("bowling") >= 0)
     return "https://images.unsplash.com/photo-1545809169-ecc6d3d99b24?w=400&q=80";
-  if (full.includes("climbing"))
+  if (f.indexOf("climbing") >= 0)
     return "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&q=80";
-  if (full.includes("fishing"))
+  if (f.indexOf("fishing") >= 0)
     return "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80";
-  if (full.includes("beach")||full.includes("boardwalk"))
+  if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0)
     return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80";
-  if (full.includes("playground")||full.includes("playpark"))  {
-    const pg = ["https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80","https://images.unsplash.com/photo-1541199249251-f713e6145474?w=400&q=80","https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80"];
-    return pg[name.length % pg.length];
+  if (f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0) {
+    var pg = ["https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80","https://images.unsplash.com/photo-1541199249251-f713e6145474?w=400&q=80","https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80"];
+    return pg[(a.name||"").length % 3];
   }
-  if (full.includes("park")||full.includes("lake")||full.includes("nature")) {
-    const parks = [
-      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80",
-      "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&q=80",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80",
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80",
-    ];
-    return parks[name.length % parks.length];
+  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0) {
+    var pk = ["https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80","https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&q=80","https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=400&q=80","https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80","https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80"];
+    return pk[(a.name||"").length % 5];
   }
-  // Category fallbacks
-  const cat = {
-    free:    "https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80",
-    paid:    "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80",
-    indoor:  "https://images.unsplash.com/photo-1566004100631-35d015d6a491?w=400&q=80",
-    outdoor: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80",
-    weekend: "https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=80",
-  };
+  var cat = { free:"https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80", paid:"https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80", indoor:"https://images.unsplash.com/photo-1566004100631-35d015d6a491?w=400&q=80", outdoor:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80", weekend:"https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=80" };
   return cat[a.category] || cat.free;
 }
 
-
-// ── Data fetch ───────────────────────────────────────────
 async function loadActivities() {
   showSkeleton();
   try {
-    const params = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
-    const res    = await fetch(`/api/activities?${params}`);
-    if (!res.ok) throw new Error(`Server error ${res.status}`);
-    const data   = await res.json();
+    var p = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
+    var r = await fetch("/api/activities?" + p);
+    if (!r.ok) throw new Error("Server error " + r.status);
+    var data = await r.json();
     allActivities = data.activities || [];
-    showCount     = PAGE_SIZE;
-    const el = document.getElementById("lastUpdated");
+    showCount = PAGE_SIZE;
+    var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
     renderCards();
-  } catch(e) {
-    showError(e.message);
-  }
+  } catch(e) { showError(e.message); }
 }
 
-// ── Render ───────────────────────────────────────────────
 function renderCards() {
-  const grid     = document.getElementById("grid");
-  const status   = document.getElementById("statusBar");
-  const wrap     = document.getElementById("showMoreWrap");
-  const btn      = document.getElementById("showMoreBtn");
-
-  let items = allActivities;
+  var grid   = document.getElementById("grid");
+  var status = document.getElementById("statusBar");
+  var wrap   = document.getElementById("showMoreWrap");
+  var mbtn   = document.getElementById("showMoreBtn");
+  var items  = allActivities.slice();
   if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    items = items.filter(a =>
-      (a.name||"").toLowerCase().includes(q) ||
-      (a.desc||"").toLowerCase().includes(q) ||
-      (a.address||"").toLowerCase().includes(q)
-    );
+    var q = searchQuery.toLowerCase();
+    items = items.filter(function(a) {
+      return (a.name||"").toLowerCase().indexOf(q) >= 0 || (a.desc||"").toLowerCase().indexOf(q) >= 0 || (a.address||"").toLowerCase().indexOf(q) >= 0;
+    });
   }
-
-  const total   = items.length;
-  const visible = items.slice(0, showCount);
-
-  status.innerHTML = `Showing <strong>${visible.length}</strong> of <strong>${total}</strong> activit${total===1?"y":"ies"} in <strong>${activeCity}</strong>`;
+  var total   = items.length;
+  var visible = items.slice(0, showCount);
+  status.innerHTML = "Showing <strong>" + visible.length + "</strong> of <strong>" + total + "</strong> activit" + (total===1?"y":"ies") + " in <strong>" + activeCity + "</strong>";
   if (wrap) wrap.style.display = total > PAGE_SIZE ? "block" : "none";
-  if (btn)  btn.disabled = visible.length >= total;
-
+  if (mbtn) mbtn.disabled = visible.length >= total;
   if (visible.length === 0) {
-    grid.innerHTML = `
-      <div class="no-results">
-        <div class="no-results-icon">🌻</div>
-        <h2>${searchQuery ? `No results for "${searchQuery}"` : "No activities found!"}</h2>
-        <p>${searchQuery ? "Try a different search term." : "Try a different city, tab, or age filter."}</p>
-        <p>Meanwhile — 3 FREE DIY activities:</p>
-        <div class="diy-grid">
-          ${DIY.map(d=>`<div class="diy-card"><strong>${d.title}</strong><p>${d.desc}</p></div>`).join("")}
-        </div>
-      </div>`;
+    grid.innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🌻</div><h2>" + (searchQuery ? "No results for &quot;" + searchQuery + "&quot;" : "No activities found!") + "</h2><p>" + (searchQuery ? "Try a different search term." : "Try a different city, tab, or age filter.") + "</p><p>Meanwhile — 3 FREE DIY activities:</p><div class=\"diy-grid\">" + DIY.map(function(d){ return "<div class=\"diy-card\"><strong>" + d.title + "</strong><p>" + d.desc + "</p></div>"; }).join("") + "</div></div>";
     return;
   }
-
-  grid.innerHTML = visible.map((a, i) => {
-    const imgSrc  = getImageSrc(a, i);
-    const fallback = IMG_FALLBACK[a.category] || IMG_FALLBACK.free;
-    const emoji   = TAB_EMOJI[a.category] || "🌈";
-    const dateStr = a.startDate
-      ? (a.endDate && a.startDate !== a.endDate
-          ? `${fmtDate(a.startDate)} – ${fmtDate(a.endDate)}`
-          : fmtDate(a.startDate))
-      : (a.dates || "Summer 2026");
-    const stars   = a.stars ? "★".repeat(Math.min(5,a.stars)) + "☆".repeat(5-Math.min(5,a.stars)) : "";
-    const mapUrl  = a.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent((a.name||"") + " " + (a.city||activeCity) + " CA")}`;
-
-    return `
-    <article class="card">
-      <div class="card-img-wrap">
-        <img
-          src="${imgSrc}"
-          alt="${a.name}"
-          loading="eager"
-          style="width:100%;height:100%;object-fit:cover;"
-          onerror="this.src='${fallback}';this.onerror=null;"
-        />
-        <span class="badge-free">${a.isFree ? "$0 FREE" : (a.price||"See site")}</span>
-        ${a.source ? `<span class="badge-src">${SRC_LABELS[a.source]||a.source}</span>` : ""}
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">${a.name}</h3>
-        ${stars ? `<div class="stars">${stars}</div>` : ""}
-        <div class="chips">
-          ${(a.ages||[]).map(g=>`<span class="chip ${AGE_COLORS[g]||""}">${AGE_LABELS[g]||g}</span>`).join("")}
-          ${(a.a11y||[]).map(t=>`<span class="chip chip-a11y">${t}</span>`).join("")}
-          ${!a.isFree && a.price ? `<span class="chip chip-price">${a.price}</span>` : ""}
-        </div>
-        ${a.address ? `<p class="info"><span>📍</span><span>${a.address}</span></p>` : ""}
-        ${a.phone   ? `<p class="info"><span>📞</span><span>${a.phone}</span></p>` : ""}
-        <p class="date-line">📅 <strong>${dateStr}</strong></p>
-        ${a.desc ? `<p class="info"><span></span><span>${a.desc.slice(0,120)}${a.desc.length>120?"…":""}</span></p>` : ""}
-      </div>
-      <div class="card-foot">
-        <a class="btn btn-map" href="${mapUrl}" target="_blank" rel="noopener">🗺 Map</a>
-        ${a.website ? `<a class="btn" href="${a.website}" target="_blank" rel="noopener">🌐 Site</a>` : ""}
-      </div>
-    </article>`;
+  grid.innerHTML = visible.map(function(a) {
+    var src  = getImageSrc(a);
+    var fb   = IMG_FALLBACK[a.category] || IMG_FALLBACK.free;
+    var ds   = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+    var st   = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
+    var mu   = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
+    var ac   = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
+    var a11  = (a.a11y||[]).map(function(t){ return "<span class=\"chip chip-a11y\">"+t+"</span>"; }).join("");
+    var pc   = (!a.isFree&&a.price) ? "<span class=\"chip chip-price\">"+a.price+"</span>" : "";
+    return "<article class=\"card\"><div class=\"card-img-wrap\"><img src=\""+src+"\" alt=\"\" loading=\"eager\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.src='"+fb+"';this.onerror=null\"/><span class=\"badge-free\">"+(a.isFree?"$0 FREE":(a.price||"See site"))+"</span>"+(a.source?"<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>":"")+"</div><div class=\"card-body\"><h3 class=\"card-title\">"+(a.name||"")+"</h3>"+(st?"<div class=\"stars\">"+st+"</div>":"")+"<div class=\"chips\">"+ac+a11+pc+"</div>"+(a.address?"<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>":"")+(a.phone?"<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>":"")+"<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+(a.desc?"<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>":"")+"</div><div class=\"card-foot\"><a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+(a.website?"<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>":"")+"</div></article>";
   }).join("");
 }
 
 function showSkeleton() {
-  document.getElementById("grid").innerHTML = Array(8).fill(0).map(()=>`
-    <div class="card card-skel">
-      <div class="card-img-wrap"></div>
-      <div class="card-body">
-        <div class="skel-line"></div>
-        <div class="skel-line skel-short"></div>
-        <div class="skel-line skel-short"></div>
-      </div>
-    </div>`).join("");
-  document.getElementById("statusBar").innerHTML = `<span class="spinner"></span> Loading activities in ${activeCity}…`;
-  const wrap = document.getElementById("showMoreWrap");
-  if (wrap) wrap.style.display = "none";
+  document.getElementById("grid").innerHTML = Array(8).fill("").map(function(){ return "<div class=\"card card-skel\"><div class=\"card-img-wrap\"></div><div class=\"card-body\"><div class=\"skel-line\"></div><div class=\"skel-line skel-short\"></div></div></div>"; }).join("");
+  document.getElementById("statusBar").innerHTML = "<span class=\"spinner\"></span> Loading activities in "+activeCity+"…";
+  var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
 }
 
 function showError(msg) {
-  document.getElementById("grid").innerHTML = `
-    <div class="no-results">
-      <div class="no-results-icon">⚠️</div>
-      <h2>Could not load activities</h2>
-      <p>${msg}</p>
-      <button class="show-more-btn" onclick="loadActivities()" style="margin-top:12px">Try Again</button>
-    </div>`;
+  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Could not load activities</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try Again</button></div>";
   document.getElementById("statusBar").innerHTML = "Error loading activities";
 }
 
 function fmtDate(d) {
   if (!d) return "";
-  return new Date(d).toLocaleDateString("en-US", { month:"short", day:"numeric" });
+  return new Date(d).toLocaleDateString("en-US",{month:"short",day:"numeric"});
 }
 
-// ── Controls ─────────────────────────────────────────────
 function setCity(btn) {
-  const clicked = btn.dataset.city;
+  var clicked = btn.dataset.city;
   if (activeCity === clicked) {
-    btn.classList.remove("on");
-    activeCity = null;
+    btn.classList.remove("on"); activeCity = null;
     document.getElementById("cityFact").textContent = "";
-    // weather banner stays visible
-    document.getElementById("grid").innerHTML = `<div class="no-results"><div class="no-results-icon">🏙️</div><h2>Select a city!</h2></div>`;
+    document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city!</h2></div>";
     document.getElementById("statusBar").innerHTML = "Select a city to get started";
     return;
   }
-  document.querySelectorAll(".city-btn").forEach(b => b.classList.remove("on"));
+  document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   btn.classList.add("on");
-  activeCity  = clicked;
-  activeAge   = "all";
-  searchQuery = "";
-  showCount   = PAGE_SIZE;
-  const si = document.getElementById("searchInput");
-  if (si) si.value = "";
-  document.getElementById("cityFact").textContent = CITY_FACTS[activeCity] || "";
-  document.querySelectorAll(".age-btn").forEach(b => b.classList.toggle("on", b.dataset.age==="all"));
+  activeCity=clicked; activeAge="all"; searchQuery=""; showCount=PAGE_SIZE;
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
+  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
   fetchWeather(activeCity);
   loadActivities();
 }
 
 function setTab(btn) {
-  document.querySelectorAll(".tab-btn").forEach(b => { b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
-  btn.classList.add("on");
-  btn.setAttribute("aria-selected","true");
-  activeTab   = btn.dataset.tab;
-  activeAge   = "all";
-  searchQuery = "";
-  showCount   = PAGE_SIZE;
-  const si = document.getElementById("searchInput");
-  if (si) si.value = "";
-  document.querySelectorAll(".age-btn").forEach(b => b.classList.toggle("on", b.dataset.age==="all"));
+  document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
+  btn.classList.add("on"); btn.setAttribute("aria-selected","true");
+  activeTab=btn.dataset.tab; activeAge="all"; searchQuery=""; showCount=PAGE_SIZE;
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
   if (activeCity) loadActivities();
 }
 
 function setAge(btn) {
-  const clicked = btn.dataset.age;
-  if (activeAge === clicked && clicked !== "all") {
-    document.querySelectorAll(".age-btn").forEach(b => b.classList.toggle("on", b.dataset.age==="all"));
-    activeAge = "all";
+  var clicked = btn.dataset.age;
+  if (activeAge===clicked && clicked!=="all") {
+    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
+    activeAge="all";
   } else {
-    document.querySelectorAll(".age-btn").forEach(b => b.classList.remove("on"));
-    btn.classList.add("on");
-    activeAge = clicked;
+    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.remove("on"); });
+    btn.classList.add("on"); activeAge=clicked;
   }
-  showCount = PAGE_SIZE;
-  if (activeCity) loadActivities();
+  showCount=PAGE_SIZE; if(activeCity) loadActivities();
 }
 
 function setSearch(val) {
-  searchQuery = val.trim();
-  showCount   = PAGE_SIZE;
-  const cl = document.getElementById("searchClear");
-  if (cl) cl.style.display = val ? "block" : "none";
+  searchQuery=val.trim(); showCount=PAGE_SIZE;
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display=val?"block":"none";
   renderCards();
 }
 
 function clearSearch() {
-  searchQuery = "";
-  const si = document.getElementById("searchInput");
-  if (si) si.value = "";
-  const cl = document.getElementById("searchClear");
-  if (cl) cl.style.display = "none";
-  showCount = PAGE_SIZE;
-  renderCards();
+  searchQuery="";
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display="none";
+  showCount=PAGE_SIZE; renderCards();
 }
 
 function showMore() {
-  showCount += PAGE_SIZE;
-  renderCards();
-  window.scrollBy({ top: 400, behavior: "smooth" });
+  showCount+=PAGE_SIZE; renderCards();
+  window.scrollBy({top:400,behavior:"smooth"});
 }
 
-// ── Countdown ────────────────────────────────────────────
 function updateCountdown() {
-  const end  = new Date(`${new Date().getFullYear()}-08-31`);
-  const days = Math.max(0, Math.ceil((end - new Date()) / 86400000));
-  const el   = document.getElementById("countdown");
-  if (el) el.textContent = days > 0 ? `⏳ ${days} days of summer left!` : "🍂 Summer has ended!";
+  var end=new Date(new Date().getFullYear()+"-08-31");
+  var days=Math.max(0,Math.ceil((end-new Date())/86400000));
+  var el=document.getElementById("countdown");
+  if(el) el.textContent=days>0?"⏳ "+days+" days of summer left!":"🍂 Summer has ended!";
 }
 
-// ── Init ─────────────────────────────────────────────────
 document.getElementById("cityFact").textContent = CITY_FACTS["Sunnyvale"];
 updateCountdown();
 fetchWeather("Sunnyvale");
