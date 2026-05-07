@@ -320,6 +320,7 @@ async function fetchWeather(city) {
 //         This means each activity type gets the right photo instead of
 //         everything showing /park.jpg. ─────────────────────────────────────
 function getImageSrc(a) {
+  if (a.image && a.image.indexOf("maps.googleapis") >= 0) a.image = null;
 
   
 
