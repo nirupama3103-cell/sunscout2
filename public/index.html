@@ -229,11 +229,11 @@ let showCount     = PAGE_SIZE;
 let allActivities = [];
 
 const IMG_FALLBACK = {
-  free:    "https://picsum.photos/seed/kidsoutdoor/400/300",
-  paid:    "https://picsum.photos/seed/kidsclass/400/300",
-  indoor:  "https://picsum.photos/seed/indoorplay/400/300",
-  outdoor: "https://picsum.photos/seed/outdoorfun/400/300",
-  weekend: "https://picsum.photos/seed/weekendfun/400/300",
+  free:    "/park.jpg",
+  paid:    "/sports.jpg",
+  indoor:  "/museum.jpg",
+  outdoor: "/trail.jpg",
+  weekend: "/festival.jpg",
 };
 const TAB_EMOJI  = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
 const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
@@ -314,30 +314,18 @@ async function fetchWeather(city) {
 
 function getImageSrc(a) {
   var f = ((a.name||"") + " " + (a.desc||"")).toLowerCase();
-  var base = "https://picsum.photos/seed/";
-  if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0) return base+"library/400/300";
-  if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0) return base+"swimming/400/300";
-  if (f.indexOf("museum") >= 0) return base+"museum/400/300";
-  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("refuge") >= 0) return base+"trail/400/300";
-  if (f.indexOf("pony") >= 0 || f.indexOf("horse") >= 0) return base+"horse/400/300";
-  if (f.indexOf("farm") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0) return base+"farm/400/300";
-  if (f.indexOf("camp") >= 0) return base+"camping/400/300";
-  if (f.indexOf("stem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0) return base+"science/400/300";
-  if (f.indexOf("yoga") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("ballet") >= 0) return base+"dance/400/300";
-  if (f.indexOf("art") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("pottery") >= 0) return base+"art/400/300";
-  if (f.indexOf("toddler") >= 0 || f.indexOf("infant") >= 0 || f.indexOf("lapsit") >= 0 || f.indexOf("baby") >= 0) return base+"toddler/400/300";
-  if (f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0) return base+"playground/400/300";
-  if (f.indexOf("ropes") >= 0 || f.indexOf("adventure") >= 0 || f.indexOf("climbing") >= 0) return base+"adventure/400/300";
-  if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0) return base+"beach/400/300";
-  if (f.indexOf("fishing") >= 0) return base+"fishing/400/300";
-  if (f.indexOf("bowling") >= 0) return base+"bowling/400/300";
-  if (f.indexOf("ymca") >= 0) return base+"ymca/400/300";
-  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0 || f.indexOf("establishment") >= 0 || f.indexOf("point_of_interest") >= 0) {
-    var seeds = ["greenpark","citypark","naturepark","familypark","summerpark"];
-    return base + seeds[(a.name||"").length % 5] + "/400/300";
-  }
-  var cats = {free:"kidsoutdoor", paid:"kidsclass", indoor:"indoorplay", outdoor:"outdoorfun", weekend:"weekendfun"};
-  return base + (cats[a.category]||"kids") + "/400/300";
+  if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0) return "/library.jpg";
+  if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0) return "/splash.jpg";
+  if (f.indexOf("museum") >= 0) return "/museum.jpg";
+  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("refuge") >= 0) return "/trail.jpg";
+  if (f.indexOf("farm") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("horse") >= 0) return "/festival.jpg";
+  if (f.indexOf("camp") >= 0 || f.indexOf("ropes") >= 0 || f.indexOf("adventure") >= 0) return "/camp.jpg";
+  if (f.indexOf("stem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0) return "/sports.jpg";
+  if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("basket") >= 0 || f.indexOf("gym") >= 0) return "/sports.jpg";
+  if (f.indexOf("dance") >= 0 || f.indexOf("yoga") >= 0 || f.indexOf("art") >= 0 || f.indexOf("craft") >= 0) return "/festival.jpg";
+  if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0 || f.indexOf("establishment") >= 0 || f.indexOf("point_of_interest") >= 0) return "/park.jpg";
+  var cats = {free:"/park.jpg", paid:"/sports.jpg", indoor:"/museum.jpg", outdoor:"/trail.jpg", weekend:"/festival.jpg"};
+  return cats[a.category] || "/park.jpg";
 }
 
 async function loadActivities() {
