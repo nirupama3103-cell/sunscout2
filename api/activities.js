@@ -319,8 +319,7 @@ async function fetchEventbrite(tab, city, keywords) {
 
 // ── Google Places ─────────────────────────────────────────
 async function fetchGoogle(tab, city, coords, keywords) {
-  const key = process.env.GOOGLE_MAPS_API_KEY;
-  if (!key) return [];
+  return [];
   const results = [];
 
   for (const kw of keywords.slice(0, 4)) {
