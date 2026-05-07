@@ -310,17 +310,17 @@ function switchToIndoor() {
 // ── Image helper ─────────────────────────────────────────
 // Returns a safe image src — API proxy first, then category Unsplash fallback
 function getImageSrc(a) {
-  // If image URL is from Google Maps API, it contains the key — strip and proxy
-  if (a.image && a.image.includes("photo_reference=")) {
-    const ref = new URLSearchParams(a.image.split("?")[1]).get("photo_reference");
-    if (ref) return `/api/photo?ref=${encodeURIComponent(ref)}`;
-  }
-  // Use image if it's a safe external URL (Unsplash, Eventbrite, Ticketmaster)
-  if (a.image && a.image.startsWith("http") && !a.image.includes("key=")) {
+  if (a.image && a.image.startsWith("http") && !a.image.includes("key=") && !a.image.includes("photo_reference")) {
     return a.image;
   }
-  // Category fallback
-  return IMG_FALLBACK[a.category] || IMG_FALLBACK.free;
+  const fallbacks = {
+    free:    "https://picsum.photos/seed/park/400/300",
+    paid:    "https://picsum.photos/seed/camp/400/300",
+    indoor:  "https://picsum.photos/seed/museum/400/300",
+    outdoor: "https://picsum.photos/seed/trail/400/300",
+    weekend: "https://picsum.photos/seed/festival/400/300",
+  };
+  return fallbacks[a.category] || "https://picsum.photos/seed/kids/400/300";
 }
 
 // ── Data fetch ───────────────────────────────────────────
