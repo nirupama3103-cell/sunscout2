@@ -356,7 +356,7 @@ async function fetchGoogle(tab, city, coords, keywords) {
           address:   pl.formatted_address || "",
           phone:     det.formatted_phone_number || null,
           website:   det.website || null,
-          image:     photoRef ? `/park.jpg` : "/park.jpg",
+          image:     photoRef ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photoRef}&key=${process.env.GOOGLE_MAPS_API_KEY}` : "/park.jpg",
           isFree:    tab === "free",
           price:     tab === "free" ? "$0 FREE" : "See site",
           stars:     pl.rating ? Math.round(pl.rating) : 4,

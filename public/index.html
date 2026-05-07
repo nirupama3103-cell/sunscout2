@@ -310,14 +310,25 @@ function switchToIndoor() {
 // ── Image helper ─────────────────────────────────────────
 // Returns a safe image src — API proxy first, then category Unsplash fallback
 function getImageSrc(a) {
-  const icons = {
-    free:    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23FFF3CD'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🆓%3C/text%3E%3C/svg%3E",
-    paid:    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23FFE0E0'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🎟️%3C/text%3E%3C/svg%3E",
-    indoor:  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23D0E8FF'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🏛️%3C/text%3E%3C/svg%3E",
-    outdoor: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23D4F5DC'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🌳%3C/text%3E%3C/svg%3E",
-    weekend: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23EDE0FF'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E📅%3C/text%3E%3C/svg%3E",
+  const name = (a.name || "").toLowerCase();
+  if (name.includes("library"))                         return "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400&q=80";
+  if (name.includes("pool")||name.includes("swim")||name.includes("splash")) return "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=400&q=80";
+  if (name.includes("museum"))                          return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&q=80";
+  if (name.includes("farm")||name.includes("pick"))     return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=80";
+  if (name.includes("trail")||name.includes("hike"))    return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80";
+  if (name.includes("camp"))                            return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80";
+  if (name.includes("stem")||name.includes("science"))  return "https://images.unsplash.com/photo-1532094349884-543559c05265?w=400&q=80";
+  if (name.includes("park")||name.includes("playground")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80";
+  if (name.includes("yoga")||name.includes("dance"))    return "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80";
+  if (name.includes("art")||name.includes("craft"))     return "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80";
+  const cat = {
+    free:    "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80",
+    paid:    "https://images.unsplash.com/photo-1532094349884-543559c05265?w=400&q=80",
+    indoor:  "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&q=80",
+    outdoor: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80",
+    weekend: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80",
   };
-  return icons[a.category] || icons.free;
+  return cat[a.category] || cat.free;
 }
 
 
