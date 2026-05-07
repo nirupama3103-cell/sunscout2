@@ -314,13 +314,13 @@ function getImageSrc(a) {
     return a.image;
   }
   const fallbacks = {
-    free:    "https://picsum.photos/seed/park/400/300",
-    paid:    "https://picsum.photos/seed/camp/400/300",
-    indoor:  "https://picsum.photos/seed/museum/400/300",
+    free:    "https://picsum.photos/id/206/400/300",
+    paid:    "https://picsum.photos/id/28/400/300",
+    indoor:  "https://picsum.photos/id/219/400/300",
     outdoor: "https://picsum.photos/seed/trail/400/300",
-    weekend: "https://picsum.photos/seed/festival/400/300",
+    weekend: "https://picsum.photos/id/325/400/300",
   };
-  return fallbacks[a.category] || "https://picsum.photos/seed/kids/400/300";
+  return fallbacks[a.category] || "https://picsum.photos/id/399/400/300";
 }
 
 // ── Data fetch ───────────────────────────────────────────
