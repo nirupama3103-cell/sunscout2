@@ -291,7 +291,7 @@ async function fetchWeather(city) {
     } else if (t >= 56) {
       const surprises = ["🎪 Try something new today!","🎨 Perfect day for an art adventure!","🚴 Explore somewhere you've never been!","🎭 Surprise the kids!"];
       bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]}${`<button onclick="surpriseMe()" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">✨ Surprise Me →</button>`;
+      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]} <button onclick="surpriseMe()" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">✨ Surprise Me →</button>`;
     } else {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
       msg = `🧥 <strong>${t}°F in ${city}</strong> — Cool day! Still great outside.${btn("outdoor","🌳 Go Outdoor →")}`;
