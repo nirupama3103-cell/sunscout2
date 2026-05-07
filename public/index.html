@@ -380,7 +380,7 @@ function renderCards() {
   }
 
   grid.innerHTML = visible.map((a, i) => {
-    const imgSrc  = getImageSrc(a);
+    const imgSrc  = getImageSrc(a, i);
     const fallback = IMG_FALLBACK[a.category] || IMG_FALLBACK.free;
     const emoji   = TAB_EMOJI[a.category] || "🌈";
     const dateStr = a.startDate
