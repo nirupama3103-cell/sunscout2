@@ -1,3 +1,4 @@
+export const config = { runtime: "edge" };
 const DEFAULT_IMAGES = {
   camp:       "https://cdn-icons-png.flaticon.com/512/3870/3870019.png",
   stem:       "https://cdn-icons-png.flaticon.com/512/2103/2103658.png",
