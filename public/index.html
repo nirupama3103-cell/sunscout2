@@ -280,16 +280,21 @@ async function fetchWeather(city) {
     const d = await r.json();
     const t = Math.round(d.current_weather?.temperature ?? 72);
     let msg, bg;
+    const btn = (tab, label) => `<button onclick="setTab(document.querySelector('.tab-btn[data-tab=\"${tab}\"]'))" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">${label}</button>`;
     if (t >= 90) {
-      msg = `🔥 <strong>${t}°F in ${city}</strong> — Heat Alert! Staying cool indoors is best. <button onclick="switchToIndoor()" style="margin-left:10px;padding:3px 12px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">Switch to Indoor →</button>`;
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
-      switchToIndoor();
-    } else if (t <= 55) {
-      msg = `🧥 <strong>${t}°F in ${city}</strong> — A bit chilly! Great day for indoor fun.`;
-      bg  = "linear-gradient(135deg,#3b82f6,#06b6d4)";
+      msg = `🔥 <strong>${t}°F in ${city}</strong> — Heat Alert! Beat the heat indoors.${btn("indoor","🏛️ Go Indoor →")}`;
+      setTab(document.querySelector('.tab-btn[data-tab="indoor"]'));
+    } else if (t >= 70) {
+      bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
+      msg = `☀️ <strong>${t}°F in ${city}</strong> — Warm & beautiful! Perfect for outdoor fun.${btn("outdoor","🌳 Go Outdoor →")}`;
+    } else if (t >= 56) {
+      const surprises = ["🎪 Try something new today!","🎨 Perfect day for an art adventure!","🚴 Explore somewhere you've never been!","🎭 Surprise the kids!"];
+      bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
+      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]}${btn("free","✨ Surprise Me →")}`;
     } else {
-      msg = `☀️ <strong>${t}°F in ${city}</strong> — Perfect weather for outdoor adventures!`;
-      bg  = "linear-gradient(135deg,#16a34a,#84cc16)";
+      bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
+      msg = `🧥 <strong>${t}°F in ${city}</strong> — Cool day! Still great outside.${btn("outdoor","🌳 Go Outdoor →")}`;
     }
     banner.style.display = "block"; banner.style.background = bg;
     banner.style.display    = "block";
