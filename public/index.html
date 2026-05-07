@@ -280,7 +280,8 @@ async function fetchWeather(city) {
     const d = await r.json();
     const t = Math.round(d.current_weather?.temperature ?? 72);
     let msg, bg;
-    const btn = (tab, label) => `<button onclick="setTab(document.querySelector('.tab-btn[data-tab=\"${tab}\"]'))" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">${label}</button>`;
+    const wBtn = (tab, label) => { const q = ".tab-btn[data-tab='" + tab + "']"; return '<button onclick="setTab(document.querySelector(\'' + q + '\'))" style="margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">' + label + '</button>'; };
+    const btn = wBtn;
     if (t >= 90) {
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
       msg = `🔥 <strong>${t}°F in ${city}</strong> — Heat Alert! Beat the heat indoors.${btn("indoor","🏛️ Go Indoor →")}`;
