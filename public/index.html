@@ -310,25 +310,16 @@ function switchToIndoor() {
 // ── Image helper ─────────────────────────────────────────
 // Returns a safe image src — API proxy first, then category Unsplash fallback
 function getImageSrc(a) {
-  if (a.image && a.image.startsWith("http") && !a.image.includes("key=") && !a.image.includes("photo_reference")) {
-    return a.image;
-  }
-  const cartoons = {
-    free:    "https://illustrations.popsy.co/amber/playing-with-ball.svg",
-    paid:    "https://illustrations.popsy.co/amber/student-with-book.svg",
-    indoor:  "https://illustrations.popsy.co/amber/telescope.svg",
-    outdoor: "https://illustrations.popsy.co/amber/camping.svg",
-    weekend: "https://illustrations.popsy.co/amber/teamwork.svg",
+  const icons = {
+    free:    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23FFF3CD'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🆓%3C/text%3E%3C/svg%3E",
+    paid:    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23FFE0E0'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🎟️%3C/text%3E%3C/svg%3E",
+    indoor:  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23D0E8FF'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🏛️%3C/text%3E%3C/svg%3E",
+    outdoor: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23D4F5DC'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E🌳%3C/text%3E%3C/svg%3E",
+    weekend: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='16' fill='%23EDE0FF'/%3E%3Ctext x='40' y='52' font-size='36' text-anchor='middle'%3E📅%3C/text%3E%3C/svg%3E",
   };
-  return cartoons[a.category] || cartoons.free;
+  return icons[a.category] || icons.free;
 }
-    paid:    "https://picsum.photos/id/28/400/300",
-    indoor:  "https://picsum.photos/id/219/400/300",
-    outdoor: "https://picsum.photos/seed/trail/400/300",
-    weekend: "https://picsum.photos/id/325/400/300",
-  };
-  return fallbacks[a.category] || "https://picsum.photos/id/399/400/300";
-}
+
 
 // ── Data fetch ───────────────────────────────────────────
 async function loadActivities() {
