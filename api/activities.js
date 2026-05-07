@@ -623,7 +623,7 @@ export default async function handler(req, res) {
 
   // Inject hardcoded paid activities
   
-  const timeout = new Promise(r => setTimeout(() => r({status:"fulfilled",value:[]}), 2000)); const [ebRes, gpRes, tmRes] = [{status:"fulfilled",value:[]},{status:"fulfilled",value:[]},{status:"fulfilled",value:[]}]; if(false) await Promise.allSettled([
+  const [ebRes, gpRes, tmRes] = [{status:"fulfilled",value:[]},{status:"fulfilled",value:[]},{status:"fulfilled",value:[]}];
     fetchEventbrite(tab, city, keywords),
     fetchGoogle(tab, city, coords, keywords),
     fetchTicketmaster(tab, city, coords),
