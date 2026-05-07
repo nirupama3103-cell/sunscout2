@@ -291,7 +291,7 @@ async function fetchWeather(city) {
     } else if (t >= 56) {
       const surprises = ["🎪 Try something new today!","🎨 Perfect day for an art adventure!","🚴 Explore somewhere you've never been!","🎭 Surprise the kids!"];
       bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]}${btn("free","✨ Surprise Me →")}`;
+      msg = `🌤️ <strong>${t}°F in ${city}</strong> — ${surprises[Math.floor(Math.random()*surprises.length)]}${btn(["free","outdoor","indoor","paid"][Math.floor(Math.random()*4)],"✨ Surprise Me →")}`;
     } else {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
       msg = `🧥 <strong>${t}°F in ${city}</strong> — Cool day! Still great outside.${btn("outdoor","🌳 Go Outdoor →")}`;
@@ -322,8 +322,22 @@ function getImageSrc(a) {
   if (name.includes("pool")||name.includes("swim")||name.includes("splash")||name.includes("aquatic")) return "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=400&q=80";
   if (name.includes("museum"))                          return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&q=80";
   if (name.includes("trail")||name.includes("hike")||name.includes("refuge")||name.includes("bay trail")) return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80";
-  if (name.includes("playground")||name.includes("playpark")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80";
-  if (name.includes("park")||name.includes("lake"))     return "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80";
+  if (name.includes("playground")||name.includes("playpark")) {
+    const pgPhotos = [
+      "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80",
+      "https://images.unsplash.com/photo-1541199249251-f713e6145474?w=400&q=80",
+      "https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80",
+    ];
+    return pgPhotos[(a.name||"").length % pgPhotos.length];
+  }
+  if (name.includes("park")||name.includes("lake")) {
+    const parkPhotos = [
+      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80",
+      "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?w=400&q=80",
+      "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&q=80",
+    ];
+    return parkPhotos[(a.name||"").length % parkPhotos.length];
+  }
   if (name.includes("farm")||name.includes("pick")||name.includes("orchard")||name.includes("pony")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=80";
   if (name.includes("camp"))                            return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80";
   if (name.includes("stem")||name.includes("science")||name.includes("coding")||name.includes("robot")) return "https://images.unsplash.com/photo-1532094349884-543559c05265?w=400&q=80";
