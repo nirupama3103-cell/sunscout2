@@ -313,8 +313,9 @@ function getImageSrc(a) {
   if (a.image && a.image.startsWith("http") && !a.image.includes("key=") && !a.image.includes("photo_reference")) {
     return a.image;
   }
-  const cartoons = {
-    free:    "https://illustrations.popsy.co/amber/playing-with-ball.svg",
+  const cartoons = {"free":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGRDkzRCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiLz48cGF0aCBkPSJNMTIgMnYybTAgMTZ2Mk00LjkgNC45bDEuNCAxLjRtMTEuNCAxMS40bDEuNCAxLjRNMiAxMmgybTE2IDBoMk02LjMgMTcuN2wtMS40IDEuNE0xOS4xIDQuOWwtMS40IDEuNCIvPjwvc3ZnPg==","paid":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGNkI2QiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik00IDE5LjVBMi41IDIuNSAwIDAgMSA2LjUgMTdIMjAiLz48cGF0aCBkPSJNNi41IDJIMjB2MjBINi41QTIuNSAyLjUgMCAwIDEgNCAxOS41di0xNUEyLjUgMi41IDAgMCAxIDYuNSAyeiIvPjwvc3ZnPg==","indoor":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzREOTZGRiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTAiIHI9IjMiLz48cGF0aCBkPSJNNyAxNWMtMiAwLTMgMS0zIDN2MmgxNnYtMmMwLTItMS0zLTMtM0g3eiIvPjwvc3ZnPg==","outdoor":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZCQ0I3NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik04IDE4bDQtNCA0IDRtLTgtNmw0LTQgNCA0TTIgMjBoMjAiLz48L3N2Zz4=","weekend":"data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzk3NzJGQiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iNSIgcj0iMiIvPjxwYXRoIGQ9Ik04IDIybDQtNSAzLTQtMi00IDMtM005IDEzbDMtMiIvPjwvc3ZnPg=="};
+  return cartoons[a.category] || cartoons.free;
+}
     paid:    "https://illustrations.popsy.co/amber/student-with-book.svg",
     indoor:  "https://illustrations.popsy.co/amber/telescope.svg",
     outdoor: "https://illustrations.popsy.co/amber/camping.svg",
