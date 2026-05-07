@@ -53,7 +53,7 @@ function getDefaultImage(name, desc) {
 // ============================================================
 
 const CACHE = new Map();
-const TTL   = 60 * 60 * 1000; // 60 min
+const TTL = 1 * 60 * 1000; // 60 min
 
 const TAB_KEYWORDS = {
   free:    ["free kids summer park","free splash pad children","free library storytime","free family park","free museum kids day"],
