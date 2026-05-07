@@ -1,4 +1,9 @@
 {
   "outputDirectory": "public",
-  "buildCommand": ""
+  "buildCommand": "",
+  "functions": {
+    "api/activities.js": {
+      "maxDuration": 10
+    }
+  }
 }
