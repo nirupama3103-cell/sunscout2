@@ -313,8 +313,15 @@ function getImageSrc(a) {
   if (a.image && a.image.startsWith("http") && !a.image.includes("key=") && !a.image.includes("photo_reference")) {
     return a.image;
   }
-  const fallbacks = {
-    free:    "https://picsum.photos/id/206/400/300",
+  const cartoons = {
+    free:    "https://illustrations.popsy.co/amber/playing-with-ball.svg",
+    paid:    "https://illustrations.popsy.co/amber/student-with-book.svg",
+    indoor:  "https://illustrations.popsy.co/amber/telescope.svg",
+    outdoor: "https://illustrations.popsy.co/amber/camping.svg",
+    weekend: "https://illustrations.popsy.co/amber/teamwork.svg",
+  };
+  return cartoons[a.category] || cartoons.free;
+}
     paid:    "https://picsum.photos/id/28/400/300",
     indoor:  "https://picsum.photos/id/219/400/300",
     outdoor: "https://picsum.photos/seed/trail/400/300",
