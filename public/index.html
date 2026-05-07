@@ -229,11 +229,11 @@ let showCount     = PAGE_SIZE;
 let allActivities = [];
 
 const IMG_FALLBACK = {
-  free:    "https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=75",
+  free:    "https://picsum.photos/seed/kids/400/300",
   paid:    "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&q=75",
   indoor:  "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&q=75",
-  outdoor: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=75",
-  weekend: "https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=75",
+  outdoor: "https://picsum.photos/seed/outdoor/400/300",
+  weekend: "https://picsum.photos/seed/weekend/400/300",
 };
 const TAB_EMOJI  = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
 const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
@@ -321,41 +321,37 @@ function getImageSrc(a) {
   if (f.indexOf("museum") >= 0)
     return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&q=80";
   if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("refuge") >= 0)
-    return "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80";
+    return "https://picsum.photos/seed/trail/400/300";
   if (f.indexOf("pony") >= 0 || f.indexOf("horse") >= 0)
-    return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&q=80";
+    return "https://picsum.photos/seed/horse/400/300";
   if (f.indexOf("farm") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0)
-    return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=80";
+    return "https://picsum.photos/seed/farm/400/300";
   if (f.indexOf("camp") >= 0)
-    return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80";
+    return "https://picsum.photos/seed/camping/400/300";
   if (f.indexOf("stem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0)
-    return "https://images.unsplash.com/photo-1532094349884-543559c05265?w=400&q=80";
+    return "https://picsum.photos/seed/science/400/300";
   if (f.indexOf("yoga") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("ballet") >= 0)
-    return "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&q=80";
+    return "https://picsum.photos/seed/dance/400/300";
   if (f.indexOf("art") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("pottery") >= 0)
-    return "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80";
-  if (f.indexOf("trampoline") >= 0)
-    return "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=400&q=80";
+    return "https://picsum.photos/seed/art/400/300";
+  if (f.indexOf("trampoline") >= 0 || f.indexOf("gym") >= 0)
+    return "https://picsum.photos/seed/gym/400/300";
   if (f.indexOf("ymca") >= 0)
-    return "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80";
+    return "https://picsum.photos/seed/ymca/400/300";
   if (f.indexOf("bowling") >= 0)
-    return "https://images.unsplash.com/photo-1545809169-ecc6d3d99b24?w=400&q=80";
+    return "https://picsum.photos/seed/bowling/400/300";
   if (f.indexOf("climbing") >= 0)
-    return "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&q=80";
+    return "https://picsum.photos/seed/climbing/400/300";
   if (f.indexOf("fishing") >= 0)
-    return "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80";
+    return "https://picsum.photos/seed/fishing/400/300";
   if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0)
-    return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80";
-  if (f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0) {
-    var pg = ["https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80","https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=400&q=80","https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80"];
-    return pg[(a.name||"").length % 3];
-  }
-  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0) {
-    var pk = ["https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&q=80","https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80","https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80","https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=80","https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80"];
-    return pk[(a.name||"").length % 5];
-  }
-  var cat = { free:"https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=80", paid:"https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80", indoor:"https://images.unsplash.com/photo-1566004100631-35d015d6a491?w=400&q=80", outdoor:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=80", weekend:"https://images.unsplash.com/photo-1511895426328-dc8714191011?w=400&q=80" };
-  return cat[a.category] || cat.free;
+    return "https://picsum.photos/seed/beach/400/300";
+  if (f.indexOf("playground") >= 0 || f.indexOf("playpark") >= 0)
+    return "https://picsum.photos/seed/playground" + ((a.name||"").length % 3) + "/400/300";
+  if (f.indexOf("park") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("nature") >= 0)
+    return "https://picsum.photos/seed/park" + ((a.name||"").length % 5) + "/400/300";
+  var seeds = { free:"kids", paid:"activity", indoor:"indoor", outdoor:"outdoor", weekend:"weekend" };
+  return "https://picsum.photos/seed/" + (seeds[a.category]||"fun") + "/400/300";
 }
 
 async function loadActivities() {
