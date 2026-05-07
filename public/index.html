@@ -321,9 +321,9 @@ async function fetchWeather(city) {
 //         everything showing /park.jpg. ─────────────────────────────────────
 function getImageSrc(a) {
   // 1. If the API returned a real Unsplash photo URL, use it directly
-  if (a.image && a.image.indexOf("unsplash.com") >= 0) return a.image;
+  
   // 2. If the API returned a non-park local image, use it
-  if (a.image && a.image !== "/park.jpg" && a.image.indexOf("flaticon") < 0) return a.image;
+  
 
   // 3. Keyword match on activity name + description → correct local image
   var f = ((a.name || "") + " " + (a.desc || "")).toLowerCase();
