@@ -344,14 +344,14 @@ function getImageSrc(a) {
   return cats[a.category] || "/park.jpg";
 }
 
-async function loadActivities() {
+async function loadActivities() { const ck="sc_"+activeTab+"_"+activeCity+"_"+activeAge; const cd=sessionStorage.getItem(ck); if(cd){allActivities=JSON.parse(cd);showCount=PAGE_SIZE;renderCards();return;}
   showSkeleton();
   try {
     var p = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
     var r = await fetch("/api/activities?" + p);
     if (!r.ok) throw new Error("Server error " + r.status);
     var data = await r.json();
-    allActivities = data.activities || [];
+    allActivities = data.activities || []; try{sessionStorage.setItem(ck, JSON.stringify(allActivities));}catch(e){}
     showCount = PAGE_SIZE;
     var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
