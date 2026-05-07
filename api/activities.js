@@ -624,9 +624,6 @@ export default async function handler(req, res) {
   // Inject hardcoded paid activities
   
   const [ebRes, gpRes, tmRes] = [{status:"fulfilled",value:[]},{status:"fulfilled",value:[]},{status:"fulfilled",value:[]}];
-    fetchEventbrite(tab, city, keywords),
-    fetchGoogle(tab, city, coords, keywords),
-    fetchTicketmaster(tab, city, coords),
   ]);
 
   let activities = [];
