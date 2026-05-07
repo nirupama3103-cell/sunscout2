@@ -356,7 +356,7 @@ async function fetchGoogle(tab, city, coords, keywords) {
           address:   pl.formatted_address || "",
           phone:     det.formatted_phone_number || null,
           website:   det.website || null,
-          image:     photoRef ? `https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=75` : null,
+          image:     photoRef ? `https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=75` : "https://images.unsplash.com/photo-1472746729193-3ffd1bb51e8e?w=400&q=75",
           isFree:    tab === "free",
           price:     tab === "free" ? "$0 FREE" : "See site",
           stars:     pl.rating ? Math.round(pl.rating) : 4,
