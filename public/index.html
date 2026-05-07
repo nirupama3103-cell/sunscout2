@@ -291,12 +291,14 @@ async function fetchWeather(city) {
       msg = `☀️ <strong>${t}°F in ${city}</strong> — Perfect weather for outdoor adventures!`;
       bg  = "linear-gradient(135deg,#16a34a,#84cc16)";
     }
-    banner.style.background = bg;
+    banner.style.display = "block"; banner.style.background = bg;
     banner.style.display    = "block";
     banner.innerHTML        = msg;
   } catch(e) {
+    banner.style.display = "block"; banner.style.background = "#74b9ff";
+    msg = `🌤️ <strong>SunScout</strong> — Find the best activities near you!`;
     // Show a default friendly banner even if weather fails
-    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
+    banner.style.display = "block"; banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
     banner.style.display    = "block";
     banner.innerHTML        = `☀️ <strong>Great day in ${city}!</strong> Check out today's activities below.`;
   }
@@ -472,7 +474,7 @@ function setCity(btn) {
     btn.classList.remove("on");
     activeCity = null;
     document.getElementById("cityFact").textContent = "";
-    document.getElementById("weatherBanner").style.display = "none";
+    // weather banner stays visible
     document.getElementById("grid").innerHTML = `<div class="no-results"><div class="no-results-icon">🏙️</div><h2>Select a city!</h2></div>`;
     document.getElementById("statusBar").innerHTML = "Select a city to get started";
     return;
