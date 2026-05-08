@@ -365,6 +365,7 @@ function surpriseMe() {
 }
 
 function showDetail(i) {
+  window._currentDetail = i;
   var a = window._activities[i];
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
@@ -394,7 +395,7 @@ function showDetail(i) {
         (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
         (a.phone?"<a class='btn-detail-call' href='tel:"+a.phone+"'>📞 Call</a>":"")+
         (a.registerUrl?"<a class='btn-detail-register' href='"+a.registerUrl+"' target='_blank'>✅ Register</a>":"")+
-        "<button class='btn-detail-site' onclick='shareActivity("+i+")' style='background:linear-gradient(135deg,#25D366,#128C7E)'>📤 Share</button>"+
+        "<button class='btn-detail-share' style='background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer' id='share-btn'>📤 Share</button>"+
       "</div>"+
     "</div>";
   var bg = document.getElementById("detail-modal-bg");
@@ -402,6 +403,12 @@ function showDetail(i) {
   bg.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
+document.addEventListener("click", function(e) {
+  if (e.target && e.target.id === "share-btn") {
+    var i = window._currentDetail;
+    if (i !== undefined) shareActivity(i);
+  }
+});
 function closeDetail() {
   document.getElementById("detail-modal-bg").style.display = "none";
   document.body.style.overflow = "";
