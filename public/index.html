@@ -211,7 +211,8 @@ img{max-width:100%;display:block}
 </main>
 
 <div class="footer">
-  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p><button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p>
+  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="margin-top:8px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:8px 20px;font-weight:800;cursor:pointer;font-size:13px;">📤 Share SunScout</button><button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
 </div>
 
