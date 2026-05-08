@@ -240,20 +240,19 @@ const DIY = [
 // ── Emoji card — always works, no broken images ever ──────────────────────
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = null;
-  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0) src="/cherry.jpg";
+  var src = "/park.jpg"; // default - always show a real photo
+  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
   else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
   else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
   else if (f.indexOf("library")>=0||f.indexOf("storytime")>=0||f.indexOf("reading")>=0||f.indexOf("book")>=0) src="/library.jpg";
-  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0) src="/splash.jpg";
-  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0) src="/trail.jpg";
-  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0) src="/museum.jpg";
-  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0) src="/stem.jpg";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve & kate")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0) src="/camp.jpg";
-  else if (f.indexOf("park")>=0||f.indexOf("playground")>=0||f.indexOf("las palmas")>=0||f.indexOf("magical bridge")>=0||f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0) src="/park.jpg";
-  if (src) return "<img src=\""+src+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
-  return getEmojiCard(a);
+  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="/splash.jpg";
+  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="/trail.jpg";
+  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="/highropecamp.jpg";
+  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="/museum.jpg";
+  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="/stem.jpg";
+  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0) src="/camp.jpg";
+  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
+  return "<img src=\""+src+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
 }
 
 function getEmojiCard(a) {
