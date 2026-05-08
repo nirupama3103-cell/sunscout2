@@ -518,7 +518,7 @@ function renderCards() {
     var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
 
-    return "<article class=\"card\">"+
+    return "<article class=\"card\" data-idx=\""+i+"\">"+
       "<div class=\"card-img-wrap\">"+
         getCardHTML(a)+
         "<span class=\"badge-free\" style=\""+badgeBg+"\">"+priceBadge+"</span>"+
