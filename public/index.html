@@ -273,6 +273,9 @@ function getCardHTML(a) {
   else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
   else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.jpg";
   else if (name.includes("playground")||name.includes("park kids")) src="/playground.jpg";
+  else if (name.includes("bay trail")||name.includes("bay trail")) src="/trail.jpg";
+  else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="/trail.jpg";
+  else if (name.includes("creek")||name.includes("shoreline")) src="/trail.jpg";
   if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
   else if (f.indexOf("winchester")>=0) src="/museum.jpg";
   else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
@@ -619,8 +622,6 @@ function clearSearch() {
 
 function initCardClicks() {
   var grid = document.getElementById("grid");
-  if (grid._clickBound) return;
-  grid._clickBound = true;
   grid.addEventListener("click", function(e) {
     var card = e.target.closest("[data-idx]");
     if (card) showDetail(parseInt(card.getAttribute("data-idx")));
