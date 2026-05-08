@@ -377,7 +377,7 @@ function showDetail(i) {
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
   var html = 
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
-    "<img class='detail-modal-img' src='"+imgSrc+"' onerror="this.style.display='none'"/>"+
+    "<img class='detail-modal-img' src='"+imgSrc+"' onerror='this.style.display=\"none\"'/>"+
     "<div class='detail-modal-body'>"+
       "<h2 class='detail-modal-title'>"+(a.name||"")+"</h2>"+
       (st?"<div class='stars' style='margin-bottom:6px'>"+st+"</div>":"")+
