@@ -1988,7 +1988,7 @@
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
       },
       {
-        "category": "free",
+        "category": "free summer",
         "city": "Mountain View",
         "name": "Shoreline Park Mountain View",
         "desc": "Beautiful baylands park with walking trails, kite flying, and picnic areas for all ages.",
@@ -2000,7 +2000,7 @@
         "registerUrl": "https://www.google.com/maps/place/Shoreline+Park+Mountain+View"
       },
       {
-        "category": "free",
+        "category": "free summer",
         "city": "Mountain View",
         "name": "Mountain View Public Library",
         "desc": "Free storytime, reading programs, and kids activities all summer long.",
@@ -2012,7 +2012,7 @@
         "registerUrl": "https://www.mountainview.gov/library"
       },
       {
-        "category": "free",
+        "category": "free summer",
         "city": "Mountain View",
         "name": "Rengstorff Park Mountain View",
         "desc": "Large playground, splash pad, and picnic areas. Free for all ages.",
@@ -2024,7 +2024,7 @@
         "registerUrl": "https://www.google.com/maps/place/Rengstorff+Park"
       },
       {
-        "category": "free",
+        "category": "free summer",
         "city": "Mountain View",
         "name": "Mountain View Farmers Market Weekend",
         "desc": "Fresh produce, food vendors, and family fun every Sunday morning.",
@@ -2504,6 +2504,90 @@
         "aid": false,
         "image": "https://images.unsplash.com/photo-1587393855524-087f83d95bc9?w=600&q=80",
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
+      },
+      {
+        "category": "free summer",
+        "city": "Palo Alto",
+        "name": "Mitchell Park Palo Alto",
+        "desc": "Large park with playground, splash pad, and picnic areas for all ages.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Mitchell+Park+Palo+Alto"
+      },
+      {
+        "category": "free summer",
+        "city": "Palo Alto",
+        "name": "Palo Alto Main Library Summer Reading",
+        "desc": "Free summer reading program with prizes and kids events at Palo Alto libraries.",
+        "date": null,
+        "ages": "0-12",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.cityofpaloalto.org/library"
+      },
+      {
+        "category": "paid",
+        "city": "Palo Alto",
+        "name": "Palo Alto YMCA Summer Camp",
+        "desc": "Full day summer camps with swimming, arts, and sports for ages 5-12.",
+        "date": null,
+        "ages": "5-12",
+        "price": "From $199",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.ymca.org/palo-alto"
+      },
+      {
+        "category": "paid",
+        "city": "Palo Alto",
+        "name": "Palo Alto Ballet Summer Classes",
+        "desc": "Summer ballet and dance intensive for kids ages 4 and up.",
+        "date": null,
+        "ages": "4-Teen",
+        "price": "From $30",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Palo+Alto+Ballet"
+      },
+      {
+        "category": "indoor",
+        "city": "Palo Alto",
+        "name": "Palo Alto Indoor Aquatic Center",
+        "desc": "Year-round indoor pool with swim lessons and open swim for all ages.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "From $5",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Palo+Alto+Aquatic+Center"
+      },
+      {
+        "category": "outdoor",
+        "city": "Palo Alto",
+        "name": "Baylands Nature Preserve Palo Alto",
+        "desc": "Stunning wetlands with walking trails, bird watching, and nature programs for kids.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Baylands+Nature+Preserve"
+      },
+      {
+        "category": "weekend",
+        "city": "Palo Alto",
+        "name": "Palo Alto Farmers Market Weekend",
+        "desc": "Saturday farmers market with fresh local produce, food vendors, and family fun.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Palo+Alto+Farmers+Market"
       }
     ],
     "Saratoga": [
@@ -2878,6 +2962,90 @@
         "aid": false,
         "image": "https://images.unsplash.com/photo-1587393855524-087f83d95bc9?w=600&q=80",
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
+      },
+      {
+        "category": "free summer",
+        "city": "Saratoga",
+        "name": "Wildwood Park Saratoga",
+        "desc": "Quiet neighborhood park with playground and picnic areas in the Saratoga hills.",
+        "date": null,
+        "ages": "0-12",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Wildwood+Park+Saratoga"
+      },
+      {
+        "category": "free summer",
+        "city": "Saratoga",
+        "name": "Saratoga Library Storytime Programs",
+        "desc": "Free weekly storytime and summer reading programs for kids at Saratoga Library.",
+        "date": null,
+        "ages": "0-10",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.sccl.org/saratoga"
+      },
+      {
+        "category": "paid",
+        "city": "Saratoga",
+        "name": "Saratoga Ballet Summer Intensive",
+        "desc": "Summer ballet and creative dance classes for children ages 3 and up.",
+        "date": null,
+        "ages": "3-Teen",
+        "price": "From $30",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Saratoga+CA"
+      },
+      {
+        "category": "paid",
+        "city": "Saratoga",
+        "name": "West Valley YMCA Saratoga Camp",
+        "desc": "Summer day camps with swimming, arts, sports and outdoor adventures.",
+        "date": null,
+        "ages": "5-12",
+        "price": "From $199",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.ymca.org/saratoga"
+      },
+      {
+        "category": "indoor",
+        "city": "Saratoga",
+        "name": "Saratoga Community Center Indoor Classes",
+        "desc": "Indoor arts, crafts, and enrichment classes for kids during summer.",
+        "date": null,
+        "ages": "3-Teen",
+        "price": "From $20",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.saratoga.ca.us/recreation"
+      },
+      {
+        "category": "outdoor",
+        "city": "Saratoga",
+        "name": "Hakone Gardens Saratoga",
+        "desc": "Beautiful Japanese garden perfect for a peaceful family outing and nature walks.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "From $10",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://hakone.com"
+      },
+      {
+        "category": "weekend",
+        "city": "Saratoga",
+        "name": "Saratoga Farmers Market Weekend",
+        "desc": "Saturday morning farmers market in downtown Saratoga with local produce and food.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Saratoga+Farmers+Market"
       }
     ],
     "Fremont": [
@@ -3048,6 +3216,198 @@
         "aid": false,
         "image": "",
         "registerUrl": "https://www.google.com/maps/place/Niles+Farmers+Market+Fremont"
+      },
+      {
+        "category": "free summer",
+        "city": "Fremont",
+        "name": "Lake Elizabeth Splash Pad Fremont",
+        "desc": "Free splash pad and water play area at Central Park for toddlers and kids.",
+        "date": null,
+        "ages": "0-10",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Central+Park+Fremont"
+      },
+      {
+        "category": "free summer",
+        "city": "Fremont",
+        "name": "Fremont Summer Reading Challenge",
+        "desc": "Free summer reading program at all Fremont libraries with prizes and activities.",
+        "date": null,
+        "ages": "0-12",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.aclibrary.org"
+      },
+      {
+        "category": "free summer",
+        "city": "Fremont",
+        "name": "Shinn Historical Park Fremont",
+        "desc": "Free historic park with gardens, walking trails, and family picnic areas.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Shinn+Historical+Park"
+      },
+      {
+        "category": "free summer",
+        "city": "Fremont",
+        "name": "Fremont Central Park Playground",
+        "desc": "Large playground with swings, slides, and open fields next to Lake Elizabeth.",
+        "date": null,
+        "ages": "0-12",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Central+Park+Fremont"
+      },
+      {
+        "category": "paid",
+        "city": "Fremont",
+        "name": "My Gym Fremont Kids Classes",
+        "desc": "Fun gymnastics, dance, and fitness classes for babies through age 13.",
+        "date": null,
+        "ages": "0-13",
+        "price": "From $25",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.mygym.com/fremont"
+      },
+      {
+        "category": "paid",
+        "city": "Fremont",
+        "name": "Fremont Ballet Summer Classes",
+        "desc": "Summer ballet and dance classes for kids ages 3 and up at Fremont studios.",
+        "date": null,
+        "ages": "3-Teen",
+        "price": "From $30",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Fremont+Ballet"
+      },
+      {
+        "category": "paid",
+        "city": "Fremont",
+        "name": "iD Tech STEM Camp Fremont",
+        "desc": "Coding, game design, and robotics summer camps for ages 7-17.",
+        "date": null,
+        "ages": "7-17",
+        "price": "From $299",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.idtech.com"
+      },
+      {
+        "category": "paid",
+        "city": "Fremont",
+        "name": "KidStrong Fremont",
+        "desc": "Athletic and cognitive development classes for kids ages 1-11.",
+        "date": null,
+        "ages": "1-11",
+        "price": "From $35",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://kidstrong.com/fremont"
+      },
+      {
+        "category": "indoor",
+        "city": "Fremont",
+        "name": "Fremont STEM Preschool Classes",
+        "desc": "Indoor STEM and science classes for preschoolers ages 3-5.",
+        "date": null,
+        "ages": "3-5",
+        "price": "From $20",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Fremont+CA"
+      },
+      {
+        "category": "indoor",
+        "city": "Fremont",
+        "name": "Altitude Trampoline Park Fremont",
+        "desc": "Indoor trampoline park with foam pits, dodgeball, and climbing walls for all ages.",
+        "date": null,
+        "ages": "3-Teen",
+        "price": "From $15",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.altitudetrampoline.com/fremont"
+      },
+      {
+        "category": "indoor",
+        "city": "Fremont",
+        "name": "Color Me Mine Fremont",
+        "desc": "Paint your own pottery studio. Fun creative activity for kids and families.",
+        "date": null,
+        "ages": "3-Teen",
+        "price": "From $20",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.colormeminefremont.com"
+      },
+      {
+        "category": "outdoor",
+        "city": "Fremont",
+        "name": "Alameda Creek Trail Fremont",
+        "desc": "Flat paved trail along Alameda Creek. Great for biking and walking with kids.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Alameda+Creek+Trail"
+      },
+      {
+        "category": "outdoor",
+        "city": "Fremont",
+        "name": "Hidden Villa Farm Fremont Area",
+        "desc": "Organic farm and wilderness preserve with hiking trails and farm animal visits.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "From $5",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://hiddenvilla.org"
+      },
+      {
+        "category": "weekend",
+        "city": "Fremont",
+        "name": "Fremont Central Park Farmers Market",
+        "desc": "Weekly Saturday farmers market with fresh produce, food trucks, and kids activities.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "Free",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Fremont+Farmers+Market"
+      },
+      {
+        "category": "weekend",
+        "city": "Fremont",
+        "name": "Niles Canyon Railway Train Fremont",
+        "desc": "Historic steam train rides through scenic Niles Canyon. Kids love it!",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "From $15",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.ncry.org"
+      },
+      {
+        "category": "weekend",
+        "city": "Fremont",
+        "name": "Ardenwood Farm Weekend Tours Fremont",
+        "desc": "Weekend farm tours with horse-drawn carriages, farm animals, and heritage activities.",
+        "date": null,
+        "ages": "0-Teen",
+        "price": "From $8",
+        "aid": false,
+        "image": "",
+        "registerUrl": "https://www.google.com/maps/place/Ardenwood+Historic+Farm"
       }
     ]
   }
