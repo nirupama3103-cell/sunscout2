@@ -411,7 +411,7 @@ function renderCards() {
 
     return "<article class=\"card\">"+
       "<div class=\"card-img-wrap\">"+
-        getEmojiCard(a)+
+        getCardHTML(a)+
         "<span class=\"badge-free\" style=\""+badgeBg+"\">"+priceBadge+"</span>"+
         (a.source ? "<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>" : "")+
       "</div>"+
