@@ -241,6 +241,13 @@ const DIY = [
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
   var src = "/park.jpg"; // default - always show a real photo
+  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
+  else if (f.indexOf("winchester")>=0) src="/museum.jpg";
+  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
+  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0) src="/splash.jpg";
+  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/cherry.jpg";
+  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.jpg";
+  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0) src="/camp.jpg";
   if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
   else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
   else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
