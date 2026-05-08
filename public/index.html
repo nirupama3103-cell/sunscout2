@@ -394,6 +394,7 @@ function showDetail(i) {
         (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
         (a.phone?"<a class='btn-detail-call' href='tel:"+a.phone+"'>📞 Call</a>":"")+
         (a.registerUrl?"<a class='btn-detail-register' href='"+a.registerUrl+"' target='_blank'>✅ Register</a>":"")+
+        "<button class='btn-detail-site' onclick='shareActivity("+i+")' style='background:linear-gradient(135deg,#25D366,#128C7E)'>📤 Share</button>"+
       "</div>"+
     "</div>";
   var bg = document.getElementById("detail-modal-bg");
@@ -404,6 +405,24 @@ function showDetail(i) {
 function closeDetail() {
   document.getElementById("detail-modal-bg").style.display = "none";
   document.body.style.overflow = "";
+}
+function shareActivity(i) {
+  var a = window._activities[i];
+  if (!a) return;
+  var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
+  var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
+  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"
+📍 "+a.address+"
+💰 "+price+"
+🗺️ "+mu+"
+
+Find more at sunscout2.vercel.app";
+  if (navigator.share) {
+    navigator.share({ title: a.name, text: text, url: mu });
+  } else {
+    var wa = "https://wa.me/?text="+encodeURIComponent(text);
+    window.open(wa, "_blank");
+  }
 }
 async function fetchWeather(city) {
   var co = CITY_COORDS[city] || [37.3688,-122.0363];
