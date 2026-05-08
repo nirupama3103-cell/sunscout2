@@ -411,12 +411,7 @@ function shareActivity(i) {
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
   var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
-  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"
-📍 "+a.address+"
-💰 "+price+"
-🗺️ "+mu+"
-
-Find more at sunscout2.vercel.app";
+  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at sunscout2.vercel.app";
   if (navigator.share) {
     navigator.share({ title: a.name, text: text, url: mu });
   } else {
