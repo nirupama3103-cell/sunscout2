@@ -240,31 +240,31 @@ const DIY = [
 // ── Emoji card — always works, no broken images ever ──────────────────────
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = "/park.png";
+  var src = "/park.jpg";
   var name = (a.name||"").toLowerCase();
-  if (name.includes("winchester")) src="/museum.png";
-  else if (name.includes("tech interactive")||name.includes("the tech")) src="/museum1.png";
-  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="/museum1.png";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.png";
-  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="/park.png";
-  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="/outcamp.png";
-  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="/summercamp.png";
-  else if (name.includes("my first ballet")||name.includes("ballet")) src="/ballet.png";
+  if (name.includes("winchester")) src="/museum.jpg";
+  else if (name.includes("tech interactive")||name.includes("the tech")) src="/museum1.jpg";
+  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="/museum1.jpg";
+  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
+  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="/park.jpg";
+  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="/outcamp.jpg";
+  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="/summercamp.jpg";
+  else if (name.includes("my first ballet")||name.includes("ballet")) src="/ballet.jpg";
   else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="/splash.jpg";
-  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="/sunnyvalemarket.png";
-  else if (name.includes("art & wine")||name.includes("festival")) src="/market1.png";
+  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="/sunnyvalemarket.jpg";
+  else if (name.includes("art & wine")||name.includes("festival")) src="/market1.jpg";
   else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="/readingroom.jpg";
-  else if (name.includes("saratoga community")||name.includes("indoor class")) src="/camp.png";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.png";
-  else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.png";
+  else if (name.includes("saratoga community")||name.includes("indoor class")) src="/camp.jpg";
+  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
+  else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.jpg";
   else if (name.includes("playground")||name.includes("park kids")) src="/playground.jpg";
-  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.png";
-  else if (f.indexOf("winchester")>=0) src="/museum.png";
-  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.png";
+  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
+  else if (f.indexOf("winchester")>=0) src="/museum.jpg";
+  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
   else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="/splash.jpg";
-  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.png";
-  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.png";
-  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.png";
+  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.jpg";
+  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.jpg";
+  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.jpg";
   if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
   else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
   else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
@@ -272,18 +272,18 @@ function getCardHTML(a) {
   else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="/splash.jpg";
   else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="/trail.jpg";
   else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="/museum.png";
-  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="/stem.png";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="/camp.png";
+  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="/museum.jpg";
+  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="/stem.jpg";
+  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="/camp.jpg";
   else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="/readingroom.jpg";
-  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.png";
+  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.png";
+  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
   // Block Google API images - always use hardcoded src
   var finalSrc = src;
   if (a.image && a.image.startsWith("http") && !a.image.includes("maps.googleapis") && !a.image.includes("photo_reference") && !a.image.includes("key=")) {
     // only allow if we dont have a specific override (src still = park.png default)
-    if (src === "/park.png") finalSrc = a.image;
+    if (src === "/park.jpg") finalSrc = a.image;
   }
   return "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
 }
