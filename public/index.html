@@ -615,6 +615,15 @@ function clearSearch() {
   showCount = PAGE_SIZE; renderCards();
 }
 
+function initCardClicks() {
+  var grid = document.getElementById("grid");
+  if (grid._clickBound) return;
+  grid._clickBound = true;
+  grid.addEventListener("click", function(e) {
+    var card = e.target.closest("[data-idx]");
+    if (card) showDetail(parseInt(card.getAttribute("data-idx")));
+  });
+}
 function showMore() {
   showCount += PAGE_SIZE; renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
