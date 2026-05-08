@@ -364,7 +364,9 @@ function surpriseMe() {
   goTab(tabs[Math.floor(Math.random()*tabs.length)]);
 }
 
-function showDetail(a) {
+function showDetail(el) {
+  var a = window._activities[parseInt(el.getAttribute("data-idx"))];
+  if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
   var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
   var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
@@ -485,6 +487,7 @@ function renderCards() {
     return;
   }
 
+  window._activities = visible;
   grid.innerHTML = visible.map(function(a, i) {
     var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
     var st  = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
