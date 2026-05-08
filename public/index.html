@@ -620,13 +620,7 @@ function clearSearch() {
   showCount = PAGE_SIZE; renderCards();
 }
 
-function initCardClicks() {
-  var grid = document.getElementById("grid");
-  grid.addEventListener("click", function(e) {
-    var card = e.target.closest("[data-idx]");
-    if (card) showDetail(parseInt(card.getAttribute("data-idx")));
-  });
-}
+// card clicks handled by document listener
 function showMore() {
   showCount += PAGE_SIZE; renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
@@ -639,6 +633,10 @@ function updateCountdown() {
   if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
 }
 
+document.addEventListener("click", function(e) {
+  var card = e.target.closest("[data-idx]");
+  if (card) showDetail(parseInt(card.getAttribute("data-idx")));
+});
 document.getElementById("cityFact").textContent = CITY_FACTS["Sunnyvale"];
 updateCountdown();
 fetchWeather("Sunnyvale");
