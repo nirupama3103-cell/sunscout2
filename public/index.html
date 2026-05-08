@@ -320,54 +320,54 @@ async function fetchWeather(city) {
 //         This means each activity type gets the right photo instead of
 //         everything showing /park.jpg. ─────────────────────────────────────
 function getImageSrc(a) {
-  if (a.image && a.image.indexOf("maps.googleapis") >= 0) a.image = null;
+  return null;
+}
 
+function getEmojiCard(a) {
   var f = ((a.name || "") + " " + (a.desc || "")).toLowerCase();
-
-  if (f.indexOf("cherry") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0)
-    return "/cherry.jpg";
-
-  if (f.indexOf("horse") >= 0 || f.indexOf("horseback") >= 0 || f.indexOf("riding") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("carriage") >= 0)
-    return "/horse.jpg";
-
-  if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0 || f.indexOf("pier") >= 0 || f.indexOf("fishing") >= 0)
-    return "/beach.jpg";
-
-  if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0 || f.indexOf("book") >= 0)
-    return "/library.jpg";
-
-  if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0 || f.indexOf("water park") >= 0 || f.indexOf("waterpark") >= 0)
-    return "/splash.jpg";
-
-  if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("nature walk") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("wetland") >= 0 || f.indexOf("bird") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high ropes") >= 0 || f.indexOf("zip line") >= 0 || f.indexOf("zipline") >= 0)
-    return "/trail.jpg";
-
-  if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("natural history") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("winchester") >= 0)
-    return "/gemini1.png";
-
-  if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("science") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("code ninja") >= 0)
-    return "/stem.jpg";
-
-  if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0)
-    return "/gemini2.png";
-
-  if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
-    return "/gemini3.png";
-
-  if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("gymboree") >= 0 || f.indexOf("art") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0)
-    return "/camp.jpg";
-
-  if (f.indexOf("safari kid") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("spectrum") >= 0 || f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("steve & kate") >= 0)
-    return "/camp.jpg";
-
-  if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("garden") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
-    return "/park.jpg";
-
-  if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("shoreline") >= 0)
-    return "/park.jpg";
-
-  var cats = { free:"/park.jpg", paid:"/camp.jpg", indoor:"/gemini1.png", outdoor:"/trail.jpg", weekend:"/park.jpg" };
-  return cats[a.category] || "/park.jpg";
+  var emoji, bg;
+  if (f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0 || f.indexOf("orchard") >= 0)
+    { emoji="🍒"; bg="linear-gradient(135deg,#ff6b6b,#ee0979)"; }
+  else if (f.indexOf("horse") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("carriage") >= 0 || f.indexOf("riding") >= 0)
+    { emoji="🐴"; bg="linear-gradient(135deg,#8B6914,#c8a951)"; }
+  else if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0 || f.indexOf("pier") >= 0 || f.indexOf("fishing") >= 0)
+    { emoji="🏖️"; bg="linear-gradient(135deg,#00b4d8,#0077b6)"; }
+  else if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0 || f.indexOf("book") >= 0)
+    { emoji="📚"; bg="linear-gradient(135deg,#f9a825,#f57f17)"; }
+  else if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0)
+    { emoji="🏊"; bg="linear-gradient(135deg,#48cae4,#0096c7)"; }
+  else if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("nature") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high ropes") >= 0 || f.indexOf("zip") >= 0)
+    { emoji="🥾"; bg="linear-gradient(135deg,#52b788,#1b4332)"; }
+  else if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("winchester") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("natural history") >= 0)
+    { emoji="🏛️"; bg="linear-gradient(135deg,#9e9e9e,#424242)"; }
+  else if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("code ninja") >= 0)
+    { emoji="🔬"; bg="linear-gradient(135deg,#7209b7,#3a0ca3)"; }
+  else if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0 || f.indexOf("escape room") >= 0)
+    { emoji="🎯"; bg="linear-gradient(135deg,#f72585,#b5179e)"; }
+  else if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0 || f.indexOf("basketball") >= 0)
+    { emoji="⚽"; bg="linear-gradient(135deg,#4cc9f0,#4361ee)"; }
+  else if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("art") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("gymboree") >= 0)
+    { emoji="🎨"; bg="linear-gradient(135deg,#f77f00,#d62828)"; }
+  else if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
+    { emoji="🐄"; bg="linear-gradient(135deg,#80b918,#2dc653)"; }
+  else if (f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("safari kid") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("steve & kate") >= 0)
+    { emoji="⛺"; bg="linear-gradient(135deg,#ff9a3c,#ff4e00)"; }
+  else if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("splash pad") >= 0 || f.indexOf("splashpad") >= 0)
+    { emoji="🌳"; bg="linear-gradient(135deg,#95d5b2,#1b4332)"; }
+  else if (f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("flea market") >= 0)
+    { emoji="🎪"; bg="linear-gradient(135deg,#ffd60a,#f9c74f)"; }
+  else if (f.indexOf("train") >= 0 || f.indexOf("rail") >= 0 || f.indexOf("roaring camp") >= 0)
+    { emoji="🚂"; bg="linear-gradient(135deg,#6d4c41,#3e2723)"; }
+  else if (f.indexOf("boat") >= 0 || f.indexOf("kayak") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("shoreline") >= 0)
+    { emoji="🚣"; bg="linear-gradient(135deg,#48cae4,#023e8a)"; }
+  else if (f.indexOf("garden") >= 0 || f.indexOf("hakone") >= 0)
+    { emoji="🌸"; bg="linear-gradient(135deg,#ffb3c1,#ff4d6d)"; }
+  else {
+    var cats = {free:"🌞",paid:"🎟️",indoor:"🏛️",outdoor:"🌿",weekend:"📅"};
+    emoji = cats[a.category] || "⭐";
+    bg = "linear-gradient(135deg,#FF9900,#ff6b35)";
+  }
+  return '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:'+bg+'">'+emoji+'</div>';
 }
 
 async function loadActivities() { const ck="sc_"+activeTab+"_"+activeCity+"_"+activeAge; const cd=sessionStorage.getItem(ck); if(cd){allActivities=JSON.parse(cd);showCount=PAGE_SIZE;renderCards();return;}
@@ -409,7 +409,7 @@ function renderCards() {
 
   // ── FIX: pass index i to map so we can lazy-load cards after the first 4 ──
   grid.innerHTML = visible.map(function(a, i) {
-    var src  = getImageSrc(a);
+    var src = null;
     var fb   = IMG_FALLBACK[a.category] || "/park.jpg";
     // emoji fallback map
     var EMOJI_MAP = {
@@ -430,7 +430,7 @@ function renderCards() {
     var onerrorAttr = "if(this.src!=='" + fb + "'){this.src='" + fb + "';this.onerror=function(){this.src='/park.jpg';this.onerror=null;};}else{this.src='/park.jpg';this.onerror=null;}";
 
     var altText = (a.name||"").replace(/"/g,"");
-    return "<article class=\"card\"><div class=\"card-img-wrap\"><img src=\""+src+"\" alt=\""+altText+"\" loading=\""+loadAttr+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\""+onerrorAttr+"\"/><span class=\"badge-free\">"+(a.isFree?"$0 FREE":(a.price&&a.price!=="See site"?a.price:"💰 Paid"))+"</span>"+(a.source?"<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>":"")+"</div><div class=\"card-body\"><h3 class=\"card-title\">"+(a.name||"")+"</h3>"+(st?"<div class=\"stars\">"+st+"</div>":"")+"<div class=\"chips\">"+ac+a11+pc+"</div>"+(a.address?"<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>":"")+(a.phone?"<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>":"")+"<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+(a.desc?"<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>":"")+"</div><div class=\"card-foot\"><a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+(a.website?"<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>":"")+"</div></article>";
+    return "<article class=\"card\"><div class=\"card-img-wrap\">"+getEmojiCard(a)+"<span style=\"display:none\" alt=\""+altText+"\" loading=\""+loadAttr+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\""+onerrorAttr+"\"/><span class=\"badge-free\">"+(a.isFree?"$0 FREE":(a.price&&a.price!=="See site"?a.price:"💰 Paid"))+"</span>"+(a.source?"<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>":"")+"</div><div class=\"card-body\"><h3 class=\"card-title\">"+(a.name||"")+"</h3>"+(st?"<div class=\"stars\">"+st+"</div>":"")+"<div class=\"chips\">"+ac+a11+pc+"</div>"+(a.address?"<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>":"")+(a.phone?"<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>":"")+"<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+(a.desc?"<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>":"")+"</div><div class=\"card-foot\"><a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+(a.website?"<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>":"")+"</div></article>";
   }).join("");
 }
 
