@@ -261,10 +261,10 @@ function getCardHTML(a) {
   if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.png";
   else if (f.indexOf("winchester")>=0) src="/museum.png";
   else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.png";
-  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0) src="/splash.jpg";
+  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="/splash.jpg";
   else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.png";
   else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.png";
-  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0) src="/camp.png";
+  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.png";
   if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
   else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
   else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
@@ -279,7 +279,13 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.png";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.png";
-  return "<img src=\""+src+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
+  // Block Google API images - always use hardcoded src
+  var finalSrc = src;
+  if (a.image && a.image.startsWith("http") && !a.image.includes("maps.googleapis") && !a.image.includes("photo_reference") && !a.image.includes("key=")) {
+    // only allow if we dont have a specific override (src still = park.png default)
+    if (src === "/park.png") finalSrc = a.image;
+  }
+  return "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
 }
 
 function getEmojiCard(a) {
