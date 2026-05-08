@@ -302,7 +302,7 @@
         "registerUrl": "https://www.google.com/maps/place/Sunnyvale+Community+Center"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "Library Summer Reading Program",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer long.",
@@ -314,7 +314,7 @@
         "registerUrl": "https://www.google.com/maps/place/Sunnyvale+Public+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -326,7 +326,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Visual Arts Camp",
         "desc": "Ages 6-14: Painting, drawing, and mixed media all summer.",
@@ -338,7 +338,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Performing Arts Camp",
         "desc": "Ages 6-14: Theater, dance, and music for kids who love the stage.",
@@ -350,7 +350,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, volleyball, and multi-sport skills.",
@@ -362,7 +362,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Aquatics Camp",
         "desc": "Ages 5-15: Swim lessons, water safety, and pool fun all summer.",
@@ -374,7 +374,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -386,7 +386,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "YMCA Teen Leadership Camp",
         "desc": "Ages 13-17: Leadership skills, community service, and team challenges.",
@@ -398,7 +398,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "Free Summer Concert Series",
         "desc": "Ages 0-Teen: Free outdoor concerts at Murphy Park every Friday night.",
@@ -410,7 +410,7 @@
         "registerUrl": "https://www.google.com/maps/search/Murphy+Park+Sunnyvale+concert"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "Free Tennis Clinics for Kids",
         "desc": "Ages 6-16: Free beginner tennis clinics at city courts all summer.",
@@ -422,7 +422,7 @@
         "registerUrl": "https://www.google.com/maps/search/tennis+courts+Sunnyvale"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "Free Basketball Clinics",
         "desc": "Ages 6-16: City-run free basketball skills clinics at local courts.",
@@ -434,7 +434,7 @@
         "registerUrl": "https://www.google.com/maps/search/basketball+courts+Sunnyvale"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Sunnyvale",
         "name": "Sunnyvale Community Center Camp",
         "desc": "Ages 5-14: City-run camps with arts, sports, and outdoor adventures.",
@@ -892,7 +892,7 @@
         "registerUrl": "https://www.google.com/maps/search/kids+cooking+class+San+Jose"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "Library Summer Reading SJ",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer.",
@@ -904,7 +904,7 @@
         "registerUrl": "https://www.google.com/maps/place/San+Jose+Public+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -916,7 +916,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, and multi-sport skills.",
@@ -928,7 +928,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -940,7 +940,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "YMCA Teen Leadership Camp",
         "desc": "Ages 13-17: Leadership skills and team challenges for teens.",
@@ -952,7 +952,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "Free Summer Concert SJ",
         "desc": "Ages 0-Teen: Free outdoor concerts at city parks all summer.",
@@ -964,7 +964,7 @@
         "registerUrl": "https://www.google.com/maps/search/San+Jose+summer+concert+series"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "San Jose",
         "name": "Free Tennis Clinics SJ",
         "desc": "Ages 6-16: Free beginner tennis clinics at city courts.",
@@ -1350,7 +1350,7 @@
         "registerUrl": "https://www.google.com/maps/search/kids+cooking+class+Cupertino"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "Cupertino Library Summer Reading",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer.",
@@ -1362,7 +1362,7 @@
         "registerUrl": "https://www.google.com/maps/place/Cupertino+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -1374,7 +1374,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "YMCA Visual Arts Camp",
         "desc": "Ages 6-14: Painting, drawing, and mixed media all summer.",
@@ -1386,7 +1386,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, and multi-sport skills.",
@@ -1398,7 +1398,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -1410,7 +1410,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "Quinlan Community Center Camp",
         "desc": "Ages 5-14: City-run camps at Quinlan Center.",
@@ -1422,7 +1422,7 @@
         "registerUrl": "https://www.google.com/maps/place/Quinlan+Community+Center+Cupertino"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Cupertino",
         "name": "Free Tennis Clinics Cupertino",
         "desc": "Ages 6-16: Free beginner tennis at city courts all summer.",
@@ -1772,7 +1772,7 @@
         "registerUrl": "https://www.google.com/maps/search/kids+cooking+class+Mountain+View"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "MV Library Summer Reading",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer.",
@@ -1784,7 +1784,7 @@
         "registerUrl": "https://www.google.com/maps/place/Mountain+View+Public+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -1796,7 +1796,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, and multi-sport skills.",
@@ -1808,7 +1808,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -1820,7 +1820,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "MV Community Center Camp",
         "desc": "Ages 5-14: City-run day camps with arts and outdoor fun.",
@@ -1832,7 +1832,7 @@
         "registerUrl": "https://www.google.com/maps/search/Mountain+View+Community+Center"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "Free Concert Series MV",
         "desc": "Ages 0-Teen: Free outdoor concerts at Shoreline and city parks.",
@@ -1988,7 +1988,7 @@
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "Shoreline Park Mountain View",
         "desc": "Beautiful baylands park with walking trails, kite flying, and picnic areas for all ages.",
@@ -2000,7 +2000,7 @@
         "registerUrl": "https://www.google.com/maps/place/Shoreline+Park+Mountain+View"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "Mountain View Public Library",
         "desc": "Free storytime, reading programs, and kids activities all summer long.",
@@ -2012,7 +2012,7 @@
         "registerUrl": "https://www.mountainview.gov/library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "Rengstorff Park Mountain View",
         "desc": "Large playground, splash pad, and picnic areas. Free for all ages.",
@@ -2024,7 +2024,7 @@
         "registerUrl": "https://www.google.com/maps/place/Rengstorff+Park"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Mountain View",
         "name": "Mountain View Farmers Market Weekend",
         "desc": "Fresh produce, food vendors, and family fun every Sunday morning.",
@@ -2278,7 +2278,7 @@
         "registerUrl": "https://www.google.com/maps/search/kids+cooking+class+Palo+Alto"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "PA Library Summer Reading",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer.",
@@ -2290,7 +2290,7 @@
         "registerUrl": "https://www.google.com/maps/place/Palo+Alto+Main+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -2302,7 +2302,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "YMCA Visual Arts Camp",
         "desc": "Ages 6-14: Painting, drawing, and mixed media all summer.",
@@ -2314,7 +2314,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, and multi-sport skills.",
@@ -2326,7 +2326,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -2338,7 +2338,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "PA Community Center Camp",
         "desc": "Ages 5-14: City camps at Lucie Stern Center.",
@@ -2350,7 +2350,7 @@
         "registerUrl": "https://www.google.com/maps/place/Lucie+Stern+Community+Center"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "Free Concert Series PA",
         "desc": "Ages 0-Teen: Free outdoor concerts at city parks all summer.",
@@ -2506,7 +2506,7 @@
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "Mitchell Park Palo Alto",
         "desc": "Large park with playground, splash pad, and picnic areas for all ages.",
@@ -2518,7 +2518,7 @@
         "registerUrl": "https://www.google.com/maps/place/Mitchell+Park+Palo+Alto"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Palo Alto",
         "name": "Palo Alto Main Library Summer Reading",
         "desc": "Free summer reading program with prizes and kids events at Palo Alto libraries.",
@@ -2736,7 +2736,7 @@
         "registerUrl": "https://www.google.com/maps/search/kids+art+class+Saratoga"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "Saratoga Library Summer Reading",
         "desc": "Ages 0-Teen: Free reading challenge with prizes all summer.",
@@ -2748,7 +2748,7 @@
         "registerUrl": "https://www.google.com/maps/place/Saratoga+Library"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "YMCA Traditional Full Day Camp",
         "desc": "Ages 5-12: Classic full-day camp with arts, sports, and outdoor play.",
@@ -2760,7 +2760,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "YMCA Sports Camp",
         "desc": "Ages 5-15: Soccer, basketball, and multi-sport skills.",
@@ -2772,7 +2772,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "YMCA STEM Camp",
         "desc": "Ages 6-14: Robotics, coding, and science experiments.",
@@ -2784,7 +2784,7 @@
         "registerUrl": "https://www.ymcasv.org/child-care-camps/summer-day-camps"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "Saratoga Community Center Camp",
         "desc": "Ages 5-14: City-run summer programs with arts and sports.",
@@ -2796,7 +2796,7 @@
         "registerUrl": "https://www.google.com/maps/search/Saratoga+Community+Center"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "Free Concert Series Saratoga",
         "desc": "Ages 0-Teen: Free outdoor summer concerts at city venues.",
@@ -2964,7 +2964,7 @@
         "registerUrl": "https://www.google.com/maps/search/Tru2Earth+Farm+Gilroy"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "Wildwood Park Saratoga",
         "desc": "Quiet neighborhood park with playground and picnic areas in the Saratoga hills.",
@@ -2976,7 +2976,7 @@
         "registerUrl": "https://www.google.com/maps/place/Wildwood+Park+Saratoga"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Saratoga",
         "name": "Saratoga Library Storytime Programs",
         "desc": "Free weekly storytime and summer reading programs for kids at Saratoga Library.",
@@ -3218,7 +3218,7 @@
         "registerUrl": "https://www.google.com/maps/place/Niles+Farmers+Market+Fremont"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Fremont",
         "name": "Lake Elizabeth Splash Pad Fremont",
         "desc": "Free splash pad and water play area at Central Park for toddlers and kids.",
@@ -3230,7 +3230,7 @@
         "registerUrl": "https://www.google.com/maps/place/Central+Park+Fremont"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Fremont",
         "name": "Fremont Summer Reading Challenge",
         "desc": "Free summer reading program at all Fremont libraries with prizes and activities.",
@@ -3242,7 +3242,7 @@
         "registerUrl": "https://www.aclibrary.org"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Fremont",
         "name": "Shinn Historical Park Fremont",
         "desc": "Free historic park with gardens, walking trails, and family picnic areas.",
@@ -3254,7 +3254,7 @@
         "registerUrl": "https://www.google.com/maps/place/Shinn+Historical+Park"
       },
       {
-        "category": "free summer",
+        "category": "free",
         "city": "Fremont",
         "name": "Fremont Central Park Playground",
         "desc": "Large playground with swings, slides, and open fields next to Lake Elizabeth.",
