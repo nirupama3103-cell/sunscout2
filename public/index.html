@@ -253,6 +253,52 @@ const DIY = [
   { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play." },
 ];
 
+
+// ── Smart local image — specific names beat generic keywords ──────────────
+function getSmartLocalImage(name, f) {
+  // Priority 1: exact venue names
+  if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "/stem.jpg";
+  if (name.includes("camp galileo")||name.includes("galileo camp")) return "/summercamp.jpg";
+  if (name.includes("kidstrong")) return "/summercamp.jpg";
+  if (name.includes("safari kid")) return "/summercamp.jpg";
+  if (name.includes("little gym")) return "/outcamp.jpg";
+  if (name.includes("winchester")) return "/museum.jpg";
+  if (name.includes("tech interactive")||name.includes("the tech")) return "/museum1.jpg";
+  if (name.includes("children's discovery")||name.includes("discovery museum")) return "/museum1.jpg";
+  if (name.includes("palo alto junior")) return "/museum.jpg";
+  if (name.includes("bay trail")||name.includes("don edwards")||name.includes("mission peak")||name.includes("coyote")) return "/trail.jpg";
+  if (name.includes("altitude trampoline")) return "/outcamp.jpg";
+  if (name.includes("ballet")||name.includes("my first ballet")) return "/ballet.jpg";
+  if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "/splash.jpg";
+  if (name.includes("sunnyvale market")||name.includes("farmers market")) return "/sunnyvalemarket.jpg";
+  if (name.includes("library")||name.includes("storytime")) return "/readingroom.jpg";
+  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "/summercamp.jpg";
+  if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "/outcamp.jpg";
+  // Priority 2: activity type
+  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "/cherry.jpg";
+  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "/horse.jpg";
+  if (f.includes("trail")||f.includes("hike")||f.includes("creek")||f.includes("shoreline")) return "/trail.jpg";
+  if (f.includes("high rope")||f.includes("zip line")||f.includes("ropes course")||f.includes("climbing")) return "/highropecamp.jpg";
+  if (f.includes("pool")||f.includes("swim")||f.includes("splash")||f.includes("aquatic")) return "/splash.jpg";
+  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")) return "/museum.jpg";
+  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "/readingroom.jpg";
+  if (f.includes("ballet")||f.includes("dance")) return "/ballet.jpg";
+  if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "/stem.jpg";
+  if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "/splash.jpg";
+  if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "/outcamp.jpg";
+  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "/park.jpg";
+  if (f.includes("playground")||f.includes("splash pad")) return "/playground.jpg";
+  if (f.includes("beach")||f.includes("boardwalk")) return "/beach.jpg";
+  // Priority 3: STEM before generic camp
+  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "/stem.jpg";
+  // Priority 4: generic camp last
+  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "/summercamp.jpg";
+  if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "/readingroom.jpg";
+  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "/camp.jpg";
+  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "/park.jpg";
+  return "/park.jpg";
+}
+
 // ── Emoji card — always works, no broken images ever ──────────────────────
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
@@ -298,13 +344,25 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  // Block Google API images - always use hardcoded src
-  var finalSrc = src;
-  if (a.image && a.image.startsWith("http") && !a.image.includes("maps.googleapis") && !a.image.includes("photo_reference") && !a.image.includes("key=")) {
-    // only allow if we dont have a specific override (src still = park.png default)
-    if (src === "/park.jpg") finalSrc = a.image;
+  // ── 3-LAYER IMAGE SYSTEM ──────────────────────────────────────
+  // Layer 1: Real Google Places photo (best)
+  // Layer 2: Smart local JPG matched by venue name/type
+  // Layer 3: Emoji fallback card (always works)
+
+  var finalSrc = null;
+
+  // Layer 1: use real photo from API if available
+  if (a.placePhoto && a.placePhoto.startsWith("http")) {
+    finalSrc = a.placePhoto;
   }
-  return "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" />"+getEmojiCard(a).replace("display:flex","display:none");
+  // Layer 2: smart local fallback
+  if (!finalSrc) {
+    finalSrc = src !== "/park.jpg" ? src : getSmartLocalImage(name, f);
+  }
+
+  var imgHtml = "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" "
+    + "onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" loading=\"lazy\" />";
+  return imgHtml + getEmojiCard(a).replace("display:flex","display:none");
 }
 
 function getEmojiCard(a) {
