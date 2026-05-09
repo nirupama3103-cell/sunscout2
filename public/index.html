@@ -344,23 +344,9 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  // ── 3-LAYER IMAGE SYSTEM ──────────────────────────────────────
-  // Layer 1: Real Google Places photo (best)
-  // Layer 2: Smart local JPG matched by venue name/type
-  // Layer 3: Emoji fallback card (always works)
-
-  var finalSrc = null;
-
-  // Use only local hardcoded images - no external API images
-  finalSrc = getSmartLocalImage(name, f) || src;
-
-  var placeholder = getBrandedPlaceholder(a);
-  var imgHtml = "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" "
-    + "onerror=\"this.style.display=\\'none\\';this.nextSibling.innerHTML=getBrandedPlaceholder({name:'"+
-    (a.name||"").replace(/'/g,"\\'")+"',desc:'"+(a.desc||"").replace(/'/g,"\\'")+
-    "'});this.nextSibling.style.display=\\'flex\\';\" loading=\"lazy\" />"
-    + "<div style=\"display:none;width:100%;height:100%;\">" + placeholder + "</div>";
-  return imgHtml;
+  // Use ONLY local hardcoded images
+  var finalSrc = getSmartLocalImage(name, f) || src || "/park.jpg";
+  return "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" loading=\"lazy\" />"+getEmojiCard(a).replace("display:flex","display:none");
 }
 
 // ── Branded status placeholder ────────────────────────────────────────────
