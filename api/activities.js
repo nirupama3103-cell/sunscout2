@@ -716,7 +716,6 @@ export default async function handler(req, res) {
       activities.push(a);
     }
   }
-  }
 
   // Tab filters
   // Indoor: remove restaurants, bars, adult venues
