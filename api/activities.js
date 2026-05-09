@@ -750,3 +750,4 @@ export default async function handler(req, res) {
 }
 // Wed May  6 11:42:57 UTC 2026
 
+module.exports = handler;
