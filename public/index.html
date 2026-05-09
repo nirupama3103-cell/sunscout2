@@ -360,9 +360,74 @@ function getCardHTML(a) {
     finalSrc = getSmartLocalImage(name, f);
   }
 
+  var placeholder = getBrandedPlaceholder(a);
   var imgHtml = "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" "
-    + "onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" loading=\"lazy\" />";
-  return imgHtml + getEmojiCard(a).replace("display:flex","display:none");
+    + "onerror=\"this.style.display=\\'none\\';this.nextSibling.innerHTML=getBrandedPlaceholder({name:'"+
+    (a.name||"").replace(/'/g,"\\'")+"',desc:'"+(a.desc||"").replace(/'/g,"\\'")+
+    "'});this.nextSibling.style.display=\\'flex\\';\" loading=\"lazy\" />"
+    + "<div style=\"display:none;width:100%;height:100%;\">" + placeholder + "</div>";
+  return imgHtml;
+}
+
+// ── Branded status placeholder ────────────────────────────────────────────
+function getStatusMessage(type) {
+  const messages = {
+    stem:     "🔬 Lab experience loading...",
+    camp:     "⛺ Camp adventure incoming...",
+    museum:   "🏛️ Exhibit being set up...",
+    pool:     "🏊 Filling the pool...",
+    trail:    "🌳 Scouting the trail...",
+    library:  "📚 Story time starting soon...",
+    horse:    "🐴 Saddling up...",
+    cherry:   "🍒 Checking the orchard...",
+    market:   "🎪 Setting up the stalls...",
+    ballet:   "🩰 Warming up...",
+    park:     "🌤️ Scouting the area...",
+    default:  "☀️ SunScout is updating this view..."
+  };
+  return messages[type] || messages.default;
+}
+
+function getActivityType(name, desc) {
+  var f = (name + " " + desc).toLowerCase();
+  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("integem")||f.includes("snapology")) return "stem";
+  if (f.includes("camp")||f.includes("galileo")||f.includes("kidstrong")||f.includes("safari")) return "camp";
+  if (f.includes("museum")||f.includes("winchester")||f.includes("discovery")) return "museum";
+  if (f.includes("pool")||f.includes("swim")||f.includes("aquatic")) return "pool";
+  if (f.includes("trail")||f.includes("hike")||f.includes("creek")) return "trail";
+  if (f.includes("library")||f.includes("storytime")||f.includes("reading")) return "library";
+  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "horse";
+  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")) return "cherry";
+  if (f.includes("market")||f.includes("festival")) return "market";
+  if (f.includes("ballet")||f.includes("dance")) return "ballet";
+  return "park";
+}
+
+function getBrandedPlaceholder(a) {
+  var type = getActivityType(a.name||"", a.desc||"");
+  var msg = getStatusMessage(type);
+  var gradients = {
+    stem:    "135deg,#e3f2fd,#bbdefb",
+    camp:    "135deg,#fff8e1,#ffecb3",
+    museum:  "135deg,#f3e5f5,#e1bee7",
+    pool:    "135deg,#e0f7fa,#b2ebf2",
+    trail:   "135deg,#e8f5e9,#c8e6c9",
+    library: "135deg,#fff3e0,#ffe0b2",
+    horse:   "135deg,#efebe9,#d7ccc8",
+    cherry:  "135deg,#fce4ec,#f8bbd0",
+    market:  "135deg,#fff9c4,#fff59d",
+    ballet:  "135deg,#fce4ec,#f48fb1",
+    park:    "135deg,#f9fbe7,#f0f4c3",
+  };
+  var grad = gradients[type] || gradients.park;
+  return "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;align-items:center;"
+    + "justify-content:center;background:linear-gradient(" + grad + ");"
+    + "border-radius:12px;gap:8px;padding:12px;\">"
+    + "<div style=\"font-size:2.5rem;animation:pulse 2s infinite;\">" + msg.split(" ")[0] + "</div>"
+    + "<p style=\"font-size:0.75rem;color:#666;text-align:center;font-style:italic;margin:0;\">"
+    + msg.split(" ").slice(1).join(" ") + "</p>"
+    + "<p style=\"font-size:0.65rem;color:#999;margin:0;\">☀️ SunScout</p>"
+    + "</div>";
 }
 
 function getEmojiCard(a) {
