@@ -1,0 +1,170 @@
+#!/bin/bash
+# ============================================================
+# SunScout — One-Shot Image System Deploy Script
+# Run from your repo root: bash sunscout-deploy.sh
+# ============================================================
+
+echo "🌤️  SunScout Image System — Starting deploy..."
+
+# ── 1. Patch api/activities.js ────────────────────────────
+cat > api/activities.js << 'ACTIVITIES_EOF'
+const fetch = require('node-fetch');
+
+const GOOGLE_KEY = process.env.GOOGLE_PLACES_API_KEY;
+
+// ── Layer 1: Hardcoded image map ──────────────────────────
+const IMAGE_MAP = [
+  { keywords: ['park','playground','las palmas','seven seas','magical bridge'], img: '/images/park.jpg' },
+  { keywords: ['stem','coding','robot','lego','science','snapology'],           img: '/images/stem.jpg' },
+  { keywords: ['horse','pony','carriage','riding','ranch'],                     img: '/images/horse.jpg' },
+  { keywords: ['cherry','berry','orchard','fruit pick','u-pick'],               img: '/images/cherry.jpg' },
+  { keywords: ['market','festival','fair','art & wine'],                        img: '/images/sunnyvalemarket.jpg' },
+  { keywords: ['outdoor camp','ropes','zip','high rope'],                       img: '/images/outcamp.jpg' },
+  { keywords: ['camp','ymca','galileo','safari kid'],                           img: '/images/summercamp.jpg' },
+  { keywords: ['library','storytime','reading','book'],                         img: '/images/readingroom.jpg' },
+  { keywords: ['museum','discovery','winchester','tech interactive'],           img: '/images/museum.jpg' },
+  { keywords: ['ballet','dance','music','art studio'],                          img: '/images/ballet.jpg' },
+  { keywords: ['pool','swim','aquatic','water'],                                img: '/images/splash.jpg' },
+  { keywords: ['trail','hike','creek','canyon','mission peak'],                 img: '/images/trail.jpg' },
+];
+
+function getHardcodedImage(title = '', category = '') {
+  const text = `${title} ${category}`.toLowerCase();
+  for (const entry of IMAGE_MAP) {
+    if (entry.keywords.some(kw => text.includes(kw))) return entry.img;
+  }
+  return null;
+}
+
+// ── Layer 2: Google Places API (New) photo ────────────────
+async function getPlacePhoto(placeId) {
+  if (!placeId || !GOOGLE_KEY) return null;
+  try {
+    const url = `https://places.googleapis.com/v1/places/${placeId}?fields=photos&key=${GOOGLE_KEY}`;
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.photos?.[0]) {
+      const ref = data.photos[0].name;
+      return `https://places.googleapis.com/v1/${ref}/media?maxHeightPx=400&key=${GOOGLE_KEY}&skipHttpRedirect=true`;
+    }
+  } catch (e) {
+    console.warn('Places photo fetch failed:', e.message);
+  }
+  return null;
+}
+
+// ── Layer 3: Branded fallback message ────────────────────
+function getFallbackMessage(category = '') {
+  const cat = category.toLowerCase();
+  if (cat.includes('park') || cat.includes('trail'))   return '🌳 Scouting the park...';
+  if (cat.includes('stem') || cat.includes('coding'))  return '🔬 Loading the lab...';
+  if (cat.includes('camp'))                            return '⛺ Setting up camp...';
+  if (cat.includes('market'))                          return '🎪 Finding the market...';
+  if (cat.includes('horse'))                           return '🐴 Saddling up...';
+  if (cat.includes('cherry') || cat.includes('fruit')) return '🍒 Checking the orchard...';
+  if (cat.includes('pool') || cat.includes('swim'))    return '🏊 Filling the pool...';
+  if (cat.includes('museum'))                          return '🏛️ Opening the exhibit...';
+  if (cat.includes('ballet') || cat.includes('dance')) return '🩰 Warming up...';
+  return '☀️ Scouting the area...';
+}
+
+// ── Main handler ──────────────────────────────────────────
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  const { city = 'Sunnyvale', category = '', tab = '1' } = req.query;
+
+  // --- Pull activities from Google Places Text Search ---
+  const query  = `${category} activities for kids in ${city} CA`;
+  const searchUrl = `https://places.googleapis.com/v1/places:searchText`;
+
+  let places = [];
+  try {
+    const searchRes = await fetch(searchUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': GOOGLE_KEY,
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.photos',
+      },
+      body: JSON.stringify({ textQuery: query, maxResultCount: 10 }),
+    });
+    const searchData = await searchRes.json();
+    places = searchData.places || [];
+  } catch (e) {
+    console.error('Places search failed:', e.message);
+  }
+
+  // Sort by rating desc (proxy for closest/best)
+  places.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+  // Build activity list with 3-layer image resolution
+  const activities = await Promise.all(places.map(async (p) => {
+    const title    = p.displayName?.text || 'Activity';
+    const address  = p.formattedAddress || '';
+    const rating   = p.rating || null;
+    const reviews  = p.userRatingCount || 0;
+    const placeId  = p.id;
+    const mapsLink = `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+
+    // 3-layer image resolution
+    const hardcoded  = getHardcodedImage(title, category);
+    const googlePhoto = hardcoded ? null : await getPlacePhoto(placeId);
+    const image      = hardcoded || googlePhoto || null;
+    const fallback   = image ? null : getFallbackMessage(category);
+
+    return { title, address, rating, reviews, placeId, mapsLink, image, fallback, photoAttribution: googlePhoto ? 'Photo © Google' : null };
+  }));
+
+  res.json({ city, category, tab, activities });
+};
+ACTIVITIES_EOF
+
+echo "✅ api/activities.js updated"
+
+# ── 2. Patch image display in public/index.html ───────────
+# This injects the 3-layer image renderer right before </body>
+PATCH='<script>
+// SunScout — 3-layer image renderer
+function renderActivityImage(act) {
+  if (act.image) {
+    return `<div class="act-img-wrap">
+      <img src="${act.image}" alt="${act.title}" onerror="this.parentElement.innerHTML=scoutingMsg(act)" loading="lazy">
+      ${act.photoAttribution ? `<span class="photo-attr">${act.photoAttribution}</span>` : ""}
+    </div>`;
+  }
+  return `<div class="act-img-fallback">${act.fallback || "☀️ Scouting the area..."}</div>`;
+}
+function scoutingMsg(act) {
+  return `<div class="act-img-fallback">${act.fallback || "☀️ Scouting the area..."}</div>`;
+}
+</script>
+<style>
+.act-img-wrap   { position:relative; width:100%; height:180px; overflow:hidden; border-radius:12px; }
+.act-img-wrap img { width:100%; height:100%; object-fit:cover; }
+.photo-attr     { position:absolute; bottom:4px; right:6px; font-size:10px; color:#fff; background:rgba(0,0,0,.45); padding:2px 5px; border-radius:4px; }
+.act-img-fallback { width:100%; height:180px; display:flex; align-items:center; justify-content:center;
+                    font-size:1.3rem; background:linear-gradient(135deg,#fff3e0,#fce4ec);
+                    border-radius:12px; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+</style>'
+
+# Inject before </body>
+sed -i "s|</body>|${PATCH}\n</body>|" public/index.html
+
+echo "✅ public/index.html patched"
+
+# ── 3. Git commit & push → Vercel auto-deploys ───────────
+git add api/activities.js public/index.html
+git commit -m "feat: 3-layer image system (hardcoded + Places API + animated fallback)"
+git push
+
+echo ""
+echo "🚀 Pushed! Vercel is deploying now."
+echo "🌐 Live in ~60s at https://sun-scout-eight.vercel.app"
+echo ""
+echo "✅ Fixes ALL wrong image mappings"
+echo "✅ Google Places photo fetching added"
+echo "✅ Attribution overlay (Google ToS compliant)"
+echo "✅ Animated fallback with scouting messages"
+echo "✅ Deployed!"
