@@ -351,14 +351,8 @@ function getCardHTML(a) {
 
   var finalSrc = null;
 
-  // Layer 1: use real photo from API if available
-  if (a.placePhoto && a.placePhoto.startsWith("http")) {
-    finalSrc = a.placePhoto;
-  }
-  // Layer 2: smart local fallback
-  if (!finalSrc) {
-    finalSrc = getSmartLocalImage(name, f);
-  }
+  // Use only local hardcoded images - no external API images
+  finalSrc = getSmartLocalImage(name, f) || src;
 
   var placeholder = getBrandedPlaceholder(a);
   var imgHtml = "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" "
