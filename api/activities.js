@@ -698,11 +698,24 @@ export default async function handler(req, res) {
   let activities = [];
   const seen = new Set();
 
-  // Add hardcoded first
+ // Add hardcoded first — resolve real venue photos
   for (const a of hardcodedFiltered) {
     const key = a.name.toLowerCase().slice(0, 30);
     if (!seen.has(key)) {
       seen.add(key);
+      const placesPhoto = await getPlacePhoto(a.name, a.address || "", process.env.GOOGLE_PLACES_API_KEY);
+      if (placesPhoto) {
+        a.image = placesPhoto;
+      } else if (process.env.GOOGLE_MAPS_API_KEY && a.address && a.address.length > 10) {
+        const center = encodeURIComponent(a.address);
+        const label  = encodeURIComponent(a.name.slice(0, 1).toUpperCase());
+        a.image = `https://maps.googleapis.com/maps/api/staticmap?center=${center}&zoom=17&size=600x400&maptype=roadmap&markers=color:orange%7Clabel:${label}%7C${center}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+      } else {
+        a.image = getDefaultImage(a.name, a.desc || "");
+      }
+      activities.push(a);
+    }
+  }
       // Resolve real venue photo: Places API → Maps Static → local icon
       const placesPhoto = await getPlacePhoto(a.name, a.address || "", process.env.GOOGLE_PLACES_API_KEY);
       if (placesPhoto) {
