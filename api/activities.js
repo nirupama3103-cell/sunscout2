@@ -47,7 +47,7 @@ function getDefaultImage(name, desc) {
   return DEFAULT_IMAGES.default;
 }
 
-const fetch = require("node-fetch");
+// fetch available globally in Node 18+
 const PHOTO_CACHE = new Map();
 
 async function getPlacePhoto(name, address, apiKey) {
@@ -750,4 +750,4 @@ export default async function handler(req, res) {
 }
 // Wed May  6 11:42:57 UTC 2026
 
-module.exports = handler;
+// module.exports removed - using ESM exports
