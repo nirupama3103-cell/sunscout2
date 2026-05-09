@@ -357,7 +357,7 @@ function getCardHTML(a) {
   }
   // Layer 2: smart local fallback
   if (!finalSrc) {
-    finalSrc = src !== "/park.jpg" ? src : getSmartLocalImage(name, f);
+    finalSrc = getSmartLocalImage(name, f);
   }
 
   var imgHtml = "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" "
