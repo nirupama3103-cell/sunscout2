@@ -719,10 +719,9 @@ export default async function handler(req, res) {
         else if (t.includes("farm")||t.includes("zoo")||t.includes("animal")||t.includes("petting")) a.image = "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
         else if (t.includes("camp")||t.includes("ymca")||t.includes("galileo")||t.includes("kidstrong")) a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
         else a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
-      }
-      activities.push(a);
     }
-  }
+  }));
+  for (const a of uniqueHardcoded) activities.push(a);
 
   // Tab filters
   // Indoor: remove restaurants, bars, adult venues
