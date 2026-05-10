@@ -54,35 +54,14 @@ async function getPlacePhoto(name, address, apiKey) {
   const cacheKey = name;
   if (PHOTO_CACHE.has(cacheKey)) return PHOTO_CACHE.get(cacheKey);
   if (!apiKey) return null;
-  try {
-    // Step 1: Find Place ID
-    const findUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
-      + "?input=" + encodeURIComponent(name + " " + (address||""))
-      + "&inputtype=textquery&fields=place_id&key=" + apiKey;
-    const findRes = await fetch(findUrl);
-    const findData = await findRes.json();
-    const placeId = findData.candidates?.[0]?.place_id;
-    if (!placeId) { PHOTO_CACHE.set(cacheKey, null); return null; }
-
-    // Step 2: Get photo reference
-    const detailUrl = "https://maps.googleapis.com/maps/api/place/details/json"
-      + "?place_id=" + placeId
-      + "&fields=photos&key=" + apiKey;
-    const detailRes = await fetch(detailUrl);
-    const detailData = await detailRes.json();
-    const photoRef = detailData.result?.photos?.[0]?.photo_reference;
-    if (!photoRef) { PHOTO_CACHE.set(cacheKey, null); return null; }
-
-    // Step 3: Build photo URL (server-side proxy to avoid key exposure)
-    const photoUrl = "/api/photo"
-      + "?ref=" + photoRef;
-    PHOTO_CACHE.set(cacheKey, photoUrl);
-    return photoUrl;
-  } catch(e) {
-    console.warn("Photo fetch failed for", name, e.message);
-    PHOTO_CACHE.set(cacheKey, null);
-    return null;
-  }
+  const location = encodeURIComponent((address || name) + " CA");
+  const photoUrl = "https://maps.googleapis.com/maps/api/staticmap"
+    + "?center=" + location
+    + "&zoom=16&size=400x300&maptype=satellite"
+    + "&key=" + apiKey;
+  PHOTO_CACHE.set(cacheKey, photoUrl);
+  return photoUrl;
+}
 }
 
 
