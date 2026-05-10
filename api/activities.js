@@ -651,7 +651,8 @@ export async function getHardcoded(tab, city, age) {
       if (!a.image) a.image = null;
       activities.push(a);
     }
-  }
+  }));
+  for (const a of uniqueHardcoded) activities.push(a);
   if (age !== "all") activities = activities.filter(a => a.ages.includes(age));
   if (tab === "weekend") activities = activities.filter(a => a.id?.startsWith("hw-") || isWeekend(a.startDate));
   return activities;
@@ -693,15 +694,18 @@ export default async function handler(req, res) {
   let activities = [];
   const seen = new Set();
 
- // Add hardcoded first
+ // Add hardcoded first — fetch all photos in PARALLEL
+  const uniqueHardcoded = [];
   for (const a of hardcodedFiltered) {
     const key = a.name.toLowerCase().slice(0, 30);
-    if (!seen.has(key)) {
-      seen.add(key);
-      const placesPhoto = await getPlacePhoto(a.name, a.address || "", process.env.GOOGLE_PLACES_API_KEY);
-      if (placesPhoto) {
-        a.image = placesPhoto;
-      } else {
+    if (!seen.has(key)) { seen.add(key); uniqueHardcoded.push(a); }
+  }
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  await Promise.all(uniqueHardcoded.map(async (a) => {
+    const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
+    if (placesPhoto) {
+      a.image = placesPhoto;
+    } else {
         // Curated Unsplash fallbacks by category (no cartoon icons)
         const t = (a.name + " " + (a.desc||"")).toLowerCase();
         if (t.includes("soccer")||t.includes("sport")||t.includes("tennis")||t.includes("basketball")) a.image = "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
