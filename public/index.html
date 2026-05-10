@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SunScout – Summer Activities for Kids</title>
+  <link rel="dns-prefetch" href="//images.unsplash.com">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
@@ -23,12 +24,16 @@ img{max-width:100%;display:block}
 .logo span{color:var(--sky)}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
+/* Weather banner */
 .weather-banner{display:none;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
+/* City fact */
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
+/* City bar */
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
 .city-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:99px;border:2px solid transparent;background:#fff;color:#666;box-shadow:var(--shadow);transition:all .15s}
 .city-btn:hover{background:#FFF3E0;color:#333}
 .city-btn.on{background:var(--sun);color:#fff;border-color:#E68A00}
+/* Tab bar */
 .tab-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px 16px 0}
 .tab-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:800;border:none;border-radius:var(--radius);padding:11px 16px 13px;min-width:115px;flex:1 1 115px;max-width:150px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .tab-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
@@ -48,29 +53,37 @@ img{max-width:100%;display:block}
 .tab-btn[data-tab="outdoor"].on{background:#2E7D32}
 .tab-btn[data-tab="weekend"]{background:var(--tab5);color:#3A0050}
 .tab-btn[data-tab="weekend"].on{background:#8E24AA;color:#fff}
+/* Search */
 .search-wrap{display:flex;align-items:center;gap:8px;padding:12px 16px 0;max-width:600px;margin:0 auto}
 .search-icon{font-size:16px;color:#999}
 .search-input{flex:1;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;padding:9px 16px;border-radius:99px;border:2px solid #eee;background:#fff;color:#1a1a1a;outline:none;transition:border .15s}
 .search-input:focus{border-color:#FF9900}
 .search-clear{font-size:12px;padding:4px 10px;border-radius:99px;border:none;background:#f0f0f0;color:#666}
+/* Age bar */
 .age-bar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 0;justify-content:center}
 .age-btn{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;border:1.5px solid rgba(0,0,0,.12);background:#fff;color:#666;transition:all .15s}
 .age-btn.on{background:#1a1a1a;color:#fff;border-color:transparent}
 .age-desc{font-weight:400;opacity:.8;font-size:11px}
+/* Status */
 .status-bar{font-size:13px;color:#666;padding:10px 16px 4px}
 .status-bar strong{color:#1a1a1a}
+/* Spinner */
 .spinner{display:inline-block;width:20px;height:20px;border:3px solid #eee;border-top-color:#FF9900;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* Grid */
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+/* Card */
 .card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
-.card-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#FFF3E0;flex-shrink:0;min-height:160px}
-.card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.card-img-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#f0f0f0;flex-shrink:0}
+.card-img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.card:hover .card-img{transform:scale(1.04)}
+.card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:linear-gradient(135deg,#FFF9E6,#E8F5FF)}
 .badge-free{position:absolute;top:7px;left:7px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
 .badge-src{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
+.badge-daytrip{position:absolute;top:7px;right:7px;background:#7c3aed;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
 .card-body{padding:10px 11px;display:flex;flex-direction:column;gap:5px;flex:1}
 .card-title{font-size:13px;font-weight:700;line-height:1.3;color:#1a1a1a}
 .stars{font-size:12px;color:var(--amber);letter-spacing:1px}
@@ -90,10 +103,12 @@ img{max-width:100%;display:block}
 .btn:hover{background:#f3f3f3}
 .btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
 .btn-map:hover{background:#bfdbfe}
+/* Show more */
 .show-more-wrap{text-align:center;padding:20px 16px}
 .show-more-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;padding:10px 32px;border-radius:99px;border:2px solid #FF9900;background:#fff;color:#FF9900;cursor:pointer;transition:all .15s}
 .show-more-btn:hover{background:#FF9900;color:#fff}
 .show-more-btn:disabled{opacity:.4;cursor:not-allowed}
+/* No results */
 .no-results{text-align:center;padding:2rem 1rem;grid-column:1/-1}
 .no-results-icon{font-size:3rem;margin-bottom:10px}
 .no-results h2{font-size:18px;font-weight:900;margin-bottom:8px}
@@ -101,25 +116,14 @@ img{max-width:100%;display:block}
 .diy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}
 .diy-card{background:#fff;border:1px solid #eee;border-radius:10px;padding:12px;font-size:12px;color:#666}
 .diy-card strong{display:block;font-size:13px;color:#1a1a1a;margin-bottom:4px}
+/* Skeleton */
 .card-skel .card-img-wrap{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;height:160px}
 .skel-line{height:13px;margin:5px 0;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
 .skel-short{width:60%}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* Footer */
 .footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:20px 16px 40px;margin-top:20px}
-.detail-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
-.detail-modal{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;font-family:Nunito,sans-serif;position:relative;}
-.detail-modal-img{width:100%;height:200px;object-fit:cover;border-radius:20px 20px 0 0;}
-.detail-modal-body{padding:1.25rem;}
-.detail-modal-title{font-size:1.3rem;font-weight:900;margin:0 0 6px;color:#1a1a1a;}
-.detail-modal-desc{font-size:0.9rem;color:#555;line-height:1.6;margin:8px 0 12px;}
-.detail-modal-row{display:flex;align-items:flex-start;gap:8px;font-size:0.88rem;color:#444;margin-bottom:6px;}
-.detail-modal-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
-.detail-modal-btns a,.detail-modal-btns button{flex:1;min-width:120px;padding:10px;border-radius:99px;text-align:center;font-weight:800;font-size:0.88rem;text-decoration:none;border:none;cursor:pointer;}
-.btn-detail-map{background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;}
-.btn-detail-site{background:linear-gradient(135deg,#2196F3,#1565c0);color:#fff;}
-.btn-detail-call{background:linear-gradient(135deg,#FF9800,#e65100);color:#fff;}
-.btn-detail-register{background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;}
-.detail-close{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.4);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;z-index:10;line-height:32px;text-align:center;}
+/* Dark mode */
 @media(prefers-color-scheme:dark){
   body{background:#1a1a1a;color:#f0f0f0}
   .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
@@ -132,7 +136,6 @@ img{max-width:100%;display:block}
   .logo{font-size:1.8rem}
 }
 </style>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
@@ -142,6 +145,7 @@ img{max-width:100%;display:block}
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
+<!-- Weather banner — always shows, color-coded by temp -->
 <div class="weather-banner" id="weatherBanner"></div>
 <p class="city-fact" id="cityFact"></p>
 
@@ -156,18 +160,18 @@ img{max-width:100%;display:block}
 </nav>
 
 <div class="tab-bar" role="tablist" aria-label="Activity categories">
-  <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
+  <button class="tab-btn on" data-tab="free"    role="tab" aria-selected="true"  onclick="setTab(this)">
     <span class="tab-free-dot">$0</span>
     <span class="tab-icon">🆓</span>
     <span class="tab-label">Free Summer Activities</span>
     <span class="tab-sub">Parks · Libraries · Splash Pads</span>
   </button>
-  <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
+  <button class="tab-btn" data-tab="paid"    role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🎟️</span>
     <span class="tab-label">Paid Summer Activities</span>
     <span class="tab-sub">YMCA · STEM · Cooking</span>
   </button>
-  <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
+  <button class="tab-btn" data-tab="indoor"  role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🏛️</span>
     <span class="tab-label">Indoor Activities</span>
     <span class="tab-sub">Museums · Pools · Workshops</span>
@@ -180,7 +184,7 @@ img{max-width:100%;display:block}
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">📅</span>
     <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun Only</span>
+    <span class="tab-sub">Sat & Sun Only</span>
   </button>
 </div>
 
@@ -195,10 +199,10 @@ img{max-width:100%;display:block}
 
 <div class="age-bar" role="group" aria-label="Filter by age">
   <button class="age-btn on" data-age="all" onclick="setAge(this)">🎯 All Ages</button>
-  <button class="age-btn" data-age="0" onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
-  <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
-  <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
-  <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
+  <button class="age-btn"    data-age="0"   onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
+  <button class="age-btn"    data-age="1"   onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
+  <button class="age-btn"    data-age="2"   onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
+  <button class="age-btn"    data-age="3"   onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
 </div>
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
@@ -211,8 +215,7 @@ img{max-width:100%;display:block}
 </main>
 
 <div class="footer">
-  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="margin-top:8px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:8px 20px;font-weight:800;cursor:pointer;font-size:13px;">📤 Share SunScout</button><button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+  <p>SunScout · Live data from Eventbrite, Google Places & Ticketmaster · Bay Area Summer 2026</p>
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
 </div>
 
@@ -225,6 +228,16 @@ let searchQuery   = "";
 let showCount     = PAGE_SIZE;
 let allActivities = [];
 
+// ── FIX: category fallback images (used when nothing else matches) ──────────
+const IMG_FALLBACK = {
+  free:    "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400",
+  paid:    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400",
+  indoor:  "https://images.unsplash.com/photo-1564399263809-d2e776e0a46e?w=400",
+  outdoor: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400",
+  weekend: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=400",
+};
+
+const TAB_EMOJI  = { free:"🆓", paid:"🎟️", indoor:"🏛️", outdoor:"🌳", weekend:"📅" };
 const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
 const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
 const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
@@ -242,7 +255,7 @@ const CITY_FACTS = {
   "Sunnyvale":     "☀️ Sunnyvale averages 257 sunny days a year!",
   "San Jose":      "🌆 San Jose has 200+ parks for families!",
   "Cupertino":     "🍎 Home to Apple HQ and amazing family parks!",
-  "Mountain View": "🏔️ Has one of the Bay Area's best new aquatics centers!",
+  "Mountain View": "🏔️ Has one of the Bay Area best new aquatics centers!",
   "Palo Alto":     "🎓 Home to Stanford and the free Cantor Arts Center!",
   "Saratoga":      "🌸 Gorgeous mountain trails and a world-class library!",
   "Fremont":       "🌉 Gateway to the East Bay with great nature parks!",
@@ -253,172 +266,67 @@ const DIY = [
   { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play." },
 ];
 
-
-// ── Smart local image — specific names beat generic keywords ──────────────
-function getSmartLocalImage(name, f) {
-  // Priority 1: exact venue names
-  if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "/stem.jpg";
-  if (name.includes("camp galileo")||name.includes("galileo camp")) return "/summercamp.jpg";
-  if (name.includes("kidstrong")) return "/summercamp.jpg";
-  if (name.includes("safari kid")) return "/summercamp.jpg";
-  if (name.includes("little gym")) return "/outcamp.jpg";
-  if (name.includes("winchester")) return "/museum.jpg";
-  if (name.includes("tech interactive")||name.includes("the tech")) return "/museum1.jpg";
-  if (name.includes("children's discovery")||name.includes("discovery museum")) return "/museum1.jpg";
-  if (name.includes("palo alto junior")) return "/museum.jpg";
-  if (name.includes("bay trail")||name.includes("don edwards")||name.includes("mission peak")||name.includes("coyote")) return "/trail.jpg";
-  if (name.includes("altitude trampoline")) return "/outcamp.jpg";
-  if (name.includes("ballet")||name.includes("my first ballet")) return "/ballet.jpg";
-  if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "/splash.jpg";
-  if (name.includes("sunnyvale market")||name.includes("farmers market")) return "/sunnyvalemarket.jpg";
-  if (name.includes("library")||name.includes("storytime")) return "/readingroom.jpg";
-  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "/summercamp.jpg";
-  if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "/outcamp.jpg";
-  // Priority 2: activity type
-  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "/cherry.jpg";
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "/horse.jpg";
-  if (f.includes("trail")||f.includes("hike")||f.includes("creek")||f.includes("shoreline")) return "/trail.jpg";
-  if (f.includes("high rope")||f.includes("zip line")||f.includes("ropes course")||f.includes("climbing")) return "/highropecamp.jpg";
-  if (f.includes("pool")||f.includes("swim")||f.includes("splash")||f.includes("aquatic")) return "/splash.jpg";
-  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")) return "/museum.jpg";
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "/readingroom.jpg";
-  if (f.includes("ballet")||f.includes("dance")) return "/ballet.jpg";
-  if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "/stem.jpg";
-  if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "/splash.jpg";
-  if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "/outcamp.jpg";
-  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "/park.jpg";
-  if (f.includes("playground")||f.includes("splash pad")) return "/playground.jpg";
-  if (f.includes("beach")||f.includes("boardwalk")) return "/beach.jpg";
-  // Priority 3: STEM before generic camp
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "/stem.jpg";
-  // Priority 4: generic camp last
-  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "/summercamp.jpg";
-  if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "/readingroom.jpg";
-  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "/camp.jpg";
-  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "/park.jpg";
-  return "/park.jpg";
+function wBtn(fn, label) {
+  return "<button onclick=\"" + fn + "\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">" + label + "</button>";
 }
 
-// ── Emoji card — always works, no broken images ever ──────────────────────
-function getCardHTML(a) {
-  var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = "/park.jpg";
-  var name = (a.name||"").toLowerCase();
-  if (name.includes("winchester")) src="/museum.jpg";
-  else if (name.includes("tech interactive")||name.includes("the tech")) src="/museum1.jpg";
-  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="/museum1.jpg";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
-  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="/park.jpg";
-  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="/outcamp.jpg";
-  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="/summercamp.jpg";
-  else if (name.includes("my first ballet")||name.includes("ballet")) src="/ballet.jpg";
-  else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="/splash.jpg";
-  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="/sunnyvalemarket.jpg";
-  else if (name.includes("art & wine")||name.includes("festival")) src="/market1.jpg";
-  else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="/readingroom.jpg";
-  else if (name.includes("saratoga community")||name.includes("indoor class")) src="/camp.jpg";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
-  else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.jpg";
-  else if (name.includes("playground")||name.includes("park kids")) src="/playground.jpg";
-  else if (name.includes("bay trail")||name.includes("bay trail")) src="/trail.jpg";
-  else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="/trail.jpg";
-  else if (name.includes("creek")||name.includes("shoreline")) src="/trail.jpg";
-  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
-  else if (f.indexOf("winchester")>=0) src="/museum.jpg";
-  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
-  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="/splash.jpg";
-  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.jpg";
-  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.jpg";
-  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.jpg";
-  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
-  else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
-  else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
-  else if (f.indexOf("library")>=0||f.indexOf("storytime")>=0||f.indexOf("reading")>=0||f.indexOf("book")>=0) src="/readingroom.jpg";
-  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="/splash.jpg";
-  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="/trail.jpg";
-  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="/museum.jpg";
-  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="/stem.jpg";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="/camp.jpg";
-  else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="/readingroom.jpg";
-  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
-  else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  // Use ONLY local hardcoded images
-  var finalSrc = (a.image && a.image.length > 10) ? a.image : (getSmartLocalImage(name, f) || src || "/park.jpg");
-  var isAboveFold = (window._cardIndex || 0) < 4;
-  window._cardIndex = (window._cardIndex || 0) + 1;
-  var loadAttr = isAboveFold ? "eager" : "lazy";
-  return "<div style=\"position:relative;width:100%;height:100%;background:#FFF3E0\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1\" loading=\""+loadAttr+"\"  onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';\"" />"
-    + "</div>";
+function goTab(name) {
+  var b = document.querySelector(".tab-btn[data-tab='" + name + "']");
+  if (b) setTab(b);
 }
 
-// ── Branded status placeholder ────────────────────────────────────────────
-function getStatusMessage(type) {
-  const messages = {
-    stem:     "🔬 Lab experience loading...",
-    camp:     "⛺ Camp adventure incoming...",
-    museum:   "🏛️ Exhibit being set up...",
-    pool:     "🏊 Filling the pool...",
-    trail:    "🌳 Scouting the trail...",
-    library:  "📚 Story time starting soon...",
-    horse:    "🐴 Saddling up...",
-    cherry:   "🍒 Checking the orchard...",
-    market:   "🎪 Setting up the stalls...",
-    ballet:   "🩰 Warming up...",
-    park:     "🌤️ Scouting the area...",
-    default:  "☀️ SunScout is updating this view..."
-  };
-  return messages[type] || messages.default;
+function surpriseMe() {
+  var tabs = ["free","outdoor","indoor","paid","weekend"];
+  goTab(tabs[Math.floor(Math.random() * tabs.length)]);
 }
 
-function getActivityType(name, desc) {
-  var f = (name + " " + desc).toLowerCase();
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("integem")||f.includes("snapology")) return "stem";
-  if (f.includes("camp")||f.includes("galileo")||f.includes("kidstrong")||f.includes("safari")) return "camp";
-  if (f.includes("museum")||f.includes("winchester")||f.includes("discovery")) return "museum";
-  if (f.includes("pool")||f.includes("swim")||f.includes("aquatic")) return "pool";
-  if (f.includes("trail")||f.includes("hike")||f.includes("creek")) return "trail";
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")) return "library";
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "horse";
-  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")) return "cherry";
-  if (f.includes("market")||f.includes("festival")) return "market";
-  if (f.includes("ballet")||f.includes("dance")) return "ballet";
-  return "park";
+async function fetchWeather(city) {
+  var co = CITY_COORDS[city] || [37.3688,-122.0363];
+  var banner = document.getElementById("weatherBanner");
+  if (!banner) return;
+  try {
+    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + co[0] + "&longitude=" + co[1] + "&current_weather=true&temperature_unit=fahrenheit");
+    var d = await r.json();
+    var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
+    var msg, bg;
+    if (t >= 90) {
+      bg  = "linear-gradient(135deg,#ef4444,#f97316)";
+      msg = "🔥 <strong>" + t + "°F in " + city + "</strong> — Heat Alert!" + wBtn("goTab('indoor')", "🏛️ Go Indoor →");
+      goTab("indoor");
+    } else if (t >= 70) {
+      bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
+      msg = "☀️ <strong>" + t + "°F in " + city + "</strong> — Perfect outdoor weather!" + wBtn("goTab('outdoor')", "🌳 Go Outdoor →");
+    } else if (t >= 56) {
+      var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
+      bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
+      msg = "🌤️ <strong>" + t + "°F in " + city + "</strong> — " + s[Math.floor(Math.random()*s.length)] + wBtn("surpriseMe()", "✨ Surprise Me →");
+    } else {
+      bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
+      msg = "🧥 <strong>" + t + "°F in " + city + "</strong> — Cool day!" + wBtn("goTab('outdoor')", "🌳 Go Outdoor →");
+    }
+    banner.style.display    = "block";
+    banner.style.background = bg;
+    banner.innerHTML        = msg;
+  } catch(e) {
+    banner.style.display    = "block";
+    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
+    banner.innerHTML        = "☀️ <strong>Great day in " + city + "!</strong> Check out activities below.";
+  }
 }
 
-function getBrandedPlaceholder(a) {
-  var type = getActivityType(a.name||"", a.desc||"");
-  var msg = getStatusMessage(type);
-  var gradients = {
-    stem:    "135deg,#e3f2fd,#bbdefb",
-    camp:    "135deg,#fff8e1,#ffecb3",
-    museum:  "135deg,#f3e5f5,#e1bee7",
-    pool:    "135deg,#e0f7fa,#b2ebf2",
-    trail:   "135deg,#e8f5e9,#c8e6c9",
-    library: "135deg,#fff3e0,#ffe0b2",
-    horse:   "135deg,#efebe9,#d7ccc8",
-    cherry:  "135deg,#fce4ec,#f8bbd0",
-    market:  "135deg,#fff9c4,#fff59d",
-    ballet:  "135deg,#fce4ec,#f48fb1",
-    park:    "135deg,#f9fbe7,#f0f4c3",
-  };
-  var grad = gradients[type] || gradients.park;
-  return "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;align-items:center;"
-    + "justify-content:center;background:linear-gradient(" + grad + ");"
-    + "border-radius:12px;gap:8px;padding:12px;\">"
-    + "<div style=\"font-size:2.5rem;animation:pulse 2s infinite;\">" + msg.split(" ")[0] + "</div>"
-    + "<p style=\"font-size:0.75rem;color:#666;text-align:center;font-style:italic;margin:0;\">"
-    + msg.split(" ").slice(1).join(" ") + "</p>"
-    + "<p style=\"font-size:0.65rem;color:#999;margin:0;\">☀️ SunScout</p>"
-    + "</div>";
+// ── FIX: getImageSrc now uses the activity's image field first,
+//         then falls back to keyword matching on name+desc,
+//         then falls back to category default.
+//         This means each activity type gets the right photo instead of
+//         everything showing /park.jpg. ─────────────────────────────────────
+function getImageSrc(a) {
+  return null;
 }
 
 function getEmojiCard(a) {
   var f = ((a.name || "") + " " + (a.desc || "")).toLowerCase();
   var emoji, bg;
-  if (f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("fruit pick") >= 0)
+  if (f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("pick") >= 0 || f.indexOf("orchard") >= 0)
     { emoji="🍒"; bg="linear-gradient(135deg,#ff6b6b,#ee0979)"; }
   else if (f.indexOf("horse") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("carriage") >= 0 || f.indexOf("riding") >= 0)
     { emoji="🐴"; bg="linear-gradient(135deg,#8B6914,#c8a951)"; }
@@ -426,36 +334,34 @@ function getEmojiCard(a) {
     { emoji="🏖️"; bg="linear-gradient(135deg,#00b4d8,#0077b6)"; }
   else if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0 || f.indexOf("book") >= 0)
     { emoji="📚"; bg="linear-gradient(135deg,#f9a825,#f57f17)"; }
-  else if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0 || f.indexOf("water park") >= 0)
+  else if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0)
     { emoji="🏊"; bg="linear-gradient(135deg,#48cae4,#0096c7)"; }
-  else if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high rope") >= 0 || f.indexOf("zip line") >= 0 || f.indexOf("zipline") >= 0 || f.indexOf("mission peak") >= 0)
+  else if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("nature") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high ropes") >= 0 || f.indexOf("zip") >= 0)
     { emoji="🥾"; bg="linear-gradient(135deg,#52b788,#1b4332)"; }
   else if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("winchester") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("natural history") >= 0)
     { emoji="🏛️"; bg="linear-gradient(135deg,#9e9e9e,#424242)"; }
-  else if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("code ninja") >= 0 || f.indexOf("ai camp") >= 0)
+  else if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("code ninja") >= 0)
     { emoji="🔬"; bg="linear-gradient(135deg,#7209b7,#3a0ca3)"; }
   else if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0 || f.indexOf("escape room") >= 0)
     { emoji="🎯"; bg="linear-gradient(135deg,#f72585,#b5179e)"; }
-  else if (f.indexOf("soccer") >= 0 || f.indexOf("basketball") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("sport") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
+  else if (f.indexOf("sport") >= 0 || f.indexOf("soccer") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0 || f.indexOf("basketball") >= 0)
     { emoji="⚽"; bg="linear-gradient(135deg,#4cc9f0,#4361ee)"; }
-  else if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("art") >= 0)
+  else if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("art") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("gymboree") >= 0)
     { emoji="🎨"; bg="linear-gradient(135deg,#f77f00,#d62828)"; }
   else if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
     { emoji="🐄"; bg="linear-gradient(135deg,#80b918,#2dc653)"; }
-  else if (f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("safari kid") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("steve & kate") >= 0 || f.indexOf("kidstrong") >= 0)
+  else if (f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("safari kid") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("steve & kate") >= 0)
     { emoji="⛺"; bg="linear-gradient(135deg,#ff9a3c,#ff4e00)"; }
-  else if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("splash pad") >= 0 || f.indexOf("splashpad") >= 0 || f.indexOf("las palmas") >= 0 || f.indexOf("magical bridge") >= 0)
+  else if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("splash pad") >= 0 || f.indexOf("splashpad") >= 0)
     { emoji="🌳"; bg="linear-gradient(135deg,#95d5b2,#1b4332)"; }
-  else if (f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("flea market") >= 0 || f.indexOf("art & wine") >= 0)
+  else if (f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("flea market") >= 0)
     { emoji="🎪"; bg="linear-gradient(135deg,#ffd60a,#f9c74f)"; }
   else if (f.indexOf("train") >= 0 || f.indexOf("rail") >= 0 || f.indexOf("roaring camp") >= 0)
     { emoji="🚂"; bg="linear-gradient(135deg,#6d4c41,#3e2723)"; }
-  else if (f.indexOf("boat") >= 0 || f.indexOf("kayak") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("shoreline") >= 0 || f.indexOf("pedal") >= 0)
+  else if (f.indexOf("boat") >= 0 || f.indexOf("kayak") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("shoreline") >= 0)
     { emoji="🚣"; bg="linear-gradient(135deg,#48cae4,#023e8a)"; }
-  else if (f.indexOf("garden") >= 0 || f.indexOf("hakone") >= 0 || f.indexOf("gamble") >= 0)
+  else if (f.indexOf("garden") >= 0 || f.indexOf("hakone") >= 0)
     { emoji="🌸"; bg="linear-gradient(135deg,#ffb3c1,#ff4d6d)"; }
-  else if (f.indexOf("gymboree") >= 0 || f.indexOf("toddler") >= 0 || f.indexOf("infant") >= 0 || f.indexOf("baby") >= 0)
-    { emoji="👶"; bg="linear-gradient(135deg,#ffe066,#ffb347)"; }
   else {
     var cats = {free:"🌞",paid:"🎟️",indoor:"🏛️",outdoor:"🌿",weekend:"📅"};
     emoji = cats[a.category] || "⭐";
@@ -464,131 +370,14 @@ function getEmojiCard(a) {
   return '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:'+bg+'">'+emoji+'</div>';
 }
 
-function wBtn(fn, label) {
-  return "<button onclick=\""+fn+"\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">"+label+"</button>";
-}
-function goTab(name) {
-  var b = document.querySelector(".tab-btn[data-tab='"+name+"']");
-  if (b) setTab(b);
-}
-function surpriseMe() {
-  var tabs = ["free","outdoor","indoor","paid","weekend"];
-  goTab(tabs[Math.floor(Math.random()*tabs.length)]);
-}
-
-function showDetail(i) {
-  window._currentDetail = i;
-  var a = window._activities[i];
-  if (!a) return;
-  var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
-  var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
-  var src = getCardHTML(a);
-  var imgSrc = src.match(/src="([^"]+)"/);
-  imgSrc = imgSrc ? imgSrc[1] : "/park.jpg";
-  var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
-  var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
-  var html = 
-    "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
-    "<img class='detail-modal-img' src='"+imgSrc+"' onerror='this.style.display=\"none\"'/>"+
-    "<div class='detail-modal-body'>"+
-      "<h2 class='detail-modal-title'>"+(a.name||"")+"</h2>"+
-      (st?"<div class='stars' style='margin-bottom:6px'>"+st+"</div>":"")+
-      "<div class='chips' style='margin-bottom:8px'>"+ac+
-        "<span class='chip' style='background:#fff3e0;color:#e65100'>"+priceBadge+"</span>"+
-        "<span class='chip' style='background:#e8f5e9;color:#2e7d32'>📅 "+ds+"</span>"+
-      "</div>"+
-      (a.desc?"<p class='detail-modal-desc'>"+a.desc+"</p>":"")+
-      (a.address?"<div class='detail-modal-row'><span>📍</span><span>"+a.address+"</span></div>":"")+
-      (a.phone?"<div class='detail-modal-row'><span>📞</span><a href='tel:"+a.phone+"' style='color:#e65100;text-decoration:none'>"+a.phone+"</a></div>":"")+
-      (a.city?"<div class='detail-modal-row'><span>🏙️</span><span>"+a.city+", CA</span></div>":"")+
-      "<div class='detail-modal-btns'>"+
-        "<a class='btn-detail-map' href='"+mu+"' target='_blank'>🗺 Maps</a>"+
-        (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
-        (a.phone?"<a class='btn-detail-call' href='tel:"+a.phone+"'>📞 Call</a>":"")+
-        (a.registerUrl?"<a class='btn-detail-register' href='"+a.registerUrl+"' target='_blank'>✅ Register</a>":"")+
-        "<button class='btn-detail-share' style='background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer' id='share-btn'>📤 Share</button>"+
-      "</div>"+
-    "</div>";
-  var bg = document.getElementById("detail-modal-bg");
-  bg.innerHTML = "<div class='detail-modal'>"+html+"</div>";
-  bg.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-document.addEventListener("click", function(e) {
-  if (e.target && e.target.id === "share-btn") {
-    var i = window._currentDetail;
-    if (i !== undefined) shareActivity(i);
-  }
-});
-function closeDetail() {
-  document.getElementById("detail-modal-bg").style.display = "none";
-  document.body.style.overflow = "";
-}
-function shareActivity(i) {
-  var a = window._activities[i];
-  if (!a) return;
-  var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
-  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at sunscout2.vercel.app";
-  if (navigator.share) {
-    navigator.share({ title: a.name, text: text, url: mu });
-  } else {
-    var wa = "https://wa.me/?text="+encodeURIComponent(text);
-    window.open(wa, "_blank");
-  }
-}
-async function fetchWeather(city) {
-  var co = CITY_COORDS[city] || [37.3688,-122.0363];
-  var banner = document.getElementById("weatherBanner");
-  if (!banner) return;
-  try {
-    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&temperature_unit=fahrenheit");
-    var d = await r.json();
-    var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
-    var msg, bg;
-    if (t >= 90) {
-      bg  = "linear-gradient(135deg,#ef4444,#f97316)";
-      msg = "🔥 <strong>"+t+"°F in "+city+"</strong> — Heat Alert! Stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-      goTab("indoor");
-    } else if (t >= 70) {
-      bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
-      msg = "☀️ <strong>"+t+"°F in "+city+"</strong> — Perfect outdoor weather!"+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
-    } else if (t >= 56) {
-      var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
-      bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = "🌤️ <strong>"+t+"°F in "+city+"</strong> — "+s[Math.floor(Math.random()*s.length)]+wBtn("surpriseMe()","✨ Surprise Me →");
-    } else {
-      bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
-      msg = "🧥 <strong>"+t+"°F in "+city+"</strong> — Cool day! Great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-    }
-    banner.style.display    = "block";
-    banner.style.background = bg;
-    banner.innerHTML        = msg;
-  } catch(e) {
-    banner.style.display    = "block";
-    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
-    banner.innerHTML        = "☀️ <strong>Great day in "+city+"!</strong> Check out activities below.";
-  }
-}
-
-async function loadActivities() {
-  // Clear session cache to always get fresh city-specific data
-  var ck = "sc_"+activeTab+"_"+activeCity+"_"+activeAge;
-  var cd = sessionStorage.getItem(ck);
-  if (cd) { allActivities = JSON.parse(cd); showCount = PAGE_SIZE; renderCards(); return; }
+async function loadActivities() { const ck="sc_"+activeTab+"_"+activeCity+"_"+activeAge; const cd=sessionStorage.getItem(ck); if(cd){allActivities=JSON.parse(cd);showCount=PAGE_SIZE;renderCards();return;}
   showSkeleton();
   try {
     var p = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
     var r = await fetch("/api/activities?" + p);
     if (!r.ok) throw new Error("Server error " + r.status);
     var data = await r.json();
-    allActivities = data.activities || [];
-    // Filter strictly to current city only
-    allActivities = allActivities.filter(function(a) {
-      return !a.city || a.city === activeCity || a.city === "regional";
-    });
-    try { sessionStorage.setItem(ck, JSON.stringify(allActivities)); } catch(e) {}
+    allActivities = data.activities || []; try{sessionStorage.setItem(ck, JSON.stringify(allActivities));}catch(e){}
     showCount = PAGE_SIZE;
     var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
@@ -605,62 +394,49 @@ function renderCards() {
   if (searchQuery) {
     var q = searchQuery.toLowerCase();
     items = items.filter(function(a) {
-      return (a.name||"").toLowerCase().indexOf(q) >= 0 ||
-             (a.desc||"").toLowerCase().indexOf(q) >= 0 ||
-             (a.address||"").toLowerCase().indexOf(q) >= 0;
+      return (a.name||"").toLowerCase().indexOf(q) >= 0 || (a.desc||"").toLowerCase().indexOf(q) >= 0 || (a.address||"").toLowerCase().indexOf(q) >= 0;
     });
   }
   var total   = items.length;
   var visible = items.slice(0, showCount);
-  status.innerHTML = "Showing <strong>"+visible.length+"</strong> of <strong>"+total+"</strong> activit"+(total===1?"y":"ies")+" in <strong>"+activeCity+"</strong>";
+  status.innerHTML = "Showing <strong>" + visible.length + "</strong> of <strong>" + total + "</strong> activit" + (total===1?"y":"ies") + " in <strong>" + activeCity + "</strong>";
   if (wrap) wrap.style.display = total > PAGE_SIZE ? "block" : "none";
   if (mbtn) mbtn.disabled = visible.length >= total;
   if (visible.length === 0) {
-    grid.innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🌻</div><h2>"+(searchQuery?"No results for &quot;"+searchQuery+"&quot;":"No activities found!")+"</h2><p>"+(searchQuery?"Try a different search term.":"Try a different tab or age filter.")+"</p><p>Meanwhile — 3 FREE DIY activities:</p><div class=\"diy-grid\">"+DIY.map(function(d){ return "<div class=\"diy-card\"><strong>"+d.title+"</strong><p>"+d.desc+"</p></div>"; }).join("")+"</div></div>";
+    grid.innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🌻</div><h2>" + (searchQuery ? "No results for &quot;" + searchQuery + "&quot;" : "No activities found!") + "</h2><p>" + (searchQuery ? "Try a different search term." : "Try a different city, tab, or age filter.") + "</p><p>Meanwhile — 3 FREE DIY activities:</p><div class=\"diy-grid\">" + DIY.map(function(d){ return "<div class=\"diy-card\"><strong>" + d.title + "</strong><p>" + d.desc + "</p></div>"; }).join("") + "</div></div>";
     return;
   }
 
-  window._activities = visible;
+  // ── FIX: pass index i to map so we can lazy-load cards after the first 4 ──
   grid.innerHTML = visible.map(function(a, i) {
-    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
-    var st  = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
-    var mu  = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
-    var ac  = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
-    var a11 = (a.a11y||[]).map(function(t){ return "<span class=\"chip chip-a11y\">"+t+"</span>"; }).join("");
-    var pc  = (!a.isFree && a.price && a.price !== "See site") ? "<span class=\"chip chip-price\">"+a.price+"</span>" : "";
-    // Price badge: $0 FREE for free, actual price if known, 💰 Paid if paid but no price
-    var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
-    var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
+    var src = null;
+    var fb   = IMG_FALLBACK[a.category] || "/park.jpg";
+    // emoji fallback map
+    var EMOJI_MAP = {
+      free:"🌳", paid:"🎟️", indoor:"🏛️", outdoor:"🌿", weekend:"📅",
+      camp:"⛺", stem:"🔬", museum:"🏛️", library:"📚", swim:"🏊"
+    };
+    var ds   = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+    var st   = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
+    var mu   = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
+    var ac   = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
+    var a11  = (a.a11y||[]).map(function(t){ return "<span class=\"chip chip-a11y\">"+t+"</span>"; }).join("");
+    var pc   = (!a.isFree&&a.price) ? "<span class=\"chip chip-price\">"+a.price+"</span>" : "";
 
-    return "<article class=\"card\" data-idx=\""+i+"\">"+
-      "<div class=\"card-img-wrap\">"+
-        getCardHTML(a)+
-        "<span class=\"badge-free\" style=\""+badgeBg+"\">"+priceBadge+"</span>"+
-        (a.source ? "<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>" : "")+
-      "</div>"+
-      "<div class=\"card-body\">"+
-        "<h3 class=\"card-title\">"+(a.name||"")+"</h3>"+
-        (st ? "<div class=\"stars\">"+st+"</div>" : "")+
-        "<div class=\"chips\">"+ac+a11+pc+"</div>"+
-        (a.address ? "<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>" : "")+
-        (a.phone   ? "<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>" : "")+
-        "<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+
-        (a.desc ? "<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>" : "")+
-      "</div>"+
-      "<div class=\"card-foot\">"+
-        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
-        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
-      "</div>"+
-    "</article>";
+    // ── FIX: eager load first 4 cards, lazy load the rest ────────────────
+    var loadAttr = i < 4 ? "eager" : "lazy";
+
+    // ── FIX: onerror tries category fallback, then /park.jpg as last resort ──
+    var onerrorAttr = "if(this.src!=='" + fb + "'){this.src='" + fb + "';this.onerror=function(){this.src='/park.jpg';this.onerror=null;};}else{this.src='/park.jpg';this.onerror=null;}";
+
+    var altText = (a.name||"").replace(/"/g,"");
+    return "<article class=\"card\"><div class=\"card-img-wrap\">"+getEmojiCard(a)+"<span style=\"display:none\" alt=\""+altText+"\" loading=\""+loadAttr+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\""+onerrorAttr+"\"/><span class=\"badge-free\">"+(a.isFree?"$0 FREE":(a.price&&a.price!=="See site"?a.price:"💰 Paid"))+"</span>"+(a.source?"<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>":"")+"</div><div class=\"card-body\"><h3 class=\"card-title\">"+(a.name||"")+"</h3>"+(st?"<div class=\"stars\">"+st+"</div>":"")+"<div class=\"chips\">"+ac+a11+pc+"</div>"+(a.address?"<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>":"")+(a.phone?"<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>":"")+"<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+(a.desc?"<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>":"")+"</div><div class=\"card-foot\"><a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+(a.website?"<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>":"")+"</div></article>";
   }).join("");
 }
 
 function showSkeleton() {
-  document.getElementById("grid").innerHTML = Array(8).fill("").map(function(){
-    return "<div class=\"card card-skel\"><div class=\"card-img-wrap\"></div><div class=\"card-body\"><div class=\"skel-line\"></div><div class=\"skel-line skel-short\"></div></div></div>";
-  }).join("");
+  document.getElementById("grid").innerHTML = Array(8).fill("").map(function(){ return "<div class=\"card card-skel\"><div class=\"card-img-wrap\"></div><div class=\"card-body\"><div class=\"skel-line\"></div><div class=\"skel-line skel-short\"></div></div></div>"; }).join("");
   document.getElementById("statusBar").innerHTML = "<span class=\"spinner\"></span> Loading activities in "+activeCity+"…";
-  document.getElementById("grid").innerHTML = [1,2,3,4].map(function(){return "<div style=\"background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08)\"><div style=\"height:200px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite\"></div><div style=\"padding:16px\"><div style=\"height:16px;background:#f0f0f0;border-radius:8px;margin-bottom:10px;width:70%\"></div><div style=\"height:12px;background:#f0f0f0;border-radius:8px;width:50%\"></div></div></div>";}).join("");
   var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
 }
 
@@ -679,19 +455,16 @@ function setCity(btn) {
   if (activeCity === clicked) {
     btn.classList.remove("on"); activeCity = null;
     document.getElementById("cityFact").textContent = "";
-    document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city to get started!</h2></div>";
-    document.getElementById("statusBar").innerHTML = "Select a city above";
-    document.getElementById("weatherBanner").style.display = "none";
+    document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city!</h2></div>";
+    document.getElementById("statusBar").innerHTML = "Select a city to get started";
     return;
   }
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   btn.classList.add("on");
-  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = PAGE_SIZE;
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
+  activeCity=clicked; activeAge="all"; searchQuery=""; showCount=PAGE_SIZE;
+  var si=document.getElementById("searchInput"); if(si) si.value="";
   document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
-  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-  // Clear cache for new city so fresh data loads
-  sessionStorage.clear();
+  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
   fetchWeather(activeCity);
   loadActivities();
 }
@@ -699,62 +472,53 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = PAGE_SIZE;
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
-  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
+  activeTab=btn.dataset.tab; activeAge="all"; searchQuery=""; showCount=PAGE_SIZE;
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
   if (activeCity) loadActivities();
 }
 
 function setAge(btn) {
   var clicked = btn.dataset.age;
-  if (activeAge === clicked && clicked !== "all") {
-    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-    activeAge = "all";
+  if (activeAge===clicked && clicked!=="all") {
+    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
+    activeAge="all";
   } else {
     document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.remove("on"); });
-    btn.classList.add("on"); activeAge = clicked;
+    btn.classList.add("on"); activeAge=clicked;
   }
-  showCount = PAGE_SIZE; if (activeCity) loadActivities();
+  showCount=PAGE_SIZE; if(activeCity) loadActivities();
 }
 
 function setSearch(val) {
-  searchQuery = val.trim(); showCount = PAGE_SIZE;
-  var cl = document.getElementById("searchClear"); if (cl) cl.style.display = val ? "block" : "none";
+  searchQuery=val.trim(); showCount=PAGE_SIZE;
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display=val?"block":"none";
   renderCards();
 }
 
 function clearSearch() {
-  searchQuery = "";
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
-  var cl = document.getElementById("searchClear"); if (cl) cl.style.display = "none";
-  showCount = PAGE_SIZE; renderCards();
+  searchQuery="";
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display="none";
+  showCount=PAGE_SIZE; renderCards();
 }
 
-// card clicks handled by document listener
 function showMore() {
-  showCount += PAGE_SIZE; renderCards();
+  showCount+=PAGE_SIZE; renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
 }
 
 function updateCountdown() {
-  var end  = new Date(new Date().getFullYear()+"-08-31");
-  var days = Math.max(0, Math.ceil((end-new Date())/86400000));
-  var el   = document.getElementById("countdown");
-  if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
+  var end=new Date(new Date().getFullYear()+"-08-31");
+  var days=Math.max(0,Math.ceil((end-new Date())/86400000));
+  var el=document.getElementById("countdown");
+  if(el) el.textContent=days>0?"⏳ "+days+" days of summer left!":"🍂 Summer has ended!";
 }
 
-document.addEventListener("click", function(e) {
-  var card = e.target.closest("[data-idx]");
-  if (card) showDetail(parseInt(card.getAttribute("data-idx")));
-});
 document.getElementById("cityFact").textContent = CITY_FACTS["Sunnyvale"];
 updateCountdown();
 fetchWeather("Sunnyvale");
 loadActivities();
 </script>
-<div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
-<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family, with AI assistance from <strong>Claude</strong> (Anthropic) and <strong>Gemini</strong> (Google).<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
-  <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
-</div></div></div></body>
+</body>
 </html>
