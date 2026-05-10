@@ -74,7 +74,7 @@ async function getPlacePhoto(name, address, apiKey) {
     if (!photoRef) { PHOTO_CACHE.set(cacheKey, null); return null; }
 
     // Step 3: Build photo URL (server-side proxy to avoid key exposure)
-    const photoUrl = "https://maps.googleapis.com/maps/api/place/photo"
+    const photoUrl = "/api/photo"
       + "?ref=" + photoRef;
     PHOTO_CACHE.set(cacheKey, photoUrl);
     return photoUrl;
