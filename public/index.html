@@ -660,6 +660,7 @@ function showSkeleton() {
     return "<div class=\"card card-skel\"><div class=\"card-img-wrap\"></div><div class=\"card-body\"><div class=\"skel-line\"></div><div class=\"skel-line skel-short\"></div></div></div>";
   }).join("");
   document.getElementById("statusBar").innerHTML = "<span class=\"spinner\"></span> Loading activities in "+activeCity+"…";
+  document.getElementById("grid").innerHTML = [1,2,3,4].map(function(){return "<div style=\"background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08)\"><div style=\"height:200px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite\"></div><div style=\"padding:16px\"><div style=\"height:16px;background:#f0f0f0;border-radius:8px;margin-bottom:10px;width:70%\"></div><div style=\"height:12px;background:#f0f0f0;border-radius:8px;width:50%\"></div></div></div>";}).join("");
   var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
 }
 
