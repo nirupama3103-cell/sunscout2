@@ -94,7 +94,8 @@ async function getPlacePhoto(name, address, apiKey) {
 // ============================================================
 
 const CACHE = new Map();
-const TTL = 1 * 60 * 1000; // 60 min
+const TTL = 60 * 60 * 1000; // 60 min
+const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
 const TAB_KEYWORDS = {
   free:    ["free kids summer park","free splash pad children","free library storytime","free family park","free museum kids day"],
