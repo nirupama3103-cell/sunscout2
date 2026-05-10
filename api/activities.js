@@ -68,8 +68,8 @@ async function getPlacePhoto(name, address, apiKey) {
     const findData = await findRes.json();
     const photoName = findData.places?.[0]?.photos?.[0]?.name;
     if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
-    const photoUrl = "https://places.googleapis.com/v1/" + photoName
-      + "/media?maxHeightPx=400&maxWidthPx=600&key=" + apiKey;
+    // Route through proxy to avoid CORS/redirect issues
+    const photoUrl = "/api/photo?ref=" + encodeURIComponent(photoName);
     PHOTO_CACHE.set(cacheKey, photoUrl);
     return photoUrl;
   } catch(e) {
