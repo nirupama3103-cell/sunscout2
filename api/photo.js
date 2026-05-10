@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     if (!r.ok) return res.status(502).end();
     const buf = await r.arrayBuffer();
     res.setHeader("Content-Type", r.headers.get("content-type") || "image/jpeg");
-    res.setHeader("Cache-Control", "public, public, max-age=604800, stale-while-revalidate=86400");
+    res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
     res.send(Buffer.from(buf));
   } catch(e) {
     console.error("photo proxy error:", e.message);
