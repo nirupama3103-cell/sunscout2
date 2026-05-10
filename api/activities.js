@@ -702,7 +702,19 @@ export default async function handler(req, res) {
       if (placesPhoto) {
         a.image = placesPhoto;
       } else {
-        a.image = getDefaultImage(a.name, a.desc || "");
+        // Curated Unsplash fallbacks by category (no cartoon icons)
+        const t = (a.name + " " + (a.desc||"")).toLowerCase();
+        if (t.includes("soccer")||t.includes("sport")||t.includes("tennis")||t.includes("basketball")) a.image = "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
+        else if (t.includes("swim")||t.includes("pool")||t.includes("aquatic")||t.includes("splash")) a.image = "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
+        else if (t.includes("stem")||t.includes("robot")||t.includes("cod")||t.includes("tech")||t.includes("ai")||t.includes("lego")||t.includes("science")) a.image = "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
+        else if (t.includes("art")||t.includes("paint")||t.includes("craft")||t.includes("pottery")||t.includes("clay")) a.image = "https://images.unsplash.com/photo-1588497859490-85d1c17db96d?w=600&q=80";
+        else if (t.includes("danc")||t.includes("ballet")||t.includes("music")) a.image = "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
+        else if (t.includes("hike")||t.includes("trail")||t.includes("nature")||t.includes("outdoor")||t.includes("creek")||t.includes("park")) a.image = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
+        else if (t.includes("museum")||t.includes("discovery")||t.includes("exhibit")) a.image = "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
+        else if (t.includes("library")||t.includes("book")||t.includes("reading")||t.includes("storytime")) a.image = "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
+        else if (t.includes("farm")||t.includes("zoo")||t.includes("animal")||t.includes("petting")) a.image = "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
+        else if (t.includes("camp")||t.includes("ymca")||t.includes("galileo")||t.includes("kidstrong")) a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+        else a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
       }
       activities.push(a);
     }
