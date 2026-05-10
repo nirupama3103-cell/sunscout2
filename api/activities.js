@@ -127,7 +127,7 @@ async function getPlacePhoto(name, address, apiKey) {
 // ============================================================
 
 const CACHE = new Map();
-const TTL = 60 * 60 * 1000; // 60 min
+const TTL = 6 * 60 * 60 * 1000; // 60 min
 const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
 const TAB_KEYWORDS = {
@@ -666,7 +666,7 @@ export default async function handler(req, res) {
 
   const payload = { tab, city, age, count: activities.length, activities, fetchedAt: new Date().toISOString() };
   CACHE.set(cacheKey, { data: payload, ts: Date.now() });
-  res.setHeader("Cache-Control", "s-maxage=600,stale-while-revalidate=120");
+  res.setHeader("Cache-Control", "s-maxage=3600,stale-while-revalidate=600");
   res.setHeader("X-Cache", "MISS");
   return res.status(200).json(payload);
 }
