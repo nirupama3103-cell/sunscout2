@@ -345,7 +345,7 @@ function getCardHTML(a) {
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
   // Use ONLY local hardcoded images
-  var finalSrc = (a.image && a.image.startsWith("https://maps.googleapis.com")) ? a.image : (getSmartLocalImage(name, f) || src || "/park.jpg");
+  var finalSrc = (a.image && (a.image.startsWith("https://maps.googleapis.com") || a.image.startsWith("/api/photo"))) ? a.image : (getSmartLocalImage(name, f) || src || "/park.jpg");
   return "<img src=\""+finalSrc+"\" style=\"width:100%;height:100%;object-fit:cover\" onerror=\"this.style.display='none';this.nextSibling.style.display='flex';\" loading=\"lazy\" />"+getEmojiCard(a).replace("display:flex","display:none");
 }
 
