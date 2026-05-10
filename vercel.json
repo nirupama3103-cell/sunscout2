@@ -5,5 +5,8 @@
     "api/activities.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "alias": [
+    "sunscout2.vercel.app"
+  ]
 }
