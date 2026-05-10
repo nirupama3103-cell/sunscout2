@@ -109,7 +109,7 @@ async function getPlacePhoto(name, address, apiKey) {
     const photoName = findData.places?.[0]?.photos?.[0]?.name;
     if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
     // Route through proxy to avoid CORS/redirect issues
-    const photoUrl = null; // proxy disabled, use Unsplash fallback
+    const photoUrl = "/api/photo?ref=" + encodeURIComponent(photoName);
     PHOTO_CACHE.set(cacheKey, photoUrl);
     return photoUrl;
   } catch(e) {
