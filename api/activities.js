@@ -648,11 +648,9 @@ export async function getHardcoded(tab, city, age) {
     const key = a.name.toLowerCase().slice(0, 30);
     if (!seen.has(key)) {
       seen.add(key);
-      if (!a.image) a.image = null;
       activities.push(a);
     }
-  }));
-  for (const a of uniqueHardcoded) activities.push(a);
+  }
   if (age !== "all") activities = activities.filter(a => a.ages.includes(age));
   if (tab === "weekend") activities = activities.filter(a => a.id?.startsWith("hw-") || isWeekend(a.startDate));
   return activities;
