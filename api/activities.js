@@ -53,14 +53,30 @@ const PHOTO_CACHE = new Map();
 async function getPlacePhoto(name, address, apiKey) {
   const cacheKey = name;
   if (PHOTO_CACHE.has(cacheKey)) return PHOTO_CACHE.get(cacheKey);
-  if (!apiKey) return null;
-  const location = encodeURIComponent((address || name) + " CA");
-  const photoUrl = "https://maps.googleapis.com/maps/api/staticmap"
-    + "?center=" + location
-    + "&zoom=16&size=400x300&maptype=satellite"
-    + "&key=" + apiKey;
-  PHOTO_CACHE.set(cacheKey, photoUrl);
-  return photoUrl;
+  if (!apiKey) { PHOTO_CACHE.set(cacheKey, null); return null; }
+  try {
+    const findUrl = "https://places.googleapis.com/v1/places:searchText";
+    const findRes = await fetch(findUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": apiKey,
+        "X-Goog-FieldMask": "places.photos,places.displayName"
+      },
+      body: JSON.stringify({ textQuery: name + " " + (address || "") + " CA", maxResultCount: 1 })
+    });
+    const findData = await findRes.json();
+    const photoName = findData.places?.[0]?.photos?.[0]?.name;
+    if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
+    const photoUrl = "https://places.googleapis.com/v1/" + photoName
+      + "/media?maxHeightPx=400&maxWidthPx=600&key=" + apiKey;
+    PHOTO_CACHE.set(cacheKey, photoUrl);
+    return photoUrl;
+  } catch(e) {
+    console.warn("Photo fetch failed for", name, e.message);
+    PHOTO_CACHE.set(cacheKey, null);
+    return null;
+  }
 }
 
 
