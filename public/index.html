@@ -350,7 +350,7 @@ function getCardHTML(a) {
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.style.display='none';this.parentElement.innerHTML='<div style=\\"width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#e8f5e9,#f3e5f5);color:#666;font-size:13px;text-align:center;padding:10px\\"><div style=\\"font-size:2.5rem;margin-bottom:8px\\">🌟</div><div>Photo coming soon</div><div style=\\"font-size:11px;margin-top:4px;opacity:0.7\\">Great activity!</div></div>';\" />"
+    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.style.display='none';\"\" />"
     + "</div>";
 }
 
