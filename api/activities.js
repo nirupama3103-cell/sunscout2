@@ -62,7 +62,6 @@ async function getPlacePhoto(name, address, apiKey) {
   PHOTO_CACHE.set(cacheKey, photoUrl);
   return photoUrl;
 }
-}
 
 
 
