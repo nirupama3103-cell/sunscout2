@@ -699,15 +699,12 @@ export default async function handler(req, res) {
   let activities = [];
   const seen = new Set();
 
- // Fetch all photos in parallel
-  const uniqueActivities = [];
-  const seenKeys = new Set();
+ // Add hardcoded first
   for (const a of hardcodedFiltered) {
     const key = a.name.toLowerCase().slice(0, 30);
-    if (!seenKeys.has(key)) { seenKeys.add(key); uniqueActivities.push(a); }
-  }
-  await Promise.all(uniqueActivities.map(async a => {
-    const placesPhoto = await getPlacePhoto(a.name, a.address || "", process.env.GOOGLE_PLACES_API_KEY);
+    if (!seen.has(key)) {
+      seen.add(key);
+      const placesPhoto = await getPlacePhoto(a.name, a.address || "", process.env.GOOGLE_PLACES_API_KEY);
       if (placesPhoto) {
         a.image = placesPhoto;
       } if (process.env.GOOGLE_MAPS_API_KEY && a.address && a.address.match(/d+s+w+/)) {
