@@ -96,6 +96,9 @@ async function getPlacePhoto(name, address, apiKey) {
   if (!apiKey) { PHOTO_CACHE.set(cacheKey, null); return null; }
   try {
     const findUrl = "https://places.googleapis.com/v1/places:searchText";
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+    
     const findRes = await fetch(findUrl, {
       method: "POST",
       headers: {
@@ -103,8 +106,10 @@ async function getPlacePhoto(name, address, apiKey) {
         "X-Goog-Api-Key": apiKey,
         "X-Goog-FieldMask": "places.photos,places.displayName"
       },
-      body: JSON.stringify({ textQuery: name + " " + (address || "") + " CA", maxResultCount: 1 })
+      body: JSON.stringify({ textQuery: name + " " + (address || "") + " CA", maxResultCount: 1 }),
+      signal: controller.signal
     });
+    clearTimeout(timeout);
     const findData = await findRes.json();
     const photoName = findData.places?.[0]?.photos?.[0]?.name;
     if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
