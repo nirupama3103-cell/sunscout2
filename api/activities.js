@@ -707,7 +707,7 @@ export default async function handler(req, res) {
       const placesPhoto = null; // disabled - using street view
       if (placesPhoto) {
         a.image = placesPhoto;
-      } if (process.env.GOOGLE_MAPS_API_KEY && a.address && a.address.length > 10) {
+      } if (process.env.GOOGLE_MAPS_API_KEY && a.address && a.address.match(/d+s+w+/)) {
         const center = encodeURIComponent(a.address);
         const label  = encodeURIComponent(a.name.slice(0, 1).toUpperCase());
         a.image = `https://maps.googleapis.com/maps/api/streetview?size=600x400&location=${encodeURIComponent(a.address)}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
