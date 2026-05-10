@@ -19,7 +19,7 @@ const DEFAULT_IMAGES = {
   trampoline: "https://cdn-icons-png.flaticon.com/512/3048/3048150.png",
   swimming:   "https://cdn-icons-png.flaticon.com/512/2534/2534826.png",
   library:    "https://cdn-icons-png.flaticon.com/512/2784/2784403.png",
-  pottery:    "https://cdn-icons-png.flaticon.com/512/3135/3135853.png",
+  pottery:    "https://cdn-icons-png.flaticon.com/512/vercel alias set sunscout2-59sdtnrvd-nirupama3103-cells-projects.vercel.app sunscout2.vercel.app3135/3135853.png",
   default:    "https://cdn-icons-png.flaticon.com/512/3870/3870041.png",
 };
 
