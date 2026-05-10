@@ -350,7 +350,7 @@ function getCardHTML(a) {
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   return "<div style=\"position:relative;width:100%;height:100%;background:#FFF3E0\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1\" loading=\""+loadAttr+"\"  onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\"\" />"
+    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1\" loading=\""+loadAttr+"\"  onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';\"" />"
     + "</div>";
 }
 
