@@ -262,6 +262,11 @@ img{max-width:100%;display:block}
 </div>
 
 <!-- Age bar — no All Ages -->
+
+<div style="display:flex;align-items:center;gap:8px;padding:12px 16px 0;max-width:600px;margin:0 auto">
+  <input type="search" id="searchInput" style="flex:1;font-family:Nunito,sans-serif;font-size:14px;font-weight:600;padding:9px 16px;border-radius:99px;border:2px solid #eee;background:#fff;color:#1a1a1a;outline:none" placeholder="🔍 Search park, swimming, library, splash pad…" oninput="setSearch(this.value)"/>
+  <button id="searchClear" onclick="clearSearch()" style="display:none;font-size:12px;padding:4px 10px;border-radius:99px;border:none;background:#f0f0f0;color:#666;cursor:pointer;font-family:Nunito,sans-serif">✕</button>
+</div>
 <div class="age-bar" role="group" aria-label="Filter by age">
   <button class="age-btn"    data-age="0"   onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
   <button class="age-btn"    data-age="1"   onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
@@ -696,6 +701,18 @@ async function loadActivities() {
   } catch(e) { showError(e.message); }
 }
 
+
+function setSearch(val) {
+  searchQuery=val.trim(); showCount=PAGE_SIZE;
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display=val?"block":"none";
+  renderCards();
+}
+function clearSearch() {
+  searchQuery="";
+  var si=document.getElementById("searchInput"); if(si) si.value="";
+  var cl=document.getElementById("searchClear"); if(cl) cl.style.display="none";
+  showCount=PAGE_SIZE; renderCards();
+}
 function renderCards() {
   var grid   = document.getElementById("grid");
   var status = document.getElementById("statusBar");
