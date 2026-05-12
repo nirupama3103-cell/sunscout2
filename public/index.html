@@ -172,6 +172,131 @@ img{max-width:100%;display:block}
 .mylist-item-city{font-size:11px;color:#888}
 .mylist-remove{background:none;border:none;font-size:16px;cursor:pointer;color:#aaa;flex-shrink:0}
 .mylist-remove:hover{color:#ef4444}
+
+/* ── MOBILE APP-LIKE POLISH ── */
+/* Safe area for notch/home bar */
+body { padding-bottom: env(safe-area-inset-bottom); }
+
+/* Bottom nav bar */
+#bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  z-index: 9990;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+}
+.bnav-items { display: flex; justify-content: space-around; align-items: center; }
+.bnav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: none; border: none; cursor: pointer;
+  font-family: Nunito, sans-serif; padding: 4px 12px;
+  color: #aaa; transition: color .15s; flex: 1;
+}
+.bnav-btn.active { color: #FF9900; }
+.bnav-btn .bnav-icon { font-size: 1.4rem; line-height: 1; }
+.bnav-btn .bnav-label { font-size: 10px; font-weight: 800; }
+.bnav-badge {
+  position: absolute; top: -3px; right: -3px;
+  background: #FF9900; color: #fff;
+  font-size: 9px; font-weight: 900;
+  border-radius: 50%; width: 16px; height: 16px;
+  display: none; align-items: center; justify-content: center;
+}
+
+@media(max-width: 640px) {
+  /* Show bottom nav on mobile */
+  #bottom-nav { display: block; }
+
+  /* Add bottom padding so content isn't hidden behind nav */
+  #main { padding-bottom: 80px; }
+  .footer { margin-bottom: 80px; }
+
+  /* Larger tap targets */
+  .city-btn { padding: 9px 18px; font-size: 14px; }
+  .age-btn { padding: 8px 16px; font-size: 13px; }
+
+  /* Tab bar scrolls horizontally on mobile */
+  .tab-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 14px 16px 4px;
+    justify-content: flex-start !important;
+    gap: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 0 0 auto !important;
+    min-width: 100px !important;
+    max-width: 120px !important;
+    scroll-snap-align: start;
+  }
+
+  /* City bar scrolls horizontally */
+  .city-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    padding: 14px 16px 4px;
+    scroll-snap-type: x mandatory;
+  }
+  .city-bar::-webkit-scrollbar { display: none; }
+  .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
+
+  /* Cards — 2 col already, make them taller/nicer */
+  .card-img-wrap { aspect-ratio: 16/10; }
+  .card-title { font-size: 12px; }
+
+  /* Bigger logo */
+  .logo { font-size: 2rem; }
+
+  /* Plan My Day and My List modals full screen on mobile */
+  #plan-modal { 
+    border-radius: 20px 20px 0 0;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    max-width: 100% !important;
+    max-height: 92vh;
+    margin: 0;
+  }
+  #plan-modal-bg { align-items: flex-end !important; padding: 0 !important; }
+  #mylist-panel { width: 100% !important; }
+
+  /* Pull to refresh indicator area */
+  .header { padding-top: 16px; }
+
+  /* Action buttons wrap nicer */
+  .action-bar { gap: 8px !important; }
+  .action-bar button { font-size: 12px !important; padding: 8px 14px !important; }
+
+  /* Search input bigger on mobile */
+  #searchInput { font-size: 16px !important; } /* prevents iOS zoom */
+
+  /* Weather banner */
+  .weather-banner { font-size: 13px; padding: 10px 14px; margin: 10px 10px 0; }
+
+  /* Hide desktop share/about in action bar — shown in bottom nav */
+  .hide-mobile { display: none !important; }
+}
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Touch feedback */
+.card { -webkit-tap-highlight-color: transparent; }
+.city-btn, .tab-btn, .age-btn { -webkit-tap-highlight-color: transparent; }
+
+/* Pull-to-refresh feel */
+.grid { transition: opacity .2s; }
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
@@ -819,6 +944,7 @@ try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } ca
 function saveFavorites() {
   try { localStorage.setItem("sc_favorites", JSON.stringify(favorites)); } catch(e) {}
   updateMyListBadge();
+  updateBnavBadge();
 }
 function updateMyListBadge() {
   var badge = document.getElementById("mylistBadge");
@@ -900,6 +1026,35 @@ function resetPlan() { planCity=null; planVibe=null; planAge=null; document.quer
 updateMyListBadge();
 checkWeekendMode();
 
+
+// Bottom nav sync
+function bnavTab(tab, btn) {
+  document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  var tabBtn = document.querySelector(".tab-btn[data-tab='" + tab + "']");
+  if(tabBtn) setTab(tabBtn);
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function updateBnavBadge() {
+  var b = document.getElementById("bnavBadge");
+  if(!b) return;
+  if(favorites && favorites.length > 0) {
+    b.style.display = "flex";
+    b.textContent = favorites.length;
+  } else {
+    b.style.display = "none";
+  }
+}
+// Sync bottom nav when tab changes via top bar
+var _origSetTab = setTab;
+setTab = function(btn) {
+  _origSetTab(btn);
+  var tab = btn.dataset.tab;
+  document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
+  var match = document.querySelector(".bnav-btn[onclick*=\"'" + tab + "'\"]");
+  if(match) match.classList.add("active");
+}
+
 </script>
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
 <div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family, with AI assistance from <strong>Claude</strong> (Anthropic) and <strong>Gemini</strong> (Google).<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
@@ -966,5 +1121,32 @@ checkWeekendMode();
     </div>
   </div>
 </div>
+
+<!-- Bottom Nav (mobile only) -->
+<nav id="bottom-nav">
+  <div class="bnav-items">
+    <button class="bnav-btn active" onclick="bnavTab('free',this)">
+      <span class="bnav-icon">🆓</span>
+      <span class="bnav-label">Free</span>
+    </button>
+    <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
+      <span class="bnav-icon">🌳</span>
+      <span class="bnav-label">Outdoor</span>
+    </button>
+    <button class="bnav-btn" onclick="bnavTab('indoor',this)">
+      <span class="bnav-icon">🏛️</span>
+      <span class="bnav-label">Indoor</span>
+    </button>
+    <button class="bnav-btn" onclick="openPlan()">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label">Plan Day</span>
+    </button>
+    <button class="bnav-btn" id="bnav-mylist" onclick="openMyList()" style="position:relative">
+      <span class="bnav-icon">❤️</span>
+      <span class="bnav-label">My List</span>
+      <span class="bnav-badge" id="bnavBadge"></span>
+    </button>
+  </div>
+</nav>
 </body>
 </html>
