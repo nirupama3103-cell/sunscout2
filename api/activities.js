@@ -133,7 +133,7 @@ async function getPlacePhoto(name, address, apiKey) {
 // ============================================================
 
 const CACHE = new Map();
-const TTL = 6 * 60 * 60 * 1000; // 60 min
+const TTL = 10 * 60 * 1000; // 10 min
 const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
 const TAB_KEYWORDS = {
