@@ -144,6 +144,34 @@ img{max-width:100%;display:block}
   .age-desc{display:none}
   .btn{padding:7px 12px;font-size:12px;min-height:36px}
 }
+
+.weekend-banner{display:none;margin:10px 16px 0;padding:10px 18px;border-radius:14px;font-weight:800;font-size:13px;color:#fff;text-align:center;background:linear-gradient(135deg,#8E24AA,#CE93D8);animation:pulse-banner 2s ease-in-out infinite}
+@keyframes pulse-banner{0%,100%{opacity:1}50%{opacity:.85}}
+.fav-btn{position:absolute;bottom:7px;right:7px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:28px;height:28px;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.fav-btn:hover{transform:scale(1.2)}
+.fav-btn.faved{background:#ffe0e0}
+.mylist-tab-btn{background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;position:relative}
+.mylist-badge{position:absolute;top:-5px;right:-5px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:18px;height:18px;display:none;align-items:center;justify-content:center}
+.plan-btn{background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif}
+#plan-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+#plan-modal{background:#fff;border-radius:20px;max-width:520px;width:100%;padding:28px;position:relative;font-family:Nunito,sans-serif;max-height:90vh;overflow-y:auto}
+.plan-step{display:none}.plan-step.active{display:block}
+.plan-option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.plan-option{padding:14px;border-radius:12px;border:2px solid #eee;background:#fff;cursor:pointer;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;text-align:center;transition:all .15s}
+.plan-option:hover{border-color:#FF9900;background:#fff9f0}
+.plan-option.selected{border-color:#FF9900;background:#fff3e0;color:#c05e00}
+.plan-itinerary{background:#f9f9f9;border-radius:12px;padding:16px;margin-top:12px}
+.plan-itinerary-item{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.plan-time-badge{background:#FF9900;color:#fff;font-size:10px;font-weight:900;padding:3px 8px;border-radius:99px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+#mylist-panel{display:none;position:fixed;top:0;right:0;width:340px;height:100%;background:#fff;z-index:99998;box-shadow:-4px 0 20px rgba(0,0,0,.15);overflow-y:auto;padding:20px;font-family:Nunito,sans-serif}
+#mylist-panel h2{font-size:1.2rem;font-weight:900;color:#1a1a1a;margin-bottom:4px}
+.mylist-item{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:#f9f9f9;margin-bottom:8px}
+.mylist-item-emoji{font-size:1.6rem;flex-shrink:0}
+.mylist-item-info{flex:1;min-width:0}
+.mylist-item-title{font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mylist-item-city{font-size:11px;color:#888}
+.mylist-remove{background:none;border:none;font-size:16px;cursor:pointer;color:#aaa;flex-shrink:0}
+.mylist-remove:hover{color:#ef4444}
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
@@ -155,6 +183,7 @@ img{max-width:100%;display:block}
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
+<div class="weekend-banner" id="weekendBanner">🎉 It's the Weekend! Showing all-city weekend activities — enjoy your family time! 🌟</div>
 <div class="weather-banner" id="weatherBanner"></div>
 <p class="city-fact" id="cityFact"></p>
 
@@ -783,10 +812,159 @@ document.getElementById("cityFact").textContent = CITY_FACTS["Sunnyvale"];
 updateCountdown();
 fetchWeather("Sunnyvale");
 loadActivities();
+
+// FAVORITES
+let favorites = [];
+try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } catch(e) { favorites = []; }
+function saveFavorites() {
+  try { localStorage.setItem("sc_favorites", JSON.stringify(favorites)); } catch(e) {}
+  updateMyListBadge();
+}
+function updateMyListBadge() {
+  var badge = document.getElementById("mylistBadge");
+  if (!badge) return;
+  if (favorites.length > 0) { badge.style.display = "flex"; badge.textContent = favorites.length; }
+  else { badge.style.display = "none"; }
+}
+function toggleFavorite(key, activity) {
+  var idx = favorites.findIndex(function(f){ return f.key === key; });
+  if (idx >= 0) { favorites.splice(idx, 1); }
+  else { favorites.push({ key: key, name: activity.name, city: activity.city || activeCity, category: activity.category, mapsUrl: activity.mapsUrl }); }
+  saveFavorites();
+  var btn = document.querySelector(".fav-btn[data-key='" + key + "']");
+  if (btn) { var isFaved = favorites.some(function(f){ return f.key === key; }); btn.classList.toggle("faved", isFaved); btn.textContent = isFaved ? "❤️" : "🤍"; }
+}
+function openMyList() {
+  document.getElementById("mylist-panel").style.display = "block";
+  document.getElementById("mylist-overlay").style.display = "block";
+  renderMyList();
+}
+function closeMyList() {
+  document.getElementById("mylist-panel").style.display = "none";
+  document.getElementById("mylist-overlay").style.display = "none";
+}
+function renderMyList() {
+  var container = document.getElementById("mylist-items");
+  var empty = document.getElementById("mylist-empty");
+  if (favorites.length === 0) { container.innerHTML = ""; empty.style.display = "block"; return; }
+  empty.style.display = "none";
+  var CAT_EMOJI = {free:"🌳",paid:"🎟️",indoor:"🏛️",outdoor:"🌿",weekend:"📅"};
+  container.innerHTML = favorites.map(function(f, i) {
+    return "<div class='mylist-item'><div class='mylist-item-emoji'>" + (CAT_EMOJI[f.category]||"⭐") + "</div><div class='mylist-item-info'><div class='mylist-item-title'>" + (f.name||"") + "</div><div class='mylist-item-city'>📍 " + (f.city||"") + "</div></div>" +
+      (f.mapsUrl ? "<a href='" + f.mapsUrl + "' target='_blank' style='color:#1d4ed8;font-size:18px;text-decoration:none;margin-right:4px'>🗺</a>" : "") +
+      "<button class='mylist-remove' onclick='removeFav(" + i + ")'>✕</button></div>";
+  }).join("");
+}
+function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); renderCards(); }
+
+// WEEKEND AUTO-TRIGGER
+function checkWeekendMode() {
+  var day = new Date().getDay();
+  if (day === 0 || day === 6) {
+    document.getElementById("weekendBanner").style.display = "block";
+    var wb = document.querySelector(".tab-btn[data-tab='weekend']");
+    if (wb) setTab(wb);
+  }
+}
+
+// PLAN MY DAY
+var planCity=null, planVibe=null, planAge=null, planStep=1;
+function openPlan() { document.getElementById("plan-modal-bg").style.display="flex"; resetPlan(); }
+function closePlan() { document.getElementById("plan-modal-bg").style.display="none"; }
+function showPlanStep(n) { document.querySelectorAll(".plan-step").forEach(function(s,i){ s.classList.toggle("active",i+1===n); }); planStep=n; }
+function planSelectCity(btn,city) { document.querySelectorAll("#plan-step-1 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planCity=city; setTimeout(function(){ showPlanStep(2); },250); }
+function planSelectVibe(btn,vibe) { document.querySelectorAll("#plan-step-2 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planVibe=vibe; setTimeout(function(){ showPlanStep(3); },250); }
+function planSelectAge(btn,age) { document.querySelectorAll("#plan-step-3 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planAge=age; setTimeout(function(){ buildItinerary(); showPlanStep(4); },250); }
+function buildItinerary() {
+  var ITINERARIES = {
+    outdoor:[{time:"9:00 AM",icon:"☀️",activity:"Morning Nature Walk or Trail Hike",tip:"Bring water & sunscreen!"},{time:"11:00 AM",icon:"🌳",activity:"Splash Pad or Park Play",tip:"Kids love Sunnyvale's Ortega Park splash pad!"},{time:"1:00 PM",icon:"🧺",activity:"Picnic Lunch at a Scenic Spot",tip:"Pack sandwiches and fruit — save $$$"},{time:"3:00 PM",icon:"🐄",activity:"Petting Zoo or Farm Visit",tip:"Great for all ages, magic for little ones"}],
+    indoor:[{time:"10:00 AM",icon:"🏛️",activity:"Museum or Discovery Center",tip:"Children's Discovery Museum in San Jose is excellent!"},{time:"12:00 PM",icon:"🍕",activity:"Lunch Near the Museum",tip:"Check Yelp for family-friendly spots nearby"},{time:"2:00 PM",icon:"🔬",activity:"STEM Workshop or Coding Class",tip:"iD Tech and Snapology have drop-in options"},{time:"4:00 PM",icon:"📚",activity:"Library Storytime or Activity",tip:"Free! Great wind-down before heading home"}],
+    free:[{time:"9:30 AM",icon:"📚",activity:"Library Storytime",tip:"Free & air-conditioned — perfect start!"},{time:"11:00 AM",icon:"🌳",activity:"Local Park Playground",tip:"Let the kids burn energy before lunch"},{time:"1:00 PM",icon:"🧺",activity:"Home Lunch + Rest",tip:"Save money, recharge for the afternoon"},{time:"3:00 PM",icon:"💧",activity:"Splash Pad or Free Pool Hours",tip:"Many cities offer free splash pads!"}],
+    paid:[{time:"10:00 AM",icon:"🎟️",activity:"YMCA Summer Camp or Class",tip:"Sign up early — spots fill fast!"},{time:"12:30 PM",icon:"🍔",activity:"Lunch at a Family Restaurant",tip:"Make it a treat — this is a special outing"},{time:"2:00 PM",icon:"🎨",activity:"Art Studio or Dance Class",tip:"Pottery, ballet, or painting — pick their passion"},{time:"4:30 PM",icon:"🍦",activity:"Ice Cream Celebration",tip:"End every great day with ice cream 🍦"}]
+  };
+  var plan = ITINERARIES[planVibe] || ITINERARIES.outdoor;
+  var ageLabels = {"0":"babies (0–2)","1":"little ones (3–5)","2":"school kids (6–12)","3":"teens (13–19)","all":"the whole family"};
+  document.getElementById("plan-summary").textContent = "📍 " + planCity + " · Perfect for " + (ageLabels[planAge]||"the family");
+  document.getElementById("plan-itinerary-body").innerHTML = plan.map(function(item){
+    return "<div class='plan-itinerary-item'><span class='plan-time-badge'>"+item.time+"</span><div><div style='font-size:13px;font-weight:800;color:#1a1a1a'>"+item.icon+" "+item.activity+"</div><div style='font-size:11px;color:#888;margin-top:2px'>💡 "+item.tip+"</div></div></div>";
+  }).join("");
+}
+function applyPlanToApp() {
+  closePlan();
+  var cb = document.querySelector(".city-btn[data-city='"+planCity+"']"); if(cb) setCity(cb);
+  var tb = document.querySelector(".tab-btn[data-tab='"+planVibe+"']"); if(tb) setTab(tb);
+  if(planAge!=="all"){ var ab=document.querySelector(".age-btn[data-age='"+planAge+"']"); if(ab) setAge(ab); }
+}
+function resetPlan() { planCity=null; planVibe=null; planAge=null; document.querySelectorAll(".plan-option").forEach(function(b){ b.classList.remove("selected"); }); showPlanStep(1); }
+
+updateMyListBadge();
+checkWeekendMode();
+
 </script>
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
 <div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family, with AI assistance from <strong>Claude</strong> (Anthropic) and <strong>Gemini</strong> (Google).<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
   <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
-</div></div></div></body>
+</div></div></div>
+<!-- MY LIST PANEL -->
+<div id="mylist-panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div><h2>❤️ My List</h2><p style="font-size:12px;color:#888">Activities you've saved</p></div>
+    <button onclick="closeMyList()" style="background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div id="mylist-items"></div>
+  <div id="mylist-empty" style="text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:700"><div style="font-size:3rem;margin-bottom:10px">💛</div>Tap ❤️ on any activity card to save it here!</div>
+</div>
+<div id="mylist-overlay" onclick="closeMyList()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:99997;background:rgba(0,0,0,0.3)"></div>
+
+<!-- PLAN MY DAY MODAL -->
+<div id="plan-modal-bg" onclick="if(event.target===this)closePlan()">
+  <div id="plan-modal">
+    <button onclick="closePlan()" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
+    <div style="text-align:center;margin-bottom:16px"><div style="font-size:2.5rem">📅</div>
+    <h2 style="font-size:1.3rem;font-weight:900;color:#FF9900;margin:6px 0 2px">Plan My Day</h2>
+    <p style="font-size:0.82rem;color:#888">Let's build your perfect family day out!</p></div>
+    <div class="plan-step active" id="plan-step-1">
+      <p style="font-weight:800;font-size:14px;margin-bottom:4px">1️⃣ Which city?</p>
+      <div class="plan-option-grid">
+        <button class="plan-option" onclick="planSelectCity(this,'Sunnyvale')">☀️ Sunnyvale</button>
+        <button class="plan-option" onclick="planSelectCity(this,'San Jose')">🌉 San Jose</button>
+        <button class="plan-option" onclick="planSelectCity(this,'Cupertino')">🍎 Cupertino</button>
+        <button class="plan-option" onclick="planSelectCity(this,'Mountain View')">🏔️ Mountain View</button>
+        <button class="plan-option" onclick="planSelectCity(this,'Palo Alto')">🎓 Palo Alto</button>
+        <button class="plan-option" onclick="planSelectCity(this,'Saratoga')">🌸 Saratoga</button>
+        <button class="plan-option" onclick="planSelectCity(this,'Fremont')">🌉 Fremont</button>
+      </div>
+    </div>
+    <div class="plan-step" id="plan-step-2">
+      <p style="font-weight:800;font-size:14px;margin-bottom:4px">2️⃣ What's the vibe today?</p>
+      <div class="plan-option-grid">
+        <button class="plan-option" onclick="planSelectVibe(this,'outdoor')">🌞 Hot & Sunny<br><small style="font-weight:400;color:#888">Outdoor adventures</small></button>
+        <button class="plan-option" onclick="planSelectVibe(this,'indoor')">🌧️ Staying Cool<br><small style="font-weight:400;color:#888">Indoor fun</small></button>
+        <button class="plan-option" onclick="planSelectVibe(this,'free')">💸 Free Only<br><small style="font-weight:400;color:#888">Zero budget</small></button>
+        <button class="plan-option" onclick="planSelectVibe(this,'paid')">🎟️ Special Outing<br><small style="font-weight:400;color:#888">Worth the splurge</small></button>
+      </div>
+    </div>
+    <div class="plan-step" id="plan-step-3">
+      <p style="font-weight:800;font-size:14px;margin-bottom:4px">3️⃣ Who's coming along?</p>
+      <div class="plan-option-grid">
+        <button class="plan-option" onclick="planSelectAge(this,'0')">👶 Baby (0–2)</button>
+        <button class="plan-option" onclick="planSelectAge(this,'1')">🧸 Little One (3–5)</button>
+        <button class="plan-option" onclick="planSelectAge(this,'2')">🎒 School Kid (6–12)</button>
+        <button class="plan-option" onclick="planSelectAge(this,'3')">🛹 Teen (13–19)</button>
+        <button class="plan-option" onclick="planSelectAge(this,'all')" style="grid-column:span 2">👨‍👩‍👧‍👦 Mixed Ages — All Welcome!</button>
+      </div>
+    </div>
+    <div class="plan-step" id="plan-step-4">
+      <p style="font-weight:800;font-size:15px;margin-bottom:2px">🎉 Your Perfect Day Itinerary!</p>
+      <p id="plan-summary" style="font-size:12px;color:#888;margin-bottom:10px"></p>
+      <div class="plan-itinerary" id="plan-itinerary-body"></div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <button onclick="applyPlanToApp()" style="flex:1;padding:11px;border-radius:99px;border:none;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">✅ Show These Activities</button>
+        <button onclick="resetPlan()" style="flex:1;padding:11px;border-radius:99px;border:2px solid #eee;background:#fff;color:#666;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">🔄 Start Over</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
 </html>
