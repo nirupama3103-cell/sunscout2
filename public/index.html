@@ -690,6 +690,7 @@ function renderCards() {
 }
 
 function showSkeleton() {
+  setTimeout(function(){ if(allActivities.length===0) renderCards(); },1500);
   var skelCount = window.innerWidth < 700 ? 2 : 4;
   document.getElementById("statusBar").innerHTML = "<span class=\"spinner\"></span> Loading activities in "+activeCity+"…";
   document.getElementById("grid").innerHTML = Array(skelCount).fill("").map(function(){
