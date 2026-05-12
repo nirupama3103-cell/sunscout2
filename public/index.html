@@ -1046,12 +1046,10 @@ function updateBnavBadge() {
   }
 }
 // Sync bottom nav when tab changes via top bar
-var _origSetTab = setTab;
-setTab = function(btn) {
-  _origSetTab(btn);
-  var tab = btn.dataset.tab;
+// Sync bottom nav when tab changes
+function syncBnav(tab) {
   document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
-  var match = document.querySelector(".bnav-btn[onclick*=\"'" + tab + "'\"]");
+  var match = document.querySelector(".bnav-btn[onclick*=\'" + tab + "\']");
   if(match) match.classList.add("active");
 }
 
