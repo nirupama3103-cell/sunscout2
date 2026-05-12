@@ -458,7 +458,6 @@ const HARDCODED_FREE = [
   { id:"hf-fr-p1", city:"Fremont", source:"google", name:"Fremont YMCA Summer Camp", desc:"Full day summer camps with swimming sports and arts for ages 5-12", address:"Fremont, CA 94538", phone:"(510) 494-1412", website:"https://www.ymca.org", image:null, isFree:false, price:"From $199", stars:4, startDate:"2026-06-09", endDate:"2026-08-14", ages:["1","2","3"], a11y:["♿ Wheelchair"], mapsUrl:"https://www.google.com/maps/search/YMCA+Fremont" },
   { id:"hf-fr-p2", city:"Fremont", source:"google", name:"Snapology STEM Classes Fremont", desc:"Hands-on STEM coding and robotics using LEGO for ages 2-14", address:"Fremont, CA 94538", phone:null, website:"https://www.snapology.com", image:null, isFree:false, price:"From $25", stars:4, startDate:"2026-06-01", endDate:"2026-08-31", ages:["0","1","2"], a11y:[], mapsUrl:"https://www.google.com/maps/search/Snapology+Fremont" },
   { id:"hf-fr-p3", city:"Fremont", source:"google", name:"KidStrong Fremont", desc:"Athletic and cognitive development classes for kids ages 1-11", address:"Fremont, CA 94538", phone:null, website:"https://kidstrong.com", image:null, isFree:false, price:"From $35", stars:5, startDate:"2026-06-01", endDate:"2026-08-31", ages:["0","1","2"], a11y:[], mapsUrl:"https://www.google.com/maps/search/KidStrong+Fremont" },
-];
 
 
   // ── EXTRA FREE SUNNYVALE ──
