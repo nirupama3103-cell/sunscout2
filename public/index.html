@@ -60,6 +60,7 @@ img{max-width:100%;display:block}
 .search-input:focus{border-color:#FF9900}
 .search-clear{font-size:12px;padding:4px 10px;border-radius:99px;border:none;background:#f0f0f0;color:#666}
 .age-bar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 0;justify-content:center}
+@media(max-width:640px){.age-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;-webkit-overflow-scrolling:touch;}.age-bar::-webkit-scrollbar{display:none}.age-btn{flex:0 0 auto}}
 .age-btn{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;border:1.5px solid rgba(0,0,0,.12);background:#fff;color:#666;transition:all .15s}
 .age-btn.on{background:#1a1a1a;color:#fff;border-color:transparent}
 .age-desc{font-weight:400;opacity:.8;font-size:11px}
@@ -362,7 +363,6 @@ html { scroll-behavior: smooth; }
 </div>
 
 <div class="age-bar" role="group" aria-label="Filter by age">
-  <button class="age-btn on" data-age="all" onclick="setAge(this)">🎯 All Ages</button>
   <button class="age-btn" data-age="0" onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
   <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
   <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
