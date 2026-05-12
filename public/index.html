@@ -386,7 +386,8 @@ html { scroll-behavior: smooth; }
 
 <script>
 // ── CHANGE 1: PAGE_SIZE set to 9999 — show ALL activities (full audit, no pagination limit) ──
-const PAGE_SIZE = 9999;
+function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
+const PAGE_SIZE = getPageSize();
 let activeTab     = "free";
 let activeCity    = "Sunnyvale";
 let activeAge     = "all";
@@ -761,7 +762,7 @@ async function loadActivities() {
       }
       sessionStorage.removeItem(ck); // force fresh fetch
     } else {
-      allActivities = JSON.parse(cd); showCount = PAGE_SIZE; renderCards(); return;
+      allActivities = JSON.parse(cd); showCount = getPageSize(); renderCards(); return;
     }
   }
   showSkeleton();
@@ -776,7 +777,7 @@ async function loadActivities() {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
     try { sessionStorage.setItem(ck, JSON.stringify(allActivities)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
-    showCount = PAGE_SIZE;
+    showCount = getPageSize();
     var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
     renderCards();
@@ -802,7 +803,7 @@ function renderCards() {
   var total   = items.length;
   var visible = items.slice(0, showCount);
   status.innerHTML = "Showing <strong>"+visible.length+"</strong> of <strong>"+total+"</strong> activit"+(total===1?"y":"ies")+" in <strong>"+activeCity+"</strong>";
-  if (wrap) wrap.style.display = total > PAGE_SIZE ? "block" : "none";
+  if (wrap) wrap.style.display = total > getPageSize() ? "block" : "none";
   if (mbtn) mbtn.disabled = visible.length >= total;
   if (visible.length === 0) {
     grid.innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🌻</div><h2>"+(searchQuery?"No results for &quot;"+searchQuery+"&quot;":"No activities found!")+"</h2><p>"+(searchQuery?"Try a different search term.":"Try a different tab or age filter.")+"</p><p>Meanwhile — 3 FREE DIY activities:</p><div class=\"diy-grid\">"+DIY.map(function(d){ return "<div class=\"diy-card\"><strong>"+d.title+"</strong><p>"+d.desc+"</p></div>"; }).join("")+"</div></div>";
@@ -873,7 +874,7 @@ function setCity(btn) {
   }
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   btn.classList.add("on");
-  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = PAGE_SIZE;
+  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = getPageSize();
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
@@ -886,7 +887,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = PAGE_SIZE;
+  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize();
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   if (activeCity) loadActivities();
@@ -901,11 +902,11 @@ function setAge(btn) {
     document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.remove("on"); });
     btn.classList.add("on"); activeAge = clicked;
   }
-  showCount = PAGE_SIZE; if (activeCity) loadActivities();
+  showCount = getPageSize(); if (activeCity) loadActivities();
 }
 
 function setSearch(val) {
-  searchQuery = val.trim(); showCount = PAGE_SIZE;
+  searchQuery = val.trim(); showCount = getPageSize();
   var cl = document.getElementById("searchClear"); if (cl) cl.style.display = val ? "block" : "none";
   renderCards();
 }
@@ -914,12 +915,12 @@ function clearSearch() {
   searchQuery = "";
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   var cl = document.getElementById("searchClear"); if (cl) cl.style.display = "none";
-  showCount = PAGE_SIZE; renderCards();
+  showCount = getPageSize(); renderCards();
 }
 
 // card clicks handled by document listener
 function showMore() {
-  showCount += PAGE_SIZE; renderCards();
+  showCount += getPageSize(); renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
 }
 
