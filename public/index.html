@@ -43,7 +43,7 @@ img{max-width:100%;display:block}
 .tab-icon{font-size:1.5rem;line-height:1}
 .tab-label{font-size:11px;font-weight:900;text-align:center;line-height:1.2}
 .tab-sub{font-size:9px;font-weight:600;opacity:.7;text-align:center}
-.tab-free-dot{position:absolute;top:5px;right:5px;background:var(--green);color:#fff;font-size:9px;font-weight:900;padding:1px 5px;border-radius:5px}
+.tab-count-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,0.18);color:#fff;font-size:9px;font-weight:900;padding:1px 6px;border-radius:99px;display:none}.tab-free-dot{position:absolute;top:5px;right:5px;background:var(--green);color:#fff;font-size:9px;font-weight:900;padding:1px 5px;border-radius:5px}
 .tab-btn[data-tab="free"]{background:var(--tab1);color:#5A3E00}
 .tab-btn[data-tab="free"].on{background:#FF9900;color:#fff}
 .tab-btn[data-tab="paid"]{background:var(--tab2);color:#fff}
@@ -299,12 +299,12 @@ html { scroll-behavior: smooth; }
 
 /* Pull-to-refresh feel */
 .grid { transition: opacity .2s; }
-</style>
+#back-to-top{position:fixed;bottom:90px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:76px;right:14px}}</style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
-<div class="header">
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button><div class="header">
   <div class="logo">Sun<span>Scout</span> 🌤️</div>
   <p class="tagline">Your Summer Adventure, Simplified.</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
@@ -329,27 +329,27 @@ html { scroll-behavior: smooth; }
     <span class="tab-free-dot">$0</span>
     <span class="tab-icon">🆓</span>
     <span class="tab-label">Free Summer Activities</span>
-    <span class="tab-sub">Parks · Libraries · Splash Pads</span>
+    <span class="tab-sub">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
   </button>
   <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🎟️</span>
     <span class="tab-label">Paid Summer Activities</span>
-    <span class="tab-sub">YMCA · STEM · Cooking</span>
+    <span class="tab-sub">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
   </button>
   <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🏛️</span>
     <span class="tab-label">Indoor Activities</span>
-    <span class="tab-sub">Museums · Pools · Workshops</span>
+    <span class="tab-sub">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
   </button>
   <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🌳</span>
     <span class="tab-label">Outdoor Activities</span>
-    <span class="tab-sub">Hiking · Petting Zoos · Farms</span>
+    <span class="tab-sub">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
   </button>
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">📅</span>
     <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun Only</span>
+    <span class="tab-sub">Sat &amp; Sun Only</span><span class="tab-count-badge" id="badge-weekend"></span>
   </button>
 </div>
 
@@ -388,6 +388,7 @@ html { scroll-behavior: smooth; }
 // ── CHANGE 1: PAGE_SIZE set to 9999 — show ALL activities (full audit, no pagination limit) ──
 function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
 const PAGE_SIZE = getPageSize();
+window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
 let activeTab     = "free";
 let activeCity    = "Sunnyvale";
 let activeAge     = "all";
@@ -395,6 +396,7 @@ let searchQuery   = "";
 let showCount     = PAGE_SIZE;
 let allActivities = [];
 
+function updateTabBadge(tab,count){var b=document.getElementById("badge-"+tab);if(!b)return;if(count>0){b.textContent=count;b.style.display="inline-block";}else{b.style.display="none";}}
 const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
 const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
 const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
@@ -777,7 +779,7 @@ async function loadActivities() {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
     try { sessionStorage.setItem(ck, JSON.stringify(allActivities)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
-    showCount = getPageSize();
+    showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
     var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
     renderCards();
@@ -874,7 +876,7 @@ function setCity(btn) {
   }
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   btn.classList.add("on");
-  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = getPageSize();
+  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
@@ -887,7 +889,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize();
+  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   if (activeCity) loadActivities();
@@ -906,7 +908,7 @@ function setAge(btn) {
 }
 
 function setSearch(val) {
-  searchQuery = val.trim(); showCount = getPageSize();
+  searchQuery = val.trim(); showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var cl = document.getElementById("searchClear"); if (cl) cl.style.display = val ? "block" : "none";
   renderCards();
 }
