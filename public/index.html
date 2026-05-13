@@ -114,7 +114,7 @@ img{max-width:100%;display:block}
 .skel-line{height:13px;margin:5px 0;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
 .skel-short{width:60%}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:20px 16px 20px;margin-top:20px}
+.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:12px 16px 16px;margin-top:8px}
 .detail-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
 .detail-modal{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;font-family:Nunito,sans-serif;position:relative;}
 .detail-modal-img{width:100%;height:200px;object-fit:cover;border-radius:20px 20px 0 0;}
@@ -214,7 +214,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   /* Add bottom padding so content isn't hidden behind nav */
   #main { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
   .show-more-wrap { padding-bottom: 20px; }
-  .footer { padding-bottom: 80px; }
+  .footer { padding-bottom: 70px; }
 
   /* Larger tap targets */
   .city-btn { padding: 9px 18px; font-size: 14px; }
@@ -842,6 +842,7 @@ function renderCards() {
       "<div class=\"card-foot\">"+
         "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
         (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
+        "<button class=\"btn\" style=\"margin-left:auto;font-size:15px;border:none;background:none;padding:4px 8px\" onclick=\"event.stopPropagation();var k=activeTab+'_'+i;var already=favorites.some(function(x){return x.key===k;});if(already){favorites=favorites.filter(function(x){return x.key!==k;});}else{favorites.push({key:k,name:a.name,city:a.city||activeCity,category:activeTab,mapsUrl:a.mapsUrl});}saveFavorites();this.textContent=favorites.some(function(x){return x.key===k;})?'❤️':'🤍';\">"+(favorites.some(function(f){return f.key===activeTab+"_"+i;})?"❤️":"🤍")+"</button>"+
         "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"margin-left:auto;opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
       "</div>"+
     "</article>";
