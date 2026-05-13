@@ -1192,39 +1192,6 @@ function openNotesAll() {
 
 var currentNoteKey = null;
 // Mini calendar state
-var calYear=new Date().getFullYear(), calMonth=new Date().getMonth(), calSelectedDate=null;
-var CAL_MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-function renderCal() {
-  var label=document.getElementById('cal-month-label'), grid=document.getElementById('cal-grid');
-  if (!label || !grid) return;
-  label.textContent = CAL_MONTHS[calMonth] + ' ' + calYear;
-  var first=new Date(calYear,calMonth,1).getDay(), days=new Date(calYear,calMonth+1,0).getDate();
-  var today=new Date(), td=today.getDate(), tm=today.getMonth(), ty=today.getFullYear();
-  var h='';
-  for(var i=0;i<first;i++) h+='<span></span>';
-  for(var d=1;d<=days;d++){
-    var iT=(d===td&&calMonth===tm&&calYear===ty);
-    var iS=calSelectedDate&&calSelectedDate.d===d&&calSelectedDate.m===calMonth&&calSelectedDate.y===calYear;
-    h+='<button onclick="calPickDay('+d+')" style="font-size:12px;font-weight:700;padding:5px 0;border-radius:7px;cursor:pointer;border:none;background:'+(iS?'#FF9900':iT?'#fff3e0':'transparent')+';color:'+(iS?'#fff':iT?'#FF9900':'#1a1a1a')+';width:100%">'+d+'</button>';
-  }
-  grid.innerHTML=h;
-}
-function calNav(dir){
-  calMonth+=dir;
-  if(calMonth>11){calMonth=0;calYear++;}
-  if(calMonth<0){calMonth=11;calYear--;}
-  renderCal();
-}
-function calPickDay(d){
-  calSelectedDate={d:d,m:calMonth,y:calYear};
-  renderCal();
-  var info=document.getElementById('cal-selected-info');
-  if(!info)return;
-  var ds=CAL_MONTHS[calMonth]+' '+d+', '+calYear;
-  info.style.display='flex';
-  info.innerHTML='<span style="flex:1">📌 <strong>'+ds+'</strong></span><button onclick="addToGCal(''+ds+'')" style="background:linear-gradient(135deg,#4285F4,#1a73e8);color:#fff;border:none;border-radius:99px;padding:5px 14px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:Nunito,sans-serif">➕ Google Cal</button>';
-}
 function addToGCal(dateStr){
   var note=((document.getElementById('notes-input')||{}).value||'SunScout Activity').trim();
   var dt=new Date(dateStr), p=function(n){return n<10?'0'+n:''+n;};
