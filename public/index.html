@@ -1431,12 +1431,5 @@ function scCalGo(ds){
   var d=dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());
   window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent((note.split('\n')[0]||'SunScout').substring(0,60))+'&dates='+d+'/'+d,'_blank');
 }
-var _origOpenNotes=openNotes;
-function openNotes(key,name){
-  _origOpenNotes(key,name);
-  SC_CAL.sel=null;SC_CAL.y=new Date().getFullYear();SC_CAL.m=new Date().getMonth();
-  var info=document.getElementById('sc-cal-info');if(info)info.style.display='none';
-  setTimeout(scRenderCal,100);
-}
 </script>
 </body>
