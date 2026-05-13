@@ -1,0 +1,22 @@
+{
+  "name": "SunScout \u2013 Summer Activities",
+  "short_name": "SunScout",
+  "description": "Free & paid summer activities for Bay Area kids",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF9F0",
+  "theme_color": "#FF9900",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/sunnyvale market.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/sunnyvale market.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
