@@ -308,6 +308,10 @@ html { scroll-behavior: smooth; }
   <div class="logo">Sun<span>Scout</span> 🌤️</div>
   <p class="tagline">Your Summer Adventure, Simplified.</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+    <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">📅 Plan My Day</button>
+    <button onclick="openMyList()" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
+  </div>
 </div>
 
 <div class="weekend-banner" id="weekendBanner">🎉 It's the Weekend! Showing all-city weekend activities — enjoy your family time! 🌟</div>
@@ -694,6 +698,22 @@ document.addEventListener("click", function(e) {
     if (i !== undefined) shareActivity(i);
   }
 });
+function toggleDetailFav(i) {
+  var a = window._activities[i];
+  if (!a) return;
+  var favKey = activeTab + "_" + i;
+  var idx = favorites.findIndex(function(f){ return f.key === favKey; });
+  if (idx >= 0) { favorites.splice(idx, 1); }
+  else { favorites.push({ key: favKey, name: a.name, city: a.city || activeCity, category: activeTab, mapsUrl: a.mapsUrl }); }
+  saveFavorites();
+  var isFaved = favorites.some(function(f){ return f.key === favKey; });
+  var btn = document.getElementById("detail-fav-btn");
+  if (btn) {
+    btn.textContent = isFaved ? "❤️ Saved!" : "🤍 Save to List";
+    btn.style.background = isFaved ? "linear-gradient(135deg,#ef4444,#b91c1c)" : "linear-gradient(135deg,#ff4e50,#f9d423)";
+  }
+  renderCards();
+}
 function closeDetail() {
   document.getElementById("detail-modal-bg").style.display = "none";
   document.body.style.overflow = "";
@@ -950,6 +970,13 @@ function saveFavorites() {
   try { localStorage.setItem("sc_favorites", JSON.stringify(favorites)); } catch(e) {}
   updateMyListBadge();
   updateBnavBadge();
+  updateHeaderMyListBadge();
+}
+function updateHeaderMyListBadge() {
+  var badge = document.getElementById("headerMyListBadge");
+  if (!badge) return;
+  if (favorites.length > 0) { badge.style.display = "flex"; badge.textContent = favorites.length; }
+  else { badge.style.display = "none"; }
 }
 function updateMyListBadge() {
   var badge = document.getElementById("mylistBadge");
