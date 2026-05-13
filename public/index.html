@@ -212,7 +212,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   #bottom-nav { display: block; }
 
   /* Add bottom padding so content isn't hidden behind nav */
-  #main { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  #main { padding-bottom: calc(80px + env(safe-area-inset-bottom)); min-height: unset; }
   .show-more-wrap { padding-bottom: 80px; }
   .footer { padding-bottom: 20px; }
 
@@ -375,7 +375,7 @@ html { scroll-behavior: smooth; }
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
 
-<main id="main" style="min-height:auto">
+<main id="main">
   <div class="grid" id="grid"></div>
   <div class="show-more-wrap" id="showMoreWrap" style="display:none">
     <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show More Activities ↓</button>
@@ -699,6 +699,13 @@ document.addEventListener("click", function(e) {
     if (i !== undefined) shareActivity(i);
   }
 });
+function toggleCardFav(btn, k, a) {
+  var already = favorites.some(function(x){ return x.key===k; });
+  if (already) { favorites = favorites.filter(function(x){ return x.key!==k; }); }
+  else { favorites.push({ key:k, name:a.name, city:a.city||activeCity, category:activeTab, mapsUrl:a.mapsUrl }); }
+  saveFavorites();
+  btn.textContent = favorites.some(function(x){ return x.key===k; }) ? "❤️" : "🤍";
+}
 function toggleDetailFav(i) {
   var a = window._activities[i];
   if (!a) return;
