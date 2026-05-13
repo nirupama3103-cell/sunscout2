@@ -93,7 +93,7 @@ img{max-width:100%;display:block}
 .date-line{font-size:11px;color:#666}
 .date-line strong{color:#1a1a1a}
 .card-foot{display:flex;gap:6px;padding:7px 11px 11px;flex-wrap:wrap;margin-top:auto}
-.btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:transparent;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
+.btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:#f8f8f8;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
 .btn:hover{background:#f3f3f3}
 .btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
 .btn-map:hover{background:#bfdbfe}
@@ -375,12 +375,12 @@ html { scroll-behavior: smooth; }
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
 
-<main id="main">
+<main id="main" style="overflow:hidden">
   <div class="grid" id="grid"></div>
   <div class="show-more-wrap" id="showMoreWrap" style="display:none">
     <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show More Activities ↓</button>
   </div>
-  <div style="display:flex;gap:10px;justify-content:center;padding:10px 16px 16px;flex-wrap:wrap">
+  <div style="display:flex;gap:8px;justify-content:center;padding:8px 16px 8px;flex-wrap:wrap;margin-top:0">
     <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-weight:800;cursor:pointer;font-size:13px;font-family:Nunito,sans-serif">📤 Share SunScout</button>
     <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">🌤️ About SunScout</button>
   </div>
@@ -388,7 +388,7 @@ html { scroll-behavior: smooth; }
 
 <div class="footer">
   <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p>
-  <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+  
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
 </div>
 
