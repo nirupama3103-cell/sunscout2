@@ -390,6 +390,9 @@ html { scroll-behavior: smooth; }
 
 <script>
 // ── CHANGE 1: PAGE_SIZE set to 9999 — show ALL activities (full audit, no pagination limit) ──
+let favorites = [];
+try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } catch(e) { favorites = []; }
+
 function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
 const PAGE_SIZE = getPageSize();
 window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
@@ -971,9 +974,7 @@ updateCountdown();
 fetchWeather("Sunnyvale");
 loadActivities();
 
-// FAVORITES
-let favorites = [];
-try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } catch(e) { favorites = []; }
+
 function saveFavorites() {
   try { localStorage.setItem("sc_favorites", JSON.stringify(favorites)); } catch(e) {}
   updateMyListBadge();
