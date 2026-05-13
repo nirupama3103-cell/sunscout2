@@ -92,7 +92,7 @@ img{max-width:100%;display:block}
 .info{display:flex;gap:5px;font-size:11px;color:#666;line-height:1.4;align-items:flex-start}
 .date-line{font-size:11px;color:#666}
 .date-line strong{color:#1a1a1a}
-.card-foot{display:flex;gap:6px;padding:7px 11px 11px;flex-wrap:wrap;margin-top:auto}
+.card-foot{display:flex;gap:6px;padding:7px 11px 11px;align-items:center;flex-wrap:nowrap;margin-top:auto}
 .btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:#f8f8f8;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
 .btn:hover{background:#f3f3f3}
 .btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
@@ -899,9 +899,10 @@ function renderCards() {
       "<div class=\"card-foot\">"+
         "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
         (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
-        "<button class=\"btn\" style=\"margin-left:auto;font-size:18px;border:none;background:none;padding:4px 8px;color:#ff4e50\" onclick=\"event.stopPropagation();cardHeart(this,'"+activeTab+"_"+i+"',window._activities["+i+"]);\">"+(favorites.some(function(f){return f.key===activeTab+"_"+i;})?"❤️":"🤍")+"</button>"+
-        "<button class=\"btn\" style=\"font-size:14px;border:none;background:none;padding:4px 8px\" onclick=\"event.stopPropagation();openNotes(activeTab+'_'+i,a.name||'Activity');\" title=\"Add note\">"+( hasNote(activeTab+"_"+i) ? "📝" : "🗒️")+"</button>"+
-        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"margin-left:auto;opacity:0.8;font-size:12px;background:#f0f0f0;color:#666\" title=\"Report outdated info\">📢</a>"+
+        "<span style=\"flex:1\"></span>"+
+        "<button class=\"btn\" style=\"font-size:18px;border:none;background:none;padding:4px 6px;color:#ff4e50\" onclick=\"event.stopPropagation();cardHeart(this,'"+activeTab+"_"+i+"',window._activities["+i+"]);\">"+( favorites.some(function(f){return f.key===activeTab+"_"+i;})?"❤️":"🤍")+"</button>"+
+        "<button class=\"btn\" style=\"font-size:16px;border:none;background:none;padding:4px 6px\" onclick=\"event.stopPropagation();openNotes(activeTab+'_'+i,a.name||'Activity');\" title=\"Add note\">"+( hasNote(activeTab+"_"+i) ? "📝" : "🗒️")+"</button>"+
+        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.7;font-size:11px;background:#f0f0f0;color:#666;padding:4px 6px\" title=\"Report outdated info\">📢</a>"+
       "</div>"+
     "</article>";
   }).join("");
