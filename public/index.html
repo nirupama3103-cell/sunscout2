@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#FFF9F0;color:#1a1a1a;min-height:100dvh}
+body{font-family:'Nunito',sans-serif;background:#FFF9F0;color:#1a1a1a;min-height:100vh}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
@@ -68,7 +68,7 @@ img{max-width:100%;display:block}
 .status-bar strong{color:#1a1a1a}
 .spinner{display:inline-block;width:20px;height:20px;border:3px solid #eee;border-top-color:#FF9900;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0;margin-bottom:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr)}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
@@ -92,12 +92,12 @@ img{max-width:100%;display:block}
 .info{display:flex;gap:5px;font-size:11px;color:#666;line-height:1.4;align-items:flex-start}
 .date-line{font-size:11px;color:#666}
 .date-line strong{color:#1a1a1a}
-.card-foot{display:flex;gap:6px;padding:7px 11px 11px;align-items:center;flex-wrap:nowrap;margin-top:auto}
-.btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:#f8f8f8;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
+.card-foot{display:flex;gap:6px;padding:7px 11px 11px;flex-wrap:wrap;margin-top:auto}
+.btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:transparent;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
 .btn:hover{background:#f3f3f3}
 .btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
 .btn-map:hover{background:#bfdbfe}
-.show-more-wrap{text-align:center;padding:20px 16px 0;margin-bottom:0}
+.show-more-wrap{text-align:center;padding:20px 16px;margin-bottom:0}
 .show-more-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;padding:10px 32px;border-radius:99px;border:2px solid #FF9900;background:#fff;color:#FF9900;cursor:pointer;transition:all .15s}
 .show-more-btn:hover{background:#FF9900;color:#fff}
 .show-more-btn:disabled{opacity:.4;cursor:not-allowed}
@@ -114,7 +114,7 @@ img{max-width:100%;display:block}
 .skel-line{height:13px;margin:5px 0;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
 .skel-short{width:60%}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:6px 16px 6px;margin-top:2px;background:#FFF9F0}
+.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:12px 16px 16px;margin-top:8px}
 .detail-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
 .detail-modal{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;font-family:Nunito,sans-serif;position:relative;}
 .detail-modal-img{width:100%;height:200px;object-fit:cover;border-radius:20px 20px 0 0;}
@@ -174,11 +174,67 @@ img{max-width:100%;display:block}
 .mylist-remove{background:none;border:none;font-size:16px;cursor:pointer;color:#aaa;flex-shrink:0}
 .mylist-remove:hover{color:#ef4444}
 
+/* ── FIX 1: Desktop Action Bar — Plan Day + My List (hidden on mobile, bottom nav handles it) ── */
+.action-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px 0;
+  flex-wrap: wrap;
+}
+@media(max-width: 640px) {
+  .action-bar { display: none !important; }
+}
+.action-bar-plan {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: Nunito, sans-serif;
+  box-shadow: 0 2px 10px rgba(17,153,142,.3);
+  transition: transform .15s, box-shadow .15s;
+}
+.action-bar-plan:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(17,153,142,.4); }
+.action-bar-mylist {
+  position: relative;
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: Nunito, sans-serif;
+  box-shadow: 0 2px 10px rgba(255,78,80,.3);
+  transition: transform .15s, box-shadow .15s;
+}
+.action-bar-mylist:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255,78,80,.4); }
+.action-bar-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+
 /* ── MOBILE APP-LIKE POLISH ── */
-/* Safe area for notch/home bar */
 body { padding-bottom: env(safe-area-inset-bottom); }
 
-/* Bottom nav bar */
 #bottom-nav {
   display: none;
   position: fixed;
@@ -188,30 +244,17 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
   z-index: 9990;
   box-shadow: 0 -2px 12px rgba(0,0,0,.08);
-  /* Extend bg below home indicator */
-  padding-bottom: max(8px, env(safe-area-inset-bottom));
-  margin-bottom: 0;
 }
-/* Kill any gap below bottom nav */
-#bottom-nav::after {
-  content: '';
-  display: block;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: env(safe-area-inset-bottom);
-  background: #fff;
-  z-index: 9989;
-}
-.bnav-items { display: flex; justify-content: flex-start; align-items: center; overflow-x: auto; scrollbar-width: none; padding: 0 8px; gap: 0; }
+.bnav-items { display: flex; justify-content: space-around; align-items: center; }
 .bnav-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
   background: none; border: none; cursor: pointer;
-  font-family: Nunito, sans-serif; padding: 4px 6px;
-  color: #aaa; transition: color .15s; flex: 1; min-width: 0;
+  font-family: Nunito, sans-serif; padding: 4px 12px;
+  color: #aaa; transition: color .15s; flex: 1;
 }
 .bnav-btn.active { color: #FF9900; }
-.bnav-btn .bnav-icon { font-size: 1.25rem; line-height: 1; }
-.bnav-btn .bnav-label { font-size: 9px; font-weight: 800; }
+.bnav-btn .bnav-icon { font-size: 1.4rem; line-height: 1; }
+.bnav-btn .bnav-label { font-size: 10px; font-weight: 800; }
 .bnav-badge {
   position: absolute; top: -3px; right: -3px;
   background: #FF9900; color: #fff;
@@ -221,19 +264,12 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 }
 
 @media(max-width: 640px) {
-  /* Show bottom nav on mobile */
   #bottom-nav { display: block; }
-
-  /* Add bottom padding so content isn't hidden behind nav */
-  #main { padding-bottom: 0; min-height: unset; }
-  .show-more-wrap{text-align:center;padding:20px 16px 0;margin-bottom:0}
-  .footer { padding-bottom: 6px; background:#FFF9F0; }
-
-  /* Larger tap targets */
+  #main { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .show-more-wrap { padding-bottom: 20px; }
+  .footer { padding-bottom: 70px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
   .age-btn { padding: 8px 16px; font-size: 13px; }
-
-  /* Tab bar scrolls horizontally on mobile */
   .tab-bar {
     flex-wrap: nowrap !important;
     overflow-x: auto;
@@ -253,8 +289,6 @@ body { padding-bottom: env(safe-area-inset-bottom); }
     max-width: 120px !important;
     scroll-snap-align: start;
   }
-
-  /* City bar scrolls horizontally */
   .city-bar {
     flex-wrap: nowrap !important;
     overflow-x: auto;
@@ -266,15 +300,9 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
-
-  /* Cards — 2 col already, make them taller/nicer */
   .card-img-wrap { aspect-ratio: 16/10; }
   .card-title { font-size: 12px; }
-
-  /* Bigger logo */
   .logo { font-size: 2rem; }
-
-  /* Plan My Day and My List modals full screen on mobile */
   #plan-modal { 
     border-radius: 20px 20px 0 0;
     position: fixed;
@@ -285,60 +313,35 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   }
   #plan-modal-bg { align-items: flex-end !important; padding: 0 !important; }
   #mylist-panel { width: 100% !important; }
-
-  /* Pull to refresh indicator area */
   .header { padding-top: 16px; }
-
-  /* Action buttons wrap nicer */
   .action-bar { gap: 8px !important; }
   .action-bar button { font-size: 12px !important; padding: 8px 14px !important; }
-
-  /* Search input bigger on mobile */
-  #searchInput { font-size: 16px !important; } /* prevents iOS zoom */
-
-  /* Weather banner */
+  #searchInput { font-size: 16px !important; }
   .weather-banner { font-size: 13px; padding: 10px 14px; margin: 10px 10px 0; }
-
-  /* Hide desktop share/about in action bar — shown in bottom nav */
   .hide-mobile { display: none !important; }
 }
 
-/* Smooth scrolling */
-html { scroll-behavior: smooth; min-height: 100dvh; background: #FFF9F0; }
-
-/* Touch feedback */
+html { scroll-behavior: smooth; }
 .card { -webkit-tap-highlight-color: transparent; }
 .city-btn, .tab-btn, .age-btn { -webkit-tap-highlight-color: transparent; }
-
-/* Pull-to-refresh feel */
 .grid { transition: opacity .2s; }
 #back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}</style>
-<link rel="manifest" href="/manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="SunScout">
-<meta name="theme-color" content="#FF9900">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
-<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button><div class="header">
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
+<div class="header">
   <div class="logo">Sun<span>Scout</span> 🌤️</div>
   <p class="tagline">Your Summer Adventure, Simplified.</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
-  <div style="display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:nowrap">
-    <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">📅 Plan My Day</button>
-    <button onclick="openNotesAll()" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">📝 Notes</button>
-    <button onclick="openMyList()" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
-  </div>
 </div>
 
 <div class="weekend-banner" id="weekendBanner">🎉 It's the Weekend! Showing all-city weekend activities — enjoy your family time! 🌟</div>
 <div class="weather-banner" id="weatherBanner"></div>
 <p class="city-fact" id="cityFact"></p>
 
-<nav class="city-bar" role="navigation" aria-label="Filter by city" aria-label="Select city">
+<nav class="city-bar" aria-label="Select city">
   <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">☀️ Sunnyvale</button>
   <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">🌉 San Jose</button>
   <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">🍎 Cupertino</button>
@@ -377,6 +380,15 @@ html { scroll-behavior: smooth; min-height: 100dvh; background: #FFF9F0; }
   </button>
 </div>
 
+<!-- ── FIX 1: Desktop action bar — Plan Day + My List (hidden on mobile via CSS) ── -->
+<div class="action-bar">
+  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
+  <button class="action-bar-mylist" id="desktopMyListBtn" onclick="openMyList()">
+    ❤️ My List
+    <span class="action-bar-badge" id="desktopMyListBadge"></span>
+  </button>
+</div>
+
 <div class="search-wrap">
   <span class="search-icon">🔍</span>
   <input type="search" id="searchInput" class="search-input"
@@ -395,25 +407,21 @@ html { scroll-behavior: smooth; min-height: 100dvh; background: #FFF9F0; }
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
 
-<main id="main" style="overflow:hidden">
+<main id="main">
   <div class="grid" id="grid"></div>
   <div class="show-more-wrap" id="showMoreWrap" style="display:none">
     <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show More Activities ↓</button>
   </div>
-  <div style="display:flex;gap:10px;justify-content:center;padding:8px 16px 12px;flex-wrap:nowrap;align-items:center">
-    <button onclick="openNotes('general','My SunScout Notes')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:9px 18px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap">📝 Notes</button>
-    <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free &amp; paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:9px 18px;font-weight:800;cursor:pointer;font-size:13px;font-family:Nunito,sans-serif;white-space:nowrap">📤 Share</button>
-    <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:9px 18px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap">🌤️ About</button>
-  </div>
-  
 </main>
-<footer class="footer" role="contentinfo"><div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:8px;"><button onclick="openAbout()" style="background:none;border:none;color:#FF9900;font-weight:800;font-size:12px;cursor:pointer;font-family:Nunito,sans-serif;padding:0;">🌤️ About</button><span style="color:#ddd">|</span><button onclick="openPrivacy()" style="background:none;border:none;color:#888;font-weight:700;font-size:12px;cursor:pointer;font-family:Nunito,sans-serif;padding:0;">🔒 Privacy &amp; Terms</button><span style="color:#ddd">|</span><a href="mailto:sunscout2026@gmail.com" style="color:#888;font-weight:700;font-size:12px;">📬 Contact Us</a></div><p style="font-size:11px;color:#bbb;margin-bottom:4px;">💾 Favorites &amp; notes saved only on your device — we never see them.</p><p style="font-size:11px;color:#ccc;">🔄 Last updated <span id="lastUpdated">now</span> · © 2026 SunScout · Bay Area, CA</p><p style="font-size:10px;color:#ddd;margin-top:4px;">Independent family resource. Not affiliated with any listed venue.</p></footer>
+
+<div class="footer">
+  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p>
+  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="margin-top:8px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:8px 20px;font-weight:800;cursor:pointer;font-size:13px;">📤 Share SunScout</button>
+  <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+  <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
+</div>
 
 <script>
-// ── CHANGE 1: PAGE_SIZE set to 9999 — show ALL activities (full audit, no pagination limit) ──
-let favorites = [];
-try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } catch(e) { favorites = []; }
-
 function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
 const PAGE_SIZE = getPageSize();
 window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
@@ -453,209 +461,97 @@ const DIY = [
   { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play." },
 ];
 
-
-// ── Smart local image — specific names beat generic keywords ──────────────
 function getSmartLocalImage(name, f) {
-  // Horses & riding
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")||f.includes("carriage")) return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80";
-  // Cherry & berry picking
-  if (f.includes("cherry")||f.includes("berry")||f.includes("fruit pick")) return "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
-  // Beach & boardwalk
-  if (f.includes("beach")||f.includes("boardwalk")||f.includes("pier")||f.includes("fishing")) return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
-  // Swimming & splash & water
-  if (f.includes("swim")||f.includes("pool")||f.includes("splash")||f.includes("aquatic")||f.includes("water park")) return "https://images.unsplash.com/photo-1510149552-2d98a7f9c14d?w=600&q=80";
-  // Hiking & trails & nature
-  if (f.includes("hike")||f.includes("trail")||f.includes("canyon")||f.includes("preserve")||f.includes("mission peak")||f.includes("creek walk")) return "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80";
-  // Farm & zoo & animals & petting
-  if (f.includes("farm")||f.includes("zoo")||f.includes("petting")||f.includes("animal")||f.includes("ardenwood")||f.includes("deer hollow")||f.includes("happy hollow")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
-  // Library & storytime & reading & books
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&q=80";
-  // Museum & discovery & history
-  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")||f.includes("history")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  // STEM & coding & robotics
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")||f.includes("snapology")||f.includes("integem")) return "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80";
-  // Ballet & dance
-  if (f.includes("ballet")||f.includes("dance")) return "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&q=80";
-  // Music
-  if (f.includes("music")||f.includes("instrument")) return "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80";
-  // Art & crafts & pottery
-  if (f.includes("art")||f.includes("paint")||f.includes("craft")||f.includes("pottery")||f.includes("clay")) return "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80";
-  // Sports & soccer & tennis & gymnastics
-  if (f.includes("soccer")||f.includes("tennis")||f.includes("gymnastics")||f.includes("sport")||f.includes("trampoline")) return "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80";
-  // Summer camp & YMCA & day camp
-  if (f.includes("camp")||f.includes("ymca")||f.includes("galileo")||f.includes("kidstrong")||f.includes("safari kid")||f.includes("day camp")) return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80";
-  // Park & playground & splash pad
-  if (f.includes("park")||f.includes("playground")||f.includes("splash pad")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  // Farmers market & festival
-  if (f.includes("farmers market")||f.includes("festival")||f.includes("fair")||f.includes("concert")) return "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  // Train & heritage
-  if (f.includes("train")||f.includes("railway")||f.includes("roaring camp")) return "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&q=80";
-  // Garden & nature walk
-  if (f.includes("garden")||f.includes("nature walk")||f.includes("botanic")) return "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80";
-  // Default — sunny outdoor family
-  return "https://images.unsplash.com/photo-1475483768296-f9af1a9bfd06?w=600&q=80";
+  if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "/stem.jpg";
+  if (name.includes("camp galileo")||name.includes("galileo camp")) return "/summercamp.jpg";
+  if (name.includes("kidstrong")) return "/summercamp.jpg";
+  if (name.includes("safari kid")) return "/summercamp.jpg";
+  if (name.includes("little gym")) return "/outcamp.jpg";
+  if (name.includes("winchester")) return "/museum.jpg";
+  if (name.includes("tech interactive")||name.includes("the tech")) return "/museum1.jpg";
+  if (name.includes("children's discovery")||name.includes("discovery museum")) return "/museum1.jpg";
+  if (name.includes("palo alto junior")) return "/museum.jpg";
+  if (name.includes("bay trail")||name.includes("don edwards")||name.includes("mission peak")||name.includes("coyote")) return "/trail.jpg";
+  if (name.includes("altitude trampoline")) return "/outcamp.jpg";
+  if (name.includes("ballet")||name.includes("my first ballet")) return "/ballet.jpg";
+  if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "/splash.jpg";
+  if (name.includes("sunnyvale market")||name.includes("farmers market")) return "/sunnyvalemarket.jpg";
+  if (name.includes("library")||name.includes("storytime")) return "/readingroom.jpg";
+  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "/summercamp.jpg";
+  if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "/outcamp.jpg";
+  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "/cherry.jpg";
+  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "/horse.jpg";
+  if (f.includes("trail")||f.includes("hike")||f.includes("creek")||f.includes("shoreline")) return "/trail.jpg";
+  if (f.includes("high rope")||f.includes("zip line")||f.includes("ropes course")||f.includes("climbing")) return "/highropecamp.jpg";
+  if (f.includes("pool")||f.includes("swim")||f.includes("splash")||f.includes("aquatic")) return "/splash.jpg";
+  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")) return "/museum.jpg";
+  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "/readingroom.jpg";
+  if (f.includes("ballet")||f.includes("dance")) return "/ballet.jpg";
+  if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "/stem.jpg";
+  if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "/splash.jpg";
+  if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "/outcamp.jpg";
+  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "/park.jpg";
+  if (f.includes("playground")||f.includes("splash pad")) return "/playground.jpg";
+  if (f.includes("beach")||f.includes("boardwalk")) return "/beach.jpg";
+  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "/stem.jpg";
+  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "/summercamp.jpg";
+  if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "/readingroom.jpg";
+  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "/camp.jpg";
+  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "/park.jpg";
+  return "/park.jpg";
 }
+
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
+  var src = "/park.jpg";
   var name = (a.name||"").toLowerCase();
-  if (name.includes("winchester")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (name.includes("tech interactive")||name.includes("the tech")) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  else if (name.includes("my first ballet")||name.includes("ballet")) src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
-  else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  else if (name.includes("art & wine")||name.includes("festival")||name.includes("concert")) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (name.includes("saratoga community")||name.includes("indoor class")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  else if (name.includes("san jose")&&name.includes("camp")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  else if (name.includes("playground")||name.includes("park kids")) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80ground.jpg";
-  else if (name.includes("bay trail")||name.includes("bay trail")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (name.includes("creek")||name.includes("shoreline")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (f.indexOf("winchester")>=0) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
-  else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
-  else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
-  else if (f.indexOf("library")>=0||f.indexOf("storytime")>=0||f.indexOf("reading")>=0||f.indexOf("book")>=0) src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  // Use ONLY local hardcoded images
-  var finalSrc = getSmartLocalImage(name, f) || src;
+  if (name.includes("winchester")) src="/museum.jpg";
+  else if (name.includes("tech interactive")||name.includes("the tech")) src="/museum1.jpg";
+  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="/museum1.jpg";
+  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
+  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="/park.jpg";
+  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="/outcamp.jpg";
+  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="/summercamp.jpg";
+  else if (name.includes("my first ballet")||name.includes("ballet")) src="/ballet.jpg";
+  else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="/splash.jpg";
+  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="/sunnyvalemarket.jpg";
+  else if (name.includes("art & wine")||name.includes("festival")) src="/market1.jpg";
+  else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="/readingroom.jpg";
+  else if (name.includes("saratoga community")||name.includes("indoor class")) src="/camp.jpg";
+  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
+  else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.jpg";
+  else if (name.includes("playground")||name.includes("park kids")) src="/playground.jpg";
+  else if (name.includes("bay trail")||name.includes("bay trail")) src="/trail.jpg";
+  else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="/trail.jpg";
+  else if (name.includes("creek")||name.includes("shoreline")) src="/trail.jpg";
+  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
+  else if (f.indexOf("winchester")>=0) src="/museum.jpg";
+  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
+  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="/splash.jpg";
+  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.jpg";
+  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.jpg";
+  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.jpg";
+  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
+  else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
+  else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
+  else if (f.indexOf("library")>=0||f.indexOf("storytime")>=0||f.indexOf("reading")>=0||f.indexOf("book")>=0) src="/readingroom.jpg";
+  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="/splash.jpg";
+  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="/trail.jpg";
+  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="/highropecamp.jpg";
+  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0) src="/museum.jpg";
+  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("maker")>=0) src="/stem.jpg";
+  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="/camp.jpg";
+  else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="/readingroom.jpg";
+  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
+  else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
+  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
+  var finalSrc = (a.image && a.image.length > 10) ? a.image : (getSmartLocalImage(name, f) || src || "/park.jpg");
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80';this.style.opacity='1'\"\" />"
+    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
     + "</div>";
-}
-
-// ── Branded status placeholder ────────────────────────────────────────────
-function getStatusMessage(type) {
-  const messages = {
-    stem:     "🔬 Lab experience loading...",
-    camp:     "⛺ Camp adventure incoming...",
-    museum:   "🏛️ Exhibit being set up...",
-    pool:     "🏊 Filling the pool...",
-    trail:    "🌳 Scouting the trail...",
-    library:  "📚 Story time starting soon...",
-    horse:    "🐴 Saddling up...",
-    cherry:   "🍒 Checking the orchard...",
-    market:   "🎪 Setting up the stalls...",
-    ballet:   "🩰 Warming up...",
-    park:     "🌤️ Scouting the area...",
-    default:  "☀️ SunScout is updating this view..."
-  };
-  return messages[type] || messages.default;
-}
-
-function getActivityType(name, desc) {
-  var f = (name + " " + desc).toLowerCase();
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("integem")||f.includes("snapology")) return "stem";
-  if (f.includes("camp")||f.includes("galileo")||f.includes("kidstrong")||f.includes("safari")) return "camp";
-  if (f.includes("museum")||f.includes("winchester")||f.includes("discovery")) return "museum";
-  if (f.includes("pool")||f.includes("swim")||f.includes("aquatic")) return "pool";
-  if (f.includes("trail")||f.includes("hike")||f.includes("creek")) return "trail";
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")) return "library";
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "horse";
-  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")) return "cherry";
-  if (f.includes("market")||f.includes("festival")) return "market";
-  if (f.includes("ballet")||f.includes("dance")) return "ballet";
-  return "park";
-}
-
-function getBrandedPlaceholder(a) {
-  var type = getActivityType(a.name||"", a.desc||"");
-  var msg = getStatusMessage(type);
-  var gradients = {
-    stem:    "135deg,#e3f2fd,#bbdefb",
-    camp:    "135deg,#fff8e1,#ffecb3",
-    museum:  "135deg,#f3e5f5,#e1bee7",
-    pool:    "135deg,#e0f7fa,#b2ebf2",
-    trail:   "135deg,#e8f5e9,#c8e6c9",
-    library: "135deg,#fff3e0,#ffe0b2",
-    horse:   "135deg,#efebe9,#d7ccc8",
-    cherry:  "135deg,#fce4ec,#f8bbd0",
-    market:  "135deg,#fff9c4,#fff59d",
-    ballet:  "135deg,#fce4ec,#f48fb1",
-    park:    "135deg,#f9fbe7,#f0f4c3",
-  };
-  var grad = gradients[type] || gradients.park;
-  return "<div style=\"width:100%;height:100%;display:flex;flex-direction:column;align-items:center;"
-    + "justify-content:center;background:linear-gradient(" + grad + ");"
-    + "border-radius:12px;gap:8px;padding:12px;\">"
-    + "<div style=\"font-size:2.5rem;animation:pulse 2s infinite;\">" + msg.split(" ")[0] + "</div>"
-    + "<p style=\"font-size:0.75rem;color:#666;text-align:center;font-style:italic;margin:0;\">"
-    + msg.split(" ").slice(1).join(" ") + "</p>"
-    + "<p style=\"font-size:0.65rem;color:#999;margin:0;\">☀️ SunScout</p>"
-    + "</div>";
-}
-
-function getEmojiCard(a) {
-  var f = ((a.name || "") + " " + (a.desc || "")).toLowerCase();
-  var emoji, bg;
-  if (f.indexOf("cherry") >= 0 || f.indexOf("berry") >= 0 || f.indexOf("orchard") >= 0 || f.indexOf("fruit pick") >= 0)
-    { emoji="🍒"; bg="linear-gradient(135deg,#ff6b6b,#ee0979)"; }
-  else if (f.indexOf("horse") >= 0 || f.indexOf("pony") >= 0 || f.indexOf("carriage") >= 0 || f.indexOf("riding") >= 0)
-    { emoji="🐴"; bg="linear-gradient(135deg,#8B6914,#c8a951)"; }
-  else if (f.indexOf("beach") >= 0 || f.indexOf("boardwalk") >= 0 || f.indexOf("pier") >= 0 || f.indexOf("fishing") >= 0)
-    { emoji="🏖️"; bg="linear-gradient(135deg,#00b4d8,#0077b6)"; }
-  else if (f.indexOf("library") >= 0 || f.indexOf("storytime") >= 0 || f.indexOf("reading") >= 0 || f.indexOf("book") >= 0)
-    { emoji="📚"; bg="linear-gradient(135deg,#f9a825,#f57f17)"; }
-  else if (f.indexOf("pool") >= 0 || f.indexOf("swim") >= 0 || f.indexOf("splash") >= 0 || f.indexOf("aquatic") >= 0 || f.indexOf("water park") >= 0)
-    { emoji="🏊"; bg="linear-gradient(135deg,#48cae4,#0096c7)"; }
-  else if (f.indexOf("trail") >= 0 || f.indexOf("hike") >= 0 || f.indexOf("hiking") >= 0 || f.indexOf("canyon") >= 0 || f.indexOf("creek") >= 0 || f.indexOf("preserve") >= 0 || f.indexOf("refuge") >= 0 || f.indexOf("mount hermon") >= 0 || f.indexOf("high rope") >= 0 || f.indexOf("zip line") >= 0 || f.indexOf("zipline") >= 0 || f.indexOf("mission peak") >= 0)
-    { emoji="🥾"; bg="linear-gradient(135deg,#52b788,#1b4332)"; }
-  else if (f.indexOf("museum") >= 0 || f.indexOf("discovery") >= 0 || f.indexOf("winchester") >= 0 || f.indexOf("tech interactive") >= 0 || f.indexOf("essanay") >= 0 || f.indexOf("natural history") >= 0)
-    { emoji="🏛️"; bg="linear-gradient(135deg,#9e9e9e,#424242)"; }
-  else if (f.indexOf("stem") >= 0 || f.indexOf("coding") >= 0 || f.indexOf("robot") >= 0 || f.indexOf("lego") >= 0 || f.indexOf("snapology") >= 0 || f.indexOf("id tech") >= 0 || f.indexOf("integem") >= 0 || f.indexOf("science") >= 0 || f.indexOf("code ninja") >= 0 || f.indexOf("ai camp") >= 0)
-    { emoji="🔬"; bg="linear-gradient(135deg,#7209b7,#3a0ca3)"; }
-  else if (f.indexOf("trampoline") >= 0 || f.indexOf("altitude") >= 0 || f.indexOf("climbing") >= 0 || f.indexOf("laser") >= 0 || f.indexOf("bowling") >= 0 || f.indexOf("skating") >= 0 || f.indexOf("escape room") >= 0)
-    { emoji="🎯"; bg="linear-gradient(135deg,#f72585,#b5179e)"; }
-  else if (f.indexOf("soccer") >= 0 || f.indexOf("basketball") >= 0 || f.indexOf("tennis") >= 0 || f.indexOf("sport") >= 0 || f.indexOf("gymnastics") >= 0 || f.indexOf("kidstrong") >= 0 || f.indexOf("little gym") >= 0)
-    { emoji="⚽"; bg="linear-gradient(135deg,#4cc9f0,#4361ee)"; }
-  else if (f.indexOf("ballet") >= 0 || f.indexOf("dance") >= 0 || f.indexOf("music") >= 0 || f.indexOf("pottery") >= 0 || f.indexOf("paint") >= 0 || f.indexOf("craft") >= 0 || f.indexOf("art") >= 0)
-    { emoji="🎨"; bg="linear-gradient(135deg,#f77f00,#d62828)"; }
-  else if (f.indexOf("farm") >= 0 || f.indexOf("zoo") >= 0 || f.indexOf("animal") >= 0 || f.indexOf("petting") >= 0 || f.indexOf("ranch") >= 0 || f.indexOf("ardenwood") >= 0 || f.indexOf("happy hollow") >= 0 || f.indexOf("deer hollow") >= 0 || f.indexOf("hidden villa") >= 0)
-    { emoji="🐄"; bg="linear-gradient(135deg,#80b918,#2dc653)"; }
-  else if (f.indexOf("camp") >= 0 || f.indexOf("ymca") >= 0 || f.indexOf("galileo") >= 0 || f.indexOf("kidventure") >= 0 || f.indexOf("safari kid") >= 0 || f.indexOf("we rock") >= 0 || f.indexOf("steve & kate") >= 0 || f.indexOf("kidstrong") >= 0)
-    { emoji="⛺"; bg="linear-gradient(135deg,#ff9a3c,#ff4e00)"; }
-  else if (f.indexOf("park") >= 0 || f.indexOf("playground") >= 0 || f.indexOf("splash pad") >= 0 || f.indexOf("splashpad") >= 0 || f.indexOf("las palmas") >= 0 || f.indexOf("magical bridge") >= 0)
-    { emoji="🌳"; bg="linear-gradient(135deg,#95d5b2,#1b4332)"; }
-  else if (f.indexOf("farmers market") >= 0 || f.indexOf("festival") >= 0 || f.indexOf("fair") >= 0 || f.indexOf("flea market") >= 0 || f.indexOf("art & wine") >= 0)
-    { emoji="🎪"; bg="linear-gradient(135deg,#ffd60a,#f9c74f)"; }
-  else if (f.indexOf("train") >= 0 || f.indexOf("rail") >= 0 || f.indexOf("roaring camp") >= 0)
-    { emoji="🚂"; bg="linear-gradient(135deg,#6d4c41,#3e2723)"; }
-  else if (f.indexOf("boat") >= 0 || f.indexOf("kayak") >= 0 || f.indexOf("lake") >= 0 || f.indexOf("shoreline") >= 0 || f.indexOf("pedal") >= 0)
-    { emoji="🚣"; bg="linear-gradient(135deg,#48cae4,#023e8a)"; }
-  else if (f.indexOf("garden") >= 0 || f.indexOf("hakone") >= 0 || f.indexOf("gamble") >= 0)
-    { emoji="🌸"; bg="linear-gradient(135deg,#ffb3c1,#ff4d6d)"; }
-  else if (f.indexOf("gymboree") >= 0 || f.indexOf("toddler") >= 0 || f.indexOf("infant") >= 0 || f.indexOf("baby") >= 0)
-    { emoji="👶"; bg="linear-gradient(135deg,#ffe066,#ffb347)"; }
-  else {
-    var cats = {free:"🌞",paid:"🎟️",indoor:"🏛️",outdoor:"🌿",weekend:"📅"};
-    emoji = cats[a.category] || "⭐";
-    bg = "linear-gradient(135deg,#FF9900,#ff6b35)";
-  }
-  return '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;background:'+bg+'">'+emoji+'</div>';
 }
 
 function wBtn(fn, label) {
@@ -670,6 +566,7 @@ function surpriseMe() {
   goTab(tabs[Math.floor(Math.random()*tabs.length)]);
 }
 
+// ── FIX 2: showDetail() — added working ❤️ Save to My List button ──
 function showDetail(i) {
   window._currentDetail = i;
   var a = window._activities[i];
@@ -682,6 +579,9 @@ function showDetail(i) {
   imgSrc = imgSrc ? imgSrc[1] : "/park.jpg";
   var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
+  // Check if already favorited
+  var favKey = activeTab + "_" + i;
+  var isFaved = favorites.some(function(f){ return f.key === favKey; });
   var html = 
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
     "<img class='detail-modal-img' src='"+imgSrc+"' onerror='this.style.display=\"none\"'/>"+
@@ -701,7 +601,8 @@ function showDetail(i) {
         (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
         (a.phone?"<a class='btn-detail-call' href='tel:"+a.phone+"'>📞 Call</a>":"")+
         (a.registerUrl?"<a class='btn-detail-register' href='"+a.registerUrl+"' target='_blank'>✅ Register</a>":"")+
-        "<button class='btn-detail-fav' onclick='event.stopPropagation();toggleDetailFav(window._currentDetail)' style='background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer'>🤍 Save to List</button>"+
+        // ── FIX 2a: My List button in detail modal ──
+        "<button id='detail-fav-btn' onclick='toggleDetailFav("+i+")' style='background:"+(isFaved?"linear-gradient(135deg,#ef4444,#b91c1c)":"linear-gradient(135deg,#ff4e50,#f9d423)")+";color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer'>"+(isFaved?"❤️ Saved!":"🤍 Save to List")+"</button>"+
         "<button class='btn-detail-share' style='background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer' id='share-btn'>📤 Share</button>"+
         "<a href='mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.' style='flex:1;min-width:80px;padding:10px;border-radius:99px;text-align:center;font-weight:800;font-size:0.8rem;text-decoration:none;background:#f5f5f5;color:#888;border:none;cursor:pointer'>📢 Report</a>"+
       "</div>"+
@@ -711,35 +612,36 @@ function showDetail(i) {
   bg.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
-document.addEventListener("click", function(e) {
-  if (e.target && e.target.id === "share-btn") {
-    var i = window._currentDetail;
-    if (i !== undefined) shareActivity(i);
-  }
-});
-function toggleCardFav(btn, k, a) {
-  var already = favorites.some(function(x){ return x.key===k; });
-  if (already) { favorites = favorites.filter(function(x){ return x.key!==k; }); }
-  else { favorites.push({ key:k, name:a.name, city:a.city||activeCity, category:activeTab, mapsUrl:a.mapsUrl }); }
-  saveFavorites();
-  btn.textContent = favorites.some(function(x){ return x.key===k; }) ? "❤️" : "🤍";
-}
+
+// ── FIX 2b: Toggle favorite from detail modal ──
 function toggleDetailFav(i) {
   var a = window._activities[i];
   if (!a) return;
   var favKey = activeTab + "_" + i;
   var idx = favorites.findIndex(function(f){ return f.key === favKey; });
-  if (idx >= 0) { favorites.splice(idx, 1); }
-  else { favorites.push({ key: favKey, name: a.name, city: a.city || activeCity, category: activeTab, mapsUrl: a.mapsUrl }); }
-  saveFavorites();
+  if (idx >= 0) {
+    favorites.splice(idx, 1);
+  } else {
+    favorites.push({ key: favKey, name: a.name, city: a.city || activeCity, category: activeTab, mapsUrl: a.mapsUrl });
+  }
+  saveFavorites(); // this also calls updateBnavBadge() + updateMyListBadge()
+  // Update the button in the modal immediately
   var isFaved = favorites.some(function(f){ return f.key === favKey; });
   var btn = document.getElementById("detail-fav-btn");
   if (btn) {
     btn.textContent = isFaved ? "❤️ Saved!" : "🤍 Save to List";
     btn.style.background = isFaved ? "linear-gradient(135deg,#ef4444,#b91c1c)" : "linear-gradient(135deg,#ff4e50,#f9d423)";
   }
+  // Also refresh card hearts in the grid
   renderCards();
 }
+
+document.addEventListener("click", function(e) {
+  if (e.target && e.target.id === "share-btn") {
+    var i = window._currentDetail;
+    if (i !== undefined) shareActivity(i);
+  }
+});
 function closeDetail() {
   document.getElementById("detail-modal-bg").style.display = "none";
   document.body.style.overflow = "";
@@ -792,23 +694,20 @@ async function fetchWeather(city) {
 }
 
 async function loadActivities() {
-  // Clear session cache to always get fresh city-specific data
   var ck = "sc_"+activeTab+"_"+activeCity+"_"+activeAge;
   var cd = sessionStorage.getItem(ck);
   if (cd) {
-    // Check if cached data is stale (>30 min)
     var tsKey = ck+"_ts";
     var ts = sessionStorage.getItem(tsKey);
     var age = ts ? (Date.now() - parseInt(ts)) : 0;
     if (age > 30*60*1000) {
-      // Show stale banner prompting refresh
       var banner = document.getElementById("weatherBanner");
       if (banner && banner.style.display !== "block") {
         banner.style.display = "block";
         banner.style.background = "linear-gradient(135deg,#9e9e9e,#616161)";
         banner.innerHTML = "🔄 Data may be over 30 min old. <button onclick=\"sessionStorage.clear();loadActivities()\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">↺ Refresh</button>";
       }
-      sessionStorage.removeItem(ck); // force fresh fetch
+      sessionStorage.removeItem(ck);
     } else {
       allActivities = JSON.parse(cd); showCount = getPageSize(); renderCards(); return;
     }
@@ -820,7 +719,6 @@ async function loadActivities() {
     if (!r.ok) throw new Error("Server error " + r.status);
     var data = await r.json();
     allActivities = data.activities || [];
-    // Filter strictly to current city only
     allActivities = allActivities.filter(function(a) {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
@@ -834,7 +732,6 @@ async function loadActivities() {
 
 function renderCards() {
   window._cardIndex = 0;
-  window._cardIndex = 0; // reset for correct above-fold lazy-load detection
   var grid   = document.getElementById("grid");
   var status = document.getElementById("statusBar");
   var wrap   = document.getElementById("showMoreWrap");
@@ -866,9 +763,11 @@ function renderCards() {
     var ac  = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
     var a11 = (a.a11y||[]).map(function(t){ return "<span class=\"chip chip-a11y\">"+t+"</span>"; }).join("");
     var pc  = (!a.isFree && a.price && a.price !== "See site") ? "<span class=\"chip chip-price\">"+a.price+"</span>" : "";
-    // Price badge: $0 FREE for free, actual price if known, 💰 Paid if paid but no price
     var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
+    // ── FIX 3: card heart properly calls updateBnavBadge ──
+    var favKey = activeTab+"_"+i;
+    var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
     return "<article class=\"card\" data-idx=\""+i+"\">"+
       "<div class=\"card-img-wrap\">"+
@@ -888,8 +787,9 @@ function renderCards() {
       "<div class=\"card-foot\">"+
         "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
         (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
-        "<button class=\"btn\" style=\"margin-left:auto;font-size:18px;border:none;background:none;padding:4px 6px;color:#ff4e50\" onclick=\"event.stopPropagation();cardHeart(this,'"+activeTab+"_"+i+"',window._activities["+i+"]);\">"+( favorites.some(function(f){return f.key===activeTab+"_"+i;})?"❤️":"🤍")+"</button>"+
-        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.7;font-size:11px;background:#f0f0f0;color:#666;padding:4px 6px\" title=\"Report outdated info\">📢</a>"+
+        // ── FIX 3: heart button with full badge sync ──
+        "<button class=\"btn\" style=\"margin-left:auto;font-size:15px;border:none;background:none;padding:4px 8px\" onclick=\"event.stopPropagation();(function(){var k='"+favKey+"';var already=favorites.some(function(x){return x.key===k;});if(already){favorites=favorites.filter(function(x){return x.key!==k;});}else{favorites.push({key:k,name:'"+((a.name||"").replace(/'/g,"\\'")||"")+"',city:'"+(a.city||activeCity)+"',category:activeTab,mapsUrl:'"+(a.mapsUrl||"")+"'});}saveFavorites();this.textContent=favorites.some(function(x){return x.key===k;})?'❤️':'🤍';}).call(this)\">"+(isFaved?"❤️":"🤍")+"</button>"+
+        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"margin-left:auto;opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
       "</div>"+
     "</article>";
   }).join("");
@@ -901,7 +801,10 @@ function showSkeleton() {
   var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
 }
 
-function showError(msg){document.getElementById("grid").innerHTML="<div class='no-results'><div class='no-results-icon'>🌤️</div><h2>Oops - could not load activities</h2><p style='color:#888;font-size:13px;margin-bottom:8px;'>" + msg + "</p><p style='color:#aaa;font-size:12px;margin-bottom:16px;'>Your saved favorites and notes are safe!</p><button class='show-more-btn' onclick='loadActivities()'>🔄 Try Again</button><p style='margin-top:14px;font-size:12px;'><a href='mailto:sunscout2026@gmail.com?subject=SunScout Error' style='color:#FF9900;font-weight:700;'>📬 Report this issue</a></p></div>";document.getElementById("statusBar").innerHTML="⚠️ Error - tap Try Again";}
+function showError(msg) {
+  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Could not load activities</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try Again</button></div>";
+  document.getElementById("statusBar").innerHTML = "Error loading activities";
+}
 
 function fmtDate(d) {
   if (!d) return "";
@@ -924,7 +827,6 @@ function setCity(btn) {
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-  // Clear cache for new city so fresh data loads
   sessionStorage.clear();
   fetchWeather(activeCity);
   loadActivities();
@@ -964,7 +866,6 @@ function clearSearch() {
   showCount = getPageSize(); renderCards();
 }
 
-// card clicks handled by document listener
 function showMore() {
   showCount += getPageSize(); renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
@@ -985,51 +886,37 @@ document.getElementById("cityFact").textContent = CITY_FACTS["Sunnyvale"];
 updateCountdown();
 fetchWeather("Sunnyvale");
 loadActivities();
-autoDetectCity();
 
-function autoDetectCity() {
-  if (!navigator.geolocation) return;
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    var lat = pos.coords.latitude;
-    var lon = pos.coords.longitude;
-    var closest = null, minDist = 999;
-    Object.entries(CITY_COORDS).forEach(function(e) {
-      var d = Math.sqrt(Math.pow(lat-e[1][0],2)+Math.pow(lon-e[1][1],2));
-      if (d < minDist) { minDist=d; closest=e[0]; }
-    });
-    if (closest && closest !== activeCity) {
-      var btn = document.querySelector(".city-btn[data-city='"+closest+"']");
-      if (btn) { setCity(btn); }
-      var banner = document.getElementById("weatherBanner");
-      if (banner) {
-        banner.style.display = "block";
-        banner.style.background = "linear-gradient(135deg,#FF9900,#ff6b35)";
-        banner.innerHTML = "📍 Auto-detected: <strong>"+closest+"</strong>! Showing activities near you.";
-      }
-    }
-  }, function(){}, {timeout:5000});
-}
-
-
+// FAVORITES
+let favorites = [];
+try { favorites = JSON.parse(localStorage.getItem("sc_favorites") || "[]"); } catch(e) { favorites = []; }
 
 function saveFavorites() {
   try { localStorage.setItem("sc_favorites", JSON.stringify(favorites)); } catch(e) {}
   updateMyListBadge();
   updateBnavBadge();
-  updateHeaderMyListBadge();
+  updateDesktopMyListBadge(); // ── FIX: also update desktop badge ──
 }
-function updateHeaderMyListBadge() {
-  var badge = document.getElementById("headerMyListBadge");
-  if (!badge) return;
-  if (favorites.length > 0) { badge.style.display = "flex"; badge.textContent = favorites.length; }
-  else { badge.style.display = "none"; }
-}
+
 function updateMyListBadge() {
   var badge = document.getElementById("mylistBadge");
   if (!badge) return;
   if (favorites.length > 0) { badge.style.display = "flex"; badge.textContent = favorites.length; }
   else { badge.style.display = "none"; }
 }
+
+// ── FIX 1b: Desktop My List badge ──
+function updateDesktopMyListBadge() {
+  var badge = document.getElementById("desktopMyListBadge");
+  if (!badge) return;
+  if (favorites.length > 0) {
+    badge.style.display = "flex";
+    badge.textContent = favorites.length;
+  } else {
+    badge.style.display = "none";
+  }
+}
+
 function toggleFavorite(key, activity) {
   var idx = favorites.findIndex(function(f){ return f.key === key; });
   if (idx >= 0) { favorites.splice(idx, 1); }
@@ -1061,7 +948,6 @@ function renderMyList() {
 }
 function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); renderCards(); }
 
-// WEEKEND AUTO-TRIGGER
 function checkWeekendMode() {
   var day = new Date().getDay();
   if (day === 0 || day === 6) {
@@ -1071,7 +957,6 @@ function checkWeekendMode() {
   }
 }
 
-// PLAN MY DAY
 var planCity=null, planVibe=null, planAge=null, planStep=1;
 function openPlan() { document.getElementById("plan-modal-bg").style.display="flex"; resetPlan(); }
 function closePlan() { document.getElementById("plan-modal-bg").style.display="none"; }
@@ -1102,10 +987,9 @@ function applyPlanToApp() {
 function resetPlan() { planCity=null; planVibe=null; planAge=null; document.querySelectorAll(".plan-option").forEach(function(b){ b.classList.remove("selected"); }); showPlanStep(1); }
 
 updateMyListBadge();
+updateDesktopMyListBadge();
 checkWeekendMode();
 
-
-// Bottom nav sync
 function bnavTab(tab, btn) {
   document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
   if(btn) btn.classList.add("active");
@@ -1123,134 +1007,10 @@ function updateBnavBadge() {
     b.style.display = "none";
   }
 }
-// Sync bottom nav when tab changes via top bar
-// Sync bottom nav when tab changes
 function syncBnav(tab) {
   document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
   var match = document.querySelector(".bnav-btn[onclick*=\'" + tab + "\']");
   if(match) match.classList.add("active");
-}
-
-
-
-function addToCalendar(name, address, startDate) {
-  name = name || ""; address = address || ""; startDate = startDate || "";
-  var title = encodeURIComponent(name);
-  var loc = encodeURIComponent(address || '');
-  var start = startDate ? startDate.replace(/-/g,'') : '20260601';
-  var end = start;
-  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + title
-    + '&dates=' + start + '/' + end
-    + '&location=' + loc
-    + '&details=' + encodeURIComponent('Found on SunScout: sunscout2.vercel.app');
-  window.open(url, '_blank');
-}
-
-function cardHeart(btn, k, a) {
-  var already = favorites.some(function(x){ return x.key === k; });
-  if (already) {
-    favorites = favorites.filter(function(x){ return x.key !== k; });
-  } else {
-    favorites.push({ key: k, name: a.name, city: a.city || activeCity, category: activeTab, mapsUrl: a.mapsUrl });
-  }
-  saveFavorites();
-  btn.textContent = favorites.some(function(x){ return x.key === k; }) ? '❤️' : '🤍';
-}
-
-
-function openNotesAll() {
-  var keys = [];
-  try {
-    for (var i=0; i<localStorage.length; i++) {
-      var k = localStorage.key(i);
-      if (k && k.startsWith('note_')) keys.push(k);
-    }
-  } catch(e) {}
-  if (keys.length === 0) {
-    openNotes('general','General Notes');
-    return;
-  }
-  // Open general notes pad
-  openNotes('general', '📝 My SunScout Notes');
-}
-
-var currentNoteKey = null;
-var SC_CAL = { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null };
-var SC_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-function scRenderCal() {
-  var lbl = document.getElementById("sc-cal-lbl");
-  var grid = document.getElementById("sc-cal-grid");
-  if (!lbl || !grid) return;
-  lbl.textContent = SC_MONTHS[SC_CAL.m] + " " + SC_CAL.y;
-  var first = new Date(SC_CAL.y, SC_CAL.m, 1).getDay();
-  var total = new Date(SC_CAL.y, SC_CAL.m + 1, 0).getDate();
-  var now = new Date();
-  var out = "";
-  for (var i = 0; i < first; i++) out += "<span></span>";
-  for (var d = 1; d <= total; d++) {
-    var iT = (d === now.getDate() && SC_CAL.m === now.getMonth() && SC_CAL.y === now.getFullYear());
-    var iS = SC_CAL.sel && SC_CAL.sel.d === d && SC_CAL.sel.m === SC_CAL.m && SC_CAL.sel.y === SC_CAL.y;
-    out += "<button onclick=\"scCalPick(" + d + ")\" style=\"font-size:12px;font-weight:700;padding:4px 0;border-radius:6px;cursor:pointer;border:none;background:" + (iS ? "#FF9900" : iT ? "#fff3e0" : "transparent") + ";color:" + (iS ? "#fff" : iT ? "#FF9900" : "#1a1a1a") + ";width:100%\">" + d + "</button>";
-  }
-  grid.innerHTML = out;
-}
-function scCalNav(dir) {
-  SC_CAL.m += dir;
-  if (SC_CAL.m > 11) { SC_CAL.m = 0; SC_CAL.y++; }
-  if (SC_CAL.m < 0)  { SC_CAL.m = 11; SC_CAL.y--; }
-  scRenderCal();
-}
-function scCalPick(d) {
-  SC_CAL.sel = { d: d, m: SC_CAL.m, y: SC_CAL.y };
-  scRenderCal();
-  var info = document.getElementById("sc-cal-info");
-  if (!info) return;
-  var label = SC_MONTHS[SC_CAL.m] + " " + d + ", " + SC_CAL.y;
-  info.style.display = "flex";
-  info.innerHTML = "<span style=\"flex:1;font-size:11px;color:#c05e00;font-weight:800\">&#128204; " + label + "</span><button onclick=\"scCalGCal('" + label + "')\" style=\"background:#4285F4;color:#fff;border:none;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap\">+ Google Cal</button>";
-}
-function scCalGCal(dateStr) {
-  var note = (document.getElementById("notes-input") || {}).value || "SunScout Activity";
-  var dt = new Date(dateStr);
-  var p = function(n) { return n < 10 ? "0" + n : "" + n; };
-  var ds = dt.getFullYear() + p(dt.getMonth() + 1) + p(dt.getDate());
-  var title = encodeURIComponent((note.split("\n")[0] || "SunScout Activity").substring(0, 60));
-  window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + title + "&dates=" + ds + "/" + ds, "_blank");
-}
-
-function openNotes(key, name) {
-  currentNoteKey = key;
-  document.getElementById("notes-title").textContent = name;
-  var saved = "";
-  try { saved = localStorage.getItem("note_" + key) || ""; } catch(e) {}
-  document.getElementById("notes-input").value = saved;
-  document.getElementById("notes-saved-msg").style.display = "none";
-  document.getElementById("notes-modal-bg").style.display = "flex";
-  document.body.style.overflow = "hidden";
-  SC_CAL.sel = null; SC_CAL.y = new Date().getFullYear(); SC_CAL.m = new Date().getMonth();
-  var info = document.getElementById("sc-cal-info");
-  if (info) info.style.display = "none";
-  setTimeout(function() { scRenderCal(); document.getElementById("notes-input").focus(); }, 80);
-}
-function closeNotes() {
-  document.getElementById('notes-modal-bg').style.display = 'none';
-  document.body.style.overflow = '';
-}
-function saveNote() {
-  var val = document.getElementById('notes-input').value;
-  try { localStorage.setItem('note_' + currentNoteKey, val); } catch(e) {}
-  var msg = document.getElementById('notes-saved-msg');
-  msg.style.display = 'block';
-  setTimeout(function(){ msg.style.display = 'none'; closeNotes(); }, 1200);
-}
-function clearNote() {
-  document.getElementById('notes-input').value = '';
-  try { localStorage.removeItem('note_' + currentNoteKey); } catch(e) {}
-}
-function hasNote(key) {
-  try { return !!localStorage.getItem('note_' + key); } catch(e) { return false; }
 }
 
 </script>
@@ -1327,10 +1087,6 @@ function hasNote(key) {
       <span class="bnav-icon">🆓</span>
       <span class="bnav-label">Free</span>
     </button>
-    <button class="bnav-btn" onclick="bnavTab('paid',this)">
-      <span class="bnav-icon">🎟️</span>
-      <span class="bnav-label">Paid</span>
-    </button>
     <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
       <span class="bnav-icon">🌳</span>
       <span class="bnav-label">Outdoor</span>
@@ -1348,80 +1104,7 @@ function hasNote(key) {
       <span class="bnav-label">My List</span>
       <span class="bnav-badge" id="bnavBadge"></span>
     </button>
-    <button class="bnav-btn" onclick="openNotesAll()">
-      <span class="bnav-icon">📝</span>
-      <span class="bnav-label">Notes</span>
-    </button>
   </div>
 </nav>
-
-<div id="notes-modal-bg" onclick="if(event.target===this)closeNotes()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;">
-  <div style="background:#fff;border-radius:20px;max-width:480px;width:100%;padding:20px;position:relative;font-family:Nunito,sans-serif;max-height:90dvh;overflow-y:auto;">
-    <button onclick="closeNotes()" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">&#x2715;</button>
-    <div style="font-size:2rem;text-align:center">&#x1F4DD;</div>
-    <h2 id="notes-title" style="font-size:1.1rem;font-weight:900;color:#1a1a1a;margin:8px 0 4px;text-align:center"></h2>
-    <p style="font-size:11px;color:#aaa;text-align:center;margin-bottom:10px">Your private notes - saved on this device</p>
-    <textarea id="notes-input" placeholder="e.g. Kids loved it! Bring sunscreen..." style="width:100%;height:90px;border-radius:12px;border:2px solid #eee;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box"></textarea>
-    <div style="margin-top:10px;border:1.5px solid #eee;border-radius:12px;overflow:hidden">
-      <div style="background:#fff9f0;padding:7px 12px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between">
-        <span style="font-size:12px;font-weight:800;color:#FF9900">&#x1F4C5; Add to Calendar</span>
-        <div style="display:flex;align-items:center;gap:2px">
-          <button onclick="scCalNav(-1)" style="background:none;border:none;font-size:22px;cursor:pointer;color:#FF9900;padding:0 4px;line-height:1">&#8249;</button>
-          <span id="sc-cal-lbl" style="font-size:11px;font-weight:800;color:#1a1a1a;min-width:110px;text-align:center"></span>
-          <button onclick="scCalNav(1)" style="background:none;border:none;font-size:22px;cursor:pointer;color:#FF9900;padding:0 4px;line-height:1">&#8250;</button>
-        </div>
-      </div>
-      <div style="padding:8px 10px">
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;margin-bottom:4px">
-          <span style="font-size:9px;font-weight:800;color:#bbb">Su</span><span style="font-size:9px;font-weight:800;color:#bbb">Mo</span><span style="font-size:9px;font-weight:800;color:#bbb">Tu</span><span style="font-size:9px;font-weight:800;color:#bbb">We</span><span style="font-size:9px;font-weight:800;color:#bbb">Th</span><span style="font-size:9px;font-weight:800;color:#bbb">Fr</span><span style="font-size:9px;font-weight:800;color:#bbb">Sa</span>
-        </div>
-        <div id="sc-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center"></div>
-      </div>
-      <div id="sc-cal-info" style="display:none;padding:7px 12px;background:#fff3e0;border-top:1px solid #ffe0b2;align-items:center;gap:8px;flex-wrap:wrap"></div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:10px">
-      <button onclick="saveNote()" style="flex:1;padding:11px;border-radius:99px;border:none;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">&#x1F4BE; Save Note</button>
-      <button onclick="clearNote()" style="padding:11px 16px;border-radius:99px;border:2px solid #eee;background:#fff;color:#999;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">&#x1F5D1;</button>
-    </div>
-    <p id="notes-saved-msg" style="text-align:center;font-size:12px;color:#16a34a;margin-top:8px;display:none">&#x2705; Note saved!</p>
-  </div>
-</div>
-<script>
-var SC_CAL={y:new Date().getFullYear(),m:new Date().getMonth(),sel:null};
-var SC_MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
-function scRenderCal(){
-  var lbl=document.getElementById('sc-cal-lbl'),grid=document.getElementById('sc-cal-grid');
-  if(!lbl||!grid)return;
-  lbl.textContent=SC_MO[SC_CAL.m]+' '+SC_CAL.y;
-  var first=new Date(SC_CAL.y,SC_CAL.m,1).getDay(),days=new Date(SC_CAL.y,SC_CAL.m+1,0).getDate();
-  var now=new Date(),td=now.getDate(),tm=now.getMonth(),ty=now.getFullYear(),out='';
-  for(var i=0;i<first;i++)out+='<span></span>';
-  for(var d=1;d<=days;d++){
-    var iT=(d===td&&SC_CAL.m===tm&&SC_CAL.y===ty),iS=SC_CAL.sel&&SC_CAL.sel.d===d&&SC_CAL.sel.m===SC_CAL.m&&SC_CAL.sel.y===SC_CAL.y;
-    out+='<button onclick="scCalPick('+d+')" style="font-size:12px;font-weight:700;padding:4px 0;border-radius:6px;cursor:pointer;border:none;background:'+(iS?'#FF9900':iT?'#fff3e0':'transparent')+';color:'+(iS?'#fff':iT?'#FF9900':'#1a1a1a')+';width:100%">'+d+'</button>';
-  }
-  grid.innerHTML=out;
-}
-function scCalNav(dir){SC_CAL.m+=dir;if(SC_CAL.m>11){SC_CAL.m=0;SC_CAL.y++;}if(SC_CAL.m<0){SC_CAL.m=11;SC_CAL.y--;}scRenderCal();}
-function scCalPick(d){
-  SC_CAL.sel={d:d,m:SC_CAL.m,y:SC_CAL.y};scRenderCal();
-  var info=document.getElementById('sc-cal-info');if(!info)return;
-  var label=SC_MO[SC_CAL.m]+' '+d+', '+SC_CAL.y;
-  info.style.display='flex';
-  info.innerHTML='<span style="flex:1;font-size:11px;color:#c05e00;font-weight:800">'+label+'</span><button onclick="scCalGo(this.dataset.ds)" data-ds="'+label+'" style="background:#4285F4;color:#fff;border:none;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap">+ Google Cal</button>';
-}
-function scCalGo(ds){
-  var note=(document.getElementById('notes-input')||{}).value||'SunScout';
-  var dt=new Date(ds),p=function(n){return n<10?'0'+n:''+n;};
-  var d=dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());
-  window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent((note.split('\n')[0]||'SunScout').substring(0,60))+'&dates='+d+'/'+d,'_blank');
-}
-
-function openPrivacy(){var m=document.getElementById('privacy-modal');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
-function closePrivacy(){var m=document.getElementById('privacy-modal');if(m){m.style.display='none';document.body.style.overflow='';}}
-function openAbout(){var m=document.getElementById('about-modal');if(m){m.style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';document.body.style.overflow='hidden';}}
-function closeAbout(){var m=document.getElementById('about-modal');if(m){m.style.display='none';document.body.style.overflow='';}}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePrivacy();closeAbout();}});
-</script>
-<div id="privacy-modal" role="dialog" aria-modal="true" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)closePrivacy()"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="closePrivacy()" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:2.5rem;">🔒</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.6rem;font-weight:900;">Privacy &amp; Terms</h2><p style="color:#888;font-size:12px;">Last updated: May 2026</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#1565c0;font-size:1rem;margin:0 0 0.6rem;">📊 What Data We Use</h3><ul style="margin:0;padding-left:1.2rem;font-size:0.88rem;color:#444;line-height:1.8;"><li>No account required — we never collect your name or email.</li><li>Location used only in-browser. Never stored or transmitted.</li><li>Weather fetched anonymously from Open-Meteo.</li></ul></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#2e7d32;font-size:1rem;margin:0 0 0.6rem;">💾 Your Device Storage</h3><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">Favorites and notes use browser localStorage — stored only on your device. We cannot access this data.</p></div><div style="background:#f5f0ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#6a1b9a;font-size:1rem;margin:0 0 0.6rem;">📋 Terms of Use</h3><ul style="margin:0;padding-left:1.2rem;font-size:0.88rem;color:#444;line-height:1.8;"><li>Listings are informational only. Verify details with the venue.</li><li>SunScout is independent and not affiliated with any listed organization.</li></ul></div><div style="text-align:center;padding-top:0.5rem;"><a href="mailto:sunscout2026@gmail.com" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border-radius:99px;padding:10px 28px;font-weight:800;font-size:0.9rem;text-decoration:none;">📬 Email Us</a></div></div></div>
 </body>
+</html>
