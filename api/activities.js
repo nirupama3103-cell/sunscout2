@@ -807,7 +807,7 @@ export default async function handler(req, res) {
     activities.push(a);
   }
   // Fetch real Google Places photos in background (non-blocking)
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  const apiKey = null; // Disabled — returns wrong photos
   if (apiKey) {
     Promise.all(uniqueHardcoded.map(async (a) => {
       const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
