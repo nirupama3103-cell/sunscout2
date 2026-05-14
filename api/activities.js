@@ -26,7 +26,12 @@ const DEFAULT_IMAGES = {
 // ── Shared image fallback — used by BOTH getHardcoded() and handler() ──────
 // Replaces any broken local paths (/park.jpg etc.) with reliable Unsplash URLs.
 // Call this on every activity before returning it to the frontend.
-function applyImageFallback(a) { return; // disabled - using Google Places + Street View instead
+function applyImageFallback(a) {
+  if (a.image && !a.image.startsWith("/")) return;
+  const t = (a.name + " " + (a.desc || "")).toLowerCase();
+  const addr = encodeURIComponent((a.address || a.name) + " California");
+  a.image = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + addr + "&key=AIzaSyBuznQ8lKpdYluq3oWED-pRr6WK1Ieb050&return_error_code=true";
+}
   const localPathPattern = /^\//; // catches /park.jpg, /festival.jpg, /trail.jpg, etc.
   const isBroken = !a.image || localPathPattern.test(a.image);
   if (!isBroken) return; // already has a real URL — leave it alone
