@@ -338,7 +338,7 @@ html { scroll-behavior: smooth; min-height: 100dvh; background: #FFF9F0; }
 <div class="weather-banner" id="weatherBanner"></div>
 <p class="city-fact" id="cityFact"></p>
 
-<nav class="city-bar" aria-label="Select city">
+<nav class="city-bar" role="navigation" aria-label="Filter by city" aria-label="Select city">
   <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">☀️ Sunnyvale</button>
   <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">🌉 San Jose</button>
   <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">🍎 Cupertino</button>
@@ -408,11 +408,7 @@ html { scroll-behavior: smooth; min-height: 100dvh; background: #FFF9F0; }
   
 </main>
 
-<div class="footer">
-  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p>
-  
-  <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
-</div>
+<footer class="footer" role="contentinfo"><div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:8px;"><button onclick="openAbout()" style="background:none;border:none;color:#FF9900;font-weight:800;font-size:12px;cursor:pointer;font-family:Nunito,sans-serif;padding:0;">🌤️ About</button><span style="color:#ddd">|</span><button onclick="openPrivacy()" style="background:none;border:none;color:#888;font-weight:700;font-size:12px;cursor:pointer;font-family:Nunito,sans-serif;padding:0;">🔒 Privacy &amp; Terms</button><span style="color:#ddd">|</span><a href="mailto:sunscout2026@gmail.com" style="color:#888;font-weight:700;font-size:12px;">📬 Contact Us</a></div><p style="font-size:11px;color:#bbb;margin-bottom:4px;">💾 Favorites &amp; notes saved only on your device — we never see them.</p><p style="font-size:11px;color:#ccc;">🔄 Last updated <span id="lastUpdated">now</span> · © 2026 SunScout · Bay Area, CA</p><p style="font-size:10px;color:#ddd;margin-top:4px;">Independent family resource. Not affiliated with any listed venue.</p></footer>
 
 <script>
 // ── CHANGE 1: PAGE_SIZE set to 9999 — show ALL activities (full audit, no pagination limit) ──
@@ -911,10 +907,7 @@ function showSkeleton() {
   var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
 }
 
-function showError(msg) {
-  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Could not load activities</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try Again</button></div>";
-  document.getElementById("statusBar").innerHTML = "Error loading activities";
-}
+function showError(msg){document.getElementById("grid").innerHTML="<div class='no-results'><div class='no-results-icon'>🌤️</div><h2>Oops - could not load activities</h2><p style='color:#888;font-size:13px;margin-bottom:8px;'>" + msg + "</p><p style='color:#aaa;font-size:12px;margin-bottom:16px;'>Your saved favorites and notes are safe!</p><button class='show-more-btn' onclick='loadActivities()'>🔄 Try Again</button><p style='margin-top:14px;font-size:12px;'><a href='mailto:sunscout2026@gmail.com?subject=SunScout Error' style='color:#FF9900;font-weight:700;'>📬 Report this issue</a></p></div>";document.getElementById("statusBar").innerHTML="⚠️ Error - tap Try Again";}
 
 function fmtDate(d) {
   if (!d) return "";
@@ -1429,5 +1422,12 @@ function scCalGo(ds){
   var d=dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());
   window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent((note.split('\n')[0]||'SunScout').substring(0,60))+'&dates='+d+'/'+d,'_blank');
 }
+
+function openPrivacy(){var m=document.getElementById('privacy-modal');if(m){m.style.display='flex';document.body.style.overflow='hidden';}}
+function closePrivacy(){var m=document.getElementById('privacy-modal');if(m){m.style.display='none';document.body.style.overflow='';}}
+function openAbout(){var m=document.getElementById('about-modal');if(m){m.style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';document.body.style.overflow='hidden';}}
+function closeAbout(){var m=document.getElementById('about-modal');if(m){m.style.display='none';document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePrivacy();closeAbout();}});
 </script>
+<div id="privacy-modal" role="dialog" aria-modal="true" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)closePrivacy()"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="closePrivacy()" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:2.5rem;">🔒</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.6rem;font-weight:900;">Privacy &amp; Terms</h2><p style="color:#888;font-size:12px;">Last updated: June 2026</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#1565c0;font-size:1rem;margin:0 0 0.6rem;">📊 What Data We Use</h3><ul style="margin:0;padding-left:1.2rem;font-size:0.88rem;color:#444;line-height:1.8;"><li>No account required — we never collect your name or email.</li><li>Location used only in-browser. Never stored or transmitted.</li><li>Weather fetched anonymously from Open-Meteo.</li></ul></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#2e7d32;font-size:1rem;margin:0 0 0.6rem;">💾 Your Device Storage</h3><p style="margin:0;font-size:0.88rem;color:#444;line-height:1.6;">Favorites and notes use browser localStorage — stored only on your device. We cannot access this data.</p></div><div style="background:#f5f0ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="color:#6a1b9a;font-size:1rem;margin:0 0 0.6rem;">📋 Terms of Use</h3><ul style="margin:0;padding-left:1.2rem;font-size:0.88rem;color:#444;line-height:1.8;"><li>Listings are informational only. Verify details with the venue.</li><li>SunScout is independent and not affiliated with any listed organization.</li></ul></div><div style="text-align:center;padding-top:0.5rem;"><a href="mailto:sunscout2026@gmail.com" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border-radius:99px;padding:10px 28px;font-weight:800;font-size:0.9rem;text-decoration:none;">📬 Email Us</a></div></div></div>
 </body>
