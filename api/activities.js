@@ -26,7 +26,7 @@ const DEFAULT_IMAGES = {
 // ── Shared image fallback — used by BOTH getHardcoded() and handler() ──────
 // Replaces any broken local paths (/park.jpg etc.) with reliable Unsplash URLs.
 // Call this on every activity before returning it to the frontend.
-function applyImageFallback(a) {
+function applyImageFallback(a) { return; // disabled - using Google Places + Street View instead
   const localPathPattern = /^\//; // catches /park.jpg, /festival.jpg, /trail.jpg, etc.
   const isBroken = !a.image || localPathPattern.test(a.image);
   if (!isBroken) return; // already has a real URL — leave it alone
