@@ -91,6 +91,9 @@ function getDefaultImage(name, desc) {
 const PHOTO_CACHE = new Map();
 
 async function getPlacePhoto(name, address, apiKey) {
+  // Skip generic addresses — they return wrong photos
+  const hasStreet = address && /^\d+/.test(address.trim());
+  if (!hasStreet) { return null; }
   const cacheKey = name;
   if (PHOTO_CACHE.has(cacheKey)) return PHOTO_CACHE.get(cacheKey);
   if (!apiKey) { PHOTO_CACHE.set(cacheKey, null); return null; }
