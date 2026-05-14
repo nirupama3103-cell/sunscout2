@@ -817,13 +817,16 @@ export default async function handler(req, res) {
     activities.push(a);
   }
   // Fetch real Google Places photos in background (non-blocking)
-  const apiKey = null;
-  if (apiKey) {
-    Promise.all(uniqueHardcoded.map(async (a) => {
-      const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
-      if (placesPhoto) a.image = placesPhoto;
-    })).catch(() => {});
-  }
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  await Promise.all(uniqueHardcoded.map(async (a) => {
+    if (a.image && !a.image.startsWith("/")) return; // already has real image
+    const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
+    if (placesPhoto) {
+      a.image = placesPhoto;
+    } else if (a.address && a.address.length > 5 && apiKey) {
+      a.image = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + encodeURIComponent(a.address) + "&key=" + apiKey + "&return_error_code=true";
+    }
+  }));
 
 
   // Tab filters
