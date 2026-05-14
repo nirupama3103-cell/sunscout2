@@ -456,50 +456,45 @@ const DIY = [
 
 // ── Smart local image — specific names beat generic keywords ──────────────
 function getSmartLocalImage(name, f) {
-  // Priority 1: exact venue names
-  if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  if (name.includes("camp galileo")||name.includes("galileo camp")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (name.includes("kidstrong")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (name.includes("safari kid")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (name.includes("little gym")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  if (name.includes("winchester")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  if (name.includes("tech interactive")||name.includes("the tech")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  if (name.includes("children's discovery")||name.includes("discovery museum")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  if (name.includes("palo alto junior")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  if (name.includes("bay trail")||name.includes("don edwards")||name.includes("mission peak")||name.includes("coyote")) return "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  if (name.includes("altitude trampoline")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  if (name.includes("ballet")||name.includes("my first ballet")) return "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
-  if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  if (name.includes("sunnyvale market")||name.includes("farmers market")) return "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  if (name.includes("library")||name.includes("storytime")) return "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  // Priority 2: activity type
-  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
-  if (f.includes("trail")||f.includes("hike")||f.includes("creek")||f.includes("shoreline")) return "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  if (f.includes("high rope")||f.includes("zip line")||f.includes("ropes course")||f.includes("climbing")) return "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  if (f.includes("pool")||f.includes("swim")||f.includes("splash")||f.includes("aquatic")) return "https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  if (f.includes("ballet")||f.includes("dance")) return "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
-  if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "https://images.unsplash.com/photo-1535262412227-85541e910204?w=600&q=80";
-  if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  if (f.includes("playground")||f.includes("splash pad")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  if (f.includes("beach")||f.includes("boardwalk")) return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
-  // Priority 3: STEM before generic camp
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  // Priority 4: generic camp last
-  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
-  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
-  return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
+  // Horses & riding
+  if (f.includes("horse")||f.includes("pony")||f.includes("riding")||f.includes("carriage")) return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80";
+  // Cherry & berry picking
+  if (f.includes("cherry")||f.includes("berry")||f.includes("fruit pick")) return "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
+  // Beach & boardwalk
+  if (f.includes("beach")||f.includes("boardwalk")||f.includes("pier")||f.includes("fishing")) return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
+  // Swimming & splash & water
+  if (f.includes("swim")||f.includes("pool")||f.includes("splash")||f.includes("aquatic")||f.includes("water park")) return "https://images.unsplash.com/photo-1510149552-2d98a7f9c14d?w=600&q=80";
+  // Hiking & trails & nature
+  if (f.includes("hike")||f.includes("trail")||f.includes("canyon")||f.includes("preserve")||f.includes("mission peak")||f.includes("creek walk")) return "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=80";
+  // Farm & zoo & animals & petting
+  if (f.includes("farm")||f.includes("zoo")||f.includes("petting")||f.includes("animal")||f.includes("ardenwood")||f.includes("deer hollow")||f.includes("happy hollow")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
+  // Library & storytime & reading & books
+  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&q=80";
+  // Museum & discovery & history
+  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")||f.includes("history")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
+  // STEM & coding & robotics
+  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")||f.includes("snapology")||f.includes("integem")) return "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80";
+  // Ballet & dance
+  if (f.includes("ballet")||f.includes("dance")) return "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&q=80";
+  // Music
+  if (f.includes("music")||f.includes("instrument")) return "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80";
+  // Art & crafts & pottery
+  if (f.includes("art")||f.includes("paint")||f.includes("craft")||f.includes("pottery")||f.includes("clay")) return "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80";
+  // Sports & soccer & tennis & gymnastics
+  if (f.includes("soccer")||f.includes("tennis")||f.includes("gymnastics")||f.includes("sport")||f.includes("trampoline")) return "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80";
+  // Summer camp & YMCA & day camp
+  if (f.includes("camp")||f.includes("ymca")||f.includes("galileo")||f.includes("kidstrong")||f.includes("safari kid")||f.includes("day camp")) return "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80";
+  // Park & playground & splash pad
+  if (f.includes("park")||f.includes("playground")||f.includes("splash pad")) return "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
+  // Farmers market & festival
+  if (f.includes("farmers market")||f.includes("festival")||f.includes("fair")||f.includes("concert")) return "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
+  // Train & heritage
+  if (f.includes("train")||f.includes("railway")||f.includes("roaring camp")) return "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&q=80";
+  // Garden & nature walk
+  if (f.includes("garden")||f.includes("nature walk")||f.includes("botanic")) return "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80";
+  // Default — sunny outdoor family
+  return "https://images.unsplash.com/photo-1475483768296-f9af1a9bfd06?w=600&q=80";
 }
-
-// ── Emoji card — always works, no broken images ever ──────────────────────
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
   var src = "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
