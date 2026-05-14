@@ -90,18 +90,61 @@ function getDefaultImage(name, desc) {
 // fetch available globally in Node 18+
 const PHOTO_CACHE = new Map();
 
+function buildPhotoQuery(name, address) {
+  const n = name.toLowerCase();
+  if (n.includes("cherry") || n.includes("berry") || n.includes("fruit pick") || n.includes("orchard"))
+    return "cherry picking fruit orchard farm California kids";
+  if (n.includes("horse") || n.includes("horseback") || n.includes("equestrian") || n.includes("ranch"))
+    return "horseback riding ranch California kids family";
+  if (n.includes("petting zoo") || n.includes("farm animal") || n.includes("ardenwood") || n.includes("hidden villa") || n.includes("deer hollow") || n.includes("lemos"))
+    return "petting zoo farm animals kids California";
+  if (n.includes("hike") || n.includes("trail") || n.includes("mission peak") || n.includes("coyote"))
+    return "family hiking trail nature California";
+  if (n.includes("splash pad") || n.includes("spray park") || n.includes("water play"))
+    return "kids splash pad water play summer park";
+  if (n.includes("fishing") || n.includes("pier"))
+    return "family fishing pier ocean California kids";
+  if (n.includes("beach") || n.includes("boardwalk") || n.includes("santa cruz"))
+    return "Santa Cruz beach boardwalk family kids summer";
+  if (n.includes("farmers market") || n.includes("sunnyvale market"))
+    return "farmers market California family outdoor stalls";
+  if (n.includes("stem") || n.includes("robot") || n.includes("coding") || n.includes("integem") || n.includes("snapology") || n.includes("id tech"))
+    return "kids STEM robotics coding camp classroom California";
+  if (n.includes("museum") || n.includes("discovery") || n.includes("winchester") || n.includes("tech interactive"))
+    return "children discovery museum California exhibit interactive";
+  if (n.includes("trampoline") || n.includes("altitude"))
+    return "kids trampoline park indoor jump California";
+  if (n.includes("swim") || n.includes("pool") || n.includes("aquatic") || n.includes("ymca"))
+    return "kids swimming pool YMCA California summer";
+  if (n.includes("ballet") || n.includes("dance") || n.includes("music"))
+    return "kids ballet dance class studio California";
+  if (n.includes("art") || n.includes("paint") || n.includes("craft") || n.includes("pottery"))
+    return "kids art craft class studio painting California";
+  if (n.includes("library") || n.includes("storytime") || n.includes("reading"))
+    return "children library storytime reading program kids";
+  if (n.includes("camp") || n.includes("galileo") || n.includes("kidventure") || n.includes("safari kid"))
+    return "summer camp kids outdoor California activities";
+  if (n.includes("zoo") || n.includes("happy hollow") || n.includes("animal"))
+    return "kids zoo animals California family summer";
+  if (n.includes("great america") || n.includes("theme park") || n.includes("amusement"))
+    return "Great America theme park rides California family";
+  if (n.includes("bowling")) return "kids bowling alley family California";
+  if (n.includes("laser tag") || n.includes("lazer")) return "laser tag kids family arena California";
+  if (n.includes("climbing") || n.includes("rock climb")) return "kids rock climbing gym California";
+  if (n.includes("park") || n.includes("playground"))
+    return "family park playground California sunny day kids";
+  return name + " " + (address || "") + " California kids activities";
+}
+
 async function getPlacePhoto(name, address, apiKey) {
-  // Skip generic addresses — they return wrong photos
-  const hasStreet = address && /^\d+/.test(address.trim());
-  if (!hasStreet) { return null; }
   const cacheKey = name;
   if (PHOTO_CACHE.has(cacheKey)) return PHOTO_CACHE.get(cacheKey);
   if (!apiKey) { PHOTO_CACHE.set(cacheKey, null); return null; }
   try {
+    const smartQuery = buildPhotoQuery(name, address);
     const findUrl = "https://places.googleapis.com/v1/places:searchText";
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3000); // 3 second timeout
-    
+    const timeout = setTimeout(() => controller.abort(), 4000);
     const findRes = await fetch(findUrl, {
       method: "POST",
       headers: {
@@ -109,14 +152,13 @@ async function getPlacePhoto(name, address, apiKey) {
         "X-Goog-Api-Key": apiKey,
         "X-Goog-FieldMask": "places.photos,places.displayName"
       },
-      body: JSON.stringify({ textQuery: name + " " + (address || "") + " CA", maxResultCount: 1 }),
+      body: JSON.stringify({ textQuery: smartQuery, maxResultCount: 1 }),
       signal: controller.signal
     });
     clearTimeout(timeout);
     const findData = await findRes.json();
     const photoName = findData.places?.[0]?.photos?.[0]?.name;
     if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
-    // Route through proxy to avoid CORS/redirect issues
     const photoUrl = "/api/img?ref=" + encodeURIComponent(photoName);
     PHOTO_CACHE.set(cacheKey, photoUrl);
     return photoUrl;
