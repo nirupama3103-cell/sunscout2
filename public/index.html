@@ -544,7 +544,7 @@ function getCardHTML(a) {
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=600&q=80";
   // Use ONLY local hardcoded images
-  var finalSrc = (a.image && a.image.startsWith("http")) ? a.image : (getSmartLocalImage(name, f) || src);
+  var finalSrc = getSmartLocalImage(name, f) || src;
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
