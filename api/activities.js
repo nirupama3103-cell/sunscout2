@@ -798,19 +798,20 @@ export default async function handler(req, res) {
     const key = a.name.toLowerCase().slice(0, 30);
     if (!seen.has(key)) { seen.add(key); uniqueHardcoded.push(a); }
   }
-
+  // Apply fallback images instantly so cards load immediately
+  for (const a of uniqueHardcoded) {
+    applyImageFallback(a);
+    activities.push(a);
+  }
+  // Fetch real Google Places photos in background (non-blocking)
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  await Promise.all(uniqueHardcoded.map(async (a) => {
-    const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
-    if (placesPhoto) {
-      a.image = placesPhoto;
-    } else {
-      // Always apply fallback — covers null images AND broken local paths
-      applyImageFallback(a);
-    }
-  }));
+  if (apiKey) {
+    Promise.all(uniqueHardcoded.map(async (a) => {
+      const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
+      if (placesPhoto) a.image = placesPhoto;
+    })).catch(() => {});
+  }
 
-  for (const a of uniqueHardcoded) activities.push(a);
 
   // Tab filters
   const INDOOR_EXCLUDE = ["backyard","restaurant","bar","pub","grill","brewery","winery","lounge","casino"];
