@@ -879,7 +879,7 @@ export default async function handler(req, res) {
 
   const payload = { tab, city, age, count: activities.length, activities, fetchedAt: new Date().toISOString() };
   CACHE.set(cacheKey, { data: payload, ts: Date.now() });
-  res.setHeader("Cache-Control", "s-maxage=3600,stale-while-revalidate=600");
+  res.setHeader("Cache-Control", "s-maxage=0, no-cache, no-store, must-revalidate");
   res.setHeader("X-Cache", "MISS");
   return res.status(200).json(payload);
 }
