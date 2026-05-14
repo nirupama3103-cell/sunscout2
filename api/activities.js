@@ -27,43 +27,9 @@ const DEFAULT_IMAGES = {
 // Replaces any broken local paths (/park.jpg etc.) with reliable Unsplash URLs.
 // Call this on every activity before returning it to the frontend.
 function applyImageFallback(a) {
-  if (a.image && !a.image.startsWith("/")) return;
-  const t = (a.name + " " + (a.desc || "")).toLowerCase();
-  const addr = encodeURIComponent((a.address || a.name) + " California");
-  a.image = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + addr + "&key=AIzaSyBuznQ8lKpdYluq3oWED-pRr6WK1Ieb050&return_error_code=true";
+  return; // images handled by frontend
 }
 
-  const t = (a.name + " " + (a.desc || "")).toLowerCase();
-
-  if (t.includes("soccer") || t.includes("sport") || t.includes("tennis") || t.includes("basketball"))
-    a.image = "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  else if (t.includes("swim") || t.includes("pool") || t.includes("aquatic") || t.includes("splash"))
-    a.image = "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
-  else if (t.includes("stem") || t.includes("robot") || t.includes("cod") || t.includes("tech") || t.includes("ai") || t.includes("lego") || t.includes("science") || t.includes("snapology"))
-    a.image = "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  else if (t.includes("art") || t.includes("paint") || t.includes("craft") || t.includes("pottery") || t.includes("clay"))
-    a.image = "https://images.unsplash.com/photo-1588497859490-85d1c17db96d?w=600&q=80";
-  else if (t.includes("danc") || t.includes("ballet") || t.includes("music"))
-    a.image = "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
-  else if (t.includes("hike") || t.includes("trail") || t.includes("nature") || t.includes("creek") || t.includes("canyon") || t.includes("preserve"))
-    a.image = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (t.includes("park") || t.includes("playground") || t.includes("garden") || t.includes("outdoor"))
-    a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
-  else if (t.includes("museum") || t.includes("discovery") || t.includes("exhibit") || t.includes("history"))
-    a.image = "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (t.includes("library") || t.includes("book") || t.includes("reading") || t.includes("storytime"))
-    a.image = "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (t.includes("farm") || t.includes("zoo") || t.includes("animal") || t.includes("petting") || t.includes("horse") || t.includes("ranch"))
-    a.image = "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
-  else if (t.includes("trampoline") || t.includes("altitude") || t.includes("bounce"))
-    a.image = "https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?w=600&q=80";
-  else if (t.includes("camp") || t.includes("ymca") || t.includes("galileo") || t.includes("kidstrong"))
-    a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  else if (t.includes("farmers market") || t.includes("festival") || t.includes("fair"))
-    a.image = "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  else
-    a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
-}
 
 function getDefaultImage(name, desc) {
   const t = (name + " " + (desc||"")).toLowerCase();
