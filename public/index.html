@@ -458,9 +458,9 @@ const DIY = [
 function getSmartLocalImage(name, f) {
   // Priority 1: exact venue names
   if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  if (name.includes("camp galileo")||name.includes("galileo camp")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  if (name.includes("kidstrong")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  if (name.includes("safari kid")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  if (name.includes("camp galileo")||name.includes("galileo camp")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
+  if (name.includes("kidstrong")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
+  if (name.includes("safari kid")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
   if (name.includes("little gym")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
   if (name.includes("winchester")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
   if (name.includes("tech interactive")||name.includes("the tech")) return "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
@@ -472,7 +472,7 @@ function getSmartLocalImage(name, f) {
   if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
   if (name.includes("sunnyvale market")||name.includes("farmers market")) return "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
   if (name.includes("library")||name.includes("storytime")) return "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
   if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
   // Priority 2: activity type
   if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
@@ -486,39 +486,39 @@ function getSmartLocalImage(name, f) {
   if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
   if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
   if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
-  if (f.includes("playground")||f.includes("splash pad")) return "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
+  if (f.includes("playground")||f.includes("splash pad")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   if (f.includes("beach")||f.includes("boardwalk")) return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
   // Priority 3: STEM before generic camp
   if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
   // Priority 4: generic camp last
-  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
   if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
-  return "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
+  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
+  return "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
 }
 
 // ── Emoji card — always works, no broken images ever ──────────────────────
 function getCardHTML(a) {
   var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  var src = "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   var name = (a.name||"").toLowerCase();
   if (name.includes("winchester")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
   else if (name.includes("tech interactive")||name.includes("the tech")) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
   else if (name.includes("children's discovery")||name.includes("discovery museum")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
   else if (name.includes("junior museum")||name.includes("palo alto junior")) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
-  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
-  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
   else if (name.includes("my first ballet")||name.includes("ballet")) src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
   else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
   else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
   else if (name.includes("art & wine")||name.includes("festival")||name.includes("concert")) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
   else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (name.includes("saratoga community")||name.includes("indoor class")) src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  else if (name.includes("san jose")&&name.includes("camp")) src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
-  else if (name.includes("playground")||name.includes("park kids")) src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80ground.jpg";
+  else if (name.includes("saratoga community")||name.includes("indoor class")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
+  else if (name.includes("san jose")&&name.includes("camp")) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
+  else if (name.includes("playground")||name.includes("park kids")) src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80ground.jpg";
   else if (name.includes("bay trail")||name.includes("bay trail")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
   else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
   else if (name.includes("creek")||name.includes("shoreline")) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
@@ -527,7 +527,7 @@ function getCardHTML(a) {
   else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
   else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
   else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=600&q=80";
-  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="https://images.unsplash.com/photo-1551958219-acbc91c19eb6?w=600&q=80";
   if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="https://images.unsplash.com/photo-1528825871115-3581a5387919?w=600&q=80";
   else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80";
@@ -538,18 +538,18 @@ function getCardHTML(a) {
   else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
   else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0||f.indexOf("essanay")>=0) src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
   else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("code ninja")>=0||f.indexOf("maker")>=0) src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80";
   else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80";
-  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
-  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   // Use ONLY local hardcoded images
-  var finalSrc = getSmartLocalImage(name, f) || src || "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+  var finalSrc = getSmartLocalImage(name, f) || src || "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80";
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\"\" />"
+    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80';this.style.opacity='1'\"\" />"
     + "</div>";
 }
 
