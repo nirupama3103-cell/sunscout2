@@ -136,7 +136,7 @@ async function getPlacePhoto(name, address, apiKey) {
 // ============================================================
 
 const CACHE = new Map(); // v2
-const TTL = 10 * 60 * 1000; // 10 min
+const TTL = 0; // 10 min
 const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
 const TAB_KEYWORDS = {
@@ -842,3 +842,5 @@ export default async function handler(req, res) {
   return res.status(200).json(payload);
 }
 // cache bust Thu May 14 17:45:38 UTC 2026
+
+// cache bust v3
