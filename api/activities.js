@@ -90,8 +90,7 @@ function buildPhotoQuery(name, address) {
     return "kids art craft class studio painting California";
   if (n.includes("library") || n.includes("storytime") || n.includes("reading"))
     return "children library storytime reading program kids";
-  if (n.includes("camp") || n.includes("galileo") || n.includes("kidventure") || n.includes("safari kid"))
-    return "summer camp kids outdoor California activities";
+  // camps use exact name for unique photos — handled by fallback below
   if (n.includes("zoo") || n.includes("happy hollow") || n.includes("animal"))
     return "kids zoo animals California family summer";
   if (n.includes("great america") || n.includes("theme park") || n.includes("amusement"))
@@ -101,7 +100,8 @@ function buildPhotoQuery(name, address) {
   if (n.includes("climbing") || n.includes("rock climb")) return "kids rock climbing gym California";
   if (n.includes("park") || n.includes("playground"))
     return "family park playground California sunny day kids";
-  return name + " " + (address || "") + " California kids activities";
+  // Use exact name for unique photos
+  return name + " " + (address || "");
 }
 
 async function getPlacePhoto(name, address, apiKey) {
