@@ -136,7 +136,7 @@ async function getPlacePhoto(name, address, apiKey) {
 // ============================================================
 
 const CACHE = new Map();
-const TTL = 0; // 10 min
+const TTL = 10 * 60 * 1000; // 10 min
 const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
 const TAB_KEYWORDS = {
@@ -807,7 +807,7 @@ export default async function handler(req, res) {
     activities.push(a);
   }
   // Fetch real Google Places photos in background (non-blocking)
-  const apiKey = null; // Disabled — returns wrong photos
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   if (apiKey) {
     Promise.all(uniqueHardcoded.map(async (a) => {
       const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
