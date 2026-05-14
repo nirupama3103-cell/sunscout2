@@ -135,7 +135,7 @@ async function getPlacePhoto(name, address, apiKey) {
 // Keys server-side only — never exposed to browser
 // ============================================================
 
-const CACHE = new Map();
+const CACHE = new Map(); // v2
 const TTL = 10 * 60 * 1000; // 10 min
 const PHOTO_TTL = 24 * 60 * 60 * 1000; // 24hr photo cache
 
