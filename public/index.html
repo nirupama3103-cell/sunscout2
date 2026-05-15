@@ -410,7 +410,7 @@ html { scroll-behavior: smooth; }
   <div class="hero-title">Sun<span>Scout</span> &#127780;</div>
   <div class="hero-sub">Free &amp; Paid Summer Activities for Bay Area Kids</div>
   <div class="hero-search">
-    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="handleSearch(this.value)" />
+    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="document.getElementById('searchInput').value=this.value;handleSearch(this.value)" />
     <button onclick="handleSearch(document.getElementById('heroSearch').value)">Search</button>
   </div>
   <div class="hero-meta"><span id="heroCountdown"></span></div>
