@@ -415,7 +415,7 @@ html { scroll-behavior: smooth; }
   </div>
   <div class="hero-meta"><span id="heroCountdown"></span></div>
 </section>
-<div class="header">
+<div class="header" style="display:none">
   <div class="logo">Sun<span>Scout</span> 🌤️</div>
   <p class="tagline">Your Summer Adventure, Simplified.</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
@@ -473,9 +473,9 @@ html { scroll-behavior: smooth; }
   </button>
 </div>
 
-<div class="search-wrap">
+<div class="search-wrap" style="display:none">
   <span class="search-icon">🔍</span>
-  <input type="search" id="searchInput" class="search-input"
+  <input type="search" id="searchInput" class="search-input" style="display:none"
     placeholder="Search park, swimming, library, splash pad…"
     aria-label="Search activities"
     oninput="setSearch(this.value)"/>
