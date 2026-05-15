@@ -266,7 +266,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 
 @media(max-width: 640px) {
   #bottom-nav { display: block; }
-  #main { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+  #main { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
   .show-more-wrap { padding-bottom: 20px; }
   .footer { padding-bottom: 70px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
@@ -515,6 +515,7 @@ html { scroll-behavior: smooth; }
 @media(min-width:641px) {
   .mobile-filter-tabs { display: none !important; }
   .mobile-filter-panel { display: none; }
+  #dd-container { min-height: 0; }
 }
 
 </style>
@@ -626,7 +627,7 @@ html { scroll-behavior: smooth; }
 </div>
 
 <!-- DROPDOWNS -->
-<div style="position:relative;z-index:100;padding:0 12px;">
+<div style="position:relative;z-index:100;" id="dd-container">
 
   <!-- City Dropdown -->
   <div id="dd-city" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
