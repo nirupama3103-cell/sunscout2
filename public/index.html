@@ -852,6 +852,7 @@ function renderCards() {
     var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
     // ── FIX 3: card heart properly calls updateBnavBadge ──
+    var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
     var favKey = activeTab+"_"+i;
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
@@ -1258,7 +1259,6 @@ function renderActivityNotes() {
   var list = document.getElementById('activity-notes-list');
   var myList = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
   if(myList.length === 0) { list.innerHTML = '<p style="color:#aaa;font-size:13px;text-align:center;">Save activities to My List to add notes here.</p>'; return; }
-  list.innerHTML = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;margin-bottom:10px;">Activity Notes</h3>' +
   var html = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;margin-bottom:10px;">Activity Notes</h3>';
   for(var idx=0; idx<myList.length; idx++) {
     var a = myList[idx];
