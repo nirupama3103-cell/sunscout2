@@ -1671,7 +1671,7 @@ function buildMobileCities() {
   var grid = document.getElementById('m-city-grid');
   if(!grid) return;
   grid.innerHTML = cities.map(function(c,i) {
-    return '<button class="m-city-btn'+(c===activeCity?' on':'')+'" onclick="setMobileCity(''+c+'',this)">'+icons[i]+' '+c+'</button>';
+    return '<button class="m-city-btn'+(c===activeCity?' on':'')+'" onclick="setMobileCity(\'' + c + '\',this)">'+icons[i]+' '+c+'</button>';
   }).join('');
 }
 
