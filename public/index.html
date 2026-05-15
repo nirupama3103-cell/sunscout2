@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SunScout – Summer Activities for Kids</title>
   <link rel="dns-prefetch" href="//api.open-meteo.com">
@@ -9,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#f0f9ff;color:#1a1a1a;min-height:100vh}
+body{font-family:'Nunito',sans-serif;background:#f0f9ff!important;color:#1a1a1a!important;min-height:100vh;color-scheme:light only;}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
@@ -265,9 +266,9 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 
 @media(max-width: 640px) {
   #bottom-nav { display: block; }
-  #main { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  #main { padding-bottom: calc(65px + env(safe-area-inset-bottom)); }
   .show-more-wrap { padding-bottom: 20px; }
-  .footer { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .footer { padding-bottom: 12px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
   .age-btn { padding: 8px 16px; font-size: 13px; }
   .tab-bar {
