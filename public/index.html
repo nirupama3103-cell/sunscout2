@@ -1641,6 +1641,7 @@ function openCalendar(){ openPlanner(); switchTab('calendar'); }
 
 // ── MOBILE FILTER TABS ──
 function switchMFT(tab) {
+  console.log("switchMFT called:", tab);
   ['city','explore','age'].forEach(function(t) {
     document.getElementById('mft-'+t).classList.toggle('active', t===tab);
     document.getElementById('mfp-'+t).classList.toggle('active', t===tab);
