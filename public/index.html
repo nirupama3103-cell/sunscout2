@@ -407,7 +407,7 @@ html { scroll-behavior: smooth; }
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
-  <div style="margin:0 auto 10px;width:140px;height:140px;position:relative;z-index:2;">
+  <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px;position:relative;z-index:2;"><div style="width:80px;height:80px;flex-shrink:0;">
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <!-- Outer ring -->
       <circle cx="100" cy="100" r="98" fill="#1a3a6b" />
@@ -476,7 +476,10 @@ html { scroll-behavior: smooth; }
       <text x="100" y="175" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="16" fill="white" letter-spacing="2">SUNSCOUT</text>
     </svg>
   </div>
-  <div class="hero-title">Sun<span>Scout</span></div>
+    <div style="font-size:2.8rem;font-weight:900;letter-spacing:-1px;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <span style="color:#FF4B4B;">S</span><span style="color:#FF9900;">u</span><span style="color:#FFD700;">n</span><span style="color:#4CAF50;">S</span><span style="color:#2196F3;">c</span><span style="color:#9C27B0;">o</span><span style="color:#FF4B4B;">u</span><span style="color:#FF9900;">t</span>
+    </div>
+  </div>
   <div class="hero-sub">Free &amp; Paid Summer Activities for Bay Area Kids</div>
   <div class="hero-search">
     <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="setSearch(this.value)" />
