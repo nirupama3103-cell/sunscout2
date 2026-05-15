@@ -325,12 +325,96 @@ html { scroll-behavior: smooth; }
 .card { -webkit-tap-highlight-color: transparent; }
 .city-btn, .tab-btn, .age-btn { -webkit-tap-highlight-color: transparent; }
 .grid { transition: opacity .2s; }
-#back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}</style>
+#back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}
+/* ── HERO SECTION ── */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, #e0f4ff 0%, #bae6fd 60%, #f0f9ff 100%);
+  padding: 48px 16px 36px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-title {
+  font-size: 2.6rem; font-weight: 900; color: #0c4a6e;
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 6px;
+  position: relative; z-index: 2;
+}
+.hero-title span { color: #FF9900; }
+.hero-sub {
+  font-size: 1.05rem; color: #0369a1; font-weight: 600;
+  margin-bottom: 20px; position: relative; z-index: 2;
+}
+.hero-search {
+  display: flex; align-items: center;
+  max-width: 480px; margin: 0 auto 16px;
+  background: #fff; border-radius: 99px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  padding: 6px 6px 6px 18px;
+  position: relative; z-index: 2;
+}
+.hero-search input {
+  flex: 1; border: none; outline: none; font-size: 15px;
+  font-family: Nunito, sans-serif; font-weight: 600;
+  background: transparent; color: #1a1a1a;
+}
+.hero-search input::placeholder { color: #aaa; }
+.hero-search button {
+  background: #FF9900; color: #fff; border: none;
+  border-radius: 99px; padding: 8px 20px;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: Nunito, sans-serif; transition: background .15s;
+}
+.hero-search button:hover { background: #e68900; }
+.hero-meta {
+  font-size: 13px; color: #0369a1; font-weight: 700;
+  position: relative; z-index: 2;
+}
+/* Clouds */
+.cloud {
+  position: absolute; background: #fff;
+  border-radius: 99px; opacity: .85; z-index: 1;
+}
+.cloud::before, .cloud::after {
+  content: ''; position: absolute;
+  background: #fff; border-radius: 50%;
+}
+.cloud-1 { width:120px; height:36px; top:18px; left:-140px; animation: drift 22s linear infinite; }
+.cloud-1::before { width:60px; height:52px; top:-28px; left:18px; }
+.cloud-1::after  { width:44px; height:40px; top:-20px; left:52px; }
+.cloud-2 { width:90px; height:28px; top:55px; left:-110px; animation: drift 30s linear infinite; animation-delay:-10s; opacity:.6; }
+.cloud-2::before { width:44px; height:40px; top:-22px; left:12px; }
+.cloud-2::after  { width:34px; height:30px; top:-15px; left:38px; }
+.cloud-3 { width:140px; height:40px; top:24px; left:-170px; animation: drift 38s linear infinite; animation-delay:-20s; opacity:.7; }
+.cloud-3::before { width:70px; height:58px; top:-32px; left:22px; }
+.cloud-3::after  { width:50px; height:44px; top:-24px; left:60px; }
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100vw + 200px)); }
+}
+@media(max-width:640px) {
+  .hero { padding: 36px 16px 28px; }
+  .hero-title { font-size: 1.9rem; }
+  .hero-sub { font-size: 0.9rem; }
+}
+
+</style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
+<section class="hero">
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="hero-title">Sun<span>Scout</span> &#127780;</div>
+  <div class="hero-sub">Free &amp; Paid Summer Activities for Bay Area Kids</div>
+  <div class="hero-search">
+    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="handleSearch(this.value)" />
+    <button onclick="handleSearch(document.getElementById('heroSearch').value)">Search</button>
+  </div>
+  <div class="hero-meta"><span id="heroCountdown"></span></div>
+</section>
 <div class="header">
   <div class="logo">Sun<span>Scout</span> 🌤️</div>
   <p class="tagline">Your Summer Adventure, Simplified.</p>
@@ -876,6 +960,8 @@ function updateCountdown() {
   var days = Math.max(0, Math.ceil((end-new Date())/86400000));
   var el   = document.getElementById("countdown");
   if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
+  var el2 = document.getElementById("heroCountdown");
+  if (el2) el2.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
 }
 
 document.addEventListener("click", function(e) {
