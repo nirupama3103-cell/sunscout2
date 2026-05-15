@@ -1259,13 +1259,18 @@ function renderActivityNotes() {
   var myList = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
   if(myList.length === 0) { list.innerHTML = '<p style="color:#aaa;font-size:13px;text-align:center;">Save activities to My List to add notes here.</p>'; return; }
   list.innerHTML = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;margin-bottom:10px;">Activity Notes</h3>' +
-    myList.map(function(a, i) {
-      var note = localStorage.getItem('sunscout_anote_' + i) || '';
-      return '<div style="margin-bottom:12px;padding:12px;background:#f5f3ff;border-radius:12px;">' +
-        '<div style="font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;margin-bottom:6px;">' + (a.name||a) + '</div>' +
-        '<textarea placeholder="Add note for this activity..." style="width:100%;height:64px;border:1px solid #ddd;border-radius:8px;padding:8px;font-family:Nunito,sans-serif;font-size:13px;resize:none;outline:none;box-sizing:border-box;" onchange="localStorage.setItem('sunscout_anote_' + i + '',this.value)">' + note + '</textarea>' +
-        '</div>';
-    }).join('');
+  var html = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;margin-bottom:10px;">Activity Notes</h3>';
+  for(var idx=0; idx<myList.length; idx++) {
+    var a = myList[idx];
+    var key = 'sunscout_anote_' + idx;
+    var note = localStorage.getItem(key) || '';
+    html += '<div style="margin-bottom:12px;padding:12px;background:#f5f3ff;border-radius:12px;">';
+    html += '<div style="font-weight:800;">' + (a.name||a) + '</div>';
+    html += '<textarea data-key="' + key + '" style="width:100%;height:64px;border:1px solid #ddd;border-radius:8px;padding:8px;font-size:13px;">' + note + '</textarea>';
+    html += '</div>';
+  }
+  list.innerHTML = html;
+  list.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
 }
 
 // ── CALENDAR ──
