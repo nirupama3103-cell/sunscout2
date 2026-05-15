@@ -410,8 +410,8 @@ html { scroll-behavior: smooth; }
   <div class="hero-title">Sun<span>Scout</span> &#127780;</div>
   <div class="hero-sub">Free &amp; Paid Summer Activities for Bay Area Kids</div>
   <div class="hero-search">
-    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="document.getElementById('searchInput').value=this.value;handleSearch(this.value)" />
-    <button onclick="handleSearch(document.getElementById('heroSearch').value)">Search</button>
+    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="setSearch(this.value)" />
+    <button onclick="setSearch(document.getElementById('heroSearch').value)">Search</button>
   </div>
   <div class="hero-meta"><span id="heroCountdown"></span></div>
 </section>
@@ -1228,6 +1228,14 @@ function syncBnav(tab) {
 function openNotepad() {
   var modal = document.getElementById('notepad-modal');
   modal.style.display = 'flex';
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.zIndex = '99999';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
   var saved = localStorage.getItem('sunscout_note') || '';
   document.getElementById('notepad-general').value = saved;
   renderActivityNotes();
@@ -1264,6 +1272,14 @@ function renderActivityNotes() {
 function openCalendar() {
   var modal = document.getElementById('calendar-modal');
   modal.style.display = 'flex';
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.zIndex = '99999';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
   renderCalendar();
 }
 function closeCalendar() {
