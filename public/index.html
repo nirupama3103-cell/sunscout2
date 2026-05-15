@@ -1320,13 +1320,30 @@ function renderActivityNotes() {
 }
 
 // CALENDAR
+var calYear = new Date().getFullYear();
+var calMonth = new Date().getMonth();
+
+function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderPlannerCalendar(); }
+function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderPlannerCalendar(); }
+
 function renderPlannerCalendar() {
-  var now = new Date(); var year=now.getFullYear(); var month=now.getMonth();
+  var now = new Date(); var year=calYear; var month=calMonth;
   var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var firstDay=new Date(year,month,1).getDay(); var daysInMonth=new Date(year,month+1,0).getDate();
   var monthName=now.toLocaleString('default',{month:'long'});
   var grid=document.getElementById('calendar-grid');
-  var h='<div style="grid-column:1/-1;font-weight:900;color:#0369a1;font-family:Nunito,sans-serif;font-size:1rem;margin-bottom:6px;text-align:center;">'+monthName+' '+year+'</div>';
+  // Collect all planned dates
+  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
+  var plannedDates={};
+  for(var pi=0;pi<myList.length;pi++){
+    var pd=localStorage.getItem('sunscout_date_'+pi);
+    if(pd){ var parts=pd.split('-'); if(parseInt(parts[0])===year&&parseInt(parts[1])-1===month){ plannedDates[parseInt(parts[2])]=(myList[pi].name||myList[pi]); } }
+  }
+  var h='<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+    +'<button onclick="prevMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8249;</button>'
+    +'<span style="font-weight:900;color:#0369a1;font-family:Nunito,sans-serif;font-size:1rem;">'+monthName+' '+year+'</span>'
+    +'<button onclick="nextMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8250;</button>'
+    +'</div>';
   days.forEach(function(d){ h+='<div style="font-weight:800;color:#888;font-size:10px;padding:4px 0;">'+d+'</div>'; });
   for(var i=0;i<firstDay;i++) h+='<div></div>';
   for(var d=1;d<=daysInMonth;d++) {
