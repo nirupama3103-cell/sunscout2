@@ -1046,7 +1046,19 @@ function checkWeekendMode() {
 }
 
 var planCity=null, planVibe=null, planAge=null, planStep=1;
-function openPlan() { document.getElementById("plan-modal-bg").style.display="flex"; resetPlan(); }
+function openPlan() {
+  document.getElementById("plan-modal-bg").style.display="flex";
+  resetPlan();
+  var today = new Date().toISOString().split('T')[0];
+  var saved = localStorage.getItem('sunscout_plan_date') || today;
+  var inp = document.getElementById('planDate');
+  if(inp) inp.value = saved;
+}
+function savePlanDate(val) {
+  localStorage.setItem('sunscout_plan_date', val);
+  // Also save to planner so it shows in My Planner calendar
+  localStorage.setItem('sunscout_planned_outing_date', val);
+}
 function closePlan() { document.getElementById("plan-modal-bg").style.display="none"; }
 function showPlanStep(n) { document.querySelectorAll(".plan-step").forEach(function(s,i){ s.classList.toggle("active",i+1===n); }); planStep=n; }
 function planSelectCity(btn,city) { document.querySelectorAll("#plan-step-1 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planCity=city; setTimeout(function(){ showPlanStep(2); },250); }
@@ -1124,6 +1136,10 @@ function syncBnav(tab) {
     <button onclick="closePlan()" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
     <div style="text-align:center;margin-bottom:16px"><div style="font-size:2.5rem">📅</div>
     <h2 style="font-size:1.3rem;font-weight:900;color:#FF9900;margin:6px 0 2px">Plan My Day</h2>
+    <div style="background:#fff8f0;border-radius:12px;padding:10px 14px;margin:10px 0 4px;display:flex;align-items:center;gap:10px;border:2px solid #ffe0b2;">
+      <span style="font-size:13px;font-weight:800;color:#FF9900;">📅 Pick a Date:</span>
+      <input type="date" id="planDate" style="flex:1;border:none;background:transparent;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#1a1a1a;outline:none;" onchange="savePlanDate(this.value)" />
+    </div>
     <p style="font-size:0.82rem;color:#888">Let's build your perfect family day out!</p></div>
     <div class="plan-step active" id="plan-step-1">
       <p style="font-weight:800;font-size:14px;margin-bottom:4px">1️⃣ Which city?</p>
