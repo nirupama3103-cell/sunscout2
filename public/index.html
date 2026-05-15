@@ -1197,7 +1197,7 @@ function syncBnav(tab) {
 </nav>
 
 <!-- NOTEPAD MODAL -->
-<div id="notepad-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+<div id="notepad-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)closeNotepad();">
   <div style="background:#fff;border-radius:24px;padding:28px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;position:relative;">
     <button onclick="closeNotepad()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;">✕</button>
     <div style="font-size:2rem;text-align:center;">📓</div>
@@ -1213,7 +1213,7 @@ function syncBnav(tab) {
 </div>
 
 <!-- CALENDAR MODAL -->
-<div id="calendar-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+<div id="calendar-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)closeCalendar();">
   <div style="background:#fff;border-radius:24px;padding:28px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative;">
     <button onclick="closeCalendar()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;">✕</button>
     <div style="font-size:2rem;text-align:center;">📅</div>
@@ -1228,15 +1228,7 @@ function syncBnav(tab) {
 // ── NOTEPAD ──
 function openNotepad() {
   var modal = document.getElementById('notepad-modal');
-  modal.style.display = 'flex';
-  modal.style.position = 'fixed';
-  modal.style.top = '0';
-  modal.style.left = '0';
-  modal.style.width = '100%';
-  modal.style.height = '100%';
-  modal.style.zIndex = '99999';
-  modal.style.alignItems = 'center';
-  modal.style.justifyContent = 'center';
+  modal.setAttribute('style','display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;');
   var saved = localStorage.getItem('sunscout_note') || '';
   document.getElementById('notepad-general').value = saved;
   renderActivityNotes();
@@ -1276,15 +1268,7 @@ function renderActivityNotes() {
 // ── CALENDAR ──
 function openCalendar() {
   var modal = document.getElementById('calendar-modal');
-  modal.style.display = 'flex';
-  modal.style.position = 'fixed';
-  modal.style.top = '0';
-  modal.style.left = '0';
-  modal.style.width = '100%';
-  modal.style.height = '100%';
-  modal.style.zIndex = '99999';
-  modal.style.alignItems = 'center';
-  modal.style.justifyContent = 'center';
+  modal.setAttribute('style','display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;');
   renderCalendar();
 }
 function closeCalendar() {
