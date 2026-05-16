@@ -537,6 +537,12 @@ html { scroll-behavior: smooth; }
 }
 
 @media(max-width:640px){.hide-on-mobile{display:none!important;}}
+/* ss-hide-old */
+@media(max-width:640px){
+  .hero-search{display:none!important;}
+  .mobile-filter-tabs{display:none!important;}
+  .hero-meta{display:none!important;}
+}
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
@@ -553,7 +559,7 @@ html { scroll-behavior: smooth; }
     <div class="hero-sub" style="margin-bottom:20px;">Free &amp; Paid Summer Activities for Bay Area Kids</div>
 
     <!-- Full width search -->
-    <div class="hero-search hide-mobile" style="max-width:680px;margin:0 auto 20px;">
+    <div class="hero-search hide-mobile" style="display:none!important;" style="max-width:680px;margin:0 auto 20px;">
       <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
       <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
     </div>
