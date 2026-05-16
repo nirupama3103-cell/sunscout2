@@ -525,18 +525,30 @@ html { scroll-behavior: smooth; }
 <body>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
-<section class="hero">
+<section class="hero" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 32px 28px;flex-wrap:wrap;">
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
-  <div style="position:relative;z-index:2;margin-bottom:8px;"><img src="./sun-logo.png" alt="SunScout" style="height:200px;width:auto;display:block;margin:0 auto;mix-blend-mode:multiply;" /></div>
-    
-  <div class="hero-sub">Free &amp; Paid Summer Activities for Bay Area Kids</div>
-  <div class="hero-search">
-    <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="setSearch(this.value)" />
-    <button onclick="setSearch(document.getElementById('heroSearch').value)">Search</button>
+
+  <!-- Left: Title + Search + Buttons -->
+  <div style="position:relative;z-index:2;flex:1;min-width:280px;text-align:left;">
+    <div style="font-size:2rem;font-weight:900;color:#1565c0;line-height:1.1;margin-bottom:6px;">🌤️ SunScout</div>
+    <div class="hero-sub" style="text-align:left;margin-bottom:14px;">Free &amp; Paid Summer Activities for Bay Area Kids</div>
+    <div class="hero-search" style="max-width:100%;margin-bottom:14px;">
+      <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:14px 20px;border-radius:99px;border:none;width:100%;box-shadow:0 4px 16px rgba(0,0,0,0.12);font-family:Nunito,sans-serif;font-weight:600;" />
+      <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:14px 28px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:11px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Plan My Day</button>
+      <button onclick="openMyList()" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:11px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
+    </div>
+    <div class="hero-meta" style="margin-top:10px;"><span id="heroCountdown"></span></div>
   </div>
-  <div class="hero-meta"><span id="heroCountdown"></span></div>
+
+  <!-- Right: Mascot Logo -->
+  <div style="position:relative;z-index:2;flex-shrink:0;">
+    <img src="./sun-logo.png" alt="SunScout" style="height:220px;width:auto;display:block;mix-blend-mode:multiply;" />
+  </div>
 </section>
 <div class="header" style="display:none">
   <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
