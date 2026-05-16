@@ -520,8 +520,8 @@ html { scroll-behavior: smooth; }
 }
 
 
-.app-layout{display:block}
-.sidebar{width:200px;background:#fff;border-right:2px solid #eee;padding:16px 12px;position:fixed;left:0;top:0;height:100vh;overflow-y:auto;box-shadow:2px 0 12px rgba(0,0,0,0.06);z-index:100}.main-content{margin-left:200px}
+
+.sidebar{width:200px;background:#fff;border-right:2px solid #eee;padding:16px 12px;position:fixed;left:0;top:0;height:100vh;overflow-y:auto;box-shadow:2px 0 12px rgba(0,0,0,0.06);z-index:500;display:flex;flex-direction:column}.main-content{margin-left:200px}@media(max-width:768px){.sidebar{display:none!important}.main-content{margin-left:0!important}}
 .sidebar-section{margin-bottom:20px}
 .sidebar-title{font-size:11px;font-weight:900;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding:0 4px}
 .sidebar-city-btn{display:block;width:100%;text-align:left;padding:8px 12px;border-radius:10px;border:none;background:transparent;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#555;cursor:pointer;margin-bottom:4px;transition:all .15s}
@@ -564,6 +564,34 @@ html { scroll-behavior: smooth; }
     <button class="sidebar-age-btn" onclick="setSidebarAge(this,3)">🛹 Teen 13–19</button>
   </div>
 </div>
+<div class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-title">📍 City</div>
+    <button class="sidebar-city-btn on" onclick="setSidebarCity(this,'Sunnyvale')">☀️ Sunnyvale</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'San Jose')">🏙️ San Jose</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'Cupertino')">🍎 Cupertino</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'Mountain View')">🏔️ Mtn View</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'Palo Alto')">🎓 Palo Alto</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'Saratoga')">🌸 Saratoga</button>
+    <button class="sidebar-city-btn" onclick="setSidebarCity(this,'Fremont')">🌉 Fremont</button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">🎡 Activity</div>
+    <button class="sidebar-act-btn" style="background:#FF9900" onclick="setSidebarTab(this,'free')">🆓 Free</button>
+    <button class="sidebar-act-btn" style="background:#E53935" onclick="setSidebarTab(this,'paid')">🎟️ Paid</button>
+    <button class="sidebar-act-btn" style="background:#0288D1" onclick="setSidebarTab(this,'indoor')">🏛️ Indoor</button>
+    <button class="sidebar-act-btn" style="background:#2E7D32" onclick="setSidebarTab(this,'outdoor')">🌳 Outdoor</button>
+    <button class="sidebar-act-btn" style="background:#8E24AA" onclick="setSidebarTab(this,'weekend')">📅 Weekend</button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">👶 Age</div>
+    <button class="sidebar-age-btn" onclick="setSidebarAge(this,0)">👶 0–2</button>
+    <button class="sidebar-age-btn" onclick="setSidebarAge(this,1)">🧸 3–5</button>
+    <button class="sidebar-age-btn" onclick="setSidebarAge(this,2)">🎒 6–12</button>
+    <button class="sidebar-age-btn" onclick="setSidebarAge(this,3)">🛹 Teen</button>
+  </div>
+</div>
+<div class="main-content">
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
 <section class="hero" style="text-align:center;padding:36px 24px 28px;">
   <div class="cloud cloud-1"></div>
@@ -1701,5 +1729,6 @@ function setSidebarAge(btn, age){
 }
 </script>
 
+</div>
 </body>
 </html>
