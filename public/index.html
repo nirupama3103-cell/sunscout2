@@ -1732,5 +1732,15 @@ function ssSearch(){["city","explore","age"].forEach(function(d){var el=document
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
 </script>
+
+<!-- ══ FLOATING WEEKEND + SURPRISE PILLS (mobile only) ══ -->
+<div id="floatingPills" style="position:fixed;right:12px;bottom:80px;display:flex;flex-direction:column;gap:8px;z-index:9990;">
+  <button onclick="ssSelExplore('weekend','Weekend',event)" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
+  <button onclick="ssSelExplore('surprise','Surprise',event);doSurprise();" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
+</div>
+<style>
+@media(min-width:641px){#floatingPills{display:none!important;}}
+</style>
+
 </body>
 </html>
