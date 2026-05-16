@@ -1731,12 +1731,48 @@ function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
+
+function floatWeekend() {
+  var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
+  if (btn && typeof setTab === "function") setTab(btn);
+  else if (typeof activeTab !== "undefined") {
+    activeTab = "weekend";
+    activeCity = activeCity || (typeof CITIES !== "undefined" ? CITIES[0] : "Sunnyvale");
+    showCount = typeof getPageSize === "function" ? getPageSize() : 10;
+    if (typeof loadActivities === "function") loadActivities();
+  }
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+function floatSurprise() {
+  var tabs = ["free","paid","outdoor","indoor"];
+  var t = tabs[Math.floor(Math.random()*tabs.length)];
+  var btn = document.querySelector('.tab-btn[data-tab="'+t+'"]');
+  if (btn && typeof setTab === "function") setTab(btn);
+  else if (typeof activeTab !== "undefined") {
+    activeTab = t;
+    activeCity = activeCity || (typeof CITIES !== "undefined" ? CITIES[0] : "Sunnyvale");
+    showCount = typeof getPageSize === "function" ? getPageSize() : 10;
+    if (typeof loadActivities === "function") loadActivities();
+  }
+  setTimeout(function() {
+    var cards = document.querySelectorAll(".card");
+    if (cards.length > 0) {
+      var pick = cards[Math.floor(Math.random()*cards.length)];
+      pick.scrollIntoView({behavior:"smooth", block:"center"});
+      pick.style.outline = "3px solid #FF9900";
+      pick.style.borderRadius = "16px";
+      setTimeout(function(){ pick.style.outline = ""; }, 2500);
+    }
+  }, 900);
+}
+
 </script>
 
-<!-- ══ FLOATING WEEKEND + SURPRISE PILLS (mobile only) ══ -->
-<div id="floatingPills" style="position:fixed;right:12px;bottom:80px;display:flex;flex-direction:column;gap:8px;z-index:9990;">
-  <button onclick="ssSelExplore('weekend','Weekend',event)" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
-  <button onclick="ssSelExplore('surprise','Surprise',event);doSurprise();" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
+
+<!-- ══ FLOATING PILLS ══ -->
+<div id="floatingPills" style="position:fixed;right:12px;bottom:140px;display:flex;flex-direction:column;gap:8px;z-index:8000;">
+  <button onclick="floatWeekend()" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
+  <button onclick="floatSurprise()" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
 </div>
 <style>
 @media(min-width:641px){#floatingPills{display:none!important;}}
