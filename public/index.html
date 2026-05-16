@@ -547,10 +547,8 @@ html { scroll-behavior: smooth; }
   .weather-banner { display:none !important; } /* handled in smart header */
   #bigTabGrid { display:grid !important; }
 }
-@media(min-width:641px){
-  #bigTabGrid { display:none !important; }
-  #smartHeader { display:block; }
-}
+@media(min-width:641px){#bigTabGrid{display:none!important;}#smartHeader{display:none!important;}}
+@media(max-width:640px){.hide-mobile{display:none!important;}#smartHeader{display:block!important;}#bigTabGrid{display:grid!important;}}
 
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -568,13 +566,13 @@ html { scroll-behavior: smooth; }
     <div class="hero-sub" style="margin-bottom:20px;">Free &amp; Paid Summer Activities for Bay Area Kids</div>
 
     <!-- Full width search -->
-    <div class="hero-search" style="max-width:680px;margin:0 auto 20px;">
+    <div class="hero-search hide-mobile" style="max-width:680px;margin:0 auto 20px;">
       <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
       <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
     </div>
 
     <!-- Buttons -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+    <div class="hide-mobile" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
       <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Plan My Day</button>
       <button onclick="openMyList()" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
       <button onclick="typeof openNotesAll==='function'?openNotesAll():openNotes('general','My Notes')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📝 Notes</button>
