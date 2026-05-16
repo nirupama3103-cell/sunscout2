@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SunScout – Summer Activities for Kids</title>
   <link rel="dns-prefetch" href="//api.open-meteo.com">
@@ -9,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#FFF9F0;color:#1a1a1a;min-height:100vh}
+body{font-family:'Nunito',sans-serif;background:#f0f9ff!important;color:#1a1a1a!important;min-height:unset;color-scheme:light only;}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
@@ -19,15 +20,15 @@ img{max-width:100%;display:block}
   --radius:14px;--shadow:0 2px 14px rgba(0,0,0,.09);
 }
 .header{text-align:center;padding:28px 16px 0}
-.logo{font-size:2.2rem;font-weight:900;color:var(--sun)}
-.logo span{color:var(--sky)}
+.logo{font-size:2.2rem;font-weight:900;color:var(--sun);line-height:1;padding:0;margin:0 auto}
+.logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
 .weather-banner{display:none;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
 
-@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.tab-btn{min-width:90px!important;max-width:90px!important;flex:0 0 90px!important;padding:8px 4px 10px!important;font-size:10px!important;min-height:68px!important}.age-desc{display:none}.btn{min-height:36px}
   .city-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
   .city-bar::-webkit-scrollbar{display:none}
   .city-btn{flex-shrink:0}
@@ -35,7 +36,7 @@ img{max-width:100%;display:block}
 .city-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:99px;border:2px solid transparent;background:#fff;color:#666;box-shadow:var(--shadow);transition:all .15s}
 .city-btn:hover{background:#FFF3E0;color:#333}
 .city-btn.on{background:var(--sun);color:#fff;border-color:#E68A00}
-.tab-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px 16px 0}
+.tab-bar{display:none;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px 16px 0}@media(max-width:768px){.tab-bar{display:flex!important}}
 .tab-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:800;border:none;border-radius:var(--radius);padding:11px 16px 13px;min-width:115px;flex:1 1 115px;max-width:150px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .tab-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
 .tab-btn.on{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.16)}
@@ -72,7 +73,7 @@ img{max-width:100%;display:block}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr)}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
-.card{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
 .card-img-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f0f0;flex-shrink:0}
 .card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
@@ -97,7 +98,7 @@ img{max-width:100%;display:block}
 .btn:hover{background:#f3f3f3}
 .btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
 .btn-map:hover{background:#bfdbfe}
-.show-more-wrap{text-align:center;padding:20px 16px;margin-bottom:0}
+.show-more-wrap{text-align:center;padding:12px 16px;margin-bottom:0}
 .show-more-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;padding:10px 32px;border-radius:99px;border:2px solid #FF9900;background:#fff;color:#FF9900;cursor:pointer;transition:all .15s}
 .show-more-btn:hover{background:#FF9900;color:#fff}
 .show-more-btn:disabled{opacity:.4;cursor:not-allowed}
@@ -114,7 +115,7 @@ img{max-width:100%;display:block}
 .skel-line{height:13px;margin:5px 0;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
 .skel-short{width:60%}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:12px 16px 16px;margin-top:8px}
+.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:12px 16px 16px;margin-top:0}
 .detail-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
 .detail-modal{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;font-family:Nunito,sans-serif;position:relative;}
 .detail-modal-img{width:100%;height:200px;object-fit:cover;border-radius:20px 20px 0 0;}
@@ -139,7 +140,7 @@ img{max-width:100%;display:block}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
-  .tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+  .tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;padding-left:8px;}
   .tab-bar::-webkit-scrollbar{display:none}
   .tab-btn{flex-shrink:0}
   .age-desc{display:none}
@@ -265,9 +266,9 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 
 @media(max-width: 640px) {
   #bottom-nav { display: block; }
-  #main { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
-  .show-more-wrap { padding-bottom: 20px; }
-  .footer { padding-bottom: 70px; }
+  #main { padding-bottom: 0; }
+  .show-more-wrap { padding-bottom: 0; }
+  .footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 8px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
   .age-btn { padding: 8px 16px; font-size: 13px; }
   .tab-bar {
@@ -325,20 +326,280 @@ html { scroll-behavior: smooth; }
 .card { -webkit-tap-highlight-color: transparent; }
 .city-btn, .tab-btn, .age-btn { -webkit-tap-highlight-color: transparent; }
 .grid { transition: opacity .2s; }
-#back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}</style>
+#back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}
+/* ── HERO SECTION ── */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, #e0f4ff 0%, #bae6fd 60%, #f0f9ff 100%);
+  padding: 48px 16px 36px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-title {
+  font-size: 2.6rem; font-weight: 900; color: #0c4a6e;
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 6px;
+  position: relative; z-index: 2;
+}
+.hero-title span { color: #FF9900; }
+.hero-sub {
+  font-size: 1.05rem; color: #0369a1; font-weight: 600;
+  margin-bottom: 20px; position: relative; z-index: 2;
+}
+.hero-search {
+  display: flex; align-items: center;
+  max-width: 480px; margin: 0 auto 16px;
+  background: #fff; border-radius: 99px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  padding: 6px 6px 6px 18px;
+  position: relative; z-index: 2;
+}
+.hero-search input {
+  flex: 1; border: none; outline: none; font-size: 15px;
+  font-family: Nunito, sans-serif; font-weight: 600;
+  background: transparent; color: #1a1a1a;
+}
+.hero-search input::placeholder { color: #aaa; }
+.hero-search button {
+  background: #FF9900; color: #fff; border: none;
+  border-radius: 99px; padding: 8px 20px;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: Nunito, sans-serif; transition: background .15s;
+}
+.hero-search button:hover { background: #e68900; }
+.hero-meta {
+  font-size: 13px; color: #0369a1; font-weight: 700;
+  position: relative; z-index: 2;
+}
+/* Clouds */
+.cloud {
+  position: absolute; background: #fff;
+  border-radius: 99px; opacity: .85; z-index: 1;
+}
+.cloud::before, .cloud::after {
+  content: ''; position: absolute;
+  background: #fff; border-radius: 50%;
+}
+.cloud-1 { width:120px; height:36px; top:18px; left:-140px; animation: drift 22s linear infinite; }
+.cloud-1::before { width:60px; height:52px; top:-28px; left:18px; }
+.cloud-1::after  { width:44px; height:40px; top:-20px; left:52px; }
+.cloud-2 { width:90px; height:28px; top:55px; left:-110px; animation: drift 30s linear infinite; animation-delay:-10s; opacity:.6; }
+.cloud-2::before { width:44px; height:40px; top:-22px; left:12px; }
+.cloud-2::after  { width:34px; height:30px; top:-15px; left:38px; }
+.cloud-3 { width:140px; height:40px; top:24px; left:-170px; animation: drift 38s linear infinite; animation-delay:-20s; opacity:.7; }
+.cloud-3::before { width:70px; height:58px; top:-32px; left:22px; }
+.cloud-3::after  { width:50px; height:44px; top:-24px; left:60px; }
+@keyframes drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100vw + 200px)); }
+}
+@media(max-width:640px) {
+  .hero { padding: 36px 16px 28px; }
+  .hero-title { font-size: 1.9rem; }
+  .hero-sub { font-size: 0.9rem; }
+}
+
+
+/* ── MOBILE FILTER TABS ── */
+@media(max-width:640px) {
+  .mobile-filter-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px 0;
+    justify-content: center;
+  }
+  .mft-btn {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 99px;
+    border: none;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    background: #e8f4ff;
+    color: #666;
+    transition: all .15s;
+  }
+  .mft-btn.active {
+    background: #FF9900;
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(255,153,0,0.3);
+  }
+  .mobile-filter-panel {
+    display: none;
+    padding: 10px 12px 0;
+    animation: fadeIn .2s ease;
+  }
+  .m-city-btn{padding:10px 12px;border-radius:12px;border:2px solid #eee;background:#fff;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#555;cursor:pointer;text-align:left;transition:all .15s}
+.m-city-btn:hover{background:#FFF3E0;border-color:#FF9900}
+.m-city-btn.on{background:#FF9900;color:#fff;border-color:#FF9900}
+.mobile-filter-panel.active {
+    display: block;
+  }
+  /* Hide original city bar, tab bar, age bar on mobile */
+  .city-bar { display: none !important; }
+  .tab-bar  { display: none !important; }
+  .age-bar  { display: none !important; }
+  .mobile-filter-tabs { display: flex !important; }
+
+  /* Mobile city buttons inside panel */
+  .m-city-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .m-city-btn {
+    padding: 10px 8px;
+    border-radius: 99px;
+    border: 2px solid #eee;
+    background: #fff;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    color: #444;
+    transition: all .15s;
+  }
+  .m-city-btn.on {
+    background: #FF9900;
+    color: #fff;
+    border-color: #FF9900;
+  }
+
+  /* Mobile activity cards inside panel */
+  .m-tab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .m-tab-card {
+    padding: 14px 8px;
+    border-radius: 16px;
+    border: none;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    transition: all .15s;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  }
+  .m-tab-card.on { transform: scale(0.96); box-shadow: none; }
+  .m-tab-card-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+
+  /* Mobile age buttons inside panel */
+  .m-age-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .m-age-btn {
+    padding: 12px 8px;
+    border-radius: 99px;
+    border: 2px solid #eee;
+    background: #fff;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    color: #444;
+    transition: all .15s;
+  }
+  .m-age-btn.on {
+    background: #FF9900;
+    color: #fff;
+    border-color: #FF9900;
+  }
+
+  @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+}
+
+/* Hide mobile tabs on desktop */
+@media(min-width:641px) {
+  .mobile-filter-tabs { display: none !important; }
+  .mobile-filter-panel { display: none; }
+  #dd-container { min-height: 0; }
+}
+
+</style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
-<div class="header">
-  <div class="logo">Sun<span>Scout</span> 🌤️</div>
-  <p class="tagline">Your Summer Adventure, Simplified.</p>
+<section class="hero" style="text-align:center;padding:36px 24px 28px;">
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <div style="position:relative;z-index:2;">
+    <div style="font-size:2.4rem;font-weight:900;color:#1565c0;line-height:1.1;margin-bottom:6px;">🌤️ SunScout</div>
+    <div class="hero-sub" style="margin-bottom:20px;">Free &amp; Paid Summer Activities for Bay Area Kids</div>
+
+    <!-- Full width search -->
+    <div class="hero-search" style="max-width:680px;margin:0 auto 20px;">
+      <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
+      <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
+    </div>
+
+    <!-- Buttons -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Plan My Day</button>
+      <button onclick="openMyList()" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
+      <button onclick="typeof openNotesAll==='function'?openNotesAll():openNotes('general','My Notes')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📝 Notes</button>
+    </div>
+
+    <div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
+  </div>
+</section>
+<div class="header" style="display:none">
+  <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
+  <p class="tagline">Your Go-To Guide for Bay Area Summer Fun—Free &amp; Budget-Friendly Picks!</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
 <div class="weekend-banner" id="weekendBanner">🎉 It's the Weekend! Showing all-city weekend activities — enjoy your family time! 🌟</div>
 <div class="weather-banner" id="weatherBanner"></div>
+
+<!-- MOBILE FILTER TABS -->
+<div class="mobile-filter-tabs">
+  <button class="mft-btn active" id="mft-city" onclick="switchMFT('city')">📍 Pick City</button>
+  <button class="mft-btn" id="mft-explore" onclick="switchMFT('explore')">🎡 Explore</button>
+  <button class="mft-btn" id="mft-age" onclick="switchMFT('age')">👶 Age</button>
+</div>
+
+
+  <!-- City Dropdown -->
+  <div id="dd-city" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
+    <div id="m-city-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px;">
+    </div>
+  </div>
+
+  <!-- Explore Dropdown -->
+  <div id="dd-explore" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
+    <div class="m-tab-grid">
+      <button class="m-tab-card on" style="background:#FF9900;" onclick="setMobileTab('free',this)"><span class="m-tab-card-icon">🆓</span>Free Summer</button>
+      <button class="m-tab-card" style="background:#E53935;" onclick="setMobileTab('paid',this)"><span class="m-tab-card-icon">🎟️</span>Paid Summer</button>
+      <button class="m-tab-card" style="background:#0288D1;" onclick="setMobileTab('indoor',this)"><span class="m-tab-card-icon">🏛️</span>Indoor</button>
+      <button class="m-tab-card" style="background:#2E7D32;" onclick="setMobileTab('outdoor',this)"><span class="m-tab-card-icon">🌳</span>Outdoor</button>
+      <button class="m-tab-card" style="background:#8E24AA;grid-column:1/-1;" onclick="setMobileTab('weekend',this)"><span class="m-tab-card-icon">📅</span>Weekend Only</button>
+    </div>
+  </div>
+
+  <!-- Age Dropdown -->
+  <div id="dd-age" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
+    <div class="m-age-grid">
+      <button class="m-age-btn on" onclick="setMobileAge('all',this)">🌟 All Ages</button>
+      <button class="m-age-btn" onclick="setMobileAge('0',this)">👶 0–2</button>
+      <button class="m-age-btn" onclick="setMobileAge('1',this)">🧸 3–5</button>
+      <button class="m-age-btn" onclick="setMobileAge('2',this)">🎒 6–12</button>
+      <button class="m-age-btn" onclick="setMobileAge('3',this)">🛹 Teen</button>
+    </div>
+  </div>
+
+</div>
+
 <p class="city-fact" id="cityFact"></p>
 
 <nav class="city-bar" aria-label="Select city">
@@ -381,7 +642,7 @@ html { scroll-behavior: smooth; }
 </div>
 
 <!-- ── FIX 1: Desktop action bar — Plan Day + My List (hidden on mobile via CSS) ── -->
-<div class="action-bar">
+<div class="action-bar" style="display:none">
   <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
   <button class="action-bar-mylist" id="desktopMyListBtn" onclick="openMyList()">
     ❤️ My List
@@ -389,9 +650,9 @@ html { scroll-behavior: smooth; }
   </button>
 </div>
 
-<div class="search-wrap">
+<div class="search-wrap" style="display:none">
   <span class="search-icon">🔍</span>
-  <input type="search" id="searchInput" class="search-input"
+  <input type="search" id="searchInput" class="search-input" style="display:none"
     placeholder="Search park, swimming, library, splash pad…"
     aria-label="Search activities"
     oninput="setSearch(this.value)"/>
@@ -414,10 +675,14 @@ html { scroll-behavior: smooth; }
   </div>
 </main>
 
+<div style="text-align:center;padding:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscoutkids.com'})}else{window.open('https://wa.me/?text='+encodeURIComponent('SunScout - Summer activities for Bay Area kids! https://sunscoutkids.com'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-weight:800;cursor:pointer;font-size:13px;font-family:Nunito,sans-serif;">📤 Share SunScout</button>
+  <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+</div>
 <div class="footer">
   <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="/privacy.html" style="color:#FF9900;font-weight:700">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ SunScout - Summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="margin-top:8px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:8px 20px;font-weight:800;cursor:pointer;font-size:13px;">📤 Share SunScout</button>
-  <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="margin-top:10px;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+
+
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
 </div>
 
@@ -766,6 +1031,7 @@ function renderCards() {
     var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
     // ── FIX 3: card heart properly calls updateBnavBadge ──
+    var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
     var favKey = activeTab+"_"+i;
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
@@ -876,6 +1142,8 @@ function updateCountdown() {
   var days = Math.max(0, Math.ceil((end-new Date())/86400000));
   var el   = document.getElementById("countdown");
   if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
+  var el2 = document.getElementById("heroCountdown");
+  if (el2) el2.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
 }
 
 document.addEventListener("click", function(e) {
@@ -958,7 +1226,19 @@ function checkWeekendMode() {
 }
 
 var planCity=null, planVibe=null, planAge=null, planStep=1;
-function openPlan() { document.getElementById("plan-modal-bg").style.display="flex"; resetPlan(); }
+function openPlan() {
+  document.getElementById("plan-modal-bg").style.display="flex";
+  resetPlan();
+  var today = new Date().toISOString().split('T')[0];
+  var saved = localStorage.getItem('sunscout_plan_date') || today;
+  var inp = document.getElementById('planDate');
+  if(inp) inp.value = saved;
+}
+function savePlanDate(val) {
+  localStorage.setItem('sunscout_plan_date', val);
+  // Also save to planner so it shows in My Planner calendar
+  localStorage.setItem('sunscout_planned_outing_date', val);
+}
 function closePlan() { document.getElementById("plan-modal-bg").style.display="none"; }
 function showPlanStep(n) { document.querySelectorAll(".plan-step").forEach(function(s,i){ s.classList.toggle("active",i+1===n); }); planStep=n; }
 function planSelectCity(btn,city) { document.querySelectorAll("#plan-step-1 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planCity=city; setTimeout(function(){ showPlanStep(2); },250); }
@@ -1015,7 +1295,7 @@ function syncBnav(tab) {
 
 </script>
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
-<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family, with AI assistance from <strong>Claude</strong> (Anthropic) and <strong>Gemini</strong> (Google).<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
+<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
   <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
 </div></div></div>
@@ -1036,6 +1316,10 @@ function syncBnav(tab) {
     <button onclick="closePlan()" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
     <div style="text-align:center;margin-bottom:16px"><div style="font-size:2.5rem">📅</div>
     <h2 style="font-size:1.3rem;font-weight:900;color:#FF9900;margin:6px 0 2px">Plan My Day</h2>
+    <div style="background:#fff8f0;border-radius:12px;padding:10px 14px;margin:10px 0 4px;display:flex;align-items:center;gap:10px;border:2px solid #ffe0b2;">
+      <span style="font-size:13px;font-weight:800;color:#FF9900;">📅 Pick a Date:</span>
+      <input type="date" id="planDate" style="flex:1;border:none;background:transparent;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#1a1a1a;outline:none;" onchange="savePlanDate(this.value)" />
+    </div>
     <p style="font-size:0.82rem;color:#888">Let's build your perfect family day out!</p></div>
     <div class="plan-step active" id="plan-step-1">
       <p style="font-weight:800;font-size:14px;margin-bottom:4px">1️⃣ Which city?</p>
@@ -1106,5 +1390,251 @@ function syncBnav(tab) {
     </button>
   </div>
 </nav>
+
+<script>
+</script>
+
+
+<!-- MY PLANNER MODAL -->
+<div id="planner-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;">
+  <div style="background:#fff;border-radius:24px;width:100%;max-width:540px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;position:relative;">
+    
+    <!-- Header -->
+    <div style="padding:20px 24px 0;text-align:center;flex-shrink:0;">
+      <button onclick="closePlanner()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#888;">✕</button>
+      <div style="font-size:1.8rem;">📋</div>
+      <h2 style="color:#6366f1;font-family:Nunito,sans-serif;margin:4px 0 14px;font-size:1.3rem;">My Planner</h2>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;border-bottom:2px solid #f0f0f0;flex-shrink:0;padding:0 16px;">
+      <button id="tab-btn-notes" onclick="switchTab('notes')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid #6366f1;color:#6366f1;">📝 Notes</button>
+      <button id="tab-btn-calendar" onclick="switchTab('calendar')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">📅 Calendar</button>
+      <button id="tab-btn-mylist" onclick="switchTab('mylist')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">❤️ My List</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div style="overflow-y:auto;flex:1;padding:16px 20px 20px;">
+
+      <!-- NOTES TAB -->
+      <div id="tab-notes">
+        <p style="color:#888;font-size:13px;margin:0 0 10px;">General notes, reminders, ideas...</p>
+        <textarea id="notepad-general" placeholder="Write your notes here..." style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="save-btn" onclick="saveGeneralNote()" style="flex:1;background:#6366f1;color:#fff;border:none;border-radius:99px;padding:10px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">💾 Save Note</button>
+          <button onclick="clearGeneralNote()" style="background:#fee2e2;color:#ef4444;border:none;border-radius:99px;padding:10px 16px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">🗑️</button>
+        </div>
+        <div id="activity-notes-list" style="margin-top:16px;"></div>
+      </div>
+
+      <!-- CALENDAR TAB -->
+      <div id="tab-calendar" style="display:none;">
+        <div id="calendar-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-bottom:14px;"></div>
+        <h3 style="color:#0369a1;font-family:Nunito,sans-serif;font-size:14px;margin:0 0 10px;">📌 Plan Your Activities</h3>
+        <div id="calendar-saved-list"></div>
+      </div>
+
+      <!-- MY LIST TAB -->
+      <div id="tab-mylist" style="display:none;">
+        <div id="mylist-content"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── MY PLANNER ──
+function openPlanner() {
+  console.log('openPlanner called!');
+  var modal = document.getElementById('planner-modal');
+  modal.setAttribute('style','display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;');
+  switchTab('notes');
+}
+function closePlanner() {
+  document.getElementById('planner-modal').style.display = 'none';
+}
+
+function switchTab(tab) {
+  var tabs = ['notes','calendar','mylist'];
+  tabs.forEach(function(t) {
+    document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
+    var btn = document.getElementById('tab-btn-'+t);
+    if(btn) {
+      btn.style.borderBottom = t===tab ? '3px solid #6366f1' : '3px solid transparent';
+      btn.style.color = t===tab ? '#6366f1' : '#aaa';
+    }
+  });
+  if(tab==='notes') { 
+    var saved = localStorage.getItem('sunscout_note') || '';
+    document.getElementById('notepad-general').value = saved;
+    renderActivityNotes();
+  }
+  if(tab==='calendar') renderPlannerCalendar();
+  if(tab==='mylist') renderMyListTab();
+}
+
+// NOTES
+function saveGeneralNote() {
+  var text = document.getElementById('notepad-general').value;
+  localStorage.setItem('sunscout_note', text);
+  var btn = document.querySelector('.save-btn');
+  if(btn) { var o=btn.textContent; btn.textContent='✅ Saved!'; btn.style.background='#22c55e'; setTimeout(function(){btn.textContent=o;btn.style.background='#6366f1';},1500); }
+}
+function clearGeneralNote() {
+  if(confirm('Clear your note?')) { localStorage.removeItem('sunscout_note'); document.getElementById('notepad-general').value=''; }
+}
+function renderActivityNotes() {
+  var list = document.getElementById('activity-notes-list');
+  var myList = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
+  if(myList.length === 0) { list.innerHTML = '<p style="color:#aaa;font-size:13px;text-align:center;padding:10px 0;">Heart an activity to add notes per activity.</p>'; return; }
+  var h = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;font-size:14px;margin:0 0 10px;">Activity Notes</h3>';
+  for(var i=0; i<myList.length; i++) {
+    var a = myList[i]; var key = 'sunscout_anote_'+i; var note = localStorage.getItem(key)||'';
+    h += '<div style="margin-bottom:10px;padding:10px;background:#f5f3ff;border-radius:12px;">';
+    h += '<div style="font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:6px;">'+(a.name||a)+'</div>';
+    h += '<textarea data-key="'+key+'" placeholder="Add a note..." style="width:100%;height:56px;border:1px solid #ddd;border-radius:8px;padding:8px;font-family:Nunito,sans-serif;font-size:12px;resize:none;outline:none;box-sizing:border-box;">'+note+'</textarea>';
+    h += '</div>';
+  }
+  list.innerHTML = h;
+  list.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
+}
+
+// CALENDAR
+var calYear = new Date().getFullYear();
+var calMonth = new Date().getMonth();
+
+function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderPlannerCalendar(); }
+function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderPlannerCalendar(); }
+
+function renderPlannerCalendar() {
+  var now = new Date(); var year=calYear; var month=calMonth;
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var firstDay=new Date(year,month,1).getDay(); var daysInMonth=new Date(year,month+1,0).getDate();
+  var monthName=now.toLocaleString('default',{month:'long'});
+  var grid=document.getElementById('calendar-grid');
+  // Collect all planned dates
+  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
+  var plannedDates={};
+  for(var pi=0;pi<myList.length;pi++){
+    var pd=localStorage.getItem('sunscout_date_'+pi);
+    if(pd){ var parts=pd.split('-'); if(parseInt(parts[0])===year&&parseInt(parts[1])-1===month){ plannedDates[parseInt(parts[2])]=(myList[pi].name||myList[pi]); } }
+  }
+  var h='<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+    +'<button onclick="prevMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8249;</button>'
+    +'<span style="font-weight:900;color:#0369a1;font-family:Nunito,sans-serif;font-size:1rem;">'+monthName+' '+year+'</span>'
+    +'<button onclick="nextMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8250;</button>'
+    +'</div>';
+  days.forEach(function(d){ h+='<div style="font-weight:800;color:#888;font-size:10px;padding:4px 0;">'+d+'</div>'; });
+  for(var i=0;i<firstDay;i++) h+='<div></div>';
+  for(var d=1;d<=daysInMonth;d++) {
+    var isToday=d===now.getDate();
+    h+='<div style="padding:5px 2px;border-radius:8px;font-size:12px;font-weight:700;font-family:Nunito,sans-serif;cursor:pointer;'+(isToday?'background:#6366f1;color:#fff;':'color:#1a1a1a;background:#f5f3ff;')+'">'+d+'</div>';
+  }
+  grid.innerHTML = h;
+
+  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
+  var savedDiv=document.getElementById('calendar-saved-list');
+  if(myList.length===0){ savedDiv.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;">Heart activities to plan them here.</p>'; return; }
+  var sh='';
+  for(var j=0;j<myList.length;j++){
+    var act=myList[j]; var dateKey='sunscout_date_'+j; var savedDate=localStorage.getItem(dateKey)||'';
+    sh+='<div style="padding:10px 12px;background:#f0f9ff;border-radius:12px;margin-bottom:8px;font-family:Nunito,sans-serif;">';
+    sh+='<div style="font-weight:800;color:#0369a1;font-size:13px;">'+(act.name||act)+'</div>';
+    sh+='<div style="font-size:12px;color:#888;margin:2px 0 6px;">'+(act.city||'Bay Area')+'</div>';
+    sh+='<input type="date" data-key="'+dateKey+'" value="'+savedDate+'" style="border:1px solid #bae6fd;border-radius:8px;padding:4px 8px;font-family:Nunito,sans-serif;font-size:12px;outline:none;width:100%;box-sizing:border-box;">';
+    sh+='</div>';
+  }
+  savedDiv.innerHTML = sh;
+  savedDiv.querySelectorAll('input[type=date]').forEach(function(inp){
+    inp.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); });
+  });
+}
+
+// MY LIST TAB
+function renderMyListTab() {
+  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
+  var div=document.getElementById('mylist-content');
+  if(myList.length===0){ div.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:20px 0;">No saved activities yet.<br>Tap ❤️ on any activity to save it!</p>'; return; }
+  var h='<p style="color:#888;font-size:13px;margin:0 0 12px;">'+myList.length+' saved activit'+(myList.length===1?'y':'ies')+'</p>';
+  for(var i=0;i<myList.length;i++){
+    var a=myList[i]; var dateKey='sunscout_date_'+i; var savedDate=localStorage.getItem(dateKey)||''; var noteKey='sunscout_anote_'+i; var note=localStorage.getItem(noteKey)||'';
+    h+='<div style="padding:12px;background:#fafafa;border:1px solid #f0f0f0;border-radius:14px;margin-bottom:10px;font-family:Nunito,sans-serif;">';
+    h+='<div style="font-weight:800;color:#1a1a1a;font-size:13px;">'+(a.name||a)+'</div>';
+    h+='<div style="font-size:12px;color:#888;margin:2px 0 8px;">'+(a.city||'Bay Area')+' · '+(a.isFree?'Free':'Paid')+'</div>';
+    h+='<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">';
+    h+='<span style="font-size:11px;color:#0369a1;font-weight:700;">📅 Date:</span>';
+    h+='<input type="date" data-key="'+dateKey+'" value="'+savedDate+'" style="flex:1;border:1px solid #ddd;border-radius:8px;padding:3px 8px;font-size:12px;font-family:Nunito,sans-serif;outline:none;">';
+    h+='</div>';
+    h+='<textarea data-key="'+noteKey+'" placeholder="Add a note..." style="width:100%;height:48px;border:1px solid #ddd;border-radius:8px;padding:6px 8px;font-size:12px;font-family:Nunito,sans-serif;resize:none;outline:none;box-sizing:border-box;">'+note+'</textarea>';
+    h+='</div>';
+  }
+  div.innerHTML = h;
+  div.querySelectorAll('input[type=date]').forEach(function(inp){ inp.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
+  div.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
+}
+
+// Keep backward compat
+function openNotepad(){ openPlanner(); }
+function openCalendar(){ openPlanner(); switchTab('calendar'); }
+</script>
+
+<script>
+
+// ── MOBILE FILTER TABS ──
+function switchMFT(tab) {
+  var dds = ['city','explore','age'];
+  dds.forEach(function(t) {
+    var dd = document.getElementById('dd-'+t);
+    var btn = document.getElementById('mft-'+t);
+    var isOpen = dd && dd.style.display !== 'none';
+    var isThis = t === tab;
+    if(dd) dd.style.display = (isThis && !isOpen) ? 'block' : 'none';
+    if(btn) btn.classList.toggle('active', isThis && !isOpen);
+  });
+  buildMobileCities();
+}
+
+function setMobileTab(tab, btn) {
+  document.querySelectorAll('.m-tab-card').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  // sync with main tab system
+  var realBtn = document.querySelector('.tab-btn[data-tab="'+tab+'"]');
+  if(realBtn) realBtn.click();
+}
+
+function setMobileAge(age, btn) {
+  document.querySelectorAll('.m-age-btn').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  // sync with main age system
+  var realBtn = document.querySelector('.age-btn[data-age="'+age+'"]');
+  if(realBtn) realBtn.click();
+  else { activeAge = age; renderCards(); }
+}
+
+function buildMobileCities() {
+  var cities = ['Sunnyvale','San Jose','Cupertino','Mountain View','Palo Alto','Saratoga','Fremont'];
+  var icons  = ['☀️','🏙️','🍎','⛰️','🌿','🌸','🏘️'];
+  var grid = document.getElementById('m-city-grid');
+  if(!grid) return;
+  grid.innerHTML = cities.map(function(c,i) {
+    return '<button class="m-city-btn'+(c===activeCity?' on':'')+'" onclick="setMobileCity(\'' + c + '\',this)">'+icons[i]+' '+c+'</button>';
+  }).join('');
+}
+
+function setMobileCity(city, btn) {
+  document.querySelectorAll('.m-city-btn').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  // sync with main city system
+  var realBtn = Array.from(document.querySelectorAll('.city-btn')).find(function(b){ return b.textContent.includes(city); });
+  if(realBtn) realBtn.click();
+  else { activeCity = city; loadActivities(); }
+}
+
+// Build cities on load
+document.addEventListener('DOMContentLoaded', function(){ buildMobileCities(); });
+setTimeout(buildMobileCities, 500);
+
+</script>
 </body>
 </html>
