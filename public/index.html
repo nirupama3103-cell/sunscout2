@@ -430,7 +430,10 @@ html { scroll-behavior: smooth; }
     padding: 10px 12px 0;
     animation: fadeIn .2s ease;
   }
-  .mobile-filter-panel.active {
+  .m-city-btn{padding:10px 12px;border-radius:12px;border:2px solid #eee;background:#fff;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#555;cursor:pointer;text-align:left;transition:all .15s}
+.m-city-btn:hover{background:#FFF3E0;border-color:#FF9900}
+.m-city-btn.on{background:#FF9900;color:#fff;border-color:#FF9900}
+.mobile-filter-panel.active {
     display: block;
   }
   /* Hide original city bar, tab bar, age bar on mobile */
@@ -566,6 +569,12 @@ html { scroll-behavior: smooth; }
   <button class="mft-btn" id="mft-age" onclick="switchMFT('age')">👶 Age</button>
 </div>
 
+
+  <!-- City Dropdown -->
+  <div id="dd-city" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
+    <div id="m-city-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px;">
+    </div>
+  </div>
 
   <!-- Explore Dropdown -->
   <div id="dd-explore" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
