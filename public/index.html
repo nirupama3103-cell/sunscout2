@@ -566,16 +566,84 @@ html { scroll-behavior: smooth; }
       <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
     </div>
 
-    <!-- Buttons -->
-    <div class="hide-mobile" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <button onclick="openPlan()" class="hide-on-mobile" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Plan My Day</button>
-      <button onclick="floatWeekend()" class="hide-on-mobile" style="background:linear-gradient(135deg,#8E24AA,#CE93D8);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Weekend</button>
-      <button onclick="floatSurprise()" class="hide-on-mobile" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">🎲 Surprise!</button>
-      <button onclick="openMyList()" class="hide-on-mobile" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
-      <button class="hide-on-mobile" onclick="typeof openNotesAll==='function'?openNotesAll():openNotes('general','My Notes')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📝 Notes</button>
-    </div>
+    
 
-    <div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
+        <!-- Desktop Airbnb Bar -->
+    <div class="hide-on-mobile" style="max-width:720px;margin:0 auto 4px;">
+      <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 16px rgba(0,0,0,.10);font-family:Nunito,sans-serif;">
+        <div style="flex:2;padding:10px 16px;border-radius:99px 0 0 99px;text-align:left;">
+          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">SEARCH</div>
+          <input type="search" id="desktopSearch" placeholder="Camps, parks, STEM..." style="border:none;outline:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:600;color:#1a1a1a;width:100%;background:transparent;" oninput="setSearch(this.value);"/>
+        </div>
+        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
+        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtCD');d.style.display=d.style.display==='block'?'none':'block'">
+          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">CITY</div>
+          <div id="dtCV" style="font-size:13px;font-weight:700;color:#aaa;">Pick city</div>
+          <div id="dtCD" style="display:none;position:absolute;top:calc(100% + 8px);left:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
+            <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;">CITIES</div>
+            <div class="dtcr" onclick="dtC('Sunnyvale',event)">Sunnyvale</div>
+            <div class="dtcr" onclick="dtC('San Jose',event)">San Jose</div>
+            <div class="dtcr" onclick="dtC('Cupertino',event)">Cupertino</div>
+            <div class="dtcr" onclick="dtC('Mountain View',event)">Mountain View</div>
+            <div class="dtcr" onclick="dtC('Palo Alto',event)">Palo Alto</div>
+            <div class="dtcr" onclick="dtC('Saratoga',event)">Saratoga</div>
+          </div>
+        </div>
+        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
+        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtED');d.style.display=d.style.display==='block'?'none':'block'">
+          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">EXPLORE</div>
+          <div id="dtEV" style="font-size:13px;font-weight:700;color:#aaa;">Activity</div>
+          <div id="dtED" style="display:none;position:absolute;top:calc(100% + 8px);left:-20px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtE('free','Free',event)">Free</div>
+              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtE('paid','Paid',event)">Paid</div>
+              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtE('outdoor','Outdoor',event)">Outdoor</div>
+              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtE('indoor','Indoor',event)">Indoor</div>
+              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;" onclick="dtE('weekend','Weekend',event)">Weekend</div>
+              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FF9900;" onclick="dtE('surprise','Surprise',event)">Surprise</div>
+            </div>
+          </div>
+        </div>
+        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
+        <div style="flex:1;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtAD');d.style.display=d.style.display==='block'?'none':'block'">
+          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">AGE</div>
+          <div id="dtAV" style="font-size:13px;font-weight:700;color:#aaa;">All ages</div>
+          <div id="dtAD" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:190px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div class="dtac" onclick="dtA('all','All',event)">All</div>
+              <div class="dtac" onclick="dtA('0','0-2',event)">0-2</div>
+              <div class="dtac" onclick="dtA('1','3-5',event)">3-5</div>
+              <div class="dtac" onclick="dtA('2','6-12',event)">6-12</div>
+              <div class="dtac" style="grid-column:span 2;" onclick="dtA('3','Teen',event)">Teen</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin:auto 8px auto 0;flex-shrink:0;">
+          <button onclick="dtSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;">🔍</button>
+          <div style="position:relative;">
+            <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">☰</button>
+            <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;">
+              <div class="dtmr" onclick="openPlan();toggleSsMenu(event)">📅 Plan My Day</div>
+              <div class="dtmr" onclick="floatWeekend();toggleSsMenu(event)" style="color:#6d28d9;">📅 Weekend</div>
+              <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">🎲 Surprise</div>
+              <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
+              <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+    .dtcr{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
+    .dtcr:hover{background:#FFF3E0;}
+    .dtec{padding:9px 6px;border-radius:10px;border:0.5px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
+    .dtec:hover{opacity:.8;}
+    .dtac{padding:9px;border-radius:10px;border:0.5px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
+    .dtac:hover{background:#FF9900;color:#fff;border-color:#FF9900;}
+    .dtmr{padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
+    .dtmr:hover{background:#FFF3E0;}
+    </style>
+<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
 <div style="margin-top:8px;">
   <span id="desktopWeatherChip" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Loading weather...</span>
 </div>
@@ -1828,6 +1896,13 @@ document.addEventListener("click", function() {
   var m = document.getElementById("ssMenu");
   if(m) m.style.display = "none";
 });
+
+
+function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
+function dtE(tab,label,e){if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
+function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
+function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
+document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
 
 </script>
 
