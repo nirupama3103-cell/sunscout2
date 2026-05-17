@@ -567,6 +567,8 @@ html { scroll-behavior: smooth; }
     <!-- Buttons -->
     <div class="hide-mobile" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
       <button onclick="openPlan()" class="hide-on-mobile" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Plan My Day</button>
+      <button onclick="floatWeekend()" class="hide-on-mobile" style="background:linear-gradient(135deg,#8E24AA,#CE93D8);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📅 Weekend</button>
+      <button onclick="floatSurprise()" class="hide-on-mobile" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">🎲 Surprise!</button>
       <button onclick="openMyList()" class="hide-on-mobile" style="position:relative;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">❤️ My List<span id="headerMyListBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:20px;height:20px;align-items:center;justify-content:center;border:2px solid #fff"></span></button>
       <button class="hide-on-mobile" onclick="typeof openNotesAll==='function'?openNotesAll():openNotes('general','My Notes')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border:none;border-radius:99px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.15);">📝 Notes</button>
     </div>
@@ -1518,7 +1520,10 @@ function syncBnav(tab) {
       <!-- NOTES TAB -->
       <div id="tab-notes">
         <p style="color:#888;font-size:13px;margin:0 0 10px;">General notes, reminders, ideas...</p>
-        <textarea id="notepad-general" placeholder="Write your notes here..." style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
+        <input type="search" id="notes-search" placeholder="🔍 Search your notes..." 
+  style="width:100%;padding:8px 14px;border-radius:99px;border:1.5px solid #e0e7ff;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:10px;outline:none;box-sizing:border-box;"
+  oninput="filterNotes(this.value)"/>
+<textarea id="notepad-general" placeholder="Write your notes here..." style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
         <div style="display:flex;gap:8px;margin-top:8px;">
           <button class="save-btn" onclick="saveGeneralNote()" style="flex:1;background:#6366f1;color:#fff;border:none;border-radius:99px;padding:10px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">💾 Save Note</button>
           <button onclick="clearGeneralNote()" style="background:#fee2e2;color:#ef4444;border:none;border-radius:99px;padding:10px 16px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">🗑️</button>
@@ -1783,6 +1788,22 @@ function floatSurprise() {
   }, 900);
 }
 
+
+function filterNotes(query) {
+  var ta = document.getElementById("notepad-general");
+  if (!ta) return;
+  if (!query) {
+    var saved = localStorage.getItem("sunscout_note") || "";
+    ta.value = saved;
+    return;
+  }
+  var saved = localStorage.getItem("sunscout_note") || "";
+  var lines = saved.split("\n").filter(function(l) {
+    return l.toLowerCase().includes(query.toLowerCase());
+  });
+  ta.value = lines.join("\n");
+}
+
 </script>
 
 
@@ -1792,7 +1813,7 @@ function floatSurprise() {
   <button onclick="floatSurprise()" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
 </div>
 <style>
-@media(min-width:641px){#floatingPills{display:none!important;}}
+@media(min-width:641px){#floatingPills{display:none!important;}} /* pills desktop hidden - using buttons instead */
 </style>
 
 </body>
