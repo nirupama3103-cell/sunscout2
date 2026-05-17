@@ -899,8 +899,22 @@ function getCardHTML(a) {
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
+  var cardId = "img-"+Math.random().toString(36).substr(2,9);
+  // Fetch Pexels image in background if using fallback
+  if (!a.image || a.image.length <= 10) {
+    var pQuery = encodeURIComponent(name.split(" ").slice(0,3).join(" ")+" kids");
+    fetch("https://api.pexels.com/v1/search?query="+pQuery+"&per_page=1&orientation=landscape", {
+      headers: {"Authorization": "PEXELS_KEY_PLACEHOLDER"}
+    }).then(function(r){return r.json();})
+    .then(function(d){
+      if(d.photos && d.photos.length>0){
+        var el=document.getElementById(cardId);
+        if(el){el.src=d.photos[0].src.large;el.style.opacity="1";}
+      }
+    }).catch(function(){});
+  }
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
+    + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='/park.jpg';this.style.opacity='1'\" />"
     + "</div>";
 }
 
