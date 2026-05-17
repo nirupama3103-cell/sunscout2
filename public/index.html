@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
-  <meta charset="UTF-8"/>
+  <link rel="icon" href="./sun-logo.png" type="image/png">
+<meta charset="UTF-8"/>
   <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SunScout – Summer Activities for Kids</title>
@@ -1331,7 +1332,8 @@ function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); 
 function checkWeekendMode() {
   var day = new Date().getDay();
   if (day === 0 || day === 6) {
-    document.getElementById("weekendBanner").style.display = "block";
+    var wb_el = document.getElementById("weekendBanner");
+    if (wb_el) wb_el.style.display = "block";
     var wb = document.querySelector(".tab-btn[data-tab='weekend']");
     if (wb) setTab(wb);
   }
