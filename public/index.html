@@ -652,13 +652,13 @@ html { scroll-behavior: smooth; }
     </style>
 <div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
 <div style="margin-top:8px;">
-  <span id="desktopWeatherChip" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Loading weather...</span>
+  <span id="desktopWeatherChip" onclick="weatherChipClick()" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;cursor:pointer;">🌤️ Loading weather...</span>
 </div>
   </div>
 </section>
 
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;display:none;">
-  <div style="text-align:center;margin-bottom:8px;"><span id="ssChip" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
+  <div style="text-align:center;margin-bottom:8px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
   <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
     <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;min-width:0;">
       <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
@@ -1910,6 +1910,20 @@ function dtE(tab,label,e){if(e)e.stopPropagation();document.getElementById("dtEV
 function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
+
+
+function weatherChipClick() {
+  var chip = document.getElementById("desktopWeatherChip") || document.getElementById("ssChip");
+  if (!chip) return;
+  var text = chip.textContent;
+  var tab = "outdoor";
+  if (text.indexOf("Indoor") > -1 || text.indexOf("chilly") > -1 || text.indexOf("Hot") > -1 || text.indexOf("Heat") > -1) tab = "indoor";
+  else if (text.indexOf("outdoor") > -1 || text.indexOf("splash") > -1 || text.indexOf("Perfect") > -1) tab = "outdoor";
+  var btn = document.querySelector(".tab-btn[data-tab='"+tab+"']");
+  if (btn && typeof setTab === "function") setTab(btn);
+  var cards = document.getElementById("cards");
+  if (cards) cards.scrollIntoView({behavior:"smooth"});
+}
 
 </script>
 
