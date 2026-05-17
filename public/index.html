@@ -903,8 +903,7 @@ function getCardHTML(a) {
   // Fetch Pexels image in background if using fallback
   if (!a.image || a.image.length <= 10) {
     var pQuery = encodeURIComponent(name.split(" ").slice(0,3).join(" ")+" kids");
-    fetch("https://api.pexels.com/v1/search?query="+pQuery+"&per_page=1&orientation=landscape", {
-      headers: {"Authorization": "k737iTznQ7JfhEzUijphXKC0XkwaEOHc9w8yqDtTKjL3xvXmowteMlR0"}
+    fetch("/api/photos?query="+pQuery, {
     }).then(function(r){return r.json();})
     .then(function(d){
       if(d.photos && d.photos.length>0){
