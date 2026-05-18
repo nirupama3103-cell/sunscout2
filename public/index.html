@@ -1829,14 +1829,12 @@ function setMobileAge(age, btn) {
 function buildMobileCities() {
   var cities = ['Sunnyvale','San Jose','Cupertino','Mountain View','Palo Alto','Saratoga','Fremont'];
   var icons  = ['☀️','🏙️','🍎','⛰️','🌿','🌸','🏘️'];
+  var colors = ['#FF9900','#1d4ed8','#dc2626','#16a34a','#7c3aed','#0369a1','#b45309'];
   var grid = document.getElementById('m-city-grid');
   if(!grid) return;
   grid.innerHTML = cities.map(function(c,i) {
-  var colors = ["background:#FF9900","background:#1d4ed8","background:#dc2626","background:#16a34a","background:#7c3aed","background:#0369a1","background:#b45309"];
-  grid.innerHTML = cities.map(function(c,i) {
-    var on = c===activeCity ? " on" : "";
-    return "<button class="m-tab-card"+on+"" style=""+colors[i]+"" onclick="setMobileCity('"+c+"',this)"><span class="m-tab-card-icon">"+icons[i]+"</span>"+c+"</button>";
-  }).join("");
+    var on = c===activeCity ? ' on' : '';
+    return '<button class="m-tab-card'+on+'" style="background:'+colors[i]+'" onclick="setMobileCity('' + c + '',this)"><span class="m-tab-card-icon">'+icons[i]+'</span>'+c+'</button>';
   }).join('');
 }
 
