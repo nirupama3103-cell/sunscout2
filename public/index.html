@@ -2,7 +2,6 @@
 <html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -83,7 +82,7 @@ img{max-width:100%;display:block}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr)}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
-.card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.card{background:#fff;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
 .card-img-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f0f0;flex-shrink:0}
 .card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
@@ -542,7 +541,7 @@ html { scroll-behavior: smooth; }
   .city-bar:not(#cityBarInner) { display:none !important; }
   .age-bar { display:none !important; }
   .search-wrap { display:none !important; }
-  .weather-banner { display:none !important; } /* handled in smart header */
+  .weather-banner { display:block !important; font-size:12px; padding:8px 12px; margin:8px 10px 0; }
   #bigTabGrid { display:grid !important; }
 }
 
@@ -1961,7 +1960,7 @@ function weatherChipClick() {
 
 
 <!-- ══ FLOATING PILLS ══ -->
-<div id="floatingPills" style="position:fixed;right:12px;bottom:140px;display:flex;flex-direction:column;gap:8px;z-index:8000;">
+<div id="floatingPills" style="position:fixed;right:12px;bottom:85px;display:flex;flex-direction:column;gap:8px;z-index:8000;">
   <button onclick="floatWeekend()" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
   <button onclick="floatSurprise()" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
 </div>
