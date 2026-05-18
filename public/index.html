@@ -588,7 +588,7 @@ html { scroll-behavior: smooth; }
         <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtCD');d.style.display=d.style.display==='block'?'none':'block'">
           <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">CITY</div>
           <div id="dtCV" style="font-size:13px;font-weight:700;color:#aaa;">Pick city</div>
-          <div id="dtCD" style="display:none;position:absolute;top:calc(100% + 8px);left:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;max-height:400px;overflow-y:auto;">
+          <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
             <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;">CITIES</div>
             <div class="dtcr" onclick="dtC('Sunnyvale',event)">☀️ Sunnyvale</div>
             <div class="dtcr" onclick="dtC('San Jose',event)">🌉 San Jose</div>
