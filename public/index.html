@@ -37,11 +37,7 @@ img{max-width:100%;display:block}
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
 
-@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.tab-btn{min-width:90px!important;max-width:90px!important;flex:0 0 90px!important;padding:8px 4px 10px!important;font-size:10px!important;min-height:68px!important}.age-desc{display:none}.btn{min-height:36px}
-  .city-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
-  .city-bar::-webkit-scrollbar{display:none}
-  .city-btn{flex-shrink:0}
-}
+/* deduped */
 .city-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:99px;border:2px solid transparent;background:#fff;color:#666;box-shadow:var(--shadow);transition:all .15s}
 .city-btn:hover{background:#FFF3E0;color:#333}
 .city-btn.on{background:var(--sun);color:#fff;border-color:#E68A00}
@@ -1983,7 +1979,7 @@ function weatherChipClick() {
 
 
 <!-- ══ FLOATING PILLS ══ -->
-<div id="floatingPills" style="position:fixed;right:12px;bottom:85px;display:flex;flex-direction:column;gap:8px;z-index:8000;">
+<div id="floatingPills" style="position:fixed;right:12px;bottom:90px;display:flex;flex-direction:column;gap:8px;z-index:8000;">
   <button onclick="floatWeekend()" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
   <button onclick="floatSurprise()" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
 </div>
