@@ -35,7 +35,11 @@ Optimized for families across the South Bay and East Bay:
 
 ## 👩‍💻 The Development Story
 SunScout was conceived and engineered by **Nirupama Vadapalli & family**. 
+## 🛠️ Development & Workflow
 
-As a modern development project, SunScout leverages an **AI-augmented workflow**. Complex architectural logic, debugging, and CSS scripting were built in collaboration with **Claude (Anthropic)** and **Gemini (Google)**, showcasing how human oversight and AI pair-programming can rapidly bring community-focused software to life.
+SunScout is a modern development project conceptualized, designed, and entirely driven by human vision. To accelerate the technical build, an AI-augmented workflow was utilized strictly for coding support. 
+
+Complex architectural logic, debugging, and CSS scripting were executed in collaboration with **Claude (Anthropic)** and **Gemini (Google)** acting as digital pair-programmers. This project showcases how dedicated human oversight and product direction, paired with modern AI efficiency tools, can rapidly bring meaningful, community-focused software to life.
+
 
 Built with ❤️ for Bay Area families — Summer 2026.
