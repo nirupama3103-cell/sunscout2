@@ -777,12 +777,12 @@ html { scroll-behavior: smooth; }
 
   <!-- Age Dropdown -->
   <div id="dd-age" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
-    <div class="m-age-grid">
-      <button class="m-age-btn on" onclick="setMobileAge('all',this)">🌟 All Ages</button>
-      <button class="m-age-btn" onclick="setMobileAge('0',this)">👶 0–2</button>
-      <button class="m-age-btn" onclick="setMobileAge('1',this)">🧸 3–5</button>
-      <button class="m-age-btn" onclick="setMobileAge('2',this)">🎒 6–12</button>
-      <button class="m-age-btn" onclick="setMobileAge('3',this)">🛹 Teen</button>
+    <div class="m-tab-grid">
+      <button class="m-tab-card on" style="background:#1d4ed8;" onclick="setMobileAge('all',this)"><span class="m-tab-card-icon">⭐</span>All Ages</button>
+      <button class="m-tab-card" style="background:#FF9900;" onclick="setMobileAge('0',this)"><span class="m-tab-card-icon">👶</span>0–2</button>
+      <button class="m-tab-card" style="background:#16a34a;" onclick="setMobileAge('1',this)"><span class="m-tab-card-icon">🧸</span>3–5</button>
+      <button class="m-tab-card" style="background:#dc2626;" onclick="setMobileAge('2',this)"><span class="m-tab-card-icon">🎒</span>6–12</button>
+      <button class="m-tab-card" style="background:#7c3aed;grid-column:1/-1;" onclick="setMobileAge('3',this)"><span class="m-tab-card-icon">🛹</span>Teen 13–19</button>
     </div>
   </div>
 
@@ -1815,7 +1815,7 @@ function setMobileTab(tab, btn) {
 }
 
 function setMobileAge(age, btn) {
-  document.querySelectorAll('.m-age-btn').forEach(function(b){ b.classList.remove('on'); });
+  document.querySelectorAll('#dd-age .m-tab-card').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
   var dd = document.getElementById('dd-age');
   if(dd) dd.style.display = 'none';
@@ -1832,12 +1832,16 @@ function buildMobileCities() {
   var grid = document.getElementById('m-city-grid');
   if(!grid) return;
   grid.innerHTML = cities.map(function(c,i) {
-    return '<button class="m-city-btn'+(c===activeCity?' on':'')+'" onclick="setMobileCity(\'' + c + '\',this)">'+icons[i]+' '+c+'</button>';
+  var colors = ["background:#FF9900","background:#1d4ed8","background:#dc2626","background:#16a34a","background:#7c3aed","background:#0369a1","background:#b45309"];
+  grid.innerHTML = cities.map(function(c,i) {
+    var on = c===activeCity ? " on" : "";
+    return "<button class="m-tab-card"+on+"" style=""+colors[i]+"" onclick="setMobileCity('"+c+"',this)"><span class="m-tab-card-icon">"+icons[i]+"</span>"+c+"</button>";
+  }).join("");
   }).join('');
 }
 
 function setMobileCity(city, btn) {
-  document.querySelectorAll('.m-city-btn').forEach(function(b){ b.classList.remove('on'); });
+  document.querySelectorAll('#m-city-grid .m-tab-card').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
   var dd = document.getElementById('dd-city');
   if(dd) dd.style.display = 'none';
