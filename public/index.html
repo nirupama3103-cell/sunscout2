@@ -597,14 +597,16 @@ html { scroll-behavior: smooth; }
           <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">CITY</div>
           <div id="dtCV" style="font-size:13px;font-weight:700;color:#aaa;">Pick city</div>
           <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-            <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;">CITIES</div>
-            <div class="dtcr" onclick="dtC('Sunnyvale',event)">☀️ Sunnyvale</div>
-            <div class="dtcr" onclick="dtC('San Jose',event)">🌉 San Jose</div>
-            <div class="dtcr" onclick="dtC('Cupertino',event)">🍎 Cupertino</div>
-            <div class="dtcr" onclick="dtC('Mountain View',event)">🏔️ Mountain View</div>
-            <div class="dtcr" onclick="dtC('Palo Alto',event)">🎓 Palo Alto</div>
-            <div class="dtcr" onclick="dtC('Saratoga',event)">🌸 Saratoga</div>
-            <div class="dtcr" onclick="dtC('Fremont',event)">🌉 Fremont</div>
+            <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;letter-spacing:.06em;">📍 CITIES</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div class="dtcr" style="color:#c05e00;background:#FFFBEE;border:0.5px solid #FFD580;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Sunnyvale',event)">☀️ Sunnyvale</div>
+              <div class="dtcr" style="color:#1d4ed8;background:#EFF6FF;border:0.5px solid #93c5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('San Jose',event)">🌉 San Jose</div>
+              <div class="dtcr" style="color:#991b1b;background:#FFF5F5;border:0.5px solid #fca5a5;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Cupertino',event)">🍎 Cupertino</div>
+              <div class="dtcr" style="color:#15803d;background:#F0FDF4;border:0.5px solid #86efac;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Mountain View',event)">🏔️ Mtn View</div>
+              <div class="dtcr" style="color:#6d28d9;background:#F5F3FF;border:0.5px solid #c4b5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Palo Alto',event)">🎓 Palo Alto</div>
+              <div class="dtcr" style="color:#0369a1;background:#F0F9FF;border:0.5px solid #7dd3fc;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Saratoga',event)">🌸 Saratoga</div>
+              <div class="dtcr" style="color:#b45309;background:#FFFBEB;border:0.5px solid #fcd34d;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;grid-column:span 2;" onclick="dtC('Fremont',event)">🌉 Fremont</div>
+            </div>
           </div>
         </div>
         <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
@@ -628,11 +630,11 @@ html { scroll-behavior: smooth; }
           <div id="dtAV" style="font-size:13px;font-weight:700;color:#aaa;">All ages</div>
           <div id="dtAD" style="display:none;position:fixed;top:160px;right:calc(50% - 360px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtac" onclick="dtA('all','All',event)">All</div>
-              <div class="dtac" onclick="dtA('0','0-2',event)">0-2</div>
-              <div class="dtac" onclick="dtA('1','3-5',event)">3-5</div>
-              <div class="dtac" onclick="dtA('2','6-12',event)">6-12</div>
-              <div class="dtac" style="grid-column:span 2;" onclick="dtA('3','Teen',event)">🛹 Teen 13-19</div>
+              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All Ages</div>
+              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtA('0','0-2',event)">👶 0–2</div>
+              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtA('1','3-5',event)">🧸 3–5</div>
+              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtA('2','6-12',event)">🎒 6–12</div>
+              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;grid-column:span 2;" onclick="dtA('3','Teen',event)">🛹 Teen 13–19</div>
             </div>
           </div>
         </div>
@@ -864,6 +866,8 @@ html { scroll-behavior: smooth; }
 <div style="text-align:center;padding:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
   <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Free & paid summer activities for Bay Area kids!',url:'https://sunscoutkids.com'})}else{window.open('https://wa.me/?text='+encodeURIComponent('SunScout - Summer activities for Bay Area kids! https://sunscoutkids.com'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-weight:800;cursor:pointer;font-size:13px;font-family:Nunito,sans-serif;">📤 Share SunScout</button>
   <button onclick="document.getElementById('about-modal').style.cssText='display:flex!important;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;'" style="background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🌤️ About SunScout</button>
+  <button onclick="openPlan()" class="hide-on-mobile" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
+  <button onclick="openMyList()" class="hide-on-mobile" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
 </div>
 <div class="footer">
   <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="/privacy.html" style="color:#FF9900;font-weight:700">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
