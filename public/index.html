@@ -89,7 +89,7 @@ img{max-width:100%;display:block}
 .badge-free{position:absolute;top:7px;left:7px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
 .badge-src{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
 .card-body{padding:10px 11px;display:flex;flex-direction:column;gap:5px;flex:1}
-.card-title{font-size:13px;font-weight:700;line-height:1.3;color:#1a1a1a}
+.card-title{font-size:13px;font-weight:700;line-height:1.3;color:#1a1a1a!important}
 .stars{font-size:12px;color:var(--amber);letter-spacing:1px}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;white-space:nowrap}
@@ -142,7 +142,7 @@ img{max-width:100%;display:block}
 @media(prefers-color-scheme:dark){
   body{background:#1a1a1a;color:#f0f0f0}
   .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
-  .card-title{color:#f0f0f0}color:#1a1a1a!important;
+  .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
 @media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
@@ -425,7 +425,8 @@ html { scroll-behavior: smooth; }
     font-weight: 800;
     font-size: 12px;
     cursor: pointer;
-    background: linear-gradient(135deg,#FFF3E0,#FFE0B2);
+    background: #FFF3E0;
+    color: #e65100;
     color: #e65100;
     transition: all .15s;
     white-space: nowrap;
@@ -449,6 +450,12 @@ html { scroll-behavior: smooth; }
     color: #fff;
     box-shadow: 0 3px 12px rgba(255,153,0,0.3);
   }
+  #mft-city { background:#FFF3E0; color:#e65100; border: 1.5px solid #FFD580; }
+  #mft-explore { background:#EFF6FF; color:#1d4ed8; border: 1.5px solid #93c5fd; }
+  #mft-age { background:#F0FDF4; color:#15803d; border: 1.5px solid #86efac; }
+  #mft-city.active { background:#FF9900; color:#fff; border-color:#FF9900; }
+  #mft-explore.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
+  #mft-age.active { background:#15803d; color:#fff; border-color:#15803d; }
   .mobile-filter-panel {
     display: none;
     padding: 10px 12px 0;
