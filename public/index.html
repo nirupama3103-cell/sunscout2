@@ -1809,7 +1809,7 @@ function setMobileTab(tab, btn) {
   var dd = document.getElementById('dd-explore');
   if(dd) dd.style.display = 'none';
   var mft = document.getElementById('mft-explore');
-  if(mft) { mft.classList.remove('active'); mft.textContent = '🎡 Explore'; }
+  if(mft) { mft.classList.remove('active'); mft.innerHTML = '🎡 <strong>' + (tab.charAt(0).toUpperCase()+tab.slice(1)) + '</strong>'; }
   var realBtn = document.querySelector('.tab-btn[data-tab="'+tab+'"]');
   if(realBtn) realBtn.click();
 }
@@ -1820,7 +1820,7 @@ function setMobileAge(age, btn) {
   var dd = document.getElementById('dd-age');
   if(dd) dd.style.display = 'none';
   var mft = document.getElementById('mft-age');
-  if(mft) { mft.classList.remove('active'); mft.textContent = '👶 Age'; }
+  if(mft) { mft.classList.remove('active'); mft.innerHTML = '👶 <strong>' + btn.textContent.trim() + '</strong>'; }
   var realBtn = document.querySelector('.age-btn[data-age="'+age+'"]');
   if(realBtn) realBtn.click();
   else { activeAge = age; renderCards(); }
@@ -1846,7 +1846,7 @@ function setMobileCity(city, btn) {
   var dd = document.getElementById('dd-city');
   if(dd) dd.style.display = 'none';
   var mft = document.getElementById('mft-city');
-  if(mft) { mft.classList.remove('active'); mft.textContent = '📍 Pick City'; }
+  if(mft) { mft.classList.remove('active'); mft.innerHTML = '📍 <strong>' + city + '</strong>'; }
   var realBtn = Array.from(document.querySelectorAll('.city-btn')).find(function(b){ return b.textContent.includes(city); });
   if(realBtn) realBtn.click();
   else { activeCity = city; loadActivities(); }
