@@ -1282,6 +1282,43 @@ function renderCards() {
   }).join("");
 }
 
+// Pexels image loader - loads real photos async after cards render
+function loadPexelsImages() {
+  var cards = document.querySelectorAll(".card[data-idx]");
+  cards.forEach(function(card) {
+    var idx = card.getAttribute("data-idx");
+    var a = window._activities[idx];
+    if (!a) return;
+    var img = card.querySelector(".card-img-wrap img");
+    if (img && img.src && img.src.indexOf("/park.jpg") === -1 && img.src.indexOf("/museum") === -1 && img.src.indexOf("/splash") === -1) return; // already has google image
+    var wrap = card.querySelector(".card-img-wrap");
+    if (!wrap) return;
+    // Only fetch if using local fallback
+    var currentImg = wrap.querySelector("img");
+    if (currentImg && currentImg.dataset.pexels) return; // already loaded
+    fetch("/api/photos?name=" + encodeURIComponent(a.name||"") + "&desc=" + encodeURIComponent((a.desc||"").slice(0,50)))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (!d.url) return;
+        var existingImg = wrap.querySelector("img");
+        if (existingImg) {
+          existingImg.src = d.url;
+          existingImg.dataset.pexels = "1";
+        } else {
+          var fb = wrap.querySelector(".card-img-fb");
+          if (fb) {
+            var newImg = document.createElement("img");
+            newImg.src = d.url;
+            newImg.dataset.pexels = "1";
+            newImg.style.cssText = "width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;";
+            newImg.onerror = function(){ this.style.display="none"; };
+            wrap.insertBefore(newImg, fb);
+          }
+        }
+      }).catch(function(){});
+  });
+}
+
 function showSkeleton() {
   document.getElementById("statusBar").innerHTML = "<span class='spinner'></span> Loading...";
   document.getElementById("grid").innerHTML = "";
