@@ -1834,12 +1834,9 @@ function buildMobileCities() {
   if(!grid) return;
   grid.innerHTML = cities.map(function(c,i) {
     var on = c===activeCity ? ' on' : '';
-    var btn = document.createElement('button');
-    btn.className = 'm-tab-card' + on;
-    btn.style.background = colors[i];
-    btn.innerHTML = '<span class="m-tab-card-icon">' + icons[i] + '</span>' + c;
-    btn.onclick = (function(city){ return function(){ setMobileCity(city, this); }; })(c);
-    return btn.outerHTML;
+    return ['<button class="m-tab-card',on,'" style="background:',colors[i],
+            '" onclick="setMobileCity(this.dataset.city,this)" data-city="',c,
+            '"><span class="m-tab-card-icon">',icons[i],'</span>',c,'</button>'].join('');
   }).join('');
 }
 
