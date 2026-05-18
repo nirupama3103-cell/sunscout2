@@ -142,7 +142,7 @@ img{max-width:100%;display:block}
 @media(prefers-color-scheme:dark){
   body{background:#1a1a1a;color:#f0f0f0}
   .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
-  .card-title{color:#f0f0f0}
+  .card-title{color:#f0f0f0}color:#1a1a1a!important;
   .info{color:#aaa}
 }
 @media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
@@ -311,7 +311,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
   .card-img-wrap { aspect-ratio: 16/10; }
-  .card-title { font-size: 12px; }
+  .card-title { font-size: 12px; }color:#1a1a1a!important;
   .logo { font-size: 2rem; }
   #plan-modal { 
     border-radius: 20px 20px 0 0;
@@ -417,6 +417,21 @@ html { scroll-behavior: smooth; }
     justify-content: center;
   }
   .mft-btn {
+    flex: 1;
+    padding: 8px 4px;
+    border-radius: 99px;
+    border: none;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    cursor: pointer;
+    background: linear-gradient(135deg,#FFF3E0,#FFE0B2);
+    color: #e65100;
+    transition: all .15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
     flex: 1;
     padding: 10px 6px;
     border-radius: 99px;
