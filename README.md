@@ -1,45 +1,100 @@
-
 # 🌤️ SunScout
+### Summer Activity Discovery for Bay Area Families
 
-**Summer Activity Discovery for Bay Area Families**
+SunScout helps Bay Area parents instantly find free and paid activities for kids — from splash pads and library storytimes to STEM camps and petting zoos. Built as a fast, mobile-first web app with no login, no ads, and no tracking.
 
-SunScout is a localized, high-performance web application designed to help Bay Area parents effortlessly discover both free and paid activities for children—ranging from STEM camps and library storytimes to petting zoos and splash pads.
-
-🔗 **Live Application:** [sunscout2.vercel.app](https://sunscout2.vercel.app)
-
----
-
-## 🏙️ Coverage & Target Regions
-Optimized for families across the South Bay and East Bay:
-* **Santa Clara County:** Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga
-* **Alameda County:** Fremont
+🔗 **Live App:** [sunscout2.vercel.app](https://sunscout2.vercel.app)
+📂 **GitHub:** [github.com/nirupama3103-cell/SunScout](https://github.com/nirupama3103-cell/SunScout)
 
 ---
 
-## ✨ Key Features
-* **Dynamic Categorization:** 5 structured view tabs (Free, Paid, Indoor, Outdoor, Weekend).
-* **Smart Filtering:** Micro-targeted age filters spanning from Infant to Teen.
-* **Plan My Day Wizard:** A guided flow to help parents build a seamless daily itinerary.
-* **Context-Aware Alerts:** Integrated real-time weather notifications for outdoor planning.
-* **Privacy-First Storage:** Local storage capabilities allowing users to save favorites and custom notes directly to their device.
+## 🎯 The Problem It Solves
+
+Bay Area parents spend hours every summer Googling "free things to do with kids near me" — only to find outdated blog posts or generic lists. SunScout solves this with a purpose-built, always-fresh activity finder covering 7 South Bay cities.
 
 ---
 
-## 🛠️ Tech Stack & Architecture
-* **Frontend:** React, Vite
-* **Styling:** Tailwind CSS (or standard CSS, update if applicable)
-* **Deployment & Hosting:** Vercel
-* **Version Control:** GitHub
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🆓 **5 Activity Tabs** | Free, Paid, Indoor, Outdoor, Weekend — strictly categorized |
+| 👶 **Age Filters** | Infant (0–2), Preschool (3–5), School Age (6–12), Teen (13–19) |
+| 📅 **Plan My Day** | Guided wizard that builds a full family day itinerary |
+| ❤️ **My List** | Save favorite activities to device — no account needed |
+| 📝 **Notes** | Add private notes to any activity |
+| 🌡️ **Weather Alerts** | Real-time heat warnings that redirect to indoor activities |
+| 🗺️ **Weekend Mode** | Auto-activates on weekends, shows all-city events |
+| 🔒 **Privacy First** | Zero tracking, zero ads, zero data collection |
+| 📱 **Mobile Optimized** | Bottom nav, floating action pill, PWA installable |
 
 ---
 
-## 👩‍💻 The Development Story
-SunScout was conceived and engineered by **Nirupama Vadapalli & family**. 
-## 🛠️ Development & Workflow
+## 🏙️ Cities Covered
 
-SunScout is a modern development project conceptualized, designed, and entirely driven by human vision. To accelerate the technical build, an AI-augmented workflow was utilized strictly for coding support. 
+**Santa Clara County:** Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga
 
-Complex architectural logic, debugging, and CSS scripting were executed in collaboration with **Claude (Anthropic)** and **Gemini (Google)** acting as digital pair-programmers. This project showcases how dedicated human oversight and product direction, paired with modern AI efficiency tools, can rapidly bring meaningful, community-focused software to life.
+**Alameda County:** Fremont
 
+---
 
-Built with ❤️ for Bay Area families — Summer 2026.
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Vanilla HTML, CSS, JavaScript (no framework) |
+| Data | Google Places API · Eventbrite · Ticketmaster |
+| Weather | Open-Meteo API (free, no key required) |
+| Hosting | Vercel (auto-deploy from GitHub) |
+| Storage | localStorage (favorites, notes — device only) |
+| PWA | Web App Manifest + mobile meta tags |
+
+---
+
+## 🏗️ Architecture
+The app is intentionally framework-free for maximum performance and simplicity. No build step, no dependencies, instant load.
+
+---
+
+## 🚀 Running Locally
+
+```bash
+
+git clone https://github.com/nirupama3103-cell/SunScout
+
+cd SunScout
+
+# Open public/index.html directly in a browser
+
+# Or use any static server:
+
+npx serve public
+
+```
+
+---
+
+## 👩‍💻 Development Story
+
+SunScout was conceived, designed, and product-managed by **Nirupama Vadapalli** as a real-world tool for Bay Area families.
+
+The technical build used an AI-augmented workflow—complex logic, debugging, and CSS architecture were built in collaboration with **Claude (Anthropic)** as a coding partner. This project demonstrates how strong human product vision, paired with AI development tools, can rapidly ship meaningful community software.
+
+---
+
+## 📋 Roadmap
+
+- [ ] Eventbrite live API integration
+
+- [ ] Busyness meter (crowd predictions)
+
+- [ ] Stroller accessibility badges
+
+- [ ] Countdown to summer banner
+
+- [ ] "Today's Pick" featured card
+
+---
+
+Built with ❤️ for Bay Area families · Summer 2026
+
