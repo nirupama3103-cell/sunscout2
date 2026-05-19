@@ -1352,8 +1352,7 @@ function loadPexelsImages() {
     // Skip if already loaded via Pexels
     var existingImg = wrap.querySelector("img");
     if (existingImg && existingImg.dataset.pexels) return;
-    // Skip if activity already has a real Google Places photo (from API)
-    if (a.image && a.image.indexOf('http') === 0) return;
+    // Always try Pexels for better relevant images
     fetch("/api/photos?name=" + encodeURIComponent(a.name||"") + "&desc=" + encodeURIComponent((a.desc||"").slice(0,50)))
       .then(function(r){ return r.json(); })
       .then(function(d){
