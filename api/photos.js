@@ -1,28 +1,29 @@
-
 const CACHE = new Map();
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL = 24 * 60 * 60 * 1000;
 
 const CATEGORY_QUERIES = {
   swimming:   "children swimming pool summer",
   soccer:     "kids soccer camp field",
   stem:       "children coding robotics stem",
   ballet:     "kids ballet dance class",
-  museum:     "children museum exhibit",
+  museum:     "children museum exhibit interactive",
   library:    "kids library reading storytime",
-  camp:       "summer camp kids outdoor",
+  camp:       "summer camp kids outdoor adventure",
   gymnastics: "kids gymnastics class",
   music:      "children music class instruments",
   art:        "kids art painting class",
-  hiking:     "family hiking trail nature",
+  hiking:     "family hiking trail nature kids",
   farm:       "kids petting zoo farm animals",
-  playground: "children playground park",
-  beach:      "family beach summer fun",
+  playground: "children playground park sunny",
+  beach:      "family beach summer fun kids",
   climbing:   "kids rock climbing gym",
   cooking:    "kids cooking baking class",
   yoga:       "kids yoga class",
   tennis:     "kids tennis camp",
   horse:      "kids horseback riding",
-  default:    "kids summer activities fun"
+  market:     "farmers market family outdoor",
+  festival:   "kids festival outdoor summer fun",
+  default:    "kids summer activities fun outdoor"
 };
 
 function getCategory(name, desc) {
@@ -38,10 +39,11 @@ function getCategory(name, desc) {
   if (t.includes("art")||t.includes("paint")||t.includes("pottery")||t.includes("clay")||t.includes("craft")) return "art";
   if (t.includes("hike")||t.includes("trail")||t.includes("nature")||t.includes("creek")) return "hiking";
   if (t.includes("farm")||t.includes("petting")||t.includes("zoo")||t.includes("animal")||t.includes("horse")||t.includes("pony")) return "farm";
-  if (t.includes("climbing")||t.includes("ropes course")||t.includes("zip line")) return "climbing";
+  if (t.includes("climbing")||t.includes("ropes course")||t.includes("zip")) return "climbing";
   if (t.includes("cook")||t.includes("bak")||t.includes("chef")||t.includes("kitchen")) return "cooking";
   if (t.includes("tennis")||t.includes("pickleball")) return "tennis";
   if (t.includes("beach")||t.includes("boardwalk")) return "beach";
+  if (t.includes("market")||t.includes("fair")||t.includes("festival")) return "festival";
   if (t.includes("playground")||t.includes("splash pad")||t.includes("park")) return "playground";
   if (t.includes("camp")||t.includes("galileo")||t.includes("kidventure")||t.includes("ymca")) return "camp";
   return "default";
@@ -54,9 +56,9 @@ export default async function handler(req, res) {
 
   const category = getCategory(name, desc || "");
   const query = CATEGORY_QUERIES[category];
-  const cacheKey = category;
 
-  // Check cache
+  // Cache by activity name for unique photos per activity
+  const cacheKey = name.toLowerCase().trim();
   if (CACHE.has(cacheKey)) {
     const { url, ts } = CACHE.get(cacheKey);
     if (Date.now() - ts < CACHE_TTL) {
@@ -65,15 +67,16 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Fetch 15 photos and pick randomly for variety across activities
+    const page = Math.floor(Math.random() * 3) + 1;
     const r = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=5&orientation=landscape`,
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&page=${page}&orientation=landscape`,
       { headers: { Authorization: process.env.PEXELS_API_KEY } }
     );
     const data = await r.json();
     const photos = data.photos || [];
     if (photos.length === 0) return res.json({ url: null });
 
-    // Pick a random one from top 5 for variety
     const pick = photos[Math.floor(Math.random() * photos.length)];
     const url = pick.src.large;
 
