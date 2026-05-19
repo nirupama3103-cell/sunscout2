@@ -1698,6 +1698,14 @@ function syncBnav(tab) {
       <span class="bnav-label">My List</span>
       <span class="bnav-badge" id="bnavBadge"></span>
     </button>
+    <button class="bnav-btn" onclick="floatWeekend()">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label">Weekend</span>
+    </button>
+    <button class="bnav-btn" onclick="floatSurprise()">
+      <span class="bnav-icon">🎲</span>
+      <span class="bnav-label">Surprise</span>
+    </button>
   </div>
 </nav>
 
@@ -2066,8 +2074,7 @@ function weatherChipClick() {
 
 
 <!-- ══ FLOATING PILLS ══ -->
-<button id="pillWeekend" onclick="floatWeekend()" style="position:fixed;left:10px;bottom:80px;z-index:8000;background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;opacity:0.92;">📅 Weekend</button>
-<button id="pillSurprise" onclick="floatSurprise()" style="position:fixed;right:10px;bottom:80px;z-index:8000;background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;opacity:0.92;">🎲 Surprise!</button>
+<!-- Pills hidden on mobile - moved into bottom nav -->
 <style>
 @media(min-width:641px){#floatingPills{display:none!important;}.mobile-filter-tabs{display:none!important;}.weather-banner{display:none!important;}} /* pills desktop hidden - using buttons instead */
 </style>
