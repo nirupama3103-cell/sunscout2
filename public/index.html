@@ -1057,13 +1057,12 @@ function getCardHTML(a) {
   var cardId = "img-"+Math.random().toString(36).substr(2,9);
   // Fetch Pexels image in background if using fallback
   if (!a.image || a.image.length <= 10) {
-    var pQuery = encodeURIComponent(name.split(" ").slice(0,3).join(" ")+" kids");
-    fetch("/api/photos?query="+pQuery, {
+    fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)), {
     }).then(function(r){return r.json();})
     .then(function(d){
-      if(d.photos && d.photos.length>0){
+      if(d.url){
         var el=document.getElementById(cardId);
-        if(el){el.src=d.photos[0].src.large;el.style.opacity="1";}
+        if(el){el.src=d.url;el.style.opacity="1";}
       }
     }).catch(function(){});
   }
