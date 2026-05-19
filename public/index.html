@@ -102,7 +102,7 @@ img{max-width:100%;display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr)}}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr);gap:8px;padding:6px 10px 0}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
 .card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
@@ -167,7 +167,7 @@ img{max-width:100%;display:block}
   .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
-@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
@@ -332,7 +332,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
-  .card-img-wrap { aspect-ratio: 16/10; }
+  /* removed conflicting aspect-ratio */
   .card-title { font-size: 12px; }color:#1a1a1a!important;
   .logo { font-size: 2rem; }
   #plan-modal { 
@@ -512,7 +512,7 @@ html { scroll-behavior: smooth; }
     gap: 8px;
   }
   .m-tab-card {
-    padding: 14px 8px;
+    padding: 8px 6px;
     border-radius: 16px;
     border: none;
     font-family: Nunito, sans-serif;
@@ -527,7 +527,7 @@ html { scroll-behavior: smooth; }
   .m-tab-card { position: relative; }
   .m-tab-card.on { transform: scale(0.96); box-shadow: none; outline: 3px solid rgba(255,255,255,0.8); outline-offset: -3px; filter: brightness(1.15); }
   .m-tab-card.on::after { content: "✓"; position: absolute; top: 6px; right: 8px; font-size: 14px; font-weight: 900; color: white; }
-  .m-tab-card-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+  .m-tab-card-icon { font-size: 1.2rem; display: block; margin-bottom: 2px; }
 
   /* Mobile age buttons inside panel */
   .m-age-grid {
