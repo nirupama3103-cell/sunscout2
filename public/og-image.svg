@@ -1,0 +1,62 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#BAE6FD"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="100%" stop-color="#4ADE80"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect y="520" width="1200" height="110" fill="url(#ground)"/>
+  <ellipse cx="200" cy="520" rx="320" ry="40" fill="#4ADE80" opacity="0.5"/>
+  <ellipse cx="900" cy="520" rx="280" ry="35" fill="#4ADE80" opacity="0.5"/>
+  <ellipse cx="100" cy="200" rx="90" ry="55" fill="white" opacity="0.85"/>
+  <ellipse cx="160" cy="185" rx="70" ry="50" fill="white" opacity="0.85"/>
+  <ellipse cx="60" cy="210" rx="60" ry="40" fill="white" opacity="0.8"/>
+  <ellipse cx="1120" cy="100" rx="75" ry="45" fill="white" opacity="0.7"/>
+  <ellipse cx="1170" cy="90" rx="55" ry="38" fill="white" opacity="0.7"/>
+
+  <image href="/og-logo.png" x="560" y="-20" width="680" height="680" preserveAspectRatio="xMidYMid meet"/>
+
+  <rect x="0" y="0" width="600" height="630" fill="#FFF9F0" opacity="0.91"/>
+  <rect x="0" y="0" width="8" height="630" fill="#F59E0B"/>
+
+  <text x="52" y="118" font-family="Arial,sans-serif" font-size="82" font-weight="900" fill="#D97706" letter-spacing="-1">SunScout</text>
+  <rect x="52" y="138" width="480" height="3" rx="1" fill="#FCD34D"/>
+
+  <text x="52" y="198" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#92400E">Free &amp; Paid Summer Activities</text>
+  <text x="52" y="240" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#92400E">for Bay Area Kids</text>
+
+  <rect x="52" y="268" width="480" height="1" rx="1" fill="#FDE68A"/>
+
+  <rect x="52" y="286" width="210" height="44" rx="22" fill="#F59E0B"/>
+  <text x="157" y="314" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="white">Free Activities</text>
+
+  <rect x="274" y="286" width="210" height="44" rx="22" fill="#34D399"/>
+  <text x="379" y="314" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="white">Paid Programs</text>
+
+  <rect x="52" y="344" width="150" height="40" rx="20" fill="#60A5FA"/>
+  <text x="127" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="white">Indoor</text>
+
+  <rect x="214" y="344" width="160" height="40" rx="20" fill="#86EFAC"/>
+  <text x="294" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="#166534">Outdoor</text>
+
+  <rect x="386" y="344" width="146" height="40" rx="20" fill="#C084FC"/>
+  <text x="459" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="800" fill="white">Weekend</text>
+
+  <text x="52" y="432" font-family="Arial,sans-serif" font-size="16" fill="#78350F">Sunnyvale · San Jose · Cupertino · Mountain View</text>
+  <text x="52" y="456" font-family="Arial,sans-serif" font-size="16" fill="#78350F">Palo Alto · Saratoga · Fremont</text>
+
+  <rect x="52" y="482" width="3" height="52" rx="1" fill="#F59E0B"/>
+  <text x="68" y="504" font-family="Arial,sans-serif" font-size="15" fill="#92400E">Filter by age · Live data · No ads</text>
+  <text x="68" y="526" font-family="Arial,sans-serif" font-size="15" fill="#92400E">No tracking · 100% free to use</text>
+
+  <text x="52" y="592" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#B45309">sunscoutkids.com</text>
+
+  <rect x="0" y="0" width="1200" height="7" fill="#F59E0B"/>
+  <rect x="0" y="623" width="1200" height="7" fill="#F59E0B"/>
+</svg>
