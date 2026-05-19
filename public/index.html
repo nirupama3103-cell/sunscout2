@@ -1076,7 +1076,7 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : src;
+  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
