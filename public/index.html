@@ -589,6 +589,22 @@ html { scroll-behavior: smooth; }
 @media(min-width:641px){#ssBar{display:none!important;}}
 
 /* ── Weekend mode: city bar disabled ── */
+/* Desktop weekend label (city bar is hidden on desktop, show a chip instead) */
+#desktop-weekend-label {
+  display: none;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #8E24AA;
+  background: #F3E5F5;
+  border-radius: 99px;
+  padding: 5px 18px;
+  margin: 6px auto 0;
+  width: fit-content;
+}
+@media(min-width:641px) {
+  #desktop-weekend-label.visible { display: block; }
+}
 .city-bar.weekend-mode .city-btn {
   opacity: 0.35;
   pointer-events: none;
@@ -658,7 +674,11 @@ html { scroll-behavior: smooth; }
   align-items: center; justify-content: center;
   border: 2px solid #fff;
 }
-@media(max-width:640px) { #float-pill { display: flex; } }
+@media(max-width:640px) {
+  #float-pill { display: flex; }
+  #main { padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important; }
+  .show-more-wrap { margin-bottom: calc(60px + env(safe-area-inset-bottom)); }
+}
 
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1454,10 +1474,12 @@ function setTab(btn) {
   if (activeTab === "weekend") {
     if (cityBar) cityBar.classList.add("weekend-mode");
     document.querySelectorAll(".m-city-btn").forEach(function(b){ b.style.opacity="0.35"; b.style.pointerEvents="none"; });
+    var dwl = document.getElementById("desktop-weekend-label"); if(dwl) dwl.classList.add("visible");
     loadActivities();
   } else {
     if (cityBar) cityBar.classList.remove("weekend-mode");
     document.querySelectorAll(".m-city-btn").forEach(function(b){ b.style.opacity=""; b.style.pointerEvents=""; });
+    var dwl = document.getElementById("desktop-weekend-label"); if(dwl) dwl.classList.remove("visible");
     if (activeCity) loadActivities();
   }
 }
