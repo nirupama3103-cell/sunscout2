@@ -579,6 +579,48 @@ html { scroll-behavior: smooth; }
 }
 /* ssChip desktop hide */
 @media(min-width:641px){#ssBar{display:none!important;}}
+
+/* ── Weekend mode: city bar disabled ── */
+.city-bar.weekend-mode .city-btn {
+  opacity: 0.35;
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+.city-bar.weekend-mode::after {
+  content: '🗺️ Showing all Bay Area cities';
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8E24AA;
+  padding: 2px 0 6px;
+  flex-basis: 100%;
+}
+/* ── Mobile footer full audit ── */
+.footer {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+}
+.show-more-wrap {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+}
+#main {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+}
+@media (max-width: 640px) {
+  .footer {
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    padding: 16px 16px calc(100px + env(safe-area-inset-bottom)) !important;
+  }
+  #bottom-nav {
+    z-index: 9995 !important;
+    background: #fff !important;
+  }
+}
+
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
@@ -1362,7 +1404,14 @@ function setTab(btn) {
   activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-  if (activeCity) loadActivities();
+  var cityBar = document.querySelector(".city-bar");
+  if (activeTab === "weekend") {
+    if (cityBar) cityBar.classList.add("weekend-mode");
+    loadActivities();
+  } else {
+    if (cityBar) cityBar.classList.remove("weekend-mode");
+    if (activeCity) loadActivities();
+  }
 }
 
 function setAge(btn) {
@@ -1482,6 +1531,8 @@ function checkWeekendMode() {
     if (wb_el) wb_el.style.display = "block";
     var wb = document.querySelector(".tab-btn[data-tab='weekend']");
     if (wb) setTab(wb);
+    var cityBar = document.querySelector(".city-bar");
+    if (cityBar) cityBar.classList.add("weekend-mode");
   }
 }
 
