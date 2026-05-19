@@ -14,7 +14,7 @@ const CATEGORY_QUERIES = {
   music:        "children music class instruments singing",
   art:          "kids art painting craft class",
   hiking:       "family hiking trail nature kids",
-  horse:        "kids horseback riding equestrian",
+  horse:        "kids horseback riding equestrian carriage",
   cherry:       "cherry picking orchard family kids",
   berry:        "berry picking strawberry farm family",
   farm:         "kids petting zoo goats farm animals",
