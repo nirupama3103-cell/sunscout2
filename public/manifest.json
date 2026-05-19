@@ -1,22 +1,17 @@
 {
-  "name": "SunScout \u2013 Summer Activities",
+  "name": "SunScout – Summer Activities for Kids",
   "short_name": "SunScout",
-  "description": "Free & paid summer activities for Bay Area kids",
+  "description": "Free & paid summer activities for Bay Area kids — filter by city, age, indoor/outdoor and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFF9F0",
   "theme_color": "#FF9900",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["kids", "family", "lifestyle", "education"],
   "icons": [
-    {
-      "src": "/park.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "/park.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg"
-    }
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
