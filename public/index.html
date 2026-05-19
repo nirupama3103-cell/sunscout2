@@ -299,7 +299,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   #bottom-nav { display: block; }
   #main { padding-bottom: 0; }
   .show-more-wrap { padding-bottom: 0; }
-  .footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 8px; }
+  .footer { padding-bottom: calc(110px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 8px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
   .age-btn { padding: 8px 16px; font-size: 13px; }
   .tab-bar {
@@ -524,7 +524,9 @@ html { scroll-behavior: smooth; }
     transition: all .15s;
     box-shadow: 0 3px 10px rgba(0,0,0,0.12);
   }
-  .m-tab-card.on { transform: scale(0.96); box-shadow: none; }
+  .m-tab-card { position: relative; }
+  .m-tab-card.on { transform: scale(0.96); box-shadow: none; outline: 3px solid rgba(255,255,255,0.8); outline-offset: -3px; filter: brightness(1.15); }
+  .m-tab-card.on::after { content: "✓"; position: absolute; top: 6px; right: 8px; font-size: 14px; font-weight: 900; color: white; }
   .m-tab-card-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
 
   /* Mobile age buttons inside panel */
@@ -1103,9 +1105,9 @@ function showDetail(i) {
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
   var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
   var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
-  var src = getCardHTML(a);
-  var imgSrc = src.match(/src="([^"]+)"/);
-  imgSrc = imgSrc ? imgSrc[1] : "/park.jpg";
+  var imgSrc = "/park.jpg";
+  var cardEl = document.querySelector(".card[data-idx='" + i + "']");
+  if (cardEl) { var ci = cardEl.querySelector("img"); if (ci && ci.src && ci.naturalWidth > 0) imgSrc = ci.src; }
   var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
   // Check if already favorited
@@ -1124,7 +1126,7 @@ function showDetail(i) {
       (a.desc?"<p class='detail-modal-desc'>"+a.desc+"</p>":"")+
       (a.address?"<div class='detail-modal-row'><span>📍</span><span>"+a.address+"</span></div>":"")+
       (a.phone?"<div class='detail-modal-row'><span>📞</span><a href='tel:"+a.phone+"' style='color:#e65100;text-decoration:none'>"+a.phone+"</a></div>":"")+
-      (a.city?"<div class='detail-modal-row'><span>🏙️</span><span>"+a.city+", CA</span></div>":"")+
+      ((a.city && a.city!=='regional')?"<div class='detail-modal-row'><span>🏙️</span><span>"+(a.city!=='regional'?a.city:activeCity)+", CA</span></div>":"")+
       "<div class='detail-modal-btns'>"+
         "<a class='btn-detail-map' href='"+mu+"' target='_blank'>🗺 Maps</a>"+
         (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
@@ -1594,9 +1596,9 @@ window.addEventListener('scroll', function() {
 function bnavTab(tab, btn) {
   document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
   if(btn) btn.classList.add("active");
+  window.scrollTo({top:0, behavior:"instant"});
   var tabBtn = document.querySelector(".tab-btn[data-tab='" + tab + "']");
   if(tabBtn) setTab(tabBtn);
-  window.scrollTo({top:0, behavior:"smooth"});
 }
 function updateBnavBadge() {
   var b = document.getElementById("bnavBadge");
