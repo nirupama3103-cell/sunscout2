@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
-<!-- Google Analytics -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config','G-JJD7WHGY5N');
-</script>
+<!-- Google Analytics removed: gtag.js not loaded -->
   <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/sun-logo.png">
 <meta charset="UTF-8"/>
@@ -577,7 +571,7 @@ html { scroll-behavior: smooth; }
   #bigTabGrid { display:grid !important; }
 }
 
-@media(max-width:640px){.hide-on-mobile{display:none!important;}}
+@media(max-width:640px){.hide-on-mobile,.hide-mobile{display:none!important;}}
 /* ss-hide-old */
 @media(max-width:640px){
   .hero-search{display:none!important;}
@@ -983,7 +977,7 @@ html { scroll-behavior: smooth; }
   
 </div>
 <div class="footer">
-  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="/privacy.html" style="color:#FF9900;font-weight:700">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
+  <p>SunScout · Live data from Eventbrite, Google Places &amp; Ticketmaster · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://sunscout2.vercel.app/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
 
 
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
@@ -2147,5 +2141,23 @@ function weatherChipClick() {
   <button class="fp-plan" onclick="openPlan()">📅 Plan My Day</button>
   <button class="fp-list" onclick="openMyList()">❤️ My List<span id="float-pill-badge"></span></button>
 </div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacy-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div style="background:#fff;border-radius:20px;max-width:500px;width:100%;padding:28px;position:relative;font-family:Nunito,sans-serif;max-height:85vh;overflow-y:auto;">
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
+    <div style="text-align:center;font-size:2rem;margin-bottom:8px">🔒</div>
+    <h2 style="text-align:center;font-size:1.2rem;font-weight:900;color:#1a1a1a;margin-bottom:16px">Privacy Policy</h2>
+    <div style="font-size:13px;color:#555;line-height:1.7;">
+      <p style="margin-bottom:10px"><strong>No tracking.</strong> SunScout does not use cookies, trackers, or analytics to monitor your behavior.</p>
+      <p style="margin-bottom:10px"><strong>No ads.</strong> We are not ad-supported. No advertiser has access to your data.</p>
+      <p style="margin-bottom:10px"><strong>No data collection.</strong> We do not collect your name, email, location, or any personal information.</p>
+      <p style="margin-bottom:10px"><strong>Local storage only.</strong> Your saved activities (My List) and notes are stored only on your device and never sent to any server.</p>
+      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Google Places, Eventbrite, and Ticketmaster. Their own privacy policies apply to those services.</p>
+      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: May 2026 · SunScout is a family project built for Bay Area families.</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
