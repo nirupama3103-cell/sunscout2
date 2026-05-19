@@ -2057,10 +2057,8 @@ function weatherChipClick() {
 
 
 <!-- ══ FLOATING PILLS ══ -->
-<div id="floatingPills" style="position:fixed;right:10px;bottom:75px;display:flex;flex-direction:column;gap:6px;z-index:8000;opacity:0.92;">
-  <button onclick="floatWeekend()" style="background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">📅 Weekend</button>
-  <button onclick="floatSurprise()" style="background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;">🎲 Surprise!</button>
-</div>
+<button id="pillWeekend" onclick="floatWeekend()" style="position:fixed;left:10px;bottom:85px;z-index:8000;background:#6d28d9;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(109,40,217,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;opacity:0.92;">📅 Weekend</button>
+<button id="pillSurprise" onclick="floatSurprise()" style="position:fixed;right:10px;bottom:85px;z-index:8000;background:#FF9900;color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(255,153,0,.4);cursor:pointer;font-family:Nunito,sans-serif;white-space:nowrap;opacity:0.92;">🎲 Surprise!</button>
 <style>
 @media(min-width:641px){#floatingPills{display:none!important;}.mobile-filter-tabs{display:none!important;}.weather-banner{display:none!important;}} /* pills desktop hidden - using buttons instead */
 </style>
