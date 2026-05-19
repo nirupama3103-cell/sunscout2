@@ -1571,6 +1571,16 @@ updateMyListBadge();
 updateDesktopMyListBadge();
 checkWeekendMode();
 
+// Hide floating pills when near bottom of page
+window.addEventListener('scroll', function() {
+  var scrollBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
+  var pw = document.getElementById('pillWeekend');
+  var ps = document.getElementById('pillSurprise');
+  var hide = scrollBottom < 120;
+  if(pw){ pw.style.opacity = hide ? '0' : '0.92'; pw.style.pointerEvents = hide ? 'none' : 'auto'; }
+  if(ps){ ps.style.opacity = hide ? '0' : '0.92'; ps.style.pointerEvents = hide ? 'none' : 'auto'; }
+}, {passive: true});
+
 function bnavTab(tab, btn) {
   document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
   if(btn) btn.classList.add("active");
