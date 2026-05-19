@@ -14,6 +14,32 @@
   <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SunScout – Summer Activities for Kids</title>
+
+  <!-- ── SEO: Meta Description ── -->
+  <meta name="description" content="Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor and more — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
+  <meta name="keywords" content="summer activities kids Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino, kids events Fremont">
+  <meta name="author" content="Nirupama Vadapalli">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.sunscoutkids.com/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sunscoutkids.com/">
+  <meta property="og:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
+  <meta property="og:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
+  <meta property="og:image" content="https://www.sunscoutkids.com/sun-logo.png">
+  <meta property="og:image:alt" content="SunScout – Summer Activities for Bay Area Kids">
+  <meta property="og:site_name" content="SunScout">
+  <meta property="og:locale" content="en_US">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
+  <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
+  <meta name="twitter:image" content="https://www.sunscoutkids.com/sun-logo.png">
+
+  <!-- ── PWA Manifest ── -->
+  <link rel="manifest" href="/manifest.json">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
@@ -1050,7 +1076,7 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22%3E%3Crect width=%22400%22 height=%22225%22 fill=%22%23f0f0f0%22/%3E%3C/svg%3E';
+  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : src;
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
