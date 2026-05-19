@@ -1018,7 +1018,7 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  var finalSrc = (a.image && a.image.length > 10) ? a.image : (getSmartLocalImage(name, f) || src || "/park.jpg");
+  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22%3E%3Crect width=%22400%22 height=%22225%22 fill=%22%23f0f0f0%22/%3E%3C/svg%3E';
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
@@ -1295,7 +1295,7 @@ function loadPexelsImages() {
     var existingImg = wrap.querySelector("img");
     if (existingImg && existingImg.dataset.pexels) return;
     // Skip if activity already has a real Google Places photo (from API)
-    if (a.image && a.image.indexOf("/api/photo") === 0) return;
+    if (a.image && a.image.indexOf('http') === 0) return;
     fetch("/api/photos?name=" + encodeURIComponent(a.name||"") + "&desc=" + encodeURIComponent((a.desc||"").slice(0,50)))
       .then(function(r){ return r.json(); })
       .then(function(d){
