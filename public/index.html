@@ -1265,7 +1265,7 @@ async function loadActivities() {
     allActivities = allActivities.filter(function(a) {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
-    try { sessionStorage.setItem(ck, JSON.stringify(allActivities)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
+    var toCache = allActivities.map(function(a){ var c=Object.assign({},a); delete c.image; return c; }); try { sessionStorage.setItem(ck, JSON.stringify(toCache)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
     showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
     var el = document.getElementById("lastUpdated");
     if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
