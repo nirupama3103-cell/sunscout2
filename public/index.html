@@ -271,7 +271,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 
 @media(max-width: 640px) {
   #bottom-nav { display: block; }
-  #main { padding-bottom: 0; }
+  #main { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
   .show-more-wrap { padding-bottom: 0; }
   .footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 8px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
@@ -599,21 +599,11 @@ html { scroll-behavior: smooth; }
   flex-basis: 100%;
 }
 /* ── Mobile footer full audit ── */
-.footer {
-  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
-}
-.show-more-wrap {
-  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
-}
-#main {
-  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
-}
 @media (max-width: 640px) {
   .footer {
     font-size: 11px !important;
     line-height: 1.6 !important;
     text-align: center !important;
-    padding: 16px 16px calc(100px + env(safe-area-inset-bottom)) !important;
   }
   #bottom-nav {
     z-index: 9995 !important;
