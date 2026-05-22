@@ -1658,6 +1658,7 @@ function buildItinerary() {
   }).join("");
 }
 function applyPlanToApp() {
+  activeCity = null;
   closePlan();
   var cb = document.querySelector(".city-btn[data-city='"+planCity+"']"); if(cb) setCity(cb);
   var tb = document.querySelector(".tab-btn[data-tab='"+planVibe+"']"); if(tb) setTab(tb);
