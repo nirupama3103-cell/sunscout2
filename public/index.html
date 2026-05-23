@@ -586,7 +586,6 @@ html { scroll-behavior: smooth; }
   .mobile-filter-tabs{display:flex!important;}
 }
 /* ssChip desktop hide */
-@media(min-width:641px){#ssBar{display:none!important;}}
 
 /* ── Weekend mode: city bar disabled ── */
 /* Desktop weekend label (city bar is hidden on desktop, show a chip instead) */
@@ -804,7 +803,7 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;display:none;">
+<div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
   <div style="text-align:center;margin-bottom:6px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
     <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
@@ -884,7 +883,6 @@ html { scroll-behavior: smooth; }
 .ssac[onclick*="'3'"]{background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;}
 .ssac[onclick*="all"]{background:#FFFBEE;color:#c05e00;border-color:#FFD580;}
 .sscr:hover{background:#FFF3E0;}
-@media(min-width:641px){#ssBar{display:none!important;}}
 </style>
 
 <div class="header" style="display:none">
