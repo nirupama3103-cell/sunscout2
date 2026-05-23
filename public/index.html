@@ -889,42 +889,125 @@ html { scroll-behavior: smooth; }
 
 
 <div id="weatherBanner" class="weather-banner" style="display:none"></div>
-<div class="mobile-filter-tabs">
+<!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
+<div id="mobile-search-bar" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
+
+  <!-- Pill container -->
+  <div style="background:#fff;border-radius:99px;border:1.5px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.10);position:relative;font-family:Nunito,sans-serif;overflow:visible;">
+
+    <!-- CITY button -->
+    <div id="mob-city-btn" onclick="mobTog('city',event)" style="flex:1;padding:10px 14px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;border-right:1px solid #eee;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
+      <div id="mob-city-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sunnyvale</div>
+      <!-- City dropdown — opens UPWARD -->
+      <div id="mob-dd-city" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:260px;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">☀️ Sunnyvale</div>
+          <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">🏙️ San Jose</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Cupertino',event)">🍎 Cupertino</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Mountain View',event)">⛰️ Mtn View</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Palo Alto',event)">🎓 Palo Alto</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Saratoga',event)">🌲 Saratoga</div>
+          <div class="mob-city-opt" style="grid-column:span 2;" onclick="mobSelCity('Fremont',event)">🌉 Fremont</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGE button -->
+    <div id="mob-age-btn" onclick="mobTog('age',event)" style="flex:1;padding:10px 14px;cursor:pointer;position:relative;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
+      <div id="mob-age-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
+      <!-- Age dropdown — opens UPWARD -->
+      <div id="mob-dd-age" style="display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:220px;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All</div>
+          <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">👶 0–2</div>
+          <div class="mob-age-opt" onclick="mobSelAge('1','3–5',event)">🧸 3–5</div>
+          <div class="mob-age-opt" onclick="mobSelAge('2','6–12',event)">🎒 6–12</div>
+          <div class="mob-age-opt" style="grid-column:span 2;" onclick="mobSelAge('3','Teen',event)">🛹 Teen 13–19</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH button -->
+    <button onclick="mobSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;margin:auto 6px auto 4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px;" aria-label="Search">🔍</button>
+  </div>
+</div>
+
+<!-- Tap outside to close -->
+<div id="mob-overlay" onclick="mobCloseAll()" style="display:none;position:fixed;inset:0;z-index:99998;"></div>
+
+<style>
+.mob-city-opt,.mob-age-opt{padding:9px 10px;border-radius:10px;border:1px solid #eee;background:#fafafa;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;color:#1a1a1a;}
+.mob-city-opt:hover,.mob-age-opt:hover{background:#FF9900;color:#fff;border-color:#FF9900;}
+.mob-city-opt.selected,.mob-age-opt.selected{background:#FF9900;color:#fff;border-color:#FF9900;}
+</style>
+
+<script>
+function mobTog(which, e) {
+  e.stopPropagation();
+  var cityDD = document.getElementById('mob-dd-city');
+  var ageDD  = document.getElementById('mob-dd-age');
+  var overlay = document.getElementById('mob-overlay');
+  if (which === 'city') {
+    var open = cityDD.style.display !== 'none';
+    cityDD.style.display = open ? 'none' : 'block';
+    ageDD.style.display = 'none';
+  } else {
+    var open = ageDD.style.display !== 'none';
+    ageDD.style.display = open ? 'none' : 'block';
+    cityDD.style.display = 'none';
+  }
+  var anyOpen = cityDD.style.display !== 'none' || ageDD.style.display !== 'none';
+  overlay.style.display = anyOpen ? 'block' : 'none';
+}
+function mobCloseAll() {
+  document.getElementById('mob-dd-city').style.display = 'none';
+  document.getElementById('mob-dd-age').style.display = 'none';
+  document.getElementById('mob-overlay').style.display = 'none';
+}
+function mobSelCity(city, e) {
+  e.stopPropagation();
+  document.getElementById('mob-city-val').textContent = city;
+  document.querySelectorAll('.mob-city-opt').forEach(function(el){ el.classList.remove('selected'); });
+  e.currentTarget.classList.add('selected');
+  mobCloseAll();
+  var btn = document.querySelector('.city-btn[data-city="' + city + '"]');
+  if (btn && typeof setCity === 'function') setCity(btn);
+}
+function mobSelAge(val, label, e) {
+  e.stopPropagation();
+  document.getElementById('mob-age-val').textContent = label;
+  document.querySelectorAll('.mob-age-opt').forEach(function(el){ el.classList.remove('selected'); });
+  e.currentTarget.classList.add('selected');
+  mobCloseAll();
+  if (val === 'all') {
+    activeAge = 'all';
+    document.querySelectorAll('.age-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.age === 'all'); });
+  } else {
+    var btn = document.querySelector('.age-btn[data-age="' + val + '"]');
+    if (btn && typeof setAge === 'function') setAge(btn);
+  }
+  if (activeCity && typeof loadActivities === 'function') loadActivities();
+}
+function mobSearch() {
+  mobCloseAll();
+  var el = document.getElementById('grid');
+  if (el) el.scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+<!-- Keep old mobile-filter-tabs hidden (legacy) -->
+<div class="mobile-filter-tabs" style="display:none!important;">
   <button class="mft-btn active" id="mft-city" onclick="switchMFT('city')">📍 Pick City</button>
   <button class="mft-btn" id="mft-explore" onclick="switchMFT('explore')">🎡 Explore</button>
   <button class="mft-btn" id="mft-age" onclick="switchMFT('age')">👶 Age</button>
 </div>
-
-
-  <!-- City Dropdown -->
-  <div id="dd-city" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
-    <div id="m-city-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px;">
-    </div>
-  </div>
-
-  <!-- Explore Dropdown -->
-  <div id="dd-explore" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
-    <div class="m-tab-grid">
-      <button class="m-tab-card on" style="background:#FF9900;" onclick="setMobileTab('free',this)"><span class="m-tab-card-icon">🆓</span>Free Summer</button>
-      <button class="m-tab-card" style="background:#E53935;" onclick="setMobileTab('paid',this)"><span class="m-tab-card-icon">🎟️</span>Paid Summer</button>
-      <button class="m-tab-card" style="background:#0288D1;" onclick="setMobileTab('indoor',this)"><span class="m-tab-card-icon">🏛️</span>Indoor</button>
-      <button class="m-tab-card" style="background:#2E7D32;" onclick="setMobileTab('outdoor',this)"><span class="m-tab-card-icon">🌳</span>Outdoor</button>
-      <button class="m-tab-card" style="background:#8E24AA;grid-column:1/-1;" onclick="setMobileTab('weekend',this)"><span class="m-tab-card-icon">📅</span>Weekend Only</button>
-    </div>
-  </div>
-
-  <!-- Age Dropdown -->
-  <div id="dd-age" style="display:none;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:8px;margin-bottom:4px;">
-    <div class="m-tab-grid">
-      <button class="m-tab-card on" style="background:#1d4ed8;" onclick="setMobileAge('all',this)"><span class="m-tab-card-icon">⭐</span>All Ages</button>
-      <button class="m-tab-card" style="background:#FF9900;" onclick="setMobileAge('0',this)"><span class="m-tab-card-icon">👶</span>0–2</button>
-      <button class="m-tab-card" style="background:#16a34a;" onclick="setMobileAge('1',this)"><span class="m-tab-card-icon">🧸</span>3–5</button>
-      <button class="m-tab-card" style="background:#dc2626;" onclick="setMobileAge('2',this)"><span class="m-tab-card-icon">🎒</span>6–12</button>
-      <button class="m-tab-card" style="background:#7c3aed;grid-column:1/-1;" onclick="setMobileAge('3',this)"><span class="m-tab-card-icon">🛹</span>Teen 13–19</button>
-    </div>
-  </div>
-
-</div>
+<div id="dd-city" style="display:none!important;"></div>
+<div id="dd-explore" style="display:none!important;"></div>
+<div id="dd-age" style="display:none!important;"></div>
 
 <p class="city-fact" id="cityFact"></p>
 
