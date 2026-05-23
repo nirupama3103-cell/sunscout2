@@ -565,6 +565,12 @@ html { scroll-behavior: smooth; }
 @media(max-width:640px){
   #ssBar { display:block !important; }
   .tab-bar { display:none !important; }
+  /* On mobile: hide SEARCH text box and EXPLORE section inside pill */
+  #ssc-search { display:none !important; }
+  #ssc-explore { display:none !important; }
+  /* Give CITY section more room */
+  #ssc-city { flex: 3 !important; }
+  #ssc-age  { flex: 2 !important; }
   .city-bar:not(#cityBarInner) { display:none !important; }
   .age-bar { display:none !important; }
   .search-wrap { display:none !important; }
