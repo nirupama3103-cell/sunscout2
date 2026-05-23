@@ -291,7 +291,6 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 
 @media(max-width: 640px) {
   #bottom-nav { display: block; }
-  #main { padding-bottom: 0; }
   .show-more-wrap { padding-bottom: 0; }
   .footer { padding-bottom: calc(76px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 4px; }
   .city-btn { padding: 9px 18px; font-size: 14px; }
@@ -454,6 +453,7 @@ html { scroll-behavior: smooth; }
   }
   #mft-city { background:#FFF3E0; color:#e65100; border: 1.5px solid #FFD580; }
   #mft-explore { background:#EFF6FF; color:#1d4ed8; border: 1.5px solid #93c5fd; }
+@media(max-width:640px){#mft-explore,#dd-explore{display:none!important;}}
   #mft-age { background:#F0FDF4; color:#15803d; border: 1.5px solid #86efac; }
   #mft-city.active { background:#FF9900; color:#fff; border-color:#FF9900; }
   #mft-explore.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
