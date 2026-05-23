@@ -628,6 +628,8 @@ html { scroll-behavior: smooth; }
     font-size: 11px !important;
     line-height: 1.6 !important;
     text-align: center !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+    margin-top: 0 !important;
   }
   #bottom-nav {
     z-index: 9995 !important;
@@ -806,7 +808,7 @@ html { scroll-behavior: smooth; }
 
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;display:none;">
   <div style="text-align:center;margin-bottom:6px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;">
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
     <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
   </div>
