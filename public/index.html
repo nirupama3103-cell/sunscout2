@@ -825,9 +825,9 @@ html { scroll-behavior: smooth; }
       </div>
     </div>
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">🎯 EXPLORE</div>
-      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Activity</div>
+    <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
+      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
       <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
         <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
