@@ -1661,6 +1661,24 @@ function esc(s){ var d=document.createElement('div'); d.textContent=s||''; retur
 
 // XSS protection — escape all API-sourced data before innerHTML
 function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+// Weather cache — 10 min TTL, shared across all city switches
+var _weatherCache = {};
+var _WEATHER_TTL = 10 * 60 * 1000;
+function getCachedWeather(lat, lng, city, callback) {
+  var key = city;
+  var now = Date.now();
+  if (_weatherCache[key] && (now - _weatherCache[key].ts) < _WEATHER_TTL) {
+    callback(_weatherCache[key].temp); return;
+  }
+  fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lng+'&current_weather=true&temperature_unit=fahrenheit')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var t = Math.round(d.current_weather.temperature);
+      _weatherCache[key] = { temp: t, ts: now };
+      callback(t);
+    }).catch(function(){ callback(null); });
+}
 let favorites = [];
 try { favorites = JSON.parse(localStorage.getItem("sunscout_mylist") || "[]"); } catch(e) { favorites = []; }
 
