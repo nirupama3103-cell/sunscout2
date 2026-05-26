@@ -1301,14 +1301,14 @@ function showDetail(i) {
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
     "<img class='detail-modal-img' src='"+imgSrc+"' onerror='this.style.display=\"none\"'/>"+
     "<div class='detail-modal-body'>"+
-      "<h2 class='detail-modal-title'>"+(a.name||"")+"</h2>"+
+      "<h2 class='detail-modal-title'>"+esc(a.name)+"</h2>"+
       (st?"<div class='stars' style='margin-bottom:6px'>"+st+"</div>":"")+
       "<div class='chips' style='margin-bottom:8px'>"+ac+
         "<span class='chip' style='background:#fff3e0;color:#e65100'>"+priceBadge+"</span>"+
         "<span class='chip' style='background:#e8f5e9;color:#2e7d32'>📅 "+ds+"</span>"+
       "</div>"+
-      (a.desc?"<p class='detail-modal-desc'>"+a.desc+"</p>":"")+
-      (a.address?"<div class='detail-modal-row'><span>📍</span><span>"+a.address+"</span></div>":"")+
+      (a.desc?"<p class='detail-modal-desc'>"+esc(a.desc)+"</p>":"")+
+      (a.address?"<div class='detail-modal-row'><span>📍</span><span>"+esc(a.address)+"</span></div>":"")+
       (a.phone?"<div class='detail-modal-row'><span>📞</span><a href='tel:"+a.phone+"' style='color:#e65100;text-decoration:none'>"+a.phone+"</a></div>":"")+
       ((a.city && a.city!=='regional')?"<div class='detail-modal-row'><span>🏙️</span><span>"+(a.city!=='regional'?a.city:activeCity)+", CA</span></div>":"")+
       "<div class='detail-modal-btns'>"+
@@ -1492,13 +1492,13 @@ function renderCards() {
         (a.source ? "<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>" : "")+
       "</div>"+
       "<div class=\"card-body\">"+
-        "<h3 class=\"card-title\">"+(a.name||"")+"</h3>"+
+        "<h3 class=\"card-title\">"+esc(a.name)+"</h3>"+
         (st ? "<div class=\"stars\">"+st+"</div>" : "")+
         "<div class=\"chips\">"+ac+a11+pc+"</div>"+
-        (a.address ? "<p class=\"info\"><span>📍</span><span>"+a.address+"</span></p>" : "")+
+        (a.address ? "<p class=\"info\"><span>📍</span><span>"+esc(a.address)+"</span></p>" : "")+
         (a.phone   ? "<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>" : "")+
         "<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+
-        (a.desc ? "<p class=\"info\"><span></span><span>"+a.desc.slice(0,120)+(a.desc.length>120?"…":"")+"</span></p>" : "")+
+        (a.desc ? "<p class=\"info\"><span></span><span>"+esc(a.desc.slice(0,120))+(a.desc.length>120?"…":"")+"</span></p>" : "")+
       "</div>"+
       "<div class=\"card-foot\">"+
         "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
@@ -1655,6 +1655,12 @@ fetchWeather("Sunnyvale");
 loadActivities();
 
 // FAVORITES
+
+// XSS protection — always escape user-sourced data before innerHTML
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+// XSS protection — escape all API-sourced data before innerHTML
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 let favorites = [];
 try { favorites = JSON.parse(localStorage.getItem("sunscout_mylist") || "[]"); } catch(e) { favorites = []; }
 
