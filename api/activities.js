@@ -790,11 +790,27 @@ export async function getHardcoded(tab, city, age) {
 
 // ── Main handler ──────────────────────────────────────────
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  const allowedOrigins = [
+    "https://sunscout2.vercel.app",
+    "https://sun-scout-tau.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ];
+  const origin = req.headers.origin || "";
+  const allowed = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  res.setHeader("Access-Control-Allow-Origin", allowed);
+  res.setHeader("Vary", "Origin");
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "GET")     return res.status(405).json({ error: "Method not allowed" });
 
   const { tab = "free", city = "Sunnyvale", age = "all" } = req.query;
+
+  const VALID_TABS   = ["free","paid","indoor","outdoor","weekend"];
+  const VALID_CITIES = ["Sunnyvale","San Jose","Cupertino","Mountain View","Palo Alto","Saratoga","Fremont"];
+  const VALID_AGES   = ["all","0","1","2","3"];
+  if (!VALID_TABS.includes(tab))    return res.status(400).json({ error: "Invalid tab" });
+  if (!VALID_CITIES.includes(city)) return res.status(400).json({ error: "Invalid city" });
+  if (!VALID_AGES.includes(age))    return res.status(400).json({ error: "Invalid age" });
   const cacheKey = `${tab}-${city}-${age}`;
   const cached   = CACHE.get(cacheKey);
   if (cached && Date.now() - cached.ts < TTL) {
