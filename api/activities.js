@@ -26,8 +26,63 @@ const DEFAULT_IMAGES = {
 // ── Shared image fallback — used by BOTH getHardcoded() and handler() ──────
 // Replaces any broken local paths (/park.jpg etc.) with reliable Unsplash URLs.
 // Call this on every activity before returning it to the frontend.
-function applyImageFallback(a) {
-  return; // images handled by frontend
+async function fetchPexelsImage(query) {
+  const key = process.env.PEXELS_API_KEY;
+  if (!key) return null;
+  try {
+    const r = await fetch(
+      "https://api.pexels.com/v1/search?query=" + encodeURIComponent(query) + "&per_page=1&orientation=landscape",
+      { headers: { Authorization: key }, signal: AbortSignal.timeout(3000) }
+    );
+    if (!r.ok) return null;
+    const d = await r.json();
+    return d.photos?.[0]?.src?.large || null;
+  } catch(e) { return null; }
+}
+
+const PEXELS_QUERIES = [
+  { k:["cherry","berry","orchard","fruit pick"], q:"cherry picking children farm" },
+  { k:["horse","pony","carriage","riding"],       q:"children horse riding pony" },
+  { k:["beach","boardwalk","pier","fishing"],     q:"family beach kids fishing pier" },
+  { k:["swim","pool","splash","aquatic"],         q:"children swimming pool summer" },
+  { k:["trail","hike","hiking","creek","canyon"], q:"family hiking trail nature kids" },
+  { k:["high rope","zip","climbing","ropes"],     q:"kids rock climbing ropes adventure" },
+  { k:["museum","discovery","winchester"],        q:"children museum exhibit family" },
+  { k:["stem","coding","robot","lego","science"], q:"kids coding robotics stem class" },
+  { k:["camp","ymca","galileo","kidstrong"],      q:"kids summer camp outdoor activities" },
+  { k:["library","storytime","reading","book"],   q:"children library story time reading" },
+  { k:["farm","zoo","animal","petting"],          q:"children petting zoo farm animals" },
+  { k:["art","paint","craft","pottery"],          q:"kids art class painting craft" },
+  { k:["dance","ballet","music"],                 q:"children ballet dance class" },
+  { k:["market","festival","fair"],               q:"family farmers market festival" },
+  { k:["park","playground","garden"],             q:"children playing park playground" },
+];
+
+async function applyImageFallback(a) {
+  const isBroken = !a.image || a.image.startsWith("/");
+  if (!isBroken) return;
+  const t = (a.name + " " + (a.desc || "")).toLowerCase();
+  const match = PEXELS_QUERIES.find(r => r.k.some(k => t.includes(k)));
+  if (match) {
+    const url = await fetchPexelsImage(match.q);
+    if (url) { a.image = url; return; }
+  }
+  if (t.includes("swim") || t.includes("pool") || t.includes("splash"))
+    a.image = "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
+  else if (t.includes("stem") || t.includes("robot") || t.includes("science"))
+    a.image = "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
+  else if (t.includes("hike") || t.includes("trail") || t.includes("nature"))
+    a.image = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
+  else if (t.includes("museum") || t.includes("discovery"))
+    a.image = "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
+  else if (t.includes("camp") || t.includes("ymca"))
+    a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+  else if (t.includes("art") || t.includes("paint") || t.includes("craft"))
+    a.image = "https://images.unsplash.com/photo-1588497859490-85d1c17db96d?w=600&q=80";
+  else if (t.includes("danc") || t.includes("ballet"))
+    a.image = "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
+  else
+    a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
 }
 
 
