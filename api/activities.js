@@ -758,17 +758,21 @@ async function fetchTicketmaster(tab, city, coords) {
   } catch (e) { console.warn("Ticketmaster:", e.message); return []; }
 }
 
+
+// Shared tab filter — single source of truth
+function filterByTab(tab, city) {
+  if (tab === 'paid')    return [...HARDCODED_PAID.filter(a => a.city === city), ...HARDCODED_FREE.filter(a => a.city === city && !a.isFree)];
+  if (tab === 'free')    return HARDCODED_FREE.filter(a => a.city === city && a.isFree);
+  if (tab === 'indoor')  return HARDCODED_INDOOR.filter(a => a.city === city);
+  if (tab === 'outdoor') return HARDCODED_OUTDOOR.filter(a => a.city === city);
+  if (tab === 'weekend') return HARDCODED_WEEKEND.filter(a => a.city === city || a.city === 'regional');
+  return [];
+}
 // ── Fast hardcoded-only endpoint ──────────────────────────────────────────
 // FIXED: removed corrupt inline array; now purely uses the HARDCODED_* arrays
 // and applies applyImageFallback() so no card ever shows a broken local path.
 export async function getHardcoded(tab, city, age) {
-  const hardcodedFiltered =
-    tab === "paid"    ? [...HARDCODED_PAID.filter(a => a.city === city), ...HARDCODED_FREE.filter(a => a.city === city && !a.isFree)] :
-    tab === "free"    ? HARDCODED_FREE.filter(a => a.city === city && a.isFree) :
-    tab === "indoor"  ? HARDCODED_INDOOR.filter(a => a.city === city) :
-    tab === "outdoor" ? HARDCODED_OUTDOOR.filter(a => a.city === city) :
-    tab === "weekend" ? HARDCODED_WEEKEND.filter(a => a.city === city || a.city === "regional") :
-    [];
+  const hardcodedFiltered = filterByTab(tab, city);
 
   const seen = new Set();
   let activities = [];
@@ -821,17 +825,7 @@ export default async function handler(req, res) {
   const coords   = CITY_COORDS[city] || null;
   const keywords = TAB_KEYWORDS[tab] || TAB_KEYWORDS.free;
 
-  const hardcodedFiltered = tab === "paid"
-    ? [...HARDCODED_PAID.filter(a => a.city === city), ...HARDCODED_FREE.filter(a => a.city === city && !a.isFree)]
-    : tab === "free"
-    ? HARDCODED_FREE.filter(a => a.city === city && a.isFree)
-    : tab === "indoor"
-    ? HARDCODED_INDOOR.filter(a => a.city === city)
-    : tab === "outdoor"
-    ? HARDCODED_OUTDOOR.filter(a => a.city === city)
-    : tab === "weekend"
-    ? HARDCODED_WEEKEND.filter(a => a.city === city || a.city === "regional")
-    : [];
+  const hardcodedFiltered = filterByTab(tab, city);
 
   let activities = [];
   const seen = new Set();
