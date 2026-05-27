@@ -499,6 +499,7 @@ html { scroll-behavior: smooth; }
     background: #FF9900;
     color: #fff;
     border-color: #FF9900;
+    box-shadow: 0 0 0 3px rgba(255,153,0,.3), 0 4px 12px rgba(255,153,0,.25);
   }
 
   /* Mobile activity cards inside panel */
@@ -548,6 +549,10 @@ html { scroll-behavior: smooth; }
     color: #fff;
     border-color: #FF9900;
   }
+  .m-age-btn[data-age="0"].on{background:#f472b6;color:#fff;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25)}
+  .m-age-btn[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
+  .m-age-btn[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
+  .m-age-btn[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25)}
 
   @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
 }
