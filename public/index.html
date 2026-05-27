@@ -522,7 +522,7 @@ html { scroll-behavior: smooth; }
     box-shadow: 0 3px 10px rgba(0,0,0,0.12);
   }
   .m-tab-card { position: relative; }
-  .m-tab-card.on { transform: scale(0.96); box-shadow: none; outline: 3px solid rgba(255,255,255,0.8); outline-offset: -3px; filter: brightness(1.15); }
+  .m-tab-card.on { transform: scale(0.96); box-shadow: 0 0 0 4px rgba(255,255,255,0.9), 0 0 0 7px rgba(0,0,0,0.25); outline: none; filter: brightness(1.15); }
   .m-tab-card.on::after { content: "✓"; position: absolute; top: 6px; right: 8px; font-size: 14px; font-weight: 900; color: white; }
   .m-tab-card-icon { font-size: 1rem; display: inline; margin-right: 4px; }
 
@@ -2213,8 +2213,16 @@ function buildMobileCities() {
 }
 
 function setMobileCity(city, btn) {
-  document.querySelectorAll('#m-city-grid .m-tab-card').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
+  var isOn = btn.classList.contains("on");
+  document.querySelectorAll("#m-city-grid .m-tab-card").forEach(function(b){ b.classList.remove("on"); });
+  if (isOn) {
+    var dd2 = document.getElementById("dd-city"); if(dd2) dd2.style.display="none";
+    var mft2 = document.getElementById("mft-city"); if(mft2){ mft2.classList.remove("active"); mft2.innerHTML="📍 <strong>City</strong>"; }
+    activeCity=null;
+    document.getElementById("grid").innerHTML="<div class=no-results><h2>Select a city to get started!</h2></div>";
+    return;
+  }
+  btn.classList.add("on");
   var dd = document.getElementById('dd-city');
   if(dd) dd.style.display = 'none';
   var mft = document.getElementById('mft-city');
