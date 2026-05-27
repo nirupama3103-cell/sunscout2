@@ -125,8 +125,22 @@ img{max-width:100%;display:block}
 .btn-map:hover{background:#bfdbfe}
 /* footer-pair-styling */.show-more-wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;text-align:center;padding:12px 16px;margin-bottom:0}
 @media(max-width:640px){
-  .show-more-wrap{gap:8px}
-  .show-more-wrap .show-more-btn{flex:1 1 auto;min-width:140px;max-width:calc(50% - 4px);font-size:13px;padding:10px 18px}
+  .show-more-wrap{gap:8px;padding:14px 12px 18px}
+  .show-more-wrap .show-more-btn{
+    flex:1 1 0;
+    min-width:0;
+    max-width:calc(50% - 4px);
+    font-size:12px;
+    padding:11px 10px;
+    height:42px;
+    line-height:1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
 }
 .show-more-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;padding:10px 32px;border-radius:99px;border:2px solid #FF9900;background:#fff;color:#FF9900;cursor:pointer;transition:all .15s}
 .show-more-btn:hover{background:#FF9900;color:#fff}
@@ -718,6 +732,20 @@ html { scroll-behavior: smooth; }
   .tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .tab-bar::-webkit-scrollbar{display:none}
   .tab-btn{flex:0 0 auto;min-width:110px}
+}
+
+@media(max-width:640px){
+  #showMoreBtn{font-size:0!important;}
+  #showMoreBtn::after{content:"Show More ↓";font-size:13px;font-weight:700}
+  #footerAboutBtn{font-size:13px!important}
+}
+
+/* Trim empty space below footer on mobile */
+@media(max-width:640px){
+  body{min-height:auto!important}
+  #main{padding-bottom:8px!important;min-height:auto!important}
+  .footer{padding-bottom:calc(12px + env(safe-area-inset-bottom))!important;margin-bottom:0!important}
+  html,body{overflow-x:hidden}
 }
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
