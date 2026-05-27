@@ -1623,7 +1623,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
+  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   var cityBar = document.querySelector(".city-bar");
@@ -2251,7 +2251,7 @@ function ssSearch(){["city","explore","age"].forEach(function(d){var el=document
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
 
-function floatWeekend() {
+function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
   var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
   if (btn && typeof setTab === "function") setTab(btn);
   else if (typeof activeTab !== "undefined") {
@@ -2318,7 +2318,7 @@ document.addEventListener("click", function() {
 
 
 function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
-function dtE(tab,label,e){if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
+function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
 function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
