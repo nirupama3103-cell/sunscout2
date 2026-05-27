@@ -61,10 +61,11 @@ const PEXELS_QUERIES = [
 async function applyImageFallback(a) {
   const isBroken = !a.image || a.image.startsWith("/");
   if (!isBroken) return;
-  const t = (a.name + " " + (a.desc || "")).toLowerCase();
-  const match = PEXELS_QUERIES.find(r => r.k.some(k => t.includes(k)));
+const match = PEXELS_QUERIES.find(r => r.k.some(k => t.includes(k)));
   if (match) {
-    const url = await fetchPexelsImage(match.q);
+    const queries = match.qs || [match.q];
+    const query   = queries[hashStr(a.name||"") % queries.length];
+    const url     = await fetchPexelsImage(query, a.name);
     if (url) { a.image = url; return; }
   }
   if (t.includes("swim") || t.includes("pool") || t.includes("splash"))
