@@ -909,17 +909,6 @@ export default async function handler(req, res) {
     await applyImageFallback(a);
     activities.push(a);
   }));
-  // dummy line to avoid broken block below
-  const apiKey = null;
-  await Promise.all(uniqueHardcoded.map(async (a) => {
-    if (a.image && !a.image.startsWith("/")) return;
-    const placesPhoto = null;
-    if (placesPhoto) {
-      a.image = placesPhoto;
-    } else if (a.address && a.address.length > 5 && apiKey) {
-      a.image = "https://maps.googleapis.com/maps/api/streetview?size=600x400&location=" + encodeURIComponent(a.address) + "&key=" + apiKey + "&return_error_code=true";
-    }
-  }));
 
 
   // Tab filters
