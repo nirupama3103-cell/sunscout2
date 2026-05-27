@@ -851,10 +851,10 @@ export async function getHardcoded(tab, city, age) {
     if (!seen.has(key)) {
       seen.add(key);
       // Apply image fallback for every entry — fixes all blank/grey cards
-await applyImageFallback(a);
+      await applyImageFallback(a);
       activities.push(a);
+    }
   }
-
   if (age !== "all") activities = activities.filter(a => a.ages.includes(age));
   if (tab === "weekend") activities = activities.filter(a => a.id?.startsWith("hw-") || isWeekend(a.startDate));
   return activities;
