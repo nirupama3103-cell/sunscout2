@@ -61,7 +61,8 @@ const PEXELS_QUERIES = [
 async function applyImageFallback(a) {
   const isBroken = !a.image || a.image.startsWith("/");
   if (!isBroken) return;
-const match = PEXELS_QUERIES.find(r => r.k.some(k => t.includes(k)));
+  const t = (a.name + " " + (a.desc || "")).toLowerCase();
+  const match = PEXELS_QUERIES.find(r => r.k.some(k => t.includes(k)));
   if (match) {
     const queries = match.qs || [match.q];
     const query   = queries[hashStr(a.name||"") % queries.length];
