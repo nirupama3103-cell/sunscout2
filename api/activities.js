@@ -26,17 +26,29 @@ const DEFAULT_IMAGES = {
 // ── Shared image fallback — used by BOTH getHardcoded() and handler() ──────
 // Replaces any broken local paths (/park.jpg etc.) with reliable Unsplash URLs.
 // Call this on every activity before returning it to the frontend.
-async function fetchPexelsImage(query) {
+const PEXELS_CACHE = new Map();
+const PEXELS_TTL = 24 * 60 * 60 * 1000;
+function hashStr(s) { let h=0; for(let i=0;i<s.length;i++){h=(Math.imul(31,h)+s.charCodeAt(i))|0;} return Math.abs(h); }
+async function fetchPexelsImage(query, activityName) {
   const key = process.env.PEXELS_API_KEY;
   if (!key) return null;
+  if (PEXELS_CACHE.has(query)) {
+    const c = PEXELS_CACHE.get(query);
+    if (Date.now() - c.ts < PEXELS_TTL) return c.url;
+  }
   try {
     const r = await fetch(
-      "https://api.pexels.com/v1/search?query=" + encodeURIComponent(query) + "&per_page=1&orientation=landscape",
-      { headers: { Authorization: key }, signal: AbortSignal.timeout(3000) }
+      "https://api.pexels.com/v1/search?query=" + encodeURIComponent(query) + "&per_page=5&orientation=landscape",
+      { headers: { Authorization: key }, signal: AbortSignal.timeout(4000) }
     );
     if (!r.ok) return null;
     const d = await r.json();
-    return d.photos?.[0]?.src?.large || null;
+    const photos = d.photos || [];
+    if (!photos.length) return null;
+    const pick = photos[hashStr(activityName || query) % photos.length];
+    const url = pick.src?.large || pick.src?.medium || null;
+    if (url) PEXELS_CACHE.set(query, { url, ts: Date.now() });
+    return url;
   } catch(e) { return null; }
 }
 
@@ -839,9 +851,8 @@ export async function getHardcoded(tab, city, age) {
     if (!seen.has(key)) {
       seen.add(key);
       // Apply image fallback for every entry — fixes all blank/grey cards
-      applyImageFallback(a);
+await applyImageFallback(a);
       activities.push(a);
-    }
   }
 
   if (age !== "all") activities = activities.filter(a => a.ages.includes(age));
@@ -893,16 +904,16 @@ export default async function handler(req, res) {
     const key = a.name.toLowerCase().slice(0, 30);
     if (!seen.has(key)) { seen.add(key); uniqueHardcoded.push(a); }
   }
-  // Apply fallback images instantly so cards load immediately
-  for (const a of uniqueHardcoded) {
-    applyImageFallback(a);
-    activities.push(a);
-  }
-  // Fetch real Google Places photos in background (non-blocking)
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+// Fetch Pexels images for all activities
   await Promise.all(uniqueHardcoded.map(async (a) => {
-    if (a.image && !a.image.startsWith("/")) return; // already has real image
-    const placesPhoto = await getPlacePhoto(a.name, a.address || "", apiKey);
+    await applyImageFallback(a);
+    activities.push(a);
+  }));
+  // dummy line to avoid broken block below
+  const apiKey = null;
+  await Promise.all(uniqueHardcoded.map(async (a) => {
+    if (a.image && !a.image.startsWith("/")) return;
+    const placesPhoto = null;
     if (placesPhoto) {
       a.image = placesPhoto;
     } else if (a.address && a.address.length > 5 && apiKey) {
