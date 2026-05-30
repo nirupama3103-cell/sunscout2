@@ -4,3 +4,5 @@
 .pexels_key
 .env
 *.bak
+*.old
+*.bak2
