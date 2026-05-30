@@ -3,8 +3,8 @@
 
 SunScout helps Bay Area parents instantly find free and paid activities for kids — from splash pads and library storytimes to STEM camps and petting zoos. Built as a fast, mobile-first web app with no login, no ads, and no tracking.
 
-🔗 **Live App:** [sunscout2.vercel.app](https://sunscout2.vercel.app)
-📂 **GitHub:** [github.com/nirupama3103-cell/SunScout](https://github.com/nirupama3103-cell/SunScout)
+🔗 **Live App:** [www.sunscoutkids.com](https://www.sunscoutkids.com)
+📂 **GitHub:** [github.com/nirupama3103-cell/sunscout2](https://github.com/nirupama3103-cell/sunscout2)
 
 ---
 
@@ -60,7 +60,7 @@ The app is intentionally framework-free for maximum performance and simplicity. 
 
 ```bash
 
-git clone https://github.com/nirupama3103-cell/SunScout
+git clone https://github.com/nirupama3103-cell/sunscout2
 
 cd SunScout
 
