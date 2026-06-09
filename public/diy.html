@@ -1,488 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DIY & Learning Games – SunScout Kids</title>
+  <title>DIY & Learning Games - SunScout Kids</title>
   <link rel="icon" href="/favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Nunito', sans-serif; background: #f0f9ff; color: #1a1a1a; line-height: 1.6; }
-    a { text-decoration: none; color: inherit; }
-    button { cursor: pointer; font-family: inherit; border: none; }
-    img { max-width: 100%; display: block; }
-    :root { --sun: #FF9900; --sky: #4FC3F7; --pink: #ec4899; --radius: 14px; --shadow: 0 2px 14px rgba(0,0,0,.09); --shadow-lg: 0 12px 32px rgba(0,0,0,.15); }
-    
-    .header { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%); border-bottom: 1px solid rgba(255, 153, 0, 0.1); }
-    .back-button { display: inline-block; font-size: 20px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; }
-    .back-button:hover { opacity: 1; }
-    .logo { font-size: 2rem; font-weight: 900; color: var(--sun); }
-    .logo span { color: var(--sky); }
-    .tagline { font-size: 0.9rem; color: #666; font-weight: 700; margin-top: 6px; }
-    
-    .hero-intro { text-align: center; padding: 24px 16px; background: linear-gradient(135deg, rgba(255, 153, 0, 0.08) 0%, rgba(79, 195, 247, 0.08) 100%); }
-    .hero-intro h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; background: linear-gradient(135deg, var(--sun) 0%, var(--pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-intro p { font-size: 0.95rem; color: #666; }
-    
-    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 14px 16px; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 20; }
-    .filter-label { font-weight: 700; font-size: 12px; color: #999; margin-right: 4px; }
-    .age-filter-btn { font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 99px; border: 1.5px solid rgba(0, 0, 0, 0.1); background: #fff; color: #666; transition: all 0.2s; }
-    .age-filter-btn:hover { border-color: var(--sun); color: var(--sun); }
-    .age-filter-btn.on { background: var(--sun); color: #fff; border-color: var(--sun); }
-    
-    .carousel-wrapper { max-width: 100%; overflow: hidden; position: relative; padding: 20px 0; }
-    .carousel { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); gap: 20px; padding: 0 20px; }
-    
-    .project-block { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; transition: all 0.3s; display: grid; grid-template-columns: 1fr; opacity: 1; pointer-events: auto; } @media(min-width:768px){ .project-block { grid-template-columns: 280px 1fr; min-height: 320px; } }
-    .project-block.active { opacity: 1; pointer-events: auto; box-shadow: var(--shadow-lg); }
-    
-    .project-image { width: 100%; height: 240px; object-fit: cover; } @media(min-width:768px){ .project-image { height: 100%; } }
-    .project-info { padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; } @media(min-width:768px){ .project-info { padding: 32px; } }
-    .project-title { font-size: 1.6rem; font-weight: 900; color: #1a1a1a; margin-top: 4px; }
-    .project-age-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; background: #f0f0f0; color: #666; margin-top: 6px; }
-    
-    .guide-preview { font-size: 0.9rem; line-height: 1.5; color: #555; background: #f9f9f9; padding: 12px; border-radius: 8px; border-left: 3px solid var(--sun); }
-    .expand-btn { align-self: flex-start; padding: 10px 20px; background: linear-gradient(135deg, var(--sun), var(--pink)); color: #fff; font-weight: 800; font-size: 0.9rem; border-radius: 99px; transition: all 0.3s; margin-top: auto; }
-    .expand-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 153, 0, 0.3); }
-    
-    .carousel-controls { display: none; justify-content: center; align-items: center; gap: 16px; padding: 20px; background: #fff; }
-    .carousel-btn { width: 40px; height: 40px; border-radius: 50%; background: #f0f0f0; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
-    .carousel-btn:hover { background: var(--sun); color: #fff; transform: scale(1.1); }
-    
-    .carousel-dots { display: flex; gap: 6px; align-items: center; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; cursor: pointer; transition: all 0.3s; }
-    .dot.active { background: var(--sun); width: 24px; border-radius: 99px; }
-    
-    .video-section { max-width: 800px; margin: 40px auto; padding: 0 16px; }
-    .video-container { background: #fff; border-radius: var(--radius); padding: 28px 20px; text-align: center; box-shadow: var(--shadow); }
-    .video-container h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 12px; }
-    .video-player { width: 100%; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/9; background: #000; }
-    .video-player video { width: 100%; height: 100%; }
-    
-    .cta-section { max-width: 800px; margin: 40px auto; padding: 0 16px; }
-    .cta-card { background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(79, 195, 247, 0.1) 100%); border-radius: var(--radius); padding: 28px 20px; text-align: center; border: 2px solid rgba(255, 153, 0, 0.2); }
-    .cta-button { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--sun), var(--pink)); color: #fff; font-weight: 800; border-radius: 99px; cursor: pointer; transition: all 0.3s; }
-    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 153, 0, 0.3); }
-    
-    .footer { text-align: center; padding: 20px 16px; color: #999; font-size: 12px; border-top: 1px solid #eee; margin-top: 40px; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Nunito",sans-serif;background:#f0f9ff;color:#1a1a1a;line-height:1.6}
+    :root{--sun:#FF9900;--sky:#4FC3F7;--radius:14px;--shadow:0 2px 14px rgba(0,0,0,.09);--shadow-lg:0 8px 24px rgba(0,0,0,.12)}
+    .header{text-align:center;padding:28px 16px 16px;background:linear-gradient(135deg,#fff 0%,#f0f9ff 100%);border-bottom:2px solid rgba(255,153,0,0.1)}
+    .back-button{display:inline-block;font-size:16px;margin-bottom:12px;cursor:pointer;opacity:0.7;color:#666;font-weight:700}
+    .back-button:hover{opacity:1}
+    .logo{font-size:2.2rem;font-weight:900;color:var(--sun)}
+    .logo span{color:var(--sky)}
+    .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:8px}
+    .hero{text-align:center;padding:28px 16px;background:linear-gradient(135deg,rgba(255,153,0,.05),rgba(79,195,247,.05))}
+    .hero h1{font-size:2rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--sun),#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero p{font-size:1.1rem;color:#666}
+    .filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:16px;background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:10}
+    .filter-label{font-weight:700;font-size:13px;color:#666;align-self:center}
+    .age-filter-btn{font-size:12px;font-weight:700;padding:7px 14px;border-radius:99px;border:1.5px solid rgba(0,0,0,.12);background:#fff;color:#666;cursor:pointer;transition:all .15s}
+    .age-filter-btn:hover{border-color:var(--sun);color:var(--sun)}
+    .age-filter-btn.on{background:var(--sun);color:#fff;border-color:var(--sun);box-shadow:0 0 0 3px rgba(255,153,0,.25)}
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;padding:24px 16px;max-width:1200px;margin:0 auto}
+    @media(max-width:768px){.projects-grid{grid-template-columns:1fr;padding:16px}}
+    .project-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:all .3s;display:none}
+    .project-card.visible{display:block}
+    .project-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .project-header{padding:20px 16px;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:12px}
+    .project-icon{font-size:2.5rem;line-height:1}
+    .project-title{font-size:1.4rem;font-weight:900;color:#1a1a1a;margin-bottom:4px}
+    .project-age-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:#f0f0f0;color:#666}
+    .project-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .project-card.open .project-body{max-height:2000px}
+    .section{padding:16px 0;border-bottom:1px solid #f0f0f0}
+    .section:last-child{border-bottom:none}
+    .section-title{font-size:1rem;font-weight:800;color:#1a1a1a;margin-bottom:10px}
+    .five-line-guide,.learning-benefits,.materials-list{font-size:.9rem;line-height:1.6;color:#555;padding-left:20px}
+    .five-line-guide li,.learning-benefits li,.materials-list li{margin-bottom:8px}
+    .instructions{font-size:.9rem;line-height:1.7;color:#555}
+    .instruction-step{margin-bottom:14px;padding-left:36px;position:relative}
+    .instruction-step::before{content:attr(data-step);position:absolute;left:0;top:2px;width:24px;height:24px;background:var(--sun);color:#fff;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
+    .toggle-btn{width:100%;padding:14px 16px;background:#f9f9f9;border-top:1px solid #f0f0f0;font-weight:700;font-size:13px;color:var(--sun);text-align:center;cursor:pointer;transition:all .3s;font-family:"Nunito",sans-serif}
+    .toggle-btn:hover{background:#f0f0f0}
+    .project-card.open .toggle-btn{background:#fff3e0}
+    .cta-section{max-width:800px;margin:40px auto;padding:0 16px;text-align:center}
+    .cta-card{background:linear-gradient(135deg,rgba(255,153,0,.1),rgba(79,195,247,.1));border-radius:var(--radius);padding:28px 20px;border:2px solid rgba(255,153,0,.2)}
+    .cta-card h2{font-size:1.5rem;font-weight:900;margin-bottom:12px}
+    .cta-card p{font-size:.95rem;color:#666;margin-bottom:16px}
+    .cta-button{display:inline-block;padding:12px 28px;background:var(--sun);color:#fff;font-weight:800;border-radius:99px;cursor:pointer;font-size:.95rem;transition:all .3s;font-family:"Nunito",sans-serif}
+    .cta-button:hover{background:#e68900;transform:translateY(-2px)}
+    .footer{text-align:center;padding:20px 16px;color:#999;font-size:12px;border-top:1px solid #eee;margin-top:40px}
   </style>
-
-    <style>
-    
-    @media(max-width:640px){.projects-grid{grid-template-columns:1fr;}}
-    .project-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-    .project-image{width:100%;height:auto;max-width:100%;width:100%;height:200px;object-fit:cover;}
-    </style>
-    
-
-<style>
-.diy-card-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  padding: 16px;
-}
-
-@media(min-width: 768px) {
-  .diy-card-wrapper {
-    gap: 32px;
-  }
-}
-
-.diy-card {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-@media(min-width: 768px) {
-  .diy-card {
-    grid-template-columns: 1fr 1.2fr;
-    min-height: 320px;
-  }
-}
-
-.diy-card:hover {
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-}
-
-.diy-card-image {
-  position: relative;
-  height: 240px;
-  width: 100%;
-  overflow: hidden;
-}
-
-@media(min-width: 768px) {
-  .diy-card-image {
-    height: auto;
-  }
-}
-
-.diy-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.diy-card-content {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-@media(min-width: 768px) {
-  .diy-card-content {
-    padding: 32px;
-  }
-}
-
-.diy-card-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  color: #1a1a1a;
-}
-
-.diy-card-badge {
-  display: inline-block;
-  background: #fff3e0;
-  color: #c05e00;
-  padding: 4px 12px;
-  border-radius: 99px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.diy-card-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #4b5563;
-  margin-bottom: 20px;
-}
-
-.diy-card-button {
-  display: inline-block;
-  background: linear-gradient(135deg, #FF9900, #ff6b35);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 99px;
-  font-weight: 700;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.diy-card-button:hover {
-  opacity: 0.9;
-}
-</style>
-
-
-<style>
-.diy-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-@media(max-width: 768px) {
-  .diy-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 16px;
-  }
-}
-
-.diy-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.diy-card:hover {
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  transform: translateY(-4px);
-}
-
-.diy-card-image {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  background: #f0f0f0;
-}
-
-.diy-card-content {
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.diy-card-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 8px;
-}
-
-.diy-card-desc {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-
-.diy-card-badge {
-  font-size: 12px;
-  font-weight: 700;
-  color: #c05e00;
-  background: #fff3e0;
-  padding: 4px 8px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.diy-card-btn {
-  background: linear-gradient(135deg, #FF9900, #ff6b35);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.diy-card-btn:hover {
-  opacity: 0.9;
-}
-
-.carousel-controls { display: none !important; }
-</style>
-
-
-<style>
-/* Fix overlapping DIY cards */
-.diy-cards-container, .cards-grid, .activities-grid, [class*="grid"], [class*="container"] {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 24px !important;
-  align-items: center !important;
-  padding: 20px 16px !important;
-  overflow: visible !important;
-}
-.diy-card, .activity-card, [class*="card"] {
-  position: static !important;
-  width: 100% !important;
-  max-width: 780px !important;
-  margin-bottom: 0 !important;
-  overflow: visible !important;
-  flex-shrink: 0 !important;
-}
-</style>
-
 </head>
 <body>
   <div class="header">
-    <div class="back-button" onclick="history.back()">← Back</div>
+    <div class="back-button" onclick="history.back()">← Back to SunScout</div>
     <div class="logo">SunScout <span>DIY</span></div>
-    <p class="tagline">Learn Through Play</p>
+    <p class="tagline">🎨 Learn Through Play</p>
   </div>
-  <div class="hero-intro">
-    <h1>Spark Creativity</h1>
-    <p>Hands-on projects & games for kids ages 2+</p>
+  <div class="hero">
+    <h1>DIY Projects &amp; Learning Games</h1>
+    <p>Spark creativity and build skills with hands-on activities for kids ages 2+</p>
   </div>
   <div class="filter-bar">
-    <span class="filter-label">Filter:</span>
-    <button class="age-filter-btn on" onclick="filterByAge('all')">All</button>
-    <button class="age-filter-btn" onclick="filterByAge('2-5')">2–5</button>
-    <button class="age-filter-btn" onclick="filterByAge('6-8')">6–8</button>
-    <button class="age-filter-btn" onclick="filterByAge('8+')">8+</button>
+    <span class="filter-label">Filter by age:</span>
+    <button class="age-filter-btn on" onclick="filterByAge('all',this)">All Ages</button>
+    <button class="age-filter-btn" onclick="filterByAge('2-5',this)">Ages 2-5</button>
+    <button class="age-filter-btn" onclick="filterByAge('6-8',this)">Ages 6-8</button>
+    <button class="age-filter-btn" onclick="filterByAge('8+',this)">Ages 8+</button>
   </div>
-  <div class="carousel-wrapper">
-    <div class="carousel" id="carousel">
-      <div class="project-block active" data-ages="2-5,6-8,8+" data-index="0">
-        <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse beads" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
-        <div class="project-info">
-          <div><span style="font-size:2.2rem;">🫀</span><span class="diy-card-title">Fuse Beads</div><span class="project-age-badge">Ages 3+</span></div>
-          <div class="guide-preview"><strong>Pattern Recognition:</strong> Following design templates introduces math concepts.</div>
-          <button class="expand-btn" onclick="alert('Full details coming - click Learn More button')">Learn More →</button>
-        </div>
+  <div class="projects-grid">
+    <div class="project-card visible" data-ages="2-5,6-8,8+">
+      <div class="project-header"><div class="project-icon">🫀</div><div><div class="project-title">Fuse Beads</div><span class="project-age-badge">Ages 3+</span></div></div>
+      <div class="project-body">
+        <div class="section"><div class="section-title">🎯 Five-Line Guide</div><ol class="five-line-guide"><li><strong>Bilateral Coordination:</strong> Holding the board steady while placing beads builds brain-body communication.</li><li><strong>Pattern Recognition:</strong> Following templates introduces symmetry, counting, and grid mapping.</li><li><strong>Executive Function:</strong> Planning a design teaches focus and sequencing.</li><li><strong>Core Project:</strong> Create colorful designs on pegboards, then fuse with an iron.</li><li><strong>The Goal:</strong> Turn imagination into beautiful keepsakes kids are proud to display.</li></ol></div>
+        <div class="section"><div class="section-title">💡 Learning Benefits</div><ul class="learning-benefits"><li>Fine motor skill development</li><li>Color recognition and sorting</li><li>Symmetry and spatial reasoning</li><li>Patience and sequencing</li><li>Creativity and artistic expression</li></ul></div>
+        <div class="section"><div class="section-title">📦 What You'll Need</div><ul class="materials-list"><li>Fuse beads (5mm plastic melting beads)</li><li>Pegboards (square, circular, or star-shaped)</li><li>Ironing paper or parchment</li><li>A household iron (adult use only)</li></ul></div>
+        <div class="section"><div class="section-title">📋 Instructions</div><div class="instructions"><div class="instruction-step" data-step="1"><strong>Set Up:</strong> Place pegboard flat and arrange colored beads into a pattern.</div><div class="instruction-step" data-step="2"><strong>Cover:</strong> Lay ironing paper flat over beads without shifting.</div><div class="instruction-step" data-step="3"><strong>Iron (Adult Only):</strong> Press dry iron on medium in slow circles 10-20 seconds.</div><div class="instruction-step" data-step="4"><strong>Cool &amp; Peel:</strong> Let cool, peel paper, lift creation off pegboard.</div></div></div>
       </div>
-      <div class="project-block" data-ages="2-5,6-8,8+" data-index="1">
-        <img src="/images/diy-lego.png" alt="LEGO" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
-        <div class="project-info">
-          <div><span style="font-size:2.2rem;">🏠</span><span class="diy-card-title">LEGO Building</div><span class="project-age-badge">Ages 2+</span></div>
-          <div class="guide-preview"><strong>Spatial Engineering:</strong> Kids learn balance and weight distribution.</div>
-          <button class="expand-btn" onclick="alert('Full details coming')">Learn More →</button>
-        </div>
-      </div>
-      <div class="project-block" data-ages="2-5,6-8" data-index="2">
-        <img src="/images/diy-snake.png" alt="Board game" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
-        <div class="project-info">
-          <div><span style="font-size:2.2rem;">🎲</span><span class="diy-card-title">Snakes & Ladders</div><span class="project-age-badge">Ages 3+</span></div>
-          <div class="guide-preview"><strong>Number Recognition:</strong> Reinforces counting through movement.</div>
-          <button class="expand-btn" onclick="alert('Full details coming')">Learn More →</button>
-        </div>
-      </div>
-      <div class="project-block" data-ages="6-8,8+" data-index="3">
-        <img src="/images/diy-chinese-checkers.jpg" alt="Game board" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
-        <div class="project-info">
-          <div><span style="font-size:2.2rem;">✨</span><span class="diy-card-title">Chinese Checkers</div><span class="project-age-badge">Ages 6+</span></div>
-          <div class="guide-preview"><strong>Strategic Planning:</strong> Calculate jumps and plan ahead.</div>
-          <button class="expand-btn" onclick="alert('Full details coming')">Learn More →</button>
-        </div>
-      </div>
-      <div class="project-block" data-ages="8+" data-index="4">
-        <img src="/images/diy-marble.png" alt="Marble Solitaire" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
-        <div class="project-info">
-          <div><span style="font-size:2.2rem;">🤔</span><span class="diy-card-title">Marble Solitaire</div><span class="project-age-badge">Ages 8+</span></div>
-          <div class="guide-preview"><strong>Logical Deduction:</strong> A solo puzzle demanding deep thinking.</div>
-          <button class="expand-btn" onclick="alert('Full details coming')">Learn More →</button>
-        </div>
-      </div>
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
     </div>
-  </div>
-  <div class="carousel-controls">
-    <button class="carousel-btn" onclick="prevProject()">←</button>
-    <div class="carousel-dots" id="dots"></div>
-    <button class="carousel-btn" onclick="nextProject()">→</button>
-  </div>
-  <div class="video-section">
-    <div class="video-container">
-      <h2>📹 How-To Videos</h2>
-      <p>Watch tutorials on these projects.</p>
-      <div class="video-player">
-        <video controls style="width:100%;height:100%;">
-          <source src="videos/diy-tutorial.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+    <div class="project-card visible" data-ages="2-5,6-8,8+">
+      <div class="project-header"><div class="project-icon">🏠</div><div><div class="project-title">LEGO Building</div><span class="project-age-badge">Ages 2+</span></div></div>
+      <div class="project-body">
+        <div class="section"><div class="section-title">🎯 Five-Line Guide</div><ol class="five-line-guide"><li><strong>Ages 2-8:</strong> Large DUPLO blocks fit small hands safely.</li><li><strong>Ages 8+:</strong> Standard bricks allow intricate detailed builds.</li><li><strong>Core Project:</strong> Design homes, towers, or scenes from imagination.</li><li><strong>The Big Benefit:</strong> Develops spatial awareness and structural thinking.</li><li><strong>The Goal:</strong> Turn imagination into physical structured realities.</li></ol></div>
+        <div class="section"><div class="section-title">💡 Learning Benefits</div><ul class="learning-benefits"><li>Spatial engineering and balance</li><li>Fine motor dexterity</li><li>Creative problem solving</li><li>3D visualization and planning</li><li>Architectural thinking</li></ul></div>
+        <div class="section"><div class="section-title">📦 What You'll Need</div><ul class="materials-list"><li><strong>Ages 2-8:</strong> DUPLO baseplates and large blocks</li><li><strong>Ages 8+:</strong> Standard LEGO bricks, windows, doors, roof tiles</li><li>A flat sturdy surface</li></ul></div>
+        <div class="section"><div class="section-title">📋 Instructions</div><div class="instructions"><div class="instruction-step" data-step="1"><strong>Foundation:</strong> Place a flat baseplate on a level surface.</div><div class="instruction-step" data-step="2"><strong>Footprint:</strong> Arrange one layer of bricks to outline walls.</div><div class="instruction-step" data-step="3"><strong>Raise Walls:</strong> Stack bricks upward, staggering joints, leaving gaps for doors/windows.</div><div class="instruction-step" data-step="4"><strong>Cap It:</strong> Bridge the top with long plates or sloped roof bricks.</div></div></div>
       </div>
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+    <div class="project-card visible" data-ages="2-5,6-8">
+      <div class="project-header"><div class="project-icon">🎲</div><div><div class="project-title">Snakes &amp; Ladders</div><span class="project-age-badge">Ages 3+</span></div></div>
+      <div class="project-body">
+        <div class="section"><div class="section-title">🎯 Five-Line Guide</div><ol class="five-line-guide"><li><strong>The Setup:</strong> A numbered grid from 1 to 100 with snakes and ladders.</li><li><strong>The Goal:</strong> Roll a die to reach space 100 first.</li><li><strong>The Boost:</strong> Ladders jump you forward; snakes slide you back.</li><li><strong>The Benefit:</strong> Reinforces number recognition and sequential counting.</li><li><strong>The Lesson:</strong> Teaches basic addition and resilience.</li></ol></div>
+        <div class="section"><div class="section-title">💡 Learning Benefits</div><ul class="learning-benefits"><li>Number recognition and sequencing</li><li>Turn-taking and social skills</li><li>Cause and effect understanding</li><li>Basic addition through counting</li></ul></div>
+        <div class="section"><div class="section-title">📦 What You'll Need</div><ul class="materials-list"><li>A Snakes &amp; Ladders board</li><li>One die</li><li>Game tokens</li><li>2-4 players</li></ul></div>
+        <div class="section"><div class="section-title">📋 How to Play</div><div class="instructions"><div class="instruction-step" data-step="1"><strong>Set Up:</strong> Each player places token on space 1.</div><div class="instruction-step" data-step="2"><strong>Take Turns:</strong> Roll die and move forward that many spaces.</div><div class="instruction-step" data-step="3"><strong>Follow the Board:</strong> Climb ladders, slide down snakes.</div><div class="instruction-step" data-step="4"><strong>Win:</strong> First to reach space 100 wins!</div></div></div>
+      </div>
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+    <div class="project-card visible" data-ages="6-8,8+">
+      <div class="project-header"><div class="project-icon">✨</div><div><div class="project-title">Chinese Checkers</div><span class="project-age-badge">Ages 6+</span></div></div>
+      <div class="project-body">
+        <div class="section"><div class="section-title">🎯 Five-Line Guide</div><ol class="five-line-guide"><li><strong>The Setup:</strong> Star-shaped board with marble pegs in colored triangles.</li><li><strong>The Goal:</strong> Race all marbles into the opposite triangle.</li><li><strong>The Move:</strong> Step into adjacent empty hole or hop over marbles.</li><li><strong>The Benefit:</strong> Sharpens logical strategy and geometric pattern recognition.</li><li><strong>The Synergy:</strong> Works for 2-6 players.</li></ol></div>
+        <div class="section"><div class="section-title">💡 Learning Benefits</div><ul class="learning-benefits"><li>Strategic thinking and planning ahead</li><li>Spatial optimization</li><li>Pattern recognition</li><li>Competitive and cooperative play</li></ul></div>
+        <div class="section"><div class="section-title">📦 What You'll Need</div><ul class="materials-list"><li>A Chinese Checkers board (star-shaped)</li><li>60 marbles in 6 colors</li><li>2-6 players</li></ul></div>
+        <div class="section"><div class="section-title">📋 How to Play</div><div class="instructions"><div class="instruction-step" data-step="1"><strong>Set Up:</strong> Place 10 marbles in one triangle corner.</div><div class="instruction-step" data-step="2"><strong>Take Turns:</strong> Move one marble per turn.</div><div class="instruction-step" data-step="3"><strong>Move or Jump:</strong> Step to adjacent spot or jump over marbles in a line.</div><div class="instruction-step" data-step="4"><strong>Win:</strong> First to move all 10 marbles to the opposite triangle!</div></div></div>
+      </div>
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+    <div class="project-card visible" data-ages="8+">
+      <div class="project-header"><div class="project-icon">🤔</div><div><div class="project-title">Marble Solitaire</div><span class="project-age-badge">Ages 8+</span></div></div>
+      <div class="project-body">
+        <div class="section"><div class="section-title">🎯 Five-Line Guide</div><ol class="five-line-guide"><li><strong>The Setup:</strong> Cross-shaped board filled with marbles, center hole empty.</li><li><strong>The Goal:</strong> Clear board until only one marble remains in center.</li><li><strong>The Action:</strong> Jump one marble over another into an empty space.</li><li><strong>The Benefit:</strong> Demands deep logical deduction and patience.</li><li><strong>The Experience:</strong> A quiet solo puzzle teaching backward planning.</li></ol></div>
+        <div class="section"><div class="section-title">💡 Learning Benefits</div><ul class="learning-benefits"><li>Logical deduction and puzzle-solving</li><li>Working memory</li><li>Reverse engineering thinking</li><li>Patience and persistence</li></ul></div>
+        <div class="section"><div class="section-title">📦 What You'll Need</div><ul class="materials-list"><li>Marble Solitaire board (cross-shaped, 33 holes)</li><li>32 marbles or pegs</li><li>One player</li></ul></div>
+        <div class="section"><div class="section-title">📋 How to Play</div><div class="instructions"><div class="instruction-step" data-step="1"><strong>Set Up:</strong> Fill all holes with marbles except the center.</div><div class="instruction-step" data-step="2"><strong>Jump:</strong> Hop a marble over an adjacent one into an empty hole, removing the jumped marble.</div><div class="instruction-step" data-step="3"><strong>Continue:</strong> Repeat until no more jumps are possible.</div><div class="instruction-step" data-step="4"><strong>Win:</strong> Only 1 marble remains in the center. (Harder than it sounds!)</div></div></div>
+      </div>
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
     </div>
   </div>
   <div class="cta-section">
     <div class="cta-card">
-      <h2>🎯 Explore More Activities</h2>
-      <p>Discover camps, classes, and family events.</p>
-      <button class="cta-button" onclick="location.href='/'">Explore →</button>
+      <h2>🎯 Ready to Get Out &amp; Explore?</h2>
+      <p>These projects are just the start. Discover summer camps, classes, and family activities in your area on SunScout.</p>
+      <button class="cta-button" onclick="location.href='/'">Explore Activities Near You</button>
     </div>
   </div>
   <div class="footer">
-    <p>Made with 💜 by SunScout</p>
+    <p>Made with 💜 by <strong>SunScout</strong> — helping Bay Area families find amazing activities.</p>
   </div>
-
   <script>
-    let currentIndex = 0;
-    let filteredIndices = [0, 1, 2, 3, 4];
-    let autoSwipeInterval;
-    
-    function init() {
-      renderDots();
-      startAutoSlide();
-    }
-    
-    function filterByAge(age) {
-      document.querySelectorAll('.age-filter-btn').forEach(btn => btn.classList.remove('on'));
-      event.target.classList.add('on');
-      const projects = document.querySelectorAll('.project-block');
-      filteredIndices = [];
-      projects.forEach((proj, idx) => {
-        const ages = proj.dataset.ages.split(',');
-        let matches = (age === 'all') || ages.includes(age);
-        if (matches) { filteredIndices.push(idx); proj.style.display = 'flex'; } 
-        else { proj.style.display = 'none'; }
-      });
-      currentIndex = 0;
-      updateCarousel();
-      renderDots();
-      resetAutoSlide();
-    }
-    
-    function nextProject() {
-      if (filteredIndices.length === 0) return;
-      currentIndex = (currentIndex + 1) % filteredIndices.length;
-      updateCarousel();
-      resetAutoSlide();
-    }
-    
-    function prevProject() {
-      if (filteredIndices.length === 0) return;
-      currentIndex = (currentIndex - 1 + filteredIndices.length) % filteredIndices.length;
-      updateCarousel();
-      resetAutoSlide();
-    }
-    
-    function updateCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.style.transform = `translateX(${-currentIndex * 100}%)`;
-      document.querySelectorAll('.project-block').forEach((proj, idx) => {
-        proj.classList.remove('active');
-        if (filteredIndices[currentIndex] === idx) proj.classList.add('active');
-      });
-      updateDots();
-    }
-    
-    function renderDots() {
-      const dotsContainer = document.getElementById('dots');
-      dotsContainer.innerHTML = '';
-      for (let i = 0; i < filteredIndices.length; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === currentIndex ? ' active' : '');
-        dot.onclick = () => { currentIndex = i; updateCarousel(); resetAutoSlide(); };
-        dotsContainer.appendChild(dot);
-      }
-    }
-    
-    function updateDots() {
-      document.querySelectorAll('.dot').forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === currentIndex);
+    function filterByAge(age, btn) {
+      document.querySelectorAll(".age-filter-btn").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      document.querySelectorAll(".project-card").forEach(card => {
+        const ages = card.dataset.ages.split(",");
+        const show = age === "all" || ages.includes(age);
+        card.classList.toggle("visible", show);
+        if (!show) card.classList.remove("open");
       });
     }
-    
-    function startAutoSlide() {
-      autoSwipeInterval = setInterval(() => { nextProject(); }, 5000);
+    function toggleProject(btn) {
+      const card = btn.parentElement;
+      card.classList.toggle("open");
+      btn.textContent = card.classList.contains("open") ? "- Collapse Details" : "+ Expand Details";
     }
-    
-    function resetAutoSlide() {
-      clearInterval(autoSwipeInterval);
-      startAutoSlide();
-    }
-    
-    document.addEventListener('DOMContentLoaded', init);
   </script>
-
-<script>
-document.addEventListener('error', function(e) {
-  if (e.target.tagName === 'IMG') {
-    var wrap = e.target.closest('.card-img-wrap, .diy-img-wrap, [class*="img"]');
-    if (wrap) { wrap.style.minHeight='0'; wrap.style.height='auto'; }
-    e.target.style.display = 'none';
-  }
-}, true);
-</script>
-
 </body>
 </html>
