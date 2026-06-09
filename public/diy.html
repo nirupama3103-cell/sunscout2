@@ -304,7 +304,7 @@
   <div class="carousel-wrapper">
     <div class="carousel" id="carousel">
       <div class="project-block active" data-ages="2-5,6-8,8+" data-index="0">
-        <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse beads" class="project-image">
+        <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse beads" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
         <div class="project-info">
           <div><span style="font-size:2.2rem;">🫀</span><span class="diy-card-title">Fuse Beads</div><span class="project-age-badge">Ages 3+</span></div>
           <div class="guide-preview"><strong>Pattern Recognition:</strong> Following design templates introduces math concepts.</div>
@@ -312,7 +312,7 @@
         </div>
       </div>
       <div class="project-block" data-ages="2-5,6-8,8+" data-index="1">
-        <img src="/images/diy-lego.png" alt="LEGO" class="project-image">
+        <img src="/images/diy-lego.png" alt="LEGO" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
         <div class="project-info">
           <div><span style="font-size:2.2rem;">🏠</span><span class="diy-card-title">LEGO Building</div><span class="project-age-badge">Ages 2+</span></div>
           <div class="guide-preview"><strong>Spatial Engineering:</strong> Kids learn balance and weight distribution.</div>
@@ -320,7 +320,7 @@
         </div>
       </div>
       <div class="project-block" data-ages="2-5,6-8" data-index="2">
-        <img src="/images/diy-snake.png" alt="Board game" class="project-image">
+        <img src="/images/diy-snake.png" alt="Board game" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
         <div class="project-info">
           <div><span style="font-size:2.2rem;">🎲</span><span class="diy-card-title">Snakes & Ladders</div><span class="project-age-badge">Ages 3+</span></div>
           <div class="guide-preview"><strong>Number Recognition:</strong> Reinforces counting through movement.</div>
@@ -328,7 +328,7 @@
         </div>
       </div>
       <div class="project-block" data-ages="6-8,8+" data-index="3">
-        <img src="/images/diy-chinese-checkers.jpg" alt="Game board" class="project-image">
+        <img src="/images/diy-chinese-checkers.jpg" alt="Game board" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
         <div class="project-info">
           <div><span style="font-size:2.2rem;">✨</span><span class="diy-card-title">Chinese Checkers</div><span class="project-age-badge">Ages 6+</span></div>
           <div class="guide-preview"><strong>Strategic Planning:</strong> Calculate jumps and plan ahead.</div>
@@ -336,7 +336,7 @@
         </div>
       </div>
       <div class="project-block" data-ages="8+" data-index="4">
-        <img src="/images/diy-marble.png" alt="Marble Solitaire" class="project-image">
+        <img src="/images/diy-marble.png" alt="Marble Solitaire" class="project-image" onerror="this.style.display=\'none\';var w=this.closest(\'[class*=img]\');if(w){w.style.minHeight=\'0\';w.style.height=\'auto\';}">
         <div class="project-info">
           <div><span style="font-size:2.2rem;">🤔</span><span class="diy-card-title">Marble Solitaire</div><span class="project-age-badge">Ages 8+</span></div>
           <div class="guide-preview"><strong>Logical Deduction:</strong> A solo puzzle demanding deep thinking.</div>
@@ -452,5 +452,16 @@
     
     document.addEventListener('DOMContentLoaded', init);
   </script>
+
+<script>
+document.addEventListener('error', function(e) {
+  if (e.target.tagName === 'IMG') {
+    var wrap = e.target.closest('.card-img-wrap, .diy-img-wrap, [class*="img"]');
+    if (wrap) { wrap.style.minHeight='0'; wrap.style.height='auto'; }
+    e.target.style.display = 'none';
+  }
+}, true);
+</script>
+
 </body>
 </html>
