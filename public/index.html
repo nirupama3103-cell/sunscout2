@@ -768,7 +768,7 @@ html { scroll-behavior: smooth; }
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><button onclick="location.href='diy.html'" style="background:linear-gradient(135deg,#9c27b0,#e91e63);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🎨 DIY</button></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- Full width search -->
@@ -840,6 +840,7 @@ html { scroll-behavior: smooth; }
               <div class="dtmr" onclick="floatWeekend();toggleSsMenu(event)" style="color:#6d28d9;">📅 Weekend</div>
               <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">🎲 Surprise</div>
               <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
+              <div class="dtmr" onclick="location.href='diy.html';toggleSsMenu(event)" style="color:#9c27b0;">🎨 DIY</div>
               <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
               <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">🌤️ About</div>
             </div>
@@ -869,11 +870,13 @@ html { scroll-behavior: smooth; }
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
     <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
+    <button onclick="location.href='diy.html'" style="flex:1;background:linear-gradient(135deg,#9c27b0,#e91e63);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🎨 DIY</button>
   </div>
   <div style="text-align:center;margin-bottom:6px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
     <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
+    <button onclick="location.href='diy.html'" style="background:linear-gradient(135deg,#9c27b0,#e91e63);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">🎨 DIY</button>
   </div>
   <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
     <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;min-width:0;">
@@ -930,6 +933,7 @@ html { scroll-behavior: smooth; }
         <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
         <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
         <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">❤️ My List</div>
+        <div class="dtmr" onclick="location.href='diy.html';toggleSsMenu(event)" style="color:#9c27b0;">🎨 DIY</div>
         <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">📝 Notes</div>
         <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">🌤️ About</div>
       </div>
@@ -1141,6 +1145,7 @@ function mobSearch() {
     ❤️ My List
     <span class="action-bar-badge" id="desktopMyListBadge"></span>
   </button>
+  <button class="action-bar-diy" onclick="location.href='diy.html'">🎨 DIY</button>
 </div>
 
 <div class="search-wrap" style="display:none">
@@ -2393,6 +2398,7 @@ function weatherChipClick() {
 <div id="float-pill">
   <button class="fp-plan" onclick="openPlan()">📅 Plan My Day</button>
   <button class="fp-list" onclick="openMyList()">❤️ My List<span id="float-pill-badge"></span></button>
+  <button class="fp-diy" onclick="location.href='diy.html'">🎨 DIY</button>
 </div>
 
 <!-- Privacy Policy Modal -->
