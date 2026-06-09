@@ -1,0 +1,40 @@
+# CLAUDE.md — SunScout Kids
+
+Context for working on this repo. Read before editing.
+
+## What this is
+- **SunScout Kids** — a Bay Area family activity discovery web app. Live: **https://www.sunscoutkids.com**
+- Repo: `nirupama3103-cell/sunscout2` (note: lowercase + `2`; the old `SunScout` repo link 404s).
+- **Vanilla HTML/CSS/JS single-page app — no framework, no build step.** Do not introduce React, bundlers, or heavy libraries.
+- Dev in **GitHub Codespaces** (`/workspaces/sunscout2/`). Deployed on **Vercel**, auto-deploys on push to `main` (~30s).
+- Single audience: parents on phones. **Fast load and accessibility matter more than visual flash.** No video backgrounds, WebGL/Three.js, or 3D scroll effects.
+
+## Layout
+- `public/index.html` — the whole app, ~2,400+ lines (HTML + multiple `<style>` and `<script>` blocks inline).
+- `public/diy.html` — standalone DIY crafts page; images in `public/images/`.
+- `/api/` — Vercel serverless functions (mainly `api/activities.js`).
+- No `package.json`; `npm run dev` is broken. **Local preview:** `python3 -m http.server 8000 --directory public`.
+
+## ⚠️ Gotchas (these have cost hours)
+- **There are ~5 parallel filter UIs** (a desktop tab bar, two dropdowns — `ssSelExplore`/`dtE` — floating pills, and the mobile bottom nav `bnavTab`). They all proxy into **one hidden canonical set of `.tab-btn[data-tab="..."]` buttons** via `setTab()`. To change a filter, update every UI *and* the canonical button. Grep first; never assume one edit covers it.
+- **Never blind find-and-replace common words.** "Free" / "Paid" appear in price badges, the About modal, meta tags, and `SRC_LABELS` — not just tabs. Anchor replacements tightly (e.g. on `onclick="dtE('free',...` or `tab-label">`), and verify with grep before committing.
+- **Footer and bottom nav are high-risk.** Small edits there have repeatedly broken layout. Edit carefully and preview.
+- **Weekend tab is locked Mon–Thu** (`floatWeekend()` alerts and bails). It looks "missing" on weekdays — it isn't.
+- **Line numbers drift.** Locate code by function/class names, not line numbers.
+
+## Data & APIs
+- Base data: **hardcoded activity arrays** (~320 activities across 7 cities). The canonical city list lives in the `CITIES` array — grep it rather than hardcoding.
+- Working APIs: **Pexels** (activity photos) and **Ticketmaster** (events).
+- Removed/dead — do not re-add: **Eventbrite** (v3 search deprecated 2024), **Google Places** (billing), **Yelp** (now paid), **Peachjar** (no public API).
+- Footer/privacy should only credit **Ticketmaster** (+ Pexels for photos). Keep these consistent across footer, privacy modal, and README.
+- DIY activities are home-based (no address/map): the `DIY` array powers the "no results" fallback, and `diy.html` is the richer standalone page.
+
+## Conventions
+- Work in small batches. **Show a diff before committing.**
+- After each change, **grep to verify** the edit landed as intended before `git add / commit / push`.
+- Commit → push to `main` → Vercel redeploys ~30s → verify on the live URL.
+- Match the existing brand: Nunito font, sunny orange (`#FF9900`) + blue (`#1565c0`), rounded corners, warm/friendly tone. Sentence case, plain kid-and-parent-friendly copy.
+- Respect `prefers-reduced-motion`; keep images lazy-loaded and compressed (~150–320KB, long edge ≤1400px).
+
+## Child-safety
+This is a children's product. Keep all content age-appropriate and parent-trustworthy. Flag adult-supervision steps (e.g. ironing in the fuse-bead craft) clearly.
