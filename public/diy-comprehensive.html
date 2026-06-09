@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DIY & Learning Games – SunScout Kids</title>
+  <meta name="description" content="Creative DIY projects and board games for kids ages 2+. Fuse beads, LEGOs, board games, and more—learn through play.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/sun-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* GLOBAL STYLES                                                                                  */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f0f9ff !important;
+      color: #1a1a1a !important;
+      color-scheme: light only;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    :root {
+      --sun: #FF9900;
+      --sky: #4FC3F7;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+      --blue: #1d4ed8;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --radius: 14px;
+      --shadow: 0 2px 14px rgba(0,0,0,.09);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,.12);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* HEADER & HERO                                                                                  */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .header {
+      text-align: center;
+      padding: 28px 16px 16px;
+      background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%);
+      border-bottom: 2px solid rgba(255, 153, 0, 0.1);
+    }
+
+    .back-button {
+      display: inline-block;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 12px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .back-button:hover {
+      opacity: 1;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--sun);
+      margin: 0 auto;
+    }
+
+    .logo span {
+      color: var(--sky);
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 16px;
+      background: linear-gradient(135deg, rgba(255, 153, 0, 0.05) 0%, rgba(79, 195, 247, 0.05) 100%);
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--sun) 0%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* AGE FILTER BAR                                                                                 */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 16px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .filter-label {
+      font-weight: 700;
+      font-size: 13px;
+      color: #666;
+      margin-right: 8px;
+    }
+
+    .age-filter-btn {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 99px;
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
+      background: #fff;
+      color: #666;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .age-filter-btn:hover {
+      border-color: var(--sun);
+      color: var(--sun);
+    }
+
+    .age-filter-btn.on {
+      background: var(--sun);
+      color: #fff;
+      border-color: var(--sun);
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.25);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* PROJECT GRID                                                                                   */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 24px 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: all 0.3s;
+      display: none;
+    }
+
+    .project-card.visible {
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-card.hide-mobile {
+      display: none;
+    }
+
+    @media (min-width: 769px) {
+      .project-card.hide-mobile {
+        display: block;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* PROJECT CARD HEADER                                                                            */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .project-header {
+      padding: 20px 16px;
+      border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .project-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .project-meta {
+      flex: 1;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .project-age-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* PROJECT CONTENT (COLLAPSIBLE)                                                                  */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .project-body {
+      padding: 0 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .project-card.open .project-body {
+      max-height: 2000px;
+    }
+
+    .section {
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .five-line-guide {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .five-line-guide li {
+      margin-left: 20px;
+      margin-bottom: 8px;
+    }
+
+    .learning-benefits {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .learning-benefits li {
+      margin-left: 20px;
+      margin-bottom: 8px;
+    }
+
+    .materials-list {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .materials-list li {
+      margin-left: 20px;
+      margin-bottom: 6px;
+    }
+
+    .instructions {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .instruction-step {
+      margin-bottom: 14px;
+      padding-left: 32px;
+      position: relative;
+    }
+
+    .instruction-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      background: var(--sun);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* TOGGLE BUTTON                                                                                  */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .toggle-btn {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f9f9f9;
+      border-top: 1px solid #f0f0f0;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--sun);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .project-card.open .toggle-btn {
+      background: #fff3e0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* VIDEO SECTION                                                                                  */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .video-section {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .video-container {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 28px 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .video-container h2 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+
+    .video-container p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .video-player {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .video-player video {
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-upload-note {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* CTA SECTION                                                                                    */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .cta-section {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(79, 195, 247, 0.1) 100%);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      border: 2px solid rgba(255, 153, 0, 0.2);
+    }
+
+    .cta-card h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+
+    .cta-card p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--sun);
+      color: #fff;
+      font-weight: 800;
+      border-radius: 99px;
+      transition: all 0.3s;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .cta-button:hover {
+      background: #e68900;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 153, 0, 0.3);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+    /* FOOTER                                                                                         */
+    /* ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
+    .footer {
+      text-align: center;
+      padding: 20px 16px;
+      color: #999;
+      font-size: 12px;
+      border-top: 1px solid #eee;
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: var(--sun);
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- HEADER                                                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="header">
+    <div class="back-button" onclick="history.back()">← Back to SunScout</div>
+    <div class="logo">SunScout <span>DIY</span></div>
+    <p class="tagline">🎨 Learn Through Play</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="hero">
+    <h1>DIY Projects & Learning Games</h1>
+    <p>Spark creativity and build skills with hands-on activities for kids ages 2+</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- AGE FILTER                                                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter by age:</span>
+    <button class="age-filter-btn on" onclick="filterByAge('all')">All Ages</button>
+    <button class="age-filter-btn" onclick="filterByAge('2-5')">Ages 2–5</button>
+    <button class="age-filter-btn" onclick="filterByAge('6-8')">Ages 6–8</button>
+    <button class="age-filter-btn" onclick="filterByAge('8+')">Ages 8+</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- PROJECTS GRID                                                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="projects-grid">
+
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+    <!-- PROJECT 1: FUSE BEADS                                                                      -->
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+
+    <div class="project-card visible" data-ages="2-5,6-8,8+">
+      <div class="project-header">
+        <div class="project-icon">🫀</div>
+        <div class="project-meta">
+          <div class="project-title">Fuse Beads</div>
+          <span class="project-age-badge">Ages 3+</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="section">
+          <div class="section-title">🎯 Five-Line Guide</div>
+          <ol class="five-line-guide">
+            <li><strong>Bilateral Coordination:</strong> Using one hand to hold the board steady while the other places beads builds excellent brain-body communication.</li>
+            <li><strong>Pattern Recognition:</strong> Following a design template introduces early math concepts like symmetry, counting, and grid mapping.</li>
+            <li><strong>Executive Function:</strong> Planning a design from start to finish teaches kids to focus, follow a sequence, and delay gratification until the final melt.</li>
+            <li><strong>Core Project:</strong> Kids create colorful designs on pegboards, then fuse them with an iron to create permanent plastic art.</li>
+            <li><strong>The Goal:</strong> Turn imagination into tangible, beautiful keepsakes kids are proud to display.</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💡 Learning Benefits</div>
+          <ul class="learning-benefits">
+            <li>Fine motor skill development (placing tiny beads)</li>
+            <li>Color recognition and sorting</li>
+            <li>Symmetry and spatial reasoning</li>
+            <li>Patience and sequencing</li>
+            <li>Creativity and artistic expression</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📦 What You'll Need</div>
+          <ul class="materials-list">
+            <li>Fuse beads (5mm plastic melting beads in various colors)</li>
+            <li>Pegboards (square, circular, or star-shaped plastic boards)</li>
+            <li>Ironing paper (reusable parchment or specialized sheets)</li>
+            <li>A household iron (adult use only)</li>
+            <li>Tweezers (optional, but helpful for small hands)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 Instructions</div>
+          <div class="instructions">
+            <div class="instruction-step" data-step="1">
+              <strong>Set Up the Design:</strong> Place a plastic pegboard flat on a table and arrange the colored beads onto the pegs one by one to create a pattern or picture.
+            </div>
+            <div class="instruction-step" data-step="2">
+              <strong>Cover the Artwork:</strong> Once the design is complete, carefully place a sheet of ironing paper completely flat over the top of the beads without shifting them.
+            </div>
+            <div class="instruction-step" data-step="3">
+              <strong>Apply the Heat (Adult Only):</strong> Preheat a dry iron to medium. Press it down gently on the paper, moving it in slow circles for 10–20 seconds until the beads fuse together uniformly.
+            </div>
+            <div class="instruction-step" data-step="4">
+              <strong>Cool and Peel:</strong> Let the plastic cool for a minute, carefully peel away the ironing paper, and lift your solid plastic creation off the pegboard.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+    <!-- PROJECT 2: LEGO BUILDING                                                                   -->
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+
+    <div class="project-card visible" data-ages="2-5,6-8,8+">
+      <div class="project-header">
+        <div class="project-icon">🏠</div>
+        <div class="project-meta">
+          <div class="project-title">LEGO Building</div>
+          <span class="project-age-badge">Ages 2+</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="section">
+          <div class="section-title">🎯 Five-Line Guide</div>
+          <ol class="five-line-guide">
+            <li><strong>Ages 2–8 Years:</strong> Large blocks (like DUPLO) fit small hands safely and are easier to manipulate.</li>
+            <li><strong>Ages 8+ Years:</strong> Standard small bricks allow for intricate, detailed builds with greater precision.</li>
+            <li><strong>Core Project:</strong> Both age groups can design and construct homes, towers, or scenes from imagination.</li>
+            <li><strong>The Big Benefit:</strong> Building develops spatial awareness, fine motor skills, and structural understanding.</li>
+            <li><strong>The Goal:</strong> Turn simple imagination into physical, structured realities.</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💡 Learning Benefits</div>
+          <ul class="learning-benefits">
+            <li><strong>Spatial Engineering:</strong> Kids learn how balance, symmetry, and weight distribution support a physical structure.</li>
+            <li><strong>Fine Motor Dexterity:</strong> Snapping bricks together builds hand strength and finger coordination.</li>
+            <li><strong>Creative Problem Solving:</strong> When a roof collapses or a wall leans, kids naturally iterate and find alternative ways to reinforce their build.</li>
+            <li>3D visualization and planning</li>
+            <li>Architectural and engineering thinking</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📦 What You'll Need</div>
+          <ul class="materials-list">
+            <li><strong>For Ages 2–8:</strong> Large building bricks (DUPLO baseplates, rectangular blocks, roof pieces)</li>
+            <li><strong>For Ages 8+:</strong> Standard LEGO bricks, windows, doors, specialized roof tiles</li>
+            <li>A flat, sturdy surface (table or hard floor)</li>
+            <li>Clear space for building and displaying</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 Instructions</div>
+          <div class="instructions">
+            <div class="instruction-step" data-step="1">
+              <strong>Lay the Foundation:</strong> Place a flat green or gray baseplate on a level surface to keep the structure secure.
+            </div>
+            <div class="instruction-step" data-step="2">
+              <strong>Build the Footprint:</strong> Arrange a single layer of bricks on the plate to outline the exterior walls and rooms of the home.
+            </div>
+            <div class="instruction-step" data-step="3">
+              <strong>Raise the Walls:</strong> Stack bricks upward, staggering the joints like real bricks for structural stability, leaving gaps for doors and windows.
+            </div>
+            <div class="instruction-step" data-step="4">
+              <strong>Cap the Structure:</strong> Bridge the top of the walls with long plates or sloped roof bricks to seal the home safely.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+    <!-- PROJECT 3: SNAKES & LADDERS                                                                -->
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+
+    <div class="project-card visible" data-ages="2-5,6-8">
+      <div class="project-header">
+        <div class="project-icon">🎲</div>
+        <div class="project-meta">
+          <div class="project-title">Snakes & Ladders</div>
+          <span class="project-age-badge">Ages 3+</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="section">
+          <div class="section-title">🎯 Five-Line Guide</div>
+          <ol class="five-line-guide">
+            <li><strong>The Setup:</strong> A numbered grid from 1 to 100 with distinct snakes and ladders.</li>
+            <li><strong>The Goal:</strong> Roll a die to navigate your token from space 1 up to space 100.</li>
+            <li><strong>The Boost:</strong> Ladders jump you forward; landing on a snake slides you back down.</li>
+            <li><strong>The Big Benefit:</strong> Directly reinforces number recognition, tracking, and sequential counting.</li>
+            <li><strong>The Lesson:</strong> Teaches basic addition through counting spaces and introduces resilience through setbacks.</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💡 Learning Benefits</div>
+          <ul class="learning-benefits">
+            <li><strong>One-to-One Correspondence:</strong> Kids link each count out loud to a single physical movement on the grid.</li>
+            <li><strong>Visualizing Magnitudes:</strong> Moving up the board helps children see that 90 is visually higher and "more" than 20.</li>
+            <li>Number recognition and sequencing</li>
+            <li>Turn-taking and social skills</li>
+            <li>Understanding cause and effect (ladders help, snakes hinder)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📦 What You'll Need</div>
+          <ul class="materials-list">
+            <li>A Snakes & Ladders board (traditional or DIY version)</li>
+            <li>One die (or two for advanced play)</li>
+            <li>Game tokens (coins, buttons, or official pieces)</li>
+            <li>2–4 players</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 How to Play</div>
+          <div class="instructions">
+            <div class="instruction-step" data-step="1">
+              <strong>Set Up:</strong> Each player places their token on space 1.
+            </div>
+            <div class="instruction-step" data-step="2">
+              <strong>Take Turns:</strong> Players roll the die in order and move their token forward by the number shown.
+            </div>
+            <div class="instruction-step" data-step="3">
+              <strong>Follow the Snakes & Ladders:</strong> If you land at the bottom of a ladder, climb to the top. If you land on a snake's head, slide down to its tail.
+            </div>
+            <div class="instruction-step" data-step="4">
+              <strong>Win:</strong> The first player to reach space 100 wins!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+    <!-- PROJECT 4: CHINESE CHECKERS                                                                -->
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+
+    <div class="project-card visible" data-ages="6-8,8+">
+      <div class="project-header">
+        <div class="project-icon">✨</div>
+        <div class="project-meta">
+          <div class="project-title">Chinese Checkers</div>
+          <span class="project-age-badge">Ages 6+</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="section">
+          <div class="section-title">🎯 Five-Line Guide</div>
+          <ol class="five-line-guide">
+            <li><strong>The Setup:</strong> A star-shaped board with marble pegs arranged in colored triangles.</li>
+            <li><strong>The Goal:</strong> Race all your marbles into the triangle point directly opposite yours.</li>
+            <li><strong>The Move:</strong> Move one step into an adjacent empty hole, or hop over other marbles.</li>
+            <li><strong>The Big Benefit:</strong> Sharpening long-range logical strategy and recognizing geometric patterns.</li>
+            <li><strong>The Synergy:</strong> Works beautifully for 2 to 6 players, boosting group social dynamics.</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💡 Learning Benefits</div>
+          <ul class="learning-benefits">
+            <li><strong>Forward Planning:</strong> Players must look 2 or 3 steps ahead to calculate how to set up chain-reaction jumps.</li>
+            <li><strong>Spatial Optimization:</strong> Children learn to map out paths through a dense grid of obstacles without blocking their own pieces.</li>
+            <li>Strategic thinking and tactical reasoning</li>
+            <li>Pattern recognition on the star board</li>
+            <li>Competitive and cooperative play (depending on setup)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📦 What You'll Need</div>
+          <ul class="materials-list">
+            <li>A Chinese Checkers board (star-shaped)</li>
+            <li>60 marbles or pegs in 6 different colors</li>
+            <li>2–6 players (2–3 is ideal for learning)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 How to Play</div>
+          <div class="instructions">
+            <div class="instruction-step" data-step="1">
+              <strong>Set Up:</strong> Each player places their 10 marbles in one of the six triangle corners.
+            </div>
+            <div class="instruction-step" data-step="2">
+              <strong>Take Turns:</strong> Players alternate moving one marble per turn.
+            </div>
+            <div class="instruction-step" data-step="3">
+              <strong>Move or Jump:</strong> Move one marble to an adjacent empty spot, or jump over one or more marbles in a straight line (like checkers).
+            </div>
+            <div class="instruction-step" data-step="4">
+              <strong>Win:</strong> First player to move all 10 marbles to the opposite triangle wins!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+    <!-- PROJECT 5: MARBLE SOLITAIRE                                                                -->
+    <!-- ──────────────────────────────────────────────────────────────────────────────────────────── -->
+
+    <div class="project-card visible" data-ages="8+">
+      <div class="project-header">
+        <div class="project-icon">🤔</div>
+        <div class="project-meta">
+          <div class="project-title">Marble Solitaire</div>
+          <span class="project-age-badge">Ages 8+</span>
+        </div>
+      </div>
+
+      <div class="project-body">
+        <div class="section">
+          <div class="section-title">🎯 Five-Line Guide</div>
+          <ol class="five-line-guide">
+            <li><strong>The Setup:</strong> A cross-shaped board filled with marbles, leaving only the center hole empty.</li>
+            <li><strong>The Goal:</strong> Clear the board until only a single marble remains right in the middle.</li>
+            <li><strong>The Action:</strong> Remove marbles by jumping one over another horizontally or vertically into an empty space.</li>
+            <li><strong>The Big Benefit:</strong> Demands deep logical deduction, patience, and isolation of variables.</li>
+            <li><strong>The Experience:</strong> A quiet, single-player puzzle that emphasizes working backward from a goal.</li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <div class="section-title">💡 Learning Benefits</div>
+          <ul class="learning-benefits">
+            <li><strong>Working Memory:</strong> Players must memorize which sequences leave marbles stranded and avoid dead-end moves.</li>
+            <li><strong>Reverse Engineering:</strong> Teaches children to visualize the final winning state and plan opening moves to preserve the center space.</li>
+            <li>Logical deduction and puzzle-solving</li>
+            <li>Patience and persistence</li>
+            <li>Understanding constraints and limitations</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📦 What You'll Need</div>
+          <ul class="materials-list">
+            <li>A Marble Solitaire board (cross-shaped with 33 holes)</li>
+            <li>32 marbles or pegs</li>
+            <li>One player (solo game)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">📋 How to Play</div>
+          <div class="instructions">
+            <div class="instruction-step" data-step="1">
+              <strong>Set Up:</strong> Fill all holes with marbles except the center one.
+            </div>
+            <div class="instruction-step" data-step="2">
+              <strong>Make a Jump:</strong> Jump a marble over an adjacent marble into an empty hole, removing the jumped marble from the board.
+            </div>
+            <div class="instruction-step" data-step="3">
+              <strong>Continue Jumping:</strong> Repeat until no more jumps are possible.
+            </div>
+            <div class="instruction-step" data-step="4">
+              <strong>Win:</strong> Solve the puzzle when only 1 marble remains in the center hole. (This is harder than it sounds!)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleProject(this)">+ Expand Details</button>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- VIDEO SECTION (READY FOR YOUR VIDEO)                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="video-section">
+    <div class="video-container">
+      <h2>📹 Watch How-To Videos</h2>
+      <p>See these projects come to life with step-by-step video tutorials.</p>
+      
+      <div id="video-player-wrapper">
+        <div class="video-player">
+          <video id="diy-video" controls>
+            <source src="videos/diy-tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p class="video-upload-note">Video coming soon! Upload your DIY tutorial here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- CTA SECTION                                                                                   -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="cta-section">
+    <div class="cta-card">
+      <h2>🎯 Ready to Get Out & Explore?</h2>
+      <p>These projects are just the start. Discover summer camps, classes, and family activities in your area on SunScout.</p>
+      <button class="cta-button" onclick="location.href='/'">Explore Activities Near You</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <div class="footer">
+    <p>Made with 💜 by <strong>SunScout</strong> — helping Bay Area families find amazing activities.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+  <!-- JAVASCRIPT                                                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════ -->
+
+  <script>
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+    // AGE FILTERING
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+
+    let currentFilter = 'all';
+
+    function filterByAge(age) {
+      currentFilter = age;
+
+      // Update button states
+      document.querySelectorAll('.age-filter-btn').forEach(btn => {
+        btn.classList.remove('on');
+      });
+      event.target.classList.add('on');
+
+      // Filter cards
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const cardAges = card.dataset.ages.split(',');
+        let shouldShow = false;
+
+        if (age === 'all') {
+          shouldShow = true;
+        } else if (age === '2-5') {
+          shouldShow = cardAges.includes('2-5');
+        } else if (age === '6-8') {
+          shouldShow = cardAges.includes('6-8');
+        } else if (age === '8+') {
+          shouldShow = cardAges.includes('8+');
+        }
+
+        if (shouldShow) {
+          card.classList.add('visible');
+        } else {
+          card.classList.remove('visible');
+          card.classList.remove('open');
+        }
+      });
+    }
+
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+    // COLLAPSIBLE PROJECT CARDS
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+
+    function toggleProject(button) {
+      const card = button.parentElement;
+      card.classList.toggle('open');
+
+      if (card.classList.contains('open')) {
+        button.textContent = '− Collapse Details';
+      } else {
+        button.textContent = '+ Expand Details';
+      }
+    }
+
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+    // SMOOTH SCROLL & INITIAL STATE
+    // ───────────────────────────────────────────────────────────────────────────────────────────
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('✅ DIY Page Loaded');
+    });
+
+  </script>
+
+</body>
+
+</html>
