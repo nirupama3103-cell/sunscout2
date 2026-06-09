@@ -1,40 +1,372 @@
-# CLAUDE.md — SunScout Kids
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 DIY Crafts — SunScout Kids</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Nunito, sans-serif;
+      background: linear-gradient(135deg, #E3F2FD 0%, #FFF9E6 100%);
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #FF9900 0%, #FFC107 100%);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.1rem;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .hero {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .hero img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      max-height: 300px;
+    }
+    .hero h2 {
+      font-size: 1.8rem;
+      color: #FF9900;
+      margin-bottom: 12px;
+    }
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .chip {
+      background: #E8F5E9;
+      color: #2E7D32;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .chip.heat { background: #FFF3E0; color: #E65100; }
+    .project {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .project h3 {
+      color: #1565c0;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #FF9900;
+      padding-bottom: 12px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .step {
+      text-align: center;
+    }
+    .step-number {
+      background: linear-gradient(135deg, #FF9900, #FFC107);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.5rem;
+      margin: 0 auto 12px;
+    }
+    .step img, .step .icon {
+      width: 100%;
+      max-width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .step .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F5F5F5;
+      font-size: 3rem;
+    }
+    .step p {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #555;
+    }
+    .instructions {
+      background: #FFF9E6;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #FF9900;
+      margin: 20px 0;
+    }
+    .instructions h4 {
+      color: #FF9900;
+      margin-bottom: 12px;
+    }
+    .instructions ol {
+      margin-left: 20px;
+      color: #333;
+    }
+    .instructions li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .safety {
+      background: #FFF3E0;
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid #E65100;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+    .safety strong {
+      color: #E65100;
+    }
+    .gallery {
+      margin: 30px 0;
+    }
+    .gallery h4 {
+      color: #1565c0;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+    .gallery-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      padding: 12px;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .gallery-item p {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #555;
+    }
+    .more-ideas {
+      background: linear-gradient(135deg, #E1F5FE 0%, #F3E5F5 100%);
+      padding: 30px;
+      border-radius: 16px;
+      margin-top: 30px;
+    }
+    .more-ideas h3 {
+      color: #1565c0;
+      margin-bottom: 20px;
+    }
+    .idea-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .idea-card h4 {
+      color: #FF9900;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+    .idea-card p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+    .back-btn {
+      display: inline-block;
+      background: #1565c0;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-bottom: 20px;
+      border: none;
+      cursor: pointer;
+      font-family: Nunito, sans-serif;
+    }
+    .back-btn:hover {
+      background: #0d47a1;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      .hero { padding: 20px; }
+      .project { padding: 20px; }
+      .steps { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+      .step-number { width: 40px; height: 40px; font-size: 1.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎨 DIY Crafts</h1>
+    <p>Make something at home this summer</p>
+  </header>
 
-Context for working on this repo. Read before editing.
+  <div class="container">
+    <button class="back-btn" onclick="history.back()">← Back to SunScout</button>
 
-## What this is
-- **SunScout Kids** — a Bay Area family activity discovery web app. Live: **https://www.sunscoutkids.com**
-- Repo: `nirupama3103-cell/sunscout2` (note: lowercase + `2`; the old `SunScout` repo link 404s).
-- **Vanilla HTML/CSS/JS single-page app — no framework, no build step.** Do not introduce React, bundlers, or heavy libraries.
-- Dev in **GitHub Codespaces** (`/workspaces/sunscout2/`). Deployed on **Vercel**, auto-deploys on push to `main` (~30s).
-- Single audience: parents on phones. **Fast load and accessibility matter more than visual flash.** No video backgrounds, WebGL/Three.js, or 3D scroll effects.
+    <div class="hero">
+      <img src="images/diy-fusebeads-finished.jpg" alt="Finished fuse bead butterfly" loading="lazy">
+      <h2>Hot day? Rainy afternoon?</h2>
+      <p style="font-size: 1.1rem; color: #666; margin-bottom: 16px;">Make something beautiful at home with these easy, low-cost crafts.</p>
+      <div class="chips">
+        <span class="chip heat">🌡️ Beat the heat indoors</span>
+        <span class="chip">⚡ Low cost</span>
+        <span class="chip">🎯 Ages 5+</span>
+      </div>
+    </div>
 
-## Layout
-- `public/index.html` — the whole app, ~2,400+ lines (HTML + multiple `<style>` and `<script>` blocks inline).
-- `public/diy.html` — standalone DIY crafts page; images in `public/images/`.
-- `/api/` — Vercel serverless functions (mainly `api/activities.js`).
-- No `package.json`; `npm run dev` is broken. **Local preview:** `python3 -m http.server 8000 --directory public`.
+    <div class="project">
+      <h3>🌈 Rainbow Fuse-Bead Butterfly & Star</h3>
+      
+      <div class="chips" style="justify-content: flex-start; margin: 16px 0;">
+        <span class="chip">Ages 5+</span>
+        <span class="chip">30–45 min</span>
+        <span class="chip">Low mess</span>
+        <span class="chip">Low cost</span>
+      </div>
 
-## ⚠️ Gotchas (these have cost hours)
-- **There are ~5 parallel filter UIs** (a desktop tab bar, two dropdowns — `ssSelExplore`/`dtE` — floating pills, and the mobile bottom nav `bnavTab`). They all proxy into **one hidden canonical set of `.tab-btn[data-tab="..."]` buttons** via `setTab()`. To change a filter, update every UI *and* the canonical button. Grep first; never assume one edit covers it.
-- **Never blind find-and-replace common words.** "Free" / "Paid" appear in price badges, the About modal, meta tags, and `SRC_LABELS` — not just tabs. Anchor replacements tightly (e.g. on `onclick="dtE('free',...` or `tab-label">`), and verify with grep before committing.
-- **Footer and bottom nav are high-risk.** Small edits there have repeatedly broken layout. Edit carefully and preview.
-- **Weekend tab is locked Mon–Thu** (`floatWeekend()` alerts and bails). It looks "missing" on weekdays — it isn't.
-- **Line numbers drift.** Locate code by function/class names, not line numbers.
+      <h4 style="color: #1565c0; margin-top: 20px; margin-bottom: 12px;">What You'll Need</h4>
+      <ul style="margin-left: 20px; color: #555;">
+        <li>Fuse beads (red, blue, and other favorite colors)</li>
+        <li>Plastic pegboards (butterfly, star, or heart shapes)</li>
+        <li>Parchment paper or ironing paper (never wax paper!)</li>
+        <li>A household iron (adult-supervised)</li>
+        <li>Optional: tweezers for placing tiny beads</li>
+      </ul>
 
-## Data & APIs
-- Base data: **hardcoded activity arrays** (~320 activities across 7 cities). The canonical city list lives in the `CITIES` array — grep it rather than hardcoding.
-- Working APIs: **Pexels** (activity photos) and **Ticketmaster** (events).
-- Removed/dead — do not re-add: **Eventbrite** (v3 search deprecated 2024), **Google Places** (billing), **Yelp** (now paid), **Peachjar** (no public API).
-- Footer/privacy should only credit **Ticketmaster** (+ Pexels for photos). Keep these consistent across footer, privacy modal, and README.
-- DIY activities are home-based (no address/map): the `DIY` array powers the "no results" fallback, and `diy.html` is the richer standalone page.
+      <h4 style="color: #1565c0; margin-top: 20px; margin-bottom: 12px;">Step-by-Step</h4>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <img src="images/diy-fusebeads-supplies.jpg" alt="Supplies" loading="lazy">
+          <p>Gather your supplies</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <img src="images/diy-fusebeads-board-start.jpg" alt="Starting the design" loading="lazy">
+          <p>Place beads on the pegboard</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <img src="images/diy-fusebeads-onboard.jpg" alt="Filling in the design" loading="lazy">
+          <p>Fill in your design</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="icon">🔥</div>
+          <p>Iron it (adult only)</p>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <img src="images/diy-fusebeads-finished.jpg" alt="Finished butterfly" loading="lazy">
+          <p>Cool & enjoy!</p>
+        </div>
+      </div>
 
-## Conventions
-- Work in small batches. **Show a diff before committing.**
-- After each change, **grep to verify** the edit landed as intended before `git add / commit / push`.
-- Commit → push to `main` → Vercel redeploys ~30s → verify on the live URL.
-- Match the existing brand: Nunito font, sunny orange (`#FF9900`) + blue (`#1565c0`), rounded corners, warm/friendly tone. Sentence case, plain kid-and-parent-friendly copy.
-- Respect `prefers-reduced-motion`; keep images lazy-loaded and compressed (~150–320KB, long edge ≤1400px).
+      <div class="instructions">
+        <h4>📝 Detailed Instructions</h4>
+        <ol>
+          <li><strong>Set up your station:</strong> Use a flat, stable table. Place one pegboard in front of you.</li>
+          <li><strong>Place beads one by one:</strong> For a butterfly, outline the wings in dark blue, then fill with bright red. For a star or heart, work symmetrically from center. Beads should sit loosely on the pegs—don't press down hard.</li>
+          <li><strong>Prep for ironing:</strong> Carefully move the pegboard to your ironing station. Turn off steam and set the iron to medium dry heat (wool setting works best).</li>
+          <li><strong>Fuse (adults only):</strong> Place parchment paper flat over your design. Iron slowly in small circles for 10–20 seconds. You'll see colors become vibrant as the bead tops melt together. Don't press hard.</li>
+          <li><strong>Cool & finish:</strong> Let it cool 1 minute. Peel off parchment paper. Flip it over, re-apply parchment, and iron the back side for 10 seconds. Place a heavy book on top for 5 minutes while cooling completely.</li>
+        </ol>
+      </div>
 
-## Child-safety
-This is a children's product. Keep all content age-appropriate and parent-trustworthy. Flag adult-supervision steps (e.g. ironing in the fuse-bead craft) clearly.
+      <div class="safety">
+        <strong>⚠️ Safety note:</strong> The iron gets very hot—adult supervision required for steps 3 and 4. Fuse beads are small and not recommended for children under 3. This is a great project for kids 5+ with parental help.
+      </div>
+
+      <div class="gallery">
+        <h4>🎨 Your designs can look like...</h4>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="images/diy-fusebeads-finished.jpg" alt="Rainbow butterfly" loading="lazy">
+            <p>Rainbow Butterfly</p>
+          </div>
+          <div class="gallery-item">
+            <img src="images/diy-fusebeads-star.jpg" alt="Colorful star" loading="lazy">
+            <p>Colorful Star</p>
+          </div>
+          <div class="gallery-item">
+            <img src="images/diy-fusebeads-heart.jpg" alt="Red & blue heart" loading="lazy">
+            <p>Sweet Heart</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="more-ideas">
+      <h3>🎯 More DIY Ideas</h3>
+      <div class="idea-card">
+        <h4>🧪 Kitchen Science</h4>
+        <p>Volcano eruptions, color mixing, crystal-growing experiments. Turn your kitchen into a lab with stuff you already have.</p>
+      </div>
+      <div class="idea-card">
+        <h4>🔍 Nature Scavenger Hunt</h4>
+        <p>Hunt for leaves, rocks, bugs, and treasures in your yard. Sort them, press them in a book, or make a nature collage.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>💡 More DIY ideas coming soon! Have a project idea? Let us know.</p>
+    <p style="margin-top: 12px; font-size: 0.85rem;">SunScout Kids — Making summers fun, one activity at a time.</p>
+  </footer>
+</body>
+</html>
