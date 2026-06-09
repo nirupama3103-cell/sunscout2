@@ -283,6 +283,27 @@
 .carousel-controls { display: none !important; }
 </style>
 
+
+<style>
+/* Fix overlapping DIY cards */
+.diy-cards-container, .cards-grid, .activities-grid, [class*="grid"], [class*="container"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  align-items: center !important;
+  padding: 20px 16px !important;
+  overflow: visible !important;
+}
+.diy-card, .activity-card, [class*="card"] {
+  position: static !important;
+  width: 100% !important;
+  max-width: 780px !important;
+  margin-bottom: 0 !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+}
+</style>
+
 </head>
 <body>
   <div class="header">
