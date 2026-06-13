@@ -102,6 +102,13 @@ button{cursor:pointer;font-family:inherit;border:none}
 .card-scene:nth-child(3) .card-back{background:linear-gradient(150deg,#10b981,#0ea5e9)}
 .card-scene:nth-child(4) .card-back{background:linear-gradient(150deg,#f59e0b,#ef4444)}
 .card-scene:nth-child(5) .card-back{background:linear-gradient(150deg,#8b5cf6,#ec4899)}
+.card-scene:nth-child(6) .card-back{background:linear-gradient(150deg,#06b6d4,#10b981)}
+.card-scene:nth-child(7) .card-back{background:linear-gradient(150deg,#84cc16,#14b8a6)}
+.card-scene:nth-child(8) .card-back{background:linear-gradient(150deg,#f59e0b,#8b5cf6)}
+
+/* EMOJI HERO — used for cards without a photo */
+.card-emoji-hero{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-size:6rem;flex-direction:column;gap:6px;position:relative}
+.card-emoji-hero span{font-size:.85rem;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.3px}
 
 /* SPARKLE BURST on flip */
 @keyframes burst{0%{transform:scale(0) rotate(0deg);opacity:1}100%{transform:scale(2.2) rotate(180deg);opacity:0}}
@@ -361,6 +368,141 @@ button{cursor:pointer;font-family:inherit;border:none}
                 <li data-n="2">Hop a marble over an adjacent one into empty hole</li>
                 <li data-n="3">Remove the jumped marble each time</li>
                 <li data-n="4">Win: only 1 marble left in the center!</li>
+              </ol>
+            </div>
+          </div>
+          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIME LAB -->
+    <div class="card-scene visible" data-ages="2-5,6-8">
+      <div class="card-inner" onclick="flipCard(this,event)">
+        <div class="card-front" style="background:linear-gradient(135deg,#e0f2fe,#fce7f3)">
+          <div style="position:relative">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#7dd3fc,#f9a8d4)">🧪<span>Slime Lab</span></div>
+            <div class="card-front-icon">🧪</div>
+          </div>
+          <div class="card-front-body">
+            <div class="card-front-title">Homemade Slime Lab</div>
+            <div class="card-front-badge">Ages 4+</div>
+            <button class="card-front-tap">✨ Flip to Play →</button>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-img-wrap">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#38bdf8,#e879f9);height:160px">🧪</div>
+            <div class="card-back-icon-pill">🧪</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Homemade Slime Lab</span><span class="card-back-img-badge">Ages 4+</span></div>
+          </div>
+          <p class="card-back-desc">Mix glue, baking soda, and contact lens solution to create stretchy, squishy slime in any color you choose — a classic STEM sensory experiment kids beg to do again!</p>
+          <div class="card-back-sections">
+            <div class="back-section">
+              <div class="back-section-title">💡 What Kids Learn</div>
+              <ul><li>Basic chemistry &amp; states of matter</li><li>Measuring &amp; following instructions</li><li>Sensory exploration &amp; creativity</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📦 You'll Need</div>
+              <ul><li>White PVA school glue · Baking soda</li><li>Contact lens solution (must contain boric acid)</li><li>Food coloring · Mixing bowl &amp; spoon</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📋 Steps</div>
+              <ol class="back-steps">
+                <li data-n="1">Pour ½ cup glue into bowl, add food coloring</li>
+                <li data-n="2">Mix in ½ tsp baking soda until smooth</li>
+                <li data-n="3">Add 1 tbsp contact solution, stir fast</li>
+                <li data-n="4">Knead until slime forms — stretch &amp; play!</li>
+              </ol>
+            </div>
+          </div>
+          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NATURE TERRARIUM -->
+    <div class="card-scene visible" data-ages="2-5,6-8,8+">
+      <div class="card-inner" onclick="flipCard(this,event)">
+        <div class="card-front" style="background:linear-gradient(135deg,#dcfce7,#d1fae5)">
+          <div style="position:relative">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#4ade80,#2dd4bf)">🌿<span>Nature Terrarium</span></div>
+            <div class="card-front-icon">🌿</div>
+          </div>
+          <div class="card-front-body">
+            <div class="card-front-title">Nature Terrarium</div>
+            <div class="card-front-badge">Ages 4+</div>
+            <button class="card-front-tap">✨ Flip to Play →</button>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-img-wrap">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#22c55e,#0d9488);height:160px">🌿</div>
+            <div class="card-back-icon-pill">🌿</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Nature Terrarium</span><span class="card-back-img-badge">Ages 4+</span></div>
+          </div>
+          <p class="card-back-desc">Build a tiny living world inside a glass jar using rocks, soil, and small plants gathered from your Bay Area backyard or local park — a mini ecosystem that kids water and watch grow!</p>
+          <div class="card-back-sections">
+            <div class="back-section">
+              <div class="back-section-title">💡 What Kids Learn</div>
+              <ul><li>Plant biology &amp; ecosystems</li><li>Responsibility through daily care</li><li>Nature observation &amp; patience</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📦 You'll Need</div>
+              <ul><li>Glass jar or clear container (wide-mouth)</li><li>Pebbles · Activated charcoal (optional) · Potting soil</li><li>Small plants: succulents, moss, or ferns</li><li>Decorative rocks, mini figurines</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📋 Steps</div>
+              <ol class="back-steps">
+                <li data-n="1">Add 1″ pebble layer for drainage</li>
+                <li data-n="2">Sprinkle thin layer of charcoal to keep it fresh</li>
+                <li data-n="3">Add 2–3″ of potting soil, shape hills &amp; valleys</li>
+                <li data-n="4">Plant greenery, decorate, mist lightly &amp; enjoy!</li>
+              </ol>
+            </div>
+          </div>
+          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAPER CIRCUITS -->
+    <div class="card-scene visible" data-ages="8+">
+      <div class="card-inner" onclick="flipCard(this,event)">
+        <div class="card-front" style="background:linear-gradient(135deg,#fef9c3,#fef3c7)">
+          <div style="position:relative">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#fbbf24,#a78bfa)">💡<span>Paper Circuits</span></div>
+            <div class="card-front-icon">💡</div>
+          </div>
+          <div class="card-front-body">
+            <div class="card-front-title">Paper Circuit Cards</div>
+            <div class="card-front-badge">Ages 8+</div>
+            <button class="card-front-tap">✨ Flip to Play →</button>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-img-wrap">
+            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#f59e0b,#7c3aed);height:160px">💡</div>
+            <div class="card-back-icon-pill">💡</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Paper Circuit Cards</span><span class="card-back-img-badge">Ages 8+</span></div>
+          </div>
+          <p class="card-back-desc">Use copper tape and a tiny LED to make greeting cards that actually light up — a Silicon Valley-inspired STEM craft that teaches real electrical circuits through art!</p>
+          <div class="card-back-sections">
+            <div class="back-section">
+              <div class="back-section-title">💡 What Kids Learn</div>
+              <ul><li>Basic electrical circuits (series &amp; parallel)</li><li>Conductors, insulators &amp; polarity</li><li>Engineering design &amp; creative problem-solving</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📦 You'll Need</div>
+              <ul><li>Cardstock or thick paper · Copper tape</li><li>3V coin battery (CR2032) · LED lights</li><li>Markers, stickers for decorating</li></ul>
+            </div>
+            <div class="back-section">
+              <div class="back-section-title">📋 Steps</div>
+              <ol class="back-steps">
+                <li data-n="1">Draw your card design, mark where LED will shine</li>
+                <li data-n="2">Lay copper tape in a loop from + to – battery spot</li>
+                <li data-n="3">Place LED legs across the tape gap (match + / –)</li>
+                <li data-n="4">Slide battery in, fold card — watch it glow! 🌟</li>
               </ol>
             </div>
           </div>
