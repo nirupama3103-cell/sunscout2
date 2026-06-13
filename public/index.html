@@ -685,6 +685,8 @@ html { scroll-behavior: smooth; }
 }
 
 @media(max-width:640px){.hide-on-mobile,.hide-mobile{display:none!important;}}
+/* hide ssChip on mobile — weatherBanner covers the same info */
+@media(max-width:640px){#ssChip{display:none!important;}}
 /* ss-hide-old */
 @media(max-width:640px){
   .hero-search{display:none!important;}
