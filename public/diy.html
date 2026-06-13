@@ -88,6 +88,11 @@ button{cursor:pointer;font-family:inherit;border:none}
 .card-back-flip{margin:0 16px 14px;padding:9px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-weight:800;font-size:.82rem;border-radius:12px;flex-shrink:0;transition:background .2s}
 .card-back-flip:hover{background:rgba(255,255,255,.3)}
 
+/* POINTER EVENTS — back face blocks clicks when hidden */
+.card-back{pointer-events:none}
+.card-scene.flipped .card-back{pointer-events:auto}
+.card-scene.flipped .card-front{pointer-events:none}
+
 /* PER-CARD BACK GRADIENTS */
 .card-scene:nth-child(1) .card-back{background:linear-gradient(150deg,#f97316,#ec4899)}
 .card-scene:nth-child(2) .card-back{background:linear-gradient(150deg,#3b82f6,#8b5cf6)}
