@@ -328,8 +328,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 .sfb-chip.sfb-active { background: #FF9900; color: #fff; border-color: #e68900; }
 .sfb-divider { flex: 0 0 1px; height: 20px; background: #eee; }
 @media(max-width: 640px) {
-  #sticky-filter-bar { display: block; visibility: hidden; opacity: 0; transition: opacity .2s; }
-  #sticky-filter-bar.sfb-visible { visibility: visible; opacity: 1; }
+  #sticky-filter-bar { display: none !important; }
 }
 
 #bottom-nav {
