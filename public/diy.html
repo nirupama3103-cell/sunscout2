@@ -73,20 +73,22 @@ button{cursor:pointer;font-family:inherit;border:none}
 
 /* BACK */
 .card-back{transform:rotateY(180deg);color:#fff;display:flex;flex-direction:column;overflow-y:auto}
-.card-back-header{padding:16px 16px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.card-back-icon{font-size:1.8rem}
-.card-back-title{font-size:1.1rem;font-weight:900}
-.card-back-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4)}
-.card-back-sections{padding:0 16px 12px;flex:1;overflow-y:auto}
-.back-section{margin-bottom:14px}
-.back-section-title{font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:6px}
-.back-section ul,.back-section ol{padding-left:18px;font-size:.82rem;line-height:1.55}
-.back-section li{margin-bottom:4px}
+.card-back-img-wrap{position:relative;flex-shrink:0;height:160px;overflow:hidden}
+.card-back-img-wrap img{width:100%;height:160px;object-fit:cover;object-position:center;display:block}
+.card-back-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,rgba(0,0,0,.0) 55%);display:flex;align-items:flex-end;padding:10px 14px}
+.card-back-img-title{font-size:1.1rem;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.card-back-img-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);margin-left:8px;color:#fff}
+.card-back-icon-pill{position:absolute;top:10px;left:12px;font-size:1.4rem;background:rgba(255,255,255,.9);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.card-back-sections{padding:0 14px 8px;flex:1;overflow-y:auto}
+.back-section{margin-bottom:12px}
+.back-section-title{font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:5px}
+.back-section ul,.back-section ol{padding-left:16px;font-size:.8rem;line-height:1.5}
+.back-section li{margin-bottom:3px}
 .back-steps{list-style:none;padding:0}
-.back-steps li{font-size:.82rem;line-height:1.5;padding-left:28px;position:relative;margin-bottom:6px}
-.back-steps li::before{content:attr(data-n);position:absolute;left:0;top:1px;width:20px;height:20px;background:rgba(255,255,255,.3);border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
-.card-back-desc{font-size:.82rem;line-height:1.55;opacity:.92;padding:0 16px 12px;border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:4px}
-.card-back-flip{margin:0 16px 14px;padding:9px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-weight:800;font-size:.82rem;border-radius:12px;flex-shrink:0;transition:background .2s}
+.back-steps li{font-size:.8rem;line-height:1.5;padding-left:26px;position:relative;margin-bottom:5px}
+.back-steps li::before{content:attr(data-n);position:absolute;left:0;top:1px;width:19px;height:19px;background:rgba(255,255,255,.3);border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.card-back-desc{font-size:.8rem;line-height:1.5;opacity:.93;padding:10px 14px 10px;border-bottom:1px solid rgba(255,255,255,.2)}
+.card-back-flip{margin:0 14px 12px;padding:8px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-weight:800;font-size:.8rem;border-radius:12px;flex-shrink:0;transition:background .2s}
 .card-back-flip:hover{background:rgba(255,255,255,.3)}
 
 /* POINTER EVENTS — back face blocks clicks when hidden */
@@ -157,9 +159,10 @@ button{cursor:pointer;font-family:inherit;border:none}
           </div>
         </div>
         <div class="card-back">
-          <div class="card-back-header">
-            <span class="card-back-icon">🫀</span>
-            <div><div class="card-back-title">Fuse Beads</div><span class="card-back-badge">Ages 3+</span></div>
+          <div class="card-back-img-wrap">
+            <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" loading="lazy">
+            <div class="card-back-icon-pill">🫀</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Fuse Beads</span><span class="card-back-img-badge">Ages 3+</span></div>
           </div>
           <p class="card-back-desc">Place tiny colorful beads onto a pegboard to make a design, then fuse them together with a warm iron to create a keepsake you can hold, hang, or gift!</p>
           <div class="card-back-sections">
@@ -201,9 +204,10 @@ button{cursor:pointer;font-family:inherit;border:none}
           </div>
         </div>
         <div class="card-back">
-          <div class="card-back-header">
-            <span class="card-back-icon">🏠</span>
-            <div><div class="card-back-title">LEGO Building</div><span class="card-back-badge">Ages 2+</span></div>
+          <div class="card-back-img-wrap">
+            <img src="/images/diy-lego.png" alt="LEGO Building" loading="lazy">
+            <div class="card-back-icon-pill">🏠</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">LEGO Building</span><span class="card-back-img-badge">Ages 2+</span></div>
           </div>
           <p class="card-back-desc">Stack bricks to build anything you can imagine — a cozy house, a tall tower, or a whole city! DUPLO for little hands, classic LEGO for bigger builders.</p>
           <div class="card-back-sections">
@@ -245,9 +249,10 @@ button{cursor:pointer;font-family:inherit;border:none}
           </div>
         </div>
         <div class="card-back">
-          <div class="card-back-header">
-            <span class="card-back-icon">🎲</span>
-            <div><div class="card-back-title">Snakes &amp; Ladders</div><span class="card-back-badge">Ages 3+</span></div>
+          <div class="card-back-img-wrap">
+            <img src="/images/diy-snake.png" alt="Snakes and Ladders" loading="lazy">
+            <div class="card-back-icon-pill">🎲</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Snakes &amp; Ladders</span><span class="card-back-img-badge">Ages 3+</span></div>
           </div>
           <p class="card-back-desc">Race to space 100 on a numbered grid — climb ladders to zoom ahead, or slide down snakes and try again! A classic game of luck, counting, and never giving up.</p>
           <div class="card-back-sections">
@@ -289,9 +294,10 @@ button{cursor:pointer;font-family:inherit;border:none}
           </div>
         </div>
         <div class="card-back">
-          <div class="card-back-header">
-            <span class="card-back-icon">✨</span>
-            <div><div class="card-back-title">Chinese Checkers</div><span class="card-back-badge">Ages 6+</span></div>
+          <div class="card-back-img-wrap">
+            <img src="/images/diy-chinese.png" alt="Chinese Checkers" loading="lazy">
+            <div class="card-back-icon-pill">✨</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Chinese Checkers</span><span class="card-back-img-badge">Ages 6+</span></div>
           </div>
           <p class="card-back-desc">Race your marbles across a star-shaped board to the opposite corner before your opponents do. Hop over other marbles to leap ahead — strategy wins here!</p>
           <div class="card-back-sections">
@@ -333,9 +339,10 @@ button{cursor:pointer;font-family:inherit;border:none}
           </div>
         </div>
         <div class="card-back">
-          <div class="card-back-header">
-            <span class="card-back-icon">🤔</span>
-            <div><div class="card-back-title">Marble Solitaire</div><span class="card-back-badge">Ages 8+</span></div>
+          <div class="card-back-img-wrap">
+            <img src="/images/diy-marble.png" alt="Marble Solitaire" loading="lazy">
+            <div class="card-back-icon-pill">🤔</div>
+            <div class="card-back-img-overlay"><span class="card-back-img-title">Marble Solitaire</span><span class="card-back-img-badge">Ages 8+</span></div>
           </div>
           <p class="card-back-desc">A solo brain-teaser! Start with a full board and one empty center hole. Jump marbles over each other to remove them — your goal is to leave just one marble standing, right in the middle.</p>
           <div class="card-back-sections">
