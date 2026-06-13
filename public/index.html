@@ -328,7 +328,8 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 .sfb-chip.sfb-active { background: #FF9900; color: #fff; border-color: #e68900; }
 .sfb-divider { flex: 0 0 1px; height: 20px; background: #eee; }
 @media(max-width: 640px) {
-  #sticky-filter-bar { display: block; }
+  #sticky-filter-bar { display: block; visibility: hidden; opacity: 0; transition: opacity .2s; }
+  #sticky-filter-bar.sfb-visible { visibility: visible; opacity: 1; }
 }
 
 #bottom-nav {
@@ -2436,6 +2437,20 @@ function setMobileCity(city, btn) {
 // Build cities on load
 document.addEventListener('DOMContentLoaded', function(){ buildMobileCities(); });
 setTimeout(buildMobileCities, 500);
+
+// Show sticky filter bar only after age-bar scrolls out of view
+(function() {
+  var sentinel = document.querySelector('.age-bar');
+  var bar = document.getElementById('sticky-filter-bar');
+  if (!sentinel || !bar || !window.IntersectionObserver) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) bar.classList.remove('sfb-visible');
+      else bar.classList.add('sfb-visible');
+    });
+  }, { threshold: 0 });
+  obs.observe(sentinel);
+})();
 
 
 
