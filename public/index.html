@@ -27,7 +27,7 @@
   <meta property="og:locale" content="en_US">
 
   <!-- ── Twitter Card ── -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
   <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
@@ -328,7 +328,8 @@ body { padding-bottom: env(safe-area-inset-bottom); }
 .sfb-chip.sfb-active { background: #FF9900; color: #fff; border-color: #e68900; }
 .sfb-divider { flex: 0 0 1px; height: 20px; background: #eee; }
 @media(max-width: 640px) {
-  #sticky-filter-bar { display: block; }
+  #sticky-filter-bar { display: block; visibility: hidden; opacity: 0; transition: opacity .2s; }
+  #sticky-filter-bar.sfb-visible { visibility: visible; opacity: 1; }
 }
 
 #bottom-nav {
@@ -820,6 +821,77 @@ html { scroll-behavior: smooth; }
 }
 </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
+  <!-- ── JSON-LD Structured Data ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.sunscoutkids.com/#website",
+        "url": "https://www.sunscoutkids.com/",
+        "name": "SunScout Kids",
+        "description": "Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
+        "inLanguage": "en-US",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://www.sunscoutkids.com/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.sunscoutkids.com/#org",
+        "name": "SunScout Kids",
+        "url": "https://www.sunscoutkids.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.sunscoutkids.com/sun-logo.png"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "sunscout2026@gmail.com",
+          "contactType": "customer support"
+        },
+        "areaServed": [
+          "Sunnyvale, CA", "San Jose, CA", "Cupertino, CA",
+          "Mountain View, CA", "Palo Alto, CA", "Saratoga, CA", "Fremont, CA"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.sunscoutkids.com/#webpage",
+        "url": "https://www.sunscoutkids.com/",
+        "name": "SunScout – Free & Paid Summer Activities for Bay Area Kids",
+        "isPartOf": { "@id": "https://www.sunscoutkids.com/#website" },
+        "about": { "@id": "https://www.sunscoutkids.com/#org" },
+        "description": "320+ free and paid summer activities for kids across 7 Bay Area cities. Filter by age, city, indoor/outdoor, and budget.",
+        "inLanguage": "en-US",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Parents and families with children"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Bay Area Kids Summer Activities",
+        "description": "Curated list of 320+ free and paid summer activities for kids in the San Francisco Bay Area.",
+        "numberOfItems": 320,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Free Summer Activities", "url": "https://www.sunscoutkids.com/?tab=free" },
+          { "@type": "ListItem", "position": 2, "name": "Paid Summer Camps & Classes", "url": "https://www.sunscoutkids.com/?tab=paid" },
+          { "@type": "ListItem", "position": 3, "name": "Indoor Activities", "url": "https://www.sunscoutkids.com/?tab=indoor" },
+          { "@type": "ListItem", "position": 4, "name": "Outdoor Activities", "url": "https://www.sunscoutkids.com/?tab=outdoor" },
+          { "@type": "ListItem", "position": 5, "name": "Weekend Activities", "url": "https://www.sunscoutkids.com/?tab=weekend" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -2365,6 +2437,20 @@ function setMobileCity(city, btn) {
 // Build cities on load
 document.addEventListener('DOMContentLoaded', function(){ buildMobileCities(); });
 setTimeout(buildMobileCities, 500);
+
+// Show sticky filter bar only after age-bar scrolls out of view
+(function() {
+  var sentinel = document.querySelector('.age-bar');
+  var bar = document.getElementById('sticky-filter-bar');
+  if (!sentinel || !bar || !window.IntersectionObserver) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) bar.classList.remove('sfb-visible');
+      else bar.classList.add('sfb-visible');
+    });
+  }, { threshold: 0 });
+  obs.observe(sentinel);
+})();
 
 
 
