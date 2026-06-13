@@ -1099,6 +1099,22 @@ html { scroll-behavior: smooth; }
     z-index: 99999 !important;
   }
 }
+/* MOBILE FILTER PILL: bigger, more readable */
+@media(max-width:640px){
+  #ssc-city, #ssc-age {
+    padding: 11px 14px !important;
+  }
+  #ssc-city > div:first-child,
+  #ssc-age > div:first-child {
+    font-size: 10px !important;
+    margin-bottom: 2px;
+  }
+  #ssv-city, #ssv-age {
+    font-size: 14px !important;
+    color: #1a1a1a !important;
+    font-weight: 800 !important;
+  }
+}
 
 .ssac[onclick*="'0'"]{background:#FFF3E0;color:#c05e00;border-color:#FFD580;}
 .ssac[onclick*="'1'"]{background:#F0FDF4;color:#15803d;border-color:#86efac;}
