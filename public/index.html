@@ -101,7 +101,7 @@ img{max-width:100%;display:block}
 .card{background:#fff!important;color:#1a1a1a!important;border:none;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.07);transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-5px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
 .card-img-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f0f0;flex-shrink:0}
-.card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#fff8ed,#ffe0b2)}
 .badge-free{position:absolute;top:8px;left:8px;background:var(--green);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(22,163,74,.4);letter-spacing:.3px}
 .badge-src{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
 .card-body{padding:12px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
@@ -187,7 +187,7 @@ img{max-width:100%;display:block}
   .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
-@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:9px 10px;gap:4px}.card-title{font-size:13px!important}.card-foot{padding:6px 10px 10px;gap:5px}.card-img-wrap{aspect-ratio:16/9}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
@@ -353,7 +353,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
   /* removed conflicting aspect-ratio */
-  .card-title { font-size: 12px; }color:#1a1a1a!important;
+  .card-title { font-size: 13px!important; }color:#1a1a1a!important;
   .logo { font-size: 2rem; }
   #plan-modal { 
     border-radius: 20px 20px 0 0;
@@ -1541,7 +1541,7 @@ function renderCards() {
     var favKey = activeTab+"_"+i;
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
-    return "<article class=\"card\" data-idx=\""+i+"\">"+
+    return "<article class=\"card\" data-idx=\""+i+"\" onclick=\"openDetail("+i+")\" style=\"cursor:pointer\">"+
       "<div class=\"card-img-wrap\">"+
         getCardHTML(a)+
         "<span class=\"badge-free\" style=\""+badgeBg+"\">"+priceBadge+"</span>"+
@@ -1549,20 +1549,15 @@ function renderCards() {
       "</div>"+
       "<div class=\"card-body\">"+
         "<h3 class=\"card-title\">"+esc(a.name)+"</h3>"+
-        (st ? "<div class=\"stars\">"+st+"</div>" : "")+
         "<div class=\"chips\">"+ac+a11+pc+"</div>"+
         (a.address ? "<p class=\"info\"><span>📍</span><span>"+esc(a.address)+"</span></p>" : "")+
-        (a.phone   ? "<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>" : "")+
         "<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+
-        (a.desc ? "<p class=\"info\"><span></span><span>"+esc(a.desc.slice(0,120))+(a.desc.length>120?"…":"")+"</span></p>" : "")+
+        (a.desc ? "<p class=\"info\" style=\"color:#777;font-size:11px\"><span>"+esc(a.desc.slice(0,90))+(a.desc.length>90?"…":"")+"</span></p>" : "")+
       "</div>"+
       "<div class=\"card-foot\">"+
-        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
-        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
-        // ── FIX 3: heart button with full badge sync ──
-        "<button class=\"btn\" aria-label=\"Save to My List\" style=\"margin-left:auto;font-size:15px;border:none;background:none;padding:4px 8px\" onclick=\"event.stopPropagation();(function(){var k='"+favKey+"';var favs=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');var already=favs.some(function(x){return x.key===k;});if(already){favs=favs.filter(function(x){return x.key!==k;});}else{favs.push({key:k,name:'"+JSON.stringify(a.name || '')+"',city:'"+(a.city||activeCity)+"',category:activeTab,mapsUrl:'"+(a.mapsUrl||"")+"'});}try{localStorage.setItem('sunscout_mylist',JSON.stringify(favs));}catch(e){}favorites=favs;updateMyListBadge(); updateFloatPillBadge();updateBnavBadge();updateDesktopMyListBadge();this.textContent=favs.some(function(x){return x.key===k;})?'❤️':'🤍';}).call(this)\">"+(isFaved?"❤️":"🤍")+"</button>"+
-        "<button class=\"btn\" onclick=\"event.stopPropagation();var shareUrl='https://www.sunscoutkids.com';if(navigator.share){navigator.share({title:this.closest('article').querySelector('.card-title').textContent,url:shareUrl});}else{navigator.clipboard.writeText(shareUrl);this.textContent='✅';}\" style=\"font-size:12px;padding:5px 10px;\">📤</button>"+
-        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
+        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">🗺 Map</a>"+
+        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">🌐 Site</a>" : "")+
+        "<button class=\"btn card-save-btn\" aria-label=\"Save to My List\" style=\"margin-left:auto;font-size:13px;font-weight:800;padding:5px 12px;border-radius:99px;border:1.5px solid "+(isFaved?"#ef4444":"rgba(0,0,0,.12)")+";background:"+(isFaved?"#fff0f0":"#fff")+";color:"+(isFaved?"#ef4444":"#888")+"\" onclick=\"event.stopPropagation();(function(){var k='"+favKey+"';var favs=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');var already=favs.some(function(x){return x.key===k;});if(already){favs=favs.filter(function(x){return x.key!==k;});}else{favs.push({key:k,name:'"+JSON.stringify(a.name || '')+"',city:'"+(a.city||activeCity)+"',category:activeTab,mapsUrl:'"+(a.mapsUrl||"")+"'});}try{localStorage.setItem('sunscout_mylist',JSON.stringify(favs));}catch(e){}favorites=favs;updateMyListBadge();updateFloatPillBadge();updateBnavBadge();updateDesktopMyListBadge();var saved=favs.some(function(x){return x.key===k;});this.textContent=saved?'❤️ Saved':'🤍 Save';this.style.borderColor=saved?'#ef4444':'rgba(0,0,0,.12)';this.style.background=saved?'#fff0f0':'#fff';this.style.color=saved?'#ef4444':'#888';}).call(this)\">"+(isFaved?"❤️ Saved":"🤍 Save")+"</button>"+
       "</div>"+
     "</article>";
   }).join("");
