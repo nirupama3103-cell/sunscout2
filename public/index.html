@@ -185,7 +185,7 @@ img{max-width:100%;display:block}
 @media(prefers-color-scheme:dark){
   body{background:#1a1a1a;color:#f0f0f0}
   .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
-  .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
+  .card-title{color:#f0f0f0}
   .info{color:#aaa}
 }
 @media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
@@ -353,7 +353,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
   /* removed conflicting aspect-ratio */
-  .card-title { font-size: 12px; }color:#1a1a1a!important;
+  .card-title { font-size: 12px; }
   .logo { font-size: 2rem; }
   #plan-modal { 
     border-radius: 20px 20px 0 0;
@@ -1685,7 +1685,7 @@ function clearCity() {
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   activeCity=null;
   var _cf0=document.getElementById("cityFact"); if(_cf0) _cf0.textContent="";
-  document.getElementById("weatherBanner").style.display="none";
+  var _wb0=document.getElementById("weatherBanner"); if(_wb0) _wb0.style.display="none";
   document.getElementById("statusBar").innerHTML="Select a city above";
   updateFilterStrip();
 }
@@ -1703,7 +1703,7 @@ function setCity(btn) {
     var _cf1=document.getElementById("cityFact"); if(_cf1) _cf1.textContent="";
     document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city to get started!</h2></div>";
     document.getElementById("statusBar").innerHTML = "Select a city above";
-    document.getElementById("weatherBanner").style.display = "none";
+    var _wb1=document.getElementById("weatherBanner"); if(_wb1) _wb1.style.display = "none";
     return;
   }
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
@@ -1788,10 +1788,7 @@ loadActivities();
 
 // FAVORITES
 
-// XSS protection — always escape user-sourced data before innerHTML
-function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
-// XSS protection — escape all API-sourced data before innerHTML
+// XSS protection — escape all user/API-sourced data before innerHTML
 function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 
 // Weather cache — 10 min TTL, shared across all city switches
@@ -2339,7 +2336,7 @@ setTimeout(buildMobileCities, 500);
 
 
 function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
-function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";document.getElementById("ssChip").textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
+function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var _sc=document.getElementById("ssChip");if(_sc)_sc.textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
 function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
