@@ -768,7 +768,7 @@ html { scroll-behavior: smooth; }
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;position:relative;">❤️ My List<span id="desktopMyListBadge" class="mylist-badge"></span></button></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- Full width search -->
@@ -857,7 +857,7 @@ html { scroll-behavior: smooth; }
     .dtmr{padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
     .dtmr:hover{background:#FFF3E0;}
     </style>
-<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
+<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span><span id="countdown" class="countdown" style="margin-left:8px;"></span></div>
 <div style="margin-top:8px;">
   <span id="desktopWeatherChip" onclick="weatherChipClick()" class="hide-on-mobile" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#7a3d00;font-family:Nunito,sans-serif;cursor:pointer;">🌤️ Loading weather...</span>
 </div>
@@ -930,6 +930,7 @@ html { scroll-behavior: smooth; }
     <button class="sheet-city-btn" onclick="selectCity('Saratoga',this)">&#127800; Saratoga</button>
     <button class="sheet-city-btn" style="grid-column:span 2;" onclick="selectCity('Fremont',this)">&#127751; Fremont</button>
   </div>
+  <div id="m-city-grid" class="m-city-grid" style="display:none;padding:8px 16px 24px;"></div>
 </div>
 
 <!-- ── Activity type bottom sheet ── -->
@@ -1215,7 +1216,16 @@ document.addEventListener('DOMContentLoaded',function(){updateWeatherStrip('Sunn
 
 
 
+<div id="weekendBanner" class="weekend-banner">🎉 It's the weekend! Check out curated weekend activities for the whole family.</div>
+
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
+
+<div id="filterStrip" style="display:none;flex-wrap:wrap;gap:6px;padding:4px 16px 8px;align-items:center;"></div>
+
+<div class="action-bar">
+  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
+  <button class="action-bar-mylist" onclick="openMyList()" style="position:relative;">❤️ My List<span id="mylistBadge" class="action-bar-badge"></span></button>
+</div>
 
 <main id="main">
   <div class="grid" id="grid"></div>
@@ -1672,6 +1682,7 @@ function fmtDate(d) {
 
 function updateFilterStrip() {
   var strip = document.getElementById("filterStrip");
+  if (!strip) return;
   var parts = [];
   if (activeCity) parts.push("<span class='fstrip-pill'>📍 "+activeCity+" <button onclick='clearCity()'>✕</button></span>");
   if (activeAge && activeAge !== "all") {
