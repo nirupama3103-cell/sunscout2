@@ -51,9 +51,9 @@ img{max-width:100%;display:block}
 .header{text-align:center;padding:28px 16px 0}
 .logo{font-size:2.2rem;font-weight:900;color:var(--sun);line-height:1;padding:0;margin:0 auto}
 .logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
-.tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
+.tagline{font-size:.95rem;color:#666;font-weight:400;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
-.weather-banner{display:none;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
+.weather-banner{display:none;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:600;font-size:14px;color:#fff;text-align:center;transition:background .3s}
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
 
@@ -188,6 +188,12 @@ img{max-width:100%;display:block}
   .card-title{color:#f0f0f0}
   .info{color:#aaa}
 }
+/* keyboard focus visibility — WCAG 2.1 AA */
+:focus-visible{outline:3px solid #FF9900;outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible{outline:3px solid #FF9900;outline-offset:2px}
+/* toast notification */
+#ss-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+#ss-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:700px){.card-skel{min-height:160px}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
@@ -1608,8 +1614,8 @@ function showDetail(i) {
   if (cardEl) { var ci = cardEl.querySelector("img"); if (ci && ci.src && ci.naturalWidth > 0) imgSrc = ci.src; }
   var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
-  // Check if already favorited
-  var favKey = activeTab + "_" + i;
+  // Check if already favorited — use stable name+city key so re-renders don't break heart state
+  var favKey = (a.name||"") + "_" + (a.city||activeCity);
   var isFaved = favorites.some(function(f){ return f.key === favKey; });
   var html = 
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
@@ -1646,7 +1652,7 @@ function showDetail(i) {
 function toggleDetailFav(i) {
   var a = window._activities[i];
   if (!a) return;
-  var favKey = activeTab + "_" + i;
+  var favKey = (a.name||"") + "_" + (a.city||activeCity);
   var idx = favorites.findIndex(function(f){ return f.key === favKey; });
   if (idx >= 0) {
     favorites.splice(idx, 1);
@@ -1796,7 +1802,7 @@ function renderCards() {
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
     // ── FIX 3: card heart properly calls updateBnavBadge ──
     var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
-    var favKey = activeTab+"_"+i;
+    var favKey = (a.name||"")+"_"+(a.city||activeCity);
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
     return "<article class=\"card\" data-idx=\""+i+"\">"+
@@ -1929,7 +1935,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
+  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showToast("🗓️ Weekend activities unlock on Friday!");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   var cityBar = document.querySelector(".city-bar");
@@ -2545,13 +2551,14 @@ setTimeout(buildMobileCities, 500);
 
 function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
 function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var _sc=document.getElementById("ssChip");if(_sc)_sc.textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
-function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
+function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showToast("🗓️ Weekend activities unlock on Friday!");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
 
-function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
+function showToast(msg){var t=document.getElementById("ss-toast");if(!t)return;t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},3000);}
+function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showToast("🗓️ Weekend activities unlock on Friday!");return;}
   var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
   if (btn && typeof setTab === "function") setTab(btn);
   else if (typeof activeTab !== "undefined") {
@@ -2618,7 +2625,7 @@ document.addEventListener("click", function() {
 
 
 function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
-function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
+function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showToast("🗓️ Weekend activities unlock on Friday!");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
 function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
@@ -2670,6 +2677,7 @@ function weatherChipClick() {
   </div>
 </div>
 
+<div id="ss-toast"></div>
 </body>
 </html>
 <!-- TABLET FIX injected -->
