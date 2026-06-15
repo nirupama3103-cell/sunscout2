@@ -35,7 +35,6 @@
   <!-- ── PWA Manifest ── -->
   <link rel="manifest" href="/manifest.json">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
-  <link rel="dns-prefetch" href="//images.pexels.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -842,6 +841,7 @@ html { scroll-behavior: smooth; }
               <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">🎲 Surprise</div>
               <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
               <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
+              <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">🛠️ DIY Projects</div>
               <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">🌤️ About</div>
             </div>
           </div>
@@ -1170,7 +1170,7 @@ function mobSearch() {
   </div>
 </main>
 <div class="footer">
-  <p>SunScout · Activities from Ticketmaster &amp; curated local data · Photos by Pexels · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://www.sunscoutkids.com/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
+  <p>SunScout · Activities from Eventbrite, Ticketmaster &amp; curated local data · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://sunscout2.vercel.app/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
 
 
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
@@ -1305,23 +1305,16 @@ function getCardHTML(a) {
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   var cardId = "img-"+Math.random().toString(36).substr(2,9);
-  // Fetch Pexels image in background if using fallback (guarded to prevent double-fetch)
+  // Fetch Pexels image in background if using fallback
   if (!a.image || a.image.length <= 10) {
-    if (!window._pexelsInFlight) window._pexelsInFlight = {};
-    var _pfKey = name.slice(0,40);
-    if (!window._pexelsInFlight[_pfKey]) {
-      window._pexelsInFlight[_pfKey] = true;
-      var _pfId = cardId;
-      fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)))
-      .then(function(r){return r.json();})
-      .then(function(d){
-        delete window._pexelsInFlight[_pfKey];
-        if(d.url){
-          var el=document.getElementById(_pfId);
-          if(el){el.src=d.url;el.style.opacity="1";el.dataset.pexels="1";}
-        }
-      }).catch(function(){ delete window._pexelsInFlight[_pfKey]; });
-    }
+    fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)), {
+    }).then(function(r){return r.json();})
+    .then(function(d){
+      if(d.url){
+        var el=document.getElementById(cardId);
+        if(el){el.src=d.url;el.style.opacity="1";}
+      }
+    }).catch(function(){});
   }
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
     + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
@@ -1354,7 +1347,7 @@ function showDetail(i) {
   var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
   // Check if already favorited
-  var favKey = activeTab + "_" + (window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
+  var favKey = activeTab + "_" + i;
   var isFaved = favorites.some(function(f){ return f.key === favKey; });
   var html = 
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
@@ -1391,7 +1384,7 @@ function showDetail(i) {
 function toggleDetailFav(i) {
   var a = window._activities[i];
   if (!a) return;
-  var favKey = activeTab + "_" + (window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
+  var favKey = activeTab + "_" + i;
   var idx = favorites.findIndex(function(f){ return f.key === favKey; });
   if (idx >= 0) {
     favorites.splice(idx, 1);
@@ -1425,7 +1418,7 @@ function shareActivity(i) {
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
   var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
-  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at www.sunscoutkids.com";
+  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at sunscout2.vercel.app";
   if (navigator.share) {
     navigator.share({ title: a.name, text: text, url: mu });
   } else {
@@ -1541,7 +1534,7 @@ function renderCards() {
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
     // ── FIX 3: card heart properly calls updateBnavBadge ──
     var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
-    var favKey = activeTab+"_"+(window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
+    var favKey = activeTab+"_"+i;
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
     return "<article class=\"card\" data-idx=\""+i+"\">"+
@@ -1673,7 +1666,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
+  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   var cityBar = document.querySelector(".city-bar");
@@ -1736,6 +1729,7 @@ document.addEventListener("click", function(e) {
 document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
 updateCountdown();
 fetchWeather("Sunnyvale");
+(function(){fetch("https://api.open-meteo.com/v1/forecast?latitude=37.3688&longitude=-122.0363&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var city="Sunnyvale";var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";dc.style.background=t>=90?"#FFF0F0":"#FFF8E1";}var sc=document.getElementById("ssChip");if(sc){sc.textContent=msg;}}).catch(function(){});})();
 loadActivities();
 
 // FAVORITES
@@ -1743,6 +1737,8 @@ loadActivities();
 // XSS protection — always escape user-sourced data before innerHTML
 function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 
+// XSS protection — escape all API-sourced data before innerHTML
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
 
 // Weather cache — 10 min TTL, shared across all city switches
 var _weatherCache = {};
@@ -1827,24 +1823,9 @@ function renderMyList() {
 }
 function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); renderCards(); }
 
-// ── Weekend toast (replaces blocking alert) ──
-function showWeekendToast() {
-  var existing = document.getElementById("weekend-toast");
-  if (existing) { existing.remove(); }
-  var t = document.createElement("div");
-  t.id = "weekend-toast";
-  t.setAttribute("role","status");
-  t.setAttribute("aria-live","polite");
-  t.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#6d28d9;color:#fff;padding:12px 22px;border-radius:99px;font-family:Nunito,sans-serif;font-size:13px;font-weight:800;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,0.25);white-space:nowrap;pointer-events:none;";
-  t.textContent = "🗓️ Weekend activities unlock on Friday!";
-  document.body.appendChild(t);
-  setTimeout(function(){ if(t.parentNode) t.remove(); }, 3000);
-}
-
-
 function checkWeekendMode() {
   var day = new Date().getDay();
-  if (day === 0 || day === 5 || day === 6) {
+  if (day === 0 || day === 6) {
     var wb_el = document.getElementById("weekendBanner");
     if (wb_el) wb_el.style.display = "block";
     var wb = document.querySelector(".tab-btn[data-tab='weekend']");
@@ -1937,7 +1918,7 @@ function syncBnav(tab) {
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
 <div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://www.sunscoutkids.com'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://www.sunscoutkids.com'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
+  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
 </div></div></div>
 <!-- MY LIST PANEL -->
 <div id="mylist-panel">
@@ -2027,6 +2008,10 @@ function syncBnav(tab) {
       <span class="bnav-icon">🎲</span>
       <span class="bnav-label">Surprise</span>
     </button>
+    <a class="bnav-btn" href="/diy.html" style="text-decoration:none;">
+      <span class="bnav-icon">🛠️</span>
+      <span class="bnav-label">DIY</span>
+    </a>
   </div>
 </nav>
 
@@ -2088,6 +2073,7 @@ function syncBnav(tab) {
 <script>
 // ── MY PLANNER ──
 function openPlanner() {
+  console.log('openPlanner called!');
   var modal = document.getElementById('planner-modal');
   modal.setAttribute('style','display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;');
   switchTab('notes');
@@ -2305,14 +2291,14 @@ setTimeout(buildMobileCities, 500);
 
 
 function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
-function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638,Fremont:37.5485}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231,Fremont:-121.9886}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";document.getElementById("ssChip").textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
-function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
+function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";document.getElementById("ssChip").textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
+function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
 
-function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}
+function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
   var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
   if (btn && typeof setTab === "function") setTab(btn);
   else if (typeof activeTab !== "undefined") {
@@ -2379,7 +2365,7 @@ document.addEventListener("click", function() {
 
 
 function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
-function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
+function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
 function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
@@ -2425,8 +2411,8 @@ function weatherChipClick() {
       <p style="margin-bottom:10px"><strong>No ads.</strong> We are not ad-supported. No advertiser has access to your data.</p>
       <p style="margin-bottom:10px"><strong>No data collection.</strong> We do not collect your name, email, location, or any personal information.</p>
       <p style="margin-bottom:10px"><strong>Local storage only.</strong> Your saved activities (My List) and notes are stored only on your device and never sent to any server.</p>
-      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Ticketmaster. Photos are provided by Pexels. Their own privacy policies apply to those services.</p>
-      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: June 2026 · SunScout is a family project built for Bay Area families.</p>
+      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Google Places, Eventbrite, and Ticketmaster. Their own privacy policies apply to those services.</p>
+      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: May 2026 · SunScout is a family project built for Bay Area families.</p>
     </div>
   </div>
 </div>
