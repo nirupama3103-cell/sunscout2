@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
+<html lang="en" style="color-scheme:light only;">
 <head>
   <meta charset="UTF-8"/>
   <meta name="color-scheme" content="light only">
@@ -12,762 +12,380 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.sunscoutkids.com/diy.html">
   <meta property="og:title" content="DIY Projects – SunScout Kids">
-  <meta property="og:description" content="Free rainy-day DIY craft projects for Bay Area kids, filtered by age.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
   <meta property="og:site_name" content="SunScout">
   <link rel="icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/sun-logo.png">
   <link rel="manifest" href="/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --sun:#FF9900;
-  --sky:#4FC3F7;
-  --green:#16a34a;
-  --blue:#1d4ed8;
-  --red:#dc2626;
-  --bg:#f0f9ff;
-  --card:#fff;
-  --text:#1a1a1a;
-  --muted:#666;
-  --border:#e5e7eb;
-  --radius:16px;
+  --sunset-deep:#C44B00;--sunset-mid:#FF6B2B;--sunset-warm:#FF9900;--sunset-gold:#FFB347;--sunset-pale:#FFF0E0;
+  --sky-deep:#1565C0;--sky-mid:#2196F3;--sky-light:#87CEEB;--sky-pale:#E3F2FD;--sky-cream:#F0F8FF;
+  --cream:#FAF7F2;--cream-dark:#F0EBE0;--ink:#1A1008;--ink-mid:#4A3728;--ink-light:#8B7355;--border:#E8DDD0;
 }
 html{color-scheme:light only;}
-body{
-  font-family:'Nunito',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  -webkit-text-size-adjust:100%;
-}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-text-size-adjust:100%;}
 
-/* ── HEADER ── */
-.diy-header{
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  padding:12px 16px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-.diy-header-inner{
-  max-width:720px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:space-between;
-}
-.back-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--sun);
-  text-decoration:none;
-  background:#FFF3E0;
-  border:1.5px solid #FFD580;
-  border-radius:99px;
-  padding:6px 14px;
-  transition:background .15s;
-  white-space:nowrap;
-}
-.back-btn:hover{background:#FFE0B2;}
-.header-logo{
-  font-size:1.4rem;
-  font-weight:900;
-  color:#1565c0;
-  line-height:1;
-  text-decoration:none;
-}
-.header-logo span{color:var(--sun);}
-.header-logo small{font-size:.7rem;font-weight:800;color:var(--sky);margin-left:3px;}
+/* NAV */
+.diy-nav{background:var(--cream);border-bottom:2px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100;}
+.diy-nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--sunset-deep);text-decoration:none;background:var(--sunset-pale);border:2px solid var(--sunset-gold);border-radius:99px;padding:6px 16px;transition:background .15s;}
+.back-btn:hover{background:#FFE5CC;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--sky-deep);text-decoration:none;}
+.nav-logo span{color:var(--sunset-warm);}
+.nav-logo small{font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:800;color:var(--sky-light);margin-left:3px;}
 
-/* ── HERO ── */
-.diy-hero{
-  background:linear-gradient(135deg,#FFF8E1 0%,#E3F2FD 100%);
-  text-align:center;
-  padding:28px 16px 20px;
-  border-bottom:1px solid var(--border);
-}
-.diy-hero-icon{font-size:3rem;line-height:1;margin-bottom:8px;}
-.diy-hero h1{
-  font-size:1.6rem;
-  font-weight:900;
-  color:var(--text);
-  margin-bottom:6px;
-}
-.diy-hero h1 span{color:var(--sun);}
-.diy-hero p{
-  font-size:13px;
-  color:var(--muted);
-  max-width:420px;
-  margin:0 auto 16px;
-  line-height:1.6;
-}
-.diy-meta{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(255,255,255,.8);
-  border:1px solid var(--border);
-  border-radius:99px;
-  padding:5px 14px;
-  font-size:12px;
-  font-weight:700;
-  color:var(--muted);
-}
+/* HERO */
+.diy-hero{background:linear-gradient(160deg,var(--sky-pale) 0%,var(--cream) 45%,var(--sunset-pale) 100%);padding:48px 20px 36px;text-align:center;border-bottom:2px solid var(--border);position:relative;overflow:hidden;}
+.diy-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,153,0,.12) 0%,transparent 70%);pointer-events:none;}
+.diy-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(33,150,243,.1) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--sunset-mid);margin-bottom:12px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:14px;letter-spacing:-1px;}
+.hero-title span{background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:15px;color:var(--ink-mid);max-width:440px;margin:0 auto 22px;line-height:1.7;font-weight:700;}
+.hero-pills{display:inline-flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.hero-pill{font-size:12px;font-weight:800;padding:5px 14px;border-radius:99px;border:1.5px solid var(--border);background:rgba(255,255,255,.7);color:var(--ink-mid);}
 
-/* ── AGE FILTER ── */
-.age-filter{
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
-  padding:14px 16px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-}
-.age-pill{
-  font-size:12px;
-  font-weight:800;
-  padding:6px 16px;
-  border-radius:99px;
-  border:1.5px solid var(--border);
-  background:#fff;
-  color:var(--muted);
-  cursor:pointer;
-  transition:all .15s;
-  font-family:'Nunito',sans-serif;
-}
-.age-pill:hover{border-color:var(--sun);color:var(--sun);}
-.age-pill.on{background:var(--text);color:#fff;border-color:transparent;}
-.age-pill[data-age="all"].on{background:#1a1a1a;}
-.age-pill[data-age="0"].on{background:#f472b6;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25);}
-.age-pill[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25);}
-.age-pill[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25);}
-.age-pill[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25);}
+/* DIVIDER */
+.section-divider{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto;padding:28px 20px 0;}
+.section-divider-line{flex:1;height:1.5px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+.section-divider-text{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink-light);white-space:nowrap;}
 
-/* ── PROJECT COUNT ── */
-.diy-count{
-  text-align:center;
-  font-size:12px;
-  font-weight:700;
-  color:var(--muted);
-  padding:10px 16px 2px;
-}
-.diy-count strong{color:var(--text);}
+/* AGE FILTER */
+.age-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:18px 20px 8px;max-width:900px;margin:0 auto;}
+.age-pill{font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;padding:7px 18px;border-radius:99px;border:2px solid var(--border);background:var(--cream);color:var(--ink-light);cursor:pointer;transition:all .15s;}
+.age-pill:hover{border-color:var(--sunset-warm);color:var(--sunset-deep);}
+.age-pill.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.age-pill[data-age="0"].on{background:#f472b6;border-color:#ec4899;}
+.age-pill[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;}
+.age-pill[data-age="2"].on{background:var(--sky-mid);color:#fff;border-color:var(--sky-deep);}
+.age-pill[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;}
+.diy-count{text-align:center;font-size:12px;font-weight:700;color:var(--ink-light);padding:6px 20px 0;font-style:italic;}
 
-/* ── GRID ── */
-.diy-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:16px;
-  padding:14px 16px 32px;
-  max-width:760px;
-  margin:0 auto;
-}
-@media(max-width:480px){
-  .diy-grid{grid-template-columns:1fr;gap:12px;padding:12px 12px 100px;}
-}
+/* PROJECT LIST */
+.project-list{max-width:900px;margin:0 auto;padding:20px 20px 80px;display:flex;flex-direction:column;gap:0;}
+.project-row{display:grid;grid-template-columns:72px 1fr;gap:0;border-bottom:1.5px solid var(--border);transition:background .15s;cursor:pointer;}
+.project-row:first-child{border-top:1.5px solid var(--border);}
+.project-row[hidden]{display:none!important;}
+.project-row:hover{background:rgba(255,153,0,.04);}
+.project-num{display:flex;align-items:flex-start;justify-content:center;padding:24px 0;font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--cream-dark);line-height:1;border-right:1.5px solid var(--border);user-select:none;transition:color .15s;}
+.project-row:hover .project-num{color:var(--sunset-gold);}
+.project-content{padding:20px 0 20px 20px;}
+.project-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;}
+.project-img-placeholder{width:72px;height:72px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--cream-dark);border:1.5px solid var(--border);}
+.project-title-wrap{flex:1;min-width:0;}
+.project-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--ink);line-height:1.25;margin-bottom:3px;}
+.project-tagline{font-size:12px;color:var(--ink-light);font-weight:700;margin-bottom:8px;}
+.project-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+.meta-chip{font-size:10px;font-weight:800;padding:2px 9px;border-radius:99px;}
+.chip-age0{background:#fce7f3;color:#9d174d;}.chip-age1{background:#dcfce7;color:#166534;}.chip-age2{background:#dbeafe;color:#1e3a8a;}.chip-age3{background:#ede9fe;color:#4c1d95;}
+.chip-easy{background:#dcfce7;color:#166534;}.chip-medium{background:var(--sunset-pale);color:var(--sunset-deep);}.chip-hard{background:#fce7f3;color:#9d174d;}
+.chip-dot{color:var(--border);}
+.project-toggle{font-size:11px;font-weight:800;color:var(--sunset-mid);background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;padding:0;margin-top:10px;display:flex;align-items:center;gap:4px;}
+.project-toggle .arrow{display:inline-block;transition:transform .25s;font-style:normal;}
+.project-row.open .project-toggle .arrow{transform:rotate(180deg);}
 
-/* ── CARD ── */
-.diy-card{
-  background:var(--card);
-  border-radius:var(--radius);
-  border:1px solid var(--border);
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-  transition:box-shadow .2s,transform .2s;
-  display:flex;
-  flex-direction:column;
-}
-.diy-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);}
-.diy-card[hidden]{display:none!important;}
+/* EXPANDABLE BODY */
+.project-body{overflow:hidden;max-height:0;transition:max-height .4s ease;}
+.project-row.open .project-body{max-height:1200px;}
+.project-body-inner{background:linear-gradient(135deg,var(--sky-cream) 0%,var(--cream) 100%);border:1.5px solid var(--border);border-radius:16px;padding:20px;margin:0 0 20px 0;}
+.project-video{border-radius:8px;overflow:hidden;background:#000;aspect-ratio:16/9;margin-bottom:16px;}
+.project-video video{width:100%;display:block;}
+.body-label{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--sunset-mid);margin-bottom:8px;margin-top:14px;}
+.body-label:first-child{margin-top:0;}
+.materials{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
+.material{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:#fff;border:1.5px solid var(--border);color:var(--ink-mid);}
+.steps{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.steps li{display:flex;gap:10px;font-size:13px;color:var(--ink-mid);line-height:1.6;align-items:flex-start;}
+.step-num{flex-shrink:0;width:22px;height:22px;background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));color:#fff;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.tip-box{background:linear-gradient(135deg,var(--sunset-pale),#FFF8E1);border-left:3px solid var(--sunset-warm);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--sunset-deep);font-weight:700;margin-top:14px;line-height:1.6;}
+.adult-flag{display:inline-flex;align-items:center;gap:6px;background:#fff0f0;border:1.5px solid #fca5a5;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;color:#991b1b;margin-top:12px;line-height:1.5;}
 
-.diy-card-header{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:16px 16px 0;
-  cursor:pointer;
-}
-.diy-card-emoji{
-  font-size:2rem;
-  line-height:1;
-  flex-shrink:0;
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:12px;
-}
-.diy-card-title-wrap{flex:1;min-width:0;}
-.diy-card-title{
-  font-size:15px;
-  font-weight:900;
-  color:var(--text);
-  line-height:1.3;
-}
-.diy-card-tagline{
-  font-size:11px;
-  font-weight:700;
-  color:var(--muted);
-  margin-top:2px;
-}
-.diy-toggle-btn{
-  font-size:18px;
-  color:var(--muted);
-  flex-shrink:0;
-  transition:transform .25s;
-  background:none;
-  border:none;
-  cursor:pointer;
-  padding:4px;
-  line-height:1;
-}
-.diy-card.open .diy-toggle-btn{transform:rotate(180deg);}
-
-/* age chips on card */
-.diy-age-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  padding:8px 16px 0;
-}
-.diy-age-chip{
-  font-size:10px;
-  font-weight:800;
-  padding:2px 8px;
-  border-radius:99px;
-  background:#f3f4f6;
-  color:var(--muted);
-}
-.diy-age-chip.a0{background:#fce7f3;color:#9d174d;}
-.diy-age-chip.a1{background:#dcfce7;color:#166534;}
-.diy-age-chip.a2{background:#dbeafe;color:#1e3a8a;}
-.diy-age-chip.a3{background:#ede9fe;color:#4c1d95;}
-
-/* diff badge */
-.diy-diff{
-  display:inline-flex;
-  align-items:center;
-  gap:3px;
-  font-size:10px;
-  font-weight:800;
-  padding:2px 8px;
-  border-radius:99px;
-  margin:8px 16px 0;
-  width:fit-content;
-}
-.diff-easy{background:#dcfce7;color:#166534;}
-.diff-medium{background:#FFF3E0;color:#c05e00;}
-.diff-hard{background:#fce7f3;color:#9d174d;}
-
-/* collapsible body */
-.diy-card-body{
-  overflow:hidden;
-  max-height:0;
-  transition:max-height .35s ease;
-}
-.diy-card.open .diy-card-body{max-height:1000px;}
-.diy-card-body-inner{padding:12px 16px 16px;}
-
-.diy-section-label{
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.08em;
-  color:var(--muted);
-  text-transform:uppercase;
-  margin-bottom:6px;
-  margin-top:12px;
-}
-.diy-section-label:first-child{margin-top:0;}
-
-.diy-materials{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  margin-bottom:4px;
-}
-.diy-material{
-  font-size:11px;
-  font-weight:700;
-  padding:3px 9px;
-  border-radius:99px;
-  background:#f3f4f6;
-  color:#444;
-}
-
-.diy-steps{
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.diy-steps li{
-  display:flex;
-  gap:10px;
-  font-size:12px;
-  color:#444;
-  line-height:1.5;
-  align-items:flex-start;
-}
-.step-num{
-  flex-shrink:0;
-  width:20px;
-  height:20px;
-  background:var(--sun);
-  color:#fff;
-  border-radius:50%;
-  font-size:10px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-top:1px;
-}
-
-.diy-tip{
-  background:#FFF8E1;
-  border-left:3px solid var(--sun);
-  border-radius:0 8px 8px 0;
-  padding:8px 12px;
-  font-size:11px;
-  color:#c05e00;
-  font-weight:700;
-  margin-top:10px;
-  line-height:1.5;
-}
-
-.adult-flag{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  background:#fff0f0;
-  border:1px solid #fca5a5;
-  border-radius:8px;
-  padding:6px 10px;
-  font-size:11px;
-  font-weight:800;
-  color:#991b1b;
-  margin-top:10px;
-  line-height:1.4;
-}
-
-/* ── EMPTY STATE ── */
-.diy-empty{
-  text-align:center;
-  padding:40px 16px;
-  grid-column:1/-1;
-  display:none;
-}
+/* EMPTY */
+.diy-empty{text-align:center;padding:48px 20px;display:none;}
 .diy-empty.show{display:block;}
-.diy-empty-icon{font-size:3rem;margin-bottom:12px;}
-.diy-empty h2{font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px;}
-.diy-empty p{font-size:13px;color:var(--muted);}
+.diy-empty h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--ink);margin-bottom:8px;}
+.diy-empty p{font-size:13px;color:var(--ink-light);}
 
-/* ── FOOTER ── */
-.diy-footer{
-  text-align:center;
-  font-size:12px;
-  color:#aaa;
-  border-top:1px solid var(--border);
-  padding:14px 16px 80px;
-}
-.diy-footer a{color:var(--sun);font-weight:700;text-decoration:none;}
+/* FOOTER */
+.diy-footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;font-size:12px;padding:20px 16px 80px;}
+.diy-footer a{color:var(--sunset-gold);font-weight:700;text-decoration:none;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:6px;}
+.footer-logo span{color:var(--sunset-warm);}
 
-/* ── BACK TO TOP ── */
-#back-top{
-  position:fixed;
-  bottom:80px;
-  right:16px;
-  width:40px;
-  height:40px;
-  background:var(--sun);
-  color:#fff;
-  border:none;
-  border-radius:50%;
-  font-size:18px;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
-  font-family:'Nunito',sans-serif;
-}
+/* BACK TO TOP */
+#back-top{position:fixed;bottom:80px;right:16px;width:42px;height:42px;background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));color:#fff;border:none;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(255,107,43,.4);display:none;align-items:center;justify-content:center;z-index:50;transition:transform .15s;}
+#back-top:hover{transform:scale(1.1);}
 #back-top.show{display:flex;}
 
-@media(prefers-reduced-motion:reduce){
-  .diy-card,.diy-card-body,.diy-toggle-btn{transition:none!important;}
+@media(max-width:520px){
+  .project-num{font-size:1.4rem;padding:18px 0;}
+  .project-content{padding:16px 0 16px 14px;}
+  .project-img-placeholder{width:56px;height:56px;}
+  .project-title{font-size:1rem;}
+  .diy-hero{padding:32px 16px 24px;}
 }
-
-/* ── Project video ── */
-.diy-video-wrap {
-  margin: 12px 16px 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #000;
-  aspect-ratio: 16/9;
-  position: relative;
-}
-.diy-video-wrap video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-.diy-video-label {
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--muted);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  padding: 10px 16px 2px;
-}
+@media(prefers-reduced-motion:reduce){.project-body,.project-toggle .arrow{transition:none!important;}}
 </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<header class="diy-header">
-  <div class="diy-header-inner">
-    <a href="https://www.sunscoutkids.com/" class="back-btn" aria-label="Back to SunScout">← Back to SunScout</a>
-    <a href="https://www.sunscoutkids.com/" class="header-logo" aria-label="SunScout Kids home">
-      Sun<span>Scout</span><small>kids</small>
-    </a>
-    <div style="width:80px;"></div><!-- balance flex -->
+<nav class="diy-nav">
+  <div class="diy-nav-inner">
+    <a href="https://www.sunscoutkids.com/" class="back-btn">← Back to SunScout</a>
+    <a href="https://www.sunscoutkids.com/" class="nav-logo">Sun<span>Scout</span><small>kids</small></a>
+    <div style="width:130px;"></div>
   </div>
-</header>
+</nav>
 
-<!-- ── HERO ── -->
-<section class="diy-hero" aria-label="DIY Projects intro">
-  <div class="diy-hero-icon">🛠️</div>
-  <h1>DIY <span>Projects</span></h1>
-  <p>Free rainy-day activities you can do at home — no experience needed. Pick an age and get started!</p>
-  <div class="diy-meta">
-    <span>🆓 All free</span>
-    <span>·</span>
-    <span>🏠 At home</span>
-    <span>·</span>
-    <span>👨‍👩‍👧 Family friendly</span>
+<section class="diy-hero">
+  <p class="hero-eyebrow">🛠️ Free &amp; Fun at Home</p>
+  <h1 class="hero-title">DIY <span>Projects</span></h1>
+  <p class="hero-sub">Rainy day? No problem. Pick a project, grab your supplies, and make something amazing.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">🆓 Always free</span>
+    <span class="hero-pill">🏠 At home</span>
+    <span class="hero-pill">👨‍👩‍👧 All ages</span>
+    <span class="hero-pill">🎨 5 projects</span>
   </div>
 </section>
 
-<!-- ── AGE FILTER ── -->
-<nav class="age-filter" aria-label="Filter by age">
+<div class="section-divider" aria-hidden="true">
+  <div class="section-divider-line"></div>
+  <span class="section-divider-text">Filter by age</span>
+  <div class="section-divider-line"></div>
+</div>
+
+<nav class="age-bar" aria-label="Filter by age">
   <button class="age-pill on" data-age="all" onclick="setAge(this)">⭐ All ages</button>
-  <button class="age-pill" data-age="0"   onclick="setAge(this)">👶 0–2</button>
-  <button class="age-pill" data-age="1"   onclick="setAge(this)">🧸 3–5</button>
-  <button class="age-pill" data-age="2"   onclick="setAge(this)">🎒 6–12</button>
-  <button class="age-pill" data-age="3"   onclick="setAge(this)">🛹 Teen</button>
+  <button class="age-pill" data-age="0" onclick="setAge(this)">👶 0–2</button>
+  <button class="age-pill" data-age="1" onclick="setAge(this)">🧸 3–5</button>
+  <button class="age-pill" data-age="2" onclick="setAge(this)">🎒 6–12</button>
+  <button class="age-pill" data-age="3" onclick="setAge(this)">🛹 Teen</button>
 </nav>
+<p class="diy-count" id="diy-count" aria-live="polite">Showing <strong>5</strong> projects</p>
 
-<!-- ── COUNT ── -->
-<p class="diy-count" id="diy-count" aria-live="polite"><strong>5</strong> projects</p>
+<main class="project-list" id="project-list">
 
-<!-- ── GRID ── -->
-<main class="diy-grid" id="diy-grid" aria-label="DIY projects">
-
-  <!-- ── CARD 1: Fuse Beads ── -->
-  <article class="diy-card" data-ages="1,2,3" id="card-fuse">
-    <div class="diy-card-header" onclick="toggleCard('card-fuse')" role="button" tabindex="0"
-         aria-expanded="false" aria-controls="body-fuse" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-fuse')">
-      <div class="diy-card-emoji" style="background:#FFF0F9;">🔴</div>
-      <div class="diy-card-title-wrap">
-        <div class="diy-card-title">Fuse Bead Art</div>
-        <div class="diy-card-tagline">Melt beads into colorful pixel art</div>
+  <article class="project-row" data-ages="1,2,3" id="proj-fuse"
+    onclick="toggleProject('proj-fuse')" role="button" tabindex="0" aria-expanded="false"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-fuse')}">
+    <div class="project-num" aria-hidden="true">01</div>
+    <div class="project-content">
+      <div class="project-top">
+        <div class="project-img-placeholder">🔴</div>
+        <div class="project-title-wrap">
+          <h2 class="project-title">Fuse Bead Art</h2>
+          <p class="project-tagline">Melt beads into colorful pixel art</p>
+          <div class="project-meta">
+            <span class="meta-chip chip-age1">🧸 3–5</span>
+            <span class="meta-chip chip-age2">🎒 6–12</span>
+            <span class="meta-chip chip-age3">🛹 Teen</span>
+            <span class="chip-dot">·</span>
+            <span class="meta-chip chip-easy">⭐ Easy</span>
+          </div>
+        </div>
       </div>
-      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
-    </div>
-    <div class="diy-age-chips">
-      <span class="diy-age-chip a1">🧸 3–5</span>
-      <span class="diy-age-chip a2">🎒 6–12</span>
-      <span class="diy-age-chip a3">🛹 Teen</span>
-    </div>
-    <span class="diy-diff diff-easy">⭐ Easy</span>
-    <div class="diy-card-body" id="body-fuse" role="region">
-      <div class="diy-card-body-inner">
-        <div class="diy-section-label">What you need</div>
-        <div class="diy-materials">
-          <span class="diy-material">Fuse beads (Perler/Hama)</span>
-          <span class="diy-material">Pegboard</span>
-          <span class="diy-material">Ironing paper</span>
-          <span class="diy-material">Iron</span>
-          <span class="diy-material">Tweezers (optional)</span>
+      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
+      <div class="project-body" role="region">
+        <div class="project-body-inner" onclick="event.stopPropagation()">
+          <div class="body-label">What you need</div>
+          <div class="materials"><span class="material">Fuse beads (Perler/Hama)</span><span class="material">Pegboard</span><span class="material">Ironing paper</span><span class="material">Iron</span><span class="material">Tweezers (optional)</span></div>
+          <div class="body-label">Steps</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
+            <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
+            <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
+            <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles 10–15 seconds until beads fuse. Let cool.</li>
+            <li><span class="step-num">5</span>Flip over, iron the back for an even finish. Display or string as a keychain!</li>
+          </ol>
+          <div class="adult-flag">🔥 Adult supervision required for the ironing step</div>
+          <div class="tip-box">💡 Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
         </div>
-        <div class="diy-section-label">Steps</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
-          <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
-          <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
-          <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles for 10–15 seconds until beads fuse. Let cool before peeling.</li>
-          <li><span class="step-num">5</span>Flip over, iron the back for an even finish. Display or string as a keychain!</li>
-        </ol>
-        <div class="adult-flag" role="note">
-          🔥 Adult supervision required for the ironing step
-        </div>
-        <div class="diy-tip">💡 Tip: Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
       </div>
     </div>
   </article>
 
-  <!-- ── CARD 2: LEGO Building ── -->
-  <article class="diy-card" data-ages="1,2,3" id="card-lego">
-    <div class="diy-card-header" onclick="toggleCard('card-lego')" role="button" tabindex="0"
-         aria-expanded="false" aria-controls="body-lego" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-lego')">
-      <div class="diy-card-emoji" style="background:#EFF6FF;">🧱</div>
-      <div class="diy-card-title-wrap">
-        <div class="diy-card-title">LEGO Engineering Challenge</div>
-        <div class="diy-card-tagline">Build the tallest tower — then test it</div>
-      </div>
-      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
-    </div>
-    <div class="diy-age-chips">
-      <span class="diy-age-chip a1">🧸 3–5</span>
-      <span class="diy-age-chip a2">🎒 6–12</span>
-      <span class="diy-age-chip a3">🛹 Teen</span>
-    </div>
-    <span class="diy-diff diff-easy">⭐ Easy</span>
-    <div class="diy-card-body" id="body-lego" role="region">
-      <div class="diy-card-body-inner">
-        <div class="diy-section-label">What you need</div>
-        <div class="diy-materials">
-          <span class="diy-material">LEGO / Duplo bricks</span>
-          <span class="diy-material">Ruler or tape measure</span>
-          <span class="diy-material">Timer (optional)</span>
-          <span class="diy-material">Small toy or coin (for load test)</span>
+  <article class="project-row" data-ages="1,2,3" id="proj-lego"
+    onclick="toggleProject('proj-lego')" role="button" tabindex="0" aria-expanded="false"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-lego')}">
+    <div class="project-num" aria-hidden="true">02</div>
+    <div class="project-content">
+      <div class="project-top">
+        <div class="project-img-placeholder">🧱</div>
+        <div class="project-title-wrap">
+          <h2 class="project-title">LEGO Engineering Challenge</h2>
+          <p class="project-tagline">Build the tallest tower — then test it</p>
+          <div class="project-meta">
+            <span class="meta-chip chip-age1">🧸 3–5</span>
+            <span class="meta-chip chip-age2">🎒 6–12</span>
+            <span class="meta-chip chip-age3">🛹 Teen</span>
+            <span class="chip-dot">·</span>
+            <span class="meta-chip chip-easy">⭐ Easy</span>
+          </div>
         </div>
-        <div class="diy-section-label">Challenge modes</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span><strong>Height challenge:</strong> build the tallest freestanding tower in 10 minutes. Measure and record!</li>
-          <li><span class="step-num">2</span><strong>Bridge challenge:</strong> span two stacks of books with a LEGO bridge. How many coins can it hold?</li>
-          <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a random household object (mug, shoe, phone) from memory in 5 minutes.</li>
-          <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
-        </ol>
-        <div class="diy-tip">💡 Tip: Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra engineering difficulty.</div>
+      </div>
+      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
+      <div class="project-body" role="region">
+        <div class="project-body-inner" onclick="event.stopPropagation()">
+          <div class="body-label">What you need</div>
+          <div class="materials"><span class="material">LEGO / Duplo bricks</span><span class="material">Ruler</span><span class="material">Timer (optional)</span><span class="material">Small coin (load test)</span></div>
+          <div class="body-label">Challenge modes</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span><strong>Height:</strong> build the tallest freestanding tower in 10 minutes.</li>
+            <li><span class="step-num">2</span><strong>Bridge:</strong> span two stacks of books. How many coins can it hold?</li>
+            <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a household object from memory in 5 minutes.</li>
+            <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
+          </ol>
+          <div class="tip-box">💡 Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra challenge.</div>
+        </div>
       </div>
     </div>
   </article>
 
-  <!-- ── CARD 3: Snakes & Ladders ── -->
-  <article class="diy-card" data-ages="1,2" id="card-snakes">
-    <div class="diy-card-header" onclick="toggleCard('card-snakes')" role="button" tabindex="0"
-         aria-expanded="false" aria-controls="body-snakes" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-snakes')">
-      <div class="diy-card-emoji" style="background:#F0FDF4;">🐍</div>
-      <div class="diy-card-title-wrap">
-        <div class="diy-card-title">Make Snakes & Ladders</div>
-        <div class="diy-card-tagline">Draw your own board, then play it</div>
-      </div>
-      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
-    </div>
-    <div class="diy-age-chips">
-      <span class="diy-age-chip a1">🧸 3–5</span>
-      <span class="diy-age-chip a2">🎒 6–12</span>
-    </div>
-    <span class="diy-diff diff-medium">🔶 Medium</span>
-    <div class="diy-video-label">▶ See how to play</div>
-    <div class="diy-video-wrap">
-      <video
-        src="/snakes-ladders.mp4"
-        controls
-        preload="none"
-        playsinline
-        poster=""
-        aria-label="How to play Snakes and Ladders"
-        style="border-radius:12px;">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div class="diy-card-body" id="body-snakes" role="region">
-      <div class="diy-card-body-inner">
-        <div class="diy-section-label">What you need</div>
-        <div class="diy-materials">
-          <span class="diy-material">Paper or cardstock (A3 or larger)</span>
-          <span class="diy-material">Ruler &amp; pencil</span>
-          <span class="diy-material">Colored markers</span>
-          <span class="diy-material">Dice</span>
-          <span class="diy-material">Small objects as tokens (coins, buttons)</span>
+  <article class="project-row" data-ages="1,2" id="proj-snakes"
+    onclick="toggleProject('proj-snakes')" role="button" tabindex="0" aria-expanded="false"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-snakes')}">
+    <div class="project-num" aria-hidden="true">03</div>
+    <div class="project-content">
+      <div class="project-top">
+        <div class="project-img-placeholder">🐍</div>
+        <div class="project-title-wrap">
+          <h2 class="project-title">Make Snakes &amp; Ladders</h2>
+          <p class="project-tagline">Draw your own board, then play it</p>
+          <div class="project-meta">
+            <span class="meta-chip chip-age1">🧸 3–5</span>
+            <span class="meta-chip chip-age2">🎒 6–12</span>
+            <span class="chip-dot">·</span>
+            <span class="meta-chip chip-medium">🔶 Medium</span>
+          </div>
         </div>
-        <div class="diy-section-label">Steps</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100, starting bottom-left, snaking row by row upward.</li>
-          <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones. Label with start → end numbers.</li>
-          <li><span class="step-num">3</span>Draw 4–6 snakes with heads on higher squares and tails on lower ones.</li>
-          <li><span class="step-num">4</span>Decorate — themes work great (ocean snakes, jungle ladders, space rockets).</li>
-          <li><span class="step-num">5</span>Play! First to reach 100 wins. Land on a ladder head = climb up. Land on a snake head = slide down.</li>
-        </ol>
-        <div class="diy-tip">💡 Tip: Ages 3–5 can draw the art while older kids handle the numbering. Great teamwork project!</div>
+      </div>
+      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
+      <div class="project-body" role="region">
+        <div class="project-body-inner" onclick="event.stopPropagation()">
+          <div class="project-video">
+            <video src="/snakes-ladders.mp4" controls preload="none" playsinline aria-label="How to play Snakes and Ladders" style="border-radius:8px;">Your browser does not support video.</video>
+          </div>
+          <div class="body-label">What you need</div>
+          <div class="materials"><span class="material">Paper or cardstock (A3+)</span><span class="material">Ruler &amp; pencil</span><span class="material">Colored markers</span><span class="material">Dice</span><span class="material">Coins or buttons</span></div>
+          <div class="body-label">Steps</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100 starting bottom-left, snaking upward.</li>
+            <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones.</li>
+            <li><span class="step-num">3</span>Draw 4–6 snakes — head on a high square, tail on a lower one.</li>
+            <li><span class="step-num">4</span>Decorate with a theme (ocean, jungle, space!).</li>
+            <li><span class="step-num">5</span>Play! Ladder head = climb up. Snake head = slide down. First to 100 wins.</li>
+          </ol>
+          <div class="tip-box">💡 Ages 3–5 do the art, older kids handle the numbering. Great teamwork!</div>
+        </div>
       </div>
     </div>
   </article>
 
-  <!-- ── CARD 4: Chinese Checkers ── -->
-  <article class="diy-card" data-ages="2,3" id="card-checkers">
-    <div class="diy-card-header" onclick="toggleCard('card-checkers')" role="button" tabindex="0"
-         aria-expanded="false" aria-controls="body-checkers" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-checkers')">
-      <div class="diy-card-emoji" style="background:#FDF4FF;">⭐</div>
-      <div class="diy-card-title-wrap">
-        <div class="diy-card-title">Chinese Checkers Board</div>
-        <div class="diy-card-tagline">Make a star board from cardboard</div>
-      </div>
-      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
-    </div>
-    <div class="diy-age-chips">
-      <span class="diy-age-chip a2">🎒 6–12</span>
-      <span class="diy-age-chip a3">🛹 Teen</span>
-    </div>
-    <span class="diy-diff diff-hard">🔴 Challenging</span>
-    <div class="diy-card-body" id="body-checkers" role="region">
-      <div class="diy-card-body-inner">
-        <div class="diy-section-label">What you need</div>
-        <div class="diy-materials">
-          <span class="diy-material">Thick cardboard</span>
-          <span class="diy-material">Compass or circular stencil</span>
-          <span class="diy-material">Ruler &amp; pencil</span>
-          <span class="diy-material">Colored markers (6 colors)</span>
-          <span class="diy-material">Buttons or beads (10 per color)</span>
-          <span class="diy-material">Bottle caps (optional holes)</span>
+  <article class="project-row" data-ages="2,3" id="proj-checkers"
+    onclick="toggleProject('proj-checkers')" role="button" tabindex="0" aria-expanded="false"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-checkers')}">
+    <div class="project-num" aria-hidden="true">04</div>
+    <div class="project-content">
+      <div class="project-top">
+        <div class="project-img-placeholder">⭐</div>
+        <div class="project-title-wrap">
+          <h2 class="project-title">Chinese Checkers Board</h2>
+          <p class="project-tagline">Make a star board from cardboard</p>
+          <div class="project-meta">
+            <span class="meta-chip chip-age2">🎒 6–12</span>
+            <span class="meta-chip chip-age3">🛹 Teen</span>
+            <span class="chip-dot">·</span>
+            <span class="meta-chip chip-hard">🔴 Challenging</span>
+          </div>
         </div>
-        <div class="diy-section-label">Steps</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span>Draw a large Star of David shape (two overlapping equilateral triangles) on cardboard.</li>
-          <li><span class="step-num">2</span>Mark 121 dots in a triangular grid pattern across the star — 10 in each point, 61 in the hexagonal center.</li>
-          <li><span class="step-num">3</span>Color each of the 6 star points a different color. These are the home zones.</li>
-          <li><span class="step-num">4</span>Poke small holes or just mark circles at each dot for pieces to sit on.</li>
-          <li><span class="step-num">5</span>Use 10 colored buttons/beads per player. Goal: move all pieces to the opposite point by hopping over others.</li>
-        </ol>
-        <div class="diy-tip">💡 Tip: Print a reference grid from Wikipedia's "Chinese Checkers" article to get the spacing right.</div>
+      </div>
+      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
+      <div class="project-body" role="region">
+        <div class="project-body-inner" onclick="event.stopPropagation()">
+          <div class="body-label">What you need</div>
+          <div class="materials"><span class="material">Thick cardboard</span><span class="material">Compass or stencil</span><span class="material">Ruler &amp; pencil</span><span class="material">6 colored markers</span><span class="material">Buttons (10 per color)</span></div>
+          <div class="body-label">Steps</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span>Draw a Star of David (two overlapping equilateral triangles) on cardboard.</li>
+            <li><span class="step-num">2</span>Mark 121 dots in a triangular grid — 10 in each point, 61 in the center.</li>
+            <li><span class="step-num">3</span>Color each of the 6 star points a different color — home zones.</li>
+            <li><span class="step-num">4</span>Poke small holes at each dot for pieces to sit on.</li>
+            <li><span class="step-num">5</span>Use 10 buttons per player. Move all to the opposite point by hopping over others.</li>
+          </ol>
+          <div class="tip-box">💡 Print a reference grid from Wikipedia's "Chinese Checkers" article to get spacing right.</div>
+        </div>
       </div>
     </div>
   </article>
 
-  <!-- ── CARD 5: Marble Solitaire ── -->
-  <article class="diy-card" data-ages="2,3" id="card-marble">
-    <div class="diy-card-header" onclick="toggleCard('card-marble')" role="button" tabindex="0"
-         aria-expanded="false" aria-controls="body-marble" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-marble')">
-      <div class="diy-card-emoji" style="background:#FFF8E1;">🔵</div>
-      <div class="diy-card-title-wrap">
-        <div class="diy-card-title">Marble Solitaire</div>
-        <div class="diy-card-tagline">The one-player puzzle that's harder than it looks</div>
-      </div>
-      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
-    </div>
-    <div class="diy-age-chips">
-      <span class="diy-age-chip a2">🎒 6–12</span>
-      <span class="diy-age-chip a3">🛹 Teen</span>
-    </div>
-    <span class="diy-diff diff-hard">🔴 Challenging</span>
-    <div class="diy-card-body" id="body-marble" role="region">
-      <div class="diy-card-body-inner">
-        <div class="diy-section-label">What you need</div>
-        <div class="diy-materials">
-          <span class="diy-material">Cardboard or egg carton</span>
-          <span class="diy-material">Scissors</span>
-          <span class="diy-material">Marker</span>
-          <span class="diy-material">32 marbles or small buttons</span>
+  <article class="project-row" data-ages="2,3" id="proj-marble"
+    onclick="toggleProject('proj-marble')" role="button" tabindex="0" aria-expanded="false"
+    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-marble')}">
+    <div class="project-num" aria-hidden="true">05</div>
+    <div class="project-content">
+      <div class="project-top">
+        <div class="project-img-placeholder">🔵</div>
+        <div class="project-title-wrap">
+          <h2 class="project-title">Marble Solitaire</h2>
+          <p class="project-tagline">The one-player puzzle that's harder than it looks</p>
+          <div class="project-meta">
+            <span class="meta-chip chip-age2">🎒 6–12</span>
+            <span class="meta-chip chip-age3">🛹 Teen</span>
+            <span class="chip-dot">·</span>
+            <span class="meta-chip chip-hard">🔴 Challenging</span>
+          </div>
         </div>
-        <div class="diy-section-label">Build the board</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape: a 3×7 rectangle crossed with a 7×3 rectangle, sharing a 3×3 center. You need 33 holes total.</li>
-          <li><span class="step-num">2</span>Poke or cut 33 small holes in a grid pattern — 3 columns across the top arm, 3 across the bottom, 7 down each side arm.</li>
-          <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
-        </ol>
-        <div class="diy-section-label">How to play</div>
-        <ol class="diy-steps">
-          <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
-          <li><span class="step-num">2</span>A move = jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
-          <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
-        </ol>
-        <div class="diy-tip">💡 Tip: Solving this puzzle with 1 marble remaining in the center is genuinely hard. Don't worry — most people take days to crack it!</div>
+      </div>
+      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
+      <div class="project-body" role="region">
+        <div class="project-body-inner" onclick="event.stopPropagation()">
+          <div class="body-label">What you need</div>
+          <div class="materials"><span class="material">Cardboard or egg carton</span><span class="material">Scissors</span><span class="material">Marker</span><span class="material">32 marbles or buttons</span></div>
+          <div class="body-label">Build the board</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape — 33 holes total in a grid.</li>
+            <li><span class="step-num">2</span>Poke 33 small holes in a grid pattern across the plus shape.</li>
+            <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
+          </ol>
+          <div class="body-label">How to play</div>
+          <ol class="steps">
+            <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
+            <li><span class="step-num">2</span>Jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
+            <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
+          </ol>
+          <div class="tip-box">💡 Ending with 1 marble in the center is genuinely hard. Most people take days to crack it!</div>
+        </div>
       </div>
     </div>
   </article>
 
-  <!-- ── EMPTY STATE ── -->
   <div class="diy-empty" id="diy-empty" role="status" aria-live="polite">
-    <div class="diy-empty-icon">🌻</div>
+    <div style="font-size:3rem;margin-bottom:12px;">🌻</div>
     <h2>No projects for this age yet</h2>
-    <p>Try a different age filter — more projects coming soon!</p>
+    <p>Try a different filter — more projects coming soon!</p>
   </div>
 
 </main>
 
-<!-- ── FOOTER ── -->
 <footer class="diy-footer">
-  <p>SunScout Kids · DIY Projects · Bay Area Summer 2026</p>
-  <p style="margin-top:6px;">
-    <a href="https://www.sunscoutkids.com/">← Back to activities</a>
-    &nbsp;·&nbsp;
-    <a href="/" onclick="event.preventDefault();window.history.back()">No tracking · No ads</a>
-  </p>
+  <p class="footer-logo">Sun<span>Scout</span> kids</p>
+  <p style="margin-bottom:8px;">DIY Projects · Bay Area Summer 2026</p>
+  <p><a href="https://www.sunscoutkids.com/">← Back to activities</a> · No tracking · No ads</p>
 </footer>
 
-<!-- ── BACK TO TOP ── -->
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
-// ── Age filter ──
-var activeAge = 'all';
-
-function setAge(btn) {
-  document.querySelectorAll('.age-pill').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  activeAge = btn.dataset.age;
-  filterCards();
-}
-
-function filterCards() {
-  var cards = document.querySelectorAll('.diy-card[data-ages]');
-  var visible = 0;
-  cards.forEach(function(card) {
-    var ages = card.dataset.ages.split(',');
-    var show = activeAge === 'all' || ages.indexOf(activeAge) !== -1;
-    card.hidden = !show;
-    if (show) visible++;
-  });
-  // count
-  var countEl = document.getElementById('diy-count');
-  if (countEl) countEl.innerHTML = '<strong>' + visible + '</strong> project' + (visible !== 1 ? 's' : '');
-  // empty state
-  var emptyEl = document.getElementById('diy-empty');
-  if (emptyEl) emptyEl.classList.toggle('show', visible === 0);
-}
-
-// ── Toggle card open/close ──
-function toggleCard(id) {
-  var card = document.getElementById(id);
-  if (!card) return;
-  var isOpen = card.classList.contains('open');
-  // close all others
-  document.querySelectorAll('.diy-card.open').forEach(function(c) {
-    c.classList.remove('open');
-    var h = c.querySelector('.diy-card-header');
-    if (h) h.setAttribute('aria-expanded', 'false');
-  });
-  if (!isOpen) {
-    card.classList.add('open');
-    var header = card.querySelector('.diy-card-header');
-    if (header) header.setAttribute('aria-expanded', 'true');
-    // smooth scroll card into view on mobile
-    setTimeout(function() {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 50);
-  }
-}
-
-// ── Back to top ──
-var backTop = document.getElementById('back-top');
-window.addEventListener('scroll', function() {
-  if (backTop) backTop.classList.toggle('show', window.scrollY > 300);
-}, { passive: true });
+var activeAge='all';
+function setAge(btn){document.querySelectorAll('.age-pill').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');activeAge=btn.dataset.age;filterProjects();}
+function filterProjects(){var rows=document.querySelectorAll('.project-row[data-ages]');var visible=0;rows.forEach(function(row){var ages=row.dataset.ages.split(',');var show=activeAge==='all'||ages.indexOf(activeAge)!==-1;row.hidden=!show;if(show)visible++;});var c=document.getElementById('diy-count');if(c)c.innerHTML='Showing <strong>'+visible+'</strong> project'+(visible!==1?'s':'');var e=document.getElementById('diy-empty');if(e)e.classList.toggle('show',visible===0);}
+function toggleProject(id){var row=document.getElementById(id);if(!row)return;var isOpen=row.classList.contains('open');document.querySelectorAll('.project-row.open').forEach(function(r){r.classList.remove('open');r.setAttribute('aria-expanded','false');});if(!isOpen){row.classList.add('open');row.setAttribute('aria-expanded','true');setTimeout(function(){row.scrollIntoView({behavior:'smooth',block:'nearest'});},60);}}
+window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>300);},{passive:true});
 </script>
 </body>
 </html>
