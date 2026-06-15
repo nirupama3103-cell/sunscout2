@@ -2,598 +2,772 @@
 <html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DIY Crafts & Learning Games for Kids – SunScout Kids</title>
-  <meta name="description" content="Free DIY projects and learning games for Bay Area kids ages 2+. Fuse beads, LEGO building, board games and more — no screen time needed.">
+  <title>DIY Projects – SunScout Kids</title>
+  <meta name="description" content="Free rainy-day DIY craft projects for Bay Area kids. Fuse Beads, LEGO building, board games and more — filtered by age group.">
+  <meta name="author" content="Nirupama Vadapalli">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.sunscoutkids.com/diy.html">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.sunscoutkids.com/diy.html">
-  <meta property="og:title" content="DIY Crafts & Learning Games for Kids – SunScout Kids">
-  <meta property="og:description" content="Free hands-on DIY projects and learning games for Bay Area kids ages 2+. Spark creativity with no screen time.">
+  <meta property="og:title" content="DIY Projects – SunScout Kids">
+  <meta property="og:description" content="Free rainy-day DIY craft projects for Bay Area kids, filtered by age.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
-  <meta property="og:site_name" content="SunScout Kids">
+  <meta property="og:site_name" content="SunScout">
   <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/sun-logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#f0f9ff;color:#1a1a1a;line-height:1.6}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:inherit;border:none}
-:root{--sun:#FF9900;--sky:#4FC3F7;--radius:14px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --sun:#FF9900;
+  --sky:#4FC3F7;
+  --green:#16a34a;
+  --blue:#1d4ed8;
+  --red:#dc2626;
+  --bg:#f0f9ff;
+  --card:#fff;
+  --text:#1a1a1a;
+  --muted:#666;
+  --border:#e5e7eb;
+  --radius:16px;
+}
+html{color-scheme:light only;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-text-size-adjust:100%;
+}
 
-.header{text-align:center;padding:32px 16px 20px;background:linear-gradient(160deg,#fff8ed 0%,#f0f9ff 100%);border-bottom:1px solid #ffe0b2}
-.back-button{display:inline-flex;align-items:center;gap:4px;font-size:13px;margin-bottom:14px;cursor:pointer;color:#c05e00;font-weight:800;background:#fff3e0;border:1.5px solid #ffcc80;border-radius:99px;padding:5px 14px;transition:background .15s}
-.back-button:hover{background:#ffe0b2}
-.logo{font-size:2.2rem;font-weight:900;color:var(--sun)}
-.logo span{color:var(--sky)}
-.tagline{font-size:1rem;color:#888;font-weight:700;margin-top:6px;letter-spacing:.2px}
+/* ── HEADER ── */
+.diy-header{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.diy-header-inner{
+  max-width:720px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:space-between;
+}
+.back-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--sun);
+  text-decoration:none;
+  background:#FFF3E0;
+  border:1.5px solid #FFD580;
+  border-radius:99px;
+  padding:6px 14px;
+  transition:background .15s;
+  white-space:nowrap;
+}
+.back-btn:hover{background:#FFE0B2;}
+.header-logo{
+  font-size:1.4rem;
+  font-weight:900;
+  color:#1565c0;
+  line-height:1;
+  text-decoration:none;
+}
+.header-logo span{color:var(--sun);}
+.header-logo small{font-size:.7rem;font-weight:800;color:var(--sky);margin-left:3px;}
 
-.hero{text-align:center;padding:28px 16px;background:linear-gradient(135deg,rgba(255,153,0,.05),rgba(79,195,247,.05))}
-.hero h1{font-size:2rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--sun),#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:1.1rem;color:#666}
+/* ── HERO ── */
+.diy-hero{
+  background:linear-gradient(135deg,#FFF8E1 0%,#E3F2FD 100%);
+  text-align:center;
+  padding:28px 16px 20px;
+  border-bottom:1px solid var(--border);
+}
+.diy-hero-icon{font-size:3rem;line-height:1;margin-bottom:8px;}
+.diy-hero h1{
+  font-size:1.6rem;
+  font-weight:900;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.diy-hero h1 span{color:var(--sun);}
+.diy-hero p{
+  font-size:13px;
+  color:var(--muted);
+  max-width:420px;
+  margin:0 auto 16px;
+  line-height:1.6;
+}
+.diy-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.8);
+  border:1px solid var(--border);
+  border-radius:99px;
+  padding:5px 14px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
+}
 
-.hint-bar{text-align:center;padding:10px 16px 0;font-size:.85rem;color:#888;font-weight:700}
-.hint-bar span{display:inline-flex;align-items:center;gap:6px;background:#fff3e0;border:1.5px solid #ffcc80;border-radius:99px;padding:6px 16px;color:#c05e00}
+/* ── AGE FILTER ── */
+.age-filter{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:14px 16px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.age-pill{
+  font-size:12px;
+  font-weight:800;
+  padding:6px 16px;
+  border-radius:99px;
+  border:1.5px solid var(--border);
+  background:#fff;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all .15s;
+  font-family:'Nunito',sans-serif;
+}
+.age-pill:hover{border-color:var(--sun);color:var(--sun);}
+.age-pill.on{background:var(--text);color:#fff;border-color:transparent;}
+.age-pill[data-age="all"].on{background:#1a1a1a;}
+.age-pill[data-age="0"].on{background:#f472b6;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25);}
+.age-pill[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25);}
+.age-pill[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25);}
+.age-pill[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25);}
 
-.filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 16px;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #ffe0b2;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.filter-label{font-weight:700;font-size:13px;color:#666;align-self:center}
-.age-filter-btn{font-size:12px;font-weight:700;padding:7px 14px;border-radius:99px;border:1.5px solid rgba(0,0,0,.12);background:#fff;color:#666;cursor:pointer;transition:all .15s}
-.age-filter-btn:hover{border-color:var(--sun);color:var(--sun)}
-.age-filter-btn.on{background:var(--sun);color:#fff;border-color:var(--sun);box-shadow:0 0 0 3px rgba(255,153,0,.25)}
+/* ── PROJECT COUNT ── */
+.diy-count{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
+  padding:10px 16px 2px;
+}
+.diy-count strong{color:var(--text);}
 
-/* GRID */
-.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:24px 20px;max-width:1540px;margin:0 auto}
-@media(max-width:1100px){.projects-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:768px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.projects-grid{grid-template-columns:1fr}}
+/* ── GRID ── */
+.diy-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;
+  padding:14px 16px 32px;
+  max-width:760px;
+  margin:0 auto;
+}
+@media(max-width:480px){
+  .diy-grid{grid-template-columns:1fr;gap:12px;padding:12px 12px 100px;}
+}
 
-/* 3D CARD SCENE */
-.card-scene{display:none;height:510px;perspective:1000px}
-.card-scene.visible{display:block}
+/* ── CARD ── */
+.diy-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  transition:box-shadow .2s,transform .2s;
+  display:flex;
+  flex-direction:column;
+}
+.diy-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);}
+.diy-card[hidden]{display:none!important;}
 
-.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1);cursor:pointer;border-radius:20px}
-.card-scene.flipped .card-inner{transform:rotateY(180deg)}
+.diy-card-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 16px 0;
+  cursor:pointer;
+}
+.diy-card-emoji{
+  font-size:2rem;
+  line-height:1;
+  flex-shrink:0;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+}
+.diy-card-title-wrap{flex:1;min-width:0;}
+.diy-card-title{
+  font-size:15px;
+  font-weight:900;
+  color:var(--text);
+  line-height:1.3;
+}
+.diy-card-tagline{
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:2px;
+}
+.diy-toggle-btn{
+  font-size:18px;
+  color:var(--muted);
+  flex-shrink:0;
+  transition:transform .25s;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+  line-height:1;
+}
+.diy-card.open .diy-toggle-btn{transform:rotate(180deg);}
 
-/* FRONT */
-.card-front,.card-back{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+/* age chips on card */
+.diy-age-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:8px 16px 0;
+}
+.diy-age-chip{
+  font-size:10px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:99px;
+  background:#f3f4f6;
+  color:var(--muted);
+}
+.diy-age-chip.a0{background:#fce7f3;color:#9d174d;}
+.diy-age-chip.a1{background:#dcfce7;color:#166534;}
+.diy-age-chip.a2{background:#dbeafe;color:#1e3a8a;}
+.diy-age-chip.a3{background:#ede9fe;color:#4c1d95;}
 
-.card-front{background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.10)}
-.card-front-img{width:100%;height:240px;object-fit:cover;object-position:center;display:block;transition:transform .4s ease}
-.card-inner:hover .card-front-img{transform:scale(1.04)}
-.img-placeholder{width:100%;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8ed,#ffe0b2);color:#c05e00;font-size:3rem;gap:8px}
-.img-placeholder span{font-size:.8rem;font-weight:800;color:#aaa}
+/* diff badge */
+.diy-diff{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  font-size:10px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:99px;
+  margin:8px 16px 0;
+  width:fit-content;
+}
+.diff-easy{background:#dcfce7;color:#166534;}
+.diff-medium{background:#FFF3E0;color:#c05e00;}
+.diff-hard{background:#fce7f3;color:#9d174d;}
 
-.card-front-body{padding:14px 16px 12px}
-.card-front-title{font-size:1.1rem;font-weight:900;color:#1a1a1a;margin-bottom:4px}
-.card-front-badge{display:inline-block;font-size:10px;font-weight:800;padding:4px 12px;border-radius:99px;background:#fff3e0;color:#c05e00;border:1px solid #ffcc80;margin-bottom:6px}
-.card-front-desc{font-size:.78rem;color:#666;line-height:1.4;margin-bottom:10px}
-.card-front-tap{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;background:linear-gradient(135deg,var(--sun),#ffb84d);color:#fff;font-weight:800;font-size:.85rem;border-radius:12px;border:none;transition:opacity .2s}
-.card-front-tap:hover{opacity:.9}
-.card-front-icon{font-size:1.6rem;position:absolute;top:12px;left:12px;background:rgba(255,255,255,.9);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+/* collapsible body */
+.diy-card-body{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease;
+}
+.diy-card.open .diy-card-body{max-height:1000px;}
+.diy-card-body-inner{padding:12px 16px 16px;}
 
-/* BACK */
-.card-back{transform:rotateY(180deg);color:#fff;display:flex;flex-direction:column;overflow-y:auto}
-.card-back-img-wrap{position:relative;flex-shrink:0;height:160px;overflow:hidden}
-.card-back-img-wrap img{width:100%;height:160px;object-fit:cover;object-position:center;display:block}
-.card-back-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,rgba(0,0,0,.0) 55%);display:flex;align-items:flex-end;padding:10px 14px}
-.card-back-img-title{font-size:1.1rem;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
-.card-back-img-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);margin-left:8px;color:#fff}
-.card-back-icon-pill{position:absolute;top:10px;left:12px;font-size:1.4rem;background:rgba(255,255,255,.9);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.card-back-sections{padding:0 14px 8px;flex:1;overflow-y:auto}
-.back-section{margin-bottom:12px}
-.back-section-title{font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.5px;opacity:.75;margin-bottom:5px}
-.back-section ul,.back-section ol{padding-left:16px;font-size:.8rem;line-height:1.5}
-.back-section li{margin-bottom:3px}
-.back-steps{list-style:none;padding:0}
-.back-steps li{font-size:.8rem;line-height:1.5;padding-left:26px;position:relative;margin-bottom:5px}
-.back-steps li::before{content:attr(data-n);position:absolute;left:0;top:1px;width:19px;height:19px;background:rgba(255,255,255,.3);border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
-.card-back-desc{font-size:.8rem;line-height:1.5;opacity:.93;padding:10px 14px 10px;border-bottom:1px solid rgba(255,255,255,.2)}
-.card-back-flip{margin:0 14px 12px;padding:8px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-weight:800;font-size:.8rem;border-radius:12px;flex-shrink:0;transition:background .2s}
-.card-back-flip:hover{background:rgba(255,255,255,.3)}
+.diy-section-label{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:6px;
+  margin-top:12px;
+}
+.diy-section-label:first-child{margin-top:0;}
 
-/* POINTER EVENTS — back face blocks clicks when hidden */
-.card-back{pointer-events:none}
-.card-scene.flipped .card-back{pointer-events:auto}
-.card-scene.flipped .card-front{pointer-events:none}
+.diy-materials{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:4px;
+}
+.diy-material{
+  font-size:11px;
+  font-weight:700;
+  padding:3px 9px;
+  border-radius:99px;
+  background:#f3f4f6;
+  color:#444;
+}
 
-/* PER-CARD BACK GRADIENTS */
-.card-scene:nth-child(1) .card-back{background:linear-gradient(150deg,#f97316,#ec4899)}
-.card-scene:nth-child(2) .card-back{background:linear-gradient(150deg,#3b82f6,#8b5cf6)}
-.card-scene:nth-child(3) .card-back{background:linear-gradient(150deg,#10b981,#0ea5e9)}
-.card-scene:nth-child(4) .card-back{background:linear-gradient(150deg,#f59e0b,#ef4444)}
-.card-scene:nth-child(5) .card-back{background:linear-gradient(150deg,#8b5cf6,#ec4899)}
-.card-scene:nth-child(6) .card-back{background:linear-gradient(150deg,#06b6d4,#10b981)}
-.card-scene:nth-child(7) .card-back{background:linear-gradient(150deg,#84cc16,#14b8a6)}
-.card-scene:nth-child(8) .card-back{background:linear-gradient(150deg,#f59e0b,#8b5cf6)}
+.diy-steps{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.diy-steps li{
+  display:flex;
+  gap:10px;
+  font-size:12px;
+  color:#444;
+  line-height:1.5;
+  align-items:flex-start;
+}
+.step-num{
+  flex-shrink:0;
+  width:20px;
+  height:20px;
+  background:var(--sun);
+  color:#fff;
+  border-radius:50%;
+  font-size:10px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1px;
+}
 
-/* EMOJI HERO — used for cards without a photo */
-.card-emoji-hero{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-size:6rem;flex-direction:column;gap:6px;position:relative}
-.card-emoji-hero span{font-size:.85rem;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.3px}
+.diy-tip{
+  background:#FFF8E1;
+  border-left:3px solid var(--sun);
+  border-radius:0 8px 8px 0;
+  padding:8px 12px;
+  font-size:11px;
+  color:#c05e00;
+  font-weight:700;
+  margin-top:10px;
+  line-height:1.5;
+}
 
-/* SPARKLE BURST on flip */
-@keyframes burst{0%{transform:scale(0) rotate(0deg);opacity:1}100%{transform:scale(2.2) rotate(180deg);opacity:0}}
-.burst{position:fixed;pointer-events:none;font-size:1.8rem;z-index:9999;animation:burst .55s ease-out forwards}
+.adult-flag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:#fff0f0;
+  border:1px solid #fca5a5;
+  border-radius:8px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:800;
+  color:#991b1b;
+  margin-top:10px;
+  line-height:1.4;
+}
 
-/* CTA + FOOTER */
-.cta-section{max-width:800px;margin:40px auto;padding:0 16px;text-align:center}
-.cta-card{background:linear-gradient(135deg,rgba(255,153,0,.1),rgba(79,195,247,.1));border-radius:var(--radius);padding:28px 20px;border:2px solid rgba(255,153,0,.2)}
-.cta-card h2{font-size:1.5rem;font-weight:900;margin-bottom:12px}
-.cta-card p{font-size:.95rem;color:#666;margin-bottom:16px}
-.cta-button{display:inline-block;padding:12px 28px;background:var(--sun);color:#fff;font-weight:800;border-radius:99px;cursor:pointer;font-size:.95rem;transition:all .3s;font-family:'Nunito',sans-serif}
-.cta-button:hover{background:#e68900;transform:translateY(-2px)}
-.footer{text-align:center;padding:20px 16px;color:#888;font-size:12px;border-top:2px solid #fff3e0;margin-top:40px;background:linear-gradient(to bottom,#fffdf9,#fff8ed)}
+/* ── EMPTY STATE ── */
+.diy-empty{
+  text-align:center;
+  padding:40px 16px;
+  grid-column:1/-1;
+  display:none;
+}
+.diy-empty.show{display:block;}
+.diy-empty-icon{font-size:3rem;margin-bottom:12px;}
+.diy-empty h2{font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px;}
+.diy-empty p{font-size:13px;color:var(--muted);}
+
+/* ── FOOTER ── */
+.diy-footer{
+  text-align:center;
+  font-size:12px;
+  color:#aaa;
+  border-top:1px solid var(--border);
+  padding:14px 16px 80px;
+}
+.diy-footer a{color:var(--sun);font-weight:700;text-decoration:none;}
+
+/* ── BACK TO TOP ── */
+#back-top{
+  position:fixed;
+  bottom:80px;
+  right:16px;
+  width:40px;
+  height:40px;
+  background:var(--sun);
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+  font-family:'Nunito',sans-serif;
+}
+#back-top.show{display:flex;}
 
 @media(prefers-reduced-motion:reduce){
-  .card-inner{transition:none}
-  .card-front-img{transition:none}
-  .burst{display:none}
+  .diy-card,.diy-card-body,.diy-toggle-btn{transition:none!important;}
+}
+
+/* ── Project video ── */
+.diy-video-wrap {
+  margin: 12px 16px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+.diy-video-wrap video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.diy-video-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 10px 16px 2px;
 }
 </style>
 </head>
 <body>
-  <div class="header">
-    <div class="back-button" onclick="history.back()">← Back to SunScout</div>
-    <div class="logo">SunScout <span>DIY</span></div>
-    <p class="tagline">🎨 Learn Through Play</p>
+
+<!-- ── HEADER ── -->
+<header class="diy-header">
+  <div class="diy-header-inner">
+    <a href="https://www.sunscoutkids.com/" class="back-btn" aria-label="Back to SunScout">← Back to SunScout</a>
+    <a href="https://www.sunscoutkids.com/" class="header-logo" aria-label="SunScout Kids home">
+      Sun<span>Scout</span><small>kids</small>
+    </a>
+    <div style="width:80px;"></div><!-- balance flex -->
   </div>
-  <div class="hero">
-    <h1>DIY Projects &amp; Learning Games</h1>
-    <p>Spark creativity and build skills with hands-on activities for kids ages 2+</p>
+</header>
+
+<!-- ── HERO ── -->
+<section class="diy-hero" aria-label="DIY Projects intro">
+  <div class="diy-hero-icon">🛠️</div>
+  <h1>DIY <span>Projects</span></h1>
+  <p>Free rainy-day activities you can do at home — no experience needed. Pick an age and get started!</p>
+  <div class="diy-meta">
+    <span>🆓 All free</span>
+    <span>·</span>
+    <span>🏠 At home</span>
+    <span>·</span>
+    <span>👨‍👩‍👧 Family friendly</span>
   </div>
-  <div class="hint-bar"><span>👆 Tap any card to flip it and see full details!</span></div>
-  <div class="filter-bar">
-    <span class="filter-label">Filter by age:</span>
-    <button class="age-filter-btn on" onclick="filterByAge('all',this)">All Ages</button>
-    <button class="age-filter-btn" onclick="filterByAge('2-5',this)">Ages 2-5</button>
-    <button class="age-filter-btn" onclick="filterByAge('6-8',this)">Ages 6-8</button>
-    <button class="age-filter-btn" onclick="filterByAge('8+',this)">Ages 8+</button>
-  </div>
+</section>
 
-  <div class="projects-grid">
+<!-- ── AGE FILTER ── -->
+<nav class="age-filter" aria-label="Filter by age">
+  <button class="age-pill on" data-age="all" onclick="setAge(this)">⭐ All ages</button>
+  <button class="age-pill" data-age="0"   onclick="setAge(this)">👶 0–2</button>
+  <button class="age-pill" data-age="1"   onclick="setAge(this)">🧸 3–5</button>
+  <button class="age-pill" data-age="2"   onclick="setAge(this)">🎒 6–12</button>
+  <button class="age-pill" data-age="3"   onclick="setAge(this)">🛹 Teen</button>
+</nav>
 
-    <!-- FUSE BEADS -->
-    <div class="card-scene visible" data-ages="2-5,6-8,8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front">
-          <div style="position:relative">
-            <img class="card-front-img" src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" loading="lazy">
-            <div class="card-front-icon">🫀</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Fuse Beads</div>
-            <div class="card-front-badge">Ages 3+</div>
-            <p class="card-front-desc">Arrange tiny beads on a pegboard, iron to fuse — make colorful keepsakes to display or gift!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
+<!-- ── COUNT ── -->
+<p class="diy-count" id="diy-count" aria-live="polite"><strong>5</strong> projects</p>
+
+<!-- ── GRID ── -->
+<main class="diy-grid" id="diy-grid" aria-label="DIY projects">
+
+  <!-- ── CARD 1: Fuse Beads ── -->
+  <article class="diy-card" data-ages="1,2,3" id="card-fuse">
+    <div class="diy-card-header" onclick="toggleCard('card-fuse')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-fuse" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-fuse')">
+      <div class="diy-card-emoji" style="background:#FFF0F9;">🔴</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Fuse Bead Art</div>
+        <div class="diy-card-tagline">Melt beads into colorful pixel art</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-easy">⭐ Easy</span>
+    <div class="diy-card-body" id="body-fuse" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Fuse beads (Perler/Hama)</span>
+          <span class="diy-material">Pegboard</span>
+          <span class="diy-material">Ironing paper</span>
+          <span class="diy-material">Iron</span>
+          <span class="diy-material">Tweezers (optional)</span>
         </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" loading="lazy">
-            <div class="card-back-icon-pill">🫀</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Fuse Beads</span><span class="card-back-img-badge">Ages 3+</span></div>
-          </div>
-          <p class="card-back-desc">Place tiny colorful beads onto a pegboard to make a design, then fuse them together with a warm iron to create a keepsake you can hold, hang, or gift!</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Fine motor &amp; color sorting</li><li>Symmetry &amp; spatial reasoning</li><li>Patience &amp; creative expression</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>5mm fuse beads + pegboard</li><li>Ironing paper or parchment</li><li>Household iron (adult only)</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 Steps</div>
-              <ol class="back-steps">
-                <li data-n="1">Arrange beads on pegboard into your pattern</li>
-                <li data-n="2">Lay ironing paper flat over beads</li>
-                <li data-n="3">Adult irons on medium, slow circles 10–20s</li>
-                <li data-n="4">Cool, peel paper, lift your creation!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
+          <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
+          <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
+          <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles for 10–15 seconds until beads fuse. Let cool before peeling.</li>
+          <li><span class="step-num">5</span>Flip over, iron the back for an even finish. Display or string as a keychain!</li>
+        </ol>
+        <div class="adult-flag" role="note">
+          🔥 Adult supervision required for the ironing step
         </div>
+        <div class="diy-tip">💡 Tip: Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
       </div>
     </div>
+  </article>
 
-    <!-- LEGO -->
-    <div class="card-scene visible" data-ages="2-5,6-8,8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front">
-          <div style="position:relative">
-            <img class="card-front-img" src="/images/diy-lego.png" alt="LEGO Building" loading="lazy">
-            <div class="card-front-icon">🏠</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">LEGO Building</div>
-            <div class="card-front-badge">Ages 2+</div>
-            <p class="card-front-desc">Stack bricks to build houses, towers, or whole cities — DUPLO for toddlers, classic LEGO for big builders!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
+  <!-- ── CARD 2: LEGO Building ── -->
+  <article class="diy-card" data-ages="1,2,3" id="card-lego">
+    <div class="diy-card-header" onclick="toggleCard('card-lego')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-lego" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-lego')">
+      <div class="diy-card-emoji" style="background:#EFF6FF;">🧱</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">LEGO Engineering Challenge</div>
+        <div class="diy-card-tagline">Build the tallest tower — then test it</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-easy">⭐ Easy</span>
+    <div class="diy-card-body" id="body-lego" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">LEGO / Duplo bricks</span>
+          <span class="diy-material">Ruler or tape measure</span>
+          <span class="diy-material">Timer (optional)</span>
+          <span class="diy-material">Small toy or coin (for load test)</span>
         </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <img src="/images/diy-lego.png" alt="LEGO Building" loading="lazy">
-            <div class="card-back-icon-pill">🏠</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">LEGO Building</span><span class="card-back-img-badge">Ages 2+</span></div>
-          </div>
-          <p class="card-back-desc">Stack bricks to build anything you can imagine — a cozy house, a tall tower, or a whole city! DUPLO for little hands, classic LEGO for bigger builders.</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Spatial engineering &amp; balance</li><li>3D visualization &amp; planning</li><li>Creative problem solving</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Ages 2–8: DUPLO baseplates &amp; large blocks</li><li>Ages 8+: Standard LEGO bricks, roof tiles</li><li>Flat sturdy surface</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 Steps</div>
-              <ol class="back-steps">
-                <li data-n="1">Place a flat baseplate on a level surface</li>
-                <li data-n="2">Arrange one layer to outline walls</li>
-                <li data-n="3">Stack bricks upward, stagger joints</li>
-                <li data-n="4">Bridge the top with long plates or roof bricks</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
+        <div class="diy-section-label">Challenge modes</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span><strong>Height challenge:</strong> build the tallest freestanding tower in 10 minutes. Measure and record!</li>
+          <li><span class="step-num">2</span><strong>Bridge challenge:</strong> span two stacks of books with a LEGO bridge. How many coins can it hold?</li>
+          <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a random household object (mug, shoe, phone) from memory in 5 minutes.</li>
+          <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra engineering difficulty.</div>
       </div>
     </div>
+  </article>
 
-    <!-- SNAKES & LADDERS -->
-    <div class="card-scene visible" data-ages="2-5,6-8">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front">
-          <div style="position:relative">
-            <img class="card-front-img" src="/images/diy-snake.png" alt="Snakes and Ladders" loading="lazy">
-            <div class="card-front-icon">🎲</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Snakes &amp; Ladders</div>
-            <div class="card-front-badge">Ages 3+</div>
-            <p class="card-front-desc">Race to space 100! Climb ladders for a shortcut or slide down snakes and try again — 2 to 4 players.</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
+  <!-- ── CARD 3: Snakes & Ladders ── -->
+  <article class="diy-card" data-ages="1,2" id="card-snakes">
+    <div class="diy-card-header" onclick="toggleCard('card-snakes')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-snakes" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-snakes')">
+      <div class="diy-card-emoji" style="background:#F0FDF4;">🐍</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Make Snakes & Ladders</div>
+        <div class="diy-card-tagline">Draw your own board, then play it</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+    </div>
+    <span class="diy-diff diff-medium">🔶 Medium</span>
+    <div class="diy-video-label">▶ See how to play</div>
+    <div class="diy-video-wrap">
+      <video
+        src="/snakes-ladders.mp4"
+        controls
+        preload="none"
+        playsinline
+        poster=""
+        aria-label="How to play Snakes and Ladders"
+        style="border-radius:12px;">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="diy-card-body" id="body-snakes" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Paper or cardstock (A3 or larger)</span>
+          <span class="diy-material">Ruler &amp; pencil</span>
+          <span class="diy-material">Colored markers</span>
+          <span class="diy-material">Dice</span>
+          <span class="diy-material">Small objects as tokens (coins, buttons)</span>
         </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <img src="/images/diy-snake.png" alt="Snakes and Ladders" loading="lazy">
-            <div class="card-back-icon-pill">🎲</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Snakes &amp; Ladders</span><span class="card-back-img-badge">Ages 3+</span></div>
-          </div>
-          <p class="card-back-desc">Race to space 100 on a numbered grid — climb ladders to zoom ahead, or slide down snakes and try again! A classic game of luck, counting, and never giving up.</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Number recognition &amp; counting</li><li>Turn-taking &amp; social skills</li><li>Basic addition &amp; resilience</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Snakes &amp; Ladders board</li><li>One die · Game tokens · 2–4 players</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 How to Play</div>
-              <ol class="back-steps">
-                <li data-n="1">Each player starts token on space 1</li>
-                <li data-n="2">Roll die and move forward that many spaces</li>
-                <li data-n="3">Climb ladders, slide down snakes</li>
-                <li data-n="4">First to reach space 100 wins!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100, starting bottom-left, snaking row by row upward.</li>
+          <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones. Label with start → end numbers.</li>
+          <li><span class="step-num">3</span>Draw 4–6 snakes with heads on higher squares and tails on lower ones.</li>
+          <li><span class="step-num">4</span>Decorate — themes work great (ocean snakes, jungle ladders, space rockets).</li>
+          <li><span class="step-num">5</span>Play! First to reach 100 wins. Land on a ladder head = climb up. Land on a snake head = slide down.</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Ages 3–5 can draw the art while older kids handle the numbering. Great teamwork project!</div>
       </div>
     </div>
+  </article>
 
-    <!-- CHINESE CHECKERS -->
-    <div class="card-scene visible" data-ages="6-8,8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front">
-          <div style="position:relative">
-            <img class="card-front-img" src="/images/diy-chinese.png" alt="Chinese Checkers" loading="lazy">
-            <div class="card-front-icon">✨</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Chinese Checkers</div>
-            <div class="card-front-badge">Ages 6+</div>
-            <p class="card-front-desc">Race your marbles across a star-shaped board — hop over opponents to leap ahead. 2–6 players!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
+  <!-- ── CARD 4: Chinese Checkers ── -->
+  <article class="diy-card" data-ages="2,3" id="card-checkers">
+    <div class="diy-card-header" onclick="toggleCard('card-checkers')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-checkers" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-checkers')">
+      <div class="diy-card-emoji" style="background:#FDF4FF;">⭐</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Chinese Checkers Board</div>
+        <div class="diy-card-tagline">Make a star board from cardboard</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-hard">🔴 Challenging</span>
+    <div class="diy-card-body" id="body-checkers" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Thick cardboard</span>
+          <span class="diy-material">Compass or circular stencil</span>
+          <span class="diy-material">Ruler &amp; pencil</span>
+          <span class="diy-material">Colored markers (6 colors)</span>
+          <span class="diy-material">Buttons or beads (10 per color)</span>
+          <span class="diy-material">Bottle caps (optional holes)</span>
         </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <img src="/images/diy-chinese.png" alt="Chinese Checkers" loading="lazy">
-            <div class="card-back-icon-pill">✨</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Chinese Checkers</span><span class="card-back-img-badge">Ages 6+</span></div>
-          </div>
-          <p class="card-back-desc">Race your marbles across a star-shaped board to the opposite corner before your opponents do. Hop over other marbles to leap ahead — strategy wins here!</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Strategic thinking &amp; planning ahead</li><li>Pattern recognition &amp; spatial logic</li><li>Competitive &amp; cooperative play</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Star-shaped Chinese Checkers board</li><li>60 marbles in 6 colors · 2–6 players</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 How to Play</div>
-              <ol class="back-steps">
-                <li data-n="1">Place 10 marbles in one triangle corner</li>
-                <li data-n="2">Move one marble per turn</li>
-                <li data-n="3">Step to adjacent spot or jump over marbles</li>
-                <li data-n="4">First to fill the opposite triangle wins!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Draw a large Star of David shape (two overlapping equilateral triangles) on cardboard.</li>
+          <li><span class="step-num">2</span>Mark 121 dots in a triangular grid pattern across the star — 10 in each point, 61 in the hexagonal center.</li>
+          <li><span class="step-num">3</span>Color each of the 6 star points a different color. These are the home zones.</li>
+          <li><span class="step-num">4</span>Poke small holes or just mark circles at each dot for pieces to sit on.</li>
+          <li><span class="step-num">5</span>Use 10 colored buttons/beads per player. Goal: move all pieces to the opposite point by hopping over others.</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Print a reference grid from Wikipedia's "Chinese Checkers" article to get the spacing right.</div>
       </div>
     </div>
+  </article>
 
-    <!-- MARBLE SOLITAIRE -->
-    <div class="card-scene visible" data-ages="8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front">
-          <div style="position:relative">
-            <img class="card-front-img" src="/images/diy-marble.png" alt="Marble Solitaire" loading="lazy">
-            <div class="card-front-icon">🤔</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Marble Solitaire</div>
-            <div class="card-front-badge">Ages 8+</div>
-            <p class="card-front-desc">A solo brain-teaser: jump marbles to clear the board until just one marble remains in the center!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
+  <!-- ── CARD 5: Marble Solitaire ── -->
+  <article class="diy-card" data-ages="2,3" id="card-marble">
+    <div class="diy-card-header" onclick="toggleCard('card-marble')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-marble" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-marble')">
+      <div class="diy-card-emoji" style="background:#FFF8E1;">🔵</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Marble Solitaire</div>
+        <div class="diy-card-tagline">The one-player puzzle that's harder than it looks</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-hard">🔴 Challenging</span>
+    <div class="diy-card-body" id="body-marble" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Cardboard or egg carton</span>
+          <span class="diy-material">Scissors</span>
+          <span class="diy-material">Marker</span>
+          <span class="diy-material">32 marbles or small buttons</span>
         </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <img src="/images/diy-marble.png" alt="Marble Solitaire" loading="lazy">
-            <div class="card-back-icon-pill">🤔</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Marble Solitaire</span><span class="card-back-img-badge">Ages 8+</span></div>
-          </div>
-          <p class="card-back-desc">A solo brain-teaser! Start with a full board and one empty center hole. Jump marbles over each other to remove them — your goal is to leave just one marble standing, right in the middle.</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Logical deduction &amp; puzzle-solving</li><li>Working memory &amp; reverse thinking</li><li>Patience &amp; persistence</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Cross-shaped board (33 holes)</li><li>32 marbles or pegs · 1 player</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 How to Play</div>
-              <ol class="back-steps">
-                <li data-n="1">Fill all holes with marbles except the center</li>
-                <li data-n="2">Hop a marble over an adjacent one into empty hole</li>
-                <li data-n="3">Remove the jumped marble each time</li>
-                <li data-n="4">Win: only 1 marble left in the center!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
+        <div class="diy-section-label">Build the board</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape: a 3×7 rectangle crossed with a 7×3 rectangle, sharing a 3×3 center. You need 33 holes total.</li>
+          <li><span class="step-num">2</span>Poke or cut 33 small holes in a grid pattern — 3 columns across the top arm, 3 across the bottom, 7 down each side arm.</li>
+          <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
+        </ol>
+        <div class="diy-section-label">How to play</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
+          <li><span class="step-num">2</span>A move = jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
+          <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Solving this puzzle with 1 marble remaining in the center is genuinely hard. Don't worry — most people take days to crack it!</div>
       </div>
     </div>
+  </article>
 
-    <!-- SLIME LAB -->
-    <div class="card-scene visible" data-ages="2-5,6-8">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front" style="background:linear-gradient(135deg,#e0f2fe,#fce7f3)">
-          <div style="position:relative">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#7dd3fc,#f9a8d4)">🧪<span>Slime Lab</span></div>
-            <div class="card-front-icon">🧪</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Homemade Slime Lab</div>
-            <div class="card-front-badge">Ages 4+</div>
-            <p class="card-front-desc">Mix glue, baking soda & contact solution to make stretchy, squishy slime in any color you want!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
-        </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#38bdf8,#e879f9);height:160px">🧪</div>
-            <div class="card-back-icon-pill">🧪</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Homemade Slime Lab</span><span class="card-back-img-badge">Ages 4+</span></div>
-          </div>
-          <p class="card-back-desc">Mix glue, baking soda, and contact lens solution to create stretchy, squishy slime in any color you choose — a classic STEM sensory experiment kids beg to do again!</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Basic chemistry &amp; states of matter</li><li>Measuring &amp; following instructions</li><li>Sensory exploration &amp; creativity</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>White PVA school glue · Baking soda</li><li>Contact lens solution (must contain boric acid)</li><li>Food coloring · Mixing bowl &amp; spoon</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 Steps</div>
-              <ol class="back-steps">
-                <li data-n="1">Pour ½ cup glue into bowl, add food coloring</li>
-                <li data-n="2">Mix in ½ tsp baking soda until smooth</li>
-                <li data-n="3">Add 1 tbsp contact solution, stir fast</li>
-                <li data-n="4">Knead until slime forms — stretch &amp; play!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- NATURE TERRARIUM -->
-    <div class="card-scene visible" data-ages="2-5,6-8,8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front" style="background:linear-gradient(135deg,#dcfce7,#d1fae5)">
-          <div style="position:relative">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#4ade80,#2dd4bf)">🌿<span>Nature Terrarium</span></div>
-            <div class="card-front-icon">🌿</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Nature Terrarium</div>
-            <div class="card-front-badge">Ages 4+</div>
-            <p class="card-front-desc">Build a tiny living world in a glass jar using Bay Area backyard plants, rocks & soil — watch it grow!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
-        </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#22c55e,#0d9488);height:160px">🌿</div>
-            <div class="card-back-icon-pill">🌿</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Nature Terrarium</span><span class="card-back-img-badge">Ages 4+</span></div>
-          </div>
-          <p class="card-back-desc">Build a tiny living world inside a glass jar using rocks, soil, and small plants gathered from your Bay Area backyard or local park — a mini ecosystem that kids water and watch grow!</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Plant biology &amp; ecosystems</li><li>Responsibility through daily care</li><li>Nature observation &amp; patience</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Glass jar or clear container (wide-mouth)</li><li>Pebbles · Activated charcoal (optional) · Potting soil</li><li>Small plants: succulents, moss, or ferns</li><li>Decorative rocks, mini figurines</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 Steps</div>
-              <ol class="back-steps">
-                <li data-n="1">Add 1″ pebble layer for drainage</li>
-                <li data-n="2">Sprinkle thin layer of charcoal to keep it fresh</li>
-                <li data-n="3">Add 2–3″ of potting soil, shape hills &amp; valleys</li>
-                <li data-n="4">Plant greenery, decorate, mist lightly &amp; enjoy!</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAPER CIRCUITS -->
-    <div class="card-scene visible" data-ages="8+">
-      <div class="card-inner" onclick="flipCard(this,event)">
-        <div class="card-front" style="background:linear-gradient(135deg,#fef9c3,#fef3c7)">
-          <div style="position:relative">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#fbbf24,#a78bfa)">💡<span>Paper Circuits</span></div>
-            <div class="card-front-icon">💡</div>
-          </div>
-          <div class="card-front-body">
-            <div class="card-front-title">Paper Circuit Cards</div>
-            <div class="card-front-badge">Ages 8+</div>
-            <p class="card-front-desc">Use copper tape & a tiny LED to make greeting cards that actually light up — real circuits through art!</p>
-            <button class="card-front-tap">✨ Flip to Play →</button>
-          </div>
-        </div>
-        <div class="card-back">
-          <div class="card-back-img-wrap">
-            <div class="card-emoji-hero" style="background:linear-gradient(135deg,#f59e0b,#7c3aed);height:160px">💡</div>
-            <div class="card-back-icon-pill">💡</div>
-            <div class="card-back-img-overlay"><span class="card-back-img-title">Paper Circuit Cards</span><span class="card-back-img-badge">Ages 8+</span></div>
-          </div>
-          <p class="card-back-desc">Use copper tape and a tiny LED to make greeting cards that actually light up — a Silicon Valley-inspired STEM craft that teaches real electrical circuits through art!</p>
-          <div class="card-back-sections">
-            <div class="back-section">
-              <div class="back-section-title">💡 What Kids Learn</div>
-              <ul><li>Basic electrical circuits (series &amp; parallel)</li><li>Conductors, insulators &amp; polarity</li><li>Engineering design &amp; creative problem-solving</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📦 You'll Need</div>
-              <ul><li>Cardstock or thick paper · Copper tape</li><li>3V coin battery (CR2032) · LED lights</li><li>Markers, stickers for decorating</li></ul>
-            </div>
-            <div class="back-section">
-              <div class="back-section-title">📋 Steps</div>
-              <ol class="back-steps">
-                <li data-n="1">Draw your card design, mark where LED will shine</li>
-                <li data-n="2">Lay copper tape in a loop from + to – battery spot</li>
-                <li data-n="3">Place LED legs across the tape gap (match + / –)</li>
-                <li data-n="4">Slide battery in, fold card — watch it glow! 🌟</li>
-              </ol>
-            </div>
-          </div>
-          <button class="card-back-flip" onclick="event.stopPropagation();flipCard(this.closest('.card-inner'),event)">← Flip Back</button>
-        </div>
-      </div>
-    </div>
-
+  <!-- ── EMPTY STATE ── -->
+  <div class="diy-empty" id="diy-empty" role="status" aria-live="polite">
+    <div class="diy-empty-icon">🌻</div>
+    <h2>No projects for this age yet</h2>
+    <p>Try a different age filter — more projects coming soon!</p>
   </div>
 
-  <div class="cta-section">
-    <div class="cta-card">
-      <h2>🎯 Ready to Get Out &amp; Explore?</h2>
-      <p>These projects are just the start. Discover summer camps, classes, and family activities in your area on SunScout.</p>
-      <button class="cta-button" onclick="location.href='/'">Explore Activities Near You</button>
-    </div>
-  </div>
-  <div class="footer">
-    <p>SunScout Kids · Helping Bay Area families find amazing activities · Summer 2026</p>
-  </div>
+</main>
 
-  <script>
-    // 3D FLIP
-    function flipCard(inner, e) {
-      const scene = inner.closest('.card-scene');
-      const willFlip = !scene.classList.contains('flipped');
-      scene.classList.toggle('flipped');
-      if (willFlip) spawnBurst(e);
-    }
+<!-- ── FOOTER ── -->
+<footer class="diy-footer">
+  <p>SunScout Kids · DIY Projects · Bay Area Summer 2026</p>
+  <p style="margin-top:6px;">
+    <a href="https://www.sunscoutkids.com/">← Back to activities</a>
+    &nbsp;·&nbsp;
+    <a href="/" onclick="event.preventDefault();window.history.back()">No tracking · No ads</a>
+  </p>
+</footer>
 
-    // SPARKLE BURST on flip
-    const SPARKS = ['✨','🌟','⭐','💥','🎉','🌈','🎊'];
-    function spawnBurst(e) {
-      const x = e ? e.clientX : window.innerWidth / 2;
-      const y = e ? e.clientY : window.innerHeight / 2;
-      for (let i = 0; i < 6; i++) {
-        const el = document.createElement('div');
-        el.className = 'burst';
-        el.textContent = SPARKS[Math.floor(Math.random() * SPARKS.length)];
-        el.style.cssText = `left:${x + (Math.random()-0.5)*80}px;top:${y + (Math.random()-0.5)*80}px;animation-delay:${i*0.06}s`;
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 650);
-      }
-    }
+<!-- ── BACK TO TOP ── -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-    // 3D TILT on mouse move (desktop)
-    document.querySelectorAll('.card-scene').forEach(scene => {
-      const inner = scene.querySelector('.card-inner');
-      scene.addEventListener('mousemove', e => {
-        if (scene.classList.contains('flipped')) return;
-        const r = scene.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width  - 0.5;
-        const y = (e.clientY - r.top)  / r.height - 0.5;
-        inner.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(8px)`;
-        inner.style.transition = 'transform .1s ease';
-      });
-      scene.addEventListener('mouseleave', () => {
-        if (scene.classList.contains('flipped')) return;
-        inner.style.transform = '';
-        inner.style.transition = 'transform .5s ease';
-      });
-    });
+<script>
+// ── Age filter ──
+var activeAge = 'all';
 
-    // IMAGE ERROR FALLBACK
-    document.querySelectorAll('.card-front-img').forEach(img => {
-      img.addEventListener('error', function() {
-        const wrap = this.parentElement;
-        wrap.innerHTML = '<div class="img-placeholder">🖼️<span>Image coming soon</span></div>';
-      });
-    });
+function setAge(btn) {
+  document.querySelectorAll('.age-pill').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  activeAge = btn.dataset.age;
+  filterCards();
+}
 
-    // AGE FILTER
-    function filterByAge(age, btn) {
-      document.querySelectorAll('.age-filter-btn').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
-      document.querySelectorAll('.card-scene').forEach(scene => {
-        const ages = scene.dataset.ages.split(',');
-        const show = age === 'all' || ages.includes(age);
-        scene.classList.toggle('visible', show);
-        if (!show) scene.classList.remove('flipped');
-      });
-    }
-  </script>
+function filterCards() {
+  var cards = document.querySelectorAll('.diy-card[data-ages]');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var ages = card.dataset.ages.split(',');
+    var show = activeAge === 'all' || ages.indexOf(activeAge) !== -1;
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  // count
+  var countEl = document.getElementById('diy-count');
+  if (countEl) countEl.innerHTML = '<strong>' + visible + '</strong> project' + (visible !== 1 ? 's' : '');
+  // empty state
+  var emptyEl = document.getElementById('diy-empty');
+  if (emptyEl) emptyEl.classList.toggle('show', visible === 0);
+}
+
+// ── Toggle card open/close ──
+function toggleCard(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  // close all others
+  document.querySelectorAll('.diy-card.open').forEach(function(c) {
+    c.classList.remove('open');
+    var h = c.querySelector('.diy-card-header');
+    if (h) h.setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    var header = card.querySelector('.diy-card-header');
+    if (header) header.setAttribute('aria-expanded', 'true');
+    // smooth scroll card into view on mobile
+    setTimeout(function() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
+  }
+}
+
+// ── Back to top ──
+var backTop = document.getElementById('back-top');
+window.addEventListener('scroll', function() {
+  if (backTop) backTop.classList.toggle('show', window.scrollY > 300);
+}, { passive: true });
+</script>
 </body>
 </html>
