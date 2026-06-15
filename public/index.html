@@ -1,2422 +1,773 @@
 <!DOCTYPE html>
 <html lang="en" style="color-scheme:light only;background:#f0f9ff;">
 <head>
-<!-- Google Analytics removed: gtag.js not loaded -->
-  <link rel="icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/sun-logo.png">
-<meta charset="UTF-8"/>
+  <meta charset="UTF-8"/>
   <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SunScout – Summer Activities for Kids</title>
-
-  <!-- ── SEO: Meta Description ── -->
-  <meta name="description" content="Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor and more — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
-  <meta name="keywords" content="summer activities kids Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino, kids events Fremont">
+  <title>DIY Projects – SunScout Kids</title>
+  <meta name="description" content="Free rainy-day DIY craft projects for Bay Area kids. Fuse Beads, LEGO building, board games and more — filtered by age group.">
   <meta name="author" content="Nirupama Vadapalli">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.sunscoutkids.com/">
-
-  <!-- ── Open Graph ── -->
+  <link rel="canonical" href="https://www.sunscoutkids.com/diy.html">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.sunscoutkids.com/">
-  <meta property="og:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta property="og:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
+  <meta property="og:url" content="https://www.sunscoutkids.com/diy.html">
+  <meta property="og:title" content="DIY Projects – SunScout Kids">
+  <meta property="og:description" content="Free rainy-day DIY craft projects for Bay Area kids, filtered by age.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
-  <meta property="og:image:alt" content="SunScout – Summer Activities for Bay Area Kids">
   <meta property="og:site_name" content="SunScout">
-  <meta property="og:locale" content="en_US">
-
-  <!-- ── Twitter Card ── -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
-  <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
-
-  <!-- ── PWA Manifest ── -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/sun-logo.png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="dns-prefetch" href="//api.open-meteo.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#f0f9ff!important;color:#1a1a1a!important;min-height:unset;color-scheme:light only;}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:inherit}
-img{max-width:100%;display:block}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --sun:#FF9900;--sky:#4FC3F7;--green:#16a34a;--amber:#d97706;--red:#dc2626;--blue:#1d4ed8;
-  --tab1:#FFD93D;--tab2:#FF6B6B;--tab3:#4FC3F7;--tab4:#66BB6A;--tab5:#CE93D8;
-  --radius:14px;--shadow:0 2px 14px rgba(0,0,0,.09);
+  --sun:#FF9900;
+  --sky:#4FC3F7;
+  --green:#16a34a;
+  --blue:#1d4ed8;
+  --red:#dc2626;
+  --bg:#f0f9ff;
+  --card:#fff;
+  --text:#1a1a1a;
+  --muted:#666;
+  --border:#e5e7eb;
+  --radius:16px;
 }
-.header{text-align:center;padding:28px 16px 0}
-.logo{font-size:2.2rem;font-weight:900;color:var(--sun);line-height:1;padding:0;margin:0 auto}
-.logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
-.tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
-.countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
-.weather-banner{display:none;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
-.city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
-.city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
-
-/* deduped */
-.city-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:99px;border:2px solid transparent;background:#fff;color:#666;box-shadow:var(--shadow);transition:all .15s}
-.city-btn:hover{background:#FFF3E0;color:#333}
-.city-btn.on{background:var(--sun);color:#fff;border-color:#E68A00}
-.tab-bar{display:none;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px 16px 0}@media(max-width:768px){.tab-bar{display:flex!important}}
-.tab-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:800;border:none;border-radius:var(--radius);padding:11px 16px 13px;min-width:115px;flex:1 1 115px;max-width:150px;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
-.tab-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
-.tab-btn.on{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.16)}
-.tab-btn.on::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:28px;height:3px;background:rgba(0,0,0,.2);border-radius:99px}
-.tab-icon{font-size:1.5rem;line-height:1}
-.tab-label{font-size:11px;font-weight:900;text-align:center;line-height:1.2}
-.tab-sub{font-size:9px;font-weight:600;opacity:.7;text-align:center}
-.tab-count-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,0.18);color:#fff;font-size:9px;font-weight:900;padding:1px 6px;border-radius:99px;display:none}.tab-free-dot{position:absolute;top:5px;right:5px;background:var(--green);color:#fff;font-size:9px;font-weight:900;padding:1px 5px;border-radius:5px}
-.tab-btn[data-tab="free"]{background:var(--tab1);color:#5A3E00}
-.tab-btn[data-tab="free"].on{background:#FF9900;color:#fff}
-.tab-btn[data-tab="paid"]{background:var(--tab2);color:#fff}
-.tab-btn[data-tab="paid"].on{background:#C0392B}
-.tab-btn[data-tab="indoor"]{background:var(--tab3);color:#003A52}
-.tab-btn[data-tab="indoor"].on{background:#0288D1;color:#fff}
-.tab-btn[data-tab="outdoor"]{background:var(--tab4);color:#fff}
-.tab-btn[data-tab="outdoor"].on{background:#2E7D32}
-.tab-btn[data-tab="weekend"]{background:var(--tab5);color:#3A0050}
-.tab-btn[data-tab="weekend"].on{background:#8E24AA;color:#fff}
-.search-wrap{display:flex;align-items:center;gap:8px;padding:12px 16px 0;max-width:600px;margin:0 auto}
-.search-icon{font-size:16px;color:#999}
-.search-input{flex:1;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;padding:9px 16px;border-radius:99px;border:2px solid #eee;background:#fff;color:#1a1a1a;outline:none;transition:border .15s}
-.search-input:focus{border-color:#FF9900}
-.search-clear{font-size:12px;padding:4px 10px;border-radius:99px;border:none;background:#f0f0f0;color:#666}
-.age-bar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 0;justify-content:center}
-@media(max-width:640px){.age-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;-webkit-overflow-scrolling:touch;}.age-bar::-webkit-scrollbar{display:none}.age-btn{flex:0 0 auto}}
-.age-btn{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;border:1.5px solid rgba(0,0,0,.12);background:#fff;color:#666;transition:all .15s}
-.age-btn.on{background:#1a1a1a;color:#fff;border-color:transparent}.age-btn[data-age="0"].on{background:#f472b6;color:#fff;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25)}.age-btn[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25)}.age-btn[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25)}.age-btn[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25)}.city-btn.on{background:var(--sun);color:#fff;border-color:#E68A00;box-shadow:0 0 0 3px rgba(255,153,0,.3),0 4px 12px rgba(255,153,0,.25)}.fstrip-pill{display:inline-flex;align-items:center;gap:5px;background:#fff3e0;color:#c05e00;border:1.5px solid #ffcc80;border-radius:99px;padding:4px 10px;font-size:12px;font-weight:700}.fstrip-pill button{background:none;border:none;cursor:pointer;font-size:11px;color:#c05e00;padding:0;line-height:1}.fstrip-clear{background:none;border:1.5px solid #ddd;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;color:#888;cursor:pointer}.fstrip-clear:hover{background:#f5f5f5;color:#333}
-.age-desc{font-weight:400;opacity:.8;font-size:11px}
-.status-bar{font-size:13px;color:#666;padding:10px 16px 4px}
-.status-bar strong{color:#1a1a1a}
-.spinner{display:inline-block;width:20px;height:20px;border:3px solid #eee;border-top-color:#FF9900;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr);gap:8px;padding:6px 10px 0}}
-@media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
-.card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
-.card-img-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f0f0;flex-shrink:0}
-.card-img-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
-.badge-free{position:absolute;top:7px;left:7px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
-.badge-src{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
-.card-body{padding:10px 11px;display:flex;flex-direction:column;gap:5px;flex:1}
-.card-title{font-size:13px;font-weight:700;line-height:1.3;color:#1a1a1a!important}
-.stars{font-size:12px;color:var(--amber);letter-spacing:1px}
-.chips{display:flex;flex-wrap:wrap;gap:4px}
-.chip{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;white-space:nowrap}
-.chip-a0{background:#dbeafe;color:#1e40af}
-.chip-a1{background:#dcfce7;color:#166534}
-.chip-a2{background:#fef9c3;color:#92400e}
-.chip-a3{background:#f3e8ff;color:#6b21a8}
-.chip-a11y{background:#f0f0f0;color:#555}
-.chip-price{background:#fff3e0;color:#c05e00;border:1px solid #ffcc80}
-.info{display:flex;gap:5px;font-size:11px;color:#666;line-height:1.4;align-items:flex-start}
-.date-line{font-size:11px;color:#666}
-.date-line strong{color:#1a1a1a}
-.card-foot{display:flex;gap:6px;padding:7px 11px 11px;flex-wrap:wrap;margin-top:auto}
-.btn{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;border:1.5px solid rgba(0,0,0,.12);background:transparent;color:#1a1a1a;display:inline-flex;align-items:center;gap:3px;transition:background .12s;text-decoration:none}
-.btn:hover{background:#f3f3f3}
-.btn-map{background:#dbeafe;color:var(--blue);border-color:transparent}
-.btn-map:hover{background:#bfdbfe}
-/* footer-pair-styling */.show-more-wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;text-align:center;padding:12px 16px;margin-bottom:0}
-@media(max-width:640px){
-  .show-more-wrap{
-    display:flex;
-    flex-wrap:nowrap;
-    gap:8px;
-    padding:14px 12px 18px;
-    justify-content:center;
-    align-items:stretch;
-  }
-  .show-more-wrap .show-more-btn{
-    flex:0 0 calc(50% - 4px);
-    width:calc(50% - 4px);
-    min-width:0;
-    max-width:calc(50% - 4px);
-    font-size:12px;
-    padding:0 8px;
-    height:46px;
-    line-height:1;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    box-sizing:border-box;
-  }
-}
-.show-more-btn{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;padding:10px 32px;border-radius:99px;border:2px solid #FF9900;background:#fff;color:#FF9900;cursor:pointer;transition:all .15s}
-.show-more-btn:hover{background:#FF9900;color:#fff}
-.show-more-btn:disabled{opacity:.4;cursor:not-allowed}
-.no-results{text-align:center;padding:2rem 1rem;grid-column:1/-1}
-.no-results-icon{font-size:3rem;margin-bottom:10px}
-.no-results h2{font-size:18px;font-weight:900;margin-bottom:8px}
-.no-results p{font-size:13px;color:#666;margin-bottom:14px}
-.diy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}@media(max-width:640px){.diy-grid{grid-template-columns:1fr}}
-.diy-card{background:#fff;border:1px solid #eee;border-radius:10px;padding:12px;font-size:12px;color:#666}
-.diy-card strong{display:block;font-size:13px;color:#1a1a1a;margin-bottom:4px}
-.card-skel .card-img-wrap{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;height:160px}
-.card-skel{min-height:260px}
-.card-skel{min-height:260px}
-.skel-line{height:13px;margin:5px 0;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite}
-.skel-short{width:60%}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.footer{text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;padding:12px 16px 16px;margin-top:0}
-.detail-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
-.detail-modal{background:#fff;border-radius:20px;max-width:540px;width:100%;max-height:92vh;overflow-y:auto;font-family:Nunito,sans-serif;position:relative;}
-.detail-modal-img{width:100%;height:200px;object-fit:cover;border-radius:20px 20px 0 0;}
-.detail-modal-body{padding:1.25rem;}
-.detail-modal-title{font-size:1.3rem;font-weight:900;margin:0 0 6px;color:#1a1a1a;}
-.detail-modal-desc{font-size:0.9rem;color:#555;line-height:1.6;margin:8px 0 12px;}
-.detail-modal-row{display:flex;align-items:flex-start;gap:8px;font-size:0.88rem;color:#444;margin-bottom:6px;}
-.detail-modal-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
-.detail-modal-btns a,.detail-modal-btns button{flex:1;min-width:120px;padding:10px;border-radius:99px;text-align:center;font-weight:800;font-size:0.88rem;text-decoration:none;border:none;cursor:pointer;}
-.btn-detail-map{background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;}
-.btn-detail-site{background:linear-gradient(135deg,#2196F3,#1565c0);color:#fff;}
-.btn-detail-call{background:linear-gradient(135deg,#FF9800,#e65100);color:#fff;}
-.btn-detail-register{background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;}
-.detail-close{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.4);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;z-index:10;line-height:32px;text-align:center;}
-@media(prefers-color-scheme:dark){
-  body{background:#1a1a1a;color:#f0f0f0}
-  .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
-  .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
-  .info{color:#aaa}
-}
-@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
-  .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
-  .tab-sub{display:none}
-  .logo{font-size:1.8rem}
-  .tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;padding-left:8px;}
-  .tab-bar::-webkit-scrollbar{display:none}
-  .tab-btn{flex-shrink:0}
-  .age-desc{display:none}
-  .btn{padding:7px 12px;font-size:12px;min-height:36px}
+html{color-scheme:light only;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-text-size-adjust:100%;
 }
 
-.weekend-banner{display:none;margin:10px 16px 0;padding:10px 18px;border-radius:14px;font-weight:800;font-size:13px;color:#fff;text-align:center;background:linear-gradient(135deg,#8E24AA,#CE93D8);animation:pulse-banner 2s ease-in-out infinite}
-@keyframes pulse-banner{0%,100%{opacity:1}50%{opacity:.85}}
-.fav-btn{position:absolute;bottom:7px;right:7px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;width:28px;height:28px;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.fav-btn:hover{transform:scale(1.2)}
-.fav-btn.faved{background:#ffe0e0}
-.mylist-tab-btn{background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;position:relative}
-.mylist-badge{position:absolute;top:-5px;right:-5px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:18px;height:18px;display:none;align-items:center;justify-content:center}
-.plan-btn{background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif}
-#plan-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
-#plan-modal{background:#fff;border-radius:16px;max-width:380px;width:100%;padding:18px;position:relative;font-family:Nunito,sans-serif;max-height:80vh;overflow-y:auto}
-.plan-step{display:none}.plan-step.active{display:block}
-.plan-option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
-.plan-option{padding:14px;border-radius:12px;border:2px solid #eee;background:#fff;cursor:pointer;font-family:Nunito,sans-serif;font-weight:700;font-size:13px;text-align:center;transition:all .15s}
-.plan-option:hover{border-color:#FF9900;background:#fff9f0}
-.plan-option.selected{border-color:#FF9900;background:#fff3e0;color:#c05e00}
-.plan-itinerary{background:#f9f9f9;border-radius:12px;padding:16px;margin-top:12px}
-.plan-itinerary-item{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
-.plan-time-badge{background:#FF9900;color:#fff;font-size:10px;font-weight:900;padding:3px 8px;border-radius:99px;white-space:nowrap;margin-top:2px;flex-shrink:0}
-#mylist-panel{display:none;position:fixed;top:0;right:0;width:420px;height:100vh;background:#fff;z-index:99998;box-shadow:-4px 0 20px rgba(0,0,0,.15);overflow-y:auto;padding:24px;font-family:Nunito,sans-serif;border-left:0.5px solid #e0e0e0}
-#mylist-panel h2{font-size:1.2rem;font-weight:900;color:#1a1a1a;margin-bottom:4px}
-.mylist-item{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:#f9f9f9;margin-bottom:8px}
-.mylist-item-emoji{font-size:1.6rem;flex-shrink:0}
-.mylist-item-info{flex:1;min-width:0}
-.mylist-item-title{font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mylist-item-city{font-size:11px;color:#888}
-.mylist-remove{background:none;border:none;font-size:16px;cursor:pointer;color:#aaa;flex-shrink:0}
-.mylist-remove:hover{color:#ef4444}
+/* ── HEADER ── */
+.diy-header{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.diy-header-inner{
+  max-width:720px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:space-between;
+}
+.back-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--sun);
+  text-decoration:none;
+  background:#FFF3E0;
+  border:1.5px solid #FFD580;
+  border-radius:99px;
+  padding:6px 14px;
+  transition:background .15s;
+  white-space:nowrap;
+}
+.back-btn:hover{background:#FFE0B2;}
+.header-logo{
+  font-size:1.4rem;
+  font-weight:900;
+  color:#1565c0;
+  line-height:1;
+  text-decoration:none;
+}
+.header-logo span{color:var(--sun);}
+.header-logo small{font-size:.7rem;font-weight:800;color:var(--sky);margin-left:3px;}
 
-/* ── FIX 1: Desktop Action Bar — Plan Day + My List (hidden on mobile, bottom nav handles it) ── */
-.action-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px 0;
-  flex-wrap: wrap;
+/* ── HERO ── */
+.diy-hero{
+  background:linear-gradient(135deg,#FFF8E1 0%,#E3F2FD 100%);
+  text-align:center;
+  padding:28px 16px 20px;
+  border-bottom:1px solid var(--border);
 }
-@media(max-width: 640px) {
-  .action-bar { display: none !important; }
+.diy-hero-icon{font-size:3rem;line-height:1;margin-bottom:8px;}
+.diy-hero h1{
+  font-size:1.6rem;
+  font-weight:900;
+  color:var(--text);
+  margin-bottom:6px;
 }
-.action-bar-plan {
-  background: linear-gradient(135deg, #11998e, #38ef7d);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  font-family: Nunito, sans-serif;
-  box-shadow: 0 2px 10px rgba(17,153,142,.3);
-  transition: transform .15s, box-shadow .15s;
+.diy-hero h1 span{color:var(--sun);}
+.diy-hero p{
+  font-size:13px;
+  color:var(--muted);
+  max-width:420px;
+  margin:0 auto 16px;
+  line-height:1.6;
 }
-.action-bar-plan:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(17,153,142,.4); }
-.action-bar-mylist {
-  position: relative;
-  background: linear-gradient(135deg, #ff4e50, #f9d423);
-  color: #fff;
-  border: none;
-  border-radius: 99px;
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  font-family: Nunito, sans-serif;
-  box-shadow: 0 2px 10px rgba(255,78,80,.3);
-  transition: transform .15s, box-shadow .15s;
-}
-.action-bar-mylist:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255,78,80,.4); }
-.action-bar-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: #1a1a1a;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 900;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #fff;
+.diy-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.8);
+  border:1px solid var(--border);
+  border-radius:99px;
+  padding:5px 14px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
 }
 
-/* ── MOBILE APP-LIKE POLISH ── */
-body { padding-bottom: env(safe-area-inset-bottom); }
+/* ── AGE FILTER ── */
+.age-filter{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:14px 16px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.age-pill{
+  font-size:12px;
+  font-weight:800;
+  padding:6px 16px;
+  border-radius:99px;
+  border:1.5px solid var(--border);
+  background:#fff;
+  color:var(--muted);
+  cursor:pointer;
+  transition:all .15s;
+  font-family:'Nunito',sans-serif;
+}
+.age-pill:hover{border-color:var(--sun);color:var(--sun);}
+.age-pill.on{background:var(--text);color:#fff;border-color:transparent;}
+.age-pill[data-age="all"].on{background:#1a1a1a;}
+.age-pill[data-age="0"].on{background:#f472b6;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25);}
+.age-pill[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25);}
+.age-pill[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25);}
+.age-pill[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25);}
 
-#bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: #fff;
-  border-top: 1px solid #eee;
-  padding: 6px 0 calc(10px + env(safe-area-inset-bottom));
-  z-index: 9990;
-  box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+/* ── PROJECT COUNT ── */
+.diy-count{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
+  padding:10px 16px 2px;
 }
-.bnav-items { display: flex; justify-content: space-around; align-items: center; }
-.bnav-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  background: none; border: none; cursor: pointer;
-  font-family: Nunito, sans-serif; padding: 4px 12px;
-  color: #aaa; transition: color .15s; flex: 1;
-}
-.bnav-btn.active { color: #FF9900; }
-.bnav-btn .bnav-icon { font-size: 1.4rem; line-height: 1; }
-.bnav-btn .bnav-label { font-size: 10px; font-weight: 800; }
-.bnav-badge {
-  position: absolute; top: -3px; right: -3px;
-  background: #FF9900; color: #fff;
-  font-size: 9px; font-weight: 900;
-  border-radius: 50%; width: 16px; height: 16px;
-  display: none; align-items: center; justify-content: center;
-}
+.diy-count strong{color:var(--text);}
 
-@media(max-width: 640px) {
-  #bottom-nav { display: block; }
-  .show-more-wrap { padding-bottom: 0; }
-  .footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)); margin-top: 0; padding-top: 4px; }
-  .city-btn { padding: 9px 18px; font-size: 14px; }
-  .age-btn { padding: 8px 16px; font-size: 13px; }
-  .tab-bar {
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 14px 16px 4px;
-    justify-content: flex-start !important;
-    gap: 8px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .tab-bar::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    flex: 0 0 auto !important;
-    min-width: 100px !important;
-    max-width: 120px !important;
-    scroll-snap-align: start;
-  }
-  .city-bar {
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start !important;
-    padding: 14px 16px 4px;
-    scroll-snap-type: x mandatory;
-  }
-  .city-bar::-webkit-scrollbar { display: none; }
-  .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
-  /* removed conflicting aspect-ratio */
-  .card-title { font-size: 12px; }color:#1a1a1a!important;
-  .logo { font-size: 2rem; }
-  #plan-modal { 
-    border-radius: 20px 20px 0 0;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    max-width: 100% !important;
-    max-height: 70vh;
-    margin: 0;
-    overflow-y: auto;
-    padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
-  }
-  #plan-modal-bg { align-items: flex-end !important; padding: 0 !important; }
-  #mylist-panel { width: 100% !important; height: auto !important; max-height: 70vh !important; top: auto !important; bottom: 0 !important; right: 0 !important; border-radius: 20px 20px 0 0 !important; box-shadow: 0 -4px 24px rgba(0,0,0,.18) !important; overflow-y: auto !important; padding-bottom: calc(20px + env(safe-area-inset-bottom)) !important; }
-  .header { padding-top: 16px; }
-  .action-bar { gap: 8px !important; }
-  .action-bar button { font-size: 12px !important; padding: 8px 14px !important; }
-  #searchInput { font-size: 16px !important; }
-  .weather-banner { font-size: 13px; padding: 10px 14px; margin: 10px 10px 0; }
-  }
+/* ── GRID ── */
+.diy-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;
+  padding:14px 16px 32px;
+  max-width:760px;
+  margin:0 auto;
+}
+@media(max-width:480px){
+  .diy-grid{grid-template-columns:1fr;gap:12px;padding:12px 12px 100px;}
 }
 
-html { scroll-behavior: smooth; }
-.card { -webkit-tap-highlight-color: transparent; }
-.city-btn, .tab-btn, .age-btn { -webkit-tap-highlight-color: transparent; }
-.grid { transition: opacity .2s; }
-#back-to-top{position:fixed;bottom:85px;right:18px;z-index:9980;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 4px 14px rgba(255,153,0,.45);display:none;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s}#back-to-top.visible{display:flex}#back-to-top:hover{transform:scale(1.1)}@media(max-width:640px){#back-to-top{bottom:82px;right:14px}}
-/* ── HERO SECTION ── */
-.hero {
-  position: relative;
-  background: linear-gradient(180deg, #e0f4ff 0%, #bae6fd 60%, #f0f9ff 100%);
-  padding: 48px 16px 36px;
-  text-align: center;
+/* ── CARD ── */
+.diy-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  transition:box-shadow .2s,transform .2s;
+  display:flex;
+  flex-direction:column;
+}
+.diy-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);}
+.diy-card[hidden]{display:none!important;}
+
+.diy-card-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 16px 0;
+  cursor:pointer;
+}
+.diy-card-emoji{
+  font-size:2rem;
+  line-height:1;
+  flex-shrink:0;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+}
+.diy-card-title-wrap{flex:1;min-width:0;}
+.diy-card-title{
+  font-size:15px;
+  font-weight:900;
+  color:var(--text);
+  line-height:1.3;
+}
+.diy-card-tagline{
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:2px;
+}
+.diy-toggle-btn{
+  font-size:18px;
+  color:var(--muted);
+  flex-shrink:0;
+  transition:transform .25s;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+  line-height:1;
+}
+.diy-card.open .diy-toggle-btn{transform:rotate(180deg);}
+
+/* age chips on card */
+.diy-age-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:8px 16px 0;
+}
+.diy-age-chip{
+  font-size:10px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:99px;
+  background:#f3f4f6;
+  color:var(--muted);
+}
+.diy-age-chip.a0{background:#fce7f3;color:#9d174d;}
+.diy-age-chip.a1{background:#dcfce7;color:#166534;}
+.diy-age-chip.a2{background:#dbeafe;color:#1e3a8a;}
+.diy-age-chip.a3{background:#ede9fe;color:#4c1d95;}
+
+/* diff badge */
+.diy-diff{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  font-size:10px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:99px;
+  margin:8px 16px 0;
+  width:fit-content;
+}
+.diff-easy{background:#dcfce7;color:#166534;}
+.diff-medium{background:#FFF3E0;color:#c05e00;}
+.diff-hard{background:#fce7f3;color:#9d174d;}
+
+/* collapsible body */
+.diy-card-body{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease;
+}
+.diy-card.open .diy-card-body{max-height:1000px;}
+.diy-card-body-inner{padding:12px 16px 16px;}
+
+.diy-section-label{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:6px;
+  margin-top:12px;
+}
+.diy-section-label:first-child{margin-top:0;}
+
+.diy-materials{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:4px;
+}
+.diy-material{
+  font-size:11px;
+  font-weight:700;
+  padding:3px 9px;
+  border-radius:99px;
+  background:#f3f4f6;
+  color:#444;
+}
+
+.diy-steps{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.diy-steps li{
+  display:flex;
+  gap:10px;
+  font-size:12px;
+  color:#444;
+  line-height:1.5;
+  align-items:flex-start;
+}
+.step-num{
+  flex-shrink:0;
+  width:20px;
+  height:20px;
+  background:var(--sun);
+  color:#fff;
+  border-radius:50%;
+  font-size:10px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1px;
+}
+
+.diy-tip{
+  background:#FFF8E1;
+  border-left:3px solid var(--sun);
+  border-radius:0 8px 8px 0;
+  padding:8px 12px;
+  font-size:11px;
+  color:#c05e00;
+  font-weight:700;
+  margin-top:10px;
+  line-height:1.5;
+}
+
+.adult-flag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:#fff0f0;
+  border:1px solid #fca5a5;
+  border-radius:8px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:800;
+  color:#991b1b;
+  margin-top:10px;
+  line-height:1.4;
+}
+
+/* ── EMPTY STATE ── */
+.diy-empty{
+  text-align:center;
+  padding:40px 16px;
+  grid-column:1/-1;
+  display:none;
+}
+.diy-empty.show{display:block;}
+.diy-empty-icon{font-size:3rem;margin-bottom:12px;}
+.diy-empty h2{font-size:16px;font-weight:900;color:var(--text);margin-bottom:6px;}
+.diy-empty p{font-size:13px;color:var(--muted);}
+
+/* ── FOOTER ── */
+.diy-footer{
+  text-align:center;
+  font-size:12px;
+  color:#aaa;
+  border-top:1px solid var(--border);
+  padding:14px 16px 80px;
+}
+.diy-footer a{color:var(--sun);font-weight:700;text-decoration:none;}
+
+/* ── BACK TO TOP ── */
+#back-top{
+  position:fixed;
+  bottom:80px;
+  right:16px;
+  width:40px;
+  height:40px;
+  background:var(--sun);
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+  font-family:'Nunito',sans-serif;
+}
+#back-top.show{display:flex;}
+
+@media(prefers-reduced-motion:reduce){
+  .diy-card,.diy-card-body,.diy-toggle-btn{transition:none!important;}
+}
+
+/* ── Project video ── */
+.diy-video-wrap {
+  margin: 12px 16px 0;
+  border-radius: 12px;
   overflow: hidden;
+  background: #000;
+  aspect-ratio: 16/9;
+  position: relative;
 }
-.hero-title {
-  font-size: 2.6rem; font-weight: 900; color: #0c4a6e;
-  letter-spacing: -1px; line-height: 1.1; margin-bottom: 6px;
-  position: relative; z-index: 2;
-}
-.hero-title span { color: #FF9900; }
-.hero-sub {
-  font-size: 1.05rem; color: #0369a1; font-weight: 600;
-  margin-bottom: 20px; position: relative; z-index: 2;
-}
-.hero-search {
-  display: flex; align-items: center;
-  max-width: 480px; margin: 0 auto 16px;
-  background: #fff; border-radius: 99px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.12);
-  padding: 6px 6px 6px 18px;
-  position: relative; z-index: 2;
-}
-.hero-search input {
-  flex: 1; border: none; outline: none; font-size: 15px;
-  font-family: Nunito, sans-serif; font-weight: 600;
-  background: transparent; color: #1a1a1a;
-}
-.hero-search input::placeholder { color: #aaa; }
-.hero-search button {
-  background: #FF9900; color: #fff; border: none;
-  border-radius: 99px; padding: 8px 20px;
-  font-size: 14px; font-weight: 800; cursor: pointer;
-  font-family: Nunito, sans-serif; transition: background .15s;
-}
-.hero-search button:hover { background: #e68900; }
-.hero-meta {
-  font-size: 13px; color: #0369a1; font-weight: 700;
-  position: relative; z-index: 2;
-}
-/* Clouds */
-.cloud {
-  position: absolute; background: #fff;
-  border-radius: 99px; opacity: .85; z-index: 1;
-}
-.cloud::before, .cloud::after {
-  content: ''; position: absolute;
-  background: #fff; border-radius: 50%;
-}
-.cloud-1 { width:120px; height:36px; top:18px; left:-140px; animation: drift 22s linear infinite; }
-.cloud-1::before { width:60px; height:52px; top:-28px; left:18px; }
-.cloud-1::after  { width:44px; height:40px; top:-20px; left:52px; }
-.cloud-2 { width:90px; height:28px; top:55px; left:-110px; animation: drift 30s linear infinite; animation-delay:-10s; opacity:.6; }
-.cloud-2::before { width:44px; height:40px; top:-22px; left:12px; }
-.cloud-2::after  { width:34px; height:30px; top:-15px; left:38px; }
-.cloud-3 { width:140px; height:40px; top:24px; left:-170px; animation: drift 38s linear infinite; animation-delay:-20s; opacity:.7; }
-.cloud-3::before { width:70px; height:58px; top:-32px; left:22px; }
-.cloud-3::after  { width:50px; height:44px; top:-24px; left:60px; }
-@keyframes drift {
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(100vw + 200px)); }
-}
-@media(max-width:640px) {
-  .hero { padding: 36px 16px 28px; }
-  .hero-title { font-size: 1.9rem; }
-  .hero-sub { font-size: 0.9rem; }
-}
-
-
-/* ── MOBILE FILTER TABS ── */
-@media(max-width:640px) {
-  .mobile-filter-tabs {
-    display: flex;
-    gap: 6px;
-    padding: 10px 12px 0;
-    justify-content: center;
-  }
-  .mft-btn {
-    flex: 1;
-    padding: 10px 4px;
-    border-radius: 99px;
-    border: none;
-    font-family: Nunito, sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    cursor: pointer;
-    min-height: 44px;
-    transition: all .15s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .mft-btn.active {
-    background: #FF9900;
-    color: #fff;
-    box-shadow: 0 3px 12px rgba(255,153,0,0.3);
-  }
-  #mft-city { background:#FFF3E0; color:#e65100; border: 1.5px solid #FFD580; }
-  #mft-explore { background:#EFF6FF; color:#1d4ed8; border: 1.5px solid #93c5fd; }
-@media(max-width:640px){#mft-explore,#dd-explore{display:none!important;}}
-  #mft-age { background:#F0FDF4; color:#15803d; border: 1.5px solid #86efac; }
-  #mft-city.active { background:#FF9900; color:#fff; border-color:#FF9900; }
-  #mft-explore.active { background:#1d4ed8; color:#fff; border-color:#1d4ed8; }
-  #mft-age.active { background:#15803d; color:#fff; border-color:#15803d; }
-  .mobile-filter-panel {
-    display: none;
-    padding: 10px 12px 0;
-    animation: fadeIn .2s ease;
-  }
-  .m-city-btn{padding:10px 12px;border-radius:12px;border:2px solid #eee;background:#fff;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#555;cursor:pointer;text-align:left;transition:all .15s}
-.m-city-btn:hover{background:#FFF3E0;border-color:#FF9900}
-.m-city-btn.on{background:#FF9900;color:#fff;border-color:#FF9900}
-.mobile-filter-panel.active {
-    display: block;
-  }
-  /* Hide original city bar, tab bar, age bar on mobile */
-  .city-bar { display: none !important; }
-  .tab-bar  { display: none !important; }
-  .age-bar  { display: none !important; }
-  .mobile-filter-tabs { display: flex !important; }
-
-  /* Mobile city buttons inside panel */
-  .m-city-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .m-city-btn {
-    padding: 10px 8px;
-    border-radius: 99px;
-    border: 2px solid #eee;
-    background: #fff;
-    font-family: Nunito, sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    cursor: pointer;
-    color: #444;
-    transition: all .15s;
-  }
-  .m-city-btn.on {
-    background: #FF9900;
-    color: #fff;
-    border-color: #FF9900;
-    box-shadow: 0 0 0 3px rgba(255,153,0,.3), 0 4px 12px rgba(255,153,0,.25);
-  }
-
-  /* Mobile activity cards inside panel */
-  .m-tab-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .m-tab-card {
-    padding: 6px 4px !important;
-    border-radius: 99px;
-    border: none;
-    font-family: Nunito, sans-serif;
-    font-weight: 800;
-    font-size: 12px;
-    cursor: pointer;
-    color: #fff;
-    text-align: center;
-    transition: all .15s;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-  }
-  .m-tab-card { position: relative; }
-  .m-tab-card.on { transform: scale(0.96); box-shadow: 0 0 0 4px rgba(255,255,255,0.9), 0 0 0 7px rgba(0,0,0,0.25); outline: none; filter: brightness(1.15); }
-  .m-tab-card.on::after { content: "✓"; position: absolute; top: 6px; right: 8px; font-size: 14px; font-weight: 900; color: white; }
-  .m-tab-card-icon { font-size: 1rem; display: inline; margin-right: 4px; }
-
-  /* Mobile age buttons inside panel */
-  .m-age-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .m-age-btn {
-    padding: 12px 8px;
-    border-radius: 99px;
-    border: 2px solid #eee;
-    background: #fff;
-    font-family: Nunito, sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    cursor: pointer;
-    color: #444;
-    transition: all .15s;
-  }
-  .m-age-btn.on {
-    background: #FF9900;
-    color: #fff;
-    border-color: #FF9900;
-  }
-  .m-age-btn[data-age="0"].on{background:#f472b6;color:#fff;border-color:#ec4899;box-shadow:0 0 0 3px rgba(244,114,182,.25)}
-  .m-age-btn[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;box-shadow:0 0 0 3px rgba(74,222,128,.25)}
-  .m-age-btn[data-age="2"].on{background:#60a5fa;color:#1e3a8a;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(96,165,250,.25)}
-  .m-age-btn[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;box-shadow:0 0 0 3px rgba(167,139,250,.25)}
-
-  @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-}
-
-/* Hide mobile tabs on desktop */
-@media(min-width:641px) {
-  .mobile-filter-tabs { display: none !important; }
-  .mobile-filter-panel { display: none; }
-  #dd-container { min-height: 0; }
-}
-
-
-
-/* Age panel active state */
-
-/* Hide old tab bar and old city/age bars on mobile */
-@media(max-width:640px){
-  #ssBar { display:block !important; }
-  .tab-bar { display:none !important; }
-  #ssc-search { display:none !important; }
-  #ssc-explore { display:none !important; }
-  #ssc-city { flex: 3 !important; }
-  #ssc-age  { flex: 2 !important; }
-  /* Dropdowns: fixed full-width so they don't get clipped */
-  #ssd-city, #ssd-age {
-    position: fixed !important;
-    left: 12px !important;
-    right: 12px !important;
-    top: auto !important;
-    width: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    z-index: 99999 !important;
-  }
-  .city-bar:not(#cityBarInner) { display:none !important; }
-  .age-bar { display:none !important; }
-  .search-wrap { display:none !important; }
-  .weather-banner { display:block !important; font-size:12px; padding:8px 12px; margin:8px 10px 0; }
-  #bigTabGrid { display:grid !important; }
-}
-
-@media(max-width:640px){.hide-on-mobile,.hide-mobile{display:none!important;}}
-/* ss-hide-old */
-@media(max-width:640px){
-  .hero-search{display:none!important;}
-  .mobile-filter-tabs{display:flex!important;}
-  .hero-meta{display:none!important;}
-}
-/* hide-old-bars-desktop */
-@media(min-width:641px){
-  #ssBar{display:none!important;}
-  .city-bar{display:none!important;}
-  .age-bar{display:none!important;}
-  .tab-bar{display:none!important;}
-  .mobile-filter-tabs{display:flex!important;}
-}
-/* ssChip desktop hide */
-
-/* ── Weekend mode: city bar disabled ── */
-/* Desktop weekend label (city bar is hidden on desktop, show a chip instead) */
-#desktop-weekend-label {
-  display: none;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 800;
-  color: #8E24AA;
-  background: #F3E5F5;
-  border-radius: 99px;
-  padding: 5px 18px;
-  margin: 6px auto 0;
-  width: fit-content;
-}
-@media(min-width:641px) {
-  #desktop-weekend-label.visible { display: block; }
-}
-.city-bar.weekend-mode .city-btn {
-  opacity: 0.35;
-  pointer-events: none;
-  cursor: not-allowed;
-  filter: grayscale(0.6);
-}
-.city-bar.weekend-mode::after {
-  content: '🗺️ Showing all Bay Area cities';
-  display: block;
+.diy-video-wrap video {
   width: 100%;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: #8E24AA;
-  padding: 2px 0 6px;
-  flex-basis: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
-/* ── Mobile footer full audit ── */
-@media (max-width: 640px) {
-  .footer {
-    font-size: 11px !important;
-    line-height: 1.6 !important;
-    text-align: center !important;
-  }
-  #bottom-nav {
-    z-index: 9995 !important;
-    background: #fff !important;
-  }
-}
-
-
-/* ── Floating Plan+List pill (mobile only) ── */
-#float-pill {
-  display: none;
-  position: fixed;
-  bottom: calc(66px + env(safe-area-inset-bottom));
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9985;
-  background: #fff;
-  border-radius: 99px;
-  box-shadow: 0 2px 12px rgba(0,0,0,.15);
-  padding: 4px 6px;
-  gap: 6px;
-  align-items: center;
-  border: 1px solid #eee;
-}
-#float-pill button {
-  border: none;
-  border-radius: 99px;
-  padding: 7px 14px;
-  font-size: 12px;
+.diy-video-label {
+  font-size: 10px;
   font-weight: 800;
-  cursor: pointer;
-  font-family: Nunito, sans-serif;
-  white-space: nowrap;
-}
-.fp-plan { background: linear-gradient(135deg,#11998e,#38ef7d); color: #fff; }
-.fp-list { background: linear-gradient(135deg,#ff4e50,#f9d423); color: #fff; position: relative; }
-#float-pill-badge {
-  display: none;
-  position: absolute;
-  top: -5px; right: -5px;
-  background: #1a1a1a; color: #fff;
-  font-size: 9px; font-weight: 900;
-  border-radius: 50%; width: 16px; height: 16px;
-  align-items: center; justify-content: center;
-  border: 2px solid #fff;
-}
-@media(max-width:640px) {
-  #float-pill { display: none; }
-  #main { padding-bottom: 0 !important; }
-  .show-more-wrap { margin-bottom: 0; }
-}
-
-
-@media(min-width:641px) and (max-width:1100px){
-  .city-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px}
-  .city-bar::-webkit-scrollbar{display:none}
-  .city-btn{flex:0 0 auto}
-  .age-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px}
-  .age-bar::-webkit-scrollbar{display:none}
-  .age-btn{flex:0 0 auto}
-  .tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .tab-bar::-webkit-scrollbar{display:none}
-  .tab-btn{flex:0 0 auto;min-width:110px}
-}
-
-@media(max-width:640px){
-  #showMoreBtn{font-size:0!important;}
-  #showMoreBtn::after{content:"Show More ↓";font-size:13px;font-weight:700}
-  #footerAboutBtn{font-size:13px!important}
-}
-
-/* Trim empty space below footer on mobile */
-@media(max-width:640px){
-  body{min-height:auto!important}
-  #main{padding-bottom:8px!important;min-height:auto!important}
-  .footer{padding-bottom:calc(12px + env(safe-area-inset-bottom))!important;margin-bottom:0!important}
-  html,body{overflow-x:hidden}
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 10px 16px 2px;
 }
 </style>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 </head>
 <body>
 
-<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
-<section class="hero" style="text-align:center;padding:36px 24px 28px;">
-  <div class="cloud cloud-1"></div>
-  <div class="cloud cloud-2"></div>
-  <div class="cloud cloud-3"></div>
+<!-- ── HEADER ── -->
+<header class="diy-header">
+  <div class="diy-header-inner">
+    <a href="https://www.sunscoutkids.com/" class="back-btn" aria-label="Back to SunScout">← Back to SunScout</a>
+    <a href="https://www.sunscoutkids.com/" class="header-logo" aria-label="SunScout Kids home">
+      Sun<span>Scout</span><small>kids</small>
+    </a>
+    <div style="width:80px;"></div><!-- balance flex -->
+  </div>
+</header>
 
-  <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button></div></div>
-    <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
-
-    <!-- Full width search -->
-    <div class="hero-search hide-mobile" style="display:none!important;" style="max-width:680px;margin:0 auto 20px;">
-      <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
-      <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
-    </div>
-
-    
-
-        <!-- Desktop Airbnb Bar -->
-    <div class="hide-on-mobile" style="max-width:720px;margin:0 auto 4px;">
-      <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 16px rgba(0,0,0,.10);font-family:Nunito,sans-serif;">
-        <div style="flex:2;padding:10px 16px;border-radius:99px 0 0 99px;text-align:left;">
-          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">SEARCH</div>
-          <input type="search" id="desktopSearch" placeholder="Camps, parks, STEM..." style="border:none;outline:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:600;color:#1a1a1a;width:100%;background:transparent;" oninput="setSearch(this.value);"/>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtCD');d.style.display=d.style.display==='block'?'none':'block'">
-          <div style="font-size:11px;font-weight:900;color:#e65100;letter-spacing:.06em;">📍 CITY</div>
-          <div id="dtCV" style="font-size:13px;font-weight:700;color:#aaa;">Pick city</div>
-          <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-            <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;letter-spacing:.06em;">📍 CITIES</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtcr" style="color:#c05e00;background:#FFFBEE;border:0.5px solid #FFD580;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Sunnyvale',event)">☀️ Sunnyvale</div>
-              <div class="dtcr" style="color:#1d4ed8;background:#EFF6FF;border:0.5px solid #93c5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('San Jose',event)">🌉 San Jose</div>
-              <div class="dtcr" style="color:#991b1b;background:#FFF5F5;border:0.5px solid #fca5a5;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Cupertino',event)">🍎 Cupertino</div>
-              <div class="dtcr" style="color:#15803d;background:#F0FDF4;border:0.5px solid #86efac;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Mountain View',event)">🏔️ Mtn View</div>
-              <div class="dtcr" style="color:#6d28d9;background:#F5F3FF;border:0.5px solid #c4b5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Palo Alto',event)">🎓 Palo Alto</div>
-              <div class="dtcr" style="color:#0369a1;background:#F0F9FF;border:0.5px solid #7dd3fc;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Saratoga',event)">🌸 Saratoga</div>
-              <div class="dtcr" style="color:#b45309;background:#FFFBEB;border:0.5px solid #fcd34d;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;grid-column:span 2;" onclick="dtC('Fremont',event)">🌉 Fremont</div>
-            </div>
-          </div>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtED');d.style.display=d.style.display==='block'?'none':'block'">
-          <div style="font-size:11px;font-weight:900;color:#1d4ed8;letter-spacing:.06em;">🎡 EXPLORE</div>
-          <div id="dtEV" style="font-size:13px;font-weight:700;color:#aaa;">Activity</div>
-          <div id="dtED" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-110px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtE('free','Free',event)">Free</div>
-              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtE('paid','Paid',event)">Paid</div>
-              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtE('outdoor','Outdoor',event)">Outdoor</div>
-              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtE('indoor','Indoor',event)">Indoor</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;" onclick="dtE('weekend','Weekend',event)">📅 Weekend</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FF9900;" onclick="dtE('surprise','Surprise',event)">🎲 Surprise</div>
-            </div>
-          </div>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="var d=document.getElementById('dtAD');d.style.display=d.style.display==='block'?'none':'block'">
-          <div style="font-size:11px;font-weight:900;color:#15803d;letter-spacing:.06em;">👶 AGE</div>
-          <div id="dtAV" style="font-size:13px;font-weight:700;color:#aaa;">All ages</div>
-          <div id="dtAD" style="display:none;position:fixed;top:160px;right:calc(50% - 360px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All Ages</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtA('0','0-2',event)">👶 0–2</div>
-              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtA('1','3-5',event)">🧸 3–5</div>
-              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtA('2','6-12',event)">🎒 6–12</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;grid-column:span 2;" onclick="dtA('3','Teen',event)">🛹 Teen 13–19</div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin:auto 8px auto 0;flex-shrink:0;">
-          <button onclick="dtSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;">🔍</button><button onclick="document.getElementById('about-modal').style.display='flex'" id="topbarAboutBtn" title="About SunScout" style="background:linear-gradient(135deg,#FF9900,#ff6b35);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">🌤️</button><div style="position:relative;">
-            <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">☰</button>
-            <div id="ssMenuDesktop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;">
-              <div class="dtmr" onclick="openPlan();toggleSsMenu(event)">📅 Plan My Day</div>
-              <div class="dtmr" onclick="floatWeekend();toggleSsMenu(event)" style="color:#6d28d9;">📅 Weekend</div>
-              <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">🎲 Surprise</div>
-              <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
-              <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
-              <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">🛠️ DIY Projects</div>
-              <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">🌤️ About</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <style>
-    .dtcr{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
-    .dtcr:hover{background:#FFF3E0;}
-    .dtec{padding:9px 6px;border-radius:10px;border:0.5px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
-    .dtec:hover{opacity:.8;}
-    .dtac{padding:9px;border-radius:10px;border:0.5px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
-    .dtac:hover{background:#FF9900;color:#fff;border-color:#FF9900;}
-    .dtmr{padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
-    .dtmr:hover{background:#FFF3E0;}
-    </style>
-<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
-<div style="margin-top:8px;">
-  <span id="desktopWeatherChip" onclick="weatherChipClick()" class="hide-on-mobile" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#7a3d00;font-family:Nunito,sans-serif;cursor:pointer;">🌤️ Loading weather...</span>
-</div>
-<!-- Plan My Day / My List moved to header row on desktop -->
+<!-- ── HERO ── -->
+<section class="diy-hero" aria-label="DIY Projects intro">
+  <div class="diy-hero-icon">🛠️</div>
+  <h1>DIY <span>Projects</span></h1>
+  <p>Free rainy-day activities you can do at home — no experience needed. Pick an age and get started!</p>
+  <div class="diy-meta">
+    <span>🆓 All free</span>
+    <span>·</span>
+    <span>🏠 At home</span>
+    <span>·</span>
+    <span>👨‍👩‍👧 Family friendly</span>
   </div>
 </section>
 
-<div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
-    <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
-    <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
-  </div>
-  <div style="text-align:center;margin-bottom:6px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
-    <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
-    <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
-  </div>
-  <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
-    <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
-      <div id="ssv-city" style="font-size:11px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
-      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
-        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci">☀️</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
-        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci">🏙️</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
-        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci">🍎</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci">⛰️</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
-        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci">🎓</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci">🌲</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
-        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci">🌉</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
-      </div>
-    </div>
-    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
-      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
-      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">🆓 Free</div>
-          <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">💰 Paid</div>
-          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">🌳 Outdoor</div>
-          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">🏛️ Indoor</div>
-          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">📅 Weekend</div>
-          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">🎲 Surprise</div>
-        </div>
-      </div>
-    </div>
-    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-age" onclick="ssTog('age',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
-      <div id="ssv-age" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
-      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All</div>
-          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">👶 0–2</div>
-          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">🧸 3–5</div>
-          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">🎒 6–12</div>
-          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">🛹 Teen</div>
-        </div>
-      </div>
-    </div>
-    <button onclick="ssSearch()" style="background:#FF9900;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin:auto 2px auto 0;" aria-label="Search">🔍</button>
-    <div style="position:relative;flex-shrink:0;margin:auto 5px auto 0;">
-      <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">☰</button>
-      <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;font-family:Nunito,sans-serif;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
-        <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">📅 Plan My Day</div>
-        <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
-        <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
-        <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">❤️ My List</div>
-        <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">📝 Notes</div>
-        <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">🌤️ About</div>
-      </div>
-    </div>
-  </div>
-</div>
-<style>
-.sscr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;}
-.sscr:hover{background:#FFF3E0;}
-.ssci{width:32px;height:32px;border-radius:8px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.sscn{font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
-.sscs{font-size:10px;color:#999;font-family:Nunito,sans-serif;}
-.ssec{padding:10px 6px;border-radius:12px;border:0.5px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
-.ssac{padding:10px;border-radius:12px;border:0.5px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
-.ssac:hover{background:#FF9900;color:#fff;border-color:#FF9900;}.ssac.on{outline:3px solid currentColor;outline-offset:2px;filter:brightness(0.92);font-weight:900;}
-@media(max-width:640px){
-  #ssd-city, #ssd-age {
-    position: fixed !important;
-    left: 12px !important;
-    right: 12px !important;
-    width: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    z-index: 99999 !important;
-  }
-}
-
-.ssac[onclick*="'0'"]{background:#FFF3E0;color:#c05e00;border-color:#FFD580;}
-.ssac[onclick*="'1'"]{background:#F0FDF4;color:#15803d;border-color:#86efac;}
-.ssac[onclick*="'2'"]{background:#FFF5F5;color:#991b1b;border-color:#fca5a5;}
-.ssac[onclick*="'3'"]{background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;}
-.ssac[onclick*="all"]{background:#FFFBEE;color:#c05e00;border-color:#FFD580;}
-.sscr:hover{background:#FFF3E0;}
-</style>
-
-<div class="header" style="display:none">
-  <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
-  <p class="tagline">Your Go-To Guide for Bay Area Summer Fun—Free &amp; Budget-Friendly Picks!</p>
-  <div class="countdown" id="countdown">⏳ Loading...</div>
-</div>
-
-
-<div id="weatherBanner" class="weather-banner" style="display:none"></div>
-<!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
-<div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
-
-  <!-- Pill container -->
-  <div style="background:#fff;border-radius:99px;border:1.5px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.10);position:relative;font-family:Nunito,sans-serif;overflow:visible;">
-
-    <!-- CITY button -->
-    <div id="mob-city-btn" onclick="mobTog('city',event)" style="flex:1;padding:10px 14px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;border-right:1px solid #eee;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
-      <div id="mob-city-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sunnyvale</div>
-      <!-- City dropdown — opens UPWARD -->
-      <div id="mob-dd-city" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:260px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">☀️ Sunnyvale</div>
-          <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">🏙️ San Jose</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Cupertino',event)">🍎 Cupertino</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Mountain View',event)">⛰️ Mtn View</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Palo Alto',event)">🎓 Palo Alto</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Saratoga',event)">🌲 Saratoga</div>
-          <div class="mob-city-opt" style="grid-column:span 2;" onclick="mobSelCity('Fremont',event)">🌉 Fremont</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AGE button -->
-    <div id="mob-age-btn" onclick="mobTog('age',event)" style="flex:1;padding:10px 14px;cursor:pointer;position:relative;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
-      <div id="mob-age-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
-      <!-- Age dropdown — opens UPWARD -->
-      <div id="mob-dd-age" style="display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All</div>
-          <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">👶 0–2</div>
-          <div class="mob-age-opt" onclick="mobSelAge('1','3–5',event)">🧸 3–5</div>
-          <div class="mob-age-opt" onclick="mobSelAge('2','6–12',event)">🎒 6–12</div>
-          <div class="mob-age-opt" style="grid-column:span 2;" onclick="mobSelAge('3','Teen',event)">🛹 Teen 13–19</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SEARCH button -->
-    <button onclick="mobSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;margin:auto 6px auto 4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px;" aria-label="Search">🔍</button>
-  </div>
-</div>
-
-<!-- Tap outside to close -->
-<div id="mob-overlay" onclick="mobCloseAll()" style="display:none;position:fixed;inset:0;z-index:99998;"></div>
-
-<style>
-.mob-city-opt,.mob-age-opt{padding:9px 10px;border-radius:10px;border:1px solid #eee;background:#fafafa;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;color:#1a1a1a;}
-.mob-city-opt:hover,.mob-age-opt:hover{background:#FF9900;color:#fff;border-color:#FF9900;}
-.mob-city-opt.selected,.mob-age-opt.selected{background:#FF9900;color:#fff;border-color:#FF9900;}
-</style>
-
-<script>
-function mobTog(which, e) {
-  e.stopPropagation();
-  var cityDD = document.getElementById('mob-dd-city');
-  var ageDD  = document.getElementById('mob-dd-age');
-  var overlay = document.getElementById('mob-overlay');
-  if (which === 'city') {
-    var open = cityDD.style.display !== 'none';
-    cityDD.style.display = open ? 'none' : 'block';
-    ageDD.style.display = 'none';
-  } else {
-    var open = ageDD.style.display !== 'none';
-    ageDD.style.display = open ? 'none' : 'block';
-    cityDD.style.display = 'none';
-  }
-  var anyOpen = cityDD.style.display !== 'none' || ageDD.style.display !== 'none';
-  overlay.style.display = anyOpen ? 'block' : 'none';
-}
-function mobCloseAll() {
-  document.getElementById('mob-dd-city').style.display = 'none';
-  document.getElementById('mob-dd-age').style.display = 'none';
-  document.getElementById('mob-overlay').style.display = 'none';
-}
-function mobSelCity(city, e) {
-  e.stopPropagation();
-  document.getElementById('mob-city-val').textContent = city;
-  document.querySelectorAll('.mob-city-opt').forEach(function(el){ el.classList.remove('selected'); });
-  e.currentTarget.classList.add('selected');
-  mobCloseAll();
-  var btn = document.querySelector('.city-btn[data-city="' + city + '"]');
-  if (btn && typeof setCity === 'function') setCity(btn);
-}
-function mobSelAge(val, label, e) {
-  e.stopPropagation();
-  document.getElementById('mob-age-val').textContent = label;
-  document.querySelectorAll('.mob-age-opt').forEach(function(el){ el.classList.remove('selected'); });
-  e.currentTarget.classList.add('selected');
-  mobCloseAll();
-  if (val === 'all') {
-    activeAge = 'all';
-    document.querySelectorAll('.age-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.age === 'all'); });
-  } else {
-    var btn = document.querySelector('.age-btn[data-age="' + val + '"]');
-    if (btn && typeof setAge === 'function') setAge(btn);
-  }
-  if (activeCity && typeof loadActivities === 'function') loadActivities();
-}
-function mobSearch() {
-  mobCloseAll();
-  var el = document.getElementById('grid');
-  if (el) el.scrollIntoView({behavior:'smooth'});
-}
-</script>
-
-<!-- Keep old mobile-filter-tabs hidden (legacy) -->
-<div class="mobile-filter-tabs" style="display:none!important;">
-  <button class="mft-btn active" id="mft-city" onclick="switchMFT('city')">📍 Pick City</button>
-  <button class="mft-btn" id="mft-explore" onclick="switchMFT('explore')">🎡 Explore</button>
-  <button class="mft-btn" id="mft-age" onclick="switchMFT('age')">👶 Age</button>
-</div>
-<div id="dd-city" style="display:none!important;"></div>
-<div id="dd-explore" style="display:none!important;"></div>
-<div id="dd-age" style="display:none!important;"></div>
-
-<p class="city-fact" id="cityFact"></p>
-
-<nav class="city-bar" aria-label="Select city">
-  <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">☀️ Sunnyvale</button>
-  <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">🌉 San Jose</button>
-  <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">🍎 Cupertino</button>
-  <button class="city-btn"    data-city="Mountain View" onclick="setCity(this)">🏔️ Mountain View</button>
-  <button class="city-btn"    data-city="Palo Alto"     onclick="setCity(this)">🎓 Palo Alto</button>
-  <button class="city-btn"    data-city="Saratoga"      onclick="setCity(this)">🌸 Saratoga</button>
-  <button class="city-btn"    data-city="Fremont"       onclick="setCity(this)">🌉 Fremont</button>
+<!-- ── AGE FILTER ── -->
+<nav class="age-filter" aria-label="Filter by age">
+  <button class="age-pill on" data-age="all" onclick="setAge(this)">⭐ All ages</button>
+  <button class="age-pill" data-age="0"   onclick="setAge(this)">👶 0–2</button>
+  <button class="age-pill" data-age="1"   onclick="setAge(this)">🧸 3–5</button>
+  <button class="age-pill" data-age="2"   onclick="setAge(this)">🎒 6–12</button>
+  <button class="age-pill" data-age="3"   onclick="setAge(this)">🛹 Teen</button>
 </nav>
 
-<div class="tab-bar" role="tablist" aria-label="Activity categories">
-  <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
-    <span class="tab-free-dot">$0</span>
-    <span class="tab-icon">🆓</span>
-    <span class="tab-label">Free Summer Activities</span>
-    <span class="tab-sub">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
-  </button>
-  <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🎟️</span>
-    <span class="tab-label">Paid Summer Activities</span>
-    <span class="tab-sub">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
-  </button>
-  <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🏛️</span>
-    <span class="tab-label">Indoor Activities</span>
-    <span class="tab-sub">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
-  </button>
-  <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🌳</span>
-    <span class="tab-label">Outdoor Activities</span>
-    <span class="tab-sub">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
-  </button>
-  <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">📅</span>
-    <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun Only</span><span class="tab-count-badge" id="badge-weekend"></span>
-  </button>
-</div>
+<!-- ── COUNT ── -->
+<p class="diy-count" id="diy-count" aria-live="polite"><strong>5</strong> projects</p>
 
-<!-- ── FIX 1: Desktop action bar — Plan Day + My List (hidden on mobile via CSS) ── -->
-<div class="action-bar" style="display:none">
-  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
-  <button class="action-bar-mylist" id="desktopMyListBtn" onclick="openMyList()">
-    ❤️ My List
-    <span class="action-bar-badge" id="desktopMyListBadge"></span>
-  </button>
-</div>
+<!-- ── GRID ── -->
+<main class="diy-grid" id="diy-grid" aria-label="DIY projects">
 
-<div class="search-wrap" style="display:none">
-  <span class="search-icon">🔍</span>
-  <input type="search" id="searchInput" class="search-input" style="display:none"
-    placeholder="Search park, swimming, library, splash pad…"
-    aria-label="Search activities"
-    oninput="setSearch(this.value)"/>
-  <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
-</div>
+  <!-- ── CARD 1: Fuse Beads ── -->
+  <article class="diy-card" data-ages="1,2,3" id="card-fuse">
+    <div class="diy-card-header" onclick="toggleCard('card-fuse')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-fuse" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-fuse')">
+      <div class="diy-card-emoji" style="background:#FFF0F9;">🔴</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Fuse Bead Art</div>
+        <div class="diy-card-tagline">Melt beads into colorful pixel art</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-easy">⭐ Easy</span>
+    <div class="diy-card-body" id="body-fuse" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Fuse beads (Perler/Hama)</span>
+          <span class="diy-material">Pegboard</span>
+          <span class="diy-material">Ironing paper</span>
+          <span class="diy-material">Iron</span>
+          <span class="diy-material">Tweezers (optional)</span>
+        </div>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
+          <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
+          <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
+          <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles for 10–15 seconds until beads fuse. Let cool before peeling.</li>
+          <li><span class="step-num">5</span>Flip over, iron the back for an even finish. Display or string as a keychain!</li>
+        </ol>
+        <div class="adult-flag" role="note">
+          🔥 Adult supervision required for the ironing step
+        </div>
+        <div class="diy-tip">💡 Tip: Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
+      </div>
+    </div>
+  </article>
 
-<div id="filterStrip" style="display:none;flex-wrap:wrap;gap:8px;padding:8px 16px 0;align-items:center"></div>
-<div class="age-bar" role="group" aria-label="Filter by age">
-  <button class="age-btn" data-age="0" onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
-  <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
-  <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
-  <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
-</div>
+  <!-- ── CARD 2: LEGO Building ── -->
+  <article class="diy-card" data-ages="1,2,3" id="card-lego">
+    <div class="diy-card-header" onclick="toggleCard('card-lego')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-lego" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-lego')">
+      <div class="diy-card-emoji" style="background:#EFF6FF;">🧱</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">LEGO Engineering Challenge</div>
+        <div class="diy-card-tagline">Build the tallest tower — then test it</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-easy">⭐ Easy</span>
+    <div class="diy-card-body" id="body-lego" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">LEGO / Duplo bricks</span>
+          <span class="diy-material">Ruler or tape measure</span>
+          <span class="diy-material">Timer (optional)</span>
+          <span class="diy-material">Small toy or coin (for load test)</span>
+        </div>
+        <div class="diy-section-label">Challenge modes</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span><strong>Height challenge:</strong> build the tallest freestanding tower in 10 minutes. Measure and record!</li>
+          <li><span class="step-num">2</span><strong>Bridge challenge:</strong> span two stacks of books with a LEGO bridge. How many coins can it hold?</li>
+          <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a random household object (mug, shoe, phone) from memory in 5 minutes.</li>
+          <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra engineering difficulty.</div>
+      </div>
+    </div>
+  </article>
 
-<div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
+  <!-- ── CARD 3: Snakes & Ladders ── -->
+  <article class="diy-card" data-ages="1,2" id="card-snakes">
+    <div class="diy-card-header" onclick="toggleCard('card-snakes')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-snakes" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-snakes')">
+      <div class="diy-card-emoji" style="background:#F0FDF4;">🐍</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Make Snakes & Ladders</div>
+        <div class="diy-card-tagline">Draw your own board, then play it</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a1">🧸 3–5</span>
+      <span class="diy-age-chip a2">🎒 6–12</span>
+    </div>
+    <span class="diy-diff diff-medium">🔶 Medium</span>
+    <div class="diy-video-label">▶ See how to play</div>
+    <div class="diy-video-wrap">
+      <video
+        src="/snakes-ladders.mp4"
+        controls
+        preload="none"
+        playsinline
+        poster=""
+        aria-label="How to play Snakes and Ladders"
+        style="border-radius:12px;">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="diy-card-body" id="body-snakes" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Paper or cardstock (A3 or larger)</span>
+          <span class="diy-material">Ruler &amp; pencil</span>
+          <span class="diy-material">Colored markers</span>
+          <span class="diy-material">Dice</span>
+          <span class="diy-material">Small objects as tokens (coins, buttons)</span>
+        </div>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100, starting bottom-left, snaking row by row upward.</li>
+          <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones. Label with start → end numbers.</li>
+          <li><span class="step-num">3</span>Draw 4–6 snakes with heads on higher squares and tails on lower ones.</li>
+          <li><span class="step-num">4</span>Decorate — themes work great (ocean snakes, jungle ladders, space rockets).</li>
+          <li><span class="step-num">5</span>Play! First to reach 100 wins. Land on a ladder head = climb up. Land on a snake head = slide down.</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Ages 3–5 can draw the art while older kids handle the numbering. Great teamwork project!</div>
+      </div>
+    </div>
+  </article>
 
-<main id="main">
-  <div class="grid" id="grid"></div>
-  <div class="show-more-wrap" id="showMoreWrap" style="display:none">
-    <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show More Activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">🌤️ About SunScout</button>
+  <!-- ── CARD 4: Chinese Checkers ── -->
+  <article class="diy-card" data-ages="2,3" id="card-checkers">
+    <div class="diy-card-header" onclick="toggleCard('card-checkers')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-checkers" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-checkers')">
+      <div class="diy-card-emoji" style="background:#FDF4FF;">⭐</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Chinese Checkers Board</div>
+        <div class="diy-card-tagline">Make a star board from cardboard</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-hard">🔴 Challenging</span>
+    <div class="diy-card-body" id="body-checkers" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Thick cardboard</span>
+          <span class="diy-material">Compass or circular stencil</span>
+          <span class="diy-material">Ruler &amp; pencil</span>
+          <span class="diy-material">Colored markers (6 colors)</span>
+          <span class="diy-material">Buttons or beads (10 per color)</span>
+          <span class="diy-material">Bottle caps (optional holes)</span>
+        </div>
+        <div class="diy-section-label">Steps</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Draw a large Star of David shape (two overlapping equilateral triangles) on cardboard.</li>
+          <li><span class="step-num">2</span>Mark 121 dots in a triangular grid pattern across the star — 10 in each point, 61 in the hexagonal center.</li>
+          <li><span class="step-num">3</span>Color each of the 6 star points a different color. These are the home zones.</li>
+          <li><span class="step-num">4</span>Poke small holes or just mark circles at each dot for pieces to sit on.</li>
+          <li><span class="step-num">5</span>Use 10 colored buttons/beads per player. Goal: move all pieces to the opposite point by hopping over others.</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Print a reference grid from Wikipedia's "Chinese Checkers" article to get the spacing right.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── CARD 5: Marble Solitaire ── -->
+  <article class="diy-card" data-ages="2,3" id="card-marble">
+    <div class="diy-card-header" onclick="toggleCard('card-marble')" role="button" tabindex="0"
+         aria-expanded="false" aria-controls="body-marble" onkeydown="if(event.key==='Enter'||event.key===' ')toggleCard('card-marble')">
+      <div class="diy-card-emoji" style="background:#FFF8E1;">🔵</div>
+      <div class="diy-card-title-wrap">
+        <div class="diy-card-title">Marble Solitaire</div>
+        <div class="diy-card-tagline">The one-player puzzle that's harder than it looks</div>
+      </div>
+      <button class="diy-toggle-btn" tabindex="-1" aria-hidden="true">▼</button>
+    </div>
+    <div class="diy-age-chips">
+      <span class="diy-age-chip a2">🎒 6–12</span>
+      <span class="diy-age-chip a3">🛹 Teen</span>
+    </div>
+    <span class="diy-diff diff-hard">🔴 Challenging</span>
+    <div class="diy-card-body" id="body-marble" role="region">
+      <div class="diy-card-body-inner">
+        <div class="diy-section-label">What you need</div>
+        <div class="diy-materials">
+          <span class="diy-material">Cardboard or egg carton</span>
+          <span class="diy-material">Scissors</span>
+          <span class="diy-material">Marker</span>
+          <span class="diy-material">32 marbles or small buttons</span>
+        </div>
+        <div class="diy-section-label">Build the board</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape: a 3×7 rectangle crossed with a 7×3 rectangle, sharing a 3×3 center. You need 33 holes total.</li>
+          <li><span class="step-num">2</span>Poke or cut 33 small holes in a grid pattern — 3 columns across the top arm, 3 across the bottom, 7 down each side arm.</li>
+          <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
+        </ol>
+        <div class="diy-section-label">How to play</div>
+        <ol class="diy-steps">
+          <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
+          <li><span class="step-num">2</span>A move = jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
+          <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
+        </ol>
+        <div class="diy-tip">💡 Tip: Solving this puzzle with 1 marble remaining in the center is genuinely hard. Don't worry — most people take days to crack it!</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── EMPTY STATE ── -->
+  <div class="diy-empty" id="diy-empty" role="status" aria-live="polite">
+    <div class="diy-empty-icon">🌻</div>
+    <h2>No projects for this age yet</h2>
+    <p>Try a different age filter — more projects coming soon!</p>
   </div>
+
 </main>
-<div class="footer">
-  <p>SunScout · Activities from Eventbrite, Ticketmaster &amp; curated local data · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://sunscout2.vercel.app/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
 
+<!-- ── FOOTER ── -->
+<footer class="diy-footer">
+  <p>SunScout Kids · DIY Projects · Bay Area Summer 2026</p>
+  <p style="margin-top:6px;">
+    <a href="https://www.sunscoutkids.com/">← Back to activities</a>
+    &nbsp;·&nbsp;
+    <a href="/" onclick="event.preventDefault();window.history.back()">No tracking · No ads</a>
+  </p>
+</footer>
 
-  <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
-</div>
+<!-- ── BACK TO TOP ── -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
-function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
-const PAGE_SIZE = getPageSize();
-window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
-let activeTab     = "free";
-let activeCity    = "Sunnyvale";
-let activeAge     = "all";
-let searchQuery   = "";
-let showCount     = PAGE_SIZE;
-let allActivities = [];
-
-function updateTabBadge(tab,count){var b=document.getElementById("badge-"+tab);if(!b)return;if(count>0){b.textContent=count;b.style.display="inline-block";}else{b.style.display="none";}}
-const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
-const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
-const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
-
-const CITY_COORDS = {
-  "Sunnyvale":     [37.3688, -122.0363],
-  "San Jose":      [37.3382, -121.8863],
-  "Cupertino":     [37.3229, -122.0322],
-  "Mountain View": [37.3861, -122.0839],
-  "Palo Alto":     [37.4419, -122.1430],
-  "Saratoga":      [37.2638, -122.0230],
-  "Fremont":       [37.5485, -121.9886],
-};
-const CITY_FACTS = {
-  "Sunnyvale":     "☀️ Sunnyvale averages 257 sunny days a year!",
-  "San Jose":      "🌆 San Jose has 200+ parks for families!",
-  "Cupertino":     "🍎 Home to Apple HQ and amazing family parks!",
-  "Mountain View": "🏔️ Has one of the Bay Area's best new aquatics centers!",
-  "Palo Alto":     "🎓 Home to Stanford and the free Cantor Arts Center!",
-  "Saratoga":      "🌸 Gorgeous mountain trails and a world-class library!",
-  "Fremont":       "🌉 Gateway to the East Bay with great nature parks!",
-};
-const DIY = [
-  { title:"🧪 Kitchen Science Lab",   desc:"Baking soda + vinegar volcano. Zero cost, instant WOW." },
-  { title:"🌿 Nature Scavenger Hunt", desc:"Find leaves, rocks, bugs in your backyard." },
-  { title:"🎨 Cardboard Box City",    desc:"Old boxes + markers = hours of creative play." },
-];
-
-function getSmartLocalImage(name, f) {
-  if (name.includes("integem")||name.includes("ai & ar")||name.includes("id tech")||name.includes("code ninja")||name.includes("snapology")||name.includes("scikidz")||name.includes("stem4kids")) return "/stem.jpg";
-  if (name.includes("camp galileo")||name.includes("galileo camp")) return "/summercamp.jpg";
-  if (name.includes("kidstrong")) return "/summercamp.jpg";
-  if (name.includes("safari kid")) return "/summercamp.jpg";
-  if (name.includes("little gym")) return "/outcamp.jpg";
-  if (name.includes("winchester")) return "/museum.jpg";
-  if (name.includes("tech interactive")||name.includes("the tech")) return "/museum1.jpg";
-  if (name.includes("children's discovery")||name.includes("discovery museum")) return "/museum1.jpg";
-  if (name.includes("palo alto junior")) return "/museum.jpg";
-  if (name.includes("bay trail")||name.includes("don edwards")||name.includes("mission peak")||name.includes("coyote")) return "/trail.jpg";
-  if (name.includes("altitude trampoline")) return "/outcamp.jpg";
-  if (name.includes("ballet")||name.includes("my first ballet")) return "/ballet.jpg";
-  if (name.includes("ymca")||name.includes("aquatic")||name.includes("indoor pool")) return "/splash.jpg";
-  if (name.includes("sunnyvale market")||name.includes("farmers market")) return "/sunnyvalemarket.jpg";
-  if (name.includes("library")||name.includes("storytime")) return "/readingroom.jpg";
-  if (name.includes("roaring camp")||name.includes("steve & kate")||name.includes("steve and kate")) return "/summercamp.jpg";
-  if (name.includes("soccer")||name.includes("tennis")||name.includes("lifetime activities")) return "/outcamp.jpg";
-  if (f.includes("cherry")||f.includes("berry")||f.includes("orchard")||f.includes("fruit pick")) return "/cherry.jpg";
-  if (f.includes("horse")||f.includes("pony")||f.includes("riding")) return "/horse.jpg";
-  if (f.includes("trail")||f.includes("hike")||f.includes("creek")||f.includes("shoreline")) return "/trail.jpg";
-  if (f.includes("high rope")||f.includes("zip line")||f.includes("ropes course")||f.includes("climbing")) return "/highropecamp.jpg";
-  if (f.includes("pool")||f.includes("swim")||f.includes("splash")||f.includes("aquatic")) return "/splash.jpg";
-  if (f.includes("museum")||f.includes("discovery")||f.includes("winchester")) return "/museum.jpg";
-  if (f.includes("library")||f.includes("storytime")||f.includes("reading")||f.includes("book")) return "/readingroom.jpg";
-  if (f.includes("ballet")||f.includes("dance")) return "/ballet.jpg";
-  if (f.includes("pottery")||f.includes("clay")||f.includes("color me mine")) return "/stem.jpg";
-  if (f.includes("ice skating")||f.includes("ice rink")||f.includes("ice centre")) return "/splash.jpg";
-  if (f.includes("trampoline")||f.includes("gymnastics")||f.includes("soccer")||f.includes("tennis")) return "/outcamp.jpg";
-  if (f.includes("petting")||f.includes("zoo")||f.includes("ardenwood")||f.includes("happy hollow")||f.includes("deer hollow")) return "/park.jpg";
-  if (f.includes("playground")||f.includes("splash pad")) return "/playground.jpg";
-  if (f.includes("beach")||f.includes("boardwalk")) return "/beach.jpg";
-  if (f.includes("stem")||f.includes("coding")||f.includes("robot")||f.includes("lego")||f.includes("science")||f.includes("maker")||f.includes("ai camp")) return "/stem.jpg";
-  if (f.includes("camp")||f.includes("kidventure")||f.includes("gymboree")||f.includes("day camp")) return "/summercamp.jpg";
-  if (f.includes("preschool")||f.includes("toddler")||f.includes("story time")) return "/readingroom.jpg";
-  if (f.includes("after school")||f.includes("afterschool")||f.includes("indoor class")) return "/camp.jpg";
-  if (f.includes("farm")||f.includes("orchard")||f.includes("animal")) return "/park.jpg";
-  return "/park.jpg";
-}
-
-function getCardHTML(a) {
-  var f = ((a.name||"")+" "+(a.desc||"")).toLowerCase();
-  var src = "/park.jpg";
-  var name = (a.name||"").toLowerCase();
-  if (name.includes("winchester")) src="/museum.jpg";
-  else if (name.includes("tech interactive")||name.includes("the tech")) src="/museum1.jpg";
-  else if (name.includes("children's discovery")||name.includes("discovery museum")) src="/museum1.jpg";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
-  else if (name.includes("magical bridge")||name.includes("seven seas")||name.includes("niles community")||name.includes("central park")||name.includes("lake elizabeth")||name.includes("gilroy gardens")) src="/park.jpg";
-  else if (name.includes("altitude trampoline")||name.includes("outdoor camp")||name.includes("soccer club")) src="/outcamp.jpg";
-  else if (name.includes("lifetime activities")||name.includes("roaring camp")||name.includes("summer camp")) src="/summercamp.jpg";
-  else if (name.includes("my first ballet")||name.includes("ballet")) src="/ballet.jpg";
-  else if (name.includes("indoor pool")||name.includes("sunnyvale pool")||name.includes("aquatic")||name.includes("lifetime activities")) src="/splash.jpg";
-  else if (name.includes("farmers market")||name.includes("sunnyvale market")) src="/sunnyvalemarket.jpg";
-  else if (name.includes("art & wine")||name.includes("festival")) src="/market1.jpg";
-  else if (name.includes("library")||name.includes("storytime")||name.includes("storytimes")||name.includes("reading program")||name.includes("reading challenge")) src="/readingroom.jpg";
-  else if (name.includes("saratoga community")||name.includes("indoor class")) src="/camp.jpg";
-  else if (name.includes("junior museum")||name.includes("palo alto junior")) src="/museum.jpg";
-  else if (name.includes("san jose")&&name.includes("camp")) src="/sanjosecamp.jpg";
-  else if (name.includes("playground")||name.includes("park kids")) src="/playground.jpg";
-  else if (name.includes("bay trail")||name.includes("bay trail")) src="/trail.jpg";
-  else if (name.includes("don edwards")||name.includes("wildlife refuge")) src="/trail.jpg";
-  else if (name.includes("creek")||name.includes("shoreline")) src="/trail.jpg";
-  if (f.indexOf("discovery museum")>=0||f.indexOf("children's discovery")>=0) src="/museum.jpg";
-  else if (f.indexOf("winchester")>=0) src="/museum.jpg";
-  else if (f.indexOf("color me mine")>=0||f.indexOf("pottery")>=0||f.indexOf("clay")>=0) src="/stem.jpg";
-  else if (f.indexOf("ice centre")>=0||f.indexOf("ice skating")>=0||f.indexOf("ice rink")>=0||f.indexOf("ymca")>=0||f.indexOf("silicon valley indoor")>=0) src="/splash.jpg";
-  else if (f.indexOf("farmers market")>=0||f.indexOf("flea market")>=0) src="/sunnyvalemarket.jpg";
-  else if (f.indexOf("seven seas")>=0||f.indexOf("magical bridge")>=0) src="/park.jpg";
-  else if (f.indexOf("little gym")>=0||f.indexOf("gymnastics")>=0||f.indexOf("coach ken")>=0||f.indexOf("soccer")>=0||f.indexOf("we rock")>=0||f.indexOf("spectrum")>=0||f.indexOf("funtropolous")>=0||f.indexOf("lost world")>=0||f.indexOf("trampoline")>=0||f.indexOf("altitude")>=0) src="/outcamp.jpg";
-  if (f.indexOf("cherry")>=0||f.indexOf("berry")>=0||f.indexOf("orchard")>=0||f.indexOf("fruit pick")>=0) src="/cherry.jpg";
-  else if (f.indexOf("horse")>=0||f.indexOf("pony")>=0||f.indexOf("carriage")>=0||f.indexOf("riding")>=0) src="/horse.jpg";
-  else if (f.indexOf("beach")>=0||f.indexOf("boardwalk")>=0||f.indexOf("pier")>=0||f.indexOf("fishing")>=0) src="/beach.jpg";
-  else if (f.indexOf("library")>=0||f.indexOf("storytime")>=0||f.indexOf("reading")>=0||f.indexOf("book")>=0) src="/readingroom.jpg";
-  else if (f.indexOf("pool")>=0||f.indexOf("swim")>=0||f.indexOf("splash")>=0||f.indexOf("aquatic")>=0||f.indexOf("water")>=0) src="/splash.jpg";
-  else if (f.indexOf("trail")>=0||f.indexOf("hike")>=0||f.indexOf("hiking")>=0||f.indexOf("creek")>=0||f.indexOf("canyon")>=0||f.indexOf("preserve")>=0||f.indexOf("refuge")>=0||f.indexOf("mission peak")>=0||f.indexOf("coyote")>=0||f.indexOf("shoreline")>=0||f.indexOf("bay trail")>=0) src="/trail.jpg";
-  else if (f.indexOf("high rope")>=0||f.indexOf("mount hermon")>=0||f.indexOf("zip")>=0||f.indexOf("ropes course")>=0||f.indexOf("climbing")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("museum")>=0||f.indexOf("discovery")>=0||f.indexOf("winchester")>=0||f.indexOf("tech interactive")>=0||f.indexOf("essanay")>=0||f.indexOf("natural history")>=0) src="/museum.jpg";
-  else if (f.indexOf("stem")>=0||f.indexOf("coding")>=0||f.indexOf("robot")>=0||f.indexOf("lego")>=0||f.indexOf("snapology")>=0||f.indexOf("id tech")>=0||f.indexOf("integem")>=0||f.indexOf("science")>=0||f.indexOf("code ninja")>=0||f.indexOf("ai camp")>=0||f.indexOf("maker")>=0) src="/stem.jpg";
-  else if (f.indexOf("camp")>=0||f.indexOf("ymca")>=0||f.indexOf("galileo")>=0||f.indexOf("kidventure")>=0||f.indexOf("safari kid")>=0||f.indexOf("we rock")>=0||f.indexOf("steve")>=0||f.indexOf("kidstrong")>=0||f.indexOf("gymboree")>=0||f.indexOf("day camp")>=0||f.indexOf("summer camp")>=0||f.indexOf("camps")>=0||f.indexOf("outcamp")>=0||f.indexOf("outdoor camp")>=0||f.indexOf("fun classes")>=0||f.indexOf("afternoon class")>=0||f.indexOf("afterschool")>=0||f.indexOf("after school")>=0) src="/camp.jpg";
-  else if (f.indexOf("preschool")>=0||f.indexOf("toddler class")>=0||f.indexOf("story time")>=0||f.indexOf("storytime")>=0) src="/readingroom.jpg";
-  else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
-  else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
-  else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
-  var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : src;
-  var isAboveFold = (window._cardIndex || 0) < 4;
-  window._cardIndex = (window._cardIndex || 0) + 1;
-  var loadAttr = isAboveFold ? "eager" : "lazy";
-  var cardId = "img-"+Math.random().toString(36).substr(2,9);
-  // Fetch Pexels image in background if using fallback
-  if (!a.image || a.image.length <= 10) {
-    fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)), {
-    }).then(function(r){return r.json();})
-    .then(function(d){
-      if(d.url){
-        var el=document.getElementById(cardId);
-        if(el){el.src=d.url;el.style.opacity="1";}
-      }
-    }).catch(function(){});
-  }
-  return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
-    + "</div>";
-}
-
-function wBtn(fn, label) {
-  return "<button onclick=\""+fn+"\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">"+label+"</button>";
-}
-function goTab(name) {
-  var b = document.querySelector(".tab-btn[data-tab='"+name+"']");
-  if (b) setTab(b);
-}
-function surpriseMe() {
-  var tabs = ["free","outdoor","indoor","paid","weekend"];
-  goTab(tabs[Math.floor(Math.random()*tabs.length)]);
-}
-
-// ── FIX 2: showDetail() — added working ❤️ Save to My List button ──
-function showDetail(i) {
-  window._currentDetail = i;
-  var a = window._activities[i];
-  if (!a) return;
-  var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
-  var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
-  var imgSrc = "/park.jpg";
-  var cardEl = document.querySelector(".card[data-idx='" + i + "']");
-  if (cardEl) { var ci = cardEl.querySelector("img"); if (ci && ci.src && ci.naturalWidth > 0) imgSrc = ci.src; }
-  var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
-  var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
-  // Check if already favorited
-  var favKey = activeTab + "_" + i;
-  var isFaved = favorites.some(function(f){ return f.key === favKey; });
-  var html = 
-    "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
-    "<img class='detail-modal-img' src='"+imgSrc+"' onerror='this.style.display=\"none\"'/>"+
-    "<div class='detail-modal-body'>"+
-      "<h2 class='detail-modal-title'>"+esc(a.name)+"</h2>"+
-      (st?"<div class='stars' style='margin-bottom:6px'>"+st+"</div>":"")+
-      "<div class='chips' style='margin-bottom:8px'>"+ac+
-        "<span class='chip' style='background:#fff3e0;color:#e65100'>"+priceBadge+"</span>"+
-        "<span class='chip' style='background:#e8f5e9;color:#2e7d32'>📅 "+ds+"</span>"+
-      "</div>"+
-      (a.desc?"<p class='detail-modal-desc'>"+esc(a.desc)+"</p>":"")+
-      (a.address?"<div class='detail-modal-row'><span>📍</span><span>"+esc(a.address)+"</span></div>":"")+
-      (a.phone?"<div class='detail-modal-row'><span>📞</span><a href='tel:"+a.phone+"' style='color:#e65100;text-decoration:none'>"+a.phone+"</a></div>":"")+
-      ((a.city && a.city!=='regional')?"<div class='detail-modal-row'><span>🏙️</span><span>"+(a.city!=='regional'?a.city:activeCity)+", CA</span></div>":"")+
-      "<div class='detail-modal-btns'>"+
-        "<a class='btn-detail-map' href='"+mu+"' target='_blank'>🗺 Maps</a>"+
-        (a.website?"<a class='btn-detail-site' href='"+a.website+"' target='_blank'>🌐 Website</a>":"")+
-        (a.phone?"<a class='btn-detail-call' href='tel:"+a.phone+"'>📞 Call</a>":"")+
-        (a.registerUrl?"<a class='btn-detail-register' href='"+a.registerUrl+"' target='_blank'>✅ Register</a>":"")+
-        // ── FIX 2a: My List button in detail modal ──
-        "<button id='detail-fav-btn' onclick='toggleDetailFav("+i+")' style='background:"+(isFaved?"linear-gradient(135deg,#ef4444,#b91c1c)":"linear-gradient(135deg,#ff4e50,#f9d423)")+";color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer'>"+(isFaved?"❤️ Saved!":"🤍 Save to List")+"</button>"+
-        "<button class='btn-detail-share' style='background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:10px;flex:1;min-width:120px;font-weight:800;font-size:0.88rem;cursor:pointer' id='share-btn'>📤 Share</button>"+
-        "<a href='mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.' style='flex:1;min-width:80px;padding:10px;border-radius:99px;text-align:center;font-weight:800;font-size:0.8rem;text-decoration:none;background:#f5f5f5;color:#888;border:none;cursor:pointer'>📢 Report</a>"+
-      "</div>"+
-    "</div>";
-  var bg = document.getElementById("detail-modal-bg");
-  bg.innerHTML = "<div class='detail-modal'>"+html+"</div>";
-  bg.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-
-// ── FIX 2b: Toggle favorite from detail modal ──
-function toggleDetailFav(i) {
-  var a = window._activities[i];
-  if (!a) return;
-  var favKey = activeTab + "_" + i;
-  var idx = favorites.findIndex(function(f){ return f.key === favKey; });
-  if (idx >= 0) {
-    favorites.splice(idx, 1);
-  } else {
-    favorites.push({ key: favKey, name: a.name, city: a.city || activeCity, category: activeTab, mapsUrl: a.mapsUrl });
-  }
-  saveFavorites(); // this also calls updateBnavBadge() + updateMyListBadge()
-  // Update the button in the modal immediately
-  var isFaved = favorites.some(function(f){ return f.key === favKey; });
-  var btn = document.getElementById("detail-fav-btn");
-  if (btn) {
-    btn.textContent = isFaved ? "❤️ Saved!" : "🤍 Save to List";
-    btn.style.background = isFaved ? "linear-gradient(135deg,#ef4444,#b91c1c)" : "linear-gradient(135deg,#ff4e50,#f9d423)";
-  }
-  // Also refresh card hearts in the grid
-  renderCards();
-}
-
-document.addEventListener("click", function(e) {
-  if (e.target && e.target.id === "share-btn") {
-    var i = window._currentDetail;
-    if (i !== undefined) shareActivity(i);
-  }
-});
-function closeDetail() {
-  document.getElementById("detail-modal-bg").style.display = "none";
-  document.body.style.overflow = "";
-}
-function shareActivity(i) {
-  var a = window._activities[i];
-  if (!a) return;
-  var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
-  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at sunscout2.vercel.app";
-  if (navigator.share) {
-    navigator.share({ title: a.name, text: text, url: mu });
-  } else {
-    var wa = "https://wa.me/?text="+encodeURIComponent(text);
-    window.open(wa, "_blank");
-  }
-}
-async function fetchWeather(city) {
-  var co = CITY_COORDS[city] || [37.3688,-122.0363];
-  var banner = document.getElementById("weatherBanner");
-  if (!banner) return;
-  try {
-    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&temperature_unit=fahrenheit");
-    var d = await r.json();
-    var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
-    var msg, bg;
-    if (t >= 90) {
-      bg  = "linear-gradient(135deg,#ef4444,#f97316)";
-      msg = "🔥 <strong>"+t+"°F in "+city+"</strong> — Heat Alert! Stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-      goTab("indoor");
-    } else if (t >= 70) {
-      bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
-      msg = "☀️ <strong>"+t+"°F in "+city+"</strong> — Perfect outdoor weather!"+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
-    } else if (t >= 56) {
-      var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
-      bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = "🌤️ <strong>"+t+"°F in "+city+"</strong> — "+s[Math.floor(Math.random()*s.length)]+wBtn("surpriseMe()","✨ Surprise Me →");
-    } else {
-      bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
-      msg = "🧥 <strong>"+t+"°F in "+city+"</strong> — Cool day! Great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-    }
-    banner.style.display    = "block";
-    banner.style.background = bg;
-    banner.innerHTML        = msg;
-  } catch(e) {
-    banner.style.display    = "block";
-    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
-    banner.innerHTML        = "☀️ <strong>Great day in "+city+"!</strong> Check out activities below.";
-  }
-}
-
-async function loadActivities() {
-  var ck = "sc_"+activeTab+"_"+activeCity+"_"+activeAge;
-  var cd = sessionStorage.getItem(ck);
-  if (cd) {
-    var tsKey = ck+"_ts";
-    var ts = sessionStorage.getItem(tsKey);
-    var age = ts ? (Date.now() - parseInt(ts)) : 0;
-    if (age > 30*60*1000) {
-      var banner = document.getElementById("weatherBanner");
-      if (banner && banner.style.display !== "block") {
-        banner.style.display = "block";
-        banner.style.background = "linear-gradient(135deg,#9e9e9e,#616161)";
-        banner.innerHTML = "🔄 Data may be over 30 min old. <button onclick=\"sessionStorage.clear();loadActivities()\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">↺ Refresh</button>";
-      }
-      sessionStorage.removeItem(ck);
-    } else {
-      allActivities = JSON.parse(cd); showCount = getPageSize(); renderCards(); return;
-    }
-  }
-  showSkeleton();
-  try {
-    var p = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
-    var r = await fetch("/api/activities?" + p);
-    if (!r.ok) throw new Error("Server error " + r.status);
-    var data = await r.json();
-    allActivities = data.activities || [];
-    allActivities = allActivities.filter(function(a) {
-      return !a.city || a.city === activeCity || a.city === "regional";
-    });
-    var toCache = allActivities.map(function(a){ var c=Object.assign({},a); delete c.image; return c; }); try { sessionStorage.setItem(ck, JSON.stringify(toCache)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
-    showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
-    var el = document.getElementById("lastUpdated");
-    if (el && data.fetchedAt) el.textContent = new Date(data.fetchedAt).toLocaleTimeString();
-    renderCards();
-  } catch(e) { showError(e.message); }
-}
-
-function renderCards() {
-  window._cardIndex = 0;
-  var grid   = document.getElementById("grid");
-  var status = document.getElementById("statusBar");
-  var wrap   = document.getElementById("showMoreWrap");
-  var mbtn   = document.getElementById("showMoreBtn");
-  var items  = allActivities.slice();
-  if (searchQuery) {
-    var q = searchQuery.toLowerCase();
-    items = items.filter(function(a) {
-      return (a.name||"").toLowerCase().indexOf(q) >= 0 ||
-             (a.desc||"").toLowerCase().indexOf(q) >= 0 ||
-             (a.address||"").toLowerCase().indexOf(q) >= 0;
-    });
-  }
-  var total   = items.length;
-  var visible = items.slice(0, showCount);
-  status.innerHTML = "Showing <strong>"+visible.length+"</strong> of <strong>"+total+"</strong> activit"+(total===1?"y":"ies")+" in <strong>"+activeCity+"</strong>";
-  if (wrap) wrap.style.display = total > getPageSize() ? "block" : "none";
-  if (mbtn) mbtn.disabled = visible.length >= total;
-  if (visible.length === 0) {
-    grid.innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🌻</div><h2>"+(searchQuery?"No results for &quot;"+searchQuery+"&quot;":"No activities found!")+"</h2><p>"+(searchQuery?"Try a different search term.":"Try a different tab or age filter.")+"</p><p>Meanwhile — 3 FREE DIY activities:</p><div class=\"diy-grid\">"+DIY.map(function(d){ return "<div class=\"diy-card\"><strong>"+d.title+"</strong><p>"+d.desc+"</p></div>"; }).join("")+"</div></div>";
-    return;
-  }
-
-  window._activities = visible;
-  grid.innerHTML = visible.map(function(a, i) {
-    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
-    var st  = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
-    var mu  = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
-    var ac  = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
-    var a11 = (a.a11y||[]).map(function(t){ return "<span class=\"chip chip-a11y\">"+t+"</span>"; }).join("");
-    var pc  = (!a.isFree && a.price && a.price !== "See site") ? "<span class=\"chip chip-price\">"+a.price+"</span>" : "";
-    var priceBadge = a.isFree ? "$0 FREE" : (a.price && a.price !== "See site" ? a.price : "💰 Paid");
-    var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
-    // ── FIX 3: card heart properly calls updateBnavBadge ──
-    var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
-    var favKey = activeTab+"_"+i;
-    var isFaved = favorites.some(function(f){ return f.key===favKey; });
-
-    return "<article class=\"card\" data-idx=\""+i+"\">"+
-      "<div class=\"card-img-wrap\">"+
-        getCardHTML(a)+
-        "<span class=\"badge-free\" style=\""+badgeBg+"\">"+priceBadge+"</span>"+
-        (a.source ? "<span class=\"badge-src\">"+(SRC_LABELS[a.source]||a.source)+"</span>" : "")+
-      "</div>"+
-      "<div class=\"card-body\">"+
-        "<h3 class=\"card-title\">"+esc(a.name)+"</h3>"+
-        (st ? "<div class=\"stars\">"+st+"</div>" : "")+
-        "<div class=\"chips\">"+ac+a11+pc+"</div>"+
-        (a.address ? "<p class=\"info\"><span>📍</span><span>"+esc(a.address)+"</span></p>" : "")+
-        (a.phone   ? "<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>" : "")+
-        "<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+
-        (a.desc ? "<p class=\"info\"><span></span><span>"+esc(a.desc.slice(0,120))+(a.desc.length>120?"…":"")+"</span></p>" : "")+
-      "</div>"+
-      "<div class=\"card-foot\">"+
-        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
-        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
-        // ── FIX 3: heart button with full badge sync ──
-        "<button class=\"btn\" aria-label=\"Save to My List\" style=\"margin-left:auto;font-size:15px;border:none;background:none;padding:4px 8px\" onclick=\"event.stopPropagation();(function(){var k='"+favKey+"';var favs=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');var already=favs.some(function(x){return x.key===k;});if(already){favs=favs.filter(function(x){return x.key!==k;});}else{favs.push({key:k,name:'"+((a.name||"").replace(/'/g,"\\'")||"")+"',city:'"+(a.city||activeCity)+"',category:activeTab,mapsUrl:'"+(a.mapsUrl||"")+"'});}try{localStorage.setItem('sunscout_mylist',JSON.stringify(favs));}catch(e){}favorites=favs;updateMyListBadge(); updateFloatPillBadge();updateBnavBadge();updateDesktopMyListBadge();this.textContent=favs.some(function(x){return x.key===k;})?'❤️':'🤍';}).call(this)\">"+(isFaved?"❤️":"🤍")+"</button>"+
-        "<button class=\"btn\" onclick=\"event.stopPropagation();var shareUrl='https://www.sunscoutkids.com';if(navigator.share){navigator.share({title:this.closest('article').querySelector('.card-title').textContent,url:shareUrl});}else{navigator.clipboard.writeText(shareUrl);this.textContent='✅';}\" style=\"font-size:12px;padding:5px 10px;\">📤</button>"+
-        "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
-      "</div>"+
-    "</article>";
-  }).join("");
-  setTimeout(loadPexelsImages, 300);
-}
-
-// Pexels image loader - loads real photos async after cards render
-function loadPexelsImages() {
-  var cards = document.querySelectorAll(".card[data-idx]");
-  cards.forEach(function(card) {
-    var idx = card.getAttribute("data-idx");
-    var a = window._activities[idx];
-    if (!a) return;
-    var wrap = card.querySelector(".card-img-wrap");
-    if (!wrap) return;
-    // Skip if already loaded via Pexels
-    var existingImg = wrap.querySelector("img");
-    if (existingImg && existingImg.dataset.pexels) return;
-    // Always try Pexels for better relevant images
-    fetch("/api/photos?name=" + encodeURIComponent(a.name||"") + "&desc=" + encodeURIComponent((a.desc||"").slice(0,50)))
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if (!d.url) return;
-        if (existingImg) {
-          existingImg.src = d.url;
-          existingImg.dataset.pexels = "1";
-          existingImg.style.cssText = "width:100%;height:100%;object-fit:cover;";
-        } else {
-          var fb = wrap.querySelector(".card-img-fb");
-          var newImg = document.createElement("img");
-          newImg.src = d.url;
-          newImg.dataset.pexels = "1";
-          newImg.style.cssText = "width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;";
-          newImg.onerror = function(){ this.style.display="none"; };
-          if (fb) wrap.insertBefore(newImg, fb);
-          else wrap.appendChild(newImg);
-        }
-      }).catch(function(){});
-  });
-}
-
-function showSkeleton() {
-  document.getElementById("statusBar").innerHTML = "<span class='spinner'></span> Loading...";
-  document.getElementById("grid").innerHTML = "";
-  var w = document.getElementById("showMoreWrap"); if (w) w.style.display="none";
-}
-
-function showError(msg) {
-  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Could not load activities</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try Again</button></div>";
-  document.getElementById("statusBar").innerHTML = "Error loading activities";
-}
-
-function fmtDate(d) {
-  if (!d) return "";
-  return new Date(d).toLocaleDateString("en-US",{month:"short",day:"numeric"});
-}
-
-function updateFilterStrip() {
-  var strip = document.getElementById("filterStrip");
-  var parts = [];
-  if (activeCity) parts.push("<span class='fstrip-pill'>📍 "+activeCity+" <button onclick='clearCity()'>✕</button></span>");
-  if (activeAge && activeAge !== "all") {
-    var al = {"0":"👶 0-2","1":"🧸 3-5","2":"🎒 6-12","3":"🛹 Teen"};
-    parts.push("<span class='fstrip-pill'>"+al[activeAge]+" <button onclick='clearAge()'>✕</button></span>");
-  }
-  if (parts.length) { strip.innerHTML=parts.join("")+"<button class='fstrip-clear' onclick='clearAllFilters()'>Clear all</button>"; strip.style.display="flex"; }
-  else { strip.style.display="none"; }
-}
-function clearCity() {
-  document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
-  activeCity=null;
-  document.getElementById("cityFact").textContent="";
-  document.getElementById("weatherBanner").style.display="none";
-  document.getElementById("statusBar").innerHTML="Select a city above";
-  updateFilterStrip();
-}
-function clearAge() {
-  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on",b.dataset.age==="all"); });
-  activeAge="all"; showCount=getPageSize();
-  if (activeCity) loadActivities();
-  updateFilterStrip();
-}
-function clearAllFilters() { clearAge(); clearCity(); }
-function setCity(btn) {
-  var clicked = btn.dataset.city;
-  if (activeCity === clicked) {
-    btn.classList.remove("on"); activeCity = null;
-    document.getElementById("cityFact").textContent = "";
-    document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city to get started!</h2></div>";
-    document.getElementById("statusBar").innerHTML = "Select a city above";
-    document.getElementById("weatherBanner").style.display = "none";
-    return;
-  }
-  document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
-  btn.classList.add("on");
-  activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
-  document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
-  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-  sessionStorage.clear();
-  fetchWeather(activeCity);
-  loadActivities();
-}
-
-function setTab(btn) {
-  document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
-  btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
-  document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-  var cityBar = document.querySelector(".city-bar");
-  if (activeTab === "weekend") {
-    if (cityBar) cityBar.classList.add("weekend-mode");
-    document.querySelectorAll(".m-city-btn").forEach(function(b){ b.style.opacity="0.35"; b.style.pointerEvents="none"; });
-    var dwl = document.getElementById("desktop-weekend-label"); if(dwl) dwl.classList.add("visible");
-    loadActivities();
-  } else {
-    if (cityBar) cityBar.classList.remove("weekend-mode");
-    document.querySelectorAll(".m-city-btn").forEach(function(b){ b.style.opacity=""; b.style.pointerEvents=""; });
-    var dwl = document.getElementById("desktop-weekend-label"); if(dwl) dwl.classList.remove("visible");
-    if (activeCity) loadActivities();
-  }
-}
+// ── Age filter ──
+var activeAge = 'all';
 
 function setAge(btn) {
-  var clicked = btn.dataset.age;
-  if (activeAge === clicked && clicked !== "all") {
-    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
-    activeAge = "all";
-  } else {
-    document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.remove("on"); });
-    btn.classList.add("on"); activeAge = clicked;
-  }
-  showCount = getPageSize(); if (activeCity) loadActivities();
+  document.querySelectorAll('.age-pill').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  activeAge = btn.dataset.age;
+  filterCards();
 }
 
-function setSearch(val) {
-  searchQuery = val.trim(); showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
-  var cl = document.getElementById("searchClear"); if (cl) cl.style.display = val ? "block" : "none";
-  renderCards();
+function filterCards() {
+  var cards = document.querySelectorAll('.diy-card[data-ages]');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var ages = card.dataset.ages.split(',');
+    var show = activeAge === 'all' || ages.indexOf(activeAge) !== -1;
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  // count
+  var countEl = document.getElementById('diy-count');
+  if (countEl) countEl.innerHTML = '<strong>' + visible + '</strong> project' + (visible !== 1 ? 's' : '');
+  // empty state
+  var emptyEl = document.getElementById('diy-empty');
+  if (emptyEl) emptyEl.classList.toggle('show', visible === 0);
 }
 
-function clearSearch() {
-  searchQuery = "";
-  var si = document.getElementById("searchInput"); if (si) si.value = "";
-  var cl = document.getElementById("searchClear"); if (cl) cl.style.display = "none";
-  showCount = getPageSize(); renderCards();
-}
-
-function showMore() {
-  showCount += getPageSize(); renderCards();
-  window.scrollBy({top:400,behavior:"smooth"});
-}
-
-function updateCountdown() {
-  var end  = new Date(new Date().getFullYear()+"-08-31");
-  var days = Math.max(0, Math.ceil((end-new Date())/86400000));
-  var el   = document.getElementById("countdown");
-  if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
-  var el2 = document.getElementById("heroCountdown");
-  if (el2) el2.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
-}
-
-document.addEventListener("click", function(e) {
-  var card = e.target.closest("[data-idx]");
-  if (card) showDetail(parseInt(card.getAttribute("data-idx")));
-});
-document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
-updateCountdown();
-fetchWeather("Sunnyvale");
-(function(){fetch("https://api.open-meteo.com/v1/forecast?latitude=37.3688&longitude=-122.0363&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var city="Sunnyvale";var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";dc.style.background=t>=90?"#FFF0F0":"#FFF8E1";}var sc=document.getElementById("ssChip");if(sc){sc.textContent=msg;}}).catch(function(){});})();
-loadActivities();
-
-// FAVORITES
-
-// XSS protection — always escape user-sourced data before innerHTML
-function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
-// XSS protection — escape all API-sourced data before innerHTML
-function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
-// Weather cache — 10 min TTL, shared across all city switches
-var _weatherCache = {};
-var _WEATHER_TTL = 10 * 60 * 1000;
-function getCachedWeather(lat, lng, city, callback) {
-  var key = city;
-  var now = Date.now();
-  if (_weatherCache[key] && (now - _weatherCache[key].ts) < _WEATHER_TTL) {
-    callback(_weatherCache[key].temp); return;
-  }
-  fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lng+'&current_weather=true&temperature_unit=fahrenheit')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      var t = Math.round(d.current_weather.temperature);
-      _weatherCache[key] = { temp: t, ts: now };
-      callback(t);
-    }).catch(function(){ callback(null); });
-}
-let favorites = [];
-try { favorites = JSON.parse(localStorage.getItem("sunscout_mylist") || "[]"); } catch(e) { favorites = []; }
-
-function saveFavorites() {
-  try { localStorage.setItem("sunscout_mylist", JSON.stringify(favorites)); } catch(e) {}
-  updateMyListBadge(); updateFloatPillBadge();
-  updateBnavBadge();
-  updateDesktopMyListBadge(); // ── FIX: also update desktop badge ──
-}
-
-function updateFloatPillBadge() {
-  var b = document.getElementById("float-pill-badge");
-  if (!b) return;
-  if (favorites && favorites.length > 0) { b.style.display="flex"; b.textContent=favorites.length; }
-  else { b.style.display="none"; }
-}
-function updateMyListBadge() {
-  var badge = document.getElementById("mylistBadge");
-  if (!badge) return;
-  if (favorites.length > 0) { badge.style.display = "flex"; badge.textContent = favorites.length; }
-  else { badge.style.display = "none"; }
-}
-
-// ── FIX 1b: Desktop My List badge ──
-function updateDesktopMyListBadge() {
-  var badge = document.getElementById("desktopMyListBadge");
-  if (!badge) return;
-  if (favorites.length > 0) {
-    badge.style.display = "flex";
-    badge.textContent = favorites.length;
-  } else {
-    badge.style.display = "none";
+// ── Toggle card open/close ──
+function toggleCard(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  var isOpen = card.classList.contains('open');
+  // close all others
+  document.querySelectorAll('.diy-card.open').forEach(function(c) {
+    c.classList.remove('open');
+    var h = c.querySelector('.diy-card-header');
+    if (h) h.setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    var header = card.querySelector('.diy-card-header');
+    if (header) header.setAttribute('aria-expanded', 'true');
+    // smooth scroll card into view on mobile
+    setTimeout(function() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
   }
 }
 
-function toggleFavorite(key, activity) {
-  var idx = favorites.findIndex(function(f){ return f.key === key; });
-  if (idx >= 0) { favorites.splice(idx, 1); }
-  else { favorites.push({ key: key, name: activity.name, city: activity.city || activeCity, category: activity.category, mapsUrl: activity.mapsUrl }); }
-  saveFavorites();
-  var btn = document.querySelector(".fav-btn[data-key='" + key + "']");
-  if (btn) { var isFaved = favorites.some(function(f){ return f.key === key; }); btn.classList.toggle("faved", isFaved); btn.textContent = isFaved ? "❤️" : "🤍"; }
-}
-function openMyList() {
-  document.getElementById("mylist-panel").style.display = "block";
-  document.getElementById("mylist-overlay").style.display = "block";
-  renderMyList();
-}
-function closeMyList() {
-  document.getElementById("mylist-panel").style.display = "none";
-  document.getElementById("mylist-overlay").style.display = "none";
-}
-function renderMyList() {
-  var container = document.getElementById("mylist-items");
-  var empty = document.getElementById("mylist-empty");
-  if (favorites.length === 0) { container.innerHTML = ""; empty.style.display = "block"; return; }
-  empty.style.display = "none";
-  var CAT_EMOJI = {free:"🌳",paid:"🎟️",indoor:"🏛️",outdoor:"🌿",weekend:"📅"};
-  container.innerHTML = favorites.map(function(f, i) {
-    return "<div class='mylist-item'><div class='mylist-item-emoji'>" + (CAT_EMOJI[f.category]||"⭐") + "</div><div class='mylist-item-info'><div class='mylist-item-title'>" + (f.name||"") + "</div><div class='mylist-item-city'>📍 " + (f.city||"") + "</div></div>" +
-      (f.mapsUrl ? "<a href='" + f.mapsUrl + "' target='_blank' style='color:#1d4ed8;font-size:18px;text-decoration:none;margin-right:4px'>🗺</a>" : "") +
-      "<button class='mylist-remove' onclick='removeFav(" + i + ")'>✕</button></div>";
-  }).join("");
-}
-function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); renderCards(); }
-
-function checkWeekendMode() {
-  var day = new Date().getDay();
-  if (day === 0 || day === 6) {
-    var wb_el = document.getElementById("weekendBanner");
-    if (wb_el) wb_el.style.display = "block";
-    var wb = document.querySelector(".tab-btn[data-tab='weekend']");
-    if (wb) setTab(wb);
-    var cityBar = document.querySelector(".city-bar");
-    if (cityBar) cityBar.classList.add("weekend-mode");
-  }
-}
-
-var planCity=null, planVibe=null, planAge=null, planStep=1;
-function openPlan() {
-  document.getElementById("plan-modal-bg").style.display="flex";
-  resetPlan();
-  var today = new Date().toISOString().split('T')[0];
-  var saved = localStorage.getItem('sunscout_plan_date') || today;
-  var inp = document.getElementById('planDate');
-  if(inp) inp.value = saved;
-}
-function savePlanDate(val) {
-  localStorage.setItem('sunscout_plan_date', val);
-  // Also save to planner so it shows in My Planner calendar
-  localStorage.setItem('sunscout_planned_outing_date', val);
-}
-function closePlan() { document.getElementById("plan-modal-bg").style.display="none"; }
-function showPlanStep(n) { document.querySelectorAll(".plan-step").forEach(function(s,i){ s.classList.toggle("active",i+1===n); }); planStep=n; }
-function planSelectCity(btn,city) { document.querySelectorAll("#plan-step-1 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planCity=city; setTimeout(function(){ showPlanStep(2); },250); }
-function planSelectVibe(btn,vibe) { document.querySelectorAll("#plan-step-2 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planVibe=vibe; setTimeout(function(){ showPlanStep(3); },250); }
-function planSelectAge(btn,age) { document.querySelectorAll("#plan-step-3 .plan-option").forEach(function(b){ b.classList.remove("selected"); }); btn.classList.add("selected"); planAge=age; setTimeout(function(){ buildItinerary(); showPlanStep(4); },250); }
-function buildItinerary() {
-  var ITINERARIES = {
-    outdoor:[{time:"9:00 AM",icon:"☀️",activity:"Morning Nature Walk or Trail Hike",tip:"Bring water & sunscreen!"},{time:"11:00 AM",icon:"🌳",activity:"Splash Pad or Park Play",tip:"Kids love Sunnyvale's Ortega Park splash pad!"},{time:"1:00 PM",icon:"🧺",activity:"Picnic Lunch at a Scenic Spot",tip:"Pack sandwiches and fruit — save $$$"},{time:"3:00 PM",icon:"🐄",activity:"Petting Zoo or Farm Visit",tip:"Great for all ages, magic for little ones"}],
-    indoor:[{time:"10:00 AM",icon:"🏛️",activity:"Museum or Discovery Center",tip:"Children's Discovery Museum in San Jose is excellent!"},{time:"12:00 PM",icon:"🍕",activity:"Lunch Near the Museum",tip:"Check Yelp for family-friendly spots nearby"},{time:"2:00 PM",icon:"🔬",activity:"STEM Workshop or Coding Class",tip:"iD Tech and Snapology have drop-in options"},{time:"4:00 PM",icon:"📚",activity:"Library Storytime or Activity",tip:"Free! Great wind-down before heading home"}],
-    free:[{time:"9:30 AM",icon:"📚",activity:"Library Storytime",tip:"Free & air-conditioned — perfect start!"},{time:"11:00 AM",icon:"🌳",activity:"Local Park Playground",tip:"Let the kids burn energy before lunch"},{time:"1:00 PM",icon:"🧺",activity:"Home Lunch + Rest",tip:"Save money, recharge for the afternoon"},{time:"3:00 PM",icon:"💧",activity:"Splash Pad or Free Pool Hours",tip:"Many cities offer free splash pads!"}],
-    paid:[{time:"10:00 AM",icon:"🎟️",activity:"YMCA Summer Camp or Class",tip:"Sign up early — spots fill fast!"},{time:"12:30 PM",icon:"🍔",activity:"Lunch at a Family Restaurant",tip:"Make it a treat — this is a special outing"},{time:"2:00 PM",icon:"🎨",activity:"Art Studio or Dance Class",tip:"Pottery, ballet, or painting — pick their passion"},{time:"4:30 PM",icon:"🍦",activity:"Ice Cream Celebration",tip:"End every great day with ice cream 🍦"}]
-  };
-  var plan = ITINERARIES[planVibe] || ITINERARIES.outdoor;
-  var ageLabels = {"0":"babies (0–2)","1":"little ones (3–5)","2":"school kids (6–12)","3":"teens (13–19)","all":"the whole family"};
-  document.getElementById("plan-summary").textContent = "📍 " + planCity + " · Perfect for " + (ageLabels[planAge]||"the family");
-  document.getElementById("plan-itinerary-body").innerHTML = plan.map(function(item){
-    return "<div class='plan-itinerary-item'><span class='plan-time-badge'>"+item.time+"</span><div><div style='font-size:13px;font-weight:800;color:#1a1a1a'>"+item.icon+" "+item.activity+"</div><div style='font-size:11px;color:#888;margin-top:2px'>💡 "+item.tip+"</div></div></div>";
-  }).join("");
-}
-function applyPlanToApp() {
-  activeCity = null;
-  closePlan();
-  var cb = document.querySelector(".city-btn[data-city='"+planCity+"']"); if(cb) setCity(cb);
-  var tb = document.querySelector(".tab-btn[data-tab='"+planVibe+"']"); if(tb) setTab(tb);
-  if(planAge!=="all"){ var ab=document.querySelector(".age-btn[data-age='"+planAge+"']"); if(ab) setAge(ab); }
-}
-function resetPlan() { planCity=null; planVibe=null; planAge=null; document.querySelectorAll(".plan-option").forEach(function(b){ b.classList.remove("selected"); }); showPlanStep(1); }
-
-updateMyListBadge(); updateFloatPillBadge();
-updateDesktopMyListBadge();
-checkWeekendMode();
-
-// Hide floating pills when near bottom of page
+// ── Back to top ──
+var backTop = document.getElementById('back-top');
 window.addEventListener('scroll', function() {
-  var scrollBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
-  var pw = document.getElementById('pillWeekend');
-  var ps = document.getElementById('pillSurprise');
-  var hide = scrollBottom < 120;
-  if(pw){ pw.style.opacity = hide ? '0' : '0.92'; pw.style.pointerEvents = hide ? 'none' : 'auto'; }
-  if(ps){ ps.style.opacity = hide ? '0' : '0.92'; ps.style.pointerEvents = hide ? 'none' : 'auto'; }
-}, {passive: true});
-
-function bnavTab(tab, btn) {
-  document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
-  if(btn) btn.classList.add("active");
-  window.scrollTo({top:0, behavior:"instant"});
-  var tabBtn = document.querySelector(".tab-btn[data-tab='" + tab + "']");
-  if(tabBtn) setTab(tabBtn);
-}
-function updateBnavBadge() {
-  var b = document.getElementById("bnavBadge");
-  if(!b) return;
-  if(favorites && favorites.length > 0) {
-    b.style.display = "flex";
-    b.textContent = favorites.length;
-  } else {
-    b.style.display = "none";
-  }
-}
-function syncBnav(tab) {
-  document.querySelectorAll(".bnav-btn").forEach(b => b.classList.remove("active"));
-  var match = document.querySelector(".bnav-btn[onclick*=\'" + tab + "\']");
-  if(match) match.classList.add("active");
-}
-
+  if (backTop) backTop.classList.toggle('show', window.scrollY > 300);
+}, { passive: true });
 </script>
-<div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
-<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
-  <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
-</div></div></div>
-<!-- MY LIST PANEL -->
-<div id="mylist-panel">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-    <div><h2>❤️ My List</h2><p style="font-size:12px;color:#888">Activities you've saved</p></div>
-    <button onclick="closeMyList()" style="background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
-  </div>
-  <div id="mylist-items"></div>
-  <div id="mylist-empty" style="text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:700"><div style="font-size:3rem;margin-bottom:10px">💛</div>Tap ❤️ on any activity card to save it here!</div>
-</div>
-<div id="mylist-overlay" onclick="closeMyList()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:99997;background:rgba(0,0,0,0.3)"></div>
-
-<!-- PLAN MY DAY MODAL -->
-<div id="plan-modal-bg" onclick="if(event.target===this)closePlan()">
-  <div id="plan-modal">
-    <button onclick="closePlan()" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
-    <div style="text-align:center;margin-bottom:16px"><div style="font-size:2.5rem">📅</div>
-    <h2 style="font-size:1.3rem;font-weight:900;color:#FF9900;margin:6px 0 2px">Plan My Day</h2>
-    <div style="background:#fff8f0;border-radius:12px;padding:10px 14px;margin:10px 0 4px;display:flex;align-items:center;gap:10px;border:2px solid #ffe0b2;">
-      <span style="font-size:13px;font-weight:800;color:#FF9900;">📅 Pick a Date:</span>
-      <input type="date" id="planDate" style="flex:1;border:none;background:transparent;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#1a1a1a;outline:none;" onchange="savePlanDate(this.value)" />
-    </div>
-    <p style="font-size:0.82rem;color:#888">Let's build your perfect family day out!</p></div>
-    <div class="plan-step active" id="plan-step-1">
-      <p style="font-weight:800;font-size:14px;margin-bottom:4px">1️⃣ Which city?</p>
-      <div class="plan-option-grid">
-        <button class="plan-option" onclick="planSelectCity(this,'Sunnyvale')">☀️ Sunnyvale</button>
-        <button class="plan-option" onclick="planSelectCity(this,'San Jose')">🌉 San Jose</button>
-        <button class="plan-option" onclick="planSelectCity(this,'Cupertino')">🍎 Cupertino</button>
-        <button class="plan-option" onclick="planSelectCity(this,'Mountain View')">🏔️ Mountain View</button>
-        <button class="plan-option" onclick="planSelectCity(this,'Palo Alto')">🎓 Palo Alto</button>
-        <button class="plan-option" onclick="planSelectCity(this,'Saratoga')">🌸 Saratoga</button>
-        <button class="plan-option" onclick="planSelectCity(this,'Fremont')">🌉 Fremont</button>
-      </div>
-    </div>
-    <div class="plan-step" id="plan-step-2">
-      <p style="font-weight:800;font-size:14px;margin-bottom:4px">2️⃣ What's the vibe today?</p>
-      <div class="plan-option-grid">
-        <button class="plan-option" onclick="planSelectVibe(this,'outdoor')">🌞 Hot & Sunny<br><small style="font-weight:400;color:#888">Outdoor adventures</small></button>
-        <button class="plan-option" onclick="planSelectVibe(this,'indoor')">🌧️ Staying Cool<br><small style="font-weight:400;color:#888">Indoor fun</small></button>
-        <button class="plan-option" onclick="planSelectVibe(this,'free')">💸 Free Only<br><small style="font-weight:400;color:#888">Zero budget</small></button>
-        <button class="plan-option" onclick="planSelectVibe(this,'paid')">🎟️ Special Outing<br><small style="font-weight:400;color:#888">Worth the splurge</small></button>
-      </div>
-    </div>
-    <div class="plan-step" id="plan-step-3">
-      <p style="font-weight:800;font-size:14px;margin-bottom:4px">3️⃣ Who's coming along?</p>
-      <div class="plan-option-grid">
-        <button class="plan-option" onclick="planSelectAge(this,'0')">👶 Baby (0–2)</button>
-        <button class="plan-option" onclick="planSelectAge(this,'1')">🧸 Little One (3–5)</button>
-        <button class="plan-option" onclick="planSelectAge(this,'2')">🎒 School Kid (6–12)</button>
-        <button class="plan-option" onclick="planSelectAge(this,'3')">🛹 Teen (13–19)</button>
-        <button class="plan-option" onclick="planSelectAge(this,'all')" style="grid-column:span 2">👨‍👩‍👧‍👦 Mixed Ages — All Welcome!</button>
-      </div>
-    </div>
-    <div class="plan-step" id="plan-step-4">
-      <p style="font-weight:800;font-size:15px;margin-bottom:2px">🎉 Your Perfect Day Itinerary!</p>
-      <p id="plan-summary" style="font-size:12px;color:#888;margin-bottom:10px"></p>
-      <div class="plan-itinerary" id="plan-itinerary-body"></div>
-      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <button onclick="applyPlanToApp()" style="flex:1;padding:11px;border-radius:99px;border:none;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">✅ Show These Activities</button>
-        <button onclick="resetPlan()" style="flex:1;padding:11px;border-radius:99px;border:2px solid #eee;background:#fff;color:#666;font-weight:800;font-size:13px;cursor:pointer;font-family:Nunito,sans-serif">🔄 Start Over</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Bottom Nav (mobile only) -->
-<nav id="bottom-nav">
-  <div class="bnav-items">
-    <button class="bnav-btn active" onclick="bnavTab('free',this)">
-      <span class="bnav-icon">🆓</span>
-      <span class="bnav-label">Free</span>
-    </button>
-    <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
-      <span class="bnav-icon">🌳</span>
-      <span class="bnav-label">Outdoor</span>
-    </button>
-    <button class="bnav-btn" onclick="bnavTab('indoor',this)">
-      <span class="bnav-icon">🏛️</span>
-      <span class="bnav-label">Indoor</span>
-    </button>
-    <button class="bnav-btn" onclick="floatWeekend()">
-      <span class="bnav-icon">📅</span>
-      <span class="bnav-label">Weekend</span>
-    </button>
-    <button class="bnav-btn" onclick="floatSurprise()">
-      <span class="bnav-icon">🎲</span>
-      <span class="bnav-label">Surprise</span>
-    </button>
-    <a class="bnav-btn" href="/diy.html" style="text-decoration:none;">
-      <span class="bnav-icon">🛠️</span>
-      <span class="bnav-label">DIY</span>
-    </a>
-  </div>
-</nav>
-
-<script>
-</script>
-
-
-<!-- MY PLANNER MODAL -->
-<div id="planner-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;">
-  <div style="background:#fff;border-radius:24px;width:100%;max-width:540px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;position:relative;">
-    
-    <!-- Header -->
-    <div style="padding:20px 24px 0;text-align:center;flex-shrink:0;">
-      <button onclick="closePlanner()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#888;">✕</button>
-      <div style="font-size:1.8rem;">📋</div>
-      <h2 style="color:#6366f1;font-family:Nunito,sans-serif;margin:4px 0 14px;font-size:1.3rem;">My Planner</h2>
-    </div>
-
-    <!-- Tabs -->
-    <div style="display:flex;border-bottom:2px solid #f0f0f0;flex-shrink:0;padding:0 16px;">
-      <button id="tab-btn-notes" onclick="switchTab('notes')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid #6366f1;color:#6366f1;">📝 Notes</button>
-      <button id="tab-btn-calendar" onclick="switchTab('calendar')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">📅 Calendar</button>
-      <button id="tab-btn-mylist" onclick="switchTab('mylist')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">❤️ My List</button>
-    </div>
-
-    <!-- Tab Content -->
-    <div style="overflow-y:auto;flex:1;padding:16px 20px 20px;">
-
-      <!-- NOTES TAB -->
-      <div id="tab-notes">
-        <p style="color:#888;font-size:13px;margin:0 0 10px;">General notes, reminders, ideas...</p>
-        <input type="search" id="notes-search" placeholder="🔍 Search your notes..." 
-  style="width:100%;padding:8px 14px;border-radius:99px;border:1.5px solid #e0e7ff;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:10px;outline:none;box-sizing:border-box;"
-  oninput="filterNotes(this.value)"/>
-<textarea id="notepad-general" placeholder="Write your notes here..." style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:8px;">
-          <button class="save-btn" onclick="saveGeneralNote()" style="flex:1;background:#6366f1;color:#fff;border:none;border-radius:99px;padding:10px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">💾 Save Note</button>
-          <button onclick="clearGeneralNote()" style="background:#fee2e2;color:#ef4444;border:none;border-radius:99px;padding:10px 16px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">🗑️</button>
-        </div>
-        <div id="activity-notes-list" style="margin-top:16px;"></div>
-      </div>
-
-      <!-- CALENDAR TAB -->
-      <div id="tab-calendar" style="display:none;">
-        <div id="calendar-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-bottom:14px;"></div>
-        <h3 style="color:#0369a1;font-family:Nunito,sans-serif;font-size:14px;margin:0 0 10px;">📌 Plan Your Activities</h3>
-        <div id="calendar-saved-list"></div>
-      </div>
-
-      <!-- MY LIST TAB -->
-      <div id="tab-mylist" style="display:none;">
-        <div id="mylist-content"></div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<script>
-// ── MY PLANNER ──
-function openPlanner() {
-  console.log('openPlanner called!');
-  var modal = document.getElementById('planner-modal');
-  modal.setAttribute('style','display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;');
-  switchTab('notes');
-}
-function closePlanner() {
-  document.getElementById('planner-modal').style.display = 'none';
-}
-
-function switchTab(tab) {
-  var tabs = ['notes','calendar','mylist'];
-  tabs.forEach(function(t) {
-    document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
-    var btn = document.getElementById('tab-btn-'+t);
-    if(btn) {
-      btn.style.borderBottom = t===tab ? '3px solid #6366f1' : '3px solid transparent';
-      btn.style.color = t===tab ? '#6366f1' : '#aaa';
-    }
-  });
-  if(tab==='notes') { 
-    var saved = localStorage.getItem('sunscout_note') || '';
-    document.getElementById('notepad-general').value = saved;
-    renderActivityNotes();
-  }
-  if(tab==='calendar') renderPlannerCalendar();
-  if(tab==='mylist') renderMyListTab();
-}
-
-// NOTES
-function saveGeneralNote() {
-  var text = document.getElementById('notepad-general').value;
-  localStorage.setItem('sunscout_note', text);
-  var btn = document.querySelector('.save-btn');
-  if(btn) { var o=btn.textContent; btn.textContent='✅ Saved!'; btn.style.background='#22c55e'; setTimeout(function(){btn.textContent=o;btn.style.background='#6366f1';},1500); }
-}
-function clearGeneralNote() {
-  if(confirm('Clear your note?')) { localStorage.removeItem('sunscout_note'); document.getElementById('notepad-general').value=''; }
-}
-function renderActivityNotes() {
-  var list = document.getElementById('activity-notes-list');
-  var myList = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
-  if(myList.length === 0) { list.innerHTML = '<p style="color:#aaa;font-size:13px;text-align:center;padding:10px 0;">Heart an activity to add notes per activity.</p>'; return; }
-  var h = '<h3 style="color:#6366f1;font-family:Nunito,sans-serif;font-size:14px;margin:0 0 10px;">Activity Notes</h3>';
-  for(var i=0; i<myList.length; i++) {
-    var a = myList[i]; var key = 'sunscout_anote_'+i; var note = localStorage.getItem(key)||'';
-    h += '<div style="margin-bottom:10px;padding:10px;background:#f5f3ff;border-radius:12px;">';
-    h += '<div style="font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:6px;">'+(a.name||a)+'</div>';
-    h += '<textarea data-key="'+key+'" placeholder="Add a note..." style="width:100%;height:56px;border:1px solid #ddd;border-radius:8px;padding:8px;font-family:Nunito,sans-serif;font-size:12px;resize:none;outline:none;box-sizing:border-box;">'+note+'</textarea>';
-    h += '</div>';
-  }
-  list.innerHTML = h;
-  list.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
-}
-
-// CALENDAR
-var calYear = new Date().getFullYear();
-var calMonth = new Date().getMonth();
-
-function prevMonth() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderPlannerCalendar(); }
-function nextMonth() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderPlannerCalendar(); }
-
-function renderPlannerCalendar() {
-  var now = new Date(); var year=calYear; var month=calMonth;
-  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  var firstDay=new Date(year,month,1).getDay(); var daysInMonth=new Date(year,month+1,0).getDate();
-  var monthName=now.toLocaleString('default',{month:'long'});
-  var grid=document.getElementById('calendar-grid');
-  // Collect all planned dates
-  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
-  var plannedDates={};
-  for(var pi=0;pi<myList.length;pi++){
-    var pd=localStorage.getItem('sunscout_date_'+pi);
-    if(pd){ var parts=pd.split('-'); if(parseInt(parts[0])===year&&parseInt(parts[1])-1===month){ plannedDates[parseInt(parts[2])]=(myList[pi].name||myList[pi]); } }
-  }
-  var h='<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
-    +'<button onclick="prevMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8249;</button>'
-    +'<span style="font-weight:900;color:#0369a1;font-family:Nunito,sans-serif;font-size:1rem;">'+monthName+' '+year+'</span>'
-    +'<button onclick="nextMonth()" style="background:#f0f9ff;border:none;border-radius:99px;width:28px;height:28px;cursor:pointer;font-size:16px;font-weight:900;color:#0369a1;">&#8250;</button>'
-    +'</div>';
-  days.forEach(function(d){ h+='<div style="font-weight:800;color:#888;font-size:10px;padding:4px 0;">'+d+'</div>'; });
-  for(var i=0;i<firstDay;i++) h+='<div></div>';
-  for(var d=1;d<=daysInMonth;d++) {
-    var isToday=d===now.getDate();
-    h+='<div style="padding:5px 2px;border-radius:8px;font-size:12px;font-weight:700;font-family:Nunito,sans-serif;cursor:pointer;'+(isToday?'background:#6366f1;color:#fff;':'color:#1a1a1a;background:#f5f3ff;')+'">'+d+'</div>';
-  }
-  grid.innerHTML = h;
-
-  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
-  var savedDiv=document.getElementById('calendar-saved-list');
-  if(myList.length===0){ savedDiv.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;">Heart activities to plan them here.</p>'; return; }
-  var sh='';
-  for(var j=0;j<myList.length;j++){
-    var act=myList[j]; var dateKey='sunscout_date_'+j; var savedDate=localStorage.getItem(dateKey)||'';
-    sh+='<div style="padding:10px 12px;background:#f0f9ff;border-radius:12px;margin-bottom:8px;font-family:Nunito,sans-serif;">';
-    sh+='<div style="font-weight:800;color:#0369a1;font-size:13px;">'+(act.name||act)+'</div>';
-    sh+='<div style="font-size:12px;color:#888;margin:2px 0 6px;">'+(act.city||'Bay Area')+'</div>';
-    sh+='<input type="date" data-key="'+dateKey+'" value="'+savedDate+'" style="border:1px solid #bae6fd;border-radius:8px;padding:4px 8px;font-family:Nunito,sans-serif;font-size:12px;outline:none;width:100%;box-sizing:border-box;">';
-    sh+='</div>';
-  }
-  savedDiv.innerHTML = sh;
-  savedDiv.querySelectorAll('input[type=date]').forEach(function(inp){
-    inp.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); });
-  });
-}
-
-// MY LIST TAB
-function renderMyListTab() {
-  var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
-  var div=document.getElementById('mylist-content');
-  if(myList.length===0){ div.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:20px 0;">No saved activities yet.<br>Tap ❤️ on any activity to save it!</p>'; return; }
-  var h='<p style="color:#888;font-size:13px;margin:0 0 12px;">'+myList.length+' saved activit'+(myList.length===1?'y':'ies')+'</p>';
-  for(var i=0;i<myList.length;i++){
-    var a=myList[i]; var dateKey='sunscout_date_'+i; var savedDate=localStorage.getItem(dateKey)||''; var noteKey='sunscout_anote_'+i; var note=localStorage.getItem(noteKey)||'';
-    h+='<div style="padding:12px;background:#fafafa;border:1px solid #f0f0f0;border-radius:14px;margin-bottom:10px;font-family:Nunito,sans-serif;">';
-    h+='<div style="font-weight:800;color:#1a1a1a;font-size:13px;">'+(a.name||a)+'</div>';
-    h+='<div style="font-size:12px;color:#888;margin:2px 0 8px;">'+(a.city||'Bay Area')+' · '+(a.isFree?'Free':'Paid')+'</div>';
-    h+='<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">';
-    h+='<span style="font-size:11px;color:#0369a1;font-weight:700;">📅 Date:</span>';
-    h+='<input type="date" data-key="'+dateKey+'" value="'+savedDate+'" style="flex:1;border:1px solid #ddd;border-radius:8px;padding:3px 8px;font-size:12px;font-family:Nunito,sans-serif;outline:none;">';
-    h+='</div>';
-    h+='<textarea data-key="'+noteKey+'" placeholder="Add a note..." style="width:100%;height:48px;border:1px solid #ddd;border-radius:8px;padding:6px 8px;font-size:12px;font-family:Nunito,sans-serif;resize:none;outline:none;box-sizing:border-box;">'+note+'</textarea>';
-    h+='</div>';
-  }
-  div.innerHTML = h;
-  div.querySelectorAll('input[type=date]').forEach(function(inp){ inp.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
-  div.querySelectorAll('textarea').forEach(function(t){ t.addEventListener('change',function(){ localStorage.setItem(this.getAttribute('data-key'),this.value); }); });
-}
-
-// Keep backward compat
-function openNotepad(){ openPlanner(); }
-function openCalendar(){ openPlanner(); switchTab('calendar'); }
-</script>
-
-<script>
-
-// ── MOBILE FILTER TABS ──
-function switchMFT(tab) {
-  var dds = ['city','explore','age'];
-  dds.forEach(function(t) {
-    var dd = document.getElementById('dd-'+t);
-    var btn = document.getElementById('mft-'+t);
-    var isOpen = dd && dd.style.display !== 'none';
-    var isThis = t === tab;
-    if(dd) dd.style.display = (isThis && !isOpen) ? 'block' : 'none';
-    if(btn) btn.classList.toggle('active', isThis && !isOpen);
-  });
-  buildMobileCities();
-}
-
-function setMobileTab(tab, btn) {
-  document.querySelectorAll('.m-tab-card').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  var dd = document.getElementById('dd-explore');
-  if(dd) dd.style.display = 'none';
-  var mft = document.getElementById('mft-explore');
-  if(mft) { mft.classList.remove('active'); mft.innerHTML = '🎡 <strong>' + (tab.charAt(0).toUpperCase()+tab.slice(1)) + '</strong>'; }
-  var realBtn = document.querySelector('.tab-btn[data-tab="'+tab+'"]');
-  if(realBtn) realBtn.click();
-}
-
-function setMobileAge(age, btn) {
-  document.querySelectorAll('#dd-age .m-tab-card').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  var dd = document.getElementById('dd-age');
-  if(dd) dd.style.display = 'none';
-  var mft = document.getElementById('mft-age');
-  if(mft) { mft.classList.remove('active'); mft.innerHTML = '👶 <strong>' + btn.textContent.trim() + '</strong>'; }
-  var realBtn = document.querySelector('.age-btn[data-age="'+age+'"]');
-  if(realBtn) realBtn.click();
-  else { activeAge = age; renderCards(); }
-}
-
-function buildMobileCities() {
-  var cities = ['Sunnyvale','San Jose','Cupertino','Mountain View','Palo Alto','Saratoga','Fremont'];
-  var icons  = ['☀️','🏙️','🍎','⛰️','🌿','🌸','🏘️'];
-  var colors = ['#FF9900','#1d4ed8','#dc2626','#16a34a','#7c3aed','#0369a1','#b45309'];
-  var grid = document.getElementById('m-city-grid');
-  if(!grid) return;
-  grid.innerHTML = cities.map(function(c,i) {
-    var on = c===activeCity ? ' on' : '';
-    return ['<button class="m-tab-card',on,'" style="background:',colors[i],
-            '" onclick="setMobileCity(this.dataset.city,this)" data-city="',c,
-            '"><span class="m-tab-card-icon">',icons[i],'</span>',c,'</button>'].join('');
-  }).join('');
-}
-
-function setMobileCity(city, btn) {
-  var isOn = btn.classList.contains("on");
-  document.querySelectorAll("#m-city-grid .m-tab-card").forEach(function(b){ b.classList.remove("on"); });
-  if (isOn) {
-    var dd2 = document.getElementById("dd-city"); if(dd2) dd2.style.display="none";
-    var mft2 = document.getElementById("mft-city"); if(mft2){ mft2.classList.remove("active"); mft2.innerHTML="📍 <strong>City</strong>"; }
-    activeCity=null;
-    document.getElementById("grid").innerHTML="<div class=no-results><h2>Select a city to get started!</h2></div>";
-    return;
-  }
-  btn.classList.add("on");
-  var dd = document.getElementById('dd-city');
-  if(dd) dd.style.display = 'none';
-  var mft = document.getElementById('mft-city');
-  if(mft) { mft.classList.remove('active'); mft.innerHTML = '📍 <strong>' + city + '</strong>'; }
-  var realBtn = Array.from(document.querySelectorAll('.city-btn')).find(function(b){ return b.textContent.includes(city); });
-  if(realBtn) realBtn.click();
-  else { activeCity = city; loadActivities(); }
-}
-
-// Build cities on load
-document.addEventListener('DOMContentLoaded', function(){ buildMobileCities(); });
-setTimeout(buildMobileCities, 500);
-
-
-
-
-
-
-
-
-function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
-function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";document.getElementById("ssChip").textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
-function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
-function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
-function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
-document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
-
-
-function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
-  var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
-  if (btn && typeof setTab === "function") setTab(btn);
-  else if (typeof activeTab !== "undefined") {
-    activeTab = "weekend";
-    activeCity = activeCity || (typeof CITIES !== "undefined" ? CITIES[0] : "Sunnyvale");
-    showCount = typeof getPageSize === "function" ? getPageSize() : 10;
-    if (typeof loadActivities === "function") loadActivities();
-  }
-  window.scrollTo({top: 0, behavior: "smooth"});
-}
-function floatSurprise() {
-  var tabs = ["free","paid","outdoor","indoor"];
-  var t = tabs[Math.floor(Math.random()*tabs.length)];
-  var btn = document.querySelector('.tab-btn[data-tab="'+t+'"]');
-  if (btn && typeof setTab === "function") setTab(btn);
-  else if (typeof activeTab !== "undefined") {
-    activeTab = t;
-    activeCity = activeCity || (typeof CITIES !== "undefined" ? CITIES[0] : "Sunnyvale");
-    showCount = typeof getPageSize === "function" ? getPageSize() : 10;
-    if (typeof loadActivities === "function") loadActivities();
-  }
-  setTimeout(function() {
-    var cards = document.querySelectorAll(".card");
-    if (cards.length > 0) {
-      var pick = cards[Math.floor(Math.random()*cards.length)];
-      pick.scrollIntoView({behavior:"smooth", block:"center"});
-      pick.style.outline = "3px solid #FF9900";
-      pick.style.borderRadius = "16px";
-      setTimeout(function(){ pick.style.outline = ""; }, 2500);
-    }
-  }, 900);
-}
-
-
-function filterNotes(query) {
-  var ta = document.getElementById("notepad-general");
-  if (!ta) return;
-  if (!query) {
-    var saved = localStorage.getItem("sunscout_note") || "";
-    ta.value = saved;
-    return;
-  }
-  var saved = localStorage.getItem("sunscout_note") || "";
-  var lines = saved.split("\n").filter(function(l) {
-    return l.toLowerCase().includes(query.toLowerCase());
-  });
-  ta.value = lines.join("\n");
-}
-
-
-function toggleSsMenu(e) {
-  if(e) e.stopPropagation();
-  var m = document.getElementById("ssMenu");
-  var md = document.getElementById("ssMenuDesktop");
-  if(m) m.style.display = m.style.display === "none" ? "block" : "none";
-  if(md) md.style.display = "none";
-}
-document.addEventListener("click", function() {
-  var m = document.getElementById("ssMenu");
-  if(m) m.style.display = "none";
-  var md = document.getElementById("ssMenuDesktop");
-  if(md) md.style.display = "none";
-});
-
-
-function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
-function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
-function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
-function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
-document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
-
-
-function weatherChipClick() {
-  var chip = document.getElementById("desktopWeatherChip") || document.getElementById("ssChip");
-  if (!chip) return;
-  var text = chip.textContent;
-  var tab = "outdoor";
-  if (text.indexOf("Indoor") > -1 || text.indexOf("chilly") > -1 || text.indexOf("Hot") > -1 || text.indexOf("Heat") > -1) tab = "indoor";
-  else if (text.indexOf("outdoor") > -1 || text.indexOf("splash") > -1 || text.indexOf("Perfect") > -1) tab = "outdoor";
-  var btn = document.querySelector(".tab-btn[data-tab='"+tab+"']");
-  if (btn && typeof setTab === "function") setTab(btn);
-  var cards = document.getElementById("cards");
-  if (cards) cards.scrollIntoView({behavior:"smooth"});
-}
-
-</script>
-
-
-<!-- ══ FLOATING PILLS ══ -->
-<!-- Pills hidden on mobile - moved into bottom nav -->
-<style>
-@media(min-width:641px){#floatingPills{display:none!important;}.mobile-filter-tabs{display:none!important;}.weather-banner{display:none!important;}} /* pills desktop hidden - using buttons instead */
-</style>
-
-
-<!-- Floating Plan My Day + My List pill (mobile) -->
-<div id="float-pill">
-  <button class="fp-plan" onclick="openPlan()">📅 Plan My Day</button>
-  <button class="fp-list" onclick="openMyList()">❤️ My List<span id="float-pill-badge"></span></button>
-</div>
-
-<!-- Privacy Policy Modal -->
-<div id="privacy-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
-  <div style="background:#fff;border-radius:20px;max-width:500px;width:100%;padding:28px;position:relative;font-family:Nunito,sans-serif;max-height:85vh;overflow-y:auto;">
-    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:12px;right:12px;background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
-    <div style="text-align:center;font-size:2rem;margin-bottom:8px">🔒</div>
-    <h2 style="text-align:center;font-size:1.2rem;font-weight:900;color:#1a1a1a;margin-bottom:16px">Privacy Policy</h2>
-    <div style="font-size:13px;color:#555;line-height:1.7;">
-      <p style="margin-bottom:10px"><strong>No tracking.</strong> SunScout does not use cookies, trackers, or analytics to monitor your behavior.</p>
-      <p style="margin-bottom:10px"><strong>No ads.</strong> We are not ad-supported. No advertiser has access to your data.</p>
-      <p style="margin-bottom:10px"><strong>No data collection.</strong> We do not collect your name, email, location, or any personal information.</p>
-      <p style="margin-bottom:10px"><strong>Local storage only.</strong> Your saved activities (My List) and notes are stored only on your device and never sent to any server.</p>
-      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Google Places, Eventbrite, and Ticketmaster. Their own privacy policies apply to those services.</p>
-      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: May 2026 · SunScout is a family project built for Bay Area families.</p>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
-<!-- TABLET FIX injected -->
