@@ -35,6 +35,7 @@
   <!-- ── PWA Manifest ── -->
   <link rel="manifest" href="/manifest.json">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
+  <link rel="dns-prefetch" href="//images.pexels.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -185,10 +186,10 @@ img{max-width:100%;display:block}
 @media(prefers-color-scheme:dark){
   body{background:#1a1a1a;color:#f0f0f0}
   .card,.city-btn,.age-btn{background:#242424;border-color:rgba(255,255,255,.1)}
-  .card-title{color:#f0f0f0}
+  .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
-@media(max-width:700px){.card-skel{min-height:160px}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
@@ -353,7 +354,7 @@ body { padding-bottom: env(safe-area-inset-bottom); }
   .city-bar::-webkit-scrollbar { display: none; }
   .city-btn { flex: 0 0 auto; scroll-snap-align: start; }
   /* removed conflicting aspect-ratio */
-  .card-title { font-size: 12px; }
+  .card-title { font-size: 12px; }color:#1a1a1a!important;
   .logo { font-size: 2rem; }
   #plan-modal { 
     border-radius: 20px 20px 0 0;
@@ -768,7 +769,7 @@ html { scroll-behavior: smooth; }
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;position:relative;">❤️ My List<span id="desktopMyListBadge" class="mylist-badge"></span></button></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- Full width search -->
@@ -857,7 +858,7 @@ html { scroll-behavior: smooth; }
     .dtmr{padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
     .dtmr:hover{background:#FFF3E0;}
     </style>
-<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span><span id="countdown" class="countdown" style="margin-left:8px;"></span></div>
+<div class="hero-meta" style="margin-top:12px;"><span id="heroCountdown"></span></div>
 <div style="margin-top:8px;">
   <span id="desktopWeatherChip" onclick="weatherChipClick()" class="hide-on-mobile" style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 16px;font-size:13px;font-weight:700;color:#7a3d00;font-family:Nunito,sans-serif;cursor:pointer;">🌤️ Loading weather...</span>
 </div>
@@ -865,565 +866,302 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     SUNSCOUT MOBILE HEADER — clean rebuild
-     ═══════════════════════════════════════════════ -->
-<div id="mobile-header">
-
-  <!-- ── Top bar: logo + city pill ── -->
-  <div id="mh-topbar">
-    <div id="mh-logo">
-      <div id="mh-sun-icon">&#9728;</div>
-      <div>
-        <div id="mh-wordmark"><span class="mh-sun">Sun</span><span class="mh-scout">Scout</span></div>
-        <div id="mh-tagline">Bay Area Kids &middot; Summer 2026</div>
+<div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
+    <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
+    <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
+  </div>
+  <div style="text-align:center;margin-bottom:6px;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
+    <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
+    <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
+  </div>
+  <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
+    <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;min-width:0;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
+      <div id="ssv-city" style="font-size:11px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
+      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
+        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci">☀️</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
+        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci">🏙️</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
+        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci">🍎</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci">⛰️</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
+        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci">🎓</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci">🌲</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
+        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci">🌉</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
       </div>
     </div>
-    <button id="mh-city-pill" onclick="openCitySheet()" aria-label="Select city">
-      <span>&#128205;</span>
-      <span id="mh-city-label">Sunnyvale</span>
-      <span style="font-size:10px;opacity:.7;">&#9660;</span>
-    </button>
-  </div>
-
-  <!-- ── Search bar: text + type selector + age selector ── -->
-  <div id="mh-search-row">
-    <div id="mh-search-wrap">
-      <span class="mh-search-icon">&#128269;</span>
-      <input type="search" id="mh-search-input"
-        placeholder="Parks, camps, splash pads..."
-        autocomplete="off"
-        oninput="setSearch(this.value)"
-        aria-label="Search activities" />
+    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
+    <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
+      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
+      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">🆓 Free</div>
+          <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">💰 Paid</div>
+          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">🌳 Outdoor</div>
+          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">🏛️ Indoor</div>
+          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">📅 Weekend</div>
+          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">🎲 Surprise</div>
+        </div>
+      </div>
     </div>
-    <!-- Type pill (Free / Paid / Indoor / Outdoor / Weekend) -->
-    <button id="mh-type-pill" onclick="openTypeSheet()" aria-label="Activity type">
-      <span id="mh-type-icon">&#127395;</span>
-      <span id="mh-type-label">Free</span>
-      <span style="font-size:10px;opacity:.6;">&#9660;</span>
-    </button>
-    <!-- Age pill -->
-    <button id="mh-age-pill" onclick="openAgeSheet()" aria-label="Age group">
-      <span id="mh-age-label">All ages</span>
-      <span style="font-size:10px;opacity:.6;">&#9660;</span>
-    </button>
-  </div>
-
-  <!-- ── Weather strip ── -->
-  <div id="mh-weather">&#127780;&#65039; Pick a city to see today's weather</div>
-
-</div>
-
-<!-- ── City bottom sheet ── -->
-<div id="city-sheet-bg" onclick="closeSheets()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99990;"></div>
-<div id="city-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:24px 24px 0 0;z-index:99991;padding:0 0 env(safe-area-inset-bottom);max-height:80vh;overflow-y:auto;">
-  <div style="padding:16px 20px 8px;display:flex;align-items:center;justify-content:space-between;">
-    <span style="font-size:15px;font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;">&#128205; Select City</span>
-    <button onclick="closeSheets()" style="background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;">&#10005;</button>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px 24px;">
-    <button class="sheet-city-btn" onclick="selectCity('Sunnyvale',this)">&#9728;&#65039; Sunnyvale</button>
-    <button class="sheet-city-btn" onclick="selectCity('San Jose',this)">&#127970; San Jose</button>
-    <button class="sheet-city-btn" onclick="selectCity('Cupertino',this)">&#127822; Cupertino</button>
-    <button class="sheet-city-btn" onclick="selectCity('Mountain View',this)">&#9968;&#65039; Mtn View</button>
-    <button class="sheet-city-btn" onclick="selectCity('Palo Alto',this)">&#127891; Palo Alto</button>
-    <button class="sheet-city-btn" onclick="selectCity('Saratoga',this)">&#127800; Saratoga</button>
-    <button class="sheet-city-btn" style="grid-column:span 2;" onclick="selectCity('Fremont',this)">&#127751; Fremont</button>
-  </div>
-  <div id="m-city-grid" class="m-city-grid" style="display:none;padding:8px 16px 24px;"></div>
-</div>
-
-<!-- ── Activity type bottom sheet ── -->
-<div id="type-sheet-bg" onclick="closeSheets()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99990;"></div>
-<div id="type-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:24px 24px 0 0;z-index:99991;padding:0 0 env(safe-area-inset-bottom);">
-  <div style="padding:16px 20px 8px;display:flex;align-items:center;justify-content:space-between;">
-    <span style="font-size:15px;font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;">&#127919; What kind of fun?</span>
-    <button onclick="closeSheets()" style="background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;">&#10005;</button>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px 24px;">
-    <button class="sheet-type-btn" data-tab="free"    onclick="selectType('free','&#127395; Free Summer',this)"    style="border-color:#FFD580;color:#854F0B;background:#FFFBEE;">&#127395; Free Summer</button>
-    <button class="sheet-type-btn" data-tab="paid"    onclick="selectType('paid','&#127903;&#65039; Paid Camps',this)"   style="border-color:#fca5a5;color:#991b1b;background:#FFF5F5;">&#127903;&#65039; Paid Camps</button>
-    <button class="sheet-type-btn" data-tab="indoor"  onclick="selectType('indoor','&#127963;&#65039; Indoor',this)"  style="border-color:#93c5fd;color:#1d4ed8;background:#EFF6FF;">&#127963;&#65039; Indoor</button>
-    <button class="sheet-type-btn" data-tab="outdoor" onclick="selectType('outdoor','&#127795; Outdoor',this)" style="border-color:#86efac;color:#15803d;background:#F0FDF4;">&#127795; Outdoor</button>
-    <button class="sheet-type-btn" style="grid-column:span 2;border-color:#c4b5fd;color:#6d28d9;background:#F5F3FF;" data-tab="weekend" onclick="selectType('weekend','&#128197; Weekend',this)">&#128197; Weekend Only</button>
+    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
+    <div id="ssc-age" onclick="ssTog('age',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
+      <div id="ssv-age" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
+      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All</div>
+          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">👶 0–2</div>
+          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">🧸 3–5</div>
+          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">🎒 6–12</div>
+          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">🛹 Teen</div>
+        </div>
+      </div>
+    </div>
+    <button onclick="ssSearch()" style="background:#FF9900;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin:auto 2px auto 0;" aria-label="Search">🔍</button>
+    <div style="position:relative;flex-shrink:0;margin:auto 5px auto 0;">
+      <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">☰</button>
+      <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;font-family:Nunito,sans-serif;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
+        <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">📅 Plan My Day</div>
+        <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
+        <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
+        <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">❤️ My List</div>
+        <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">📝 Notes</div>
+        <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">🌤️ About</div>
+      </div>
+    </div>
   </div>
 </div>
+<style>
+.sscr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;}
+.sscr:hover{background:#FFF3E0;}
+.ssci{width:32px;height:32px;border-radius:8px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.sscn{font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
+.sscs{font-size:10px;color:#999;font-family:Nunito,sans-serif;}
+.ssec{padding:10px 6px;border-radius:12px;border:0.5px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
+.ssac{padding:10px;border-radius:12px;border:0.5px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
+.ssac:hover{background:#FF9900;color:#fff;border-color:#FF9900;}.ssac.on{outline:3px solid currentColor;outline-offset:2px;filter:brightness(0.92);font-weight:900;}
+@media(max-width:640px){
+  #ssd-city, #ssd-age {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+    z-index: 99999 !important;
+  }
+}
 
-<!-- ── Age bottom sheet ── -->
-<div id="age-sheet-bg" onclick="closeSheets()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99990;"></div>
-<div id="age-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:24px 24px 0 0;z-index:99991;padding:0 0 env(safe-area-inset-bottom);">
-  <div style="padding:16px 20px 8px;display:flex;align-items:center;justify-content:space-between;">
-    <span style="font-size:15px;font-weight:800;color:#1a1a1a;font-family:Nunito,sans-serif;">&#128100; Your kid's age</span>
-    <button onclick="closeSheets()" style="background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;">&#10005;</button>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px 24px;">
-    <button class="sheet-age-btn" style="grid-column:span 2;border-color:#FFD580;color:#854F0B;background:#FFFBEE;" onclick="selectAge('all','All ages',this)">&#11088; All Ages</button>
-    <button class="sheet-age-btn" style="border-color:#FFD580;color:#854F0B;background:#FFF3E0;" onclick="selectAge('0','0-2',this)">&#128118; 0-2 Infant</button>
-    <button class="sheet-age-btn" style="border-color:#86efac;color:#15803d;background:#F0FDF4;" onclick="selectAge('1','3-5',this)">&#129528; 3-5 Preschool</button>
-    <button class="sheet-age-btn" style="border-color:#fca5a5;color:#991b1b;background:#FFF5F5;" onclick="selectAge('2','6-12',this)">&#127890; 6-12 School</button>
-    <button class="sheet-age-btn" style="border-color:#c4b5fd;color:#6d28d9;background:#F5F3FF;" onclick="selectAge('3','Teen',this)">&#127953; Teen 13-19</button>
+.ssac[onclick*="'0'"]{background:#FFF3E0;color:#c05e00;border-color:#FFD580;}
+.ssac[onclick*="'1'"]{background:#F0FDF4;color:#15803d;border-color:#86efac;}
+.ssac[onclick*="'2'"]{background:#FFF5F5;color:#991b1b;border-color:#fca5a5;}
+.ssac[onclick*="'3'"]{background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;}
+.ssac[onclick*="all"]{background:#FFFBEE;color:#c05e00;border-color:#FFD580;}
+.sscr:hover{background:#FFF3E0;}
+</style>
+
+<div class="header" style="display:none">
+  <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
+  <p class="tagline">Your Go-To Guide for Bay Area Summer Fun—Free &amp; Budget-Friendly Picks!</p>
+  <div class="countdown" id="countdown">⏳ Loading...</div>
+</div>
+
+
+<div id="weatherBanner" class="weather-banner" style="display:none"></div>
+<!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
+<div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
+
+  <!-- Pill container -->
+  <div style="background:#fff;border-radius:99px;border:1.5px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.10);position:relative;font-family:Nunito,sans-serif;overflow:visible;">
+
+    <!-- CITY button -->
+    <div id="mob-city-btn" onclick="mobTog('city',event)" style="flex:1;padding:10px 14px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;border-right:1px solid #eee;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
+      <div id="mob-city-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sunnyvale</div>
+      <!-- City dropdown — opens UPWARD -->
+      <div id="mob-dd-city" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:260px;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">☀️ Sunnyvale</div>
+          <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">🏙️ San Jose</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Cupertino',event)">🍎 Cupertino</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Mountain View',event)">⛰️ Mtn View</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Palo Alto',event)">🎓 Palo Alto</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Saratoga',event)">🌲 Saratoga</div>
+          <div class="mob-city-opt" style="grid-column:span 2;" onclick="mobSelCity('Fremont',event)">🌉 Fremont</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGE button -->
+    <div id="mob-age-btn" onclick="mobTog('age',event)" style="flex:1;padding:10px 14px;cursor:pointer;position:relative;">
+      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
+      <div id="mob-age-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
+      <!-- Age dropdown — opens UPWARD -->
+      <div id="mob-dd-age" style="display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:220px;">
+        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All</div>
+          <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">👶 0–2</div>
+          <div class="mob-age-opt" onclick="mobSelAge('1','3–5',event)">🧸 3–5</div>
+          <div class="mob-age-opt" onclick="mobSelAge('2','6–12',event)">🎒 6–12</div>
+          <div class="mob-age-opt" style="grid-column:span 2;" onclick="mobSelAge('3','Teen',event)">🛹 Teen 13–19</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH button -->
+    <button onclick="mobSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;margin:auto 6px auto 4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px;" aria-label="Search">🔍</button>
   </div>
 </div>
 
-<!-- ── Invisible city/tab/age controls kept for JS compatibility ── -->
-<nav class="city-bar" style="display:none!important;" aria-hidden="true">
-  <button class="city-btn on" data-city="Sunnyvale" onclick="setCity(this)">Sunnyvale</button>
-  <button class="city-btn" data-city="San Jose" onclick="setCity(this)">San Jose</button>
-  <button class="city-btn" data-city="Cupertino" onclick="setCity(this)">Cupertino</button>
-  <button class="city-btn" data-city="Mountain View" onclick="setCity(this)">Mountain View</button>
-  <button class="city-btn" data-city="Palo Alto" onclick="setCity(this)">Palo Alto</button>
-  <button class="city-btn" data-city="Saratoga" onclick="setCity(this)">Saratoga</button>
-  <button class="city-btn" data-city="Fremont" onclick="setCity(this)">Fremont</button>
-</nav>
-<div class="tab-bar" style="display:none!important;" aria-hidden="true">
-  <button class="tab-btn on" data-tab="free" onclick="setTab(this)">Free</button>
-  <button class="tab-btn" data-tab="paid" onclick="setTab(this)">Paid</button>
-  <button class="tab-btn" data-tab="indoor" onclick="setTab(this)">Indoor</button>
-  <button class="tab-btn" data-tab="outdoor" onclick="setTab(this)">Outdoor</button>
-  <button class="tab-btn" data-tab="weekend" onclick="setTab(this)">Weekend</button>
-</div>
-<div class="age-bar" style="display:none!important;" aria-hidden="true">
-  <button class="age-btn" data-age="0" onclick="setAge(this)">0-2</button>
-  <button class="age-btn" data-age="1" onclick="setAge(this)">3-5</button>
-  <button class="age-btn" data-age="2" onclick="setAge(this)">6-12</button>
-  <button class="age-btn" data-age="3" onclick="setAge(this)">Teen</button>
-</div>
+<!-- Tap outside to close -->
+<div id="mob-overlay" onclick="mobCloseAll()" style="display:none;position:fixed;inset:0;z-index:99998;"></div>
 
 <style>
-/* ═══ MOBILE HEADER STYLES ═══ */
-#mobile-header {
-  background: #fff;
-  border-bottom: 0.5px solid #f0e0c8;
-  position: sticky;
-  top: 0;
-  z-index: 9000;
-  font-family: Nunito, sans-serif;
-}
-#mh-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px 8px;
-}
-#mh-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-#mh-sun-icon {
-  width: 40px;
-  height: 40px;
-  background: #FF9900;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-  color: #fff;
-}
-#mh-wordmark {
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.02em;
-}
-.mh-sun   { background: linear-gradient(90deg,#FF6B35,#FF9900,#FFD93D); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.mh-scout { background: linear-gradient(90deg,#4FC3F7,#26C6DA,#66BB6A); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-#mh-tagline {
-  font-size: 9px;
-  color: #aaa;
-  font-weight: 600;
-  margin-top: 1px;
-}
-#mh-city-pill {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: #FFF8E1;
-  border: 1px solid #FFD580;
-  border-radius: 99px;
-  padding: 7px 12px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #854F0B;
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: Nunito, sans-serif;
-}
-#mh-search-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 12px 10px;
-}
-#mh-search-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #f5f5f5;
-  border-radius: 12px;
-  padding: 9px 12px;
-  min-width: 0;
-}
-.mh-search-icon { font-size: 14px; color: #bbb; flex-shrink: 0; }
-#mh-search-input {
-  border: none;
-  background: transparent;
-  font-family: Nunito, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #1a1a1a;
-  outline: none;
-  width: 100%;
-  min-width: 0;
-}
-#mh-search-input::placeholder { color: #bbb; font-weight: 500; }
-#mh-type-pill, #mh-age-pill {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  background: #fff;
-  border: 1.5px solid #FFD580;
-  border-radius: 99px;
-  padding: 7px 10px;
-  font-size: 11px;
-  font-weight: 800;
-  color: #854F0B;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-family: Nunito, sans-serif;
-}
-#mh-age-pill { border-color: #c4b5fd; color: #6d28d9; }
-#mh-weather {
-  background: #FFF3CD;
-  border-top: 0.5px solid #FFD580;
-  padding: 7px 16px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #854F0B;
-  text-align: center;
-}
-.sheet-city-btn, .sheet-type-btn, .sheet-age-btn {
-  padding: 14px 10px;
-  border-radius: 14px;
-  border: 1.5px solid #e0e0e0;
-  background: #f9f9f9;
-  font-size: 13px;
-  font-weight: 800;
-  color: #1a1a1a;
-  cursor: pointer;
-  text-align: center;
-  font-family: Nunito, sans-serif;
-  transition: transform .1s;
-}
-.sheet-city-btn:active, .sheet-type-btn:active, .sheet-age-btn:active { transform: scale(.97); }
-.sheet-city-btn.on, .sheet-type-btn.on, .sheet-age-btn.on {
-  border-color: #FF9900;
-  background: #FFF8E1;
-  color: #854F0B;
-}
-/* Hide old desktop hero on mobile */
-@media(max-width:640px) {
-  .hero { display: none !important; }
-  #ssBar { display: none !important; }
-  .weather-banner { display: none !important; }
-  .city-fact { display: none !important; }
-}
-/* Hide new mobile header on desktop */
-@media(min-width:641px) {
-  #mobile-header { display: none !important; }
-  .city-sheet-bg, #city-sheet, #type-sheet, #age-sheet,
-  #city-sheet-bg, #type-sheet-bg, #age-sheet-bg { display: none !important; }
-}
-
-/* ═══ MOBILE UI REDESIGN — Senior UX, modern niche-search style ═══ */
-
-/* ── 1. Mobile header: shadow, refined search bar, focused state ── */
-#mobile-header {
-  box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.05);
-}
-#mh-topbar { padding: 14px 16px 6px; }
-#mh-sun-icon {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(255,153,0,.35);
-}
-#mh-wordmark { font-size: 20px; }
-#mh-tagline { font-size: 10px; color: #999; letter-spacing: .01em; }
-#mh-city-pill {
-  background: #fff;
-  border: 1.5px solid #e8c97a;
-  padding: 8px 14px;
-  font-size: 13px;
-  border-radius: 99px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.07);
-  transition: background .15s, transform .1s;
-}
-#mh-city-pill:active { transform: scale(.96); background: #FFF8E1; }
-#mh-search-row { padding: 4px 12px 12px; gap: 8px; }
-#mh-search-wrap {
-  background: #f4f4f4;
-  border-radius: 14px;
-  padding: 11px 14px;
-  border: 1.5px solid transparent;
-  transition: border-color .2s, box-shadow .2s, background .2s;
-}
-#mh-search-wrap:focus-within {
-  background: #fff;
-  border-color: #FF9900;
-  box-shadow: 0 0 0 3px rgba(255,153,0,.12);
-}
-#mh-search-input { font-size: 14px; font-weight: 600; }
-#mh-search-input::placeholder { color: #c0c0c0; font-weight: 500; }
-.mh-search-icon { font-size: 15px; color: #c0c0c0; }
-#mh-type-pill {
-  background: linear-gradient(135deg,#fff8e1,#fff3cd);
-  border: 1.5px solid #f5c842;
-  padding: 9px 12px;
-  font-size: 12px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.07);
-  transition: transform .1s, box-shadow .1s;
-}
-#mh-type-pill:active { transform: scale(.95); }
-#mh-age-pill {
-  background: linear-gradient(135deg,#f5f0ff,#ede9fe);
-  border: 1.5px solid #c4b5fd;
-  padding: 9px 12px;
-  font-size: 12px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.07);
-  transition: transform .1s;
-}
-#mh-age-pill:active { transform: scale(.95); }
-#mh-weather {
-  background: linear-gradient(90deg,#fffbeb,#fff8e1);
-  border-top: none;
-  padding: 6px 16px 8px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #9a6200;
-  letter-spacing: .01em;
-}
-
-/* ── 2. Bottom nav: active pill indicator + transitions ── */
-#bottom-nav {
-  background: rgba(255,255,255,.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 0.5px solid rgba(0,0,0,.08);
-  box-shadow: 0 -1px 0 rgba(0,0,0,.05), 0 -4px 20px rgba(0,0,0,.07);
-  padding: 4px 0 calc(8px + env(safe-area-inset-bottom));
-}
-.bnav-btn {
-  gap: 1px;
-  padding: 6px 8px 4px;
-  color: #bbb;
-  transition: color .2s, transform .15s;
-  position: relative;
-}
-.bnav-btn:active { transform: scale(.88); }
-.bnav-btn .bnav-icon { font-size: 1.35rem; }
-.bnav-btn .bnav-label { font-size: 10px; font-weight: 700; letter-spacing: .01em; }
-.bnav-btn.active { color: #FF9900; }
-.bnav-btn.active::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 24px; height: 3px;
-  background: #FF9900;
-  border-radius: 0 0 3px 3px;
-}
-
-/* ── 3. Mobile cards: horizontal layout (thumbnail + text side-by-side) ── */
-@media(max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-    padding: 6px 0 0 !important;
-  }
-  .card {
-    display: grid !important;
-    grid-template-columns: 108px 1fr !important;
-    grid-template-rows: 1fr auto !important;
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-top: none !important;
-    border-bottom: 1px solid rgba(0,0,0,.07) !important;
-    box-shadow: none !important;
-    min-height: 108px;
-  }
-  .card:hover { transform: none; box-shadow: none !important; }
-  .card:active { background: #fafafa !important; }
-  .card-img-wrap {
-    grid-row: 1 / 3 !important;
-    width: 108px !important;
-    height: 108px !important;
-    aspect-ratio: unset !important;
-    border-radius: 0 !important;
-    flex-shrink: 0;
-  }
-  .card-img-wrap img { border-radius: 0 !important; }
-  .card-body {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    padding: 10px 12px 4px !important;
-    gap: 4px !important;
-  }
-  .card-title {
-    font-size: 13px !important;
-    font-weight: 800 !important;
-    line-height: 1.3 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  .card .info { font-size: 11px !important; }
-  .card .date-line { font-size: 11px !important; }
-  .card .chips { gap: 3px !important; }
-  .card .chip { font-size: 9.5px !important; padding: 2px 6px !important; }
-  /* hide desc on mobile cards — too long for horizontal layout */
-  .card .info:last-of-type { display: none !important; }
-  .card-foot {
-    grid-column: 2 !important;
-    grid-row: 2 !important;
-    padding: 2px 10px 10px !important;
-    gap: 5px !important;
-    align-items: center !important;
-  }
-  .card-foot .btn { padding: 5px 10px !important; font-size: 11px !important; min-height: 30px !important; }
-  .card-skel {
-    display: grid !important;
-    grid-template-columns: 108px 1fr !important;
-    min-height: 108px !important;
-  }
-  .card-skel .card-img-wrap { height: 108px !important; }
-  /* badge positions in horizontal card */
-  .badge-free { font-size: 9px !important; padding: 2px 6px !important; top: 6px !important; left: 6px !important; }
-  .badge-src  { font-size: 8px !important; bottom: 6px !important; left: 6px !important; }
-  .fav-btn { bottom: 6px !important; right: 4px !important; width: 24px !important; height: 24px !important; font-size: 13px !important; }
-}
-
-/* ── 4. Sheet buttons: premium active state with checkmark + glow ── */
-.sheet-city-btn, .sheet-type-btn, .sheet-age-btn {
-  padding: 15px 10px;
-  border-radius: 16px;
-  border: 1.5px solid #ebebeb;
-  background: #fafafa;
-  font-size: 13.5px;
-  transition: transform .12s, border-color .15s, background .15s, box-shadow .15s;
-  box-shadow: 0 1px 3px rgba(0,0,0,.05);
-}
-.sheet-city-btn:active, .sheet-type-btn:active, .sheet-age-btn:active { transform: scale(.94); }
-.sheet-city-btn.on, .sheet-type-btn.on, .sheet-age-btn.on {
-  border-color: #FF9900;
-  background: linear-gradient(135deg,#fffbeb,#fff3cd);
-  color: #8a4f00;
-  box-shadow: 0 0 0 3px rgba(255,153,0,.15), 0 2px 8px rgba(255,153,0,.12);
-}
-
-/* ── 5. Status bar: cleaner count display ── */
-.status-bar {
-  font-size: 12px;
-  color: #999;
-  padding: 10px 14px 2px;
-  font-weight: 600;
-}
-.status-bar strong { color: #1a1a1a; font-weight: 800; }
+.mob-city-opt,.mob-age-opt{padding:9px 10px;border-radius:10px;border:1px solid #eee;background:#fafafa;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;color:#1a1a1a;}
+.mob-city-opt:hover,.mob-age-opt:hover{background:#FF9900;color:#fff;border-color:#FF9900;}
+.mob-city-opt.selected,.mob-age-opt.selected{background:#FF9900;color:#fff;border-color:#FF9900;}
 </style>
 
 <script>
-/* ── Bottom sheet controls ── */
-function openCitySheet() {
-  document.getElementById('city-sheet-bg').style.display = 'block';
-  document.getElementById('city-sheet').style.display = 'block';
+function mobTog(which, e) {
+  e.stopPropagation();
+  var cityDD = document.getElementById('mob-dd-city');
+  var ageDD  = document.getElementById('mob-dd-age');
+  var overlay = document.getElementById('mob-overlay');
+  if (which === 'city') {
+    var open = cityDD.style.display !== 'none';
+    cityDD.style.display = open ? 'none' : 'block';
+    ageDD.style.display = 'none';
+  } else {
+    var open = ageDD.style.display !== 'none';
+    ageDD.style.display = open ? 'none' : 'block';
+    cityDD.style.display = 'none';
+  }
+  var anyOpen = cityDD.style.display !== 'none' || ageDD.style.display !== 'none';
+  overlay.style.display = anyOpen ? 'block' : 'none';
 }
-function openTypeSheet() {
-  document.getElementById('type-sheet-bg').style.display = 'block';
-  document.getElementById('type-sheet').style.display = 'block';
+function mobCloseAll() {
+  document.getElementById('mob-dd-city').style.display = 'none';
+  document.getElementById('mob-dd-age').style.display = 'none';
+  document.getElementById('mob-overlay').style.display = 'none';
 }
-function openAgeSheet() {
-  document.getElementById('age-sheet-bg').style.display = 'block';
-  document.getElementById('age-sheet').style.display = 'block';
+function mobSelCity(city, e) {
+  e.stopPropagation();
+  document.getElementById('mob-city-val').textContent = city;
+  document.querySelectorAll('.mob-city-opt').forEach(function(el){ el.classList.remove('selected'); });
+  e.currentTarget.classList.add('selected');
+  mobCloseAll();
+  var btn = document.querySelector('.city-btn[data-city="' + city + '"]');
+  if (btn && typeof setCity === 'function') setCity(btn);
 }
-function closeSheets() {
-  ['city-sheet','city-sheet-bg','type-sheet','type-sheet-bg','age-sheet','age-sheet-bg']
-    .forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
+function mobSelAge(val, label, e) {
+  e.stopPropagation();
+  document.getElementById('mob-age-val').textContent = label;
+  document.querySelectorAll('.mob-age-opt').forEach(function(el){ el.classList.remove('selected'); });
+  e.currentTarget.classList.add('selected');
+  mobCloseAll();
+  if (val === 'all') {
+    activeAge = 'all';
+    document.querySelectorAll('.age-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.age === 'all'); });
+  } else {
+    var btn = document.querySelector('.age-btn[data-age="' + val + '"]');
+    if (btn && typeof setAge === 'function') setAge(btn);
+  }
+  if (activeCity && typeof loadActivities === 'function') loadActivities();
 }
-function selectCity(city, btn) {
-  document.getElementById('mh-city-label').textContent = city;
-  document.querySelectorAll('.sheet-city-btn').forEach(function(b){ b.classList.remove('on'); });
-  if(btn) btn.classList.add('on');
-  closeSheets();
-  /* fire existing setCity on hidden nav buttons */
-  var hb = document.querySelector('.city-btn[data-city="'+city+'"]');
-  if(hb && typeof setCity==='function') setCity(hb);
-  /* weather */
-  updateWeatherStrip(city);
+function mobSearch() {
+  mobCloseAll();
+  var el = document.getElementById('grid');
+  if (el) el.scrollIntoView({behavior:'smooth'});
 }
-function selectType(tab, label, btn) {
-  document.getElementById('mh-type-label').textContent = label;
-  document.querySelectorAll('.sheet-type-btn').forEach(function(b){ b.classList.remove('on'); });
-  if(btn) btn.classList.add('on');
-  closeSheets();
-  var hb = document.querySelector('.tab-btn[data-tab="'+tab+'"]');
-  if(hb && typeof setTab==='function') setTab(hb);
-  /* sync bottom nav */
-  document.querySelectorAll('.bnav-btn').forEach(function(b){ b.classList.remove('active'); });
-  var nb = document.querySelector('.bnav-btn[data-tab="'+tab+'"]');
-  if(nb) nb.classList.add('active');
-}
-function selectAge(val, label, btn) {
-  document.getElementById('mh-age-label').textContent = label;
-  document.querySelectorAll('.sheet-age-btn').forEach(function(b){ b.classList.remove('on'); });
-  if(btn) btn.classList.add('on');
-  closeSheets();
-  if(val==='all'){ activeAge='all'; if(typeof loadActivities==='function') loadActivities(); }
-  else { var hb=document.querySelector('.age-btn[data-age="'+val+'"]'); if(hb&&typeof setAge==='function') setAge(hb); }
-}
-var COORDS={Sunnyvale:[37.3688,-122.0363],'San Jose':[37.3382,-121.8863],Cupertino:[37.3229,-122.0322],'Mountain View':[37.3861,-122.0839],'Palo Alto':[37.4419,-122.143],Saratoga:[37.2638,-122.023],Fremont:[37.5485,-121.9886]};
-function updateWeatherStrip(city) {
-  var strip=document.getElementById('mh-weather');
-  if(!strip) return;
-  strip.textContent='Loading weather for '+city+'...';
-  var co=COORDS[city]||[37.3688,-122.0363];
-  fetch('https://api.open-meteo.com/v1/forecast?latitude='+co[0]+'&longitude='+co[1]+'&current_weather=true&temperature_unit=fahrenheit')
-    .then(function(r){return r.json();})
-    .then(function(d){
-      var t=Math.round(d.current_weather.temperature);
-      var msg,bg='#FFF3CD',col='#854F0B',bdr='#FFD580';
-      if(t>=100){msg='&#128680; '+t+'°F — Heat Wave! Stay indoors!';bg='#FFF0F0';col='#991b1b';bdr='#fca5a5';}
-      else if(t>=90){msg='&#129397; '+t+'°F in '+city+' — Hot! Check Indoor tab';bg='#FFF0F0';col='#991b1b';bdr='#fca5a5';}
-      else if(t>=76){msg='&#9728;&#65039; '+t+'°F in '+city+' — Perfect outdoor day!';}
-      else if(t>=60){msg='&#127804;&#65039; '+t+'°F in '+city+' — Nice! Great for outdoor fun!';}
-      else{msg='&#129398; '+t+'°F in '+city+' — Cool — Indoor activities recommended!';}
-      strip.innerHTML=msg;
-      strip.style.background=bg;strip.style.color=col;strip.style.borderTopColor=bdr;
-    })
-    .catch(function(){strip.textContent='&#127780;&#65039; Great day in '+city+'!';});
-}
-/* auto-load Sunnyvale weather on page load */
-document.addEventListener('DOMContentLoaded',function(){updateWeatherStrip('Sunnyvale');});
 </script>
 
+<!-- Keep old mobile-filter-tabs hidden (legacy) -->
+<div class="mobile-filter-tabs" style="display:none!important;">
+  <button class="mft-btn active" id="mft-city" onclick="switchMFT('city')">📍 Pick City</button>
+  <button class="mft-btn" id="mft-explore" onclick="switchMFT('explore')">🎡 Explore</button>
+  <button class="mft-btn" id="mft-age" onclick="switchMFT('age')">👶 Age</button>
+</div>
+<div id="dd-city" style="display:none!important;"></div>
+<div id="dd-explore" style="display:none!important;"></div>
+<div id="dd-age" style="display:none!important;"></div>
 
+<p class="city-fact" id="cityFact"></p>
 
-<div id="weekendBanner" class="weekend-banner">🎉 It's the weekend! Check out curated weekend activities for the whole family.</div>
+<nav class="city-bar" aria-label="Select city">
+  <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">☀️ Sunnyvale</button>
+  <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">🌉 San Jose</button>
+  <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">🍎 Cupertino</button>
+  <button class="city-btn"    data-city="Mountain View" onclick="setCity(this)">🏔️ Mountain View</button>
+  <button class="city-btn"    data-city="Palo Alto"     onclick="setCity(this)">🎓 Palo Alto</button>
+  <button class="city-btn"    data-city="Saratoga"      onclick="setCity(this)">🌸 Saratoga</button>
+  <button class="city-btn"    data-city="Fremont"       onclick="setCity(this)">🌉 Fremont</button>
+</nav>
+
+<div class="tab-bar" role="tablist" aria-label="Activity categories">
+  <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
+    <span class="tab-free-dot">$0</span>
+    <span class="tab-icon">🆓</span>
+    <span class="tab-label">Free Summer Activities</span>
+    <span class="tab-sub">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
+  </button>
+  <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
+    <span class="tab-icon">🎟️</span>
+    <span class="tab-label">Paid Summer Activities</span>
+    <span class="tab-sub">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
+  </button>
+  <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
+    <span class="tab-icon">🏛️</span>
+    <span class="tab-label">Indoor Activities</span>
+    <span class="tab-sub">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
+  </button>
+  <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
+    <span class="tab-icon">🌳</span>
+    <span class="tab-label">Outdoor Activities</span>
+    <span class="tab-sub">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
+  </button>
+  <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
+    <span class="tab-icon">📅</span>
+    <span class="tab-label">Weekend Activities</span>
+    <span class="tab-sub">Sat &amp; Sun Only</span><span class="tab-count-badge" id="badge-weekend"></span>
+  </button>
+</div>
+
+<!-- ── FIX 1: Desktop action bar — Plan Day + My List (hidden on mobile via CSS) ── -->
+<div class="action-bar" style="display:none">
+  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
+  <button class="action-bar-mylist" id="desktopMyListBtn" onclick="openMyList()">
+    ❤️ My List
+    <span class="action-bar-badge" id="desktopMyListBadge"></span>
+  </button>
+</div>
+
+<div class="search-wrap" style="display:none">
+  <span class="search-icon">🔍</span>
+  <input type="search" id="searchInput" class="search-input" style="display:none"
+    placeholder="Search park, swimming, library, splash pad…"
+    aria-label="Search activities"
+    oninput="setSearch(this.value)"/>
+  <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
+</div>
+
+<div id="filterStrip" style="display:none;flex-wrap:wrap;gap:8px;padding:8px 16px 0;align-items:center"></div>
+<div class="age-bar" role="group" aria-label="Filter by age">
+  <button class="age-btn" data-age="0" onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
+  <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
+  <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
+  <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
+</div>
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
-
-<div id="filterStrip" style="display:none;flex-wrap:wrap;gap:6px;padding:4px 16px 8px;align-items:center;"></div>
-
-<div class="action-bar">
-  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
-  <button class="action-bar-mylist" onclick="openMyList()" style="position:relative;">❤️ My List<span id="mylistBadge" class="action-bar-badge"></span></button>
-</div>
 
 <main id="main">
   <div class="grid" id="grid"></div>
@@ -1432,7 +1170,7 @@ document.addEventListener('DOMContentLoaded',function(){updateWeatherStrip('Sunn
   </div>
 </main>
 <div class="footer">
-  <p>SunScout · Activities from Ticketmaster &amp; curated local data · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://sunscout2.vercel.app/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
+  <p>SunScout · Activities from Ticketmaster &amp; curated local data · Photos by Pexels · Bay Area Summer 2026</p><p style="margin-top:6px"><a href="https://www.sunscoutkids.com/privacy.html" onclick="event.preventDefault();document.getElementById('privacy-modal').style.display='flex'" style="color:#FF9900;font-weight:700;cursor:pointer">🔒 Privacy Policy</a> · No tracking · No ads · No data collection</p>
 
 
   <p style="margin-top:6px">🔄 Data refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></p>
@@ -1567,16 +1305,23 @@ function getCardHTML(a) {
   window._cardIndex = (window._cardIndex || 0) + 1;
   var loadAttr = isAboveFold ? "eager" : "lazy";
   var cardId = "img-"+Math.random().toString(36).substr(2,9);
-  // Fetch Pexels image in background if using fallback
+  // Fetch Pexels image in background if using fallback (guarded to prevent double-fetch)
   if (!a.image || a.image.length <= 10) {
-    fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)), {
-    }).then(function(r){return r.json();})
-    .then(function(d){
-      if(d.url){
-        var el=document.getElementById(cardId);
-        if(el){el.src=d.url;el.style.opacity="1";}
-      }
-    }).catch(function(){});
+    if (!window._pexelsInFlight) window._pexelsInFlight = {};
+    var _pfKey = name.slice(0,40);
+    if (!window._pexelsInFlight[_pfKey]) {
+      window._pexelsInFlight[_pfKey] = true;
+      var _pfId = cardId;
+      fetch("/api/photos?name="+encodeURIComponent(name)+"&desc="+encodeURIComponent((a.desc||"").slice(0,50)))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        delete window._pexelsInFlight[_pfKey];
+        if(d.url){
+          var el=document.getElementById(_pfId);
+          if(el){el.src=d.url;el.style.opacity="1";el.dataset.pexels="1";}
+        }
+      }).catch(function(){ delete window._pexelsInFlight[_pfKey]; });
+    }
   }
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
     + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
@@ -1609,7 +1354,7 @@ function showDetail(i) {
   var priceBadge = a.isFree ? "🆓 Free" : (a.price && a.price!=="See site" ? "💰 "+a.price : "💰 Paid");
   var ac = (a.ages||[]).map(function(g){return "<span class='chip "+(AGE_COLORS[g]||"")+"'>"+(AGE_LABELS[g]||g)+"</span>";}).join("");
   // Check if already favorited
-  var favKey = activeTab + "_" + i;
+  var favKey = activeTab + "_" + (window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
   var isFaved = favorites.some(function(f){ return f.key === favKey; });
   var html = 
     "<button class='detail-close' onclick='closeDetail()'>✕</button>"+
@@ -1646,7 +1391,7 @@ function showDetail(i) {
 function toggleDetailFav(i) {
   var a = window._activities[i];
   if (!a) return;
-  var favKey = activeTab + "_" + i;
+  var favKey = activeTab + "_" + (window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
   var idx = favorites.findIndex(function(f){ return f.key === favKey; });
   if (idx >= 0) {
     favorites.splice(idx, 1);
@@ -1680,7 +1425,7 @@ function shareActivity(i) {
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
   var price = a.isFree ? "FREE" : (a.price && a.price!=="See site" ? a.price : "Paid");
-  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at sunscout2.vercel.app";
+  var text = "🌤️ SunScout: "+a.name+" in "+(a.city||"")+"\n📍 "+a.address+"\n💰 "+price+"\n🗺️ "+mu+"\n\nFind more at www.sunscoutkids.com";
   if (navigator.share) {
     navigator.share({ title: a.name, text: text, url: mu });
   } else {
@@ -1796,7 +1541,7 @@ function renderCards() {
     var badgeBg = a.isFree ? "background:var(--green)" : "background:#e65100";
     // ── FIX 3: card heart properly calls updateBnavBadge ──
     var favorites = JSON.parse(localStorage.getItem('sunscout_mylist') || '[]');
-    var favKey = activeTab+"_"+i;
+    var favKey = activeTab+"_"+(window._activities&&window._activities[i]?((window._activities[i].name||i)+"_"+(window._activities[i].city||activeCity)).replace(/[^a-z0-9]/gi,"_").toLowerCase():i);
     var isFaved = favorites.some(function(f){ return f.key===favKey; });
 
     return "<article class=\"card\" data-idx=\""+i+"\">"+
@@ -1880,7 +1625,6 @@ function fmtDate(d) {
 
 function updateFilterStrip() {
   var strip = document.getElementById("filterStrip");
-  if (!strip) return;
   var parts = [];
   if (activeCity) parts.push("<span class='fstrip-pill'>📍 "+activeCity+" <button onclick='clearCity()'>✕</button></span>");
   if (activeAge && activeAge !== "all") {
@@ -1893,8 +1637,8 @@ function updateFilterStrip() {
 function clearCity() {
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   activeCity=null;
-  var _cf0=document.getElementById("cityFact"); if(_cf0) _cf0.textContent="";
-  var _wb0=document.getElementById("weatherBanner"); if(_wb0) _wb0.style.display="none";
+  document.getElementById("cityFact").textContent="";
+  document.getElementById("weatherBanner").style.display="none";
   document.getElementById("statusBar").innerHTML="Select a city above";
   updateFilterStrip();
 }
@@ -1909,17 +1653,17 @@ function setCity(btn) {
   var clicked = btn.dataset.city;
   if (activeCity === clicked) {
     btn.classList.remove("on"); activeCity = null;
-    var _cf1=document.getElementById("cityFact"); if(_cf1) _cf1.textContent="";
+    document.getElementById("cityFact").textContent = "";
     document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">🏙️</div><h2>Select a city to get started!</h2></div>";
     document.getElementById("statusBar").innerHTML = "Select a city above";
-    var _wb1=document.getElementById("weatherBanner"); if(_wb1) _wb1.style.display = "none";
+    document.getElementById("weatherBanner").style.display = "none";
     return;
   }
   document.querySelectorAll(".city-btn").forEach(function(b){ b.classList.remove("on"); });
   btn.classList.add("on");
   activeCity = clicked; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
-  var _cf=document.getElementById("cityFact"); if(_cf) _cf.textContent=CITY_FACTS[activeCity]||"";
+  document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   sessionStorage.clear();
   fetchWeather(activeCity);
@@ -1929,7 +1673,7 @@ function setCity(btn) {
 function setTab(btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
+  if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
   var si = document.getElementById("searchInput"); if (si) si.value = "";
   document.querySelectorAll(".age-btn").forEach(function(b){ b.classList.toggle("on", b.dataset.age==="all"); });
   var cityBar = document.querySelector(".city-bar");
@@ -1989,16 +1733,16 @@ document.addEventListener("click", function(e) {
   var card = e.target.closest("[data-idx]");
   if (card) showDetail(parseInt(card.getAttribute("data-idx")));
 });
-var _cf=document.getElementById("cityFact"); if(_cf) _cf.textContent=CITY_FACTS[activeCity]||"";
+document.getElementById("cityFact").textContent = CITY_FACTS[activeCity]||"";
 updateCountdown();
 fetchWeather("Sunnyvale");
-(function(){fetch("https://api.open-meteo.com/v1/forecast?latitude=37.3688&longitude=-122.0363&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var city="Sunnyvale";var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";dc.style.background=t>=90?"#FFF0F0":"#FFF8E1";}var sc=document.getElementById("ssChip");if(sc){sc.textContent=msg;}}).catch(function(){});})();
 loadActivities();
 
 // FAVORITES
 
-// XSS protection — escape all user/API-sourced data before innerHTML
+// XSS protection — always escape user-sourced data before innerHTML
 function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
 
 // Weather cache — 10 min TTL, shared across all city switches
 var _weatherCache = {};
@@ -2083,9 +1827,24 @@ function renderMyList() {
 }
 function removeFav(i) { favorites.splice(i,1); saveFavorites(); renderMyList(); renderCards(); }
 
+// ── Weekend toast (replaces blocking alert) ──
+function showWeekendToast() {
+  var existing = document.getElementById("weekend-toast");
+  if (existing) { existing.remove(); }
+  var t = document.createElement("div");
+  t.id = "weekend-toast";
+  t.setAttribute("role","status");
+  t.setAttribute("aria-live","polite");
+  t.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#6d28d9;color:#fff;padding:12px 22px;border-radius:99px;font-family:Nunito,sans-serif;font-size:13px;font-weight:800;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,0.25);white-space:nowrap;pointer-events:none;";
+  t.textContent = "🗓️ Weekend activities unlock on Friday!";
+  document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); }, 3000);
+}
+
+
 function checkWeekendMode() {
   var day = new Date().getDay();
-  if (day === 0 || day === 6) {
+  if (day === 0 || day === 5 || day === 6) {
     var wb_el = document.getElementById("weekendBanner");
     if (wb_el) wb_el.style.display = "block";
     var wb = document.querySelector(".tab-btn[data-tab='weekend']");
@@ -2178,7 +1937,7 @@ function syncBnav(tab) {
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
 <div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
-  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
+  <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://www.sunscoutkids.com'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://www.sunscoutkids.com'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
 </div></div></div>
 <!-- MY LIST PANEL -->
 <div id="mylist-panel">
@@ -2248,29 +2007,31 @@ function syncBnav(tab) {
 <!-- Bottom Nav (mobile only) -->
 <nav id="bottom-nav">
   <div class="bnav-items">
-    <button class="bnav-btn active" data-tab="free" onclick="selectType('free','&#127395; Free Summer',this);bnavTab('free',this)">
+    <button class="bnav-btn active" onclick="bnavTab('free',this)">
       <span class="bnav-icon">🆓</span>
       <span class="bnav-label">Free</span>
     </button>
-    <button class="bnav-btn" data-tab="paid" onclick="selectType('paid','&#127903;&#65039; Paid Camps',this);bnavTab('paid',this)">
-      <span class="bnav-icon">💰</span>
-      <span class="bnav-label">Paid</span>
+    <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
+      <span class="bnav-icon">🌳</span>
+      <span class="bnav-label">Outdoor</span>
     </button>
-    <button class="bnav-btn" data-tab="plan" onclick="openPlan()">
+    <button class="bnav-btn" onclick="bnavTab('indoor',this)">
+      <span class="bnav-icon">🏛️</span>
+      <span class="bnav-label">Indoor</span>
+    </button>
+    <button class="bnav-btn" onclick="floatWeekend()">
       <span class="bnav-icon">📅</span>
-      <span class="bnav-label">Plan Day</span>
+      <span class="bnav-label">Weekend</span>
     </button>
-    <button class="bnav-btn" data-tab="mylist" onclick="openMyList()">
-      <span class="bnav-icon">❤️</span>
-      <span class="bnav-label">My List</span>
-      <span class="mylist-badge" id="bnavBadge"></span>
-    </button>
-    <button class="bnav-btn" data-tab="diy" onclick="window.location.href='/diy.html'">
-      <span class="bnav-icon">🎨</span>
-      <span class="bnav-label">DIY</span>
+    <button class="bnav-btn" onclick="floatSurprise()">
+      <span class="bnav-icon">🎲</span>
+      <span class="bnav-label">Surprise</span>
     </button>
   </div>
 </nav>
+
+<script>
+</script>
 
 
 <!-- MY PLANNER MODAL -->
@@ -2544,14 +2305,14 @@ setTimeout(buildMobileCities, 500);
 
 
 function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
-function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var _sc=document.getElementById("ssChip");if(_sc)_sc.textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
-function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
+function ssSelCity(city,e){e.stopPropagation();document.getElementById("ssv-city").textContent=city;document.getElementById("ssv-city").style.color="#1a1a1a";document.getElementById("ssd-city").style.display="none";if(typeof activeCity!=="undefined"){activeCity=city;}var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city){if(typeof setCity==="function")setCity(b,city);}});var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638,Fremont:37.5485}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231,Fremont:-121.9886}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";document.getElementById("ssChip").textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
+function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 
 
-function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
+function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}
   var btn = document.querySelector('.tab-btn[data-tab="weekend"]');
   if (btn && typeof setTab === "function") setTab(btn);
   else if (typeof activeTab !== "undefined") {
@@ -2618,7 +2379,7 @@ document.addEventListener("click", function() {
 
 
 function dtC(city,e){if(e)e.stopPropagation();document.getElementById("dtCV").textContent=city;document.getElementById("dtCV").style.color="#1a1a1a";document.getElementById("dtCD").style.display="none";var btns=document.querySelectorAll(".city-btn");btns.forEach(function(b){if(b.textContent.trim()===city&&typeof setCity==="function")setCity(b,city);});if(typeof ssSelCity==="function")ssSelCity(city,{stopPropagation:function(){}});}
-function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
+function dtE(tab,label,e){if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){showWeekendToast();return;}}if(e)e.stopPropagation();document.getElementById("dtEV").textContent=label;document.getElementById("dtEV").style.color="#1a1a1a";document.getElementById("dtED").style.display="none";if(tab==="surprise"){floatSurprise();return;}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);}
 function dtA(val,label,e){if(e)e.stopPropagation();document.getElementById("dtAV").textContent=label;document.getElementById("dtAV").style.color="#1a1a1a";document.getElementById("dtAD").style.display="none";if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function dtSearch(){["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(ev){if(!ev.target.closest("#ssMenu")&&!ev.target.closest("button[onclick*='toggleSsMenu']")){var m=document.getElementById("ssMenu");if(m)m.style.display="none";}["dtCD","dtED","dtAD"].forEach(function(id){var el=document.getElementById(id);if(el&&!ev.target.closest("[onclick*='"+id+"']"))el.style.display="none";});});
@@ -2664,8 +2425,8 @@ function weatherChipClick() {
       <p style="margin-bottom:10px"><strong>No ads.</strong> We are not ad-supported. No advertiser has access to your data.</p>
       <p style="margin-bottom:10px"><strong>No data collection.</strong> We do not collect your name, email, location, or any personal information.</p>
       <p style="margin-bottom:10px"><strong>Local storage only.</strong> Your saved activities (My List) and notes are stored only on your device and never sent to any server.</p>
-      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Ticketmaster and Pexels (photos). Their own privacy policies apply to those services.</p>
-      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: May 2026 · SunScout is a family project built for Bay Area families.</p>
+      <p style="margin-bottom:10px"><strong>Third-party APIs.</strong> Activity data is fetched from Ticketmaster. Photos are provided by Pexels. Their own privacy policies apply to those services.</p>
+      <p style="color:#aaa;font-size:11px;margin-top:16px">Last updated: June 2026 · SunScout is a family project built for Bay Area families.</p>
     </div>
   </div>
 </div>
