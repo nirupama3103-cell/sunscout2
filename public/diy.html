@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme:light only;">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DIY Projects – SunScout Kids</title>
   <meta name="description" content="Free rainy-day DIY craft projects for Bay Area kids. Fuse Beads, LEGO building, board games and more — filtered by age group.">
@@ -22,118 +21,215 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --sunset-deep:#C44B00;--sunset-mid:#FF6B2B;--sunset-warm:#FF9900;--sunset-gold:#FFB347;--sunset-pale:#FFF0E0;
-  --sky-deep:#1565C0;--sky-mid:#2196F3;--sky-light:#87CEEB;--sky-pale:#E3F2FD;--sky-cream:#F0F8FF;
-  --cream:#FAF7F2;--cream-dark:#F0EBE0;--ink:#1A1008;--ink-mid:#4A3728;--ink-light:#8B7355;--border:#E8DDD0;
+  /* dark palette */
+  --bg:#08080C;
+  --surface:#0E0E14;
+  --surface2:#14141E;
+  --surface3:#1A1A28;
+  --accent:#FF9900;
+  --accent-soft:rgba(255,153,0,.12);
+  --accent-glow:rgba(255,153,0,.35);
+  --txt1:#F8F8FC;
+  --txt2:#A0A0B9;
+  --txt3:#5A5A73;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.13);
+  --success:#34D399;
+  --warn:#FBBF24;
+  --danger:#F87171;
+  --radius:12px;
+  --ease:cubic-bezier(.4,0,.2,1);
 }
-html{color-scheme:light only;}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-text-size-adjust:100%;}
+html{background:var(--bg);}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-height:100vh;-webkit-text-size-adjust:100%;}
 
-/* NAV */
-.diy-nav{background:var(--cream);border-bottom:2px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100;}
-.diy-nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.back-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--sunset-deep);text-decoration:none;background:var(--sunset-pale);border:2px solid var(--sunset-gold);border-radius:99px;padding:6px 16px;transition:background .15s;}
-.back-btn:hover{background:#FFE5CC;}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--sky-deep);text-decoration:none;}
-.nav-logo span{color:var(--sunset-warm);}
-.nav-logo small{font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:800;color:var(--sky-light);margin-left:3px;}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px;}
 
-/* HERO */
-.diy-hero{background:linear-gradient(160deg,var(--sky-pale) 0%,var(--cream) 45%,var(--sunset-pale) 100%);padding:48px 20px 36px;text-align:center;border-bottom:2px solid var(--border);position:relative;overflow:hidden;}
-.diy-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,153,0,.12) 0%,transparent 70%);pointer-events:none;}
-.diy-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(33,150,243,.1) 0%,transparent 70%);pointer-events:none;}
-.hero-eyebrow{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--sunset-mid);margin-bottom:12px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:14px;letter-spacing:-1px;}
-.hero-title span{background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:15px;color:var(--ink-mid);max-width:440px;margin:0 auto 22px;line-height:1.7;font-weight:700;}
+/* ── NAV ── */
+.diy-nav{background:rgba(8,8,12,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:14px 20px;position:sticky;top:0;z-index:100;}
+.diy-nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--accent);text-decoration:none;background:var(--accent-soft);border:1px solid rgba(255,153,0,.3);border-radius:99px;padding:7px 16px;transition:background .2s,border-color .2s;}
+.back-btn:hover{background:rgba(255,153,0,.2);border-color:rgba(255,153,0,.5);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:var(--txt1);text-decoration:none;}
+.nav-logo span{color:var(--accent);}
+.nav-logo small{font-family:'Nunito',sans-serif;font-size:.6rem;font-weight:800;color:var(--txt3);margin-left:3px;}
+
+/* ── HERO ── */
+.diy-hero{padding:56px 20px 44px;text-align:center;position:relative;overflow:hidden;}
+.diy-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(255,153,0,.07) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:900;line-height:1.1;color:var(--txt1);margin-bottom:14px;letter-spacing:-1px;}
+.hero-title span{background:linear-gradient(135deg,#FF6B2B,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:15px;color:var(--txt2);max-width:460px;margin:0 auto 24px;line-height:1.75;font-weight:700;}
 .hero-pills{display:inline-flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-.hero-pill{font-size:12px;font-weight:800;padding:5px 14px;border-radius:99px;border:1.5px solid var(--border);background:rgba(255,255,255,.7);color:var(--ink-mid);}
+.hero-pill{font-size:11px;font-weight:800;padding:5px 14px;border-radius:99px;border:1px solid var(--border2);background:var(--surface);color:var(--txt2);}
 
-/* DIVIDER */
-.section-divider{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto;padding:28px 20px 0;}
-.section-divider-line{flex:1;height:1.5px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
-.section-divider-text{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink-light);white-space:nowrap;}
+/* ── AGE FILTER ── */
+.age-section{max-width:1100px;margin:0 auto;padding:0 20px 4px;}
+.age-label{font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:10px;}
+.age-bar{display:flex;gap:8px;flex-wrap:wrap;}
+.age-pill{font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;padding:7px 18px;border-radius:99px;border:1px solid var(--border2);background:var(--surface);color:var(--txt3);cursor:pointer;transition:all .2s var(--ease);}
+.age-pill:hover{border-color:rgba(255,153,0,.4);color:var(--accent);background:var(--accent-soft);}
+.age-pill.on{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:900;}
+.diy-count{font-size:11px;font-weight:700;color:var(--txt3);padding:8px 0 0;font-style:italic;}
 
-/* AGE FILTER */
-.age-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:18px 20px 8px;max-width:900px;margin:0 auto;}
-.age-pill{font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;padding:7px 18px;border-radius:99px;border:2px solid var(--border);background:var(--cream);color:var(--ink-light);cursor:pointer;transition:all .15s;}
-.age-pill:hover{border-color:var(--sunset-warm);color:var(--sunset-deep);}
-.age-pill.on{background:var(--ink);color:#fff;border-color:var(--ink);}
-.age-pill[data-age="0"].on{background:#f472b6;border-color:#ec4899;}
-.age-pill[data-age="1"].on{background:#4ade80;color:#166534;border-color:#22c55e;}
-.age-pill[data-age="2"].on{background:var(--sky-mid);color:#fff;border-color:var(--sky-deep);}
-.age-pill[data-age="3"].on{background:#a78bfa;color:#3b0764;border-color:#8b5cf6;}
-.diy-count{text-align:center;font-size:12px;font-weight:700;color:var(--ink-light);padding:6px 20px 0;font-style:italic;}
+/* ── MAIN TABS WRAPPER ── */
+.diy-tabs{max-width:1100px;margin:28px auto 0;padding:0 20px 80px;}
 
-/* PROJECT LIST */
-.project-list{max-width:900px;margin:0 auto;padding:20px 20px 80px;display:flex;flex-direction:column;gap:0;}
-.project-row{display:grid;grid-template-columns:72px 1fr;gap:0;border-bottom:1.5px solid var(--border);transition:background .15s;cursor:pointer;}
-.project-row:first-child{border-top:1.5px solid var(--border);}
-.project-row[hidden]{display:none!important;}
-.project-row:hover{background:rgba(255,153,0,.04);}
-.project-num{display:flex;align-items:flex-start;justify-content:center;padding:24px 0;font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--cream-dark);line-height:1;border-right:1.5px solid var(--border);user-select:none;transition:color .15s;}
-.project-row:hover .project-num{color:var(--sunset-gold);}
-.project-content{padding:20px 0 20px 20px;}
-.project-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;}
-.project-img-placeholder{width:72px;height:72px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--cream-dark);border:1.5px solid var(--border);}
-.project-thumb{width:72px;height:72px;border-radius:8px;flex-shrink:0;object-fit:cover;border:1.5px solid var(--border);display:block;}
-.project-photo{width:100%;border-radius:8px;display:block;margin-bottom:16px;object-fit:cover;max-height:320px;}
-.photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
-.photo-gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1.5px solid var(--border);}
-@media(max-width:520px){.photo-gallery{grid-template-columns:repeat(2,1fr);}}
-.project-title-wrap{flex:1;min-width:0;}
-.project-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--ink);line-height:1.25;margin-bottom:3px;}
-.project-tagline{font-size:12px;color:var(--ink-light);font-weight:700;margin-bottom:8px;}
-.project-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
-.meta-chip{font-size:10px;font-weight:800;padding:2px 9px;border-radius:99px;}
-.chip-age0{background:#fce7f3;color:#9d174d;}.chip-age1{background:#dcfce7;color:#166534;}.chip-age2{background:#dbeafe;color:#1e3a8a;}.chip-age3{background:#ede9fe;color:#4c1d95;}
-.chip-easy{background:#dcfce7;color:#166534;}.chip-medium{background:var(--sunset-pale);color:var(--sunset-deep);}.chip-hard{background:#fce7f3;color:#9d174d;}
-.chip-dot{color:var(--border);}
-.project-toggle{font-size:11px;font-weight:800;color:var(--sunset-mid);background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;padding:0;margin-top:10px;display:flex;align-items:center;gap:4px;}
-.project-toggle .arrow{display:inline-block;transition:transform .25s;font-style:normal;}
-.project-row.open .project-toggle .arrow{transform:rotate(180deg);}
+/* ── TAB BAR ── */
+.tab-bar-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:2px;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;gap:0;background:var(--surface);border-radius:var(--radius) var(--radius) 0 0;border:1px solid var(--border);border-bottom:none;min-width:max-content;width:100%;}
+.tab-btn{position:relative;display:flex;align-items:center;gap:10px;padding:16px 24px;background:none;border:none;cursor:pointer;color:var(--txt3);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;transition:color .2s var(--ease),background .2s var(--ease);flex:1;min-width:0;white-space:nowrap;outline:none;}
+.tab-btn:first-child{border-radius:var(--radius) 0 0 0;}
+.tab-btn:last-child{border-radius:0 var(--radius) 0 0;}
+/* separator lines between tabs */
+.tab-btn+.tab-btn::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--border);}
+/* active underline bar */
+.tab-btn::after{content:'';position:absolute;bottom:0;left:0;height:3px;width:0;background:var(--accent);border-radius:2px 2px 0 0;box-shadow:0 0 12px var(--accent-glow);transition:width .28s var(--ease);}
+.tab-btn:hover{color:var(--txt1);background:var(--surface2);}
+.tab-btn:hover::after{width:50%;}
+.tab-btn[aria-selected="true"]{color:var(--txt1);background:rgba(255,153,0,.06);}
+.tab-btn[aria-selected="true"]::after{width:100%;}
+.tab-btn[aria-selected="true"]+.tab-btn::before,.tab-btn:hover+.tab-btn::before{opacity:0;}
+/* hidden when age-filtered */
+.tab-btn[hidden]{display:none!important;}
 
-/* EXPANDABLE BODY */
-.project-body{overflow:hidden;max-height:0;transition:max-height .4s ease;}
-.project-row.open .project-body{max-height:1200px;}
-.project-body-inner{background:linear-gradient(135deg,var(--sky-cream) 0%,var(--cream) 100%);border:1.5px solid var(--border);border-radius:16px;padding:20px;margin:0 0 20px 0;}
-.project-video{border-radius:8px;overflow:hidden;background:#000;aspect-ratio:16/9;margin-bottom:16px;}
-.project-video video{width:100%;display:block;}
-.body-label{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--sunset-mid);margin-bottom:8px;margin-top:14px;}
-.body-label:first-child{margin-top:0;}
+.tab-icon{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid var(--border);transition:border-color .2s;}
+.tab-btn[aria-selected="true"] .tab-icon{border-color:rgba(255,153,0,.4);}
+.tab-label-wrap{min-width:0;text-align:left;}
+.tab-title{display:block;font-size:12px;font-weight:800;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
+.tab-diff{display:inline-block;font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;margin-top:3px;}
+.diff-easy{background:rgba(52,211,153,.12);color:var(--success);}
+.diff-medium{background:rgba(251,191,36,.12);color:var(--warn);}
+.diff-hard{background:rgba(248,113,113,.12);color:var(--danger);}
+
+/* ── TAB PANELS ── */
+.tab-panels{background:var(--surface);border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);overflow:hidden;}
+.tab-panel{display:none;animation:panelIn .28s var(--ease);}
+.tab-panel.active{display:grid;grid-template-columns:1fr 420px;min-height:520px;}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── MEDIA COLUMN ── */
+.media-col{position:relative;background:var(--bg);border-right:1px solid var(--border);}
+.media-frame{position:relative;width:100%;height:100%;min-height:340px;display:flex;flex-direction:column;}
+
+/* skeleton shimmer */
+.is-skel{background:var(--surface2);}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+.skel-img{width:100%;flex:1;min-height:300px;background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s linear infinite;display:block;}
+.skel-img.loaded{animation:none;background:none;}
+
+.media-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s var(--ease);}
+.media-img.loaded{opacity:1;}
+
+/* photo gallery inside media col for fuse beads */
+.media-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;height:100%;}
+.gallery-cell{position:relative;overflow:hidden;min-height:0;}
+.gallery-cell img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s var(--ease);}
+.gallery-cell img.loaded{opacity:1;}
+.gallery-cell .skel-cell{position:absolute;inset:0;background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s linear infinite;}
+.gallery-cell img.loaded+.skel-cell{display:none;}
+
+/* video container */
+.video-wrap{position:relative;width:100%;height:100%;min-height:340px;background:var(--bg);display:flex;flex-direction:column;}
+.video-el{width:100%;flex:1;display:block;object-fit:cover;cursor:pointer;min-height:0;}
+.video-poster-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);transition:opacity .25s;pointer-events:none;}
+.video-poster-overlay.hidden{opacity:0;}
+.big-play{width:64px;height:64px;background:rgba(255,153,0,.18);border:2px solid rgba(255,153,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:all;cursor:pointer;transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
+.big-play:hover{background:rgba(255,153,0,.32);transform:scale(1.08);}
+.big-play svg{width:22px;height:22px;fill:var(--txt1);margin-left:3px;}
+
+/* custom video controls */
+.vc-bar{padding:10px 14px 12px;background:rgba(8,8,12,.9);display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+.vc-progress{position:relative;height:4px;background:rgba(255,255,255,.12);border-radius:2px;cursor:pointer;}
+.vc-progress:hover .vc-progress-fill{filter:brightness(1.2);}
+.vc-progress-fill{height:100%;background:var(--accent);border-radius:2px;width:0%;pointer-events:none;transition:width .1s linear;}
+.vc-thumb{position:absolute;top:50%;right:0;transform:translate(50%,-50%);width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;box-shadow:0 0 6px var(--accent-glow);}
+.vc-row{display:flex;align-items:center;gap:10px;}
+.vc-btn{background:none;border:none;cursor:pointer;color:var(--txt2);font-size:16px;padding:2px 4px;line-height:1;transition:color .15s;}
+.vc-btn:hover{color:var(--txt1);}
+.vc-time{font-size:11px;font-weight:700;color:var(--txt3);font-variant-numeric:tabular-nums;margin-left:2px;}
+.vc-spacer{flex:1;}
+.vc-fullscreen{font-size:14px;}
+
+/* ── INFO COLUMN ── */
+.info-col{padding:28px 28px 24px;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:520px;}
+.info-header{margin-bottom:16px;}
+.info-eyebrow{font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.info-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;line-height:1.2;color:var(--txt1);margin-bottom:6px;}
+.info-tagline{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:700;}
+.chips-row{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;}
+.chip{font-size:10px;font-weight:800;padding:4px 10px;border-radius:99px;}
+.chip-age0{background:rgba(244,114,182,.12);color:#f472b6;}
+.chip-age1{background:rgba(52,211,153,.12);color:var(--success);}
+.chip-age2{background:rgba(59,130,246,.12);color:#60a5fa;}
+.chip-age3{background:rgba(167,139,250,.12);color:#a78bfa;}
+.chip-easy{background:rgba(52,211,153,.12);color:var(--success);}
+.chip-medium{background:rgba(251,191,36,.12);color:var(--warn);}
+.chip-hard{background:rgba(248,113,113,.12);color:var(--danger);}
+
+.info-divider{height:1px;background:var(--border);margin:16px 0;}
+.info-label{font-size:9px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
 .materials{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
-.material{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:#fff;border:1.5px solid var(--border);color:var(--ink-mid);}
-.steps{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.steps li{display:flex;gap:10px;font-size:13px;color:var(--ink-mid);line-height:1.6;align-items:flex-start;}
-.step-num{flex-shrink:0;width:22px;height:22px;background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));color:#fff;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px;}
-.tip-box{background:linear-gradient(135deg,var(--sunset-pale),#FFF8E1);border-left:3px solid var(--sunset-warm);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--sunset-deep);font-weight:700;margin-top:14px;line-height:1.6;}
-.adult-flag{display:inline-flex;align-items:center;gap:6px;background:#fff0f0;border:1.5px solid #fca5a5;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;color:#991b1b;margin-top:12px;line-height:1.5;}
+.material{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--surface2);border:1px solid var(--border2);color:var(--txt2);}
+.steps{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.steps li{display:flex;gap:10px;font-size:12px;color:var(--txt2);line-height:1.65;align-items:flex-start;}
+.step-num{flex-shrink:0;width:20px;height:20px;background:linear-gradient(135deg,#FF6B2B,var(--accent));color:var(--bg);border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px;}
 
-/* EMPTY */
-.diy-empty{text-align:center;padding:48px 20px;display:none;}
+/* photo strip inside info col */
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:4px;}
+.photo-strip-cell{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--surface2);}
+.photo-strip-cell img{width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;opacity:0;transition:opacity .3s;}
+.photo-strip-cell img.loaded{opacity:1;}
+.photo-strip-label{font-size:9px;color:var(--txt3);font-weight:700;margin-top:4px;text-align:center;}
+
+.tip-box{background:linear-gradient(135deg,rgba(255,153,0,.08),rgba(255,153,0,.04));border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;font-size:11px;color:rgba(255,153,0,.9);font-weight:700;margin-top:14px;line-height:1.65;}
+.adult-flag{display:inline-flex;align-items:center;gap:6px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:800;color:var(--danger);margin-top:10px;line-height:1.5;}
+
+/* ── EMPTY STATE ── */
+.diy-empty{text-align:center;padding:60px 20px;display:none;border:1px solid var(--border);border-radius:var(--radius);margin-top:12px;background:var(--surface);}
 .diy-empty.show{display:block;}
-.diy-empty h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--ink);margin-bottom:8px;}
-.diy-empty p{font-size:13px;color:var(--ink-light);}
+.diy-empty h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--txt1);margin-bottom:8px;}
+.diy-empty p{font-size:13px;color:var(--txt3);}
 
-/* FOOTER */
-.diy-footer{background:var(--ink);color:rgba(255,255,255,.5);text-align:center;font-size:12px;padding:20px 16px 80px;}
-.diy-footer a{color:var(--sunset-gold);font-weight:700;text-decoration:none;}
-.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:6px;}
-.footer-logo span{color:var(--sunset-warm);}
+/* ── FOOTER ── */
+.diy-footer{background:var(--surface);border-top:1px solid var(--border);color:var(--txt3);text-align:center;font-size:12px;padding:24px 16px 80px;}
+.diy-footer a{color:var(--accent);font-weight:700;text-decoration:none;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--txt1);margin-bottom:8px;}
+.footer-logo span{color:var(--accent);}
 
-/* BACK TO TOP */
-#back-top{position:fixed;bottom:80px;right:16px;width:42px;height:42px;background:linear-gradient(135deg,var(--sunset-mid),var(--sunset-warm));color:#fff;border:none;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(255,107,43,.4);display:none;align-items:center;justify-content:center;z-index:50;transition:transform .15s;}
+/* ── BACK TO TOP ── */
+#back-top{position:fixed;bottom:80px;right:16px;width:42px;height:42px;background:linear-gradient(135deg,#FF6B2B,var(--accent));color:var(--bg);border:none;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 16px var(--accent-glow);display:none;align-items:center;justify-content:center;z-index:50;transition:transform .15s;}
 #back-top:hover{transform:scale(1.1);}
 #back-top.show{display:flex;}
 
-@media(max-width:520px){
-  .project-num{font-size:1.4rem;padding:18px 0;}
-  .project-content{padding:16px 0 16px 14px;}
-  .project-img-placeholder{width:56px;height:56px;}
-  .project-title{font-size:1rem;}
-  .diy-hero{padding:32px 16px 24px;}
+/* ── RESPONSIVE ── */
+@media(max-width:780px){
+  .tab-panel.active{grid-template-columns:1fr;min-height:auto;}
+  .media-col{border-right:none;border-bottom:1px solid var(--border);}
+  .media-frame,.video-wrap{min-height:220px;}
+  .media-gallery{grid-template-columns:repeat(3,1fr);height:220px;}
+  .info-col{max-height:none;padding:20px 18px 20px;}
+  .tab-btn{padding:12px 16px;}
+  .tab-title{max-width:80px;}
+  .tab-icon{width:28px;height:28px;}
 }
-@media(prefers-reduced-motion:reduce){.project-body,.project-toggle .arrow{transition:none!important;}}
+@media(max-width:520px){
+  .diy-hero{padding:36px 16px 28px;}
+  .tab-btn{padding:10px 12px;gap:8px;}
+  .tab-title{font-size:11px;max-width:64px;}
+  .tab-icon{display:none;}
+  .info-title{font-size:1.25rem;}
+  .photo-strip{grid-template-columns:repeat(3,1fr);}
+}
+@media(prefers-reduced-motion:reduce){
+  .tab-panel{animation:none!important;}
+  *{transition:none!important;animation:none!important;}
+}
 </style>
 </head>
 <body>
@@ -158,237 +254,338 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
   </div>
 </section>
 
-<div class="section-divider" aria-hidden="true">
-  <div class="section-divider-line"></div>
-  <span class="section-divider-text">Filter by age</span>
-  <div class="section-divider-line"></div>
-</div>
+<div class="diy-tabs">
 
-<nav class="age-bar" aria-label="Filter by age">
-  <button class="age-pill on" data-age="all" onclick="setAge(this)">⭐ All ages</button>
-  <button class="age-pill" data-age="0" onclick="setAge(this)">👶 0–2</button>
-  <button class="age-pill" data-age="1" onclick="setAge(this)">🧸 3–5</button>
-  <button class="age-pill" data-age="2" onclick="setAge(this)">🎒 6–12</button>
-  <button class="age-pill" data-age="3" onclick="setAge(this)">🛹 Teen</button>
-</nav>
-<p class="diy-count" id="diy-count" aria-live="polite">Showing <strong>5</strong> projects</p>
+  <!-- AGE FILTER -->
+  <div class="age-section" style="padding:0 0 20px;">
+    <p class="age-label">Filter by age</p>
+    <nav class="age-bar" aria-label="Filter by age">
+      <button class="age-pill on" data-age="all" onclick="setAge(this)">⭐ All ages</button>
+      <button class="age-pill" data-age="0" onclick="setAge(this)">👶 0–2</button>
+      <button class="age-pill" data-age="1" onclick="setAge(this)">🧸 3–5</button>
+      <button class="age-pill" data-age="2" onclick="setAge(this)">🎒 6–12</button>
+      <button class="age-pill" data-age="3" onclick="setAge(this)">🛹 Teen</button>
+    </nav>
+    <p class="diy-count" id="diy-count" aria-live="polite" style="margin-top:8px;">Showing <strong>5</strong> projects</p>
+  </div>
 
-<main class="project-list" id="project-list">
+  <!-- TAB BAR -->
+  <div class="tab-bar-wrap">
+    <div class="tab-bar" role="tablist" aria-label="DIY projects">
 
-  <article class="project-row" data-ages="1,2,3" id="proj-fuse"
-    onclick="toggleProject('proj-fuse')" role="button" tabindex="0" aria-expanded="false"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-fuse')}">
-    <div class="project-num" aria-hidden="true">01</div>
-    <div class="project-content">
-      <div class="project-top">
-        <img class="project-thumb" src="/images/diy-fusebeads-hero.jpg" alt="Fuse bead art" loading="lazy">
-        <div class="project-title-wrap">
-          <h2 class="project-title">Fuse Bead Art</h2>
-          <p class="project-tagline">Melt beads into colorful pixel art</p>
-          <div class="project-meta">
-            <span class="meta-chip chip-age1">🧸 3–5</span>
-            <span class="meta-chip chip-age2">🎒 6–12</span>
-            <span class="meta-chip chip-age3">🛹 Teen</span>
-            <span class="chip-dot">·</span>
-            <span class="meta-chip chip-easy">⭐ Easy</span>
+      <button class="tab-btn" role="tab" id="tab-fuse" aria-selected="true" aria-controls="panel-fuse"
+        data-ages="1,2,3" onclick="switchTab('fuse')"
+        onkeydown="handleTabKey(event,'fuse')">
+        <img class="tab-icon" src="/images/diy-fusebeads-hero.jpg" alt="" aria-hidden="true" loading="eager">
+        <span class="tab-label-wrap">
+          <span class="tab-title">Fuse Bead Art</span>
+          <span class="tab-diff diff-easy">⭐ Easy</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" role="tab" id="tab-lego" aria-selected="false" aria-controls="panel-lego"
+        data-ages="1,2,3" onclick="switchTab('lego')"
+        onkeydown="handleTabKey(event,'lego')">
+        <img class="tab-icon" src="/images/diy-lego.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="tab-label-wrap">
+          <span class="tab-title">LEGO Challenge</span>
+          <span class="tab-diff diff-easy">⭐ Easy</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" role="tab" id="tab-snakes" aria-selected="false" aria-controls="panel-snakes"
+        data-ages="1,2" onclick="switchTab('snakes')"
+        onkeydown="handleTabKey(event,'snakes')">
+        <img class="tab-icon" src="/images/diy-snake.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="tab-label-wrap">
+          <span class="tab-title">Snakes &amp; Ladders</span>
+          <span class="tab-diff diff-medium">🔶 Medium</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" role="tab" id="tab-checkers" aria-selected="false" aria-controls="panel-checkers"
+        data-ages="2,3" onclick="switchTab('checkers')"
+        onkeydown="handleTabKey(event,'checkers')">
+        <img class="tab-icon" src="/images/diy-chinese.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="tab-label-wrap">
+          <span class="tab-title">Chinese Checkers</span>
+          <span class="tab-diff diff-hard">🔴 Hard</span>
+        </span>
+      </button>
+
+      <button class="tab-btn" role="tab" id="tab-marble" aria-selected="false" aria-controls="panel-marble"
+        data-ages="2,3" onclick="switchTab('marble')"
+        onkeydown="handleTabKey(event,'marble')">
+        <img class="tab-icon" src="/images/diy-marble.png" alt="" aria-hidden="true" loading="lazy">
+        <span class="tab-label-wrap">
+          <span class="tab-title">Marble Solitaire</span>
+          <span class="tab-diff diff-hard">🔴 Hard</span>
+        </span>
+      </button>
+
+    </div><!-- /tab-bar -->
+  </div><!-- /tab-bar-wrap -->
+
+  <!-- TAB PANELS -->
+  <div class="tab-panels">
+
+    <!-- ── PANEL 1: FUSE BEADS ── -->
+    <div class="tab-panel active" id="panel-fuse" role="tabpanel" aria-labelledby="tab-fuse">
+      <div class="media-col">
+        <!-- 6-photo gallery grid as the media -->
+        <div class="media-gallery">
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-supplies.jpg" alt="Supplies" loading="lazy" onload="imgLoaded(this)"></div>
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-board-start.jpg" alt="Empty board" loading="lazy" onload="imgLoaded(this)"></div>
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-onboard.jpg" alt="Placing beads" loading="lazy" onload="imgLoaded(this)"></div>
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-heart.jpg" alt="Heart pattern" loading="lazy" onload="imgLoaded(this)"></div>
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-star.jpg" alt="Star pattern" loading="lazy" onload="imgLoaded(this)"></div>
+          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-finished.jpg" alt="Finished art" loading="lazy" onload="imgLoaded(this)"></div>
+        </div>
+      </div>
+      <div class="info-col">
+        <div class="info-header">
+          <p class="info-eyebrow">Project 01</p>
+          <h2 class="info-title">Fuse Bead Art</h2>
+          <p class="info-tagline">Melt colorful beads into permanent pixel art masterpieces</p>
+          <div class="chips-row">
+            <span class="chip chip-age1">🧸 3–5</span>
+            <span class="chip chip-age2">🎒 6–12</span>
+            <span class="chip chip-age3">🛹 Teen</span>
+            <span class="chip chip-easy">⭐ Easy</span>
+          </div>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">What you need</p>
+        <div class="materials">
+          <span class="material">Fuse beads (Perler/Hama)</span>
+          <span class="material">Pegboard</span>
+          <span class="material">Ironing paper</span>
+          <span class="material">Iron</span>
+          <span class="material">Tweezers</span>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">Steps</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span>Choose a simple pattern — heart, star, or Minecraft creeper.</li>
+          <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
+          <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
+          <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles 10–15 s until beads fuse. Let cool.</li>
+          <li><span class="step-num">5</span>Flip, iron the back for an even finish. Display or make a keychain!</li>
+        </ol>
+        <div class="adult-flag">🔥 Adult supervision required for the ironing step</div>
+        <div class="tip-box">💡 Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
+      </div>
+    </div><!-- /panel-fuse -->
+
+    <!-- ── PANEL 2: LEGO ── -->
+    <div class="tab-panel" id="panel-lego" role="tabpanel" aria-labelledby="tab-lego">
+      <div class="media-col">
+        <div class="media-frame">
+          <span class="skel-img" id="skel-lego" aria-hidden="true"></span>
+          <img class="media-img" src="/images/diy-lego.png" alt="LEGO engineering challenge" loading="lazy"
+            onload="imgLoaded(this);document.getElementById('skel-lego').classList.add('loaded')">
+        </div>
+      </div>
+      <div class="info-col">
+        <div class="info-header">
+          <p class="info-eyebrow">Project 02</p>
+          <h2 class="info-title">LEGO Engineering Challenge</h2>
+          <p class="info-tagline">Build the tallest tower — then test it to destruction</p>
+          <div class="chips-row">
+            <span class="chip chip-age1">🧸 3–5</span>
+            <span class="chip chip-age2">🎒 6–12</span>
+            <span class="chip chip-age3">🛹 Teen</span>
+            <span class="chip chip-easy">⭐ Easy</span>
+          </div>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">What you need</p>
+        <div class="materials">
+          <span class="material">LEGO / Duplo bricks</span>
+          <span class="material">Ruler</span>
+          <span class="material">Timer (optional)</span>
+          <span class="material">Small coin</span>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">Challenge modes</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span><strong>Height:</strong> build the tallest freestanding tower in 10 minutes.</li>
+          <li><span class="step-num">2</span><strong>Bridge:</strong> span two stacks of books. How many coins can it hold?</li>
+          <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a household object from memory in 5 minutes.</li>
+          <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
+        </ol>
+        <div class="tip-box">💡 Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra challenge.</div>
+      </div>
+    </div><!-- /panel-lego -->
+
+    <!-- ── PANEL 3: SNAKES & LADDERS (has video) ── -->
+    <div class="tab-panel" id="panel-snakes" role="tabpanel" aria-labelledby="tab-snakes">
+      <div class="media-col">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-snakes"
+            src="/snakes-ladders.mp4"
+            poster="/images/diy-snake.png"
+            preload="none"
+            playsinline
+            aria-label="How to make Snakes and Ladders"
+            onclick="togglePlay('snakes')"></video>
+          <!-- play overlay -->
+          <div class="video-poster-overlay" id="overlay-snakes">
+            <button class="big-play" onclick="startVideo('snakes')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <!-- controls bar -->
+          <div class="vc-bar" id="vc-snakes" style="display:none;">
+            <div class="vc-progress" id="vcp-snakes" onclick="seekVideo(event,'snakes')" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="vc-progress-fill" id="vpf-snakes">
+                <div class="vc-thumb"></div>
+              </div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-snakes" onclick="togglePlay('snakes')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-snakes">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-snakes" onclick="toggleMute('snakes')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
-      <div class="project-body" role="region">
-        <div class="project-body-inner" onclick="event.stopPropagation()">
-          <div class="body-label">What you need</div>
-          <div class="materials"><span class="material">Fuse beads (Perler/Hama)</span><span class="material">Pegboard</span><span class="material">Ironing paper</span><span class="material">Iron</span><span class="material">Tweezers (optional)</span></div>
-          <div class="body-label">Photo guide</div>
-          <div class="photo-gallery">
-            <img src="/images/diy-fusebeads-supplies.jpg" alt="Supplies laid out" loading="lazy">
-            <img src="/images/diy-fusebeads-board-start.jpg" alt="Empty pegboard" loading="lazy">
-            <img src="/images/diy-fusebeads-onboard.jpg" alt="Placing beads on board" loading="lazy">
-            <img src="/images/diy-fusebeads-heart.jpg" alt="Heart pattern complete" loading="lazy">
-            <img src="/images/diy-fusebeads-star.jpg" alt="Star pattern complete" loading="lazy">
-            <img src="/images/diy-fusebeads-finished.jpg" alt="Finished fused bead art" loading="lazy">
+      <div class="info-col">
+        <div class="info-header">
+          <p class="info-eyebrow">Project 03</p>
+          <h2 class="info-title">Make Snakes &amp; Ladders</h2>
+          <p class="info-tagline">Draw your own board from scratch, then play it</p>
+          <div class="chips-row">
+            <span class="chip chip-age1">🧸 3–5</span>
+            <span class="chip chip-age2">🎒 6–12</span>
+            <span class="chip chip-medium">🔶 Medium</span>
           </div>
-          <div class="body-label">Steps</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
-            <li><span class="step-num">2</span>Place beads on the pegboard one at a time, color by color.</li>
-            <li><span class="step-num">3</span>Cover finished design with ironing paper.</li>
-            <li><span class="step-num">4</span><strong>Adult step:</strong> iron on medium heat in slow circles 10–15 seconds until beads fuse. Let cool.</li>
-            <li><span class="step-num">5</span>Flip over, iron the back for an even finish. Display or string as a keychain!</li>
-          </ol>
-          <div class="adult-flag">🔥 Adult supervision required for the ironing step</div>
-          <div class="tip-box">💡 Free pixel art patterns at <strong>kanvasdesign.com</strong> — search "perler bead patterns."</div>
         </div>
+        <div class="info-divider"></div>
+        <p class="info-label">What you need</p>
+        <div class="materials">
+          <span class="material">Paper or cardstock (A3+)</span>
+          <span class="material">Ruler &amp; pencil</span>
+          <span class="material">Colored markers</span>
+          <span class="material">Dice</span>
+          <span class="material">Coins or buttons</span>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">Steps</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100 starting bottom-left, snaking upward.</li>
+          <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones.</li>
+          <li><span class="step-num">3</span>Draw 4–6 snakes — head on a high square, tail on a lower one.</li>
+          <li><span class="step-num">4</span>Decorate with a theme (ocean, jungle, space!).</li>
+          <li><span class="step-num">5</span>Play! Ladder = climb up. Snake head = slide down. First to 100 wins.</li>
+        </ol>
+        <div class="tip-box">💡 Ages 3–5 do the art, older kids handle the numbering. Great teamwork!</div>
       </div>
-    </div>
-  </article>
+    </div><!-- /panel-snakes -->
 
-  <article class="project-row" data-ages="1,2,3" id="proj-lego"
-    onclick="toggleProject('proj-lego')" role="button" tabindex="0" aria-expanded="false"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-lego')}">
-    <div class="project-num" aria-hidden="true">02</div>
-    <div class="project-content">
-      <div class="project-top">
-        <img class="project-thumb" src="/images/diy-lego.png" alt="LEGO engineering challenge" loading="lazy">
-        <div class="project-title-wrap">
-          <h2 class="project-title">LEGO Engineering Challenge</h2>
-          <p class="project-tagline">Build the tallest tower — then test it</p>
-          <div class="project-meta">
-            <span class="meta-chip chip-age1">🧸 3–5</span>
-            <span class="meta-chip chip-age2">🎒 6–12</span>
-            <span class="meta-chip chip-age3">🛹 Teen</span>
-            <span class="chip-dot">·</span>
-            <span class="meta-chip chip-easy">⭐ Easy</span>
+    <!-- ── PANEL 4: CHINESE CHECKERS ── -->
+    <div class="tab-panel" id="panel-checkers" role="tabpanel" aria-labelledby="tab-checkers">
+      <div class="media-col">
+        <div class="media-frame">
+          <span class="skel-img" id="skel-checkers" aria-hidden="true"></span>
+          <img class="media-img" src="/images/diy-chinese.png" alt="Chinese Checkers star board" loading="lazy"
+            onload="imgLoaded(this);document.getElementById('skel-checkers').classList.add('loaded')">
+        </div>
+      </div>
+      <div class="info-col">
+        <div class="info-header">
+          <p class="info-eyebrow">Project 04</p>
+          <h2 class="info-title">Chinese Checkers Board</h2>
+          <p class="info-tagline">Make a six-pointed star board from cardboard</p>
+          <div class="chips-row">
+            <span class="chip chip-age2">🎒 6–12</span>
+            <span class="chip chip-age3">🛹 Teen</span>
+            <span class="chip chip-hard">🔴 Challenging</span>
           </div>
         </div>
-      </div>
-      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
-      <div class="project-body" role="region">
-        <div class="project-body-inner" onclick="event.stopPropagation()">
-          <div class="body-label">What you need</div>
-          <img class="project-photo" src="/images/diy-lego.png" alt="LEGO engineering challenge example" loading="lazy">
-          <div class="materials"><span class="material">LEGO / Duplo bricks</span><span class="material">Ruler</span><span class="material">Timer (optional)</span><span class="material">Small coin (load test)</span></div>
-          <div class="body-label">Challenge modes</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span><strong>Height:</strong> build the tallest freestanding tower in 10 minutes.</li>
-            <li><span class="step-num">2</span><strong>Bridge:</strong> span two stacks of books. How many coins can it hold?</li>
-            <li><span class="step-num">3</span><strong>Speed round:</strong> recreate a household object from memory in 5 minutes.</li>
-            <li><span class="step-num">4</span>Compare designs — what made the winning build stronger?</li>
-          </ol>
-          <div class="tip-box">💡 Duplo for ages 3–5. Standard LEGO from age 5+. Mix sizes for extra challenge.</div>
+        <div class="info-divider"></div>
+        <p class="info-label">What you need</p>
+        <div class="materials">
+          <span class="material">Thick cardboard</span>
+          <span class="material">Compass or stencil</span>
+          <span class="material">Ruler &amp; pencil</span>
+          <span class="material">6 colored markers</span>
+          <span class="material">Buttons (10 per color)</span>
         </div>
+        <div class="info-divider"></div>
+        <p class="info-label">Steps</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span>Draw a Star of David (two overlapping equilateral triangles) on cardboard.</li>
+          <li><span class="step-num">2</span>Mark 121 dots in a triangular grid — 10 in each point, 61 in the center.</li>
+          <li><span class="step-num">3</span>Color each of the 6 star points a different color — home zones.</li>
+          <li><span class="step-num">4</span>Poke small holes at each dot for pieces to sit on.</li>
+          <li><span class="step-num">5</span>Use 10 buttons per player. Move all to the opposite point by hopping over others.</li>
+        </ol>
+        <div class="tip-box">💡 Print a reference grid from Wikipedia's "Chinese Checkers" article to get spacing right.</div>
       </div>
-    </div>
-  </article>
+    </div><!-- /panel-checkers -->
 
-  <article class="project-row" data-ages="1,2" id="proj-snakes"
-    onclick="toggleProject('proj-snakes')" role="button" tabindex="0" aria-expanded="false"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-snakes')}">
-    <div class="project-num" aria-hidden="true">03</div>
-    <div class="project-content">
-      <div class="project-top">
-        <img class="project-thumb" src="/images/diy-snake.png" alt="Snakes and Ladders board" loading="lazy">
-        <div class="project-title-wrap">
-          <h2 class="project-title">Make Snakes &amp; Ladders</h2>
-          <p class="project-tagline">Draw your own board, then play it</p>
-          <div class="project-meta">
-            <span class="meta-chip chip-age1">🧸 3–5</span>
-            <span class="meta-chip chip-age2">🎒 6–12</span>
-            <span class="chip-dot">·</span>
-            <span class="meta-chip chip-medium">🔶 Medium</span>
-          </div>
+    <!-- ── PANEL 5: MARBLE SOLITAIRE ── -->
+    <div class="tab-panel" id="panel-marble" role="tabpanel" aria-labelledby="tab-marble">
+      <div class="media-col">
+        <div class="media-frame">
+          <span class="skel-img" id="skel-marble" aria-hidden="true"></span>
+          <img class="media-img" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy"
+            onload="imgLoaded(this);document.getElementById('skel-marble').classList.add('loaded')">
         </div>
       </div>
-      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
-      <div class="project-body" role="region">
-        <div class="project-body-inner" onclick="event.stopPropagation()">
-          <img class="project-photo" src="/images/diy-snake.png" alt="Hand-drawn Snakes and Ladders board" loading="lazy">
-          <div class="project-video">
-            <video src="/snakes-ladders.mp4" controls preload="none" playsinline aria-label="How to play Snakes and Ladders" style="border-radius:8px;">Your browser does not support video.</video>
+      <div class="info-col">
+        <div class="info-header">
+          <p class="info-eyebrow">Project 05</p>
+          <h2 class="info-title">Marble Solitaire</h2>
+          <p class="info-tagline">The one-player puzzle that's harder than it looks</p>
+          <div class="chips-row">
+            <span class="chip chip-age2">🎒 6–12</span>
+            <span class="chip chip-age3">🛹 Teen</span>
+            <span class="chip chip-hard">🔴 Challenging</span>
           </div>
-          <div class="body-label">What you need</div>
-          <div class="materials"><span class="material">Paper or cardstock (A3+)</span><span class="material">Ruler &amp; pencil</span><span class="material">Colored markers</span><span class="material">Dice</span><span class="material">Coins or buttons</span></div>
-          <div class="body-label">Steps</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span>Draw a 10×10 grid. Number squares 1–100 starting bottom-left, snaking upward.</li>
-            <li><span class="step-num">2</span>Draw 4–6 ladders connecting lower squares to higher ones.</li>
-            <li><span class="step-num">3</span>Draw 4–6 snakes — head on a high square, tail on a lower one.</li>
-            <li><span class="step-num">4</span>Decorate with a theme (ocean, jungle, space!).</li>
-            <li><span class="step-num">5</span>Play! Ladder head = climb up. Snake head = slide down. First to 100 wins.</li>
-          </ol>
-          <div class="tip-box">💡 Ages 3–5 do the art, older kids handle the numbering. Great teamwork!</div>
         </div>
+        <div class="info-divider"></div>
+        <p class="info-label">What you need</p>
+        <div class="materials">
+          <span class="material">Cardboard or egg carton</span>
+          <span class="material">Scissors</span>
+          <span class="material">Marker</span>
+          <span class="material">32 marbles or buttons</span>
+        </div>
+        <div class="info-divider"></div>
+        <p class="info-label">Build the board</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape — 33 holes total in a grid.</li>
+          <li><span class="step-num">2</span>Poke 33 small holes in a grid pattern across the plus shape.</li>
+          <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
+        </ol>
+        <div class="info-divider"></div>
+        <p class="info-label">How to play</p>
+        <ol class="steps">
+          <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
+          <li><span class="step-num">2</span>Jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
+          <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
+        </ol>
+        <div class="tip-box">💡 Ending with 1 marble in the center is genuinely hard. Most people take days to crack it!</div>
       </div>
-    </div>
-  </article>
+    </div><!-- /panel-marble -->
 
-  <article class="project-row" data-ages="2,3" id="proj-checkers"
-    onclick="toggleProject('proj-checkers')" role="button" tabindex="0" aria-expanded="false"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-checkers')}">
-    <div class="project-num" aria-hidden="true">04</div>
-    <div class="project-content">
-      <div class="project-top">
-        <img class="project-thumb" src="/images/diy-chinese.png" alt="Chinese Checkers board" loading="lazy">
-        <div class="project-title-wrap">
-          <h2 class="project-title">Chinese Checkers Board</h2>
-          <p class="project-tagline">Make a star board from cardboard</p>
-          <div class="project-meta">
-            <span class="meta-chip chip-age2">🎒 6–12</span>
-            <span class="meta-chip chip-age3">🛹 Teen</span>
-            <span class="chip-dot">·</span>
-            <span class="meta-chip chip-hard">🔴 Challenging</span>
-          </div>
-        </div>
-      </div>
-      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
-      <div class="project-body" role="region">
-        <div class="project-body-inner" onclick="event.stopPropagation()">
-          <div class="body-label">What you need</div>
-          <img class="project-photo" src="/images/diy-chinese.png" alt="Chinese Checkers star board" loading="lazy">
-          <div class="materials"><span class="material">Thick cardboard</span><span class="material">Compass or stencil</span><span class="material">Ruler &amp; pencil</span><span class="material">6 colored markers</span><span class="material">Buttons (10 per color)</span></div>
-          <div class="body-label">Steps</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span>Draw a Star of David (two overlapping equilateral triangles) on cardboard.</li>
-            <li><span class="step-num">2</span>Mark 121 dots in a triangular grid — 10 in each point, 61 in the center.</li>
-            <li><span class="step-num">3</span>Color each of the 6 star points a different color — home zones.</li>
-            <li><span class="step-num">4</span>Poke small holes at each dot for pieces to sit on.</li>
-            <li><span class="step-num">5</span>Use 10 buttons per player. Move all to the opposite point by hopping over others.</li>
-          </ol>
-          <div class="tip-box">💡 Print a reference grid from Wikipedia's "Chinese Checkers" article to get spacing right.</div>
-        </div>
-      </div>
-    </div>
-  </article>
+  </div><!-- /tab-panels -->
 
-  <article class="project-row" data-ages="2,3" id="proj-marble"
-    onclick="toggleProject('proj-marble')" role="button" tabindex="0" aria-expanded="false"
-    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProject('proj-marble')}">
-    <div class="project-num" aria-hidden="true">05</div>
-    <div class="project-content">
-      <div class="project-top">
-        <img class="project-thumb" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy">
-        <div class="project-title-wrap">
-          <h2 class="project-title">Marble Solitaire</h2>
-          <p class="project-tagline">The one-player puzzle that's harder than it looks</p>
-          <div class="project-meta">
-            <span class="meta-chip chip-age2">🎒 6–12</span>
-            <span class="meta-chip chip-age3">🛹 Teen</span>
-            <span class="chip-dot">·</span>
-            <span class="meta-chip chip-hard">🔴 Challenging</span>
-          </div>
-        </div>
-      </div>
-      <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
-      <div class="project-body" role="region">
-        <div class="project-body-inner" onclick="event.stopPropagation()">
-          <div class="body-label">What you need</div>
-          <img class="project-photo" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy">
-          <div class="materials"><span class="material">Cardboard or egg carton</span><span class="material">Scissors</span><span class="material">Marker</span><span class="material">32 marbles or buttons</span></div>
-          <div class="body-label">Build the board</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span>Cut cardboard into a plus (+) shape — 33 holes total in a grid.</li>
-            <li><span class="step-num">2</span>Poke 33 small holes in a grid pattern across the plus shape.</li>
-            <li><span class="step-num">3</span>Mark the center hole clearly — this starts empty.</li>
-          </ol>
-          <div class="body-label">How to play</div>
-          <ol class="steps">
-            <li><span class="step-num">1</span>Fill all 33 holes with marbles except the center.</li>
-            <li><span class="step-num">2</span>Jump one marble over an adjacent marble into an empty hole. Remove the jumped marble.</li>
-            <li><span class="step-num">3</span>Goal: end with exactly 1 marble left — in the center hole!</li>
-          </ol>
-          <div class="tip-box">💡 Ending with 1 marble in the center is genuinely hard. Most people take days to crack it!</div>
-        </div>
-      </div>
-    </div>
-  </article>
-
+  <!-- EMPTY STATE (all filtered out) -->
   <div class="diy-empty" id="diy-empty" role="status" aria-live="polite">
     <div style="font-size:3rem;margin-bottom:12px;">🌻</div>
     <h2>No projects for this age yet</h2>
     <p>Try a different filter — more projects coming soon!</p>
   </div>
 
-</main>
+</div><!-- /diy-tabs -->
 
 <footer class="diy-footer">
   <p class="footer-logo">Sun<span>Scout</span> kids</p>
@@ -399,11 +596,196 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
+// ── STATE ──────────────────────────────────────────
 var activeAge='all';
-function setAge(btn){document.querySelectorAll('.age-pill').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');activeAge=btn.dataset.age;filterProjects();}
-function filterProjects(){var rows=document.querySelectorAll('.project-row[data-ages]');var visible=0;rows.forEach(function(row){var ages=row.dataset.ages.split(',');var show=activeAge==='all'||ages.indexOf(activeAge)!==-1;row.hidden=!show;if(show)visible++;});var c=document.getElementById('diy-count');if(c)c.innerHTML='Showing <strong>'+visible+'</strong> project'+(visible!==1?'s':'');var e=document.getElementById('diy-empty');if(e)e.classList.toggle('show',visible===0);}
-function toggleProject(id){var row=document.getElementById(id);if(!row)return;var isOpen=row.classList.contains('open');document.querySelectorAll('.project-row.open').forEach(function(r){r.classList.remove('open');r.setAttribute('aria-expanded','false');});if(!isOpen){row.classList.add('open');row.setAttribute('aria-expanded','true');setTimeout(function(){row.scrollIntoView({behavior:'smooth',block:'nearest'});},60);}}
-window.addEventListener('scroll',function(){var b=document.getElementById('back-top');if(b)b.classList.toggle('show',window.scrollY>300);},{passive:true});
+var activeTab='fuse';
+var TAB_IDS=['fuse','lego','snakes','checkers','marble'];
+
+// ── AGE FILTER ─────────────────────────────────────
+function setAge(btn){
+  document.querySelectorAll('.age-pill').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  activeAge=btn.dataset.age;
+  filterTabs();
+}
+
+function filterTabs(){
+  var visible=[];
+  TAB_IDS.forEach(function(id){
+    var tb=document.getElementById('tab-'+id);
+    if(!tb)return;
+    var ages=tb.dataset.ages.split(',');
+    var show=activeAge==='all'||ages.indexOf(activeAge)!==-1;
+    tb.hidden=!show;
+    if(show)visible.push(id);
+  });
+  var c=document.getElementById('diy-count');
+  if(c)c.innerHTML='Showing <strong>'+visible.length+'</strong> project'+(visible.length!==1?'s':'');
+  var empty=document.getElementById('diy-empty');
+  var panels=document.querySelector('.tab-panels');
+  if(visible.length===0){
+    if(empty)empty.classList.add('show');
+    if(panels)panels.style.display='none';
+  } else {
+    if(empty)empty.classList.remove('show');
+    if(panels)panels.style.display='';
+    // if current tab is now hidden, switch to first visible
+    if(visible.indexOf(activeTab)===-1){
+      switchTab(visible[0]);
+    }
+  }
+}
+
+// ── TAB SWITCHING ──────────────────────────────────
+function switchTab(id){
+  if(id===activeTab)return;
+  // pause any playing video on leaving tab
+  pauseAllVideos();
+  // deactivate old
+  var oldBtn=document.getElementById('tab-'+activeTab);
+  var oldPanel=document.getElementById('panel-'+activeTab);
+  if(oldBtn){oldBtn.setAttribute('aria-selected','false');}
+  if(oldPanel){oldPanel.classList.remove('active');}
+  // activate new
+  activeTab=id;
+  var newBtn=document.getElementById('tab-'+id);
+  var newPanel=document.getElementById('panel-'+id);
+  if(newBtn){newBtn.setAttribute('aria-selected','true');newBtn.focus();}
+  if(newPanel){newPanel.classList.add('active');}
+  // preload video metadata on snakes tab hover is done via mouseenter
+}
+
+function handleTabKey(e,id){
+  var visibleTabs=TAB_IDS.filter(function(t){
+    var b=document.getElementById('tab-'+t);
+    return b&&!b.hidden;
+  });
+  var cur=visibleTabs.indexOf(id);
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){
+    e.preventDefault();
+    switchTab(visibleTabs[(cur+1)%visibleTabs.length]);
+  } else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){
+    e.preventDefault();
+    switchTab(visibleTabs[(cur-1+visibleTabs.length)%visibleTabs.length]);
+  } else if(e.key==='Home'){
+    e.preventDefault(); switchTab(visibleTabs[0]);
+  } else if(e.key==='End'){
+    e.preventDefault(); switchTab(visibleTabs[visibleTabs.length-1]);
+  }
+}
+
+// ── IMAGE SKELETON ─────────────────────────────────
+function imgLoaded(img){
+  img.classList.add('loaded');
+}
+
+// ── VIDEO PLAYER ───────────────────────────────────
+var videoState={snakes:{muted:false,started:false}};
+
+function startVideo(id){
+  var vid=document.getElementById('vid-'+id);
+  var overlay=document.getElementById('overlay-'+id);
+  var vc=document.getElementById('vc-'+id);
+  if(!vid)return;
+  vid.preload='auto';
+  vid.play();
+  if(overlay)overlay.classList.add('hidden');
+  if(vc)vc.style.display='';
+  videoState[id].started=true;
+  updatePlayBtn(id,false);
+}
+
+function togglePlay(id){
+  var vid=document.getElementById('vid-'+id);
+  if(!vid)return;
+  if(!videoState[id].started){startVideo(id);return;}
+  if(vid.paused){vid.play();updatePlayBtn(id,false);}
+  else{vid.pause();updatePlayBtn(id,true);}
+}
+
+function updatePlayBtn(id,isPaused){
+  var btn=document.getElementById('vpb-'+id);
+  if(!btn)return;
+  if(isPaused){
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    btn.setAttribute('aria-label','Play');
+  } else {
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    btn.setAttribute('aria-label','Pause');
+  }
+}
+
+function toggleMute(id){
+  var vid=document.getElementById('vid-'+id);
+  var btn=document.getElementById('vmb-'+id);
+  if(!vid)return;
+  vid.muted=!vid.muted;
+  videoState[id].muted=vid.muted;
+  if(btn){
+    btn.innerHTML=vid.muted
+      ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>'
+      :'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+  }
+}
+
+function seekVideo(e,id){
+  var vid=document.getElementById('vid-'+id);
+  var bar=document.getElementById('vcp-'+id);
+  if(!vid||!bar||!vid.duration)return;
+  var rect=bar.getBoundingClientRect();
+  var pct=(e.clientX-rect.left)/rect.width;
+  vid.currentTime=Math.max(0,Math.min(1,pct))*vid.duration;
+}
+
+function pauseAllVideos(){
+  TAB_IDS.forEach(function(id){
+    var vid=document.getElementById('vid-'+id);
+    if(vid&&!vid.paused)vid.pause();
+  });
+}
+
+// Wire up video timeupdate
+document.addEventListener('DOMContentLoaded',function(){
+  TAB_IDS.forEach(function(id){
+    var vid=document.getElementById('vid-'+id);
+    if(!vid)return;
+    vid.addEventListener('timeupdate',function(){
+      var fill=document.getElementById('vpf-'+id);
+      var time=document.getElementById('vt-'+id);
+      if(fill&&vid.duration){
+        var pct=(vid.currentTime/vid.duration)*100;
+        fill.style.width=pct+'%';
+      }
+      if(time){
+        var m=Math.floor(vid.currentTime/60);
+        var s=Math.floor(vid.currentTime%60);
+        time.textContent=m+':'+(s<10?'0':'')+s;
+      }
+    });
+    vid.addEventListener('ended',function(){
+      updatePlayBtn(id,true);
+      var overlay=document.getElementById('overlay-'+id);
+      if(overlay)overlay.classList.remove('hidden');
+    });
+    vid.addEventListener('pause',function(){updatePlayBtn(id,true);});
+    vid.addEventListener('play',function(){updatePlayBtn(id,false);});
+  });
+
+  // preload snakes video metadata on tab hover
+  var sBtn=document.getElementById('tab-snakes');
+  if(sBtn){
+    sBtn.addEventListener('mouseenter',function(){
+      var v=document.getElementById('vid-snakes');
+      if(v&&v.preload==='none')v.preload='metadata';
+    },{once:true});
+  }
+});
+
+// ── BACK TO TOP ────────────────────────────────────
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('back-top');
+  if(b)b.classList.toggle('show',window.scrollY>300);
+},{passive:true});
 </script>
 </body>
 </html>
