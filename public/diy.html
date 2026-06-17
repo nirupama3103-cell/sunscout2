@@ -76,6 +76,11 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 .project-content{padding:20px 0 20px 20px;}
 .project-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;}
 .project-img-placeholder{width:72px;height:72px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--cream-dark);border:1.5px solid var(--border);}
+.project-thumb{width:72px;height:72px;border-radius:8px;flex-shrink:0;object-fit:cover;border:1.5px solid var(--border);display:block;}
+.project-photo{width:100%;border-radius:8px;display:block;margin-bottom:16px;object-fit:cover;max-height:320px;}
+.photo-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.photo-gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1.5px solid var(--border);}
+@media(max-width:520px){.photo-gallery{grid-template-columns:repeat(2,1fr);}}
 .project-title-wrap{flex:1;min-width:0;}
 .project-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:var(--ink);line-height:1.25;margin-bottom:3px;}
 .project-tagline{font-size:12px;color:var(--ink-light);font-weight:700;margin-bottom:8px;}
@@ -176,7 +181,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
     <div class="project-num" aria-hidden="true">01</div>
     <div class="project-content">
       <div class="project-top">
-        <div class="project-img-placeholder">🔴</div>
+        <img class="project-thumb" src="/images/diy-fusebeads-hero.jpg" alt="Fuse bead art" loading="lazy">
         <div class="project-title-wrap">
           <h2 class="project-title">Fuse Bead Art</h2>
           <p class="project-tagline">Melt beads into colorful pixel art</p>
@@ -194,6 +199,15 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
         <div class="project-body-inner" onclick="event.stopPropagation()">
           <div class="body-label">What you need</div>
           <div class="materials"><span class="material">Fuse beads (Perler/Hama)</span><span class="material">Pegboard</span><span class="material">Ironing paper</span><span class="material">Iron</span><span class="material">Tweezers (optional)</span></div>
+          <div class="body-label">Photo guide</div>
+          <div class="photo-gallery">
+            <img src="/images/diy-fusebeads-supplies.jpg" alt="Supplies laid out" loading="lazy">
+            <img src="/images/diy-fusebeads-board-start.jpg" alt="Empty pegboard" loading="lazy">
+            <img src="/images/diy-fusebeads-onboard.jpg" alt="Placing beads on board" loading="lazy">
+            <img src="/images/diy-fusebeads-heart.jpg" alt="Heart pattern complete" loading="lazy">
+            <img src="/images/diy-fusebeads-star.jpg" alt="Star pattern complete" loading="lazy">
+            <img src="/images/diy-fusebeads-finished.jpg" alt="Finished fused bead art" loading="lazy">
+          </div>
           <div class="body-label">Steps</div>
           <ol class="steps">
             <li><span class="step-num">1</span>Choose a simple pattern — start with a heart, star, or Minecraft creeper.</li>
@@ -215,7 +229,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
     <div class="project-num" aria-hidden="true">02</div>
     <div class="project-content">
       <div class="project-top">
-        <div class="project-img-placeholder">🧱</div>
+        <img class="project-thumb" src="/images/diy-lego.png" alt="LEGO engineering challenge" loading="lazy">
         <div class="project-title-wrap">
           <h2 class="project-title">LEGO Engineering Challenge</h2>
           <p class="project-tagline">Build the tallest tower — then test it</p>
@@ -232,6 +246,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
       <div class="project-body" role="region">
         <div class="project-body-inner" onclick="event.stopPropagation()">
           <div class="body-label">What you need</div>
+          <img class="project-photo" src="/images/diy-lego.png" alt="LEGO engineering challenge example" loading="lazy">
           <div class="materials"><span class="material">LEGO / Duplo bricks</span><span class="material">Ruler</span><span class="material">Timer (optional)</span><span class="material">Small coin (load test)</span></div>
           <div class="body-label">Challenge modes</div>
           <ol class="steps">
@@ -252,7 +267,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
     <div class="project-num" aria-hidden="true">03</div>
     <div class="project-content">
       <div class="project-top">
-        <div class="project-img-placeholder">🐍</div>
+        <img class="project-thumb" src="/images/diy-snake.png" alt="Snakes and Ladders board" loading="lazy">
         <div class="project-title-wrap">
           <h2 class="project-title">Make Snakes &amp; Ladders</h2>
           <p class="project-tagline">Draw your own board, then play it</p>
@@ -267,6 +282,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
       <button class="project-toggle" tabindex="-1" aria-hidden="true">See how to make it <i class="arrow">▼</i></button>
       <div class="project-body" role="region">
         <div class="project-body-inner" onclick="event.stopPropagation()">
+          <img class="project-photo" src="/images/diy-snake.png" alt="Hand-drawn Snakes and Ladders board" loading="lazy">
           <div class="project-video">
             <video src="/snakes-ladders.mp4" controls preload="none" playsinline aria-label="How to play Snakes and Ladders" style="border-radius:8px;">Your browser does not support video.</video>
           </div>
@@ -292,7 +308,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
     <div class="project-num" aria-hidden="true">04</div>
     <div class="project-content">
       <div class="project-top">
-        <div class="project-img-placeholder">⭐</div>
+        <img class="project-thumb" src="/images/diy-chinese.png" alt="Chinese Checkers board" loading="lazy">
         <div class="project-title-wrap">
           <h2 class="project-title">Chinese Checkers Board</h2>
           <p class="project-tagline">Make a star board from cardboard</p>
@@ -308,6 +324,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
       <div class="project-body" role="region">
         <div class="project-body-inner" onclick="event.stopPropagation()">
           <div class="body-label">What you need</div>
+          <img class="project-photo" src="/images/diy-chinese.png" alt="Chinese Checkers star board" loading="lazy">
           <div class="materials"><span class="material">Thick cardboard</span><span class="material">Compass or stencil</span><span class="material">Ruler &amp; pencil</span><span class="material">6 colored markers</span><span class="material">Buttons (10 per color)</span></div>
           <div class="body-label">Steps</div>
           <ol class="steps">
@@ -329,7 +346,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
     <div class="project-num" aria-hidden="true">05</div>
     <div class="project-content">
       <div class="project-top">
-        <div class="project-img-placeholder">🔵</div>
+        <img class="project-thumb" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy">
         <div class="project-title-wrap">
           <h2 class="project-title">Marble Solitaire</h2>
           <p class="project-tagline">The one-player puzzle that's harder than it looks</p>
@@ -345,6 +362,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
       <div class="project-body" role="region">
         <div class="project-body-inner" onclick="event.stopPropagation()">
           <div class="body-label">What you need</div>
+          <img class="project-photo" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy">
           <div class="materials"><span class="material">Cardboard or egg carton</span><span class="material">Scissors</span><span class="material">Marker</span><span class="material">32 marbles or buttons</span></div>
           <div class="body-label">Build the board</div>
           <ol class="steps">
