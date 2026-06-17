@@ -387,10 +387,36 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 2: LEGO ── -->
     <div class="tab-panel" id="panel-lego" role="tabpanel" aria-labelledby="tab-lego">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-lego" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-lego.png" alt="LEGO engineering challenge" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-lego').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-lego"
+            src="/lego.mp4"
+            poster="/images/diy-lego.png"
+            preload="none"
+            playsinline
+            aria-label="LEGO Engineering Challenge"
+            onclick="togglePlay('lego')"></video>
+          <div class="video-poster-overlay" id="overlay-lego">
+            <button class="big-play" onclick="startVideo('lego')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-lego" style="display:none;">
+            <div class="vc-progress" id="vcp-lego" onclick="seekVideo(event,'lego')" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="vc-progress-fill" id="vpf-lego">
+                <div class="vc-thumb"></div>
+              </div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-lego" onclick="togglePlay('lego')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-lego">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-lego" onclick="toggleMute('lego')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -498,10 +524,36 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 4: CHINESE CHECKERS ── -->
     <div class="tab-panel" id="panel-checkers" role="tabpanel" aria-labelledby="tab-checkers">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-checkers" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-chinese.png" alt="Chinese Checkers star board" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-checkers').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-checkers"
+            src="/chinese-checkers.mp4"
+            poster="/images/diy-chinese.png"
+            preload="none"
+            playsinline
+            aria-label="How to make Chinese Checkers"
+            onclick="togglePlay('checkers')"></video>
+          <div class="video-poster-overlay" id="overlay-checkers">
+            <button class="big-play" onclick="startVideo('checkers')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-checkers" style="display:none;">
+            <div class="vc-progress" id="vcp-checkers" onclick="seekVideo(event,'checkers')" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="vc-progress-fill" id="vpf-checkers">
+                <div class="vc-thumb"></div>
+              </div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-checkers" onclick="togglePlay('checkers')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-checkers">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-checkers" onclick="toggleMute('checkers')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -540,10 +592,36 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 5: MARBLE SOLITAIRE ── -->
     <div class="tab-panel" id="panel-marble" role="tabpanel" aria-labelledby="tab-marble">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-marble" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-marble').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-marble"
+            src="/marble-solitaire.mp4"
+            poster="/images/diy-marble.png"
+            preload="none"
+            playsinline
+            aria-label="How to make Marble Solitaire"
+            onclick="togglePlay('marble')"></video>
+          <div class="video-poster-overlay" id="overlay-marble">
+            <button class="big-play" onclick="startVideo('marble')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-marble" style="display:none;">
+            <div class="vc-progress" id="vcp-marble" onclick="seekVideo(event,'marble')" role="slider" aria-label="Video progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="vc-progress-fill" id="vpf-marble">
+                <div class="vc-thumb"></div>
+              </div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-marble" onclick="togglePlay('marble')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-marble">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-marble" onclick="toggleMute('marble')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -687,7 +765,7 @@ function imgLoaded(img){
 }
 
 // ── VIDEO PLAYER ───────────────────────────────────
-var videoState={snakes:{muted:false,started:false}};
+var videoState={fuse:{muted:false,started:false},lego:{muted:false,started:false},snakes:{muted:false,started:false},checkers:{muted:false,started:false},marble:{muted:false,started:false}};
 
 function startVideo(id){
   var vid=document.getElementById('vid-'+id);
