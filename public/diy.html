@@ -132,13 +132,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
 .gallery-cell img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s var(--ease);}
 .gallery-cell img.loaded{opacity:1;}
 .gallery-cell .skel-cell{position:absolute;inset:0;background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200% 100%;animation:shimmer 1.5s linear infinite;}
-.gallery-cell img.loaded+.skel-cell{display:none;}
+.gallery-cell img.loaded~.skel-cell{display:none;}
 
 /* video container */
 .video-wrap{position:relative;width:100%;height:100%;min-height:340px;background:var(--bg);display:flex;flex-direction:column;}
 .video-el{width:100%;flex:1;display:block;object-fit:cover;cursor:pointer;min-height:0;}
 .video-poster-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);transition:opacity .25s;pointer-events:none;}
-.video-poster-overlay.hidden{opacity:0;}
+.video-poster-overlay.hidden{opacity:0;pointer-events:none;}
 .big-play{width:64px;height:64px;background:rgba(255,153,0,.18);border:2px solid rgba(255,153,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:all;cursor:pointer;transition:background .2s,transform .15s;backdrop-filter:blur(4px);}
 .big-play:hover{background:rgba(255,153,0,.32);transform:scale(1.08);}
 .big-play svg{width:22px;height:22px;fill:var(--txt1);margin-left:3px;}
@@ -332,14 +332,32 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 1: FUSE BEADS ── -->
     <div class="tab-panel active" id="panel-fuse" role="tabpanel" aria-labelledby="tab-fuse">
       <div class="media-col">
-        <!-- 6-photo gallery grid as the media -->
-        <div class="media-gallery">
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-supplies.jpg" alt="Supplies" loading="lazy" onload="imgLoaded(this)"></div>
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-board-start.jpg" alt="Empty board" loading="lazy" onload="imgLoaded(this)"></div>
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-onboard.jpg" alt="Placing beads" loading="lazy" onload="imgLoaded(this)"></div>
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-heart.jpg" alt="Heart pattern" loading="lazy" onload="imgLoaded(this)"></div>
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-star.jpg" alt="Star pattern" loading="lazy" onload="imgLoaded(this)"></div>
-          <div class="gallery-cell"><span class="skel-cell" aria-hidden="true"></span><img src="/images/diy-fusebeads-finished.jpg" alt="Finished art" loading="lazy" onload="imgLoaded(this)"></div>
+        <div class="video-wrap">
+          <video class="video-el" id="vid-fuse"
+            src="/fuse-beads.mp4"
+            poster="/images/diy-fusebeads-hero.jpg"
+            preload="none" playsinline
+            aria-label="Fuse Bead Art tutorial"></video>
+          <div class="video-poster-overlay" id="overlay-fuse">
+            <button class="big-play" onclick="startVideo('fuse')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-fuse" style="display:none;">
+            <div class="vc-progress" id="vcp-fuse" onclick="seekVideo(event,'fuse')">
+              <div class="vc-progress-fill" id="vpf-fuse"><div class="vc-thumb"></div></div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-fuse" onclick="togglePlay('fuse')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-fuse">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-fuse" onclick="toggleMute('fuse')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -364,6 +382,16 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
           <span class="material">Tweezers</span>
         </div>
         <div class="info-divider"></div>
+        <p class="info-label">Photo guide</p>
+        <div class="photo-strip">
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-supplies.jpg" alt="Supplies" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Supplies</p></div>
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-board-start.jpg" alt="Empty board" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Board</p></div>
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-onboard.jpg" alt="Placing beads" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Placing</p></div>
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-heart.jpg" alt="Heart" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Heart</p></div>
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-star.jpg" alt="Star" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Star</p></div>
+          <div><div class="photo-strip-cell"><img src="/images/diy-fusebeads-finished.jpg" alt="Finished" loading="lazy" onload="imgLoaded(this)"></div><p class="photo-strip-label">Finished</p></div>
+        </div>
+        <div class="info-divider"></div>
         <p class="info-label">Steps</p>
         <ol class="steps">
           <li><span class="step-num">1</span>Choose a simple pattern — heart, star, or Minecraft creeper.</li>
@@ -380,10 +408,32 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 2: LEGO ── -->
     <div class="tab-panel" id="panel-lego" role="tabpanel" aria-labelledby="tab-lego">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-lego" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-lego.png" alt="LEGO engineering challenge" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-lego').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-lego"
+            src="/lego.mp4"
+            poster="/images/diy-lego.png"
+            preload="none" playsinline
+            aria-label="LEGO Engineering Challenge tutorial"></video>
+          <div class="video-poster-overlay" id="overlay-lego">
+            <button class="big-play" onclick="startVideo('lego')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-lego" style="display:none;">
+            <div class="vc-progress" id="vcp-lego" onclick="seekVideo(event,'lego')">
+              <div class="vc-progress-fill" id="vpf-lego"><div class="vc-thumb"></div></div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-lego" onclick="togglePlay('lego')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-lego">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-lego" onclick="toggleMute('lego')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -491,10 +541,32 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 4: CHINESE CHECKERS ── -->
     <div class="tab-panel" id="panel-checkers" role="tabpanel" aria-labelledby="tab-checkers">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-checkers" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-chinese.png" alt="Chinese Checkers star board" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-checkers').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-checkers"
+            src="/chinese-checkers.mp4"
+            poster="/images/diy-chinese.png"
+            preload="none" playsinline
+            aria-label="Chinese Checkers Board tutorial"></video>
+          <div class="video-poster-overlay" id="overlay-checkers">
+            <button class="big-play" onclick="startVideo('checkers')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-checkers" style="display:none;">
+            <div class="vc-progress" id="vcp-checkers" onclick="seekVideo(event,'checkers')">
+              <div class="vc-progress-fill" id="vpf-checkers"><div class="vc-thumb"></div></div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-checkers" onclick="togglePlay('checkers')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-checkers">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-checkers" onclick="toggleMute('checkers')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -533,10 +605,32 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt1);min-
     <!-- ── PANEL 5: MARBLE SOLITAIRE ── -->
     <div class="tab-panel" id="panel-marble" role="tabpanel" aria-labelledby="tab-marble">
       <div class="media-col">
-        <div class="media-frame">
-          <span class="skel-img" id="skel-marble" aria-hidden="true"></span>
-          <img class="media-img" src="/images/diy-marble.png" alt="Marble Solitaire board" loading="lazy"
-            onload="imgLoaded(this);document.getElementById('skel-marble').classList.add('loaded')">
+        <div class="video-wrap">
+          <video class="video-el" id="vid-marble"
+            src="/marble-solitaire.mp4"
+            poster="/images/diy-marble.png"
+            preload="none" playsinline
+            aria-label="Marble Solitaire tutorial"></video>
+          <div class="video-poster-overlay" id="overlay-marble">
+            <button class="big-play" onclick="startVideo('marble')" aria-label="Play video">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="vc-bar" id="vc-marble" style="display:none;">
+            <div class="vc-progress" id="vcp-marble" onclick="seekVideo(event,'marble')">
+              <div class="vc-progress-fill" id="vpf-marble"><div class="vc-thumb"></div></div>
+            </div>
+            <div class="vc-row">
+              <button class="vc-btn" id="vpb-marble" onclick="togglePlay('marble')" aria-label="Pause">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              </button>
+              <span class="vc-time" id="vt-marble">0:00</span>
+              <div class="vc-spacer"></div>
+              <button class="vc-btn" id="vmb-marble" onclick="toggleMute('marble')" aria-label="Mute">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="info-col">
@@ -677,10 +771,20 @@ function handleTabKey(e,id){
 // ── IMAGE SKELETON ─────────────────────────────────
 function imgLoaded(img){
   img.classList.add('loaded');
+  // hide the sibling skel-cell (works for both gallery-cell and photo-strip-cell)
+  var parent=img.parentElement;
+  var skel=parent.querySelector('.skel-cell');
+  if(skel)skel.style.display='none';
 }
 
 // ── VIDEO PLAYER ───────────────────────────────────
-var videoState={snakes:{muted:false,started:false}};
+var videoState={
+  fuse:{muted:false,started:false},
+  lego:{muted:false,started:false},
+  snakes:{muted:false,started:false},
+  checkers:{muted:false,started:false},
+  marble:{muted:false,started:false}
+};
 
 function startVideo(id){
   var vid=document.getElementById('vid-'+id);
@@ -771,14 +875,16 @@ document.addEventListener('DOMContentLoaded',function(){
     vid.addEventListener('play',function(){updatePlayBtn(id,false);});
   });
 
-  // preload snakes video metadata on tab hover
-  var sBtn=document.getElementById('tab-snakes');
-  if(sBtn){
-    sBtn.addEventListener('mouseenter',function(){
-      var v=document.getElementById('vid-snakes');
-      if(v&&v.preload==='none')v.preload='metadata';
-    },{once:true});
-  }
+  // preload video metadata on tab hover (all 5)
+  TAB_IDS.forEach(function(id){
+    var btn=document.getElementById('tab-'+id);
+    if(btn){
+      btn.addEventListener('mouseenter',function(){
+        var v=document.getElementById('vid-'+id);
+        if(v&&v.preload==='none')v.preload='metadata';
+      },{once:true});
+    }
+  });
 });
 
 // ── BACK TO TOP ────────────────────────────────────
