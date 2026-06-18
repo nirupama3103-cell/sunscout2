@@ -280,9 +280,12 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">Fuse Bead Mandalas</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#dcfce7;color:#166534;">🟢 Easy</span>
     </div>
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="playVid('vid-fuse',this)">
+    <div style="position:relative;width:100%;height:200px;overflow:hidden;" id="fuse-gallery">
+      <img id="fuse-img" src="/images/diy-fusebeads-hero.jpg" style="width:100%;height:200px;object-fit:cover;display:block;cursor:pointer;" onclick="nextFuseImg()" alt="Fuse Beads">
+      <div style="position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;" id="fuse-dots"></div>
+      <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;">Tap for more ideas 👆</div>
+      <div style="position:absolute;bottom:8px;right:8px;background:#E0531B;color:#fff;border-radius:99px;padding:4px 10px;font-size:10px;font-weight:800;cursor:pointer;" onclick="playVid('vid-fuse',document.getElementById('fuse-gallery'))">▶ Play Video</div>
       <video id="vid-fuse" src="/fuse-beads.mp4" poster="/images/diy-fusebeads-hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
-      <div id="play-fuse" style="width:48px;height:48px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
     </div>
     <div style="display:flex;border-top:0.5px solid #f0f0f0;">
       <button onclick="showDetails('fuse')" style="flex:1;padding:11px;font-size:11px;font-weight:800;color:#555;border:none;background:#fff;cursor:pointer;border-right:0.5px solid #f0f0f0;">📋 More Details</button>
@@ -295,9 +298,10 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">LEGO Challenge Marble Run</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#dcfce7;color:#166534;">🟢 Easy</span>
     </div>
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#ef4444,#f97316,#eab308);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="playVid('vid-lego',this)">
+    <div style="position:relative;width:100%;height:200px;cursor:pointer;" onclick="playVid('vid-lego',this)">
+      <img src="/images/diy-lego.png" style="width:100%;height:200px;object-fit:cover;display:block;" alt="LEGO">
       <video id="vid-lego" src="/lego.mp4" poster="/images/diy-lego.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
-      <div id="play-lego" style="width:48px;height:48px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+      <div id="play-lego" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:52px;height:52px;background:rgba(255,255,255,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;">▶</div></div>
     </div>
     <div style="display:flex;border-top:0.5px solid #f0f0f0;">
       <button onclick="showDetails('lego')" style="flex:1;padding:11px;font-size:11px;font-weight:800;color:#555;border:none;background:#fff;cursor:pointer;border-right:0.5px solid #f0f0f0;">📋 More Details</button>
@@ -310,9 +314,10 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">DIY Snakes &amp; Ladders</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#fef3c7;color:#92400e;">🔶 Medium</span>
     </div>
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#22c55e,#14b8a6,#3b82f6);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="playVid('vid-snakes',this)">
+    <div style="position:relative;width:100%;height:200px;cursor:pointer;" onclick="playVid('vid-snakes',this)">
+      <img src="/images/diy-snake.png" style="width:100%;height:200px;object-fit:cover;display:block;" alt="Snakes and Ladders">
       <video id="vid-snakes" src="/snakes-ladders.mp4" poster="/images/diy-snake.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
-      <div id="play-snakes" style="width:48px;height:48px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+      <div id="play-snakes" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:52px;height:52px;background:rgba(255,255,255,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;">▶</div></div>
     </div>
     <div style="display:flex;border-top:0.5px solid #f0f0f0;">
       <button onclick="showDetails('snakes')" style="flex:1;padding:11px;font-size:11px;font-weight:800;color:#555;border:none;background:#fff;cursor:pointer;border-right:0.5px solid #f0f0f0;">📋 More Details</button>
@@ -325,9 +330,10 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">Chinese Checkers</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#fee2e2;color:#991b1b;">🔴 Hard</span>
     </div>
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#8b5cf6,#ec4899,#f43f5e);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="playVid('vid-checkers',this)">
+    <div style="position:relative;width:100%;height:200px;cursor:pointer;" onclick="playVid('vid-checkers',this)">
+      <img src="/images/diy-chinese.png" style="width:100%;height:200px;object-fit:cover;display:block;" alt="Chinese Checkers">
       <video id="vid-checkers" src="/chinese-checkers.mp4" poster="/images/diy-chinese.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
-      <div id="play-checkers" style="width:48px;height:48px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
+      <div id="play-checkers" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:52px;height:52px;background:rgba(255,255,255,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;">▶</div></div>
     </div>
     <div style="display:flex;border-top:0.5px solid #f0f0f0;">
       <button onclick="showDetails('checkers')" style="flex:1;padding:11px;font-size:11px;font-weight:800;color:#555;border:none;background:#fff;cursor:pointer;border-right:0.5px solid #f0f0f0;">📋 More Details</button>
@@ -340,7 +346,8 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">Marble Solitaire</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#fee2e2;color:#991b1b;">🔴 Hard</span>
     </div>
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#64748b,#475569,#334155);display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="playVid('vid-marble',this)">
+    <div style="position:relative;width:100%;height:200px;cursor:pointer;" onclick="playVid('vid-marble',this)">
+      <img src="/images/diy-marble.png" style="width:100%;height:200px;object-fit:cover;display:block;" alt="Marble Solitaire">
       <video id="vid-marble" src="/marble-solitaire.mp4" poster="/images/diy-marble.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
       <div id="play-marble" style="width:48px;height:48px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">▶</div>
     </div>
@@ -427,6 +434,21 @@ function showDetails(key) {
   }).join('');
   document.getElementById('detail-sheet').style.display = 'flex';
 }
+
+var fuseImgs = ['/images/diy-fusebeads-hero.jpg','/images/diy-fusebeads-heart.jpg','/images/diy-fusebeads-star.jpg','/images/diy-fusebeads-finished.jpg','/images/diy-fusebeads-onboard.jpg','/images/diy-fusebeads-board-start.jpg','/images/diy-fusebeads-supplies.jpg'];
+var fuseIdx = 0;
+function nextFuseImg() {
+  fuseIdx = (fuseIdx + 1) % fuseImgs.length;
+  document.getElementById('fuse-img').src = fuseImgs[fuseIdx];
+  var dots = document.getElementById('fuse-dots');
+  if(dots) dots.innerHTML = fuseImgs.map(function(_,i){ return '<span style="width:6px;height:6px;border-radius:50%;background:'+(i===fuseIdx?'#fff':'rgba(255,255,255,.5)')+';display:inline-block;"></span>'; }).join('');
+}
+// Init dots
+document.addEventListener('DOMContentLoaded', function(){
+  var dots = document.getElementById('fuse-dots');
+  if(dots) dots.innerHTML = fuseImgs.map(function(_,i){ return '<span style="width:6px;height:6px;border-radius:50%;background:'+(i===0?'#fff':'rgba(255,255,255,.5)')+';display:inline-block;"></span>'; }).join('');
+});
+
 function closeSheet(){document.getElementById('detail-sheet').style.display='none';}
 function shareDIY(name) {
   if(navigator.share) {
