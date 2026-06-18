@@ -410,15 +410,24 @@ function playVid(id, wrap) {
 
 function showDetails(key) {
   var details = {
-    fuse: 'Materials: Fuse beads, pegboard, iron, parchment paper.\nSteps: Place beads on pegboard in pattern → cover with parchment → iron gently until fused → let cool → remove from board.',
-    lego: 'Materials: LEGO bricks, marbles.\nSteps: Build two parallel walls → add angled ramps → test with marble → adjust height and angles.',
-    snakes: 'Materials: Cardboard, ruler, markers, dice, small tokens.\nSteps: Draw 10x10 grid → number squares 1-100 → draw snakes and ladders → play!',
-    checkers: 'Materials: Cardboard, compass, colored markers, small stones.\nSteps: Draw star hexagon → mark 121 holes → paint 6 colored sections → use stones as pieces.',
-    marble: 'Materials: Cardboard, 33 marbles.\nSteps: Cut cross-shaped board → mark 33 holes in pattern → play by jumping marbles → goal: one marble left in center.'
+    fuse:     {title:'Fuse Bead Mandalas',  age:'Ages 6-12',   time:'60 min', materials:'Fuse beads, pegboard, iron, parchment paper', steps:['Place beads on pegboard in your pattern','Cover with parchment paper','Iron gently until beads fuse','Let cool then peel off board']},
+    lego:     {title:'LEGO Marble Run',      age:'Ages 3-12',   time:'45 min', materials:'LEGO bricks, marbles', steps:['Build two parallel walls','Add angled ramp sections','Test with a marble','Adjust height until it rolls']},
+    snakes:   {title:'Snakes and Ladders',   age:'Ages 3-12',   time:'90 min', materials:'Cardboard, ruler, markers, dice, tokens', steps:['Draw a 10x10 grid on cardboard','Number squares 1-100','Draw snakes down and ladders up','Color and play!']},
+    checkers: {title:'Chinese Checkers',     age:'Ages 6-Teen', time:'2 hrs',  materials:'Cardboard, compass, colored markers, stones', steps:['Draw a star hexagon','Mark 121 holes in pattern','Paint 6 colored sections','Use stones as pieces']},
+    marble:   {title:'Marble Solitaire',     age:'Ages 6-Teen', time:'2 hrs',  materials:'Cardboard, 33 marbles', steps:['Cut a cross-shaped board','Mark 33 holes in classic pattern','All marbles in except center','Jump marbles to remove - goal: 1 left in center']}
   };
-  alert('📋 ' + (details[key] || 'Details coming soon!'));
+  var d = details[key];
+  if(!d) return;
+  document.getElementById('ds-title').textContent = d.title;
+  document.getElementById('ds-meta').textContent = d.age + ' · ' + d.time;
+  document.getElementById('ds-materials').textContent = d.materials;
+  var stepsEl = document.getElementById('ds-steps');
+  stepsEl.innerHTML = d.steps.map(function(s,i){
+    return '<li style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;"><span style="background:#E0531B;color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;">'+(i+1)+'</span><span style="font-size:13px;color:#3D2010;line-height:1.6;">'+s+'</span></li>';
+  }).join('');
+  document.getElementById('detail-sheet').style.display = 'flex';
 }
-
+function closeSheet(){document.getElementById('detail-sheet').style.display='none';}
 function shareDIY(name) {
   if(navigator.share) {
     navigator.share({title: name + ' — SunScout Kids DIY', url: window.location.href});
