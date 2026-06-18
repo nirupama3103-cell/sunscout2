@@ -383,7 +383,7 @@ html { scroll-behavior: smooth; }
 /* ── HERO SECTION ── */
 .hero {
   position: relative;
-  background: linear-gradient(180deg, #e0f4ff 0%, #bae6fd 60%, #f0f9ff 100%);
+  background: linear-gradient(170deg, #6ec6f0 0%, #a8d8f0 45%, #c8e8f8 100%);
   padding: 48px 16px 36px;
   text-align: center;
   overflow: hidden;
@@ -1991,7 +1991,7 @@ function syncBnav(tab) {
   <div class="bnav-items">
     <button class="bnav-btn active" onclick="bnavTab('free',this)">
       <span class="bnav-icon">🆓</span>
-      <span class="bnav-label">Free</span>
+      <span class="bnav-label">Free Camps</span>
     </button>
     <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
       <span class="bnav-icon">🌳</span>
@@ -2003,11 +2003,11 @@ function syncBnav(tab) {
     </button>
     <button class="bnav-btn" onclick="floatWeekend()">
       <span class="bnav-icon">📅</span>
-      <span class="bnav-label">Weekend</span>
+      <span class="bnav-label">Weekend Plan</span>
     </button>
-    <button class="bnav-btn" onclick="floatSurprise()">
-      <span class="bnav-icon">🎲</span>
-      <span class="bnav-label">Surprise</span>
+    <button class="bnav-btn" onclick="document.getElementById('about-modal').style.display='flex'">
+      <span class="bnav-icon">ℹ️</span>
+      <span class="bnav-label">About Us</span>
     </button>
     <a class="bnav-btn" href="/diy.html" style="text-decoration:none;">
       <span class="bnav-icon">🛠️</span>
