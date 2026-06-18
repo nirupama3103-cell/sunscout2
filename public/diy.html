@@ -280,12 +280,10 @@ body{font-family:'Nunito',sans-serif;background:linear-gradient(160deg,#7EB8D4 0
       <div style="font-size:14px;font-weight:900;color:#1E0E04;">Fuse Bead Mandalas</div>
       <span style="font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#dcfce7;color:#166534;">🟢 Easy</span>
     </div>
-    <div style="position:relative;width:100%;height:200px;overflow:hidden;" id="fuse-gallery">
-      <img id="fuse-img" src="/images/diy-fusebeads-hero.jpg" style="width:100%;height:200px;object-fit:cover;display:block;cursor:pointer;" onclick="nextFuseImg()" alt="Fuse Beads">
-      <div style="position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;" id="fuse-dots"></div>
-      <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;">Tap for more ideas 👆</div>
-      <div style="position:absolute;bottom:8px;right:8px;background:#E0531B;color:#fff;border-radius:99px;padding:4px 10px;font-size:10px;font-weight:800;cursor:pointer;" onclick="playVid('vid-fuse',document.getElementById('fuse-gallery'))">▶ Play Video</div>
+    <div style="position:relative;width:100%;height:200px;cursor:pointer;" onclick="playVid('vid-fuse',this)">
+      <img src="/images/diy-fusebeads-hero.jpg" style="width:100%;height:200px;object-fit:cover;display:block;" alt="Fuse Beads">
       <video id="vid-fuse" src="/fuse-beads.mp4" poster="/images/diy-fusebeads-hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" playsinline></video>
+      <div id="play-fuse" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:52px;height:52px;background:rgba(255,255,255,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;">▶</div></div>
     </div>
     <div style="display:flex;border-top:0.5px solid #f0f0f0;">
       <button onclick="showDetails('fuse')" style="flex:1;padding:11px;font-size:11px;font-weight:800;color:#555;border:none;background:#fff;cursor:pointer;border-right:0.5px solid #f0f0f0;">📋 More Details</button>
