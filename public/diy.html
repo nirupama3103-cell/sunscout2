@@ -31,9 +31,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px 32px;max-width:1080px;margin:0 auto}.grid::after{content:"";display:block}
 @media(max-width:640px){.grid{grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 28px}}
 @media(min-width:641px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-.grid .card:nth-child(4){grid-column:1/2}
-.grid .card:nth-child(5){grid-column:2/3}
-@media(min-width:901px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:901px){.grid{grid-template-columns:repeat(3,1fr)}.grid .card:nth-child(4){grid-column:1/2}.grid .card:nth-child(5){grid-column:2/3}}
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
@@ -54,8 +52,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
 .card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .meta-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#f0f9ff;color:var(--text2);border:1px solid #d0e9f7}
-.open-btn{width:100%;padding:10px;border-radius:10px;background:var(--sun);color:#fff;border:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:6px}
-.open-btn:hover{background:#e68a00}
+.open-btn{width:100%;padding:9px;border-radius:10px;background:transparent;color:var(--sun);border:2px solid var(--sun);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.open-btn:hover{background:var(--sun);color:#fff}
 .drawer-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center}
 .drawer-overlay.open{display:flex}
 .drawer{background:#fff;width:100%;max-width:720px;max-height:92vh;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .3s ease}
@@ -100,6 +98,17 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:#aaa;background:none;border:none;cursor:pointer;padding:4px 10px;text-decoration:none}
 .bnav-item.active{color:var(--sun)}
 .bnav-item svg{width:22px;height:22px}
+.card-badges{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.badge-diff{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;color:#fff}
+.badge-diff.diff-easy{background:#16a34a}
+.badge-diff.diff-medium{background:#d97706}
+.badge-diff.diff-hard{background:#dc2626}
+.badge-age{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#f0f9ff;color:#555;border:1px solid #d0e9f7}
+.age-chip{border:2px solid #d1d5db;background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:99px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px}
+.age-chip:hover{border-color:var(--sun);color:var(--sun);transform:translateY(-1px)}
+.card-body{padding:16px 18px 18px}
+.card-title{font-size:15px;font-weight:900;margin-bottom:6px;line-height:1.3}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:12px}
 .empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none}
 .empty-state.show{display:block}
 </style>
@@ -130,11 +139,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="card" data-age="3-5 6-12" onclick="openDrawer('fuse')">
     <div class="card-thumb">
       <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" onerror="this.style.background='linear-gradient(135deg,#FFD93D,#FF6B6B)';this.removeAttribute('src')"/>
-      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF6B6B"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="diff-badge diff-easy">Easy</span>
-      <span class="age-badge">3-12</span>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
+      <div class="card-badges"><span class="badge-diff diff-easy">Easy</span><span class="badge-age">3–12</span></div>
       <div class="card-title">&#127987; Fuse Bead Designs</div>
       <div class="card-desc">Place colorful beads on a pegboard and iron them into amazing shapes. Butterflies, stars, hearts!</div>
       <div class="card-meta"><span class="meta-tag">&#9200; 30 min</span><span class="meta-tag">&#127912; Crafts</span></div>
@@ -144,11 +152,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="card" data-age="3-5 6-12 teen" onclick="openDrawer('lego')">
     <div class="card-thumb">
       <img src="/images/diy-lego.png" alt="LEGO" onerror="this.style.background='linear-gradient(135deg,#4FC3F7,#1d4ed8)';this.removeAttribute('src')"/>
-      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#4FC3F7"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="diff-badge diff-medium">Medium</span>
-      <span class="age-badge">3-Teen</span>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
+      <div class="card-badges"><span class="badge-diff diff-medium">Medium</span><span class="badge-age">3–Teen</span></div>
       <div class="card-title">&#129523; LEGO Building Challenge</div>
       <div class="card-desc">Build anything from a tiny house to a rocket ship! Weekly challenges keep it fresh every time.</div>
       <div class="card-meta"><span class="meta-tag">&#9200; 45 min</span><span class="meta-tag">&#129504; STEM</span></div>
@@ -158,11 +165,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="card" data-age="3-5 6-12" onclick="openDrawer('snakes')">
     <div class="card-thumb">
       <img src="/images/diy-snake.png" alt="Snakes and Ladders" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
-      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#34D399"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="diff-badge diff-easy">Easy</span>
-      <span class="age-badge">3-12</span>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
+      <div class="card-badges"><span class="badge-diff diff-easy">Easy</span><span class="badge-age">3–12</span></div>
       <div class="card-title">&#128013; Snakes &amp; Ladders</div>
       <div class="card-desc">Draw your own board game! Use markers, stickers, and imagination to create your world.</div>
       <div class="card-meta"><span class="meta-tag">&#9200; 40 min</span><span class="meta-tag">&#127922; Games</span></div>
@@ -172,11 +178,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="card" data-age="6-12 teen" onclick="openDrawer('checkers')">
     <div class="card-thumb">
       <img src="/images/diy-chinese.png" alt="Chinese Checkers" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
-      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#9C6FE4"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="diff-badge diff-medium">Medium</span>
-      <span class="age-badge">6-Teen</span>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
+      <div class="card-badges"><span class="badge-diff diff-medium">Medium</span><span class="badge-age">6–Teen</span></div>
       <div class="card-title">&#11088; Chinese Checkers</div>
       <div class="card-desc">Paint marbles, make your board, and challenge everyone to this classic strategy game!</div>
       <div class="card-meta"><span class="meta-tag">&#9200; 60 min</span><span class="meta-tag">&#127921; Strategy</span></div>
@@ -187,10 +192,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="card-thumb">
       <img src="/images/diy-marble.png" alt="Marble Solitaire" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="diff-badge diff-hard">Hard</span>
-      <span class="age-badge">6-Teen</span>
     </div>
     <div class="card-body">
+      <div class="card-badges"><span class="badge-diff diff-hard">Hard</span><span class="badge-age">6–Teen</span></div>
       <div class="card-title">&#128302; Marble Solitaire</div>
       <div class="card-desc">Can you clear the board leaving just one marble? The ultimate solo brain challenge!</div>
       <div class="card-meta"><span class="meta-tag">&#9200; 20 min</span><span class="meta-tag">&#129513; Puzzle</span></div>
