@@ -28,10 +28,25 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .age-chip.active[data-age="6-12"]{background:#4FC3F7;color:#1a1a1a}
 .age-chip.active[data-age="teen"]{background:#34D399;color:#fff}
 .section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);padding:0 20px 12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px 32px;max-width:1080px;margin:0 auto}.grid::after{content:"";display:block}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px 32px;max-width:1080px;margin:0 auto}
+.grid .card:nth-child(1),.grid .card:nth-child(2){grid-column:span 1}
+@media(min-width:901px){
+  .grid{grid-template-columns:repeat(6,1fr)}
+  .grid .card:nth-child(1){grid-column:span 3}
+  .grid .card:nth-child(2){grid-column:span 3}
+  .grid .card:nth-child(3){grid-column:span 2}
+  .grid .card:nth-child(4){grid-column:span 2}
+  .grid .card:nth-child(5){grid-column:span 2}
+  .grid .card:nth-child(1) .card-thumb{padding-top:56%}
+  .grid .card:nth-child(2) .card-thumb{padding-top:56%}
+  .grid .card:nth-child(1) .card-title{font-size:18px}
+  .grid .card:nth-child(2) .card-title{font-size:18px}
+  .grid .card:nth-child(1) .card-desc{font-size:13px}
+  .grid .card:nth-child(2) .card-desc{font-size:13px}
+}
 @media(max-width:640px){.grid{grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 28px}}
 @media(min-width:641px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:901px){.grid{grid-template-columns:repeat(3,1fr)}.grid .card:nth-child(4){grid-column:1/2}.grid .card:nth-child(5){grid-column:2/3}}
+
 @media(max-width:380px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
