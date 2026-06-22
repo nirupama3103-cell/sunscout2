@@ -3,10 +3,236 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DIY Projects - SunScout Kids</title>
+<title>DIY Projects – SunScout Kids</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--sun:#FF9900;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#f0f9ff;--card:#fff;--text:#1a1a1a;--text2:#555;--radius:18px;--shadow:0 4px 24px rgba(0,0,0,.10)}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+.top-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e5f3fb;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.top-nav .logo{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,#FF9900,#FF6B6B,#9C6FE4,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.top-nav .back-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:99px;text-decoration:none}
+.top-nav .back-btn:hover{background:#f0f9ff}
+.hero{background:linear-gradient(135deg,#fff7ed 0%,#e0f2fe 60%,#f3e8ff 100%);padding:32px 20px 24px;text-align:center}
+.hero-eyebrow{display:inline-block;background:var(--sun);color:#fff;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.hero h1{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:10px}
+.hero h1 span{color:var(--sun)}
+.hero p{font-size:14px;color:var(--text2);max-width:480px;margin:0 auto 20px}
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:20px 20px 16px}
+.age-chip{border:2px solid transparent;background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:99px;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.age-chip:hover{transform:translateY(-2px)}
+.age-chip.active[data-age="all"]{background:var(--sun);color:#fff}
+.age-chip.active[data-age="0-2"]{background:#FF6B6B;color:#fff}
+.age-chip.active[data-age="3-5"]{background:#9C6FE4;color:#fff}
+.age-chip.active[data-age="6-12"]{background:#4FC3F7;color:#1a1a1a}
+.age-chip.active[data-age="teen"]{background:#34D399;color:#fff}
+.section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);padding:0 20px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;padding:0 20px 32px;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.grid{grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 28px}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
+.card:active{transform:scale(.97)}
+.card.hidden{display:none}
+.card-thumb{position:relative;width:100%;padding-top:62%;overflow:hidden;background:#f0f0f0}
+.card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card-thumb .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18);transition:background .2s}
+.card:hover .play-overlay{background:rgba(0,0,0,.3)}
+.play-btn-icon{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.2);transition:transform .18s}
+.card:hover .play-btn-icon{transform:scale(1.12)}
+.play-btn-icon svg{width:20px;height:20px;margin-left:3px}
+.diff-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:#fff}
+.diff-easy{background:#16a34a}.diff-medium{background:#d97706}.diff-hard{background:#dc2626}
+.age-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.92);color:var(--text)}
+.card-body{padding:14px 16px 16px}
+.card-title{font-size:15px;font-weight:900;margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.meta-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#f0f9ff;color:var(--text2);border:1px solid #d0e9f7}
+.open-btn{width:100%;padding:10px;border-radius:10px;background:var(--sun);color:#fff;border:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.open-btn:hover{background:#e68a00}
+.drawer-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center}
+.drawer-overlay.open{display:flex}
+.drawer{background:#fff;width:100%;max-width:720px;max-height:92vh;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(min-width:700px){
+  .drawer-overlay{align-items:center}
+  .drawer{max-height:88vh;border-radius:24px;flex-direction:row;max-width:900px;width:95%}
+  .drawer-left{width:44%;flex-shrink:0;display:flex;flex-direction:column;background:#000}
+  .drawer-right{flex:1;overflow-y:auto;padding:28px}
+}
+.drawer-left{position:relative;background:#000;min-height:220px}
+.drawer-video{width:100%;height:100%;object-fit:cover;display:block;max-height:300px}
+@media(min-width:700px){.drawer-video{max-height:none;flex:1}}
+.drawer-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:10}
+.drawer-close:hover{background:rgba(0,0,0,.8)}
+.drawer-img-grid{display:flex;gap:4px;padding:6px;background:#111;flex-shrink:0}
+.drawer-img-grid img{flex:1;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.6;transition:opacity .15s;border:2px solid transparent}
+.drawer-img-grid img.active,.drawer-img-grid img:hover{opacity:1;border-color:#FF9900}
+@media(max-width:699px){.drawer-right{padding:18px;overflow-y:auto;max-height:calc(92vh - 260px)}}
+.drawer-eyebrow{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--sun);margin-bottom:6px}
+.drawer-title{font-size:1.25rem;font-weight:900;margin-bottom:6px}
+.drawer-subtitle{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.materials-label{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:8px}
+.materials-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.material-chip{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:#fff7ed;color:#92400e;border:1px solid #fde68a}
+.steps-title{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.step{display:flex;gap:12px;margin-bottom:14px;padding:12px;border-radius:12px;background:#f8fafc;border-left:4px solid var(--sky)}
+.step.adult-step{background:#fff7ed;border-left-color:var(--coral)}
+.step-num{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:var(--sky);color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.adult-step .step-num{background:var(--coral)}
+.step-who{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:3px}
+.adult-step .step-who{color:var(--coral)}
+.step-text{font-size:13px;line-height:1.55}
+.drawer-footer{padding:14px 20px;border-top:1px solid #f0f0f0;display:flex;gap:10px;flex-shrink:0}
+@media(min-width:700px){.drawer-footer{padding:14px 28px}}
+.share-btn{flex:1;padding:10px;border-radius:10px;border:none;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:opacity .15s}
+.share-btn:hover{opacity:.8}
+.share-copy{background:#e0f2fe;color:#0369a1}
+.share-save{background:#fce7f3;color:#be185d}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;padding:6px 0 calc(10px + env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,.08)}
+@media(max-width:640px){.bottom-nav{display:flex;justify-content:space-around}}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:#aaa;background:none;border:none;cursor:pointer;padding:4px 10px;text-decoration:none}
+.bnav-item.active{color:var(--sun)}
+.bnav-item svg{width:22px;height:22px}
+.empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none}
+.empty-state.show{display:block}
+</style>
 </head>
 <body>
-<p>test</p>
+<nav class="top-nav">
+  <a href="/index.html" class="back-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </a>
+  <div class="logo">&#9728;&#65039; SunScout</div>
+  <div style="width:64px"></div>
+</nav>
+<section class="hero">
+  <div class="hero-eyebrow">DIY Activity Hub</div>
+  <h1>Free &amp; Fun<br/><span>At-Home Projects</span></h1>
+  <p>Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+</section>
+<div class="filter-bar">
+  <button class="age-chip active" data-age="all" onclick="filterAge(this)">&#127775; All Ages</button>
+  <button class="age-chip" data-age="0-2" onclick="filterAge(this)">&#128118; 0-2</button>
+  <button class="age-chip" data-age="3-5" onclick="filterAge(this)">&#129976; 3-5</button>
+  <button class="age-chip" data-age="6-12" onclick="filterAge(this)">&#127744; 6-12</button>
+  <button class="age-chip" data-age="teen" onclick="filterAge(this)">&#128737; Teen</button>
+</div>
+<div class="section-label" id="sectionLabel">5 Projects Ready to Build</div>
+<div class="grid" id="grid">
+  <div class="card" data-age="3-5 6-12" onclick="openDrawer('fuse')">
+    <div class="card-thumb">
+      <img src="/IMG_6201.jpeg" alt="Fuse Beads" onerror="this.style.background='linear-gradient(135deg,#FFD93D,#FF6B6B)';this.removeAttribute('src')"/>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF6B6B"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="diff-badge diff-easy">Easy</span>
+      <span class="age-badge">3-12</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">&#127987; Fuse Bead Designs</div>
+      <div class="card-desc">Place colorful beads on a pegboard and iron them into amazing shapes. Butterflies, stars, hearts!</div>
+      <div class="card-meta"><span class="meta-tag">&#9200; 30 min</span><span class="meta-tag">&#127912; Crafts</span></div>
+      <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
+    </div>
+  </div>
+  <div class="card" data-age="3-5 6-12 teen" onclick="openDrawer('lego')">
+    <div class="card-thumb">
+      <img src="/IMG_6272.jpeg" alt="LEGO" onerror="this.style.background='linear-gradient(135deg,#4FC3F7,#1d4ed8)';this.removeAttribute('src')"/>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#4FC3F7"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="diff-badge diff-medium">Medium</span>
+      <span class="age-badge">3-Teen</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">&#129523; LEGO Building Challenge</div>
+      <div class="card-desc">Build anything from a tiny house to a rocket ship! Weekly challenges keep it fresh every time.</div>
+      <div class="card-meta"><span class="meta-tag">&#9200; 45 min</span><span class="meta-tag">&#129504; STEM</span></div>
+      <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
+    </div>
+  </div>
+  <div class="card" data-age="3-5 6-12" onclick="openDrawer('snakes')">
+    <div class="card-thumb">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#34D399,#059669);display:flex;align-items:center;justify-content:center;font-size:4rem">&#128013;</div>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#34D399"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="diff-badge diff-easy">Easy</span>
+      <span class="age-badge">3-12</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">&#128013; Snakes &amp; Ladders</div>
+      <div class="card-desc">Draw your own board game! Use markers, stickers, and imagination to create your world.</div>
+      <div class="card-meta"><span class="meta-tag">&#9200; 40 min</span><span class="meta-tag">&#127922; Games</span></div>
+      <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
+    </div>
+  </div>
+  <div class="card" data-age="6-12 teen" onclick="openDrawer('checkers')">
+    <div class="card-thumb">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#9C6FE4,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:4rem">&#11088;</div>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#9C6FE4"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="diff-badge diff-medium">Medium</span>
+      <span class="age-badge">6-Teen</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">&#11088; Chinese Checkers</div>
+      <div class="card-desc">Paint marbles, make your board, and challenge everyone to this classic strategy game!</div>
+      <div class="card-meta"><span class="meta-tag">&#9200; 60 min</span><span class="meta-tag">&#127921; Strategy</span></div>
+      <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
+    </div>
+  </div>
+  <div class="card" data-age="6-12 teen" onclick="openDrawer('marble')">
+    <div class="card-thumb">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#FF9900,#dc2626);display:flex;align-items:center;justify-content:center;font-size:4rem">&#128302;</div>
+      <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="diff-badge diff-hard">Hard</span>
+      <span class="age-badge">6-Teen</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">&#128302; Marble Solitaire</div>
+      <div class="card-desc">Can you clear the board leaving just one marble? The ultimate solo brain challenge!</div>
+      <div class="card-meta"><span class="meta-tag">&#9200; 20 min</span><span class="meta-tag">&#129513; Puzzle</span></div>
+      <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
+    </div>
+  </div>
+  <div class="empty-state" id="emptyState"><p>&#127819; No projects for this age. Try a different filter!</p></div>
+</div>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawerOnBg(event)">
+  <div class="drawer" id="drawer">
+    <div class="drawer-left">
+      <button class="drawer-close" onclick="closeDrawer()">&#x2715;</button>
+      <video class="drawer-video" id="drawerVideo" autoplay loop muted playsinline></video>
+      <div class="drawer-img-grid" id="drawerImgGrid"></div>
+    </div>
+    <div class="drawer-right" id="drawerRight">
+      <div class="drawer-eyebrow" id="drawerEyebrow"></div>
+      <div class="drawer-title" id="drawerTitle"></div>
+      <div class="drawer-subtitle" id="drawerSubtitle"></div>
+      <div class="materials-label">What You'll Need</div>
+      <div class="materials-row" id="drawerMaterials"></div>
+      <div class="steps-title">Step-by-Step Guide</div>
+      <div id="drawerSteps"></div>
+    </div>
+    <div class="drawer-footer">
+      <button class="share-btn share-copy" onclick="copyLink()">&#128279; Copy Link</button>
+      <button class="share-btn share-save" onclick="saveProject()">&#10084;&#65039; Save Project</button>
+    </div>
+  </div>
+</div>
+<nav class="bottom-nav">
+  <a href="/index.html" class="bnav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Home</a>
+  <a href="/diy.html" class="bnav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>DIY</a>
+  <a href="/index.html" class="bnav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Activities</a>
+</nav>
+<script>
+const PROJECTS={fuse:{title:'Fuse Bead Designs',eyebrow:'Easy Craft · Ages 3-12',subtitle:'Place tiny colorful beads on a pegboard and melt them into beautiful shapes with an iron!',video:'/fusebeads.mp4',images:['/IMG_6201.jpeg'],materials:['Pegboard','Fuse Beads','Parchment Paper','Iron (Adults only)','Shape Templates'],steps:[{who:'kid',text:'Pick your favorite template shape. Place it flat on your pegboard.'},{who:'kid',text:'Use your tiny builder fingers to place bright beads onto the spikes one by one. Fill the whole shape!'},{who:'kid',text:'Step back and admire your creation - take a photo before the magic happens!'},{who:'adult',text:'Adults Only: Place parchment paper flat over the finished design. Press a warm iron for 10-15 seconds until beads fuse together.'},{who:'adult',text:'Adults Only: Let cool for 2 minutes, peel off parchment. Flip and iron the back 5 more seconds.'},{who:'kid',text:'Peel off your masterpiece! Hang it on the window to see the colors shine!'}]},lego:{title:'LEGO Building Challenge',eyebrow:'Medium · Ages 3-Teen',subtitle:'Weekly challenges to build anything from tiny houses to rocket ships. STEM meets imagination!',video:'/Lego.mp4',images:['/IMG_6272.jpeg'],materials:['LEGO Bricks','Baseplate','Markers','Camera'],steps:[{who:'kid',text:"Today's challenge: Build a house with at least 3 rooms! Spread out all your bricks first."},{who:'kid',text:'Start with the baseplate foundation. Build walls up one layer at a time.'},{who:'kid',text:'Add windows and doors by leaving gaps. Can you make a slanted roof?'},{who:'adult',text:"Parent tip: Ask open questions like 'What room comes next?' to spark storytelling."},{who:'kid',text:'Add furniture, trees, a car - whatever makes it a home! Take a photo after.'},{who:'adult',text:'Parent tip: Challenge older kids to rebuild using fewer bricks for a harder puzzle!'}]},snakes:{title:'Snakes & Ladders',eyebrow:'Easy · Ages 3-12',subtitle:'Draw your own board game and play it with the whole family!',video:'',images:[],materials:['Large Paper','Markers & Crayons','Scissors','Dice','Button Tokens','Ruler'],steps:[{who:'adult',text:'Parent tip: Pre-draw a 10x10 grid in pencil. Number squares 1-100 starting bottom-left.'},{who:'kid',text:'Draw colorful snakes going from high numbers DOWN to lower ones. Make funny tongues!'},{who:'kid',text:'Draw ladders going from low numbers UP to higher ones. Add stripes and colors.'},{who:'kid',text:'Pick a theme - jungle, space, or underwater! Draw pictures in each square.'},{who:'kid',text:'Choose your token. Place all tokens on square 1. Ready, set, ROLL!'},{who:'adult',text:'Rules: Land on ladder bottom = climb up. Land on snake head = slide down. First to 100 wins!'}]},checkers:{title:'Chinese Checkers',eyebrow:'Medium · Ages 6-Teen',subtitle:'Paint marbles, craft your star board, and challenge the family!',video:'/Chinese checkers.mp4',images:[],materials:['Star-shaped board','Marbles (6 per player)','Paint & brushes','Thick cardboard'],steps:[{who:'adult',text:'Parent prep: Print or draw a 6-pointed star grid. Each point is a home zone.'},{who:'kid',text:'Paint your 6 marbles your chosen color. Let them dry completely.'},{who:'kid',text:'Place your 6 marbles in YOUR corner of the star.'},{who:'kid',text:'On your turn, move one marble one step in any direction, or jump over a neighbor marble.'},{who:'kid',text:'Chain jumps are allowed! Plan ahead to hop across the board in one turn.'},{who:'adult',text:'Goal: Get ALL your marbles to the opposite corner first. Help younger kids spot big jump chains!'}]},marble:{title:'Marble Solitaire',eyebrow:'Hard · Ages 6-Teen',subtitle:'The ultimate solo puzzle. Can you leave just ONE marble standing?',video:'/Marble Solitaire.mp4',images:[],materials:['Cross-shaped board','32 Marbles','Thick foam','Pencil'],steps:[{who:'adult',text:'Parent prep: Cut a cross-shaped board from thick foam. Poke 33 holes in a 7x7 cross. Leave center empty.'},{who:'kid',text:'Fill all 32 holes with marbles. Center stays empty - this is your start!'},{who:'kid',text:'A move = jump one marble OVER an adjacent marble into an empty hole. Remove the jumped marble.'},{who:'kid',text:'Keep jumping until no more moves are possible. Aim for just ONE marble left!'},{who:'adult',text:"Hint: The classic solution ends with the final marble in the center. Can your child figure out why?"},{who:'kid',text:"Stuck? Reset and try a different path. Every attempt teaches your brain something new!"}]}};
+let cur=null;
+function filterAge(btn){document.querySelectorAll('.age-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const age=btn.dataset.age;let v=0;document.querySelectorAll('.card[data-age]').forEach(c=>{const show=age==='all'||c.dataset.age.includes(age);c.classList.toggle('hidden',!show);if(show)v++;});document.getElementById('sectionLabel').textContent=v+' Project'+(v===1?'':'s')+' Ready to Build';document.getElementById('emptyState').classList.toggle('show',v===0);}
+function openDrawer(id){const p=PROJECTS[id];if(!p)return;cur=id;const vid=document.getElementById('drawerVideo');vid.src=p.video;vid.load();if(p.video)vid.play().catch(()=>{});document.getElementById('drawerImgGrid').innerHTML=p.images.map((s,i)=>`<img src="${s}" alt="img ${i}" class="${i===0?'active':''}" onclick="switchImg(this)" onerror="this.style.display='none'"/>`).join('');document.getElementById('drawerEyebrow').textContent=p.eyebrow;document.getElementById('drawerTitle').textContent=p.title;document.getElementById('drawerSubtitle').textContent=p.subtitle;document.getElementById('drawerMaterials').innerHTML=p.materials.map(m=>`<div class="material-chip">${m}</div>`).join('');document.getElementById('drawerSteps').innerHTML=p.steps.map((s,i)=>`<div class="step${s.who==='adult'?' adult-step':''}"><div class="step-num">${i+1}</div><div class="step-content"><div class="step-who">${s.who==='adult'?'Parent Step':'Kid Step'}</div><div class="step-text">${s.text}</div></div></div>`).join('');document.getElementById('drawerRight').scrollTop=0;document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function switchImg(el){document.querySelectorAll('.drawer-img-grid img').forEach(i=>i.classList.remove('active'));el.classList.add('active');}
+function closeDrawer(){document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';const v=document.getElementById('drawerVideo');v.pause();v.src='';}
+function closeDrawerOnBg(e){if(e.target===document.getElementById('drawerOverlay'))closeDrawer();}
+function copyLink(){navigator.clipboard.writeText(location.href+(cur?'#'+cur:'')).then(()=>alert('Link copied!'));}
+function saveProject(){const s=JSON.parse(localStorage.getItem('sunscout_diy')||'[]');if(!s.includes(cur)){s.push(cur);localStorage.setItem('sunscout_diy',JSON.stringify(s));}alert('Saved!');}
+window.addEventListener('DOMContentLoaded',()=>{const h=location.hash.replace('#','');if(PROJECTS[h])openDrawer(h);});
+</script>
 </body>
 </html>
