@@ -193,7 +193,7 @@ img{max-width:100%;display:block}
     </div>
     <div class="lt-hero-img">
       <div class="lt-hero-circle">
-        <div class="lt-hero-circle-inner">🍽️</div>
+        <div class="lt-hero-circle-inner"><img src="assets/lt/hero.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove();this.parentElement.textContent='🍽️';"></div>
       </div>
       <div class="lt-hero-stamp">
         <svg width="118" height="118" viewBox="0 0 118 118">
@@ -314,28 +314,28 @@ img{max-width:100%;display:block}
 <script>
 var LT_DEALS = {
   sunnyvale: [
-    { title: 'Indo-Chinese lunch combo', venue: 'Murphy Ave Kitchen · Murphy Ave', price: '$9.50', was: '$14', cityPill: 'Sunnyvale', featured: true, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}' },
-    { title: 'Boba tea, buy one get one', venue: 'Sunnyvale Tea House · El Camino Real', price: 'BOGO', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F9CB}' },
-    { title: 'Happy hour: craft beer + apps 30% off', venue: 'Peery Park Tap Room · 4–6pm', price: '30% off', was: '', cityPill: 'Sunnyvale', featured: true, cat: 'burgers', tag: 'Happy Hour', emoji: '\u{1F37B}' },
-    { title: 'Family Pack Biryani + free chef’s choice starter', venue: 'UlavacharU Indian Restaurant · E El Camino', price: '$24.99–$32.99', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Family Weekend Deal', emoji: '\u{1F35B}' },
-    { title: 'Weekday Hyderabadi Dum Biryani lunch combo', venue: 'Charminar · W El Camino Real', price: 'Lunch combo', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}' },
-    { title: 'Tri-tip sandwich special + $9.99 beer pitchers', venue: 'St. John’s Bar & Grill · Lawrence Expwy · Fridays', price: '$9.99 pitchers', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'burgers', tag: 'Team Lunch / Happy Hour', emoji: '\u{1F354}' },
-    { title: 'Afternoon slump: BOGO 50% off tea, waffles, ice cream', venue: 'Murphy Ave & El Camino dessert shops · 2–5pm', price: 'BOGO 50%', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F368}' },
-    { title: 'Weekend early bird: 15% off breakfast platters', venue: 'Sunnyvale breakfast & brunch spots · 7–9am', price: '15% off', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'kids', tag: 'Weekend Morning', emoji: '\u{1F373}' },
-    { title: '3-Truck Trail Pass: $2 off at 3 trucks', venue: 'Murphy Ave & Bay Area truck pop-ups · weekends', price: '$2 off ×3', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'trucks', tag: 'Weekend Trail', emoji: '\u{1F69A}' }
+    { title: 'Indo-Chinese lunch combo', venue: 'Murphy Ave Kitchen · Murphy Ave', price: '$9.50', was: '$14', cityPill: 'Sunnyvale', featured: true, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}', img: 'assets/lt2/indochinese.jpg' },
+    { title: 'Boba tea, buy one get one', venue: 'Sunnyvale Tea House · El Camino Real', price: 'BOGO', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F9CB}', img: 'assets/lt2/boba.jpg' },
+    { title: 'Happy hour: craft beer + apps 30% off', venue: 'Peery Park Tap Room · 4–6pm', price: '30% off', was: '', cityPill: 'Sunnyvale', featured: true, cat: 'burgers', tag: 'Happy Hour', emoji: '\u{1F37B}', img: 'assets/lt2/happyhour.jpg' },
+    { title: 'Family Pack Biryani + free chef’s choice starter', venue: 'UlavacharU Indian Restaurant · E El Camino', price: '$24.99–$32.99', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Family Weekend Deal', emoji: '\u{1F35B}', img: 'assets/lt2/ulavacharu.jpg' },
+    { title: 'Weekday Hyderabadi Dum Biryani lunch combo', venue: 'Charminar · W El Camino Real', price: 'Lunch combo', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}', img: 'assets/lt2/charminar.jpg' },
+    { title: 'Tri-tip sandwich special + $9.99 beer pitchers', venue: 'St. John’s Bar & Grill · Lawrence Expwy · Fridays', price: '$9.99 pitchers', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'burgers', tag: 'Team Lunch / Happy Hour', emoji: '\u{1F354}', img: 'assets/lt2/stjohns.jpg' },
+    { title: 'Afternoon slump: BOGO 50% off tea, waffles, ice cream', venue: 'Murphy Ave & El Camino dessert shops · 2–5pm', price: 'BOGO 50%', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F368}', img: 'assets/lt2/slump.jpg' },
+    { title: 'Weekend early bird: 15% off breakfast platters', venue: 'Sunnyvale breakfast & brunch spots · 7–9am', price: '15% off', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'kids', tag: 'Weekend Morning', emoji: '\u{1F373}', img: 'assets/lt2/earlybird.jpg' },
+    { title: '3-Truck Trail Pass: $2 off at 3 trucks', venue: 'Murphy Ave & Bay Area truck pop-ups · weekends', price: '$2 off ×3', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'trucks', tag: 'Weekend Trail', emoji: '\u{1F69A}', img: 'assets/lt2/trailpass.jpg' }
   ],
   aubrey: [
-    { title: 'Feed 4 for $45: pasta & pizza', venue: 'Aubrey Family Table · E University Dr', price: '$45', was: '', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F35D}' },
-    { title: 'Taco Tuesday', venue: 'Casa Alma · every Tuesday', price: '$1.75', was: '$3.50', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F32E}' },
-    { title: 'Weekend BBQ family platter', venue: 'Denton County Smokehouse', price: '$28', was: '$40', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F356}' },
-    { title: 'App signup: free biryani with purchase + loyalty points', venue: 'Desi District · Prosper / US-380', price: 'Free w/ purchase', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'App BOGO / Loyalty', emoji: '\u{1F35B}' },
-    { title: 'Weekend thali & biryani specials', venue: 'Sai Bhavan · Prosper — mutton sukka, paneer, shrimp biryani', price: 'Weekend special', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Weekend Special', emoji: '\u{1F35B}' },
-    { title: '$7.50 smashed burgers, quesadillas & tater kegs', venue: '54th Street Grill & Bar · US-380 · 3–6pm & 9pm–close', price: '$7.50', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Late Night / Afternoon', emoji: '\u{1F354}' },
-    { title: '$5.99 personal cheese pizza · $6.99 6pc wings', venue: 'Parry’s Pizzeria & Taphouse · US-380 · Mon–Fri 3–6pm, all day Sun', price: '$5.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Weekday / Weekend Value', emoji: '\u{1F355}' },
-    { title: 'Buy 2 large scoops, get 1 kids scoop free', venue: 'Aubrey ice cream & bakery hubs · Sunday afternoons', price: '2+1 free', was: '', cityPill: 'Aubrey', featured: false, cat: 'icecream', tag: 'Weekend Family Treat', emoji: '\u{1F368}' },
-    { title: 'Kids eat free Wednesdays', venue: 'Metro Diner · with $8.99+ adult entrée', price: 'Free kids meal', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F9D2}' },
-    { title: 'Promo code: free kids meal per adult entrée', venue: 'Aubrey neighborhood grills', price: 'Promo code', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Weekend / Evening Family', emoji: '\u{1F9D2}' },
-    { title: 'Weekend Family Pack: 2 adult + 2 kids meals + drinks', venue: 'US-380 food truck parks', price: '$35', was: '', cityPill: 'Aubrey', featured: false, cat: 'trucks', tag: 'Weekend Family Pack', emoji: '\u{1F69A}' }
+    { title: 'Feed 4 for $45: pasta & pizza', venue: 'Aubrey Family Table · E University Dr', price: '$45', was: '', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F35D}', img: 'assets/aub/pasta.jpg' },
+    { title: 'Taco Tuesday', venue: 'Casa Alma · every Tuesday', price: '$1.75', was: '$3.50', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F32E}', img: 'assets/aub/taco.jpg' },
+    { title: 'Weekend BBQ family platter', venue: 'Denton County Smokehouse', price: '$28', was: '$40', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F356}', img: 'assets/aub/bbq.jpg' },
+    { title: 'App signup: free biryani with purchase + loyalty points', venue: 'Desi District · Prosper / US-380', price: 'Free w/ purchase', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'App BOGO / Loyalty', emoji: '\u{1F35B}', img: 'assets/aub/desidistrict.jpg' },
+    { title: 'Weekend thali & biryani specials', venue: 'Sai Bhavan · Prosper — mutton sukka, paneer, shrimp biryani', price: 'Weekend special', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Weekend Special', emoji: '\u{1F35B}', img: 'assets/aub/saibhavan.jpg' },
+    { title: '$7.50 smashed burgers, quesadillas & tater kegs', venue: '54th Street Grill & Bar · US-380 · 3–6pm & 9pm–close', price: '$7.50', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Late Night / Afternoon', emoji: '\u{1F354}', img: 'assets/aub/54th.jpg' },
+    { title: '$5.99 personal cheese pizza · $6.99 6pc wings', venue: 'Parry’s Pizzeria & Taphouse · US-380 · Mon–Fri 3–6pm, all day Sun', price: '$5.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Weekday / Weekend Value', emoji: '\u{1F355}', img: 'assets/aub/parrys.jpg' },
+    { title: 'Buy 2 large scoops, get 1 kids scoop free', venue: 'Aubrey ice cream & bakery hubs · Sunday afternoons', price: '2+1 free', was: '', cityPill: 'Aubrey', featured: false, cat: 'icecream', tag: 'Weekend Family Treat', emoji: '\u{1F368}', img: 'assets/aub/sundae.jpg' },
+    { title: 'Kids eat free Wednesdays', venue: 'Metro Diner · with $8.99+ adult entrée', price: 'Free kids meal', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F9D2}', img: 'assets/aub/metrodiner.jpg' },
+    { title: 'Promo code: free kids meal per adult entrée', venue: 'Aubrey neighborhood grills', price: 'Promo code', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Weekend / Evening Family', emoji: '\u{1F9D2}', img: null },
+    { title: 'Weekend Family Pack: 2 adult + 2 kids meals + drinks', venue: 'US-380 food truck parks', price: '$35', was: '', cityPill: 'Aubrey', featured: false, cat: 'trucks', tag: 'Weekend Family Pack', emoji: '\u{1F69A}', img: 'assets/food/momos.jpg' }
   ]
 };
 
@@ -399,10 +399,13 @@ function ltRender(){
   var gridHtml = deals.map(function(d){
     var wasHtml = d.was ? '<span class="lt-price-was">' + ltEsc(d.was) + '</span>' : '';
     var featuredHtml = d.featured ? '<span class="lt-badge lt-badge-featured">Featured</span>' : '';
+    var photoHtml = d.img
+      ? '<img src="' + ltEsc(d.img) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove();this.parentElement.textContent=\'' + d.emoji + '\';">'
+      : d.emoji;
     return (
       '<div class="lt-deal-card">' +
         '<div class="lt-ladle">' +
-          '<div class="lt-bowl"><div class="lt-bowl-inner">' + d.emoji + '<div class="lt-bowl-shine"></div></div></div>' +
+          '<div class="lt-bowl"><div class="lt-bowl-inner">' + photoHtml + '<div class="lt-bowl-shine"></div></div></div>' +
           '<svg class="lt-handle" width="78" height="88" viewBox="0 0 78 88">' +
             '<defs><linearGradient id="lt-handle-g" x1="0" y1="0" x2="1" y2="1">' +
               '<stop offset="0" stop-color="#F3D588"></stop><stop offset="0.45" stop-color="#C6633B"></stop>' +
