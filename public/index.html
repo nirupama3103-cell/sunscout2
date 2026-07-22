@@ -39,7 +39,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#f0f9ff!important;color:#1a1a1a!important;min-height:unset;color-scheme:light only;}
+html,body{background:linear-gradient(rgba(240,249,255,.82),rgba(240,249,255,.82)),url('/images/bg-rainbow-clouds.webp') center/cover no-repeat fixed!important;}
+body{font-family:'Nunito',sans-serif;color:#1a1a1a!important;min-height:unset;color-scheme:light only;}
+@media(prefers-reduced-motion:reduce){html,body{background-attachment:scroll!important;}}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
