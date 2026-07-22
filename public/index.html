@@ -768,7 +768,7 @@ html { scroll-behavior: smooth; }
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.6rem;">☀️</span><span style="font-size:1.7rem;font-weight:900;color:#1565c0;line-height:1;">Sun<span style="color:#FF9900;">Scout</span><span style="font-size:.8rem;font-weight:800;color:#4FC3F7;margin-left:4px;">kids</span></span></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- Full width search -->
@@ -843,6 +843,7 @@ html { scroll-behavior: smooth; }
               <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
               <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
               <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">🛠️ DIY Projects</div>
+              <div class="dtmr" onclick="window.location.href='/local-table/';toggleSsMenu(event)" style="color:#C6633B;">🍽️ Local Table Deals</div>
               <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">🌤️ About</div>
             </div>
           </div>
@@ -2016,6 +2017,10 @@ function syncBnav(tab) {
     <a class="bnav-btn" href="/diy.html" style="text-decoration:none;">
       <span class="bnav-icon">🛠️</span>
       <span class="bnav-label">DIY</span>
+    </a>
+    <a class="bnav-btn" href="/local-table/" style="text-decoration:none;">
+      <span class="bnav-icon">🍽️</span>
+      <span class="bnav-label">Deals</span>
     </a>
   </div>
 </nav>
