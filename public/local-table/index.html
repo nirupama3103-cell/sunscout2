@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Local Table – Sister site of SunScout Kids</title>
+<meta name="description" content="Verified, no-nonsense food deals near you in Sunnyvale, CA and Aubrey, TX. A sister brand of SunScout Kids."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:#1C1208;font-family:'Work Sans',sans-serif;color:#F6EFE4;min-height:100vh}
+a{color:#D9A441}
+a:hover{color:#F3D588}
+button{font-family:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+
+/* ── NAV ── */
+.lt-nav{background:linear-gradient(90deg,#0A0603 0%,#1A1008 50%,#0A0603 100%);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 32px;flex-wrap:wrap;border-bottom:1px solid rgba(217,164,65,0.2)}
+.lt-nav-brand{display:flex;align-items:center;gap:10px}
+.lt-nav-brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.35rem;color:#F6EFE4}
+.lt-live-badge{display:inline-flex;align-items:center;gap:5px;background:#7C8B6F;color:#F6EFE4;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.lt-live-dot{width:6px;height:6px;border-radius:50%;background:#F6EFE4}
+.lt-nav-links{display:flex;align-items:center;gap:24px;font-size:.9rem;font-weight:500}
+.lt-nav-links a{color:#F6EFE4;text-decoration:none}
+.lt-back-link{color:#EFE5D3;opacity:.75;text-decoration:none;font-size:.85rem}
+.lt-back-link:hover{opacity:1;color:#F3D588}
+.lt-city-toggle{display:flex;background:#2A1A0E;border-radius:999px;padding:4px;border:1px solid rgba(217,164,65,0.28)}
+.lt-toggle-btn{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:999px;background:transparent;color:#EFE5D3;transition:background .15s,color .15s}
+.lt-toggle-btn.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
+@media(max-width:700px){.lt-nav-links{display:none}}
+
+/* ── HERO ── */
+.lt-hero{position:relative;background:linear-gradient(155deg,#1E1712 0%,#3A2A1C 45%,#2B211B 100%);color:#F6EFE4;padding:64px 32px 96px;overflow:hidden}
+.lt-hero-svg{position:absolute;inset:0;width:100%;height:100%}
+.lt-hero-veil{position:absolute;inset:0;background:linear-gradient(100deg,rgba(30,23,18,0.85) 0%,rgba(30,23,18,0.55) 45%,rgba(30,23,18,0.18) 75%,rgba(30,23,18,0.05) 100%)}
+.lt-hero-grid{position:relative;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.lt-hero-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D9A441;margin-bottom:18px;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
+.lt-hero-title{font-family:'Fraunces',serif;font-weight:500;font-size:3.2rem;line-height:1.08;margin:0 0 18px;text-shadow:0 2px 6px rgba(0,0,0,0.45)}
+.lt-hero-title em{font-style:italic;color:#E8A87C}
+.lt-hero-copy{font-size:1.05rem;line-height:1.6;color:#EFE5D3;opacity:.9;margin:0 0 28px;max-width:460px;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
+.lt-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.lt-btn-solid{text-decoration:none;background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;font-weight:600;font-size:.95rem;padding:13px 26px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.55),inset 0 -2px 3px rgba(58,26,12,0.5),0 6px 14px rgba(0,0,0,0.35);text-shadow:0 1px 1px rgba(58,26,12,0.4)}
+.lt-btn-outline{text-decoration:none;background:linear-gradient(180deg,#6B4A33 0%,#4A3120 100%);border:1px solid #C89B6A;color:#F3D588;font-weight:600;font-size:.95rem;padding:13px 26px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(243,213,136,0.4),inset 0 -2px 3px rgba(0,0,0,0.45),0 6px 14px rgba(0,0,0,0.35)}
+.lt-hero-stats{display:flex;gap:36px;flex-wrap:wrap}
+.lt-hero-stat-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600}
+.lt-hero-stat-label{font-size:.82rem;opacity:.7}
+.lt-hero-img{position:relative;justify-self:center}
+.lt-hero-circle{width:340px;height:340px;border-radius:50%;padding:8px;box-sizing:border-box;background:linear-gradient(135deg,#F3D588 0%,#C6633B 40%,#8E4227 70%,#D9A441 100%);box-shadow:0 16px 36px rgba(0,0,0,0.45),inset 0 2px 3px rgba(255,255,255,0.5)}
+.lt-hero-circle-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#EFE5D3;display:flex;align-items:center;justify-content:center;font-size:6rem}
+.lt-hero-stamp{position:absolute;top:-14px;right:-14px;transform:rotate(12deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35))}
+@media(max-width:700px){
+  .lt-hero-grid{grid-template-columns:1fr}
+  .lt-hero-img{display:none}
+  .lt-hero-title{font-size:2.1rem}
+}
+
+/* ── DEALS ── */
+.lt-deals{background:linear-gradient(180deg,#2A1E10 0%,#341F0E 55%,#2A1E10 100%);padding:56px 32px 24px}
+.lt-section-inner{max-width:1100px;margin:0 auto}
+.lt-h2{font-family:'Fraunces',serif;font-weight:500;font-size:2rem;margin:0 0 6px;color:#F3D588}
+.lt-deals-sub{font-size:.95rem;color:#EFE5D3;opacity:.85;margin:0 0 20px}
+.lt-cat-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.lt-cat-pill{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:9px 18px;border-radius:999px;white-space:nowrap;background:linear-gradient(180deg,#5A3B1E,#3A2416);color:#F3D588;border:1px solid rgba(217,164,65,0.32);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),inset 0 -2px 3px rgba(0,0,0,0.35)}
+.lt-cat-pill.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5),0 4px 8px rgba(43,33,27,0.25);border-color:transparent}
+.lt-deals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.lt-deal-card{background:transparent;padding:12px 8px 0}
+.lt-ladle{position:relative;width:200px;margin:0 auto 14px}
+.lt-bowl{width:156px;height:156px;margin:0 auto;border-radius:50%;padding:7px;box-sizing:border-box;background:linear-gradient(135deg,#F3D588 0%,#C6633B 40%,#8E4227 72%,#D9A441 100%);box-shadow:0 12px 26px rgba(43,33,27,0.32),inset 0 2px 3px rgba(255,255,255,0.55)}
+.lt-bowl-inner{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#EFE5D3;display:flex;align-items:center;justify-content:center;font-size:3.4rem}
+.lt-bowl-shine{position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 32% 20%,rgba(255,255,255,0.32),transparent 52%);pointer-events:none}
+.lt-handle{position:absolute;right:2px;top:104px;filter:drop-shadow(0 5px 8px rgba(43,33,27,0.3))}
+.lt-price-row{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:-10px}
+.lt-price-medallion{display:inline-block;background:radial-gradient(circle at 35% 28%,#F3D588,#D9A441 58%,#B07E24);border:1px solid #8A6318;color:#2B211B;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;padding:7px 18px;border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,0.6),inset 0 -2px 3px rgba(110,78,18,0.45),0 5px 10px rgba(43,33,27,0.28);white-space:nowrap}
+.lt-price-was{font-size:.9rem;color:#EFE5D3;opacity:.5;text-decoration:line-through}
+.lt-badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.lt-badge{font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.lt-badge-city{background:linear-gradient(180deg,#5A3B1E,#3A2416);color:#F3D588;border:1px solid rgba(217,164,65,0.35);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -1px 2px rgba(0,0,0,0.4)}
+.lt-badge-featured{background:linear-gradient(180deg,#F3D588,#D9A441 70%);color:#2B211B;border:1px solid #8A6318;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+.lt-badge-tag{background:#7C8B6F;color:#F6EFE4}
+.lt-deal-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;text-align:center;margin:0 0 6px;color:#F6EFE4}
+.lt-deal-venue{font-size:.85rem;text-align:center;color:#EFE5D3;opacity:.8;margin:0}
+.lt-deal-verified{font-size:.68rem;text-align:center;color:#D9A441;opacity:.65;margin:8px 0 0}
+.lt-signature{text-align:center;margin:28px 0 8px}
+.lt-signature-pill{display:inline-block;background:linear-gradient(180deg,#A97B1F,#D9A441 50%,#A97B1F);color:#1C1208;font-size:.85rem;font-weight:600;padding:10px 22px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(110,78,18,0.5),0 5px 10px rgba(0,0,0,0.3)}
+
+/* ── HOW IT WORKS ── */
+.lt-about{background:linear-gradient(180deg,#1A1008 0%,#261808 55%,#1A1008 100%);padding:40px 32px 72px}
+.lt-steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:28px}
+.lt-step-panel{position:relative;border-radius:10px;padding:24px 22px;transform:skewX(-2.5deg)}
+.lt-step-panel-copper{background:linear-gradient(115deg,#9C5A31 0%,#D08A55 30%,#F0C9A5 52%,#E0A377 72%,#9C5A31 100%);color:#3A2416;box-shadow:inset 0 2px 2px rgba(255,255,255,0.55),inset 0 -3px 5px rgba(58,26,12,0.4),0 8px 18px rgba(43,33,27,0.25);border:1px solid rgba(110,60,30,0.4)}
+.lt-step-panel-gold{background:linear-gradient(115deg,#A97B1F 0%,#D9A441 30%,#F3DD9B 52%,#E3BC63 72%,#A97B1F 100%);color:#2B211B;box-shadow:inset 0 2px 2px rgba(255,255,255,0.55),inset 0 -3px 5px rgba(110,78,18,0.4),0 8px 18px rgba(43,33,27,0.25);border:1px solid rgba(138,99,24,0.45)}
+.lt-step-inner{transform:skewX(2.5deg)}
+.lt-step-num{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#F3D588,#D9A441 58%,#B07E24);border:1px solid #8A6318;color:#2B211B;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;margin-bottom:14px;box-shadow:inset 0 1px 1px rgba(255,255,255,0.6),inset 0 -2px 3px rgba(110,78,18,0.45),0 4px 8px rgba(43,33,27,0.25)}
+.lt-step-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;margin:0 0 8px}
+.lt-step-body{font-size:.85rem;line-height:1.55;margin:0;opacity:.85}
+
+/* ── PRICING ── */
+.lt-pricing{background:linear-gradient(180deg,#100A04 0%,#180E06 50%,#100A04 100%);color:#F6EFE4;padding:64px 32px 72px}
+.lt-pricing-sub{font-size:.95rem;opacity:.75;margin:0 0 36px}
+.lt-tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;align-items:stretch}
+.lt-tier-card{position:relative;background:linear-gradient(145deg,#4A3120 0%,#5F3E24 40%,#7A4E2B 62%,#43301C 100%);border:1px solid rgba(217,164,65,0.5);border-radius:14px;padding:30px 26px;display:flex;flex-direction:column;box-shadow:inset 0 1px 0 rgba(243,213,136,0.35),inset 0 -3px 6px rgba(0,0,0,0.4),0 10px 22px rgba(0,0,0,0.35)}
+.lt-tier-card.popular{border:2px solid #D9A441;box-shadow:inset 0 1px 0 rgba(243,213,136,0.35),inset 0 -3px 6px rgba(0,0,0,0.4),0 10px 22px rgba(0,0,0,0.35),0 0 24px rgba(217,164,65,0.25)}
+.lt-tier-popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#F3D588,#D9A441 70%);color:#2B211B;font-size:.72rem;font-weight:600;padding:5px 14px;border-radius:999px;white-space:nowrap;border:1px solid #8A6318;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 8px rgba(0,0,0,0.35)}
+.lt-tier-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;margin:0 0 6px}
+.lt-tier-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:18px}
+.lt-tier-price{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:600;color:#F3D588;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
+.lt-tier-per{font-size:.85rem;opacity:.7}
+.lt-tier-perk{display:flex;gap:8px;align-items:flex-start;font-size:.88rem;line-height:1.5;margin-bottom:9px}
+.lt-tier-perk-check{color:#D9A441;font-weight:600}
+.lt-tier-cta{margin-top:auto;text-decoration:none;text-align:center;font-weight:600;font-size:.9rem;padding:11px 20px;border-radius:999px;margin-top:18px}
+.lt-tier-cta-solid{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5),0 5px 10px rgba(0,0,0,0.3);text-shadow:0 1px 1px rgba(58,26,12,0.4)}
+.lt-tier-cta-outline{background:linear-gradient(180deg,#6B4A33 0%,#4A3120 100%);border:1px solid #C89B6A;color:#F3D588;box-shadow:inset 0 1px 0 rgba(243,213,136,0.4),inset 0 -2px 3px rgba(0,0,0,0.45),0 5px 10px rgba(0,0,0,0.3)}
+
+/* ── FOOTER ── */
+.lt-footer{background:linear-gradient(180deg,#0A0603 0%,#0F0804 100%);color:#EFE5D3;padding:52px 32px;border-top:1px solid rgba(217,164,65,0.15)}
+.lt-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center}
+.lt-footer-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin-bottom:8px}
+.lt-footer-sub{font-size:.85rem;opacity:.7;margin:0}
+.lt-subscribe{display:flex;background:#1C1208;border-radius:999px;padding:5px;gap:6px;border:1px solid rgba(217,164,65,0.28)}
+.lt-subscribe input{background:transparent;border:none;outline:none;color:#F6EFE4;font-size:.88rem;padding:9px 16px;width:230px}
+.lt-subscribe button{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;font-weight:600;font-size:.85rem;padding:9px 20px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
+@media(max-width:640px){.lt-footer-inner{flex-direction:column;align-items:flex-start}.lt-subscribe input{width:auto;flex:1}}
+</style>
+</head>
+<body>
+
+<nav class="lt-nav">
+  <div class="lt-nav-brand">
+    <span class="lt-nav-brand-name">Local Table</span>
+    <span class="lt-live-badge"><span class="lt-live-dot"></span> Live</span>
+  </div>
+  <div class="lt-nav-links">
+    <a href="#deals">Deals</a>
+    <a href="#pricing">List your business</a>
+    <a href="#about">About</a>
+    <a class="lt-back-link" href="/">&larr; SunScout Kids</a>
+  </div>
+  <div class="lt-city-toggle">
+    <button class="lt-toggle-btn" id="lt-city-svl" onclick="ltSetCity('sunnyvale')">Sunnyvale, CA</button>
+    <button class="lt-toggle-btn" id="lt-city-aub" onclick="ltSetCity('aubrey')">Aubrey, TX</button>
+  </div>
+</nav>
+
+<div class="lt-hero">
+  <svg class="lt-hero-svg" viewBox="0 0 1200 640" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="lt-rib-gold" x1="0" y1="0" x2="1" y2="0.4">
+        <stop offset="0" stop-color="#6E4E12"></stop>
+        <stop offset="0.28" stop-color="#D9A441"></stop>
+        <stop offset="0.5" stop-color="#F3D588"></stop>
+        <stop offset="0.72" stop-color="#B07E24"></stop>
+        <stop offset="1" stop-color="#8A6318"></stop>
+      </linearGradient>
+      <linearGradient id="lt-rib-copper" x1="0" y1="0" x2="1" y2="0.5">
+        <stop offset="0" stop-color="#4A2414"></stop>
+        <stop offset="0.3" stop-color="#C6633B"></stop>
+        <stop offset="0.52" stop-color="#E8A87C"></stop>
+        <stop offset="0.75" stop-color="#8E4227"></stop>
+        <stop offset="1" stop-color="#5A2E1B"></stop>
+      </linearGradient>
+      <linearGradient id="lt-rib-bronze" x1="0" y1="0.2" x2="1" y2="0.8">
+        <stop offset="0" stop-color="#3A2416"></stop>
+        <stop offset="0.4" stop-color="#9C6B3E"></stop>
+        <stop offset="0.6" stop-color="#D9B07A"></stop>
+        <stop offset="1" stop-color="#5F3E24"></stop>
+      </linearGradient>
+      <filter id="lt-rib-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"></feGaussianBlur></filter>
+    </defs>
+    <path d="M0,110 C180,20 360,210 600,140 C840,70 980,220 1200,110 L1200,0 L0,0 Z" fill="url(#lt-rib-gold)" opacity="0.85"></path>
+    <path d="M0,150 C200,60 380,240 620,165 C850,95 1000,240 1200,140 L1200,105 C980,215 845,60 605,133 C370,205 190,15 0,105 Z" fill="#F6EFE4" opacity="0.22" filter="url(#lt-rib-blur)"></path>
+    <path d="M0,340 C240,220 470,430 730,320 C950,228 1090,380 1200,300 L1200,430 C1050,520 900,360 700,440 C460,536 220,340 0,470 Z" fill="url(#lt-rib-copper)" opacity="0.8"></path>
+    <path d="M0,352 C240,235 468,438 726,330" fill="none" stroke="#F6EFE4" stroke-width="12" stroke-linecap="round" opacity="0.3" filter="url(#lt-rib-blur)"></path>
+    <path d="M0,620 C260,540 520,660 780,580 C1000,512 1120,620 1200,560 L1200,640 L0,640 Z" fill="url(#lt-rib-bronze)" opacity="0.65"></path>
+    <path d="M760,588 C990,516 1116,622 1200,566" fill="none" stroke="#F3D588" stroke-width="8" stroke-linecap="round" opacity="0.3" filter="url(#lt-rib-blur)"></path>
+  </svg>
+  <div class="lt-hero-veil"></div>
+  <div class="lt-hero-grid">
+    <div>
+      <div class="lt-hero-eyebrow" id="lt-hero-eyebrow"></div>
+      <h1 class="lt-hero-title">Good food nearby, at a <em>fair</em> price.</h1>
+      <p class="lt-hero-copy" id="lt-hero-copy"></p>
+      <div class="lt-hero-ctas">
+        <a class="lt-btn-solid" href="#deals">Browse today's deals</a>
+        <a class="lt-btn-outline" href="#pricing">List your restaurant</a>
+      </div>
+      <div class="lt-hero-stats">
+        <div><div class="lt-hero-stat-num">20</div><div class="lt-hero-stat-label">active deals</div></div>
+        <div><div class="lt-hero-stat-num">2</div><div class="lt-hero-stat-label">cities</div></div>
+        <div><div class="lt-hero-stat-num">96%</div><div class="lt-hero-stat-label">verified weekly</div></div>
+      </div>
+    </div>
+    <div class="lt-hero-img">
+      <div class="lt-hero-circle">
+        <div class="lt-hero-circle-inner">🍽️</div>
+      </div>
+      <div class="lt-hero-stamp">
+        <svg width="118" height="118" viewBox="0 0 118 118">
+          <defs>
+            <radialGradient id="lt-stamp-gold" cx="0.35" cy="0.3" r="0.9">
+              <stop offset="0" stop-color="#F3D588"></stop>
+              <stop offset="0.55" stop-color="#D9A441"></stop>
+              <stop offset="1" stop-color="#B07E24"></stop>
+            </radialGradient>
+          </defs>
+          <circle cx="59" cy="59" r="57" fill="url(#lt-stamp-gold)"></circle>
+          <circle cx="59" cy="59" r="44" fill="none" stroke="#8A6318" stroke-width="1.5" stroke-dasharray="3 4"></circle>
+          <path id="lt-stamp-arc" d="M 59,59 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none"></path>
+          <text style="font-family:'Work Sans',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:1.2px;fill:#2B211B;">
+            <textPath href="#lt-stamp-arc">VERIFIED LOCAL DEAL &#8226; LOCAL TABLE &#8226;</textPath>
+          </text>
+          <text x="59" y="66" text-anchor="middle" style="font-family:'Fraunces',serif;font-size:22px;font-weight:600;fill:#2B211B;">&#10003;</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background:#1A1008;line-height:0;margin-top:-1px;">
+  <svg width="100%" height="36" viewBox="0 0 1200 36" preserveAspectRatio="none" style="display:block;">
+    <path d="M0,36 C25,0 75,0 100,36 C125,0 175,0 200,36 C225,0 275,0 300,36 C325,0 375,0 400,36 C425,0 475,0 500,36 C525,0 575,0 600,36 C625,0 675,0 700,36 C725,0 775,0 800,36 C825,0 875,0 900,36 C925,0 975,0 1000,36 C1025,0 1075,0 1100,36 C1125,0 1175,0 1200,36 Z" fill="#2A1E10" transform="translate(0,36) scale(1,-1)"></path>
+  </svg>
+</div>
+
+<div class="lt-deals" id="deals">
+  <div class="lt-section-inner">
+    <h2 class="lt-h2" id="lt-city-heading"></h2>
+    <p class="lt-deals-sub" id="lt-deals-sub"></p>
+    <div class="lt-cat-pills" id="lt-cat-pills"></div>
+    <div class="lt-deals-grid" id="lt-deals-grid"></div>
+    <div class="lt-signature">
+      <span class="lt-signature-pill" id="lt-signature"></span>
+    </div>
+  </div>
+</div>
+
+<div class="lt-about" id="about">
+  <div class="lt-section-inner">
+    <h2 class="lt-h2">How it works</h2>
+    <div class="lt-steps-grid">
+      <div class="lt-step-panel lt-step-panel-copper"><div class="lt-step-inner">
+        <div class="lt-step-num">01</div>
+        <h3 class="lt-step-title">Deal map</h3>
+        <p class="lt-step-body">Geofenced deals near you, expiring in 2&ndash;6 hours. See what&rsquo;s close before it&rsquo;s gone.</p>
+      </div></div>
+      <div class="lt-step-panel lt-step-panel-gold"><div class="lt-step-inner">
+        <div class="lt-step-num">02</div>
+        <h3 class="lt-step-title">Off-peak drops</h3>
+        <p class="lt-step-body">Restaurants post 20&ndash;40% off during slow hours, usually 2&ndash;5pm. Good food, quiet room.</p>
+      </div></div>
+      <div class="lt-step-panel lt-step-panel-copper"><div class="lt-step-inner">
+        <div class="lt-step-num">03</div>
+        <h3 class="lt-step-title">Claim &amp; show</h3>
+        <p class="lt-step-body">Tap claim, show the QR code at the counter. No pre-pay, no coupons to print.</p>
+      </div></div>
+      <div class="lt-step-panel lt-step-panel-gold"><div class="lt-step-inner">
+        <div class="lt-step-num">04</div>
+        <h3 class="lt-step-title">Community drops</h3>
+        <p class="lt-step-body">Spotted a deal we missed? Submit it, we verify it, you earn points.</p>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="lt-pricing" id="pricing">
+  <div class="lt-section-inner">
+    <h2 class="lt-h2" style="color:#F6EFE4;">For restaurants</h2>
+    <p class="lt-pricing-sub">Plain pricing. Cancel any month.</p>
+    <div class="lt-tiers-grid">
+      <div class="lt-tier-card">
+        <h3 class="lt-tier-name">Basic</h3>
+        <div class="lt-tier-price-row"><span class="lt-tier-price">$25</span><span class="lt-tier-per">/mo</span></div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> 2 active deals</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Photo gallery on your listing</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Included in the weekly email</div>
+        <a class="lt-tier-cta lt-tier-cta-outline" href="#pricing">List your restaurant</a>
+      </div>
+      <div class="lt-tier-card popular">
+        <span class="lt-tier-popular-badge">Most popular</span>
+        <h3 class="lt-tier-name">Featured</h3>
+        <div class="lt-tier-price-row"><span class="lt-tier-price">$55</span><span class="lt-tier-per">/mo</span></div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Unlimited deals</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Priority placement in the grid</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Included in our social posts</div>
+        <a class="lt-tier-cta lt-tier-cta-solid" href="#pricing">List your restaurant</a>
+      </div>
+      <div class="lt-tier-card">
+        <h3 class="lt-tier-name">Sponsor</h3>
+        <div class="lt-tier-price-row"><span class="lt-tier-price">$130</span><span class="lt-tier-per">/mo</span></div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> One slot per city</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Homepage hero placement</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Deal-of-the-week feature</div>
+        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Monthly analytics report</div>
+        <a class="lt-tier-cta lt-tier-cta-outline" href="#pricing">Ask about the slot</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lt-footer">
+  <div class="lt-footer-inner">
+    <div>
+      <div class="lt-footer-title">Local Table</div>
+      <p class="lt-footer-sub">Sister brand of <a href="/">SunScout Kids</a> &mdash; free summer activities for families.</p>
+    </div>
+    <div class="lt-subscribe">
+      <input type="email" placeholder="Your email for weekly deals">
+      <button type="button">Get the list</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var LT_DEALS = {
+  sunnyvale: [
+    { title: 'Indo-Chinese lunch combo', venue: 'Murphy Ave Kitchen · Murphy Ave', price: '$9.50', was: '$14', cityPill: 'Sunnyvale', featured: true, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}' },
+    { title: 'Boba tea, buy one get one', venue: 'Sunnyvale Tea House · El Camino Real', price: 'BOGO', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F9CB}' },
+    { title: 'Happy hour: craft beer + apps 30% off', venue: 'Peery Park Tap Room · 4–6pm', price: '30% off', was: '', cityPill: 'Sunnyvale', featured: true, cat: 'burgers', tag: 'Happy Hour', emoji: '\u{1F37B}' },
+    { title: 'Family Pack Biryani + free chef’s choice starter', venue: 'UlavacharU Indian Restaurant · E El Camino', price: '$24.99–$32.99', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Family Weekend Deal', emoji: '\u{1F35B}' },
+    { title: 'Weekday Hyderabadi Dum Biryani lunch combo', venue: 'Charminar · W El Camino Real', price: 'Lunch combo', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}' },
+    { title: 'Tri-tip sandwich special + $9.99 beer pitchers', venue: 'St. John’s Bar & Grill · Lawrence Expwy · Fridays', price: '$9.99 pitchers', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'burgers', tag: 'Team Lunch / Happy Hour', emoji: '\u{1F354}' },
+    { title: 'Afternoon slump: BOGO 50% off tea, waffles, ice cream', venue: 'Murphy Ave & El Camino dessert shops · 2–5pm', price: 'BOGO 50%', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F368}' },
+    { title: 'Weekend early bird: 15% off breakfast platters', venue: 'Sunnyvale breakfast & brunch spots · 7–9am', price: '15% off', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'kids', tag: 'Weekend Morning', emoji: '\u{1F373}' },
+    { title: '3-Truck Trail Pass: $2 off at 3 trucks', venue: 'Murphy Ave & Bay Area truck pop-ups · weekends', price: '$2 off ×3', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'trucks', tag: 'Weekend Trail', emoji: '\u{1F69A}' }
+  ],
+  aubrey: [
+    { title: 'Feed 4 for $45: pasta & pizza', venue: 'Aubrey Family Table · E University Dr', price: '$45', was: '', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F35D}' },
+    { title: 'Taco Tuesday', venue: 'Casa Alma · every Tuesday', price: '$1.75', was: '$3.50', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F32E}' },
+    { title: 'Weekend BBQ family platter', venue: 'Denton County Smokehouse', price: '$28', was: '$40', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F356}' },
+    { title: 'App signup: free biryani with purchase + loyalty points', venue: 'Desi District · Prosper / US-380', price: 'Free w/ purchase', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'App BOGO / Loyalty', emoji: '\u{1F35B}' },
+    { title: 'Weekend thali & biryani specials', venue: 'Sai Bhavan · Prosper — mutton sukka, paneer, shrimp biryani', price: 'Weekend special', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Weekend Special', emoji: '\u{1F35B}' },
+    { title: '$7.50 smashed burgers, quesadillas & tater kegs', venue: '54th Street Grill & Bar · US-380 · 3–6pm & 9pm–close', price: '$7.50', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Late Night / Afternoon', emoji: '\u{1F354}' },
+    { title: '$5.99 personal cheese pizza · $6.99 6pc wings', venue: 'Parry’s Pizzeria & Taphouse · US-380 · Mon–Fri 3–6pm, all day Sun', price: '$5.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Weekday / Weekend Value', emoji: '\u{1F355}' },
+    { title: 'Buy 2 large scoops, get 1 kids scoop free', venue: 'Aubrey ice cream & bakery hubs · Sunday afternoons', price: '2+1 free', was: '', cityPill: 'Aubrey', featured: false, cat: 'icecream', tag: 'Weekend Family Treat', emoji: '\u{1F368}' },
+    { title: 'Kids eat free Wednesdays', venue: 'Metro Diner · with $8.99+ adult entrée', price: 'Free kids meal', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F9D2}' },
+    { title: 'Promo code: free kids meal per adult entrée', venue: 'Aubrey neighborhood grills', price: 'Promo code', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Weekend / Evening Family', emoji: '\u{1F9D2}' },
+    { title: 'Weekend Family Pack: 2 adult + 2 kids meals + drinks', venue: 'US-380 food truck parks', price: '$35', was: '', cityPill: 'Aubrey', featured: false, cat: 'trucks', tag: 'Weekend Family Pack', emoji: '\u{1F69A}' }
+  ]
+};
+
+var LT_CAT_DEFS = [
+  ['all', 'All deals'],
+  ['biryani', '\u{1F35B} Biryani & South Asian'],
+  ['burgers', '\u{1F354} Burgers, Pizza & Wings'],
+  ['icecream', '\u{1F366} Ice Cream & Boba'],
+  ['kids', '\u{1F468}‍\u{1F469}‍\u{1F467}‍\u{1F466} Kids Eat Free & Breakfast'],
+  ['trucks', '\u{1F69A} Food Trucks']
+];
+
+var ltState = { city: 'sunnyvale', cat: 'all' };
+
+function ltEsc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+
+function ltSetCity(city){
+  ltState.city = city;
+  ltState.cat = 'all';
+  ltRender();
+}
+function ltSetCat(cat){
+  ltState.cat = cat;
+  ltRender();
+}
+
+function ltRender(){
+  var svl = ltState.city === 'sunnyvale';
+  document.getElementById('lt-city-svl').classList.toggle('on', svl);
+  document.getElementById('lt-city-aub').classList.toggle('on', !svl);
+
+  document.getElementById('lt-hero-eyebrow').textContent = svl
+    ? 'Lunch specials · Happy hours · Late-night bites'
+    : 'Family meals · Weekly traditions · Dine-in deals';
+  document.getElementById('lt-hero-copy').textContent = svl
+    ? 'Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.'
+    : 'Local Table finds verified deals for your family — Taco Tuesday, kids-eat-free nights, and weekend bundles along E University Dr. Checked weekly by people who live here.';
+  document.getElementById('lt-city-heading').textContent = 'Today in ' + (svl ? 'Sunnyvale, CA' : 'Aubrey, TX');
+  document.getElementById('lt-deals-sub').textContent = svl
+    ? 'Verified this week. Team Lunch Bundles give groups of 4+ coworkers a shared discount code.'
+    : 'Verified this week. The Suburban Savings Pass filters for kid-friendly, drive-thru, and weekend family bundles.';
+  document.getElementById('lt-signature').textContent = svl
+    ? 'Team Lunch Bundles — group codes for 4+ coworkers'
+    : 'Suburban Savings Pass — kid-friendly, drive-thru, weekend bundles';
+
+  var pillsHtml = LT_CAT_DEFS.map(function(def){
+    var key = def[0], label = def[1];
+    var on = ltState.cat === key ? ' on' : '';
+    return '<button class="lt-cat-pill' + on + '" onclick="ltSetCat(\'' + key + '\')">' + ltEsc(label) + '</button>';
+  }).join('');
+  document.getElementById('lt-cat-pills').innerHTML = pillsHtml;
+
+  var deals = LT_DEALS[ltState.city].filter(function(d){
+    return ltState.cat === 'all' || d.cat === ltState.cat;
+  });
+
+  var gridHtml = deals.map(function(d){
+    var wasHtml = d.was ? '<span class="lt-price-was">' + ltEsc(d.was) + '</span>' : '';
+    var featuredHtml = d.featured ? '<span class="lt-badge lt-badge-featured">Featured</span>' : '';
+    return (
+      '<div class="lt-deal-card">' +
+        '<div class="lt-ladle">' +
+          '<div class="lt-bowl"><div class="lt-bowl-inner">' + d.emoji + '<div class="lt-bowl-shine"></div></div></div>' +
+          '<svg class="lt-handle" width="78" height="88" viewBox="0 0 78 88">' +
+            '<defs><linearGradient id="lt-handle-g" x1="0" y1="0" x2="1" y2="1">' +
+              '<stop offset="0" stop-color="#F3D588"></stop><stop offset="0.45" stop-color="#C6633B"></stop>' +
+              '<stop offset="0.8" stop-color="#8E4227"></stop><stop offset="1" stop-color="#D9A441"></stop>' +
+            '</linearGradient></defs>' +
+            '<path d="M4,2 C32,10 54,30 58,50 C61,67 53,80 38,84 C29,86 21,81 20,74 C19,67 25,62 32,64 C40,66 45,59 43,49 C40,34 24,16 1,9 Z" fill="url(#lt-handle-g)"></path>' +
+            '<path d="M7,6 C31,14 49,31 54,50" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"></path>' +
+          '</svg>' +
+          '<div class="lt-price-row"><span class="lt-price-medallion">' + ltEsc(d.price) + '</span>' + wasHtml + '</div>' +
+        '</div>' +
+        '<div class="lt-badge-row">' +
+          '<span class="lt-badge lt-badge-city">' + ltEsc(d.cityPill) + '</span>' +
+          featuredHtml +
+          '<span class="lt-badge lt-badge-tag">' + ltEsc(d.tag) + '</span>' +
+        '</div>' +
+        '<h3 class="lt-deal-title">' + ltEsc(d.title) + '</h3>' +
+        '<p class="lt-deal-venue">' + ltEsc(d.venue) + '</p>' +
+        '<p class="lt-deal-verified">Verified Jul 22</p>' +
+      '</div>'
+    );
+  }).join('');
+  document.getElementById('lt-deals-grid').innerHTML = gridHtml;
+}
+
+ltRender();
+</script>
+</body>
+</html>
