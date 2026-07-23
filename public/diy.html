@@ -14,11 +14,19 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .top-nav .logo{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,#FF9900,#FF6B6B,#9C6FE4,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-nav .back-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:99px;text-decoration:none}
 .top-nav .back-btn:hover{background:#f0f9ff}
-.hero{background:linear-gradient(135deg,#fff7ed 0%,#e0f2fe 60%,#f3e8ff 100%);padding:32px 20px 24px;text-align:center}
-.hero-eyebrow{display:inline-block;background:var(--sun);color:#fff;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
-.hero h1{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:10px}
+.hero{position:relative;height:420px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero-slide{position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;transition:opacity 1.4s ease}
+.hero-slide.active{opacity:1}
+.hero-slide::after{content:"";position:absolute;inset:0;background:rgba(20,20,10,.42)}
+.hero-copy{position:relative;z-index:5;padding:0 20px;color:#fff}
+.hero-eyebrow{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5);color:#fff;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+.hero h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;line-height:1.15;margin-bottom:10px;text-shadow:0 3px 16px rgba(0,0,0,.35)}
 .hero h1 span{color:var(--sun)}
-.hero p{font-size:14px;color:var(--text2);max-width:480px;margin:0 auto 20px}
+.hero p{font-size:14px;color:#fff;opacity:.92;max-width:480px;margin:0 auto}
+.hero-dots{position:absolute;z-index:6;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.hero-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .3s,transform .3s}
+.hero-dots span.active{background:#fff;transform:scale(1.3)}
+@media(max-width:640px){.hero{height:360px}}
 .filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:20px 20px 16px}
 .age-chip{border:2px solid transparent;background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:99px;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,0,0,.07)}
 .age-chip:hover{transform:translateY(-2px)}
@@ -28,31 +36,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .age-chip.active[data-age="6-12"]{background:#4FC3F7;color:#1a1a1a}
 .age-chip.active[data-age="teen"]{background:#34D399;color:#fff}
 .section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);padding:0 20px 12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px 32px;max-width:1080px;margin:0 auto}
-.grid .card:nth-child(1),.grid .card:nth-child(2){grid-column:span 1}
-@media(min-width:901px){
-  .grid{grid-template-columns:repeat(6,1fr)}
-  .grid .card:nth-child(1){grid-column:span 3}
-  .grid .card:nth-child(2){grid-column:span 3}
-  .grid .card:nth-child(3){grid-column:span 2}
-  .grid .card:nth-child(4){grid-column:span 2}
-  .grid .card:nth-child(5){grid-column:span 2}
-  .grid .card:nth-child(1) .card-thumb{padding-top:56%}
-  .grid .card:nth-child(2) .card-thumb{padding-top:56%}
-  .grid .card:nth-child(1) .card-title{font-size:18px}
-  .grid .card:nth-child(2) .card-title{font-size:18px}
-  .grid .card:nth-child(1) .card-desc{font-size:13px}
-  .grid .card:nth-child(2) .card-desc{font-size:13px}
-}
-@media(max-width:640px){.grid{grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 28px}}
-@media(min-width:641px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-@media(max-width:380px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0 20px 32px;max-width:1080px;margin:0 auto}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr;gap:14px;padding:0 16px 28px}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
 .card:active{transform:scale(.97)}
 .card.hidden{display:none}
-.card-thumb{position:relative;width:100%;padding-top:52%;overflow:hidden;background:#f0f0f0}
+.card-thumb{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#f0f0f0}
 .card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .card-thumb .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18);transition:background .2s}
 .card:hover .play-overlay{background:rgba(0,0,0,.3)}
@@ -60,15 +51,17 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .card:hover .play-btn-icon{transform:scale(1.12)}
 .play-btn-icon svg{width:20px;height:20px;margin-left:3px}
 .diff-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:#fff}
-.diff-easy{background:#16a34a}.diff-medium{background:#d97706}.diff-hard{background:#dc2626}
-.age-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.92);color:var(--text)}
-.card-body{padding:14px 16px 16px}
+.diff-badge.diff-easy{background:#16a34a}
+.diff-badge.diff-medium{background:#d97706}
+.diff-badge.diff-hard{background:var(--coral)}
+.time-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(20,20,20,.6);color:#fff}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
 .card-title{font-size:15px;font-weight:900;margin-bottom:4px}
-.card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .meta-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#f0f9ff;color:var(--text2);border:1px solid #d0e9f7}
-.open-btn{width:100%;padding:9px;border-radius:10px;background:transparent;color:var(--sun);border:2px solid var(--sun);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
-.open-btn:hover{background:var(--sun);color:#fff}
+.open-btn{width:100%;padding:9px;border-radius:10px;background:var(--sun);color:#fff;border:2px solid var(--sun);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.open-btn:hover{background:var(--accent-dark,#e08600);border-color:var(--accent-dark,#e08600)}
 .drawer-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center}
 .drawer-overlay.open{display:flex}
 .drawer{background:#fff;width:100%;max-width:720px;max-height:92vh;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .3s ease}
@@ -113,17 +106,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:#aaa;background:none;border:none;cursor:pointer;padding:4px 10px;text-decoration:none}
 .bnav-item.active{color:var(--sun)}
 .bnav-item svg{width:22px;height:22px}
-.card-badges{display:flex;align-items:center;gap:6px;margin-bottom:8px}
-.badge-diff{font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;color:#fff}
-.badge-diff.diff-easy{background:#16a34a}
-.badge-diff.diff-medium{background:#d97706}
-.badge-diff.diff-hard{background:#dc2626}
-.badge-age{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:#f0f9ff;color:#555;border:1px solid #d0e9f7}
-.age-chip{border:2px solid #d1d5db;background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:99px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px}
-.age-chip:hover{border-color:var(--sun);color:var(--sun);transform:translateY(-1px)}
-.card-body{padding:16px 18px 18px}
-.card-title{font-size:15px;font-weight:900;margin-bottom:6px;line-height:1.3}
-.card-desc{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:12px}
 .empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none}
 .empty-state.show{display:block}
 </style>
@@ -137,10 +119,20 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="logo">&#9728;&#65039; SunScout</div>
   <div style="width:64px"></div>
 </nav>
-<section class="hero">
-  <div class="hero-eyebrow">DIY Activity Hub</div>
-  <h1>Free &amp; Fun<br/><span>At-Home Projects</span></h1>
-  <p>Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+<section class="hero" id="hero">
+  <div class="hero-slide active" style="background-image:url('/images/diy-hero.png')"></div>
+  <div class="hero-slide" style="background:radial-gradient(circle at 30% 15%,#fff2c4,#f4b93f 45%,#7a4a08 100%)"></div>
+  <div class="hero-slide" style="background:radial-gradient(circle at 70% 85%,#ffe9b0,#e0932a 45%,#4a2c05 100%)"></div>
+  <div class="hero-slide" style="background:radial-gradient(circle at 50% 50%,#fff6da,#f2a93a 40%,#33200a 100%)"></div>
+  <div class="hero-slide" style="background:radial-gradient(circle at 20% 80%,#ffdf9e,#d9821f 45%,#241404 100%)"></div>
+  <div class="hero-copy">
+    <div class="hero-eyebrow">50+ Activities</div>
+    <h1>Free &amp; Fun<br/><span>At-Home Projects</span></h1>
+    <p>Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <span class="active"></span><span></span><span></span><span></span><span></span>
+  </div>
 </section>
 <div class="filter-bar">
   <button class="age-chip active" data-age="all" onclick="filterAge(this)">&#127775; All Ages</button>
@@ -154,65 +146,70 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="card" data-age="3-5 6-12" onclick="openDrawer('fuse')">
     <div class="card-thumb">
       <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" onerror="this.style.background='linear-gradient(135deg,#FFD93D,#FF6B6B)';this.removeAttribute('src')"/>
+      <span class="diff-badge diff-easy">Easy</span>
+      <span class="time-badge">&#9200; 30 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
-      <div class="card-badges"><span class="badge-diff diff-easy">Easy</span><span class="badge-age">3–12</span></div>
       <div class="card-title">&#127987; Fuse Bead Designs</div>
       <div class="card-desc">Place colorful beads on a pegboard and iron them into amazing shapes. Butterflies, stars, hearts!</div>
-      <div class="card-meta"><span class="meta-tag">&#9200; 30 min</span><span class="meta-tag">&#127912; Crafts</span></div>
+      <div class="card-meta"><span class="meta-tag">&#128118; Age 3–12</span><span class="meta-tag">&#127912; Crafts</span></div>
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
   <div class="card" data-age="3-5 6-12 teen" onclick="openDrawer('lego')">
     <div class="card-thumb">
       <img src="/images/diy-lego.png" alt="LEGO" onerror="this.style.background='linear-gradient(135deg,#4FC3F7,#1d4ed8)';this.removeAttribute('src')"/>
+      <span class="diff-badge diff-medium">Medium</span>
+      <span class="time-badge">&#9200; 45 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
-      <div class="card-badges"><span class="badge-diff diff-medium">Medium</span><span class="badge-age">3–Teen</span></div>
       <div class="card-title">&#129523; LEGO Building Challenge</div>
       <div class="card-desc">Build anything from a tiny house to a rocket ship! Weekly challenges keep it fresh every time.</div>
-      <div class="card-meta"><span class="meta-tag">&#9200; 45 min</span><span class="meta-tag">&#129504; STEM</span></div>
+      <div class="card-meta"><span class="meta-tag">&#128118; Age 3–Teen</span><span class="meta-tag">&#129504; STEM</span></div>
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
   <div class="card" data-age="3-5 6-12" onclick="openDrawer('snakes')">
     <div class="card-thumb">
-      <img src="/images/diy-snake.png" alt="Snakes and Ladders" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+      <img src="/images/diy-snake.png" alt="Snakes and Ladders"/>
+      <span class="diff-badge diff-easy">Easy</span>
+      <span class="time-badge">&#9200; 40 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
-      <div class="card-badges"><span class="badge-diff diff-easy">Easy</span><span class="badge-age">3–12</span></div>
       <div class="card-title">&#128013; Snakes &amp; Ladders</div>
       <div class="card-desc">Draw your own board game! Use markers, stickers, and imagination to create your world.</div>
-      <div class="card-meta"><span class="meta-tag">&#9200; 40 min</span><span class="meta-tag">&#127922; Games</span></div>
+      <div class="card-meta"><span class="meta-tag">&#128118; Age 3–12</span><span class="meta-tag">&#127922; Games</span></div>
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
   <div class="card" data-age="6-12 teen" onclick="openDrawer('checkers')">
     <div class="card-thumb">
-      <img src="/images/diy-chinese.png" alt="Chinese Checkers" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+      <img src="/images/diy-chinese.png" alt="Chinese Checkers"/>
+      <span class="diff-badge diff-medium">Medium</span>
+      <span class="time-badge">&#9200; 60 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
-      <div class="card-badges"><span class="badge-diff diff-medium">Medium</span><span class="badge-age">6–Teen</span></div>
       <div class="card-title">&#11088; Chinese Checkers</div>
       <div class="card-desc">Paint marbles, make your board, and challenge everyone to this classic strategy game!</div>
-      <div class="card-meta"><span class="meta-tag">&#9200; 60 min</span><span class="meta-tag">&#127921; Strategy</span></div>
+      <div class="card-meta"><span class="meta-tag">&#128118; Age 6–Teen</span><span class="meta-tag">&#127921; Strategy</span></div>
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
   <div class="card" data-age="6-12 teen" onclick="openDrawer('marble')">
     <div class="card-thumb">
-      <img src="/images/diy-marble.png" alt="Marble Solitaire" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+      <img src="/images/diy-marble.png" alt="Marble Solitaire"/>
+      <span class="diff-badge diff-hard">Hard</span>
+      <span class="time-badge">&#9200; 20 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
     </div>
     <div class="card-body">
-      <div class="card-badges"><span class="badge-diff diff-hard">Hard</span><span class="badge-age">6–Teen</span></div>
       <div class="card-title">&#128302; Marble Solitaire</div>
       <div class="card-desc">Can you clear the board leaving just one marble? The ultimate solo brain challenge!</div>
-      <div class="card-meta"><span class="meta-tag">&#9200; 20 min</span><span class="meta-tag">&#129513; Puzzle</span></div>
+      <div class="card-meta"><span class="meta-tag">&#128118; Age 6–Teen</span><span class="meta-tag">&#129513; Puzzle</span></div>
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
@@ -256,6 +253,17 @@ function closeDrawerOnBg(e){if(e.target===document.getElementById('drawerOverlay
 function copyLink(){navigator.clipboard.writeText(location.href+(cur?'#'+cur:'')).then(()=>alert('Link copied!'));}
 function saveProject(){const s=JSON.parse(localStorage.getItem('sunscout_diy')||'[]');if(!s.includes(cur)){s.push(cur);localStorage.setItem('sunscout_diy',JSON.stringify(s));}alert('Saved!');}
 window.addEventListener('DOMContentLoaded',()=>{const h=location.hash.replace('#','');if(PROJECTS[h])openDrawer(h);});
+let heroIdx=0;
+setInterval(()=>{
+  const slides=document.querySelectorAll('.hero-slide');
+  const dots=document.querySelectorAll('#heroDots span');
+  if(!slides.length)return;
+  slides[heroIdx].classList.remove('active');
+  dots[heroIdx].classList.remove('active');
+  heroIdx=(heroIdx+1)%slides.length;
+  slides[heroIdx].classList.add('active');
+  dots[heroIdx].classList.add('active');
+},4000);
 </script>
 </body>
 </html>
