@@ -7,12 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--sun:#D4AF37;--accent-dark:#a9812a;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#e9c25a;--card:#fffaf0;--text:#2a1c0d;--text2:#7a6a52;--on-dark:#4a3510;--radius:18px;--shadow:0 6px 20px rgba(90,60,10,.20)}
+:root{--sun:#D4AF37;--accent-dark:#a9812a;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#fff7ec;--card:#ffffff;--text:#2a1c0d;--text2:#7a6a52;--on-dark:#7a6a52;--radius:18px;--shadow:0 4px 18px rgba(90,60,10,.10)}
 html{scroll-behavior:smooth}
-/* Warm GOLD page backdrop (matches the hero sunburst). It's a viewport-fixed gradient — NOT
-   the hero photo stretched — so the gold glow stays uniform full-width down the whole page
-   while the hero photo itself stays cropped inside the fixed-height .hero section only. */
-body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90% at 50% 0%,#f8e7a8 0%,#edc659 38%,#dcaa41 72%,#c89234 100%) fixed,#e9c25a;color:var(--text);min-height:100vh;padding-bottom:80px}
+/* Page background is the site's normal light/cream — the gold/photo backdrop is scoped ONLY
+   to the fixed-height .hero section below, never to body or a wrapper. */
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
 .top-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e5f3fb;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .top-nav .logo{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,#FF9900,#FF6B6B,#9C6FE4,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-nav .back-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:99px;text-decoration:none}
@@ -38,8 +37,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
 .filter-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:var(--card) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%237a6a52"/></svg>') no-repeat right 16px center;color:var(--text);font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;padding:10px 34px 10px 16px;border-radius:99px;border:2px solid rgba(169,129,42,.35);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .18s}
 .filter-select:hover{transform:translateY(-2px)}
 .section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark);padding:0 20px 12px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:0 20px 32px;max-width:840px;margin:0 auto}
-@media(max-width:560px){.grid{grid-template-columns:1fr;gap:14px;padding:0 16px 28px}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:0 24px 40px;max-width:1320px;margin:0 auto}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;gap:16px;padding:0 16px 28px}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
 .card:active{transform:scale(.97)}
@@ -112,8 +112,6 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
 .bnav-item svg{width:22px;height:22px}
 .empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none;color:var(--on-dark)}
 .empty-state.show{display:block}
-.placeholder-thumb{display:flex;align-items:center;justify-content:center}
-.placeholder-thumb .placeholder-emoji{font-size:44px}
 </style>
 </head>
 <body>
@@ -239,8 +237,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
        "Video coming soon" label in the modal - see openDrawer()). Swap in real photos and
        video URLs when available. -->
   <div class="card" data-age="0-2 3-5" data-diff="easy" onclick="openDrawer('sockpuppet')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#FFB6C1,#FF6B9D)">
-      <span class="placeholder-emoji" aria-hidden="true">&#129526;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1607734710781-0e0d19c37493?w=600&q=60&auto=format&fit=crop" alt="Sock puppet craft" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#FFB6C1,#FF6B9D)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
       <span class="time-badge">&#9200; 25 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -253,8 +252,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="6-12" data-diff="easy" onclick="openDrawer('paperplane')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#87CEEB,#4A90D9)">
-      <span class="placeholder-emoji" aria-hidden="true">&#9992;&#65039;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1607469256872-48091dbd0464?w=600&q=60&auto=format&fit=crop" alt="Paper airplanes" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#87CEEB,#4A90D9)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
       <span class="time-badge">&#9200; 20 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -267,8 +267,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="3-5" data-diff="easy" onclick="openDrawer('rockpainting')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#B8E986,#4CAF50)">
-      <span class="placeholder-emoji" aria-hidden="true">&#127958;&#65039;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=60&auto=format&fit=crop" alt="Painted rocks" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#B8E986,#4CAF50)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
       <span class="time-badge">&#9200; 30 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -281,8 +282,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="6-12" data-diff="medium" onclick="openDrawer('cardboardfort')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#D2A679,#8B5A2B)">
-      <span class="placeholder-emoji" aria-hidden="true">&#128230;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=60&auto=format&fit=crop" alt="Cardboard boxes and blocks" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#D2A679,#8B5A2B)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-medium">Medium</span>
       <span class="time-badge">&#9200; 50 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -295,8 +297,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="6-12" data-diff="medium" onclick="openDrawer('slime')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#7FFFD4,#00BFA5)">
-      <span class="placeholder-emoji" aria-hidden="true">&#129441;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?w=600&q=60&auto=format&fit=crop" alt="Colorful craft materials" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#7FFFD4,#00BFA5)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-medium">Medium</span>
       <span class="time-badge">&#9200; 20 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -309,8 +312,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="teen" data-diff="medium" onclick="openDrawer('bracelets')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#C77DFF,#9C6FE4)">
-      <span class="placeholder-emoji" aria-hidden="true">&#129525;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=60&auto=format&fit=crop" alt="Colorful woven threads" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#C77DFF,#9C6FE4)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-medium">Medium</span>
       <span class="time-badge">&#9200; 35 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -323,8 +327,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="3-5 6-12" data-diff="easy" onclick="openDrawer('scavenger')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#FFD180,#FF9800)">
-      <span class="placeholder-emoji" aria-hidden="true">&#128269;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=60&auto=format&fit=crop" alt="Outdoor nature scene" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#FFD180,#FF9800)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
       <span class="time-badge">&#9200; 30 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -337,8 +342,9 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
     </div>
   </div>
   <div class="card" data-age="0-2 3-5" data-diff="easy" onclick="openDrawer('chalkart')">
-    <div class="card-thumb placeholder-thumb" style="background:linear-gradient(135deg,#FFF176,#FF6B6B)">
-      <span class="placeholder-emoji" aria-hidden="true">&#127770;</span>
+    <div class="card-thumb">
+      <!-- PLACEHOLDER PHOTO: royalty-free Unsplash stock, swap for a real project photo later. Falls back to a gradient if the image fails to load. -->
+      <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=600&q=60&auto=format&fit=crop" alt="Colorful chalk art" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#FFF176,#FF6B6B)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
       <span class="time-badge">&#9200; 20 min</span>
       <div class="play-overlay"><div class="play-btn-icon"><svg viewBox="0 0 24 24" fill="#FF9900"><polygon points="5,3 19,12 5,21"/></svg></div></div>
@@ -388,16 +394,16 @@ body{font-family:'Nunito',sans-serif;background:radial-gradient(ellipse 130% 90%
 <script>
 const PROJECTS={fuse:{title:'Fuse Bead Designs',eyebrow:'Easy Craft · Ages 3-12',subtitle:'Place tiny colorful beads on a pegboard and melt them into beautiful shapes with an iron!',video:'/fuse-beads.mp4',images:['/images/diy-fusebeads-hero.jpg','/images/diy-fusebeads-finished.jpg','/images/diy-fusebeads-heart.jpg','/images/diy-fusebeads-star.jpg'],materials:['Pegboard','Fuse Beads','Parchment Paper','Iron (Adults only)','Shape Templates'],steps:[{who:'kid',text:'Pick your favorite template shape. Place it flat on your pegboard.'},{who:'kid',text:'Use your tiny builder fingers to place bright beads onto the spikes one by one. Fill the whole shape!'},{who:'kid',text:'Step back and admire your creation - take a photo before the magic happens!'},{who:'adult',text:'Adults Only: Place parchment paper flat over the finished design. Press a warm iron for 10-15 seconds until beads fuse together.'},{who:'adult',text:'Adults Only: Let cool for 2 minutes, peel off parchment. Flip and iron the back 5 more seconds.'},{who:'kid',text:'Peel off your masterpiece! Hang it on the window to see the colors shine!'}]},lego:{title:'LEGO Building Challenge',eyebrow:'Medium · Ages 3-Teen',subtitle:'Weekly challenges to build anything from tiny houses to rocket ships. STEM meets imagination!',video:'/lego.mp4',images:['/IMG_6272.jpeg'],materials:['LEGO Bricks','Baseplate','Markers','Camera'],steps:[{who:'kid',text:"Today's challenge: Build a house with at least 3 rooms! Spread out all your bricks first."},{who:'kid',text:'Start with the baseplate foundation. Build walls up one layer at a time.'},{who:'kid',text:'Add windows and doors by leaving gaps. Can you make a slanted roof?'},{who:'adult',text:"Parent tip: Ask open questions like 'What room comes next?' to spark storytelling."},{who:'kid',text:'Add furniture, trees, a car - whatever makes it a home! Take a photo after.'},{who:'adult',text:'Parent tip: Challenge older kids to rebuild using fewer bricks for a harder puzzle!'}]},snakes:{title:'Snakes & Ladders',eyebrow:'Easy · Ages 3-12',subtitle:'Draw your own board game and play it with the whole family!',video:'/snakes-ladders.mp4',images:['/park.jpg'],materials:['Large Paper','Markers & Crayons','Scissors','Dice','Button Tokens','Ruler'],steps:[{who:'adult',text:'Parent tip: Pre-draw a 10x10 grid in pencil. Number squares 1-100 starting bottom-left.'},{who:'kid',text:'Draw colorful snakes going from high numbers DOWN to lower ones. Make funny tongues!'},{who:'kid',text:'Draw ladders going from low numbers UP to higher ones. Add stripes and colors.'},{who:'kid',text:'Pick a theme - jungle, space, or underwater! Draw pictures in each square.'},{who:'kid',text:'Choose your token. Place all tokens on square 1. Ready, set, ROLL!'},{who:'adult',text:'Rules: Land on ladder bottom = climb up. Land on snake head = slide down. First to 100 wins!'}]},checkers:{title:'Chinese Checkers',eyebrow:'Medium · Ages 6-Teen',subtitle:'Paint marbles, craft your star board, and challenge the family!',video:'/chinese-checkers.mp4',images:['/gemini3.png'],materials:['Star-shaped board','Marbles (6 per player)','Paint & brushes','Thick cardboard'],steps:[{who:'adult',text:'Parent prep: Print or draw a 6-pointed star grid. Each point is a home zone.'},{who:'kid',text:'Paint your 6 marbles your chosen color. Let them dry completely.'},{who:'kid',text:'Place your 6 marbles in YOUR corner of the star.'},{who:'kid',text:'On your turn, move one marble one step in any direction, or jump over a neighbor marble.'},{who:'kid',text:'Chain jumps are allowed! Plan ahead to hop across the board in one turn.'},{who:'adult',text:'Goal: Get ALL your marbles to the opposite corner first. Help younger kids spot big jump chains!'}]},marble:{title:'Marble Solitaire',eyebrow:'Hard · Ages 6-Teen',subtitle:'The ultimate solo puzzle. Can you leave just ONE marble standing?',video:'/marble-solitaire.mp4',images:['/stem.jpg'],materials:['Cross-shaped board','32 Marbles','Thick foam','Pencil'],steps:[{who:'adult',text:'Parent prep: Cut a cross-shaped board from thick foam. Poke 33 holes in a 7x7 cross. Leave center empty.'},{who:'kid',text:'Fill all 32 holes with marbles. Center stays empty - this is your start!'},{who:'kid',text:'A move = jump one marble OVER an adjacent marble into an empty hole. Remove the jumped marble.'},{who:'kid',text:'Keep jumping until no more moves are possible. Aim for just ONE marble left!'},{who:'adult',text:"Hint: The classic solution ends with the final marble in the center. Can your child figure out why?"},{who:'kid',text:"Stuck? Reset and try a different path. Every attempt teaches your brain something new!"}]},
 /* PLACEHOLDER activities below: video:'' shows the "Video coming soon" label in the modal
-   (see openDrawer()), and images:[] means no thumbnail strip yet. Fill in real video/photo
-   URLs per activity when they're available. */
-sockpuppet:{title:'Sock Puppet Theater',eyebrow:'Easy Craft · Ages 0-5',subtitle:'Turn old socks into characters with buttons and yarn, then put on a mini puppet show for the family.',video:'',images:[],materials:['Old socks','Buttons','Yarn','Fabric glue','Scissors (Adults only)'],steps:[{who:'kid',text:'Pick a sock and decide what character it will be - dragon, dog, or something silly!'},{who:'adult',text:'Adults Only: Cut felt shapes for eyes, ears, and a tongue with scissors.'},{who:'kid',text:'Glue on buttons for eyes and yarn for hair. Let it dry flat.'},{who:'kid',text:'Slide your hand in and put on a show behind a couch or table!'}]},
-paperplane:{title:'Paper Airplane Contest',eyebrow:'Easy · Ages 6-12',subtitle:'Fold five different plane designs and test them for distance, loops, and flight time in the backyard.',video:'',images:[],materials:['Printer paper','Ruler','Markers','Tape measure'],steps:[{who:'kid',text:'Fold a classic dart design first - crease it sharp for a straight flight.'},{who:'kid',text:'Try a wide-wing glider design and compare how far each one flies.'},{who:'kid',text:'Decorate your planes with markers so you can tell them apart.'},{who:'adult',text:'Parent tip: Measure each flight with a tape measure and keep a scoreboard.'},{who:'kid',text:'Crown a distance champion and a stunt champion for loops and tricks!'}]},
-rockpainting:{title:'Rock Painting Garden',eyebrow:'Easy · Ages 3-5',subtitle:'Collect smooth rocks and paint them into bugs, animals, or patterns to line a garden bed or path.',video:'',images:[],materials:['Smooth rocks','Acrylic paint','Paintbrushes','Clear sealant (Adults only)'],steps:[{who:'kid',text:'Go on a walk and collect smooth, flat rocks of different sizes.'},{who:'kid',text:'Wash and dry the rocks, then paint a base color and let it dry.'},{who:'kid',text:'Add spots, stripes, or googly-eye dots to turn each rock into a bug or animal.'},{who:'adult',text:'Adults Only: Brush on a clear sealant so the paint survives outdoors.'},{who:'kid',text:'Line your painted rocks along a garden bed or walkway to show them off!'}]},
-cardboardfort:{title:'Cardboard Fort Building',eyebrow:'Medium · Ages 6-12',subtitle:'Stack and tape boxes into a fort with doors and windows, then decorate the walls with markers.',video:'',images:[],materials:['Large cardboard boxes','Packing tape','Box cutter (Adults only)','Markers'],steps:[{who:'kid',text:'Plan your fort - how many rooms? Where does the door go?'},{who:'adult',text:'Adults Only: Cut door and window openings with a box cutter.'},{who:'kid',text:'Tape boxes together to build the walls, checking they stand steady.'},{who:'kid',text:'Decorate the walls with markers - windows, bricks, or a secret sign.'},{who:'kid',text:'Move in your pillows and flashlight for the grand opening!'}]},
-slime:{title:'DIY Slime Lab',eyebrow:'Medium · Ages 6-12',subtitle:'Mix glue, water, and activator to make stretchy slime, then experiment with color and glitter batches.',video:'',images:[],materials:['White glue','Water','Baking soda','Contact lens solution (Adults only)','Food coloring'],steps:[{who:'adult',text:'Adults Only: Measure the baking soda and contact lens solution activator.'},{who:'kid',text:'Mix glue, water, and a few drops of food coloring in a bowl.'},{who:'kid',text:'Stir in the activator a little at a time until it turns stretchy.'},{who:'kid',text:'Knead the slime with your hands until it stops sticking.'},{who:'kid',text:'Mix in glitter or beads for a new batch, and store slime in a sealed container.'}]},
-bracelets:{title:'Friendship Bracelets',eyebrow:'Medium · Ages Teen',subtitle:'Learn a basic knot pattern and braid colorful string into wearable bracelets to trade with friends.',video:'',images:[],materials:['Embroidery floss','Scissors','Tape or clipboard','Beads (optional)'],steps:[{who:'kid',text:'Cut four strings about arm-length long and tape them to a table or clipboard.'},{who:'kid',text:'Learn the forward-knot pattern with two strings, practicing slowly at first.'},{who:'kid',text:'Repeat the pattern in rows, adding beads if you like, until it is wrist-length.'},{who:'kid',text:'Tie off the ends and trim any extra string, then trade with a friend!'}]},
-scavenger:{title:'Backyard Scavenger Hunt',eyebrow:'Easy · Ages 3-12',subtitle:'Follow a printable checklist to find leaves, bugs, and shapes in nature, then log finds in a journal.',video:'',images:[],materials:['Checklist or notebook','Pencil','Magnifying glass (optional)'],steps:[{who:'adult',text:'Parent tip: Make a simple checklist - a red leaf, a round rock, an insect, a flower.'},{who:'kid',text:'Explore the yard or park and check off each item as you spot it.'},{who:'kid',text:'Draw or write a quick note about your favorite find in a journal.'},{who:'kid',text:'Race a sibling or friend to see who finds everything first!'}]},
-chalkart:{title:'Sidewalk Chalk Art',eyebrow:'Easy · Ages 0-5',subtitle:'Draw a giant mural, hopscotch board, or obstacle course right on the driveway with colorful chalk.',video:'',images:[],materials:['Sidewalk chalk','Driveway or sidewalk','Water and rags for cleanup'],steps:[{who:'kid',text:'Pick a big idea - a rainbow, a maze, or a hopscotch board.'},{who:'kid',text:'Sketch the outline first, then fill it in with bright colors.'},{who:'kid',text:'Invite the family outside to play on your finished chalk art.'},{who:'kid',text:'Rinse it away with water when you are ready for a fresh canvas!'}]}};
+   (see openDrawer()). Each images array points at a royalty-free Unsplash stock photo as a
+   placeholder — swap in real project photos/video URLs per activity when available. */
+sockpuppet:{title:'Sock Puppet Theater',eyebrow:'Easy Craft · Ages 0-5',subtitle:'Turn old socks into characters with buttons and yarn, then put on a mini puppet show for the family.',video:'',images:['https://images.unsplash.com/photo-1607734710781-0e0d19c37493?w=600&q=60&auto=format&fit=crop'],materials:['Old socks','Buttons','Yarn','Fabric glue','Scissors (Adults only)'],steps:[{who:'kid',text:'Pick a sock and decide what character it will be - dragon, dog, or something silly!'},{who:'adult',text:'Adults Only: Cut felt shapes for eyes, ears, and a tongue with scissors.'},{who:'kid',text:'Glue on buttons for eyes and yarn for hair. Let it dry flat.'},{who:'kid',text:'Slide your hand in and put on a show behind a couch or table!'}]},
+paperplane:{title:'Paper Airplane Contest',eyebrow:'Easy · Ages 6-12',subtitle:'Fold five different plane designs and test them for distance, loops, and flight time in the backyard.',video:'',images:['https://images.unsplash.com/photo-1607469256872-48091dbd0464?w=600&q=60&auto=format&fit=crop'],materials:['Printer paper','Ruler','Markers','Tape measure'],steps:[{who:'kid',text:'Fold a classic dart design first - crease it sharp for a straight flight.'},{who:'kid',text:'Try a wide-wing glider design and compare how far each one flies.'},{who:'kid',text:'Decorate your planes with markers so you can tell them apart.'},{who:'adult',text:'Parent tip: Measure each flight with a tape measure and keep a scoreboard.'},{who:'kid',text:'Crown a distance champion and a stunt champion for loops and tricks!'}]},
+rockpainting:{title:'Rock Painting Garden',eyebrow:'Easy · Ages 3-5',subtitle:'Collect smooth rocks and paint them into bugs, animals, or patterns to line a garden bed or path.',video:'',images:['https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=60&auto=format&fit=crop'],materials:['Smooth rocks','Acrylic paint','Paintbrushes','Clear sealant (Adults only)'],steps:[{who:'kid',text:'Go on a walk and collect smooth, flat rocks of different sizes.'},{who:'kid',text:'Wash and dry the rocks, then paint a base color and let it dry.'},{who:'kid',text:'Add spots, stripes, or googly-eye dots to turn each rock into a bug or animal.'},{who:'adult',text:'Adults Only: Brush on a clear sealant so the paint survives outdoors.'},{who:'kid',text:'Line your painted rocks along a garden bed or walkway to show them off!'}]},
+cardboardfort:{title:'Cardboard Fort Building',eyebrow:'Medium · Ages 6-12',subtitle:'Stack and tape boxes into a fort with doors and windows, then decorate the walls with markers.',video:'',images:['https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=60&auto=format&fit=crop'],materials:['Large cardboard boxes','Packing tape','Box cutter (Adults only)','Markers'],steps:[{who:'kid',text:'Plan your fort - how many rooms? Where does the door go?'},{who:'adult',text:'Adults Only: Cut door and window openings with a box cutter.'},{who:'kid',text:'Tape boxes together to build the walls, checking they stand steady.'},{who:'kid',text:'Decorate the walls with markers - windows, bricks, or a secret sign.'},{who:'kid',text:'Move in your pillows and flashlight for the grand opening!'}]},
+slime:{title:'DIY Slime Lab',eyebrow:'Medium · Ages 6-12',subtitle:'Mix glue, water, and activator to make stretchy slime, then experiment with color and glitter batches.',video:'',images:['https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?w=600&q=60&auto=format&fit=crop'],materials:['White glue','Water','Baking soda','Contact lens solution (Adults only)','Food coloring'],steps:[{who:'adult',text:'Adults Only: Measure the baking soda and contact lens solution activator.'},{who:'kid',text:'Mix glue, water, and a few drops of food coloring in a bowl.'},{who:'kid',text:'Stir in the activator a little at a time until it turns stretchy.'},{who:'kid',text:'Knead the slime with your hands until it stops sticking.'},{who:'kid',text:'Mix in glitter or beads for a new batch, and store slime in a sealed container.'}]},
+bracelets:{title:'Friendship Bracelets',eyebrow:'Medium · Ages Teen',subtitle:'Learn a basic knot pattern and braid colorful string into wearable bracelets to trade with friends.',video:'',images:['https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=60&auto=format&fit=crop'],materials:['Embroidery floss','Scissors','Tape or clipboard','Beads (optional)'],steps:[{who:'kid',text:'Cut four strings about arm-length long and tape them to a table or clipboard.'},{who:'kid',text:'Learn the forward-knot pattern with two strings, practicing slowly at first.'},{who:'kid',text:'Repeat the pattern in rows, adding beads if you like, until it is wrist-length.'},{who:'kid',text:'Tie off the ends and trim any extra string, then trade with a friend!'}]},
+scavenger:{title:'Backyard Scavenger Hunt',eyebrow:'Easy · Ages 3-12',subtitle:'Follow a printable checklist to find leaves, bugs, and shapes in nature, then log finds in a journal.',video:'',images:['https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=60&auto=format&fit=crop'],materials:['Checklist or notebook','Pencil','Magnifying glass (optional)'],steps:[{who:'adult',text:'Parent tip: Make a simple checklist - a red leaf, a round rock, an insect, a flower.'},{who:'kid',text:'Explore the yard or park and check off each item as you spot it.'},{who:'kid',text:'Draw or write a quick note about your favorite find in a journal.'},{who:'kid',text:'Race a sibling or friend to see who finds everything first!'}]},
+chalkart:{title:'Sidewalk Chalk Art',eyebrow:'Easy · Ages 0-5',subtitle:'Draw a giant mural, hopscotch board, or obstacle course right on the driveway with colorful chalk.',video:'',images:['https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=600&q=60&auto=format&fit=crop'],materials:['Sidewalk chalk','Driveway or sidewalk','Water and rags for cleanup'],steps:[{who:'kid',text:'Pick a big idea - a rainbow, a maze, or a hopscotch board.'},{who:'kid',text:'Sketch the outline first, then fill it in with bright colors.'},{who:'kid',text:'Invite the family outside to play on your finished chalk art.'},{who:'kid',text:'Rinse it away with water when you are ready for a fresh canvas!'}]}};
 let cur=null;
 function applyFilters(){const age=document.getElementById('ageSelect').value;const diff=document.getElementById('diffSelect').value;let v=0;document.querySelectorAll('.card[data-age]').forEach(c=>{const show=(age==='all'||c.dataset.age.includes(age))&&(diff==='all'||c.dataset.diff===diff);c.classList.toggle('hidden',!show);if(show)v++;});document.getElementById('sectionLabel').textContent=v+' Project'+(v===1?'':'s')+' Ready to Build';document.getElementById('emptyState').classList.toggle('show',v===0);}
 function openDrawer(id){const p=PROJECTS[id];if(!p)return;cur=id;const vid=document.getElementById('drawerVideo');const placeholder=document.getElementById('videoPlaceholder');const poster=(p.images&&p.images[0])||'';vid.poster=poster;if(p.video){vid.style.display='';placeholder.style.display='none';vid.src=p.video;vid.load();vid.play().catch(()=>{});}else{vid.pause();vid.removeAttribute('src');vid.load();vid.style.display='none';placeholder.style.display='flex';placeholder.style.backgroundImage=poster?`url('${poster}')`:'none';}document.getElementById('drawerImgGrid').innerHTML=p.images.map((s,i)=>`<img src="${s}" alt="img ${i}" class="${i===0?'active':''}" onclick="switchImg(this)" onerror="this.style.display='none'"/>`).join('');document.getElementById('drawerEyebrow').textContent=p.eyebrow;document.getElementById('drawerTitle').textContent=p.title;document.getElementById('drawerSubtitle').textContent=p.subtitle;document.getElementById('drawerMaterials').innerHTML=p.materials.map(m=>`<div class="material-chip">${m}</div>`).join('');document.getElementById('drawerSteps').innerHTML=p.steps.map((s,i)=>`<div class="step${s.who==='adult'?' adult-step':''}"><div class="step-num">${i+1}</div><div class="step-content"><div class="step-who">${s.who==='adult'?'Parent Step':'Kid Step'}</div><div class="step-text">${s.text}</div></div></div>`).join('');document.getElementById('drawerRight').scrollTop=0;document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
