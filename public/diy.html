@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--sun:#FF9900;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#f0f9ff;--card:#fff;--text:#1a1a1a;--text2:#555;--radius:18px;--shadow:0 4px 24px rgba(0,0,0,.10)}
+:root{--sun:#D4AF37;--accent-dark:#a9812a;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#1b1208;--card:#fffaf0;--text:#2a1c0d;--text2:#7a6a52;--on-dark:#f6e9c9;--radius:18px;--shadow:0 4px 24px rgba(0,0,0,.35)}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.png') center top/cover no-repeat;color:var(--text);min-height:100vh;padding-bottom:80px}
+body{font-family:'Nunito',sans-serif;background-color:var(--bg);background-image:linear-gradient(rgba(10,7,3,.55),rgba(10,7,3,.78)),url('/images/diy-hero.png');background-size:cover,cover;background-position:center top,center top;background-repeat:no-repeat,no-repeat;color:var(--text);min-height:100vh;padding-bottom:80px}
 .top-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e5f3fb;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .top-nav .logo{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,#FF9900,#FF6B6B,#9C6FE4,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-nav .back-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:99px;text-decoration:none}
@@ -27,15 +27,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
 .hero-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);transition:background .3s,transform .3s}
 .hero-dots span.active{background:#fff;transform:scale(1.3)}
 @media(max-width:640px){.hero{height:360px}}
-.filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:20px 20px 16px}
-.age-chip{border:2px solid transparent;background:#fff;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;padding:7px 16px;border-radius:99px;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.age-chip:hover{transform:translateY(-2px)}
-.age-chip.active[data-age="all"]{background:var(--sun);color:#fff}
-.age-chip.active[data-age="0-2"]{background:#FF6B6B;color:#fff}
-.age-chip.active[data-age="3-5"]{background:#9C6FE4;color:#fff}
-.age-chip.active[data-age="6-12"]{background:#4FC3F7;color:#1a1a1a}
-.age-chip.active[data-age="teen"]{background:#34D399;color:#fff}
-.section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);padding:0 20px 12px}
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:20px 20px 16px}
+.filter-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:var(--card) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%237a6a52"/></svg>') no-repeat right 16px center;color:var(--text);font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;padding:10px 34px 10px 16px;border-radius:99px;border:2px solid rgba(255,255,255,.35);cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.3);transition:transform .18s}
+.filter-select:hover{transform:translateY(-2px)}
+.section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark);padding:0 20px 12px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:0 20px 32px;max-width:840px;margin:0 auto}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:14px;padding:0 16px 28px}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
@@ -59,8 +54,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
 .card-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .meta-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#f0f9ff;color:var(--text2);border:1px solid #d0e9f7}
-.open-btn{width:100%;padding:9px;border-radius:10px;background:var(--sun);color:#fff;border:2px solid var(--sun);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
-.open-btn:hover{background:var(--accent-dark,#e08600);border-color:var(--accent-dark,#e08600)}
+.open-btn{width:100%;padding:9px;border-radius:10px;background:var(--sun);color:#2a1c0d;border:2px solid var(--sun);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.open-btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
 .drawer-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center}
 .drawer-overlay.open{display:flex}
 .drawer{background:#fff;width:100%;max-width:720px;max-height:92vh;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;animation:slideUp .3s ease}
@@ -104,8 +99,19 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
 .bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:#aaa;background:none;border:none;cursor:pointer;padding:4px 10px;text-decoration:none}
 .bnav-item.active{color:var(--sun)}
 .bnav-item svg{width:22px;height:22px}
-.empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none}
+.empty-state{text-align:center;padding:60px 20px;grid-column:1/-1;display:none;color:var(--on-dark)}
 .empty-state.show{display:block}
+.table-wrap{max-width:840px;margin:8px auto 40px;padding:0 20px;overflow-x:auto}
+@media(max-width:560px){.table-wrap{padding:0 16px}}
+.project-table{width:100%;min-width:480px;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.project-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:900;color:var(--text2);padding:14px 16px;border-bottom:2px solid #f0e4c8;background:#fff4dc}
+.project-table td{padding:12px 16px;font-size:13px;color:var(--text);border-bottom:1px solid #f2e9d6}
+.project-table tr:last-child td{border-bottom:none}
+.project-table tbody tr:hover td{background:#fff8ea}
+.table-diff-pill{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.04em;padding:3px 10px;border-radius:99px;color:#fff;text-transform:uppercase}
+.table-diff-pill.easy{background:#16a34a}
+.table-diff-pill.medium{background:#d97706}
+.table-diff-pill.hard{background:var(--coral)}
 </style>
 </head>
 <body>
@@ -133,15 +139,23 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
   </div>
 </section>
 <div class="filter-bar">
-  <button class="age-chip active" data-age="all" onclick="filterAge(this)">&#127775; All Ages</button>
-  <button class="age-chip" data-age="0-2" onclick="filterAge(this)">&#128118; 0-2</button>
-  <button class="age-chip" data-age="3-5" onclick="filterAge(this)">&#129976; 3-5</button>
-  <button class="age-chip" data-age="6-12" onclick="filterAge(this)">&#127744; 6-12</button>
-  <button class="age-chip" data-age="teen" onclick="filterAge(this)">&#128737; Teen</button>
+  <select class="filter-select" id="ageSelect" onchange="applyFilters()">
+    <option value="all">&#127775; All Ages</option>
+    <option value="0-2">&#128118; 0-2</option>
+    <option value="3-5">&#129976; 3-5</option>
+    <option value="6-12">&#127744; 6-12</option>
+    <option value="teen">&#128737; Teen</option>
+  </select>
+  <select class="filter-select" id="diffSelect" onchange="applyFilters()">
+    <option value="all">All Difficulties</option>
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+  </select>
 </div>
 <div class="section-label" id="sectionLabel">5 Projects Ready to Build</div>
 <div class="grid" id="grid">
-  <div class="card" data-age="3-5 6-12" onclick="openDrawer('fuse')">
+  <div class="card" data-age="3-5 6-12" data-diff="easy" onclick="openDrawer('fuse')">
     <div class="card-thumb">
       <img src="/images/diy-fusebeads-hero.jpg" alt="Fuse Beads" onerror="this.style.background='linear-gradient(135deg,#FFD93D,#FF6B6B)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-easy">Easy</span>
@@ -155,7 +169,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
-  <div class="card" data-age="3-5 6-12 teen" onclick="openDrawer('lego')">
+  <div class="card" data-age="3-5 6-12 teen" data-diff="medium" onclick="openDrawer('lego')">
     <div class="card-thumb">
       <img src="/images/diy-lego.png" alt="LEGO" onerror="this.style.background='linear-gradient(135deg,#4FC3F7,#1d4ed8)';this.removeAttribute('src')"/>
       <span class="diff-badge diff-medium">Medium</span>
@@ -169,7 +183,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
-  <div class="card" data-age="3-5 6-12" onclick="openDrawer('snakes')">
+  <div class="card" data-age="3-5 6-12" data-diff="easy" onclick="openDrawer('snakes')">
     <div class="card-thumb">
       <img src="/images/diy-snake.png" alt="Snakes and Ladders"/>
       <span class="diff-badge diff-easy">Easy</span>
@@ -183,7 +197,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
-  <div class="card" data-age="6-12 teen" onclick="openDrawer('checkers')">
+  <div class="card" data-age="6-12 teen" data-diff="medium" onclick="openDrawer('checkers')">
     <div class="card-thumb">
       <img src="/images/diy-chinese.png" alt="Chinese Checkers"/>
       <span class="diff-badge diff-medium">Medium</span>
@@ -197,7 +211,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
       <button class="open-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>Watch &amp; Build</button>
     </div>
   </div>
-  <div class="card" data-age="6-12 teen" onclick="openDrawer('marble')">
+  <div class="card" data-age="6-12 teen" data-diff="hard" onclick="openDrawer('marble')">
     <div class="card-thumb">
       <img src="/images/diy-marble.png" alt="Marble Solitaire"/>
       <span class="diff-badge diff-hard">Hard</span>
@@ -212,6 +226,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
     </div>
   </div>
   <div class="empty-state" id="emptyState"><p>&#127819; No projects for this age. Try a different filter!</p></div>
+</div>
+<div class="table-wrap">
+  <table class="project-table">
+    <thead>
+      <tr><th>Activity Name</th><th>Category</th><th>Difficulty</th><th>Age</th></tr>
+    </thead>
+    <tbody id="projectTableBody"></tbody>
+  </table>
 </div>
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawerOnBg(event)">
   <div class="drawer" id="drawer">
@@ -246,14 +268,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.
 <script>
 const PROJECTS={fuse:{title:'Fuse Bead Designs',eyebrow:'Easy Craft · Ages 3-12',subtitle:'Place tiny colorful beads on a pegboard and melt them into beautiful shapes with an iron!',video:'/fuse-beads.mp4',images:['/images/diy-fusebeads-hero.jpg','/images/diy-fusebeads-finished.jpg','/images/diy-fusebeads-heart.jpg','/images/diy-fusebeads-star.jpg'],materials:['Pegboard','Fuse Beads','Parchment Paper','Iron (Adults only)','Shape Templates'],steps:[{who:'kid',text:'Pick your favorite template shape. Place it flat on your pegboard.'},{who:'kid',text:'Use your tiny builder fingers to place bright beads onto the spikes one by one. Fill the whole shape!'},{who:'kid',text:'Step back and admire your creation - take a photo before the magic happens!'},{who:'adult',text:'Adults Only: Place parchment paper flat over the finished design. Press a warm iron for 10-15 seconds until beads fuse together.'},{who:'adult',text:'Adults Only: Let cool for 2 minutes, peel off parchment. Flip and iron the back 5 more seconds.'},{who:'kid',text:'Peel off your masterpiece! Hang it on the window to see the colors shine!'}]},lego:{title:'LEGO Building Challenge',eyebrow:'Medium · Ages 3-Teen',subtitle:'Weekly challenges to build anything from tiny houses to rocket ships. STEM meets imagination!',video:'/lego.mp4',images:['/IMG_6272.jpeg'],materials:['LEGO Bricks','Baseplate','Markers','Camera'],steps:[{who:'kid',text:"Today's challenge: Build a house with at least 3 rooms! Spread out all your bricks first."},{who:'kid',text:'Start with the baseplate foundation. Build walls up one layer at a time.'},{who:'kid',text:'Add windows and doors by leaving gaps. Can you make a slanted roof?'},{who:'adult',text:"Parent tip: Ask open questions like 'What room comes next?' to spark storytelling."},{who:'kid',text:'Add furniture, trees, a car - whatever makes it a home! Take a photo after.'},{who:'adult',text:'Parent tip: Challenge older kids to rebuild using fewer bricks for a harder puzzle!'}]},snakes:{title:'Snakes & Ladders',eyebrow:'Easy · Ages 3-12',subtitle:'Draw your own board game and play it with the whole family!',video:'/snakes-ladders.mp4',images:['/park.jpg'],materials:['Large Paper','Markers & Crayons','Scissors','Dice','Button Tokens','Ruler'],steps:[{who:'adult',text:'Parent tip: Pre-draw a 10x10 grid in pencil. Number squares 1-100 starting bottom-left.'},{who:'kid',text:'Draw colorful snakes going from high numbers DOWN to lower ones. Make funny tongues!'},{who:'kid',text:'Draw ladders going from low numbers UP to higher ones. Add stripes and colors.'},{who:'kid',text:'Pick a theme - jungle, space, or underwater! Draw pictures in each square.'},{who:'kid',text:'Choose your token. Place all tokens on square 1. Ready, set, ROLL!'},{who:'adult',text:'Rules: Land on ladder bottom = climb up. Land on snake head = slide down. First to 100 wins!'}]},checkers:{title:'Chinese Checkers',eyebrow:'Medium · Ages 6-Teen',subtitle:'Paint marbles, craft your star board, and challenge the family!',video:'/chinese-checkers.mp4',images:['/gemini3.png'],materials:['Star-shaped board','Marbles (6 per player)','Paint & brushes','Thick cardboard'],steps:[{who:'adult',text:'Parent prep: Print or draw a 6-pointed star grid. Each point is a home zone.'},{who:'kid',text:'Paint your 6 marbles your chosen color. Let them dry completely.'},{who:'kid',text:'Place your 6 marbles in YOUR corner of the star.'},{who:'kid',text:'On your turn, move one marble one step in any direction, or jump over a neighbor marble.'},{who:'kid',text:'Chain jumps are allowed! Plan ahead to hop across the board in one turn.'},{who:'adult',text:'Goal: Get ALL your marbles to the opposite corner first. Help younger kids spot big jump chains!'}]},marble:{title:'Marble Solitaire',eyebrow:'Hard · Ages 6-Teen',subtitle:'The ultimate solo puzzle. Can you leave just ONE marble standing?',video:'/marble-solitaire.mp4',images:['/stem.jpg'],materials:['Cross-shaped board','32 Marbles','Thick foam','Pencil'],steps:[{who:'adult',text:'Parent prep: Cut a cross-shaped board from thick foam. Poke 33 holes in a 7x7 cross. Leave center empty.'},{who:'kid',text:'Fill all 32 holes with marbles. Center stays empty - this is your start!'},{who:'kid',text:'A move = jump one marble OVER an adjacent marble into an empty hole. Remove the jumped marble.'},{who:'kid',text:'Keep jumping until no more moves are possible. Aim for just ONE marble left!'},{who:'adult',text:"Hint: The classic solution ends with the final marble in the center. Can your child figure out why?"},{who:'kid',text:"Stuck? Reset and try a different path. Every attempt teaches your brain something new!"}]}};
 let cur=null;
-function filterAge(btn){document.querySelectorAll('.age-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const age=btn.dataset.age;let v=0;document.querySelectorAll('.card[data-age]').forEach(c=>{const show=age==='all'||c.dataset.age.includes(age);c.classList.toggle('hidden',!show);if(show)v++;});document.getElementById('sectionLabel').textContent=v+' Project'+(v===1?'':'s')+' Ready to Build';document.getElementById('emptyState').classList.toggle('show',v===0);}
+function applyFilters(){const age=document.getElementById('ageSelect').value;const diff=document.getElementById('diffSelect').value;let v=0;document.querySelectorAll('.card[data-age]').forEach(c=>{const show=(age==='all'||c.dataset.age.includes(age))&&(diff==='all'||c.dataset.diff===diff);c.classList.toggle('hidden',!show);if(show)v++;});document.getElementById('sectionLabel').textContent=v+' Project'+(v===1?'':'s')+' Ready to Build';document.getElementById('emptyState').classList.toggle('show',v===0);updateTable();}
+function updateTable(){const body=document.getElementById('projectTableBody');const rows=[...document.querySelectorAll('.card')].filter(c=>!c.classList.contains('hidden')).map(c=>{const title=c.querySelector('.card-title').textContent.trim();const diff=c.dataset.diff;const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);const metas=c.querySelectorAll('.meta-tag');const ageText=metas[0]?metas[0].textContent.replace(/^\S+\s*/,''):'';const catText=metas[1]?metas[1].textContent.replace(/^\S+\s*/,''):'';return `<tr><td>${title}</td><td>${catText}</td><td><span class="table-diff-pill ${diff}">${diffLabel}</span></td><td>${ageText}</td></tr>`;});body.innerHTML=rows.join('')||'<tr><td colspan="4" style="text-align:center;color:var(--text2);padding:24px">No projects match these filters.</td></tr>';}
 function openDrawer(id){const p=PROJECTS[id];if(!p)return;cur=id;const vid=document.getElementById('drawerVideo');vid.poster=(p.images&&p.images[0])||'';vid.src=p.video;vid.load();if(p.video)vid.play().catch(()=>{});document.getElementById('drawerImgGrid').innerHTML=p.images.map((s,i)=>`<img src="${s}" alt="img ${i}" class="${i===0?'active':''}" onclick="switchImg(this)" onerror="this.style.display='none'"/>`).join('');document.getElementById('drawerEyebrow').textContent=p.eyebrow;document.getElementById('drawerTitle').textContent=p.title;document.getElementById('drawerSubtitle').textContent=p.subtitle;document.getElementById('drawerMaterials').innerHTML=p.materials.map(m=>`<div class="material-chip">${m}</div>`).join('');document.getElementById('drawerSteps').innerHTML=p.steps.map((s,i)=>`<div class="step${s.who==='adult'?' adult-step':''}"><div class="step-num">${i+1}</div><div class="step-content"><div class="step-who">${s.who==='adult'?'Parent Step':'Kid Step'}</div><div class="step-text">${s.text}</div></div></div>`).join('');document.getElementById('drawerRight').scrollTop=0;document.getElementById('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
 function switchImg(el){document.querySelectorAll('.drawer-img-grid img').forEach(i=>i.classList.remove('active'));el.classList.add('active');}
 function closeDrawer(){document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';const v=document.getElementById('drawerVideo');v.pause();v.src='';}
 function closeDrawerOnBg(e){if(e.target===document.getElementById('drawerOverlay'))closeDrawer();}
 function copyLink(){navigator.clipboard.writeText(location.href+(cur?'#'+cur:'')).then(()=>alert('Link copied!'));}
 function saveProject(){const s=JSON.parse(localStorage.getItem('sunscout_diy')||'[]');if(!s.includes(cur)){s.push(cur);localStorage.setItem('sunscout_diy',JSON.stringify(s));}alert('Saved!');}
-window.addEventListener('DOMContentLoaded',()=>{const h=location.hash.replace('#','');if(PROJECTS[h])openDrawer(h);});
+window.addEventListener('DOMContentLoaded',()=>{updateTable();const h=location.hash.replace('#','');if(PROJECTS[h])openDrawer(h);});
 let heroIdx=0;
 setInterval(()=>{
   const slides=document.querySelectorAll('.hero-slide');
