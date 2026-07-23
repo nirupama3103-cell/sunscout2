@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--sun:#FF9900;--sky:#4FC3F7;--green:#16a34a;--coral:#FF6B6B;--purple:#9C6FE4;--bg:#f0f9ff;--card:#fff;--text:#1a1a1a;--text2:#555;--radius:18px;--shadow:0 4px 24px rgba(0,0,0,.10)}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+body{font-family:'Nunito',sans-serif;background:var(--bg) url('/images/diy-hero.png') center top/cover no-repeat;color:var(--text);min-height:100vh;padding-bottom:80px}
 .top-nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #e5f3fb;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .top-nav .logo{font-size:1.4rem;font-weight:900;background:linear-gradient(90deg,#FF9900,#FF6B6B,#9C6FE4,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-nav .back-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--text2);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:99px;text-decoration:none}
@@ -36,8 +36,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .age-chip.active[data-age="6-12"]{background:#4FC3F7;color:#1a1a1a}
 .age-chip.active[data-age="teen"]{background:#34D399;color:#fff}
 .section-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);padding:0 20px 12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0 20px 32px;max-width:1080px;margin:0 auto}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:0 20px 32px;max-width:840px;margin:0 auto}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:14px;padding:0 16px 28px}}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;height:100%}
 .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.14)}
