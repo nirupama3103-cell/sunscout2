@@ -24,12 +24,26 @@ img{max-width:100%;display:block}
 .lt-live-dot{width:6px;height:6px;border-radius:50%;background:#F6EFE4}
 .lt-nav-links{display:flex;align-items:center;gap:24px;font-size:.9rem;font-weight:500}
 .lt-nav-links a{color:#F6EFE4;text-decoration:none}
-.lt-back-link{color:#EFE5D3;opacity:.75;text-decoration:none;font-size:.85rem}
+.lt-back-link{color:#EFE5D3;opacity:.75;text-decoration:none;font-size:.85rem;white-space:nowrap}
 .lt-back-link:hover{opacity:1;color:#F3D588}
+.lt-nav-search-group{display:flex;align-items:center;gap:14px;flex:1 1 220px;min-width:0}
+.lt-search-bar{position:relative;flex:1 1 auto;min-width:0;max-width:280px}
+.lt-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem;opacity:.55;pointer-events:none}
+.lt-search-input{width:100%;background:#2A1A0E;border:1px solid rgba(217,164,65,0.28);border-radius:999px;padding:9px 30px 9px 32px;color:#F6EFE4;font-size:.83rem;font-family:'Work Sans',sans-serif;outline:none}
+.lt-search-input::placeholder{color:#C8B69A;opacity:.7}
+.lt-search-input:focus{border-color:#D9A441}
+.lt-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#EFE5D3;opacity:.6;font-size:.9rem;line-height:1;padding:4px;display:none}
+.lt-search-clear.show{display:block}
+.lt-search-clear:hover{opacity:1;color:#F3D588}
 .lt-city-toggle{display:flex;background:#2A1A0E;border-radius:999px;padding:4px;border:1px solid rgba(217,164,65,0.28)}
 .lt-toggle-btn{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:999px;background:transparent;color:#EFE5D3;transition:background .15s,color .15s}
 .lt-toggle-btn.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
-@media(max-width:700px){.lt-nav-links{display:none}}
+@media(max-width:700px){
+  .lt-nav-links{display:none}
+  .lt-nav-search-group{flex-basis:100%;order:3}
+  .lt-search-bar{max-width:none}
+  .lt-city-toggle{order:2}
+}
 
 /* ── HERO ── */
 .lt-hero{position:relative;background:linear-gradient(155deg,#1E1712 0%,#3A2A1C 45%,#2B211B 100%);color:#F6EFE4;padding:64px 32px 96px;overflow:hidden}
@@ -135,7 +149,14 @@ img{max-width:100%;display:block}
     <a href="#deals">Deals</a>
     <a href="#pricing">List your business</a>
     <a href="#about">About</a>
+  </div>
+  <div class="lt-nav-search-group">
     <a class="lt-back-link" href="/">&larr; SunScout Kids</a>
+    <div class="lt-search-bar">
+      <span class="lt-search-icon">&#128269;</span>
+      <input class="lt-search-input" id="lt-search-input" type="text" placeholder="Search deals, city, biryani, ice cream…" oninput="ltSetSearch(this.value)" />
+      <button class="lt-search-clear" id="lt-search-clear" onclick="ltClearSearch()" aria-label="Clear search">&times;</button>
+    </div>
   </div>
   <div class="lt-city-toggle">
     <button class="lt-toggle-btn" id="lt-city-svl" onclick="ltSetCity('sunnyvale')">Sunnyvale, CA</button>
@@ -358,12 +379,22 @@ var LT_CAT_DEFS = [
   ['trucks', '\u{1F69A} Food Trucks']
 ];
 
-var ltState = { city: 'sunnyvale', cat: 'all' };
+var ltState = { city: 'sunnyvale', cat: 'all', q: '' };
 
 function ltEsc(s){
   return String(s).replace(/[&<>"']/g, function(c){
     return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
   });
+}
+
+function ltCatLabel(catKey){
+  var found = LT_CAT_DEFS.find(function(d){ return d[0] === catKey; });
+  return found ? found[1] : '';
+}
+
+function ltMatchesQuery(d, q){
+  var hay = [d.title, d.venue, d.tag, d.cityPill, ltCatLabel(d.cat)].join(' ').toLowerCase();
+  return hay.indexOf(q) !== -1;
 }
 
 function ltSetCity(city){
@@ -375,22 +406,56 @@ function ltSetCat(cat){
   ltState.cat = cat;
   ltRender();
 }
+function ltSetSearch(val){
+  ltState.q = val;
+  ltRender();
+}
+function ltClearSearch(){
+  ltState.q = '';
+  var input = document.getElementById('lt-search-input');
+  if (input) input.value = '';
+  ltRender();
+}
 
 function ltRender(){
   var svl = ltState.city === 'sunnyvale';
-  document.getElementById('lt-city-svl').classList.toggle('on', svl);
-  document.getElementById('lt-city-aub').classList.toggle('on', !svl);
+  var q = (ltState.q || '').trim().toLowerCase();
+  var searching = q.length > 0;
 
-  document.getElementById('lt-hero-eyebrow').textContent = svl
-    ? 'Lunch specials · Happy hours · Late-night bites'
-    : 'Family meals · Weekly traditions · Dine-in deals';
-  document.getElementById('lt-hero-copy').textContent = svl
-    ? 'Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.'
-    : 'Local Table finds verified deals for your family — Taco Tuesday, kids-eat-free nights, and weekend bundles along E University Dr. Checked weekly by people who live here.';
-  document.getElementById('lt-city-heading').textContent = 'Today in ' + (svl ? 'Sunnyvale, CA' : 'Aubrey, TX');
-  document.getElementById('lt-deals-sub').textContent = svl
-    ? 'Verified this week. Team Lunch Bundles give groups of 4+ coworkers a shared discount code.'
-    : 'Verified this week. The Suburban Savings Pass filters for kid-friendly, drive-thru, and weekend family bundles.';
+  document.getElementById('lt-city-svl').classList.toggle('on', svl && !searching);
+  document.getElementById('lt-city-aub').classList.toggle('on', !svl && !searching);
+  document.getElementById('lt-search-clear').classList.toggle('show', searching);
+
+  if (!searching) {
+    document.getElementById('lt-hero-eyebrow').textContent = svl
+      ? 'Lunch specials · Happy hours · Late-night bites'
+      : 'Family meals · Weekly traditions · Dine-in deals';
+    document.getElementById('lt-hero-copy').textContent = svl
+      ? 'Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.'
+      : 'Local Table finds verified deals for your family — Taco Tuesday, kids-eat-free nights, and weekend bundles along E University Dr. Checked weekly by people who live here.';
+  }
+
+  // Pool: while searching, look across both cities so a query like "biryani"
+  // or "aubrey" finds matches regardless of which city toggle is active.
+  var pool = searching ? LT_DEALS.sunnyvale.concat(LT_DEALS.aubrey) : LT_DEALS[ltState.city];
+
+  var deals = pool.filter(function(d){
+    var catOk = ltState.cat === 'all' || d.cat === ltState.cat;
+    var qOk = !searching || ltMatchesQuery(d, q);
+    return catOk && qOk;
+  });
+
+  if (searching) {
+    document.getElementById('lt-city-heading').textContent = 'Search results for \u201C' + ltState.q.trim() + '\u201D';
+    document.getElementById('lt-deals-sub').textContent = deals.length
+      ? deals.length + ' deal' + (deals.length === 1 ? '' : 's') + ' found across Sunnyvale and Aubrey.'
+      : 'No deals matched — try a dish, a category, or a city name.';
+  } else {
+    document.getElementById('lt-city-heading').textContent = 'Today in ' + (svl ? 'Sunnyvale, CA' : 'Aubrey, TX');
+    document.getElementById('lt-deals-sub').textContent = svl
+      ? 'Verified this week. Team Lunch Bundles give groups of 4+ coworkers a shared discount code.'
+      : 'Verified this week. The Suburban Savings Pass filters for kid-friendly, drive-thru, and weekend family bundles.';
+  }
   document.getElementById('lt-signature').textContent = svl
     ? 'Team Lunch Bundles — group codes for 4+ coworkers'
     : 'Suburban Savings Pass — kid-friendly, drive-thru, weekend bundles';
@@ -401,10 +466,6 @@ function ltRender(){
     return '<button class="lt-cat-pill' + on + '" onclick="ltSetCat(\'' + key + '\')">' + ltEsc(label) + '</button>';
   }).join('');
   document.getElementById('lt-cat-pills').innerHTML = pillsHtml;
-
-  var deals = LT_DEALS[ltState.city].filter(function(d){
-    return ltState.cat === 'all' || d.cat === ltState.cat;
-  });
 
   var gridHtml = deals.map(function(d){
     var wasHtml = d.was ? '<span class="lt-price-was">' + ltEsc(d.was) + '</span>' : '';
