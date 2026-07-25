@@ -135,7 +135,18 @@ img{max-width:100%;display:block}
 .lt-subscribe{display:flex;background:#1C1208;border-radius:999px;padding:5px;gap:6px;border:1px solid rgba(217,164,65,0.28)}
 .lt-subscribe input{background:transparent;border:none;outline:none;color:#F6EFE4;font-size:.88rem;padding:9px 16px;width:230px}
 .lt-subscribe button{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;font-weight:600;font-size:.85rem;padding:9px 20px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
-@media(max-width:640px){.lt-footer-inner{flex-direction:column;align-items:flex-start}.lt-subscribe input{width:auto;flex:1}}
+@media(max-width:640px){.lt-footer-inner{flex-direction:column;align-items:flex-start}.lt-subscribe{width:100%;max-width:100%}.lt-subscribe input{width:auto;flex:1;min-width:0}}
+/* Small-phone polish: trim the wide 32px section padding so content has room and nothing overflows */
+@media(max-width:480px){
+  .lt-nav{padding:16px 18px}
+  .lt-hero{padding:44px 18px 72px}
+  .lt-deals{padding:40px 18px 20px}
+  .lt-about{padding:32px 18px 56px}
+  .lt-pricing{padding:48px 18px 56px}
+  .lt-footer{padding:40px 18px}
+  .lt-hero-title{font-size:1.9rem}
+  .lt-deals-grid{gap:20px}
+}
 </style>
 </head>
 <body>
