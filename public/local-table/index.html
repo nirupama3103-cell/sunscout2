@@ -147,6 +147,14 @@ img{max-width:100%;display:block}
   .lt-hero-title{font-size:1.9rem}
   .lt-deals-grid{gap:20px}
 }
+/* Mobile: dock the category filters into a fixed, scrollable bottom nav bar (like the main site's
+   bottom nav) instead of a wrapping pill block that looked cluttered. */
+@media(max-width:700px){
+  body{padding-bottom:68px}
+  .lt-cat-pills{position:fixed;left:0;right:0;bottom:0;z-index:300;margin:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#1A1008,#0A0603);border-top:1px solid rgba(217,164,65,0.28);box-shadow:0 -4px 16px rgba(0,0,0,0.45);flex-wrap:nowrap;overflow-x:auto;gap:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .lt-cat-pills::-webkit-scrollbar{display:none}
+  .lt-cat-pill{flex:0 0 auto}
+}
 </style>
 </head>
 <body>
