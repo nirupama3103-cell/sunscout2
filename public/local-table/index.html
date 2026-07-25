@@ -159,6 +159,20 @@ img{max-width:100%;display:block}
   .lt-cat-pills::-webkit-scrollbar{display:none}
   .lt-cat-pill{flex:0 0 auto}
 }
+/* ── Auto-scroll toggle button ── */
+.lt-autoscroll{position:fixed;right:22px;bottom:22px;z-index:320;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 16px;border-radius:999px;cursor:pointer;font:600 .9rem 'Work Sans',sans-serif;color:#F6EFE4;background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 20px rgba(0,0,0,0.45);text-shadow:0 1px 1px rgba(58,26,12,0.4);transition:transform .15s ease,box-shadow .15s ease}
+.lt-autoscroll:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 12px 26px rgba(0,0,0,0.5)}
+.lt-autoscroll .lt-as-icon{width:22px;height:22px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
+.lt-autoscroll .lt-as-icon svg{width:16px;height:16px;fill:#F6EFE4}
+.lt-autoscroll .lt-as-label small{display:block;font-weight:400;font-size:.68rem;opacity:.82;letter-spacing:.02em}
+.lt-autoscroll.playing{animation:lt-as-pulse 2.4s ease-in-out infinite}
+@keyframes lt-as-pulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 20px rgba(0,0,0,0.45)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 26px rgba(217,164,65,0.55)}}
+@media(max-width:700px){
+  /* Sit above the fixed category bottom-nav bar so they don't overlap */
+  .lt-autoscroll{right:14px;bottom:calc(74px + env(safe-area-inset-bottom));padding:11px 15px 11px 12px}
+  .lt-autoscroll .lt-as-label small{display:none}
+}
+@media(prefers-reduced-motion:reduce){.lt-autoscroll.playing{animation:none}.lt-autoscroll:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -533,6 +547,82 @@ function ltRender(){
 }
 
 ltRender();
+</script>
+
+<!-- ── Floating auto-scroll toggle: smoothly tours the page's sections ── -->
+<button class="lt-autoscroll" id="lt-auto-btn" type="button" aria-pressed="false" aria-label="Start auto-scroll">
+  <span class="lt-as-icon" id="lt-auto-icon"></span>
+  <span class="lt-as-label" id="lt-auto-label">Auto-scroll<small>Play tour</small></span>
+</button>
+<script>
+(function () {
+  'use strict';
+
+  // The page's main sections, top to bottom.
+  var sections = ['.lt-hero', '#deals', '#about', '#pricing', '.lt-footer']
+    .map(function (sel) { return document.querySelector(sel); })
+    .filter(Boolean);
+
+  var btn     = document.getElementById('lt-auto-btn');
+  var iconEl  = document.getElementById('lt-auto-icon');
+  var labelEl = document.getElementById('lt-auto-label');
+  if (!btn || sections.length < 2) return;
+
+  var INTERVAL = 4000;             // 4 seconds per section
+  var timer = null, playing = false;
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var PLAY_SVG  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  var PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+
+  // Index of the section nearest the top of the viewport.
+  function currentIndex() {
+    var best = 0, bestDist = Infinity;
+    for (var i = 0; i < sections.length; i++) {
+      var dist = Math.abs(sections[i].getBoundingClientRect().top);
+      if (dist < bestDist) { bestDist = dist; best = i; }
+    }
+    return best;
+  }
+
+  function goTo(i) {
+    sections[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+
+  // Next section, looping back to the top after the last.
+  function advance() { goTo((currentIndex() + 1) % sections.length); }
+
+  function paint() {
+    iconEl.innerHTML = playing ? PAUSE_SVG : PLAY_SVG;
+    labelEl.innerHTML = playing ? 'Auto-scroll<small>Playing…</small>' : 'Auto-scroll<small>Play tour</small>';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.setAttribute('aria-label', playing ? 'Pause auto-scroll' : 'Start auto-scroll');
+    btn.classList.toggle('playing', playing);
+  }
+
+  function start() {
+    if (playing) return;
+    playing = true; paint();
+    advance();                     // move right away, then keep going
+    timer = window.setInterval(advance, INTERVAL);
+  }
+
+  function stop() {
+    if (!playing) return;
+    playing = false; paint();
+    window.clearInterval(timer); timer = null;
+  }
+
+  btn.addEventListener('click', function () { playing ? stop() : start(); });
+
+  // Don't race ahead while the tab is hidden.
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && playing) stop();
+  });
+
+  paint();
+})();
 </script>
 </body>
 </html>
