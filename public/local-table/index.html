@@ -26,7 +26,7 @@ img{max-width:100%;display:block}
 .lt-nav-links a{color:#F6EFE4;text-decoration:none}
 .lt-back-link{color:#EFE5D3;opacity:.75;text-decoration:none;font-size:.85rem;white-space:nowrap}
 .lt-back-link:hover{opacity:1;color:#F3D588}
-.lt-nav-search-group{display:flex;align-items:center;gap:14px;flex:1 1 220px;min-width:0}
+.lt-nav>.lt-nav-brand{order:1}.lt-nav>.lt-nav-links{order:2}.lt-nav>.lt-search-bar{order:3}.lt-nav>.lt-back-link{order:4}.lt-nav>.lt-city-toggle{order:5}
 .lt-search-bar{position:relative;flex:1 1 auto;min-width:0;max-width:280px}
 .lt-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem;opacity:.55;pointer-events:none}
 .lt-search-input{width:100%;background:#2A1A0E;border:1px solid rgba(217,164,65,0.28);border-radius:999px;padding:9px 30px 9px 32px;color:#F6EFE4;font-size:.83rem;font-family:'Work Sans',sans-serif;outline:none}
@@ -39,10 +39,12 @@ img{max-width:100%;display:block}
 .lt-toggle-btn{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:999px;background:transparent;color:#EFE5D3;transition:background .15s,color .15s}
 .lt-toggle-btn.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
 @media(max-width:700px){
-  .lt-nav-links{display:none}
-  .lt-nav-search-group{flex-basis:100%;order:3}
-  .lt-search-bar{max-width:none}
-  .lt-city-toggle{order:2}
+  .lt-nav{gap:10px 12px}
+  .lt-nav>.lt-nav-links{display:none}
+  .lt-nav>.lt-nav-brand{order:1}
+  .lt-nav>.lt-back-link{order:2;margin-left:auto}
+  .lt-nav>.lt-city-toggle{order:3}
+  .lt-nav>.lt-search-bar{order:4;flex:1 1 100%;max-width:none;min-width:0}
 }
 
 /* ── HERO ── */
@@ -68,6 +70,8 @@ img{max-width:100%;display:block}
   .lt-hero-grid{grid-template-columns:1fr}
   .lt-hero-img{display:none}
   .lt-hero-title{font-size:2.1rem}
+  .lt-hero-ctas{flex-wrap:nowrap;gap:10px}
+  .lt-hero-ctas a{flex:1 1 0;text-align:center;padding:12px 10px;font-size:.82rem;white-space:nowrap}
 }
 
 /* ── DEALS ── */
@@ -164,22 +168,20 @@ img{max-width:100%;display:block}
     <span class="lt-nav-brand-name">Local Table</span>
     <span class="lt-live-badge"><span class="lt-live-dot"></span> Live</span>
   </div>
+  <a class="lt-back-link" href="/">SunScout Kids &rarr;</a>
   <div class="lt-nav-links">
     <a href="#deals">Deals</a>
     <a href="#pricing">List your business</a>
     <a href="#about">About</a>
   </div>
-  <div class="lt-nav-search-group">
-    <a class="lt-back-link" href="/">&larr; SunScout Kids</a>
-    <div class="lt-search-bar">
-      <span class="lt-search-icon">&#128269;</span>
-      <input class="lt-search-input" id="lt-search-input" type="text" placeholder="Search deals, city, biryani, ice cream…" oninput="ltSetSearch(this.value)" />
-      <button class="lt-search-clear" id="lt-search-clear" onclick="ltClearSearch()" aria-label="Clear search">&times;</button>
-    </div>
-  </div>
   <div class="lt-city-toggle">
     <button class="lt-toggle-btn" id="lt-city-svl" onclick="ltSetCity('sunnyvale')">Sunnyvale, CA</button>
     <button class="lt-toggle-btn" id="lt-city-aub" onclick="ltSetCity('aubrey')">Aubrey, TX</button>
+  </div>
+  <div class="lt-search-bar">
+    <span class="lt-search-icon">&#128269;</span>
+    <input class="lt-search-input" id="lt-search-input" type="text" placeholder="Search deals, city, biryani, ice cream…" oninput="ltSetSearch(this.value)" />
+    <button class="lt-search-clear" id="lt-search-clear" onclick="ltClearSearch()" aria-label="Clear search">&times;</button>
   </div>
 </nav>
 
@@ -440,6 +442,15 @@ function ltRender(){
   var svl = ltState.city === 'sunnyvale';
   var q = (ltState.q || '').trim().toLowerCase();
   var searching = q.length > 0;
+
+  // While searching, collapse the tall marketing hero (and its scallop divider) so the
+  // results appear right below the search box instead of far under the fold.
+  var heroEl = document.querySelector('.lt-hero');
+  if (heroEl) {
+    heroEl.style.display = searching ? 'none' : '';
+    var divider = heroEl.nextElementSibling;
+    if (divider) divider.style.display = searching ? 'none' : '';
+  }
 
   document.getElementById('lt-city-svl').classList.toggle('on', svl && !searching);
   document.getElementById('lt-city-aub').classList.toggle('on', !svl && !searching);
