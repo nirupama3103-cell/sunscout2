@@ -861,10 +861,15 @@ body{color:var(--p-ink) !important}
   box-shadow:0 12px 34px rgba(70,45,10,.14) !important;
   background:#fff !important;
 }
+/* The mark is a tall lockup with a wordmark under it, so it needs real height
+   to stay legible — give the bar the extra room rather than shrinking it. */
+.p-searchbar > div > div[style*="padding:10px"]{padding-top:14px !important;padding-bottom:14px !important}
 .p-searchbar-logo{
-  display:flex;align-items:center;padding:0 4px 0 18px;flex-shrink:0;
+  display:flex;align-items:center;flex-shrink:0;
+  padding:0 16px 0 20px;margin:10px 0;
+  border-right:1px solid #e0e0e0;
 }
-.p-searchbar-logo img{height:34px;width:auto;display:block}
+.p-searchbar-logo img{height:46px;width:auto;display:block}
 .p-searchbar [id^="dt"][id$="V"]{font-weight:800 !important}
 /* The old inline countdown is now the hero badge */
 .hero-meta{display:none !important}
