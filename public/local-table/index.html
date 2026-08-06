@@ -6,548 +6,758 @@
 <title>Local Table – Sister site of SunScout Kids</title>
 <meta name="description" content="Verified, no-nonsense food deals near you in Sunnyvale, CA and Aubrey, TX. A sister brand of SunScout Kids."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{margin:0;background:#1C1208;font-family:'Work Sans',sans-serif;color:#F6EFE4;min-height:100vh}
-a{color:#D9A441}
-a:hover{color:#F3D588}
-button{font-family:inherit;cursor:pointer}
-img{max-width:100%;display:block}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style id="lt-styles">
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #051129; }
 
-/* ── NAV ── */
-.lt-nav{background:linear-gradient(90deg,#0A0603 0%,#1A1008 50%,#0A0603 100%);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 32px;flex-wrap:wrap;border-bottom:1px solid rgba(217,164,65,0.2)}
-.lt-nav-brand{display:flex;align-items:center;gap:10px}
-.lt-nav-brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.35rem;color:#F6EFE4}
-.lt-live-badge{display:inline-flex;align-items:center;gap:5px;background:#7C8B6F;color:#F6EFE4;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
-.lt-live-dot{width:6px;height:6px;border-radius:50%;background:#F6EFE4}
-.lt-nav-links{display:flex;align-items:center;gap:24px;font-size:.9rem;font-weight:500}
-.lt-nav-links a{color:#F6EFE4;text-decoration:none}
-.lt-back-link{color:#EFE5D3;opacity:.75;text-decoration:none;font-size:.85rem;white-space:nowrap}
-.lt-back-link:hover{opacity:1;color:#F3D588}
-.lt-nav>.lt-nav-brand{order:1}.lt-nav>.lt-nav-links{order:2}.lt-nav>.lt-search-bar{order:3}.lt-nav>.lt-back-link{order:4}.lt-nav>.lt-city-toggle{order:5}
-.lt-search-bar{position:relative;flex:1 1 auto;min-width:0;max-width:280px}
-.lt-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem;opacity:.55;pointer-events:none}
-.lt-search-input{width:100%;background:#2A1A0E;border:1px solid rgba(217,164,65,0.28);border-radius:999px;padding:9px 30px 9px 32px;color:#F6EFE4;font-size:.83rem;font-family:'Work Sans',sans-serif;outline:none}
-.lt-search-input::placeholder{color:#C8B69A;opacity:.7}
-.lt-search-input:focus{border-color:#D9A441}
-.lt-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#EFE5D3;opacity:.6;font-size:.9rem;line-height:1;padding:4px;display:none}
-.lt-search-clear.show{display:block}
-.lt-search-clear:hover{opacity:1;color:#F3D588}
-.lt-city-toggle{display:flex;background:#2A1A0E;border-radius:999px;padding:4px;border:1px solid rgba(217,164,65,0.28)}
-.lt-toggle-btn{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:999px;background:transparent;color:#EFE5D3;transition:background .15s,color .15s}
-.lt-toggle-btn.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
-@media(max-width:700px){
-  .lt-nav{gap:10px 12px}
-  .lt-nav>.lt-nav-links{display:none}
-  .lt-nav>.lt-nav-brand{order:1}
-  .lt-nav>.lt-back-link{order:2;margin-left:auto}
-  .lt-nav>.lt-city-toggle{order:3}
-  .lt-nav>.lt-search-bar{order:4;flex:1 1 100%;max-width:none;min-width:0}
-}
+  /* ---- tokens (scoped) ---- */
+  #lt-section {
+    --lt-navy-900: #051129;
+    --lt-navy-800: #061634;
+    --lt-navy-700: #071B4D;
+    --lt-navy-600: #0A2560;
+    --lt-navy-500: #0D3480;
+    --lt-gold: #C9A227;
+    --lt-gold-200: #F2D888;
+    --lt-gold-100: #FFF6D2;
+    --lt-cream: #FFF9F0;
+    --lt-ease: cubic-bezier(.2,.8,.2,1);
+    font-family: Nunito, Quicksand, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 20px 56px;
+    background-color: var(--lt-navy-800);
+    background-image:
+      radial-gradient(110% 60% at 50% -5%, rgba(242,216,136,.20), rgba(242,216,136,0) 62%),
+      radial-gradient(85% 55% at 12% 22%, rgba(23,86,196,.42), rgba(23,86,196,0) 70%),
+      radial-gradient(85% 55% at 100% 92%, rgba(201,162,39,.14), rgba(201,162,39,0) 72%),
+      linear-gradient(180deg, var(--lt-navy-500) 0%, var(--lt-navy-700) 48%, var(--lt-navy-900) 100%);
+  }
+  #lt-section *, #lt-section *::before, #lt-section *::after { box-sizing: border-box; }
+  #lt-section h1, #lt-section h2, #lt-section h3, #lt-section h4, #lt-section p { margin: 0; }
+  #lt-section a { text-decoration: none; }
+  #lt-section img { max-width: 100%; }
 
-/* ── HERO ── */
-.lt-hero{position:relative;background:linear-gradient(155deg,#1E1712 0%,#3A2A1C 45%,#2B211B 100%);color:#F6EFE4;padding:64px 32px 96px;overflow:hidden}
-.lt-hero-svg{position:absolute;inset:0;width:100%;height:100%}
-.lt-hero-veil{position:absolute;inset:0;background:linear-gradient(100deg,rgba(30,23,18,0.85) 0%,rgba(30,23,18,0.55) 45%,rgba(30,23,18,0.18) 75%,rgba(30,23,18,0.05) 100%)}
-.lt-hero-grid{position:relative;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-.lt-hero-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D9A441;margin-bottom:18px;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
-.lt-hero-title{font-family:'Fraunces',serif;font-weight:500;font-size:3.2rem;line-height:1.08;margin:0 0 18px;text-shadow:0 2px 6px rgba(0,0,0,0.45)}
-.lt-hero-title em{font-style:italic;color:#E8A87C}
-.lt-hero-copy{font-size:1.05rem;line-height:1.6;color:#EFE5D3;opacity:.9;margin:0 0 28px;max-width:460px;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
-.lt-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
-.lt-btn-solid{text-decoration:none;background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;font-weight:600;font-size:.95rem;padding:13px 26px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.55),inset 0 -2px 3px rgba(58,26,12,0.5),0 6px 14px rgba(0,0,0,0.35);text-shadow:0 1px 1px rgba(58,26,12,0.4)}
-.lt-btn-outline{text-decoration:none;background:linear-gradient(180deg,#6B4A33 0%,#4A3120 100%);border:1px solid #C89B6A;color:#F3D588;font-weight:600;font-size:.95rem;padding:13px 26px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(243,213,136,0.4),inset 0 -2px 3px rgba(0,0,0,0.45),0 6px 14px rgba(0,0,0,0.35)}
-.lt-hero-stats{display:flex;gap:36px;flex-wrap:wrap}
-.lt-hero-stat-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:600}
-.lt-hero-stat-label{font-size:.82rem;opacity:.7}
-.lt-hero-img{position:relative;justify-self:center}
-.lt-hero-circle{width:340px;height:340px;border-radius:50%;padding:8px;box-sizing:border-box;background:linear-gradient(135deg,#F3D588 0%,#C6633B 40%,#8E4227 70%,#D9A441 100%);box-shadow:0 16px 36px rgba(0,0,0,0.45),inset 0 2px 3px rgba(255,255,255,0.5)}
-.lt-hero-circle-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#EFE5D3;display:flex;align-items:center;justify-content:center;font-size:6rem}
-.lt-hero-stamp{position:absolute;top:-14px;right:-14px;transform:rotate(12deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35))}
-@media(max-width:700px){
-  .lt-hero-grid{grid-template-columns:1fr}
-  .lt-hero-img{display:none}
-  .lt-hero-title{font-size:2.1rem}
-  .lt-hero-ctas{flex-wrap:nowrap;gap:10px}
-  .lt-hero-ctas a{flex:1 1 0;text-align:center;padding:12px 10px;font-size:.82rem;white-space:nowrap}
-}
+  /* ---- background layers ---- */
+  .lt-bg-art, .lt-bg-scrim, .lt-bg-grid, .lt-bg-rule { position: absolute; z-index: 0; pointer-events: none; }
+  .lt-bg-art {
+    top: 0; left: 0; right: 0; height: 540px;
+    background-image: url('assets/lt3/lt-bg-silk.jpg');
+    background-repeat: no-repeat; background-size: 100% auto; background-position: center top;
+    -webkit-mask-image: linear-gradient(180deg,#000 0%,#000 46%,rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(180deg,#000 0%,#000 46%,rgba(0,0,0,0) 100%);
+  }
+  .lt-bg-scrim {
+    top: 0; left: 0; right: 0; height: 540px;
+    background: linear-gradient(180deg, rgba(5,17,41,.62) 0%, rgba(6,22,52,.78) 55%, rgba(5,17,41,0) 100%);
+  }
+  .lt-bg-grid {
+    inset: 0; opacity: .5;
+    background-image:
+      linear-gradient(90deg, rgba(201,162,39,.10) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(201,162,39,.10) 1px, transparent 1px);
+    background-size: 96px 96px;
+    -webkit-mask-image: radial-gradient(80% 55% at 50% 12%, #000, rgba(0,0,0,0) 75%);
+            mask-image: radial-gradient(80% 55% at 50% 12%, #000, rgba(0,0,0,0) 75%);
+  }
+  .lt-bg-rule {
+    top: 0; left: 0; right: 0; height: 4px; z-index: 2;
+    background: linear-gradient(90deg, rgba(140,106,24,0) 0%, #8C6A18 12%, var(--lt-gold-200) 34%, var(--lt-gold-100) 50%, var(--lt-gold-200) 66%, #8C6A18 88%, rgba(140,106,24,0) 100%);
+  }
 
-/* ── DEALS ── */
-.lt-deals{background:linear-gradient(180deg,#2A1E10 0%,#341F0E 55%,#2A1E10 100%);padding:56px 32px 24px}
-.lt-section-inner{max-width:1100px;margin:0 auto}
-.lt-h2{font-family:'Fraunces',serif;font-weight:500;font-size:2rem;margin:0 0 6px;color:#F3D588}
-.lt-deals-sub{font-size:.95rem;color:#EFE5D3;opacity:.85;margin:0 0 20px}
-.lt-cat-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
-.lt-cat-pill{border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;font-size:.82rem;padding:9px 18px;border-radius:999px;white-space:nowrap;background:linear-gradient(180deg,#5A3B1E,#3A2416);color:#F3D588;border:1px solid rgba(217,164,65,0.32);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),inset 0 -2px 3px rgba(0,0,0,0.35)}
-.lt-cat-pill.on{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5),0 4px 8px rgba(43,33,27,0.25);border-color:transparent}
-.lt-deals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
-.lt-deal-card{background:transparent;padding:12px 8px 0}
-.lt-ladle{position:relative;width:200px;margin:0 auto 14px}
-.lt-bowl{width:156px;height:156px;margin:0 auto;border-radius:50%;padding:7px;box-sizing:border-box;background:linear-gradient(135deg,#F3D588 0%,#C6633B 40%,#8E4227 72%,#D9A441 100%);box-shadow:0 12px 26px rgba(43,33,27,0.32),inset 0 2px 3px rgba(255,255,255,0.55)}
-.lt-bowl-inner{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#EFE5D3;display:flex;align-items:center;justify-content:center;font-size:3.4rem}
-.lt-bowl-shine{position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse at 32% 20%,rgba(255,255,255,0.32),transparent 52%);pointer-events:none}
-.lt-handle{position:absolute;right:2px;top:104px;filter:drop-shadow(0 5px 8px rgba(43,33,27,0.3))}
-.lt-price-row{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:-10px}
-.lt-price-medallion{display:inline-block;background:radial-gradient(circle at 35% 28%,#F3D588,#D9A441 58%,#B07E24);border:1px solid #8A6318;color:#2B211B;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;padding:7px 18px;border-radius:999px;box-shadow:inset 0 1px 1px rgba(255,255,255,0.6),inset 0 -2px 3px rgba(110,78,18,0.45),0 5px 10px rgba(43,33,27,0.28);white-space:nowrap}
-.lt-price-was{font-size:.9rem;color:#EFE5D3;opacity:.5;text-decoration:line-through}
-.lt-badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
-.lt-badge{font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:999px;white-space:nowrap}
-.lt-badge-city{background:linear-gradient(180deg,#5A3B1E,#3A2416);color:#F3D588;border:1px solid rgba(217,164,65,0.35);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2),inset 0 -1px 2px rgba(0,0,0,0.4)}
-.lt-badge-featured{background:linear-gradient(180deg,#F3D588,#D9A441 70%);color:#2B211B;border:1px solid #8A6318;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
-.lt-badge-tag{background:#7C8B6F;color:#F6EFE4}
-.lt-deal-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;text-align:center;margin:0 0 6px;color:#F6EFE4}
-.lt-deal-venue{font-size:.85rem;text-align:center;color:#EFE5D3;opacity:.8;margin:0}
-.lt-deal-verified{font-size:.68rem;text-align:center;color:#D9A441;opacity:.65;margin:8px 0 0}
-.lt-signature{text-align:center;margin:28px 0 8px}
-.lt-signature-pill{display:inline-block;background:linear-gradient(180deg,#A97B1F,#D9A441 50%,#A97B1F);color:#1C1208;font-size:.85rem;font-weight:600;padding:10px 22px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(110,78,18,0.5),0 5px 10px rgba(0,0,0,0.3)}
+  .lt-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
 
-/* ── HOW IT WORKS ── */
-.lt-about{background:linear-gradient(180deg,#1A1008 0%,#261808 55%,#1A1008 100%);padding:40px 32px 72px}
-.lt-steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:28px}
-.lt-step-panel{position:relative;border-radius:10px;padding:24px 22px;transform:skewX(-2.5deg)}
-.lt-step-panel-copper{background:linear-gradient(115deg,#9C5A31 0%,#D08A55 30%,#F0C9A5 52%,#E0A377 72%,#9C5A31 100%);color:#3A2416;box-shadow:inset 0 2px 2px rgba(255,255,255,0.55),inset 0 -3px 5px rgba(58,26,12,0.4),0 8px 18px rgba(43,33,27,0.25);border:1px solid rgba(110,60,30,0.4)}
-.lt-step-panel-gold{background:linear-gradient(115deg,#A97B1F 0%,#D9A441 30%,#F3DD9B 52%,#E3BC63 72%,#A97B1F 100%);color:#2B211B;box-shadow:inset 0 2px 2px rgba(255,255,255,0.55),inset 0 -3px 5px rgba(110,78,18,0.4),0 8px 18px rgba(43,33,27,0.25);border:1px solid rgba(138,99,24,0.45)}
-.lt-step-inner{transform:skewX(2.5deg)}
-.lt-step-num{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#F3D588,#D9A441 58%,#B07E24);border:1px solid #8A6318;color:#2B211B;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;margin-bottom:14px;box-shadow:inset 0 1px 1px rgba(255,255,255,0.6),inset 0 -2px 3px rgba(110,78,18,0.45),0 4px 8px rgba(43,33,27,0.25)}
-.lt-step-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;margin:0 0 8px}
-.lt-step-body{font-size:.85rem;line-height:1.55;margin:0;opacity:.85}
+  /* ---- header ---- */
+  .lt-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid rgba(242,216,136,.24); }
+  .lt-lockup { display: flex; align-items: center; gap: 12px; }
+  .lt-logo { display: block; flex: none; }
+  .lt-lockup img { width: 60px; height: auto; display: block; filter: drop-shadow(0 2px 10px rgba(3,10,28,.55)); }
+  .lt-divider { width: 1px; height: 38px; background: rgba(242,216,136,.34); }
+  .lt-lockup .lt-brand { font-size: 22px; font-weight: 900; letter-spacing: -.3px; color: var(--lt-gold-200); }
+  .lt-live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #7BE3A6; background: rgba(52,201,122,.14); border: 1px solid rgba(52,201,122,.45); padding: 5px 11px; border-radius: 9999px; }
+  .lt-live i { width: 7px; height: 7px; border-radius: 9999px; background: #34C97A; }
+  .lt-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+  .lt-nav a { font-size: 14.5px; font-weight: 800; color: rgba(255,249,240,.86); transition: color .15s ease; }
+  .lt-nav a:hover { color: var(--lt-gold-200); }
+  .lt-nav a.lt-nav-cta { font-size: 14px; color: var(--lt-navy-800); background: rgba(242,216,136,.92); padding: 9px 16px; border-radius: 9999px; transition: transform .15s var(--lt-ease); }
+  .lt-nav a.lt-nav-cta:hover { color: var(--lt-navy-800); transform: translateY(-2px); }
 
-/* ── PRICING ── */
-.lt-pricing{background:linear-gradient(180deg,#100A04 0%,#180E06 50%,#100A04 100%);color:#F6EFE4;padding:64px 32px 72px}
-.lt-pricing-sub{font-size:.95rem;opacity:.75;margin:0 0 36px}
-.lt-tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;align-items:stretch}
-.lt-tier-card{position:relative;background:linear-gradient(145deg,#4A3120 0%,#5F3E24 40%,#7A4E2B 62%,#43301C 100%);border:1px solid rgba(217,164,65,0.5);border-radius:14px;padding:30px 26px;display:flex;flex-direction:column;box-shadow:inset 0 1px 0 rgba(243,213,136,0.35),inset 0 -3px 6px rgba(0,0,0,0.4),0 10px 22px rgba(0,0,0,0.35)}
-.lt-tier-card.popular{border:2px solid #D9A441;box-shadow:inset 0 1px 0 rgba(243,213,136,0.35),inset 0 -3px 6px rgba(0,0,0,0.4),0 10px 22px rgba(0,0,0,0.35),0 0 24px rgba(217,164,65,0.25)}
-.lt-tier-popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#F3D588,#D9A441 70%);color:#2B211B;font-size:.72rem;font-weight:600;padding:5px 14px;border-radius:999px;white-space:nowrap;border:1px solid #8A6318;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 4px 8px rgba(0,0,0,0.35)}
-.lt-tier-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;margin:0 0 6px}
-.lt-tier-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:18px}
-.lt-tier-price{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:600;color:#F3D588;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
-.lt-tier-per{font-size:.85rem;opacity:.7}
-.lt-tier-perk{display:flex;gap:8px;align-items:flex-start;font-size:.88rem;line-height:1.5;margin-bottom:9px}
-.lt-tier-perk-check{color:#D9A441;font-weight:600}
-.lt-tier-cta{margin-top:auto;text-decoration:none;text-align:center;font-weight:600;font-size:.9rem;padding:11px 20px;border-radius:999px;margin-top:18px}
-.lt-tier-cta-solid{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5),0 5px 10px rgba(0,0,0,0.3);text-shadow:0 1px 1px rgba(58,26,12,0.4)}
-.lt-tier-cta-outline{background:linear-gradient(180deg,#6B4A33 0%,#4A3120 100%);border:1px solid #C89B6A;color:#F3D588;box-shadow:inset 0 1px 0 rgba(243,213,136,0.4),inset 0 -2px 3px rgba(0,0,0,0.45),0 5px 10px rgba(0,0,0,0.3)}
+  .lt-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .lt-pill { cursor: pointer; font: inherit; font-size: 14.5px; font-weight: 800; padding: 9px 18px; border-radius: 9999px; border: 1.5px solid rgba(255,255,255,.20); background: rgba(255,255,255,.10); color: rgba(255,249,240,.88); transition: transform .15s var(--lt-ease), background .15s ease; }
+  .lt-pill:hover { transform: translateY(-2px); }
+  .lt-pill[aria-pressed="true"] { background: linear-gradient(135deg,#E3C462,var(--lt-gold)); border-color: #E3C462; color: var(--lt-navy-800); box-shadow: 0 8px 24px rgba(201,162,39,.35); }
+  .lt-search { flex: 1; min-width: 260px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(242,216,136,.32); border-radius: 9999px; padding: 10px 16px; }
+  .lt-search input { flex: 1; min-width: 0; font: inherit; font-size: 14.5px; font-weight: 700; color: var(--lt-cream); background: transparent; border: 0; outline: none; }
+  .lt-search input::placeholder { color: rgba(255,249,240,.5); }
+  .lt-search button { display: none; cursor: pointer; font: inherit; font-size: 13px; font-weight: 900; color: var(--lt-navy-800); background: rgba(242,216,136,.92); border: 0; width: 22px; height: 22px; border-radius: 9999px; line-height: 1; flex: none; }
+  .lt-search.is-active button { display: block; }
 
-/* ── FOOTER ── */
-.lt-footer{background:linear-gradient(180deg,#0A0603 0%,#0F0804 100%);color:#EFE5D3;padding:52px 32px;border-top:1px solid rgba(217,164,65,0.15)}
-.lt-footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center}
-.lt-footer-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin-bottom:8px}
-.lt-footer-sub{font-size:.85rem;opacity:.7;margin:0}
-.lt-subscribe{display:flex;background:#1C1208;border-radius:999px;padding:5px;gap:6px;border:1px solid rgba(217,164,65,0.28)}
-.lt-subscribe input{background:transparent;border:none;outline:none;color:#F6EFE4;font-size:.88rem;padding:9px 16px;width:230px}
-.lt-subscribe button{background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;color:#F6EFE4;font-weight:600;font-size:.85rem;padding:9px 20px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),inset 0 -2px 3px rgba(58,26,12,0.5)}
-@media(max-width:640px){.lt-footer-inner{flex-direction:column;align-items:flex-start}.lt-subscribe{width:100%;max-width:100%}.lt-subscribe input{width:auto;flex:1;min-width:0}}
-/* Small-phone polish: trim the wide 32px section padding so content has room and nothing overflows */
-@media(max-width:480px){
-  .lt-nav{padding:16px 18px}
-  .lt-hero{padding:44px 18px 72px}
-  .lt-deals{padding:40px 18px 20px}
-  .lt-about{padding:32px 18px 56px}
-  .lt-pricing{padding:48px 18px 56px}
-  .lt-footer{padding:40px 18px}
-  .lt-hero-title{font-size:1.9rem}
-  .lt-deals-grid{gap:20px}
-}
-/* Mobile: dock the category filters into a fixed, scrollable bottom nav bar (like the main site's
-   bottom nav) instead of a wrapping pill block that looked cluttered. */
-@media(max-width:700px){
-  body{padding-bottom:68px}
-  .lt-cat-pills{position:fixed;left:0;right:0;bottom:0;z-index:300;margin:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#1A1008,#0A0603);border-top:1px solid rgba(217,164,65,0.28);box-shadow:0 -4px 16px rgba(0,0,0,0.45);flex-wrap:nowrap;overflow-x:auto;gap:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .lt-cat-pills::-webkit-scrollbar{display:none}
-  .lt-cat-pill{flex:0 0 auto}
-}
-/* ── Auto-scroll toggle button ── */
-.lt-autoscroll{position:fixed;right:22px;bottom:22px;z-index:320;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 16px;border-radius:999px;cursor:pointer;font:600 .9rem 'Work Sans',sans-serif;color:#F6EFE4;background:linear-gradient(180deg,#E8A87C 0%,#C6633B 45%,#8E4227 100%);border:1px solid #8E4227;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 20px rgba(0,0,0,0.45);text-shadow:0 1px 1px rgba(58,26,12,0.4);transition:transform .15s ease,box-shadow .15s ease}
-.lt-autoscroll:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 12px 26px rgba(0,0,0,0.5)}
-.lt-autoscroll .lt-as-icon{width:22px;height:22px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center}
-.lt-autoscroll .lt-as-icon svg{width:16px;height:16px;fill:#F6EFE4}
-.lt-autoscroll .lt-as-label small{display:block;font-weight:400;font-size:.68rem;opacity:.82;letter-spacing:.02em}
-.lt-autoscroll.playing{animation:lt-as-pulse 2.4s ease-in-out infinite}
-@keyframes lt-as-pulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 20px rgba(0,0,0,0.45)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 8px 26px rgba(217,164,65,0.55)}}
-@media(max-width:700px){
-  /* Sit above the fixed category bottom-nav bar so they don't overlap */
-  .lt-autoscroll{right:14px;bottom:calc(74px + env(safe-area-inset-bottom));padding:11px 15px 11px 12px}
-  .lt-autoscroll .lt-as-label small{display:none}
-}
-@media(prefers-reduced-motion:reduce){.lt-autoscroll.playing{animation:none}.lt-autoscroll:hover{transform:none}}
+  .lt-hero { display: flex; flex-direction: column; gap: 14px; padding: 6px 0 4px; }
+  .lt-eyebrow { font-size: 12.5px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--lt-gold-200); }
+  .lt-hero h1 { max-width: 780px; font-size: clamp(34px, 6.4vw, 62px); font-weight: 900; letter-spacing: -1.4px; line-height: 1.03; color: var(--lt-cream); text-wrap: balance; }
+  .lt-hero h1 em { font-style: italic; color: var(--lt-gold-200); }
+  .lt-hero p { max-width: 660px; font-size: 16.5px; font-weight: 600; line-height: 1.6; color: rgba(255,249,240,.80); text-wrap: pretty; }
+  .lt-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  .lt-btn-gold { background: linear-gradient(135deg,var(--lt-gold-200),var(--lt-gold)); color: var(--lt-navy-800); font-size: 15.5px; font-weight: 900; padding: 14px 26px; border-radius: 9999px; box-shadow: 0 10px 26px rgba(201,162,39,.42); transition: transform .15s var(--lt-ease), filter .15s ease; }
+  .lt-btn-gold:hover { filter: brightness(1.06); color: var(--lt-navy-800); transform: translateY(-3px); }
+  .lt-btn-ghost { background: rgba(255,255,255,.08); border: 1.5px solid rgba(242,216,136,.45); color: var(--lt-gold-100); font-size: 15.5px; font-weight: 800; padding: 14px 26px; border-radius: 9999px; transition: transform .15s var(--lt-ease), background .15s ease; }
+  .lt-btn-ghost:hover { background: rgba(255,255,255,.14); color: var(--lt-gold-100); transform: translateY(-3px); }
+
+  .lt-stats { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  .lt-stat { flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 2px; padding: 16px 20px; border-radius: 14px; background: rgba(255,255,255,.07); border: 1px solid rgba(242,216,136,.26); }
+  .lt-stat b { font-size: 30px; font-weight: 900; letter-spacing: -1px; color: var(--lt-gold-200); }
+  .lt-stat span { font-size: 12.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: rgba(255,249,240,.66); }
+
+  /* ---- gold banner ---- */
+  .lt-banner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 34px 24px 30px; border-radius: 8px; overflow: hidden; background: linear-gradient(180deg,var(--lt-navy-500) 0%,var(--lt-navy-600) 45%,var(--lt-navy-800) 100%); box-shadow: 0 18px 46px rgba(3,10,28,.55), inset 0 0 70px rgba(23,86,196,.35); }
+  .lt-banner::before, .lt-banner::after { content: ''; position: absolute; left: 0; right: 0; height: 9px; }
+  .lt-banner::before { top: 0; background: linear-gradient(180deg,#7A5A12 0%,var(--lt-gold-200) 28%,var(--lt-gold-100) 48%,#E3C462 62%,#8C6A18 100%); }
+  .lt-banner::after { bottom: 0; background: linear-gradient(180deg,#8C6A18 0%,#E3C462 38%,var(--lt-gold-100) 52%,var(--lt-gold-200) 72%,#7A5A12 100%); }
+  .lt-sheen { position: absolute; inset: 9px 0; pointer-events: none; background: linear-gradient(105deg, rgba(255,255,255,0) 42%, rgba(255,246,210,.16) 50%, rgba(255,255,255,0) 58%); animation: lt-sheen 7s ease-in-out infinite; }
+  @keyframes lt-sheen { 0% { transform: translateX(-120%); } 55%,100% { transform: translateX(120%); } }
+  .lt-banner-chip { position: relative; display: inline-flex; align-items: center; gap: 8px; background: rgba(6,22,52,.55); border: 1px solid rgba(242,216,136,.60); color: var(--lt-gold-200); font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 7px 15px; border-radius: 9999px; }
+  .lt-banner h2 { position: relative; font-size: clamp(30px, 5.2vw, 50px); font-weight: 900; letter-spacing: -.5px; line-height: 1.06; color: var(--lt-gold-100); text-shadow: 0 2px 0 rgba(3,10,28,.45); text-wrap: balance; }
+  .lt-banner p { position: relative; max-width: 560px; font-size: 16px; font-weight: 700; line-height: 1.5; color: rgba(255,249,240,.84); text-wrap: pretty; }
+
+  /* ---- filter panel ---- */
+  .lt-filters { display: flex; flex-direction: column; align-items: center; gap: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(201,162,39,.42); border-radius: 22px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.30); }
+  .lt-filter-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 100%; }
+  .lt-chip { cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 800; padding: 8px 16px; border-radius: 9999px; border: 1.5px solid rgba(255,255,255,.20); background: rgba(255,255,255,.10); color: rgba(255,249,240,.88); transition: transform .15s var(--lt-ease), background .15s ease; }
+  .lt-chip:hover { transform: translateY(-2px); }
+  .lt-chip[aria-pressed="true"] { background: var(--lt-cream); border-color: var(--lt-cream); color: var(--lt-navy-800); box-shadow: 0 6px 18px rgba(0,0,0,.28); }
+  .lt-result { font-size: 13px; font-weight: 700; color: rgba(255,249,240,.72); text-align: center; }
+
+  /* ---- deal grid ---- */
+  .lt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 18px; perspective: 1200px; }
+  .lt-card { display: flex; flex-direction: column; background: #fff; border: 1px solid rgba(255,255,255,.14); border-top: 4px solid var(--lt-accent); border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(3,10,28,.45), 0 0 0 1px rgba(242,216,136,.16); transform-style: preserve-3d; transition: box-shadow .15s ease, transform .25s var(--lt-ease); animation: lt-rise .4s var(--lt-ease); }
+  .lt-card:hover { box-shadow: 0 20px 48px rgba(3,10,28,.60), 0 0 0 1.5px rgba(242,216,136,.55); }
+  @keyframes lt-rise { from { transform: translateY(14px); } to { transform: translateY(0); } }
+  .lt-shot { position: relative; aspect-ratio: 4 / 3; background: linear-gradient(135deg,#FFF9E6,#E8F5FF); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .lt-shot .lt-emoji { font-size: 2.5rem; }
+  .lt-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+  .lt-card:hover .lt-shot img { transform: scale(1.04); }
+  .lt-badge { position: absolute; top: 10px; right: 10px; background: var(--lt-accent); color: var(--lt-accent-on); font-size: 12px; font-weight: 900; letter-spacing: .4px; padding: 6px 12px; border-radius: 9999px; box-shadow: 0 4px 16px rgba(0,0,0,.28); }
+  .lt-kid { position: absolute; top: 10px; left: 10px; background: #34C97A; color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .6px; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; }
+  .lt-city { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.5); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .5px; padding: 5px 10px; }
+  .lt-body { display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 16px; }
+  .lt-body h3 { font-size: 18px; font-weight: 800; line-height: 1.2; color: #1a1a1a; text-wrap: balance; }
+  .lt-place { font-size: 14px; font-weight: 800; color: var(--lt-accent-fg); }
+  .lt-addr { font-size: 12.5px; font-weight: 700; color: #8a8a8a; }
+  .lt-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lt-chips span { font-size: 12px; font-weight: 800; padding: 5px 10px; border-radius: 6px; }
+  .lt-chip-time { background: #FFF3E0; color: #7A5A2E; }
+  .lt-chip-days { background: #E8F5FF; color: #1D5F80; }
+  .lt-chip-cuisine { background: var(--lt-accent-soft); color: var(--lt-accent-fg); }
+  .lt-desc { font-size: 14px; font-weight: 600; line-height: 1.5; color: #4a4a4a; text-wrap: pretty; }
+  .lt-verified { font-size: 11.5px; font-weight: 800; letter-spacing: .3px; color: #8a8a8a; }
+  .lt-ctas { display: flex; gap: 8px; margin-top: 2px; }
+  .lt-ctas a { flex: 1; text-align: center; font-size: 14px; font-weight: 800; padding: 10px 14px; border-radius: 9999px; transition: transform .15s var(--lt-ease), filter .15s ease, background .15s ease; }
+  .lt-cta-map { background: var(--lt-accent); color: var(--lt-accent-on); box-shadow: 0 4px 14px rgba(0,0,0,.20); }
+  .lt-cta-map:hover { filter: brightness(.92); transform: translateY(-2px); }
+  .lt-cta-order { background: #fff; border: 1.5px solid rgba(0,0,0,.12); color: #1a1a1a; }
+  .lt-cta-order:hover { background: #FFF3E0; color: #1a1a1a; transform: translateY(-2px); }
+
+  .lt-more-wrap { display: flex; justify-content: center; }
+  .lt-more { cursor: pointer; font: inherit; font-size: 16px; font-weight: 900; color: #1a1a1a; padding: 14px 34px; border-radius: 9999px; border: 1px solid rgba(0,0,0,.09); background: linear-gradient(135deg,#a8edea,#fed6e3,#ffd89b); box-shadow: 0 6px 20px rgba(0,0,0,.11); transition: transform .15s var(--lt-ease); }
+  .lt-more:hover { transform: translateY(-3px); }
+  .lt-empty { display: none; text-align: center; background: #fff; border: 1px solid rgba(0,0,0,.09); border-radius: 18px; padding: 40px 24px; box-shadow: 0 12px 34px rgba(3,10,28,.42); }
+  .lt-empty p { margin-top: 8px; font-size: 16px; font-weight: 800; color: var(--lt-navy-800); }
+
+  /* ---- how it works / pricing / footer ---- */
+  .lt-section { margin-top: 46px; display: flex; flex-direction: column; gap: 26px; }
+  .lt-section-head { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+  .lt-section-head i { width: 74px; height: 2px; background: linear-gradient(90deg, rgba(242,216,136,0), var(--lt-gold-200), rgba(242,216,136,0)); }
+  .lt-section-head h3 { font-size: clamp(24px,3.4vw,34px); font-weight: 900; letter-spacing: -.3px; color: var(--lt-gold-100); }
+  .lt-section-head p { font-size: 16px; font-weight: 700; color: rgba(255,249,240,.78); }
+  .lt-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; }
+  .lt-step { display: flex; flex-direction: column; gap: 8px; padding: 24px 22px 26px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04)); border: 1px solid rgba(242,216,136,.30); box-shadow: 0 10px 28px rgba(3,10,28,.35); }
+  .lt-step b { font-size: 34px; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--lt-gold-200); opacity: .9; }
+  .lt-step h4 { margin-top: 4px; font-size: 19px; font-weight: 800; color: var(--lt-cream); }
+  .lt-step p { font-size: 14.5px; font-weight: 600; line-height: 1.55; color: rgba(255,249,240,.76); text-wrap: pretty; }
+
+  .lt-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 18px; align-items: start; }
+  .lt-plan { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 28px 24px; border-radius: 20px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 12px 34px rgba(3,10,28,.42); }
+  .lt-plan.is-featured { padding-top: 32px; border: 2px solid var(--lt-gold); box-shadow: 0 18px 44px rgba(3,10,28,.55), 0 0 0 6px rgba(242,216,136,.14); }
+  .lt-ribbon { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#E3C462,var(--lt-gold)); color: var(--lt-navy-800); font-size: 11.5px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 6px 16px; border-radius: 9999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(3,10,28,.35); }
+  .lt-plan h4 { font-size: 20px; font-weight: 900; color: var(--lt-navy-800); }
+  .lt-price { display: flex; align-items: baseline; gap: 4px; }
+  .lt-price b { font-size: 42px; font-weight: 900; letter-spacing: -1.5px; color: var(--lt-navy-800); }
+  .lt-price span { font-size: 15px; font-weight: 800; color: #6b6b6b; }
+  .lt-feats { display: flex; flex-direction: column; gap: 10px; }
+  .lt-feats span { display: flex; gap: 9px; font-size: 14.5px; font-weight: 700; color: #3a3a3a; }
+  .lt-feats i { color: #1D6B45; font-weight: 900; font-style: normal; }
+  .lt-plan a { margin-top: 4px; text-align: center; font-size: 15px; font-weight: 800; padding: 12px 18px; border-radius: 9999px; transition: transform .15s var(--lt-ease), filter .15s ease; }
+  .lt-plan-cta-dark { background: var(--lt-navy-800); color: var(--lt-gold-100); }
+  .lt-plan-cta-dark:hover { filter: brightness(1.25); color: var(--lt-gold-100); transform: translateY(-2px); }
+  .lt-plan-cta-gold { background: linear-gradient(135deg,var(--lt-gold-200),var(--lt-gold)); color: var(--lt-navy-800); font-weight: 900; box-shadow: 0 8px 22px rgba(201,162,39,.45); }
+  .lt-plan-cta-gold:hover { filter: brightness(1.06); color: var(--lt-navy-800); transform: translateY(-2px); }
+
+  .lt-footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(242,216,136,.28); display: flex; flex-wrap: wrap; gap: 26px; justify-content: space-between; align-items: flex-start; }
+  .lt-footer-brand { display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
+  .lt-footer-lockup { display: flex; align-items: center; gap: 10px; }
+  .lt-footer-lockup img { width: 40px; height: auto; display: block; }
+  .lt-footer-lockup span { font-size: 24px; font-weight: 900; letter-spacing: -.4px; color: var(--lt-gold-200); }
+  .lt-footer-brand p { font-size: 14.5px; font-weight: 700; line-height: 1.55; color: rgba(255,249,240,.74); text-wrap: pretty; }
+  .lt-footer-brand a { color: var(--lt-gold-200); text-decoration: underline; text-underline-offset: 3px; }
+  .lt-signup { display: flex; flex-direction: column; gap: 10px; min-width: 300px; }
+  .lt-signup-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .lt-signup input { flex: 1; min-width: 190px; font: inherit; font-size: 14.5px; font-weight: 700; color: var(--lt-cream); background: rgba(255,255,255,.08); border: 1px solid rgba(242,216,136,.34); border-radius: 9999px; padding: 12px 18px; outline: none; }
+  .lt-signup input:focus { border-color: var(--lt-gold-200); }
+  .lt-signup input::placeholder { color: rgba(255,249,240,.5); }
+  .lt-signup button { cursor: pointer; font: inherit; font-size: 15px; font-weight: 900; color: var(--lt-navy-800); background: linear-gradient(135deg,var(--lt-gold-200),var(--lt-gold)); border: 0; border-radius: 9999px; padding: 12px 24px; box-shadow: 0 8px 22px rgba(201,162,39,.40); transition: transform .15s var(--lt-ease), filter .15s ease; }
+  .lt-signup button:hover { filter: brightness(1.06); transform: translateY(-2px); }
+  .lt-signup small { font-size: 12.5px; font-weight: 700; color: rgba(255,249,240,.55); }
+
+  @media (max-width: 560px) {
+    #lt-section { padding: 28px 14px 44px; }
+    .lt-banner { padding: 28px 16px 24px; }
+    .lt-nav { gap: 14px; }
+    /* Phones: scroll the time-slot chips sideways instead of wrapping into a tall block. */
+    .lt-filters { padding: 14px 12px; }
+    .lt-filter-row { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .lt-filter-row::-webkit-scrollbar { display: none; }
+    .lt-chip { flex: 0 0 auto; }
+  }
+
+  /* ---- floating auto-scroll tour toggle ---- */
+  .lt-autoscroll { position: fixed; right: 22px; bottom: 22px; z-index: 320; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px 12px 16px; border-radius: 9999px; cursor: pointer; font: 800 14px Nunito, system-ui, sans-serif; color: var(--lt-navy-800, #061634); background: linear-gradient(135deg,#F2D888,#C9A227); border: 0; box-shadow: 0 10px 26px rgba(3,10,28,.55); transition: transform .15s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease; }
+  .lt-autoscroll:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(3,10,28,.6); }
+  .lt-autoscroll .lt-as-icon { width: 20px; height: 20px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+  .lt-autoscroll .lt-as-icon svg { width: 15px; height: 15px; fill: #061634; }
+  .lt-autoscroll .lt-as-label small { display: block; font-weight: 600; font-size: 11px; opacity: .78; letter-spacing: .02em; }
+  .lt-autoscroll.playing { animation: lt-as-pulse 2.4s ease-in-out infinite; }
+  @keyframes lt-as-pulse { 0%,100% { box-shadow: 0 10px 26px rgba(3,10,28,.55); } 50% { box-shadow: 0 10px 30px rgba(242,216,136,.6); } }
+  @media (max-width: 560px) {
+    .lt-autoscroll { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); padding: 11px 15px 11px 12px; }
+    .lt-autoscroll .lt-as-label small { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #lt-section *, #lt-section *::before, #lt-section *::after { animation: none !important; transition: none !important; }
+    .lt-autoscroll.playing { animation: none; }
+    .lt-autoscroll:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
 
-<nav class="lt-nav">
-  <div class="lt-nav-brand">
-    <a href="/" aria-label="SunScout Kids home" style="display:flex;flex:0 0 auto;text-decoration:none;"><picture><source srcset="/images/sunscout-emblem.webp" type="image/webp"><img src="/images/sunscout-emblem.png" alt="SunScout Kids" width="217" height="200" loading="eager" decoding="async" style="height:40px;width:auto;display:block"/></picture></a>
-    <span class="lt-nav-brand-name">Local Table</span>
-    <span class="lt-live-badge"><span class="lt-live-dot"></span> Live</span>
-  </div>
-  <a class="lt-back-link" href="/">SunScout Kids &rarr;</a>
-  <div class="lt-nav-links">
-    <a href="#deals">Deals</a>
-    <a href="#pricing">List your business</a>
-    <a href="#about">About</a>
-  </div>
-  <div class="lt-city-toggle">
-    <button class="lt-toggle-btn" id="lt-city-svl" onclick="ltSetCity('sunnyvale')">Sunnyvale, CA</button>
-    <button class="lt-toggle-btn" id="lt-city-aub" onclick="ltSetCity('aubrey')">Aubrey, TX</button>
-  </div>
-  <div class="lt-search-bar">
-    <span class="lt-search-icon">&#128269;</span>
-    <input class="lt-search-input" id="lt-search-input" type="text" placeholder="Search deals, city, biryani, ice cream…" oninput="ltSetSearch(this.value)" />
-    <button class="lt-search-clear" id="lt-search-clear" onclick="ltClearSearch()" aria-label="Clear search">&times;</button>
-  </div>
-</nav>
+<!-- LT:START ========================================================= -->
+<section id="lt-section" aria-labelledby="lt-hero-title">
+  <div class="lt-bg-art" aria-hidden="true"></div>
+  <div class="lt-bg-scrim" aria-hidden="true"></div>
+  <div class="lt-bg-grid" aria-hidden="true"></div>
+  <div class="lt-bg-rule" aria-hidden="true"></div>
 
-<div class="lt-hero">
-  <svg class="lt-hero-svg" viewBox="0 0 1200 640" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="lt-rib-gold" x1="0" y1="0" x2="1" y2="0.4">
-        <stop offset="0" stop-color="#6E4E12"></stop>
-        <stop offset="0.28" stop-color="#D9A441"></stop>
-        <stop offset="0.5" stop-color="#F3D588"></stop>
-        <stop offset="0.72" stop-color="#B07E24"></stop>
-        <stop offset="1" stop-color="#8A6318"></stop>
-      </linearGradient>
-      <linearGradient id="lt-rib-copper" x1="0" y1="0" x2="1" y2="0.5">
-        <stop offset="0" stop-color="#4A2414"></stop>
-        <stop offset="0.3" stop-color="#C6633B"></stop>
-        <stop offset="0.52" stop-color="#E8A87C"></stop>
-        <stop offset="0.75" stop-color="#8E4227"></stop>
-        <stop offset="1" stop-color="#5A2E1B"></stop>
-      </linearGradient>
-      <linearGradient id="lt-rib-bronze" x1="0" y1="0.2" x2="1" y2="0.8">
-        <stop offset="0" stop-color="#3A2416"></stop>
-        <stop offset="0.4" stop-color="#9C6B3E"></stop>
-        <stop offset="0.6" stop-color="#D9B07A"></stop>
-        <stop offset="1" stop-color="#5F3E24"></stop>
-      </linearGradient>
-      <filter id="lt-rib-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"></feGaussianBlur></filter>
-    </defs>
-    <path d="M0,110 C180,20 360,210 600,140 C840,70 980,220 1200,110 L1200,0 L0,0 Z" fill="url(#lt-rib-gold)" opacity="0.85"></path>
-    <path d="M0,150 C200,60 380,240 620,165 C850,95 1000,240 1200,140 L1200,105 C980,215 845,60 605,133 C370,205 190,15 0,105 Z" fill="#F6EFE4" opacity="0.22" filter="url(#lt-rib-blur)"></path>
-    <path d="M0,340 C240,220 470,430 730,320 C950,228 1090,380 1200,300 L1200,430 C1050,520 900,360 700,440 C460,536 220,340 0,470 Z" fill="url(#lt-rib-copper)" opacity="0.8"></path>
-    <path d="M0,352 C240,235 468,438 726,330" fill="none" stroke="#F6EFE4" stroke-width="12" stroke-linecap="round" opacity="0.3" filter="url(#lt-rib-blur)"></path>
-    <path d="M0,620 C260,540 520,660 780,580 C1000,512 1120,620 1200,560 L1200,640 L0,640 Z" fill="url(#lt-rib-bronze)" opacity="0.65"></path>
-    <path d="M760,588 C990,516 1116,622 1200,566" fill="none" stroke="#F3D588" stroke-width="8" stroke-linecap="round" opacity="0.3" filter="url(#lt-rib-blur)"></path>
-  </svg>
-  <div class="lt-hero-veil"></div>
-  <div class="lt-hero-grid">
-    <div>
-      <div class="lt-hero-eyebrow" id="lt-hero-eyebrow"></div>
-      <h1 class="lt-hero-title">Good food nearby, at a <em>fair</em> price.</h1>
-      <p class="lt-hero-copy" id="lt-hero-copy"></p>
-      <div class="lt-hero-ctas">
-        <a class="lt-btn-solid" href="#deals">Browse today's deals</a>
-        <a class="lt-btn-outline" href="#pricing">List your restaurant</a>
+  <div class="lt-inner">
+
+    <header>
+      <div class="lt-topbar">
+        <div class="lt-lockup">
+          <a class="lt-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-emblem.webp" type="image/webp"><img src="/images/sunscout-emblem.png" alt="SunScout Kids" width="217" height="200" loading="eager" decoding="async" /></picture></a>
+          <span class="lt-divider" aria-hidden="true"></span>
+          <span class="lt-brand">Local Table</span>
+          <span class="lt-live"><i></i>Live</span>
+        </div>
+        <nav class="lt-nav" aria-label="Local Table">
+          <a href="#lt-deals">Deals</a>
+          <a href="#lt-pricing">List your business</a>
+          <a href="#lt-about">About</a>
+          <a class="lt-nav-cta" href="/">SunScout Kids &rarr;</a>
+        </nav>
       </div>
-      <div class="lt-hero-stats">
-        <div><div class="lt-hero-stat-num">26</div><div class="lt-hero-stat-label">active deals</div></div>
-        <div><div class="lt-hero-stat-num">2</div><div class="lt-hero-stat-label">cities</div></div>
-        <div><div class="lt-hero-stat-num">96%</div><div class="lt-hero-stat-label">verified weekly</div></div>
+
+      <div class="lt-controls" style="margin-top:18px">
+        <div id="lt-cities" role="group" aria-label="City" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+        <div class="lt-search" id="lt-search-wrap">
+          <span aria-hidden="true">&#128269;</span>
+          <input id="lt-q" type="search" placeholder="Search deals, city, biryani, ice cream&hellip;" aria-label="Search deals" />
+          <button id="lt-q-clear" type="button" aria-label="Clear search">&#10005;</button>
+        </div>
       </div>
+
+      <div class="lt-hero" style="margin-top:18px">
+        <span class="lt-eyebrow" id="lt-eyebrow">Lunch specials &middot; Happy hours &middot; Late-night bites</span>
+        <h1 id="lt-hero-title">Good food nearby, at a <em>fair</em> price.</h1>
+        <p id="lt-hero-copy">Local Table finds verified deals near your office &mdash; express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.</p>
+        <div class="lt-hero-ctas">
+          <a class="lt-btn-gold" href="#lt-deals">Browse today's deals</a>
+          <a class="lt-btn-ghost" href="#lt-pricing">List your restaurant</a>
+        </div>
+      </div>
+
+      <div class="lt-stats">
+        <div class="lt-stat"><b id="lt-stat-deals">&mdash;</b><span>active deals</span></div>
+        <div class="lt-stat"><b id="lt-stat-cities">&mdash;</b><span>cities</span></div>
+        <div class="lt-stat"><b>96%</b><span>verified weekly</span></div>
+      </div>
+    </header>
+
+    <div class="lt-banner" id="lt-deals">
+      <span class="lt-sheen" aria-hidden="true"></span>
+      <span class="lt-banner-chip"><span aria-hidden="true">&#127869;</span> This week &middot; Aug 3&ndash;9</span>
+      <h2>This week&rsquo;s table</h2>
+      <p>Verified deals in Sunnyvale and Aubrey, checked this week. Prices and hours confirmed with the kitchen.</p>
     </div>
-    <div class="lt-hero-img">
-      <div class="lt-hero-circle">
-        <div class="lt-hero-circle-inner"><img src="assets/lt/hero.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove();this.parentElement.textContent='🍽️';"></div>
-      </div>
-      <div class="lt-hero-stamp">
-        <svg width="118" height="118" viewBox="0 0 118 118">
-          <defs>
-            <radialGradient id="lt-stamp-gold" cx="0.35" cy="0.3" r="0.9">
-              <stop offset="0" stop-color="#F3D588"></stop>
-              <stop offset="0.55" stop-color="#D9A441"></stop>
-              <stop offset="1" stop-color="#B07E24"></stop>
-            </radialGradient>
-          </defs>
-          <circle cx="59" cy="59" r="57" fill="url(#lt-stamp-gold)"></circle>
-          <circle cx="59" cy="59" r="44" fill="none" stroke="#8A6318" stroke-width="1.5" stroke-dasharray="3 4"></circle>
-          <path id="lt-stamp-arc" d="M 59,59 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none"></path>
-          <text style="font-family:'Work Sans',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:1.2px;fill:#2B211B;">
-            <textPath href="#lt-stamp-arc">VERIFIED LOCAL DEAL &#8226; LOCAL TABLE &#8226;</textPath>
-          </text>
-          <text x="59" y="66" text-anchor="middle" style="font-family:'Fraunces',serif;font-size:22px;font-weight:600;fill:#2B211B;">&#10003;</text>
-        </svg>
-      </div>
+
+    <div class="lt-filters">
+      <div class="lt-filter-row" id="lt-slots" role="group" aria-label="Time slot"></div>
+      <div class="lt-result" id="lt-result" aria-live="polite"></div>
     </div>
+
+    <div class="lt-grid" id="lt-grid"></div>
+
+    <div class="lt-more-wrap" id="lt-more-wrap" hidden>
+      <button class="lt-more" id="lt-more" type="button"></button>
+    </div>
+
+    <div class="lt-empty" id="lt-empty">
+      <div style="font-size:2.5rem" aria-hidden="true">&#127803;</div>
+      <p id="lt-empty-msg">No deals in that slot yet. Try another time or city.</p>
+    </div>
+
+    <section class="lt-section" id="lt-about">
+      <div class="lt-section-head"><i></i><h3>How it works</h3></div>
+      <div class="lt-steps">
+        <div class="lt-step"><b>01</b><h4>Deal map</h4><p>Geofenced deals near you, expiring in 2&ndash;6 hours. See what&rsquo;s close before it&rsquo;s gone.</p></div>
+        <div class="lt-step"><b>02</b><h4>Off-peak drops</h4><p>Restaurants post 20&ndash;40% off during slow hours, usually 2&ndash;5pm. Good food, quiet room.</p></div>
+        <div class="lt-step"><b>03</b><h4>Claim &amp; show</h4><p>Tap claim, show the QR code at the counter. No pre-pay, no coupons to print.</p></div>
+        <div class="lt-step"><b>04</b><h4>Community drops</h4><p>Spotted a deal we missed? Submit it, we verify it, you earn points.</p></div>
+      </div>
+    </section>
+
+    <section class="lt-section" id="lt-pricing">
+      <div class="lt-section-head"><i></i><h3>For restaurants</h3><p>Plain pricing. Cancel any month.</p></div>
+      <div class="lt-plans">
+        <div class="lt-plan">
+          <h4>Basic</h4>
+          <div class="lt-price"><b>$25</b><span>/mo</span></div>
+          <div class="lt-feats">
+            <span><i>&#10003;</i>2 active deals</span>
+            <span><i>&#10003;</i>Photo gallery on your listing</span>
+            <span><i>&#10003;</i>Included in the weekly email</span>
+          </div>
+          <a class="lt-plan-cta-dark" href="#lt-pricing">List your restaurant</a>
+        </div>
+        <div class="lt-plan is-featured">
+          <span class="lt-ribbon">Most popular</span>
+          <h4>Featured</h4>
+          <div class="lt-price"><b>$55</b><span>/mo</span></div>
+          <div class="lt-feats">
+            <span><i>&#10003;</i>Unlimited deals</span>
+            <span><i>&#10003;</i>Priority placement in the grid</span>
+            <span><i>&#10003;</i>Included in our social posts</span>
+          </div>
+          <a class="lt-plan-cta-gold" href="#lt-pricing">List your restaurant</a>
+        </div>
+        <div class="lt-plan">
+          <h4>Sponsor</h4>
+          <div class="lt-price"><b>$130</b><span>/mo</span></div>
+          <div class="lt-feats">
+            <span><i>&#10003;</i>One slot per city</span>
+            <span><i>&#10003;</i>Homepage hero placement</span>
+            <span><i>&#10003;</i>Deal-of-the-week feature</span>
+            <span><i>&#10003;</i>Monthly analytics report</span>
+          </div>
+          <a class="lt-plan-cta-dark" href="#lt-pricing">Ask about the slot</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="lt-footer">
+      <div class="lt-footer-brand">
+        <span class="lt-footer-lockup"><picture><source srcset="/images/sunscout-emblem.webp" type="image/webp"><img src="/images/sunscout-emblem.png" alt="" width="217" height="200" loading="lazy" decoding="async" /></picture><span>Local Table</span></span>
+        <p>Sister brand of <a href="/">SunScout Kids</a> &mdash; free summer activities for families.</p>
+      </div>
+      <div class="lt-signup">
+        <div class="lt-signup-row">
+          <input id="lt-email" type="email" placeholder="Your email for weekly deals" aria-label="Email address" />
+          <button id="lt-subscribe" type="button">Get the list</button>
+        </div>
+        <small>Verified weekly &middot; Sunnyvale, CA &amp; Aubrey, TX</small>
+      </div>
+    </footer>
+
   </div>
-</div>
+</section>
+<!-- LT:END =========================================================== -->
 
-<div style="background:#1A1008;line-height:0;margin-top:-1px;">
-  <svg width="100%" height="36" viewBox="0 0 1200 36" preserveAspectRatio="none" style="display:block;">
-    <path d="M0,36 C25,0 75,0 100,36 C125,0 175,0 200,36 C225,0 275,0 300,36 C325,0 375,0 400,36 C425,0 475,0 500,36 C525,0 575,0 600,36 C625,0 675,0 700,36 C725,0 775,0 800,36 C825,0 875,0 900,36 C925,0 975,0 1000,36 C1025,0 1075,0 1100,36 C1125,0 1175,0 1200,36 Z" fill="#2A1E10" transform="translate(0,36) scale(1,-1)"></path>
-  </svg>
-</div>
+<script id="lt-script">
+(function () {
+  'use strict';
 
-<div class="lt-deals" id="deals">
-  <div class="lt-section-inner">
-    <h2 class="lt-h2" id="lt-city-heading"></h2>
-    <p class="lt-deals-sub" id="lt-deals-sub"></p>
-    <div class="lt-cat-pills" id="lt-cat-pills"></div>
-    <div class="lt-deals-grid" id="lt-deals-grid"></div>
-    <div class="lt-signature">
-      <span class="lt-signature-pill" id="lt-signature"></span>
-    </div>
-  </div>
-</div>
+  /* ---- 1. asset base for this section's photos ---- */
+  var LT_ASSETS = 'assets/lt3/';
 
-<div class="lt-about" id="about">
-  <div class="lt-section-inner">
-    <h2 class="lt-h2">How it works</h2>
-    <div class="lt-steps-grid">
-      <div class="lt-step-panel lt-step-panel-copper"><div class="lt-step-inner">
-        <div class="lt-step-num">01</div>
-        <h3 class="lt-step-title">Deal map</h3>
-        <p class="lt-step-body">Geofenced deals near you, expiring in 2&ndash;6 hours. See what&rsquo;s close before it&rsquo;s gone.</p>
-      </div></div>
-      <div class="lt-step-panel lt-step-panel-gold"><div class="lt-step-inner">
-        <div class="lt-step-num">02</div>
-        <h3 class="lt-step-title">Off-peak drops</h3>
-        <p class="lt-step-body">Restaurants post 20&ndash;40% off during slow hours, usually 2&ndash;5pm. Good food, quiet room.</p>
-      </div></div>
-      <div class="lt-step-panel lt-step-panel-copper"><div class="lt-step-inner">
-        <div class="lt-step-num">03</div>
-        <h3 class="lt-step-title">Claim &amp; show</h3>
-        <p class="lt-step-body">Tap claim, show the QR code at the counter. No pre-pay, no coupons to print.</p>
-      </div></div>
-      <div class="lt-step-panel lt-step-panel-gold"><div class="lt-step-inner">
-        <div class="lt-step-num">04</div>
-        <h3 class="lt-step-title">Community drops</h3>
-        <p class="lt-step-body">Spotted a deal we missed? Submit it, we verify it, you earn points.</p>
-      </div></div>
-    </div>
-  </div>
-</div>
+  /* ---- 2. image map: deal id -> filename. Values starting with "assets/" are used
+            as-is (older photo sets); anything else hangs off LT_ASSETS. Omit an id
+            and that card falls back to the gradient + emoji tile. ---- */
+  var LT_IMAGES = {
+    'urban-grill':       'lt-buffet.jpg',
+    'ulavacharu-buffet': 'lt-buffet-trays.jpg',
+    'ulavacharu-family': 'lt-biryani.jpg',
+    'charminar':         'lt-biryani.jpg',
+    'foodistaan':        'lt-biryani.jpg',
+    'dos-mezclas':       'lt-kids-menu.jpg',
+    'de-vibe':           'lt-de-vibe.jpg',
+    'the-monks':         'lt-the-monks.jpg',
+    'hashtag-india':     'lt-hashtag-india.jpg',
+    'murphy-ave-kitchen':'lt-indo-chinese.jpg',
+    'salar':             'lt-beer.jpg',
+    'peery-park':        'lt-craft-beer.jpg',
+    'st-johns':          'lt-st-johns.jpg',
+    'tea-house':         'lt-boba-night.jpg',
+    'afternoon-slump':   'lt-bogo-drinks.jpg',
+    'mcdonalds':         'lt-mcdonalds.jpg',
+    'wings':             'lt-wings.jpg',
+    'dominos':           'lt-dominos.jpg',
+    /* photos that shipped with the earlier deal set */
+    'monks-biryani':     'lt-the-monks.jpg',
+    'aubrey-family':     'assets/aub/pasta.jpg',
+    'casa-alma':         'assets/aub/taco.jpg',
+    'smokehouse':        'assets/aub/bbq.jpg',
+    'desi-district':     'assets/aub/desidistrict.jpg',
+    'sai-bhavan':        'assets/aub/saibhavan.jpg',
+    '54th-street':       'assets/aub/54th.jpg',
+    'parrys':            'assets/aub/parrys.jpg',
+    'aubrey-scoops':     'assets/aub/sundae.jpg',
+    'metro-diner':       'assets/aub/metrodiner.jpg',
+    'truck-family-pack': 'assets/food/momos.jpg',
+    'mythris':           'assets/food/dosa.jpg',
+    'curry-district':    'assets/food/biryani.jpg',
+    'early-bird':        'assets/lt2/earlybird.jpg',
+    'truck-trail':       'assets/lt2/trailpass.jpg'
+  };
 
-<div class="lt-pricing" id="pricing">
-  <div class="lt-section-inner">
-    <h2 class="lt-h2" style="color:#F6EFE4;">For restaurants</h2>
-    <p class="lt-pricing-sub">Plain pricing. Cancel any month.</p>
-    <div class="lt-tiers-grid">
-      <div class="lt-tier-card">
-        <h3 class="lt-tier-name">Basic</h3>
-        <div class="lt-tier-price-row"><span class="lt-tier-price">$25</span><span class="lt-tier-per">/mo</span></div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> 2 active deals</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Photo gallery on your listing</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Included in the weekly email</div>
-        <a class="lt-tier-cta lt-tier-cta-outline" href="#pricing">List your restaurant</a>
-      </div>
-      <div class="lt-tier-card popular">
-        <span class="lt-tier-popular-badge">Most popular</span>
-        <h3 class="lt-tier-name">Featured</h3>
-        <div class="lt-tier-price-row"><span class="lt-tier-price">$55</span><span class="lt-tier-per">/mo</span></div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Unlimited deals</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Priority placement in the grid</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Included in our social posts</div>
-        <a class="lt-tier-cta lt-tier-cta-solid" href="#pricing">List your restaurant</a>
-      </div>
-      <div class="lt-tier-card">
-        <h3 class="lt-tier-name">Sponsor</h3>
-        <div class="lt-tier-price-row"><span class="lt-tier-price">$130</span><span class="lt-tier-per">/mo</span></div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> One slot per city</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Homepage hero placement</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Deal-of-the-week feature</div>
-        <div class="lt-tier-perk"><span class="lt-tier-perk-check">&#10003;</span> Monthly analytics report</div>
-        <a class="lt-tier-cta lt-tier-cta-outline" href="#pricing">Ask about the slot</a>
-      </div>
-    </div>
-  </div>
-</div>
+  /* ---- 3. rotating accent palette (blue + gold system) ---- */
+  var PALETTE = [
+    { c: '#C9A227', s: '#FBF3D9', f: '#6B5310', on: '#0A142E' },
+    { c: '#FF9900', s: '#FFF3E0', f: '#7A5A2E', on: '#FFFFFF' },
+    { c: '#1D7FA8', s: '#E8F5FF', f: '#1D5F80', on: '#FFFFFF' },
+    { c: '#1D6B45', s: '#E6F8EE', f: '#1D6B45', on: '#FFFFFF' },
+    { c: '#7C3AED', s: '#F3EEFF', f: '#5B3FA8', on: '#FFFFFF' },
+    { c: '#C2185B', s: '#FCE7F0', f: '#8A1746', on: '#FFFFFF' }
+  ];
 
-<div class="lt-footer">
-  <div class="lt-footer-inner">
-    <div>
-      <div class="lt-footer-title">Local Table</div>
-      <p class="lt-footer-sub">Sister brand of <a href="/">SunScout Kids</a> &mdash; free summer activities for families.</p>
-    </div>
-    <div class="lt-subscribe">
-      <input type="email" placeholder="Your email for weekly deals">
-      <button type="button">Get the list</button>
-    </div>
-  </div>
-</div>
+  /* ---- 4. THE DATA. Edit weekly. ---- */
+  var LT_DEALS = [
+    { id:'urban-grill', city:'Sunnyvale, CA', region:'sv', tags:['lunch'], feature:true, emoji:'🍛', badge:'$14.99',
+      title:'All-Day Lunch Buffet', place:'Urban Grill Indian Cuisine and Bar', addr:'1214 Apollo Way Ste 404B, Sunnyvale',
+      time:'11:30 AM – 3:00 PM', days:'Daily', kid:true, chips:['Indian','Buffet'],
+      desc:'40+ items and 3 types of biryani on one all-day buffet line.' },
+    { id:'salar', city:'Sunnyvale, CA', region:'sv', tags:['happy','late'], feature:true, emoji:'🍸', badge:'30% off',
+      title:'Happy Hour & Late-Night, Whole Menu', place:'Salar Indian Restaurant and Bar', addr:'141 S Murphy Ave, Sunnyvale',
+      time:'4–6 PM · Fri/Sat 10 PM–12 AM', days:'Tue–Sun', kid:false, chips:['Street food','Cocktails'],
+      desc:'30% off the entire menu — street food, cocktails and mocktails.' },
+    { id:'murphy-ave-kitchen', city:'Sunnyvale, CA', region:'sv', tags:['lunch'], feature:true, emoji:'🍜', badge:'$9.50',
+      title:'Indo-Chinese Lunch Combo', place:'Murphy Ave Kitchen', addr:'Murphy Ave, Downtown Sunnyvale',
+      time:'Lunch service', days:'Mid-week', kid:true, chips:['Indo-Chinese','Combo'],
+      desc:'Featured mid-week lunch special, down from $14.' },
+    { id:'ulavacharu-buffet', city:'Sunnyvale, CA', region:'sv', tags:['weekend'], feature:true, emoji:'🥘', badge:'$20.00',
+      title:'Weekend Lunch Buffet', place:'UlavacharU Indian Restaurant', addr:'685 E El Camino Real, Sunnyvale',
+      time:'Lunch service', days:'Sat–Sun', kid:true, chips:['South Indian','Live dosa'],
+      desc:'Unlimited chicken biryani plus a live dosa station.' },
+    { id:'peery-park', city:'Sunnyvale, CA', region:'sv', tags:['happy'], feature:true, emoji:'🍺', badge:'30% off',
+      title:'Craft Beer & Apps Happy Hour', place:'Peery Park Tap Room', addr:'Peery Park, Sunnyvale',
+      time:'4:00 PM – 6:00 PM', days:'Weekdays', kid:false, chips:['Craft beer','Appetizers'],
+      desc:'30% off craft beer and appetizers during happy hour.' },
+    { id:'ulavacharu-family', city:'Sunnyvale, CA', region:'sv', tags:['weekend'], emoji:'🍚', badge:'$24.99+',
+      title:'Family Pack Biryani', place:'UlavacharU Indian Restaurant', addr:'E El Camino Real, Sunnyvale',
+      time:'All day', days:'Weekend', kid:true, chips:['Family pack','Free starter'],
+      desc:'Family pack biryani ($24.99–$32.99) including a free chef’s choice starter.' },
+    { id:'charminar', city:'Sunnyvale, CA', region:'sv', tags:['lunch'], emoji:'🍛', badge:'Combo',
+      title:'Weekday Dum Biryani Lunch', place:'Charminar', addr:'W El Camino Real, Sunnyvale',
+      time:'Lunch service', days:'Mon–Fri', kid:true, chips:['Hyderabadi','Biryani'],
+      desc:'Weekday Hyderabadi Dum Biryani lunch combo.' },
+    { id:'tea-house', city:'Sunnyvale, CA', region:'sv', tags:['afternoon'], emoji:'🧋', badge:'BOGO',
+      title:'Boba Tea BOGO', place:'Sunnyvale Tea House', addr:'El Camino Real, Sunnyvale',
+      time:'Midday', days:'Daily', kid:true, chips:['Boba','Dessert'],
+      desc:'Buy one, get one free on midday boba orders.' },
+    { id:'afternoon-slump', city:'Sunnyvale, CA', region:'sv', tags:['afternoon'], emoji:'🍨', badge:'50% off 2nd',
+      title:'Afternoon Slump BOGO 50%', place:'Murphy Ave & El Camino dessert shops', addr:'Murphy Ave & El Camino Real, Sunnyvale',
+      time:'2:00 PM – 5:00 PM', days:'Daily', kid:true, chips:['Tea','Waffles','Ice cream'],
+      desc:'Buy one, get 50% off tea, waffles and ice cream in the slow-hour window.' },
+    { id:'st-johns', city:'Sunnyvale, CA', region:'sv', tags:['happy'], emoji:'🥪', badge:'$9.99 pitchers',
+      title:'St. John’s Friday Special', place:'St. John’s Bar & Grill', addr:'Lawrence Expwy, Sunnyvale',
+      time:'All day', days:'Fridays', kid:false, chips:['Tri-tip','Beer'],
+      desc:'Tri-tip sandwich special paired with $9.99 beer pitchers.' },
+    { id:'early-bird', city:'Sunnyvale, CA', region:'sv', tags:['weekend'], emoji:'🥞', badge:'15% off',
+      title:'Weekend Early Bird Breakfast', place:'Sunnyvale breakfast & brunch spots', addr:'Various, Sunnyvale',
+      time:'7:00 AM – 9:00 AM', days:'Sat–Sun', kid:true, chips:['Breakfast','Platters'],
+      desc:'15% off breakfast platters during early morning hours.' },
+    { id:'truck-trail', city:'Sunnyvale, CA', region:'sv', tags:['weekend'], emoji:'🚚', badge:'$2 off ×3',
+      title:'3-Truck Trail Pass', place:'Murphy Ave & Bay Area truck pop-ups', addr:'Murphy Ave, Sunnyvale',
+      time:'Pop-up hours', days:'Weekends', kid:true, chips:['Food trucks','Trail pass'],
+      desc:'$2 off across 3 participating food trucks.' },
 
-<script>
-var LT_DEALS = {
-  sunnyvale: [
-    { title: 'Indo-Chinese lunch combo', venue: 'Murphy Ave Kitchen · Murphy Ave', price: '$9.50', was: '$14', cityPill: 'Sunnyvale', featured: true, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}', img: 'assets/lt2/indochinese.jpg' },
-    { title: 'Boba tea, buy one get one', venue: 'Sunnyvale Tea House · El Camino Real', price: 'BOGO', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F9CB}', img: 'assets/lt2/boba.jpg' },
-    { title: 'Happy hour: craft beer + apps 30% off', venue: 'Peery Park Tap Room · 4–6pm', price: '30% off', was: '', cityPill: 'Sunnyvale', featured: true, cat: 'burgers', tag: 'Happy Hour', emoji: '\u{1F37B}', img: 'assets/lt2/happyhour.jpg' },
-    { title: 'Family Pack Biryani + free chef’s choice starter', venue: 'UlavacharU Indian Restaurant · E El Camino', price: '$24.99–$32.99', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Family Weekend Deal', emoji: '\u{1F35B}', img: 'assets/lt2/ulavacharu.jpg' },
-    { title: 'Weekday Hyderabadi Dum Biryani lunch combo', venue: 'Charminar · W El Camino Real', price: 'Lunch combo', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Mid-week Lunch', emoji: '\u{1F35B}', img: 'assets/lt2/charminar.jpg' },
-    { title: 'Tri-tip sandwich special + $9.99 beer pitchers', venue: 'St. John’s Bar & Grill · Lawrence Expwy · Fridays', price: '$9.99 pitchers', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'burgers', tag: 'Team Lunch / Happy Hour', emoji: '\u{1F354}', img: 'assets/lt2/stjohns.jpg' },
-    { title: 'Afternoon slump: BOGO 50% off tea, waffles, ice cream', venue: 'Murphy Ave & El Camino dessert shops · 2–5pm', price: 'BOGO 50%', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'icecream', tag: 'Midday Special', emoji: '\u{1F368}', img: 'assets/lt2/slump.jpg' },
-    { title: 'Weekend early bird: 15% off breakfast platters', venue: 'Sunnyvale breakfast & brunch spots · 7–9am', price: '15% off', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'kids', tag: 'Weekend Morning', emoji: '\u{1F373}', img: 'assets/lt2/earlybird.jpg' },
-    { title: '3-Truck Trail Pass: $2 off at 3 trucks', venue: 'Murphy Ave & Bay Area truck pop-ups · weekends', price: '$2 off ×3', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'trucks', tag: 'Weekend Trail', emoji: '\u{1F69A}', img: 'assets/lt2/trailpass.jpg' },
-    // --- TEMP BATCH: week-of-2026-07-22 (review/remove/refresh at next manual update pass) ---
-    { title: 'All-day lunch buffet, 40+ items, 3 biryanis', venue: 'Urban Grill Indian Cuisine and Bar · 1214 Apollo Way Ste 404B · 11:30 AM–3:00 PM', price: '$14.99', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Buffet / Lunch Special', emoji: '\u{1F35B}', img: 'assets/food/biryani.jpg', verified: 'Jul 22', tempBatch: true },
-    { title: '30% off entire menu — street food, cocktails & mocktails', venue: 'Salar Indian Restaurant and Bar · 141 S Murphy Ave · Tue–Sun 4–6pm + late-night Fri/Sat 10pm–12am', price: '30% off', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Happy Hour / Late-Night', emoji: '\u{1F35B}', img: 'assets/food/curry-naan.jpg', verified: 'Jul 22', tempBatch: true },
-    { title: 'Weekend lunch buffet — unlimited chicken biryani + live dosa station', venue: 'UlavacharU Indian Restaurant · 685 E El Camino Real · Weekends', price: '$20.00', was: '', cityPill: 'Sunnyvale', featured: false, cat: 'biryani', tag: 'Weekend Buffet', emoji: '\u{1F35B}', img: 'assets/food/dosa.jpg', verified: 'Jul 22', tempBatch: true }
-    // --- END TEMP BATCH ---
-  ],
-  aubrey: [
-    { title: 'Feed 4 for $45: pasta & pizza', venue: 'Aubrey Family Table · E University Dr', price: '$45', was: '', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F35D}', img: 'assets/aub/pasta.jpg' },
-    { title: 'Taco Tuesday', venue: 'Casa Alma · every Tuesday', price: '$1.75', was: '$3.50', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F32E}', img: 'assets/aub/taco.jpg' },
-    { title: 'Weekend BBQ family platter', venue: 'Denton County Smokehouse', price: '$28', was: '$40', cityPill: 'Aubrey', featured: true, cat: 'burgers', tag: 'Weekend Family Pack', emoji: '\u{1F356}', img: 'assets/aub/bbq.jpg' },
-    { title: 'App signup: free biryani with purchase + loyalty points', venue: 'Desi District · Prosper / US-380', price: 'Free w/ purchase', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'App BOGO / Loyalty', emoji: '\u{1F35B}', img: 'assets/aub/desidistrict.jpg' },
-    { title: 'Weekend thali & biryani specials', venue: 'Sai Bhavan · Prosper — mutton sukka, paneer, shrimp biryani', price: 'Weekend special', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Weekend Special', emoji: '\u{1F35B}', img: 'assets/aub/saibhavan.jpg' },
-    { title: '$7.50 smashed burgers, quesadillas & tater kegs', venue: '54th Street Grill & Bar · US-380 · 3–6pm & 9pm–close', price: '$7.50', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Late Night / Afternoon', emoji: '\u{1F354}', img: 'assets/aub/54th.jpg' },
-    { title: '$5.99 personal cheese pizza · $6.99 6pc wings', venue: 'Parry’s Pizzeria & Taphouse · US-380 · Mon–Fri 3–6pm, all day Sun', price: '$5.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'burgers', tag: 'Weekday / Weekend Value', emoji: '\u{1F355}', img: 'assets/aub/parrys.jpg' },
-    { title: 'Buy 2 large scoops, get 1 kids scoop free', venue: 'Aubrey ice cream & bakery hubs · Sunday afternoons', price: '2+1 free', was: '', cityPill: 'Aubrey', featured: false, cat: 'icecream', tag: 'Weekend Family Treat', emoji: '\u{1F368}', img: 'assets/aub/sundae.jpg' },
-    { title: 'Kids eat free Wednesdays', venue: 'Metro Diner · with $8.99+ adult entrée', price: 'Free kids meal', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Family Mid-Week', emoji: '\u{1F9D2}', img: 'assets/aub/metrodiner.jpg' },
-    { title: 'Promo code: free kids meal per adult entrée', venue: 'Aubrey neighborhood grills', price: 'Promo code', was: '', cityPill: 'Aubrey', featured: false, cat: 'kids', tag: 'Weekend / Evening Family', emoji: '\u{1F9D2}', img: null },
-    { title: 'Weekend Family Pack: 2 adult + 2 kids meals + drinks', venue: 'US-380 food truck parks', price: '$35', was: '', cityPill: 'Aubrey', featured: false, cat: 'trucks', tag: 'Weekend Family Pack', emoji: '\u{1F69A}', img: 'assets/food/momos.jpg' },
-    // --- TEMP BATCH: week-of-2026-07-22 (review/remove/refresh at next manual update pass) ---
-    { title: '2 large (28oz) biryanis — chicken, veg or paneer', venue: 'The Monks Indian Fusion · Aubrey, TX · Tue & Thu · online, phone or walk-in · goat/fish/shrimp +$2–3', price: '$19.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Mid-Week Special', emoji: '\u{1F35B}', img: 'assets/food/biryani.jpg', verified: 'Jul 22', tempBatch: true },
-    { title: 'Unlimited South Indian breakfast buffet — poori, vada, table-side dosa', venue: 'Mythri’s Indian Eatery · Frisco, TX · Sat–Sun 8:00 AM–2:30 PM · kids under 5 free, ages 5–10 $6.99', price: '$10.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Weekend Family Buffet', emoji: '\u{1F35B}', img: 'assets/food/dosa.jpg', verified: 'Jul 22', tempBatch: true },
-    { title: '3 biryanis — Chicken Dum, Chicken 65, Fry Piece, Paneer or Veg', venue: 'Curry District · Little Elm, TX · Wednesdays', price: '$25.99', was: '', cityPill: 'Aubrey', featured: false, cat: 'biryani', tag: 'Mid-Week Special', emoji: '\u{1F35B}', img: 'assets/food/biryani.jpg', verified: 'Jul 22', tempBatch: true }
-    // --- END TEMP BATCH ---
-  ]
-};
+    { id:'de-vibe', city:'Aubrey, TX', region:'tx', tags:['happy'], feature:true, emoji:'🍹', badge:'Happy hour',
+      title:'Happy Hour Specials', place:'De Vibe Indian Restobar', addr:'Aubrey, TX',
+      time:'4:00 PM – 8:00 PM', days:'Tue–Sun', kid:false, chips:['Small plates','Mocktails'],
+      desc:'Curated pricing on signature appetizers, street-food bites and specialty cocktails.' },
+    { id:'dos-mezclas', city:'Aubrey, TX', region:'tx', tags:['lunch'], feature:true, emoji:'🌮', badge:'Rewards',
+      title:'Rewards Program & Lunch Specials', place:'Dos Mezclas Restaurant and Bar', addr:'202b S Main St, Aubrey',
+      time:'Lunch service', days:'Daily', kid:true, chips:['Tex-Mex','Indian twist'],
+      desc:'Earn points on online or dine-in orders toward free food. Kids’ favorites alongside fusion tacos.' },
+    { id:'foodistaan', city:'Aubrey, TX', region:'tx', tags:['lunch','weekend'], feature:true, emoji:'🍗', badge:'Family pack',
+      title:'Hyderabadi Biryani Family Trays', place:'Foodistaan', addr:'DFW area, TX',
+      time:'All day', days:'Daily', kid:true, chips:['Biryani','Tandoori','Dosa'],
+      desc:'Large-format biryani trays paired with fresh garlic naan and chapatis.' },
+    { id:'the-monks', city:'Aubrey, TX', region:'tx', tags:['lunch'], feature:true, emoji:'🍲', badge:'Family style',
+      title:'Indian-Fusion Family Portions', place:'The Monks Aubrey', addr:'26735 US-380, Aubrey',
+      time:'All day', days:'Daily', kid:true, chips:['Fusion','Custom spice'],
+      desc:'Spiced fusion appetizers and hearty curries with customizable spice levels.' },
+    { id:'hashtag-india', city:'Aubrey, TX', region:'tx', tags:['lunch','weekend'], feature:true, emoji:'🫓', badge:'Generous portions',
+      title:'Biryanis, Curries & Street Food', place:'Hashtag India', addr:'FM Road 1385, TX',
+      time:'All day', days:'Daily', kid:true, chips:['South Asian','Momos'],
+      desc:'Rich curries paired with warm, freshly baked chapatis or naan.' },
+    { id:'monks-biryani', city:'Aubrey, TX', region:'tx', tags:['lunch'], emoji:'🍛', badge:'$19.99',
+      title:'Two Large Biryanis', place:'The Monks Indian Fusion', addr:'26735 US-380, Aubrey',
+      time:'All day', days:'Tue & Thu', kid:true, chips:['Biryani','Family pack'],
+      desc:'Two large 28oz biryanis — chicken, veg or paneer. Goat, fish or shrimp add $2–3.' },
+    { id:'aubrey-family', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🍝', badge:'$45 feeds 4',
+      title:'Feed 4 for $45: Pasta & Pizza', place:'Aubrey Family Table', addr:'E University Dr, Aubrey',
+      time:'Dinner service', days:'Weekends', kid:true, chips:['Pasta','Pizza','Family pack'],
+      desc:'One weekend family bundle covering pasta and pizza for a table of four.' },
+    { id:'casa-alma', city:'Aubrey, TX', region:'tx', tags:['lunch'], emoji:'🌮', badge:'$1.75 tacos',
+      title:'Taco Tuesday', place:'Casa Alma', addr:'Aubrey, TX',
+      time:'All day', days:'Tuesdays', kid:true, chips:['Tex-Mex','Tacos'],
+      desc:'Tacos drop from $3.50 to $1.75 every Tuesday.' },
+    { id:'smokehouse', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🍖', badge:'$28',
+      title:'Weekend BBQ Family Platter', place:'Denton County Smokehouse', addr:'Denton County, TX',
+      time:'All day', days:'Weekends', kid:true, chips:['BBQ','Family pack'],
+      desc:'Weekend family platter, normally $40.' },
+    { id:'54th-street', city:'Aubrey, TX', region:'tx', tags:['afternoon','late'], emoji:'🍔', badge:'$7.50',
+      title:'Smashed Burgers & Tater Kegs', place:'54th Street Grill & Bar', addr:'US-380, Aubrey',
+      time:'3–6 PM · 9 PM–close', days:'Daily', kid:true, chips:['Burgers','Quesadillas'],
+      desc:'$7.50 smashed burgers, quesadillas and tater kegs in the off-peak windows.' },
+    { id:'parrys', city:'Aubrey, TX', region:'tx', tags:['afternoon','weekend'], emoji:'🍕', badge:'$5.99',
+      title:'Personal Pizza & Wings Value', place:'Parry’s Pizzeria & Taphouse', addr:'US-380, Aubrey',
+      time:'3–6 PM · all day Sun', days:'Mon–Fri, Sun', kid:true, chips:['Pizza','Wings'],
+      desc:'$5.99 personal cheese pizza and $6.99 six-piece wings.' },
+    { id:'desi-district', city:'Aubrey, TX', region:'tx', tags:['lunch'], emoji:'🍚', badge:'Free w/ purchase',
+      title:'App Signup: Free Biryani', place:'Desi District', addr:'Prosper / US-380, TX',
+      time:'All day', days:'Daily', kid:true, chips:['Biryani','Loyalty'],
+      desc:'Free biryani with purchase when you sign up, plus loyalty points on every order.' },
+    { id:'sai-bhavan', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🍛', badge:'Weekend special',
+      title:'Weekend Thali & Biryani Specials', place:'Sai Bhavan', addr:'Prosper, TX',
+      time:'All day', days:'Sat–Sun', kid:true, chips:['Thali','Biryani'],
+      desc:'Mutton sukka, paneer and shrimp biryani on the weekend specials board.' },
+    { id:'mythris', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🥞', badge:'$10.99',
+      title:'Unlimited South Indian Breakfast', place:'Mythri’s Indian Eatery', addr:'Frisco, TX',
+      time:'8:00 AM – 2:30 PM', days:'Sat–Sun', kid:true, chips:['Breakfast','Buffet','Live dosa'],
+      desc:'Poori, vada and table-side dosa. Kids under 5 free, ages 5–10 $6.99.' },
+    { id:'curry-district', city:'Aubrey, TX', region:'tx', tags:['lunch'], emoji:'🍛', badge:'$25.99',
+      title:'Three Biryanis for $25.99', place:'Curry District', addr:'Little Elm, TX',
+      time:'All day', days:'Wednesdays', kid:true, chips:['Biryani','Family pack'],
+      desc:'Pick three: Chicken Dum, Chicken 65, Fry Piece, Paneer or Veg.' },
+    { id:'metro-diner', city:'Aubrey, TX', region:'tx', tags:['lunch'], emoji:'🧒', badge:'Kids eat free',
+      title:'Kids Eat Free Wednesdays', place:'Metro Diner', addr:'Aubrey, TX',
+      time:'All day', days:'Wednesdays', kid:true, chips:['Diner','Kids menu'],
+      desc:'One free kids meal with every $8.99+ adult entrée.' },
+    { id:'aubrey-grills', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🧒', badge:'Promo code',
+      title:'Free Kids Meal per Adult Entrée', place:'Aubrey neighborhood grills', addr:'Various, Aubrey',
+      time:'Evenings', days:'Weekends', kid:true, chips:['Kids menu','Promo code'],
+      desc:'Promo code drops a free kids meal for each adult entrée ordered.' },
+    { id:'aubrey-scoops', city:'Aubrey, TX', region:'tx', tags:['afternoon','weekend'], emoji:'🍨', badge:'2 + 1 free',
+      title:'Buy 2 Scoops, Kids Scoop Free', place:'Aubrey ice cream & bakery hubs', addr:'Various, Aubrey',
+      time:'Afternoons', days:'Sundays', kid:true, chips:['Ice cream','Bakery'],
+      desc:'Buy two large scoops and the kids scoop is free.' },
+    { id:'truck-family-pack', city:'Aubrey, TX', region:'tx', tags:['weekend'], emoji:'🚚', badge:'$35',
+      title:'Weekend Food Truck Family Pack', place:'US-380 food truck parks', addr:'US-380, Aubrey',
+      time:'Pop-up hours', days:'Weekends', kid:true, chips:['Food trucks','Family pack'],
+      desc:'Two adult meals, two kids meals and drinks for $35.' },
 
-var LT_CAT_DEFS = [
-  ['all', 'All deals'],
-  ['biryani', '\u{1F35B} Biryani & South Asian'],
-  ['burgers', '\u{1F354} Burgers, Pizza & Wings'],
-  ['icecream', '\u{1F366} Ice Cream & Boba'],
-  ['kids', '\u{1F468}‍\u{1F469}‍\u{1F467}‍\u{1F466} Kids Eat Free & Breakfast'],
-  ['trucks', '\u{1F69A} Food Trucks']
-];
+    { id:'dominos', city:'Both cities', region:'chain', tags:['lunch','late'], emoji:'🍕', badge:'$6.99 each',
+      title:'Mix & Match Deal', place:'Domino’s Pizza', addr:'Participating locations',
+      time:'All day', days:'Daily', kid:true, chips:['Pizza','Carryout'],
+      desc:'Any two or more items at $6.99 each; large 1-topping carryout at $7.99.' },
+    { id:'mcdonalds', city:'Both cities', region:'chain', tags:['lunch','afternoon'], emoji:'🍟', badge:'$5 meal',
+      title:'McValue Meal Deal & Free Fries Friday', place:'McDonald’s', addr:'Participating locations',
+      time:'All day', days:'Daily · Fri', kid:true, chips:['Value menu','App deal'],
+      desc:'McDouble or McChicken + 4-pc McNuggets + fries + drink for $5. Free large fries on Fridays with a $1+ app order.' },
+    { id:'wings', city:'Both cities', region:'chain', tags:['late','happy'], emoji:'🍗', badge:'BOGO',
+      title:'Wing Deals Round-Up', place:'Pizza Hut · 7-Eleven · TGI Fridays', addr:'Participating locations',
+      time:'All day', days:'Through Aug 25', kid:false, chips:['Wings','Delivery'],
+      desc:'Code BOGOWINGS at Pizza Hut, 10 wings for $8 on the 7-Eleven app, Matchday Wing Bites from $8.99.' }
+  ];
 
-var ltState = { city: 'sunnyvale', cat: 'all', q: '' };
+  var CITIES = [ { key:'sv', label:'☀️ Sunnyvale, CA' }, { key:'tx', label:'🤠 Aubrey, TX' } ];
+  var SLOTS = [
+    { key:'all', label:'🍽️ All deals' }, { key:'lunch', label:'🥡 Lunch' },
+    { key:'happy', label:'🍹 Happy hour' }, { key:'afternoon', label:'🧋 Afternoon slump' },
+    { key:'weekend', label:'🥞 Weekend' }, { key:'late', label:'🌙 Late night' }
+  ];
 
-function ltEsc(s){
-  return String(s).replace(/[&<>"']/g, function(c){
-    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
-  });
-}
+  /* City-specific hero copy, carried over from the previous page. */
+  var HERO = {
+    sv: {
+      eyebrow: 'Lunch specials · Happy hours · Late-night bites',
+      copy: 'Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.'
+    },
+    tx: {
+      eyebrow: 'Family meals · Weekly traditions · Dine-in deals',
+      copy: 'Local Table finds verified deals for your family — Taco Tuesday, kids-eat-free nights, and weekend bundles along E University Dr. Checked weekly by people who live here.'
+    }
+  };
 
-function ltCatLabel(catKey){
-  var found = LT_CAT_DEFS.find(function(d){ return d[0] === catKey; });
-  return found ? found[1] : '';
-}
+  var state = { city: 'sv', slot: 'all', q: '', showAll: false };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function ltMatchesQuery(d, q){
-  var hay = [d.title, d.venue, d.tag, d.cityPill, ltCatLabel(d.cat)].join(' ').toLowerCase();
-  return hay.indexOf(q) !== -1;
-}
-
-function ltSetCity(city){
-  ltState.city = city;
-  ltState.cat = 'all';
-  ltRender();
-}
-function ltSetCat(cat){
-  ltState.cat = cat;
-  ltRender();
-}
-function ltSetSearch(val){
-  ltState.q = val;
-  ltRender();
-}
-function ltClearSearch(){
-  ltState.q = '';
-  var input = document.getElementById('lt-search-input');
-  if (input) input.value = '';
-  ltRender();
-}
-
-function ltRender(){
-  var svl = ltState.city === 'sunnyvale';
-  var q = (ltState.q || '').trim().toLowerCase();
-  var searching = q.length > 0;
-
-  // While searching, collapse the tall marketing hero (and its scallop divider) so the
-  // results appear right below the search box instead of far under the fold.
-  var heroEl = document.querySelector('.lt-hero');
-  if (heroEl) {
-    heroEl.style.display = searching ? 'none' : '';
-    var divider = heroEl.nextElementSibling;
-    if (divider) divider.style.display = searching ? 'none' : '';
+  function matches(d, term) {
+    // With a search term we look across both cities, so "biryani" or "aubrey"
+    // finds matches no matter which city pill is active.
+    if (!term && d.region !== state.city && d.region !== 'chain') return false;
+    if (state.slot !== 'all' && d.tags.indexOf(state.slot) === -1) return false;
+    if (term) {
+      var hay = [d.title, d.place, d.addr, d.desc, d.city, d.chips.join(' ')].join(' ').toLowerCase();
+      if (hay.indexOf(term) === -1) return false;
+    }
+    return true;
   }
 
-  document.getElementById('lt-city-svl').classList.toggle('on', svl && !searching);
-  document.getElementById('lt-city-aub').classList.toggle('on', !svl && !searching);
-  document.getElementById('lt-search-clear').classList.toggle('show', searching);
-
-  if (!searching) {
-    document.getElementById('lt-hero-eyebrow').textContent = svl
-      ? 'Lunch specials · Happy hours · Late-night bites'
-      : 'Family meals · Weekly traditions · Dine-in deals';
-    document.getElementById('lt-hero-copy').textContent = svl
-      ? 'Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.'
-      : 'Local Table finds verified deals for your family — Taco Tuesday, kids-eat-free nights, and weekend bundles along E University Dr. Checked weekly by people who live here.';
+  function mapUrl(d) {
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.place + ' ' + d.addr);
   }
 
-  // Pool: while searching, look across both cities so a query like "biryani"
-  // or "aubrey" finds matches regardless of which city toggle is active.
-  var pool = searching ? LT_DEALS.sunnyvale.concat(LT_DEALS.aubrey) : LT_DEALS[ltState.city];
-
-  var deals = pool.filter(function(d){
-    var catOk = ltState.cat === 'all' || d.cat === ltState.cat;
-    var qOk = !searching || ltMatchesQuery(d, q);
-    return catOk && qOk;
-  });
-
-  if (searching) {
-    document.getElementById('lt-city-heading').textContent = 'Search results for \u201C' + ltState.q.trim() + '\u201D';
-    document.getElementById('lt-deals-sub').textContent = deals.length
-      ? deals.length + ' deal' + (deals.length === 1 ? '' : 's') + ' found across Sunnyvale and Aubrey.'
-      : 'No deals matched — try a dish, a category, or a city name.';
-  } else {
-    document.getElementById('lt-city-heading').textContent = 'Today in ' + (svl ? 'Sunnyvale, CA' : 'Aubrey, TX');
-    document.getElementById('lt-deals-sub').textContent = svl
-      ? 'Verified this week. Team Lunch Bundles give groups of 4+ coworkers a shared discount code.'
-      : 'Verified this week. The Suburban Savings Pass filters for kid-friendly, drive-thru, and weekend family bundles.';
+  function imgSrc(d) {
+    var file = LT_IMAGES[d.id];
+    if (!file) return '';
+    return file.indexOf('assets/') === 0 ? file : LT_ASSETS + file;
   }
-  document.getElementById('lt-signature').textContent = svl
-    ? 'Team Lunch Bundles — group codes for 4+ coworkers'
-    : 'Suburban Savings Pass — kid-friendly, drive-thru, weekend bundles';
 
-  var pillsHtml = LT_CAT_DEFS.map(function(def){
-    var key = def[0], label = def[1];
-    var on = ltState.cat === key ? ' on' : '';
-    return '<button class="lt-cat-pill' + on + '" onclick="ltSetCat(\'' + key + '\')">' + ltEsc(label) + '</button>';
-  }).join('');
-  document.getElementById('lt-cat-pills').innerHTML = pillsHtml;
-
-  var gridHtml = deals.map(function(d){
-    var wasHtml = d.was ? '<span class="lt-price-was">' + ltEsc(d.was) + '</span>' : '';
-    var featuredHtml = d.featured ? '<span class="lt-badge lt-badge-featured">Featured</span>' : '';
-    var photoHtml = d.img
-      ? '<img src="' + ltEsc(d.img) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.remove();this.parentElement.textContent=\'' + d.emoji + '\';">'
-      : d.emoji;
-    var tempAttr = d.tempBatch ? ' data-temp-batch="week-of-2026-07-22"' : '';
-    return (
-      '<div class="lt-deal-card"' + tempAttr + '>' +
-        '<div class="lt-ladle">' +
-          '<div class="lt-bowl"><div class="lt-bowl-inner">' + photoHtml + '<div class="lt-bowl-shine"></div></div></div>' +
-          '<svg class="lt-handle" width="78" height="88" viewBox="0 0 78 88">' +
-            '<defs><linearGradient id="lt-handle-g" x1="0" y1="0" x2="1" y2="1">' +
-              '<stop offset="0" stop-color="#F3D588"></stop><stop offset="0.45" stop-color="#C6633B"></stop>' +
-              '<stop offset="0.8" stop-color="#8E4227"></stop><stop offset="1" stop-color="#D9A441"></stop>' +
-            '</linearGradient></defs>' +
-            '<path d="M4,2 C32,10 54,30 58,50 C61,67 53,80 38,84 C29,86 21,81 20,74 C19,67 25,62 32,64 C40,66 45,59 43,49 C40,34 24,16 1,9 Z" fill="url(#lt-handle-g)"></path>' +
-            '<path d="M7,6 C31,14 49,31 54,50" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"></path>' +
-          '</svg>' +
-          '<div class="lt-price-row"><span class="lt-price-medallion">' + ltEsc(d.price) + '</span>' + wasHtml + '</div>' +
+  function cardHTML(d, i) {
+    var p = PALETTE[i % PALETTE.length];
+    var src = imgSrc(d);
+    var img = src ? '<img src="' + esc(src) + '" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'" />' : '';
+    var chips = d.chips.map(function (c) { return '<span class="lt-chip-cuisine">' + esc(c) + '</span>'; }).join('');
+    return '' +
+      '<article class="lt-card" style="--lt-accent:' + p.c + ';--lt-accent-soft:' + p.s + ';--lt-accent-fg:' + p.f + ';--lt-accent-on:' + p.on + '">' +
+        '<div class="lt-shot">' +
+          '<span class="lt-emoji" aria-hidden="true">' + d.emoji + '</span>' + img +
+          '<span class="lt-badge">' + esc(d.badge) + '</span>' +
+          (d.kid ? '<span class="lt-kid">👶 Kid-friendly</span>' : '') +
+          '<span class="lt-city">' + esc(d.city) + '</span>' +
         '</div>' +
-        '<div class="lt-badge-row">' +
-          '<span class="lt-badge lt-badge-city">' + ltEsc(d.cityPill) + '</span>' +
-          featuredHtml +
-          '<span class="lt-badge lt-badge-tag">' + ltEsc(d.tag) + '</span>' +
+        '<div class="lt-body">' +
+          '<div style="display:flex;flex-direction:column;gap:3px">' +
+            '<h3>' + esc(d.title) + '</h3>' +
+            '<span class="lt-place">' + esc(d.place) + '</span>' +
+            '<span class="lt-addr">📍 ' + esc(d.addr) + '</span>' +
+          '</div>' +
+          '<div class="lt-chips">' +
+            '<span class="lt-chip-time">🕒 ' + esc(d.time) + '</span>' +
+            '<span class="lt-chip-days">📅 ' + esc(d.days) + '</span>' + chips +
+          '</div>' +
+          '<p class="lt-desc">' + esc(d.desc) + '</p>' +
+          '<span class="lt-verified">Verified ' + esc(d.verified || 'Aug 3') + '</span>' +
+          '<div class="lt-ctas">' +
+            '<a class="lt-cta-map" href="' + mapUrl(d) + '" target="_blank" rel="noopener noreferrer">View on map 🗺</a>' +
+            '<a class="lt-cta-order" href="#lt-deals">Order 🚗</a>' +
+          '</div>' +
         '</div>' +
-        '<h3 class="lt-deal-title">' + ltEsc(d.title) + '</h3>' +
-        '<p class="lt-deal-venue">' + ltEsc(d.venue) + '</p>' +
-        '<p class="lt-deal-verified">Verified ' + ltEsc(d.verified || 'Jul 22') + '</p>' +
-      '</div>'
-    );
-  }).join('');
-  document.getElementById('lt-deals-grid').innerHTML = gridHtml;
-}
+      '</article>';
+  }
 
-ltRender();
+  function tilt(e) {
+    if (reduced) return;
+    var el = e.currentTarget, r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transition = 'transform .08s linear, box-shadow .15s ease';
+    el.style.transform = 'perspective(900px) rotateY(' + (x * 7).toFixed(2) + 'deg) rotateX(' + (-y * 7).toFixed(2) + 'deg) translateY(-4px)';
+  }
+  function untilt(e) {
+    var el = e.currentTarget;
+    el.style.transition = 'transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease';
+    el.style.transform = '';
+  }
+
+  function render() {
+    var term = state.q.trim().toLowerCase();
+    var all = LT_DEALS.filter(function (d) { return matches(d, term); });
+    var featured = all.filter(function (d) { return d.feature; });
+    var base = featured.length >= 5 ? featured.slice(0, 5) : all.slice(0, 5);
+    // A search is already a narrowing action — show every match instead of capping at 5.
+    var visible = (state.showAll || term) ? all : base;
+
+    $('lt-grid').innerHTML = visible.map(cardHTML).join('');
+    Array.prototype.forEach.call($('lt-grid').querySelectorAll('.lt-card'), function (c) {
+      c.addEventListener('mousemove', tilt);
+      c.addEventListener('mouseleave', untilt);
+    });
+
+    $('lt-more-wrap').hidden = term ? true : (all.length - base.length) <= 0;
+    $('lt-more').textContent = state.showAll ? 'Show fewer deals ↑' : 'Show all ' + all.length + ' deals ↓';
+
+    $('lt-empty').style.display = all.length === 0 ? 'block' : 'none';
+    if (all.length === 0 && term) {
+      $('lt-empty-msg').textContent = 'No match for “' + state.q.trim() + '”. Try another time or city.';
+    }
+    $('lt-result').textContent = all.length === 0
+      ? (term ? 'No match for “' + state.q.trim() + '”' : 'Nothing in this slot yet')
+      : term
+        ? 'Showing ' + all.length + ' deal' + (all.length === 1 ? '' : 's') + ' matching “' + state.q.trim() + '” across both cities'
+        : 'Showing ' + visible.length + ' of ' + all.length + ' verified deals · updated Aug 3';
+
+    var hero = HERO[state.city];
+    $('lt-eyebrow').textContent = hero.eyebrow;
+    $('lt-hero-copy').textContent = hero.copy;
+
+    Array.prototype.forEach.call($('lt-cities').children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.city === state.city));
+    });
+    Array.prototype.forEach.call($('lt-slots').children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.slot === state.slot));
+    });
+    $('lt-search-wrap').classList.toggle('is-active', state.q.length > 0);
+  }
+
+  function init() {
+    $('lt-stat-deals').textContent = LT_DEALS.length;
+    $('lt-stat-cities').textContent = CITIES.length;
+
+    $('lt-cities').innerHTML = CITIES.map(function (c) {
+      return '<button class="lt-pill" type="button" data-city="' + c.key + '" aria-pressed="false">' + c.label + '</button>';
+    }).join('');
+    $('lt-slots').innerHTML = SLOTS.map(function (s) {
+      return '<button class="lt-chip" type="button" data-slot="' + s.key + '" aria-pressed="false">' + s.label + '</button>';
+    }).join('');
+
+    $('lt-cities').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-city]'); if (!b) return;
+      state.city = b.dataset.city; state.showAll = false; render();
+    });
+    $('lt-slots').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-slot]'); if (!b) return;
+      state.slot = b.dataset.slot; state.showAll = false; render();
+    });
+    $('lt-q').addEventListener('input', function (e) {
+      state.q = e.target.value; state.showAll = false; render();
+    });
+    $('lt-q-clear').addEventListener('click', function () {
+      state.q = ''; $('lt-q').value = ''; state.showAll = false; render();
+    });
+    $('lt-more').addEventListener('click', function () {
+      state.showAll = !state.showAll; render();
+    });
+    $('lt-subscribe').addEventListener('click', function () {
+      var v = $('lt-email').value;
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+        $('lt-subscribe').textContent = '✓ You’re on the list';
+        /* TODO: POST `v` to the newsletter endpoint here. */
+      } else {
+        $('lt-email').focus();
+      }
+    });
+
+    render();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
 </script>
 
 <!-- ── Floating auto-scroll toggle: smoothly tours the page's sections ── -->
@@ -560,7 +770,7 @@ ltRender();
   'use strict';
 
   // The page's main sections, top to bottom.
-  var sections = ['.lt-hero', '#deals', '#about', '#pricing', '.lt-footer']
+  var sections = ['#lt-section', '#lt-deals', '#lt-about', '#lt-pricing', '.lt-footer']
     .map(function (sel) { return document.querySelector(sel); })
     .filter(Boolean);
 
