@@ -108,7 +108,7 @@ body{
 .fpill.on{background:var(--sun);border-color:transparent;color:#fff;font-weight:900;box-shadow:0 4px 16px rgba(255,155,62,.40)}
 
 /* ── Grid ───────────────────────────────────────────────── */
-.results{max-width:1760px;margin:0 auto;padding:clamp(20px,3vw,28px) clamp(12px,2vw,20px) 80px}
+.results{max-width:none;margin:0 auto;padding:clamp(20px,3vw,28px) clamp(8px,1vw,14px) 80px}
 .count-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:0 clamp(6px,1vw,10px) 16px}
 .count-row .n{font-size:clamp(20px,4vw,26px);font-weight:900;letter-spacing:-.8px}
 .count-row .sub{font-size:14px;font-weight:700;color:#999}
@@ -188,12 +188,8 @@ body{
 .step .n{flex:none;width:26px;height:26px;border-radius:999px;background:var(--sun);color:#fff;font-size:13px;
   font-weight:900;display:flex;align-items:center;justify-content:center}
 .step .t{font-size:15px;font-weight:600;line-height:1.5;color:#2c1a00}
-/* Adult-supervision steps stay visually distinct — coral marker plus a "Parent step"
-   label. Do not flatten these into plain numbered steps; it is a child-safety cue. */
-.step.adult{padding:12px 14px;margin-left:-14px;background:#fff7ed;border-radius:12px;border-left:4px solid var(--hard)}
-.step.adult .n{background:var(--hard)}
-.step .who{display:block;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--hard);margin-bottom:3px}
+/* Steps are deliberately uniform. Adult-supervision steps are flagged by their text
+   ("Adults Only:", "Parent tip:"), not by styling — see the note in openModal(). */
 .modal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .act{flex:1;min-width:150px;padding:14px;border-radius:999px;border:1px solid var(--line);background:#fff;
   font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--ink);cursor:pointer;
@@ -552,11 +548,12 @@ function openModal(id){
   document.getElementById('mTitle').textContent=p.emoji+' '+p.title;
   document.getElementById('mLede').textContent=p.subtitle;
   document.getElementById('mNeeds').innerHTML=p.materials.map(m=>`<span class="need">${esc(m)}</span>`).join('');
-  document.getElementById('mSteps').innerHTML=p.steps.map((s,i)=>{
-    const adult=s.who==='adult';
-    return `<div class="step${adult?' adult':''}"><span class="n">${i+1}</span><span class="t">${
-      adult?'<span class="who">Parent step</span>':''}${esc(s.text)}</span></div>`;
-  }).join('');
+  // Every step renders identically, per the design. The adult-supervision warning is not
+  // lost with the styling: those steps open with "Adults Only:" / "Parent tip:" / "Parent
+  // prep:" in the step text itself, so keep that wording when editing PROJECTS.
+  document.getElementById('mSteps').innerHTML=p.steps.map((s,i)=>
+    `<div class="step"><span class="n">${i+1}</span><span class="t">${esc(s.text)}</span></div>`
+  ).join('');
 
   syncSaveBtn();
   document.getElementById('mCopy').textContent='\u{1F517} Copy link';
@@ -601,19 +598,30 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cur)closeModal();})
    reel enters the viewport, and never at all under prefers-reduced-motion — so a phone
    on a slow connection loads 13 small posters, not 13 videos. */
 const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function tileHTML(p,withLabel){
-  return `<div class="reel-tile">
+function tileHTML(p,withLabel,withVideo){
+  return `<div class="reel-tile"${withVideo?'':' aria-hidden="true"'}>
     <div class="poster" style="background-image:url('${esc(p.images[0])}')"></div>
-    <video data-src="${esc(p.video)}" muted loop playsinline preload="none"></video>
+    ${withVideo?`<video data-src="${esc(p.video)}" muted loop playsinline preload="none"></video>`:''}
     ${withLabel?`<div class="label">${p.emoji} ${esc(p.title)}</div>`:''}
   </div>`;
 }
 function buildReel(){
   const half=Math.ceil(PROJECTS.length/2);
   const a=PROJECTS.slice(0,half), b=PROJECTS.slice(half);
-  // Each row renders its set twice so the -50% marquee translate loops seamlessly.
-  document.getElementById('reelA').innerHTML=a.concat(a).map(p=>tileHTML(p,true)).join('');
-  document.getElementById('reelB').innerHTML=b.concat(b).map(p=>tileHTML(p,false)).join('');
+  // A row loops by translating -50%, so ONE copy of the set has to be at least as wide as
+  // the screen — otherwise the tiles run out mid-scroll and the row trails off into empty
+  // band. Six small tiles only span ~1260px, so this showed up on ordinary desktops and got
+  // worse zoomed out. Repeat the set until it covers 2x the viewport, then duplicate that
+  // for the seamless wrap. Only the first pass carries a <video>; every later tile is a
+  // poster-only clone, so a wider reel costs DOM nodes but no extra video loads.
+  const row=(set,tileW,withLabel)=>{
+    const reps=Math.max(1,Math.ceil(window.innerWidth*2/(set.length*(tileW+14))));
+    let copy=[];
+    for(let i=0;i<reps;i++)copy=copy.concat(set);
+    return copy.concat(copy).map((p,i)=>tileHTML(p,withLabel,i<set.length)).join('');
+  };
+  document.getElementById('reelA').innerHTML=row(a,250,true);
+  document.getElementById('reelB').innerHTML=row(b,196,false);
 }
 function startReelVideos(){
   document.querySelectorAll('.reel-tile video').forEach(v=>{
