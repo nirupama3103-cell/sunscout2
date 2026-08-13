@@ -1,0 +1,22 @@
+name: Photo credits
+
+# Fails while the Local Table deal photos are still hotlinked from Unsplash or
+# their attribution is unfilled. Intended to block merge, not to be advisory -
+# a credits file with TBDs in it is not something anyone goes back and re-reads.
+
+on:
+  pull_request:
+    paths:
+      - 'public/assets/local-table/CREDITS.md'
+      - 'public/local-table/index.html'
+      - 'scripts/check-photo-credits.sh'
+      - '.github/workflows/photo-credits.yml'
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/check-photo-credits.sh
