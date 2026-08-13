@@ -468,6 +468,15 @@ function renderGrid(){
 /* ---------------- modal ---------------- */
 var lastFocus = null;
 
+/* Stop the modal's video before its element is replaced or removed. Chromium
+   pauses media on removal from the document, but Safari has not reliably done
+   so - a detached element can keep playing audio. Called on every path that
+   tears the modal down, including switching straight to another project. */
+function stopModalVideo(){
+  var v = $("modal").querySelector("video");
+  if (v) { try { v.pause(); } catch(e){} }
+}
+
 function renderModal(){
   var overlay = $("overlay");
   var p = state.open ? byId(state.open) : null;
@@ -515,7 +524,8 @@ function renderModal(){
 
 function openProject(id){
   if (!byId(id)) return;
-  lastFocus = document.activeElement;
+  stopModalVideo();
+  if (!state.open) lastFocus = document.activeElement;
   state.open = id; state.copied = false;
   renderModal();
   if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
@@ -525,8 +535,7 @@ function openProject(id){
 
 function closeProject(){
   if (!state.open) return;
-  var v = $("modal").querySelector("video");
-  if (v) { try { v.pause(); } catch(e){} }
+  stopModalVideo();
   state.open = null; state.copied = false;
   renderModal();
   history.replaceState(null, "", location.pathname + location.search);
