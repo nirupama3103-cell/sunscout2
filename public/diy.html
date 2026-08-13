@@ -1,660 +1,619 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DIY Projects – SunScout Kids</title>
-<meta name="description" content="Free at-home DIY projects for Bay Area kids. Watch the guide video and follow the step-by-step."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIY Projects — free at-home crafts for kids | SunScout Kids</title>
+<meta name="description" content="Free at-home DIY projects for Bay Area kids. Tap any project, watch the guide video, and follow the step-by-step. Filter by age and difficulty.">
+<link rel="canonical" href="https://www.sunscoutkids.com/diy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SunScout Kids">
+<meta property="og:title" content="DIY Projects — free at-home crafts for kids">
+<meta property="og:description" content="Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.">
+<meta property="og:url" content="https://www.sunscoutkids.com/diy.html">
+<meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ---------------------------------------------------------------
+   DIY Projects — static rebuild of the Claude Design export.
+   Design tokens carried over verbatim from the export's inline styles.
+   --------------------------------------------------------------- */
 :root{
-  --sun:#FF9900;--sun-dark:#E68A00;--ink:#1a1a1a;--ink2:#6b5040;--ink3:#5a3e1b;
-  --cream:#FFF9F0;--panel:#FFFCF7;--card:#ffffff;--line:rgba(0,0,0,.09);
-  --easy:#16a34a;--medium:#d97706;--hard:#FF6B6B;--reel:#141110;
+  --bg:#FFF9F0; --surface:#FFFCF7; --card:#fff;
+  --ink:#1a1a1a; --body:#6b5040; --secondary:#5a3e1b;
+  --faint:#8a7361; --faint2:#a0907f;
+  --orange:#FF9900; --orange-dark:#E68A00; --green:#34C97A;
+  --band:#141110; --saved:#C0392B;
+  --line:1px solid rgba(0,0,0,.09);
+  --shadow:0 2px 12px rgba(0,0,0,.08);
+  --shadow-hover:0 14px 34px rgba(0,0,0,.14);
+  --glow:0 4px 16px rgba(255,155,62,.40);
+  --ease:cubic-bezier(.2,.8,.2,1);
   --head-h:clamp(64px,9vw,86px);
+  /* Spec said .62. Measured against the actual background art, #6b5040 body copy
+     bottoms out at 3.1:1 over the pink regions at .62; .78 is the lowest value
+     that clears 4.5:1 everywhere. Raised the scrim rather than darkening the text.
+     Kept identical to Local Table so the shared tile reads the same on both pages. */
+  --bg-scrim:.78;
 }
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg)}
 html{scroll-behavior:smooth}
-a{color:var(--sun-dark);text-decoration:none}
+a{color:var(--orange-dark);text-decoration:none}
 a:hover{color:var(--ink)}
-/* Cream wash over the site's existing gold texture (/images/website-background.jpg).
-   The scrim is light here (the old DIY page used a dark one) so the cream cards and
-   dark type stay readable — same asset, no extra image weight. */
-body{
-  font-family:'Nunito',system-ui,sans-serif;color:var(--ink);min-height:100vh;
-  background-color:var(--cream);
-  background-image:linear-gradient(rgba(255,249,240,.90),rgba(255,249,240,.90)),url('/images/website-background.jpg');
-  background-size:cover,cover;background-position:center,center;background-attachment:fixed,fixed;
-  overflow-x:clip;padding-bottom:80px;
-}
-@media(prefers-reduced-motion:reduce){body{background-attachment:scroll,scroll}}
+img{max-width:100%}
+h1,h2,h3,p{margin:0}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--orange-dark);outline-offset:2px;border-radius:6px}
+::-webkit-scrollbar{height:0;width:0}
 
 @keyframes ss-marquee-l{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @keyframes ss-marquee-r{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 @keyframes ss-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ── Header ─────────────────────────────────────────────── */
-.top-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:0 clamp(14px,4vw,32px);height:var(--head-h);background:var(--panel);border-bottom:1px solid rgba(0,0,0,.07)}
-.top-nav .logo{display:flex;align-items:center;flex:none}
-.top-nav .logo img{height:clamp(40px,6vw,58px);width:auto;display:block}
-.nav-links{display:flex;align-items:center;gap:8px;overflow-x:auto;flex:1;min-width:0;justify-content:flex-end;padding:2px 0;scrollbar-width:none}
-.nav-links::-webkit-scrollbar{height:0}
-.nav-pill{padding:9px 16px;border-radius:999px;font-size:14px;font-weight:800;color:var(--ink3);
-  border:1px solid var(--line);background:#fff;white-space:nowrap;flex:none;transition:background .15s,transform .15s}
-.nav-pill:hover{background:#FFF3E0;color:var(--ink);transform:translateY(-2px)}
-.nav-pill.current{padding:9px 18px;font-weight:900;color:#fff;background:var(--sun);border-color:transparent;box-shadow:0 4px 16px rgba(255,155,62,.40)}
-.nav-pill.current:hover{background:var(--sun-dark);color:#fff}
-/* Narrow phones: drop the text off the two secondary pills so the row always fits.
-   It must FIT, not scroll — the row is justify-content:flex-end, and flexbox makes
-   start-side overflow unreachable, which silently ate the Home pill on a 390px screen.
-   Home is still one tap away in the bottom nav. */
-@media(max-width:600px){
-  .nav-links{gap:6px}
-  .nav-pill{padding:9px 12px}
-  .nav-pill:not(.current) .lbl{display:none}
+/* ---- page shell + tiled background ---- */
+.page{
+  font-family:Nunito,system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  overflow-x:clip;position:relative;
+  background-color:#FFF9F0;
+  background-image:linear-gradient(rgba(255,249,240,var(--bg-scrim)),rgba(255,249,240,var(--bg-scrim))),
+                   url("assets/page-background.webp");
+  background-repeat:no-repeat, repeat;
+  background-size:cover, 556px 556px;
+  background-position:center, center;
+  background-attachment:fixed, fixed;
 }
+/* fixed attachment janks badly on iOS Safari */
+@media (hover:none){ .page{background-attachment:scroll, scroll} }
 
-/* ── Hero ───────────────────────────────────────────────── */
-.hero{padding:clamp(34px,7vw,64px) clamp(16px,4vw,32px) clamp(24px,4vw,34px);max-width:1240px;margin:0 auto;text-align:center;
-  animation:ss-rise 500ms cubic-bezier(.2,.8,.2,1) both}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;background:#fff;
-  border:1px solid var(--line);box-shadow:0 2px 12px rgba(0,0,0,.05);font-size:11px;font-weight:900;
-  letter-spacing:1.4px;text-transform:uppercase;color:var(--ink3)}
-.hero-badge i{width:7px;height:7px;border-radius:999px;background:#34C97A;display:block}
-.hero h1{margin:22px 0 0;font-size:clamp(38px,7vw,88px);font-weight:900;letter-spacing:-2.5px;line-height:.96}
-.hero h1 span{color:var(--sun)}
-.hero p{max-width:620px;margin:20px auto 0;font-size:18px;font-weight:600;line-height:1.55;color:var(--ink2);text-wrap:pretty}
-
-/* ── Video reel ─────────────────────────────────────────── */
-.reel{position:relative;padding:26px 0 30px;background:var(--reel);overflow:hidden}
-.reel::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(80% 120% at 50% 0%,rgba(255,153,0,.20),transparent 70%)}
-.reel-rows{position:relative;display:flex;flex-direction:column;gap:14px}
-.reel-row{display:flex;width:max-content;gap:14px;animation-timing-function:linear;animation-iteration-count:infinite}
-.reel-row.a{animation-name:ss-marquee-l;animation-duration:60s}
-.reel-row.b{animation-name:ss-marquee-r;animation-duration:78s}
-.reel-tile{position:relative;width:clamp(176px,42vw,250px);aspect-ratio:16/10;border-radius:18px;overflow:hidden;
-  background:#221d1a;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none}
-.reel-row.b .reel-tile{width:clamp(138px,32vw,196px);border-radius:16px}
-.reel-tile .poster{position:absolute;inset:0;background-size:cover;background-position:center}
-.reel-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .4s ease}
-.reel-tile video.ready{opacity:1}
-.reel-tile .label{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:5px 11px;
-  border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:900;letter-spacing:.3px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.reel-row.b .reel-tile .label{display:none}
-.reel-fade{position:absolute;top:0;width:120px;height:100%;pointer-events:none;z-index:2}
-.reel-fade.l{left:0;background:linear-gradient(90deg,var(--reel),rgba(20,17,16,0))}
-.reel-fade.r{right:0;background:linear-gradient(270deg,var(--reel),rgba(20,17,16,0))}
-/* Motion off → the reel becomes a plain static strip of poster images, and no video
-   ever loads (see reel gating in the script below). */
-@media(prefers-reduced-motion:reduce){
-  .reel-rows{overflow-x:auto}
-  .reel-row{animation:none}
+/* ---- header ---- */
+.hdr{
+  position:sticky;top:0;z-index:40;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:0 clamp(14px,4vw,32px);
+  height:var(--head-h);background:var(--surface);border-bottom:1px solid rgba(0,0,0,.07);
 }
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:-.5px;color:var(--ink);flex:none}
+.brand img{height:clamp(40px,6vw,58px);width:auto;display:block}
+.nav{display:flex;align-items:center;gap:8px;overflow-x:auto;flex:1;min-width:0;justify-content:flex-end;padding:2px 0}
+.navlink{padding:9px 16px;border-radius:9999px;font-size:14px;font-weight:800;color:var(--secondary);border:var(--line);background:#fff;white-space:nowrap;flex:none;transition:all 150ms var(--ease)}
+.navlink:hover{background:#FFF3E0;color:var(--ink);transform:translateY(-2px)}
+.navcta{padding:9px 18px;border-radius:9999px;font-size:14px;font-weight:900;color:#fff;background:var(--orange);box-shadow:var(--glow);white-space:nowrap;flex:none;transition:all 150ms var(--ease)}
+.navcta:hover{background:var(--orange-dark);color:#fff;transform:translateY(-2px)}
 
-/* ── Filters ────────────────────────────────────────────── */
-.filter-bar{position:sticky;top:var(--head-h);z-index:90;background:var(--panel);border-bottom:1px solid rgba(0,0,0,.07);
-  padding:clamp(12px,3vw,16px) clamp(14px,4vw,36px)}
-.filter-inner{max-width:1760px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
-.filter-group{display:flex;flex-wrap:wrap;gap:8px}
-.fpill{padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink3);
-  font-family:'Nunito',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;
-  transition:transform .15s,background .15s,color .15s,box-shadow .15s}
-.fpill:hover{transform:translateY(-2px)}
-.fpill.on{background:var(--sun);border-color:transparent;color:#fff;font-weight:900;box-shadow:0 4px 16px rgba(255,155,62,.40)}
+/* ---- hero ---- */
+.hero{padding:clamp(34px,7vw,64px) clamp(16px,4vw,32px) clamp(24px,4vw,34px);max-width:1240px;margin:0 auto;text-align:center;animation:ss-rise 500ms var(--ease) both}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:9999px;background:#fff;border:var(--line);box-shadow:0 2px 12px rgba(0,0,0,.05);font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;color:var(--secondary)}
+.eyebrow i{width:7px;height:7px;border-radius:9999px;background:var(--green);display:block}
+.hero h1{margin:22px 0 0;font-size:clamp(42px,7vw,88px);font-weight:900;letter-spacing:-2.5px;line-height:.96;color:var(--ink)}
+.hero h1 span{color:var(--orange)}
+.hero-sub{max-width:620px;margin:20px auto 0;font-size:18px;font-weight:600;line-height:1.55;color:var(--body);text-wrap:pretty}
 
-/* ── Grid ───────────────────────────────────────────────── */
-.results{max-width:none;margin:0 auto;padding:clamp(20px,3vw,28px) clamp(8px,1vw,14px) 80px}
+/* ---- video marquee band ---- */
+.band{position:relative;padding:26px 0 30px;background:var(--band);overflow:hidden}
+.band-glow{position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(255,153,0,.20),transparent 70%);pointer-events:none}
+.band-rows{position:relative;display:flex;flex-direction:column;gap:14px}
+.row{display:flex;width:max-content;gap:14px;animation-timing-function:linear;animation-iteration-count:infinite}
+.row-a{animation-name:ss-marquee-l;animation-duration:60s}
+.row-b{animation-name:ss-marquee-r;animation-duration:81s}
+.tile{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#221d1a;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none}
+.tile-a{width:clamp(176px,42vw,250px)}
+.tile-b{width:clamp(138px,32vw,196px);border-radius:16px}
+.tile-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 400ms ease}
+.tile video.on{opacity:1}
+.tile-label{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:9999px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:900;letter-spacing:.3px}
+.fade{position:absolute;top:0;width:120px;height:100%;pointer-events:none}
+.fade-l{left:0;background:linear-gradient(90deg,var(--band),rgba(20,17,16,0))}
+.fade-r{right:0;background:linear-gradient(270deg,var(--band),rgba(20,17,16,0))}
+
+/* ---- sticky filter bar ---- */
+.filters{position:sticky;top:var(--head-h);z-index:30;background:var(--surface);border-bottom:1px solid rgba(0,0,0,.07);padding:clamp(12px,3vw,16px) clamp(14px,4vw,36px)}
+.filters-in{max-width:1760px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.pillset{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:9px 17px;border-radius:9999px;font-size:14px;font-weight:900;cursor:pointer;transition:all 150ms var(--ease);background:#fff;color:var(--secondary);border:1.5px solid rgba(0,0,0,.09)}
+.pill:hover{transform:translateY(-2px)}
+.pill[aria-pressed="true"]{color:#fff;border:1px solid transparent;box-shadow:0 4px 16px rgba(255,155,62,.35)}
+.pillset-age .pill[aria-pressed="true"]{background:var(--orange)}
+.pillset-diff .pill[aria-pressed="true"]{background:var(--ink)}
+
+/* ---- project grid ---- */
+.projects{max-width:none;margin:0 auto;padding:clamp(20px,3vw,28px) clamp(8px,1vw,14px) 80px}
 .count-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:0 clamp(6px,1vw,10px) 16px}
-.count-row .n{font-size:clamp(20px,4vw,26px);font-weight:900;letter-spacing:-.8px}
-.count-row .sub{font-size:14px;font-weight:700;color:#999}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr));gap:clamp(10px,1.2vw,16px)}
-.card{cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.08);display:flex;flex-direction:column;text-align:left;
-  font-family:'Nunito',sans-serif;color:inherit;padding:0;
-  transition:transform .15s cubic-bezier(.2,.8,.2,1),box-shadow .15s ease}
-.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.14)}
-.card:active{transform:scale(.985)}
-.card-thumb{position:relative;aspect-ratio:16/13;overflow:hidden;background:linear-gradient(135deg,#FFF9E6,#E8F5FF)}
-.card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.heart{position:absolute;top:12px;right:12px;width:36px;height:36px;border:none;border-radius:999px;cursor:pointer;
-  background:rgba(255,255,255,.92);font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 10px rgba(0,0,0,.18);transition:transform .15s,background .15s}
-.heart:hover{transform:scale(1.1);background:#fff}
-.pin{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;
-  background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:900}
+.count-n{font-size:clamp(20px,4vw,26px);font-weight:900;letter-spacing:-.8px}
+.count-l{font-size:14px;font-weight:700;color:#999}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(430px,100%),1fr));gap:clamp(10px,1.2vw,16px)}
+.card{cursor:pointer;background:var(--card);border:var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform 150ms var(--ease),box-shadow 150ms ease;display:flex;flex-direction:column;text-align:left;padding:0;font:inherit;color:inherit;width:100%}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.card-media{position:relative;aspect-ratio:16/13;overflow:hidden;background:linear-gradient(135deg,#FFF9E6,#E8F5FF)}
+.card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.heart{position:absolute;top:12px;left:12px;width:32px;height:32px;border:none;border-radius:9999px;background:rgba(255,255,255,.92);font-size:14px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.18);z-index:2}
+.chip-loc{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:9999px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:900}
 .card-body{padding:16px 16px 14px;display:flex;flex-direction:column;gap:9px;flex:1}
-.card-body h3{margin:0;font-size:17px;font-weight:900;letter-spacing:-.4px;line-height:1.25}
+.card-body h3{font-size:17px;font-weight:900;letter-spacing:-.4px;line-height:1.25}
+.stars{font-size:12px;letter-spacing:1px;color:var(--orange)}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{padding:4px 9px;border-radius:6px;font-size:11px;font-weight:900}
-.tag.age{background:#fef9c3;color:#92400e}
-.tag.cat{background:#f3e8ff;color:#6b21a8}
-.tag.easy{background:#dcfce7;color:#166534}
-.tag.medium{background:#ffedd5;color:#9a3412}
-.tag.hard{background:#ffe4e6;color:#9f1239}
-.facts{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:800;color:var(--ink3)}
-.card-desc{margin:0;font-size:13px;font-weight:600;line-height:1.5;color:var(--ink2);text-wrap:pretty}
+.tag-age{background:#fef9c3;color:#92400e}
+.tag-cat{background:#f3e8ff;color:#6b21a8}
+.diff{padding:5px 10px;border-radius:9999px;font-size:11px;font-weight:900;letter-spacing:.3px}
+.diff-Easy{background:#dcfce7;color:#166534}
+.diff-Medium{background:#fef9c3;color:#92400e}
+.diff-Hard{background:#ffe4e6;color:#C0392B}
+.meta{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:800;color:var(--secondary)}
+.card-desc{font-size:13px;font-weight:600;line-height:1.5;color:var(--body);text-wrap:pretty}
 .card-foot{margin-top:auto;padding-top:12px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.chips{display:flex;gap:6px}
-.chip{padding:6px 11px;border-radius:999px;font-size:12px;font-weight:900}
-.chip.watch{background:#e8f5ff;color:#0288D1}
-.chip.steps{background:#f7f3ee;color:var(--ink3)}
-.details{font-size:13px;font-weight:900;color:var(--sun-dark)}
-.more-wrap{display:flex;justify-content:center;margin-top:34px}
-.more-btn{padding:15px 34px;border-radius:999px;border:1px solid var(--line);background:#fff;font-family:'Nunito',sans-serif;
-  font-size:15px;font-weight:900;color:var(--ink);cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.08);
-  transition:transform .15s,box-shadow .15s}
-.more-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.16)}
-.empty-state{display:none;padding:70px 20px;text-align:center;background:#fff;border:1px dashed rgba(0,0,0,.14);border-radius:20px}
-.empty-state.show{display:block}
-.empty-state .em{font-size:40px}
-.empty-state .t{margin-top:12px;font-size:20px;font-weight:900}
-.empty-state .s{margin-top:6px;font-size:14px;font-weight:700;color:#999}
+.foot-chips{display:flex;gap:6px}
+.chip{padding:6px 11px;border-radius:9999px;font-size:12px;font-weight:900}
+.chip-watch{background:#e8f5ff;color:#0288D1}
+.chip-steps{background:#f7f3ee;color:var(--secondary)}
+.details{font-size:13px;font-weight:900;color:var(--orange-dark)}
 
-/* ── Detail modal ───────────────────────────────────────── */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);
-  align-items:flex-start;justify-content:center;padding:clamp(10px,3vw,24px);overflow-y:auto}
-.modal-overlay.open{display:flex}
-.modal{margin:auto;width:100%;max-width:680px;background:#fff;border-radius:28px;overflow:hidden;
-  box-shadow:0 24px 70px rgba(0,0,0,.35);animation:ss-rise 260ms cubic-bezier(.2,.8,.2,1) both}
-.modal-media{position:relative;background:var(--reel);aspect-ratio:16/9}
+.empty{padding:70px 20px;text-align:center;background:#fff;border:1px dashed rgba(0,0,0,.14);border-radius:20px}
+.empty-emoji{font-size:40px}
+.empty-msg{margin-top:12px;font-size:20px;font-weight:900}
+.empty-sub{margin-top:6px;font-size:14px;font-weight:700;color:#999}
+.more-wrap{display:flex;justify-content:center;margin-top:34px}
+.more{padding:16px 34px;border:none;border-radius:9999px;font-size:16px;font-weight:900;color:#2c1a00;cursor:pointer;background:linear-gradient(135deg,#a8edea,#fed6e3,#ffd89b);box-shadow:0 6px 20px rgba(0,0,0,.12);transition:all 150ms var(--ease)}
+.more:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.16)}
+
+/* ---- modal ---- */
+.overlay{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding:clamp(10px,3vw,24px);overflow-y:auto}
+.overlay[hidden]{display:none}
+.modal{margin:auto;width:100%;max-width:680px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.35);animation:ss-rise 260ms var(--ease) both}
+.modal-media{position:relative;background:var(--band);aspect-ratio:16/9}
+.modal-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .modal-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:transparent}
-.modal-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:999px;
-  background:rgba(255,255,255,.92);color:var(--ink);font-size:16px;font-weight:900;cursor:pointer;z-index:3;
-  transition:transform .15s,background .15s}
-.modal-close:hover{background:#fff;transform:translateY(-2px)}
-.shots{display:flex;gap:4px;padding:6px;background:#111}
-.shots img{flex:1;min-width:0;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.6;
-  border:2px solid transparent;transition:opacity .15s}
-.shots img.active,.shots img:hover{opacity:1;border-color:var(--sun)}
+.close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:9999px;background:rgba(255,255,255,.92);color:var(--ink);font-size:16px;font-weight:900;cursor:pointer;transition:all 150ms var(--ease);z-index:2}
+.close:hover{background:#fff;transform:translateY(-2px)}
 .modal-body{padding:clamp(18px,4vw,26px) clamp(18px,4vw,28px) clamp(22px,4vw,30px)}
-.modal-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.mpill{padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900}
-.mpill.neutral{background:#f7f3ee;color:var(--ink3)}
-.mpill.age{background:#fef9c3;color:#92400e}
-.modal h2{margin:14px 0 8px;font-size:clamp(24px,5vw,32px);font-weight:900;letter-spacing:-1px;line-height:1.1}
-.modal .lede{margin:0;font-size:15px;font-weight:600;line-height:1.55;color:var(--ink2)}
-.block{margin-top:24px}
-.block-label{font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
-.needs{padding:18px 20px;background:#f7f3ee;border-radius:14px}
-.needs .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.need{padding:7px 13px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:800}
+.modal-pills{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mp{padding:5px 10px;border-radius:9999px;font-size:11px;font-weight:900}
+.mp-time{background:#f7f3ee;color:var(--secondary)}
+.mp-age{background:#fef9c3;color:#92400e}
+.modal-body h2{margin:14px 0 8px;font-size:clamp(24px,5vw,32px);font-weight:900;letter-spacing:-1px;line-height:1.1}
+.modal-desc{font-size:15px;font-weight:600;line-height:1.55;color:var(--body)}
+.needs-box{margin-top:24px;padding:18px 20px;background:#f7f3ee;border-radius:14px}
+.sec-label{font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:var(--secondary)}
+.needs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.need{padding:7px 13px;border-radius:9999px;background:#fff;border:var(--line);font-size:13px;font-weight:800;color:var(--ink)}
+.steps-box{margin-top:24px}
 .steps{display:flex;flex-direction:column;gap:12px;margin-top:14px}
 .step{display:flex;gap:13px;align-items:flex-start}
-.step .n{flex:none;width:26px;height:26px;border-radius:999px;background:var(--sun);color:#fff;font-size:13px;
-  font-weight:900;display:flex;align-items:center;justify-content:center}
-.step .t{font-size:15px;font-weight:600;line-height:1.5;color:#2c1a00}
-/* Steps are deliberately uniform. Adult-supervision steps are flagged by their text
-   ("Adults Only:", "Parent tip:"), not by styling — see the note in openModal(). */
+.step-n{flex:none;width:26px;height:26px;border-radius:9999px;background:var(--orange);color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.step-t{font-size:15px;font-weight:600;line-height:1.5;color:#2c1a00}
 .modal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.act{flex:1;min-width:150px;padding:14px;border-radius:999px;border:1px solid var(--line);background:#fff;
-  font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--ink);cursor:pointer;
-  transition:background .15s,transform .15s}
-.act:hover{background:#FFF3E0;transform:translateY(-2px)}
-.act.saved{background:#fce7f3;color:#be185d;border-color:transparent}
+.act-copy{flex:1;padding:14px;border:var(--line);border-radius:9999px;background:#fff;font-size:15px;font-weight:900;color:var(--ink);cursor:pointer;transition:all 150ms var(--ease)}
+.act-copy:hover{background:#FFF3E0;transform:translateY(-2px)}
+.act-save{flex:1;padding:14px;border:none;border-radius:9999px;font-size:15px;font-weight:900;cursor:pointer;color:#fff;background:var(--orange);box-shadow:var(--glow);transition:all 150ms var(--ease)}
+.act-save:hover{transform:translateY(-2px)}
+.act-save[aria-pressed="true"]{background:var(--saved)}
 
-/* ── Footer + bottom nav ────────────────────────────────── */
-.site-foot{border-top:1px solid rgba(0,0,0,.07);padding:34px clamp(16px,4vw,32px) 46px;text-align:center}
-.site-foot img{height:44px;width:auto;display:block;margin:0 auto 14px}
-.site-foot .tagline{font-size:13px;font-weight:800;color:#999}
-.site-foot .links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;
-  padding:6px 0 calc(10px + env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,.08)}
-@media(max-width:640px){.bottom-nav{display:flex;justify-content:space-around}}
-.bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:#aaa;
-  background:none;border:none;cursor:pointer;padding:4px 10px;text-decoration:none}
-.bnav-item.active{color:var(--sun)}
-.bnav-item svg{width:22px;height:22px}
+/* ---- footer ---- */
+.ftr{border-top:1px solid rgba(0,0,0,.07);padding:34px clamp(16px,4vw,32px) 46px;text-align:center}
+.ftr img{height:44px;width:auto;display:block;margin:0 auto 14px}
+.ftr-note{font-size:13px;font-weight:800;color:#999}
+.ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
+
+@media (prefers-reduced-motion:reduce){
+  .row{animation:none}
+  .hero,.modal{animation:none}
+  *{transition-duration:1ms !important}
+  .card:hover,.pill:hover,.navlink:hover,.navcta:hover,.more:hover,
+  .close:hover,.act-copy:hover,.act-save:hover{transform:none}
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
+<div class="page">
 
-<nav class="top-nav">
-  <a href="/index.html" class="logo" aria-label="SunScout Kids home">
-    <picture>
-      <source srcset="/images/sunscout-logo.webp" type="image/webp">
-      <img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220"/>
-    </picture>
-  </a>
-  <div class="nav-links">
-    <a href="/index.html" class="nav-pill">&#127968;<span class="lbl"> Home</span></a>
-    <a href="/local-table/" class="nav-pill">&#128205;<span class="lbl"> Local Table</span></a>
-    <a href="/diy.html" class="nav-pill current" aria-current="page">&#127912; DIY</a>
-  </div>
-</nav>
+  <header class="hdr">
+    <a class="brand" href="index.html">
+      <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="navlink" href="index.html">🏠 Home</a>
+      <a class="navlink" href="local-table/">📍 Local Table</a>
+      <a class="navcta" href="diy.html" aria-current="page">🎨 DIY</a>
+    </nav>
+  </header>
 
-<section class="hero">
-  <div class="hero-badge"><i></i><span id="heroCount">13 projects</span> &middot; Always free</div>
-  <h1>Free &amp; Fun<br/><span>At-Home Projects</span></h1>
-  <p>Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
-</section>
+  <section class="hero">
+    <div class="eyebrow"><i></i>50+ Activities · Always Free</div>
+    <h1>Free &amp; Fun<br><span>At-Home Projects</span></h1>
+    <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+  </section>
 
-<!-- Auto-scrolling reel of the real guide videos. Kept light on purpose: every tile ships a
-     poster image and preload="none", the videos are only attached once the reel scrolls into
-     view, and prefers-reduced-motion skips the video load entirely (posters only). -->
-<section class="reel" id="reel" aria-label="Project guide videos">
-  <div class="reel-rows">
-    <div class="reel-row a" id="reelA"></div>
-    <div class="reel-row b" id="reelB"></div>
-  </div>
-  <div class="reel-fade l"></div>
-  <div class="reel-fade r"></div>
-</section>
-
-<div class="filter-bar">
-  <div class="filter-inner">
-    <div class="filter-group" id="ageFilters" role="group" aria-label="Filter by age"></div>
-    <div class="filter-group" id="diffFilters" role="group" aria-label="Filter by difficulty"></div>
-  </div>
-</div>
-
-<section class="results">
-  <div class="count-row">
-    <div class="n" id="countLabel">13 projects</div>
-    <div class="sub">ready to build</div>
-  </div>
-  <div class="grid" id="grid"></div>
-  <div class="more-wrap" id="moreWrap" hidden>
-    <button class="more-btn" id="moreBtn" onclick="toggleMore()"></button>
-  </div>
-  <div class="empty-state" id="emptyState">
-    <div class="em">&#127803;</div>
-    <div class="t">No projects for this filter</div>
-    <div class="s">Try a different age or difficulty.</div>
-  </div>
-</section>
-
-<div class="modal-overlay" id="modalOverlay" onclick="closeOnBg(event)">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
-    <div class="modal-media">
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">&#x2715;</button>
-      <video id="mVideo" controls loop muted playsinline></video>
+  <section class="band" aria-label="Project video reel">
+    <div class="band-glow"></div>
+    <div class="band-rows">
+      <div class="row row-a" id="rowA"></div>
+      <div class="row row-b" id="rowB"></div>
     </div>
-    <div class="shots" id="mShots"></div>
-    <div class="modal-body">
-      <div class="modal-meta" id="mMeta"></div>
-      <h2 id="mTitle"></h2>
-      <p class="lede" id="mLede"></p>
-      <div class="block needs">
-        <div class="block-label">What you'll need</div>
-        <div class="row" id="mNeeds"></div>
-      </div>
-      <div class="block">
-        <div class="block-label">Step-by-step guide</div>
-        <div class="steps" id="mSteps"></div>
-      </div>
-      <div class="modal-actions">
-        <button class="act" id="mCopy" onclick="copyLink()">&#128279; Copy link</button>
-        <button class="act" id="mSave" onclick="toggleSaveCurrent()"></button>
-      </div>
+    <div class="fade fade-l"></div>
+    <div class="fade fade-r"></div>
+  </section>
+
+  <section class="filters">
+    <div class="filters-in">
+      <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
+      <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
     </div>
+  </section>
+
+  <section class="projects">
+    <div class="count-row">
+      <div class="count-n" id="countLabel"></div>
+      <div class="count-l">ready to build</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="more-wrap" id="moreWrap" hidden>
+      <button type="button" class="more" id="moreBtn"></button>
+    </div>
+
+    <div class="empty" id="empty" hidden>
+      <div class="empty-emoji">🌻</div>
+      <div class="empty-msg">No projects for this filter</div>
+      <div class="empty-sub">Try a different age or difficulty.</div>
+    </div>
+  </section>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal"></div>
   </div>
+
+  <footer class="ftr">
+    <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
+    <div class="ftr-note">SunScout · Bay Area Summer 2026 · Stop searching. Start playing. 🍦</div>
+    <div class="ftr-links">
+      <a href="index.html">Home</a>
+      <a href="diy.html">DIY</a>
+      <a href="local-table/">Local Table</a>
+    </div>
+  </footer>
 </div>
-
-<footer class="site-foot">
-  <picture>
-    <source srcset="/images/sunscout-logo.webp" type="image/webp">
-    <img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="lazy"/>
-  </picture>
-  <div class="tagline">SunScout &middot; Bay Area &middot; Stop searching. Start playing. &#127846;</div>
-  <div class="links">
-    <a href="/index.html">Home</a>
-    <a href="/diy.html">DIY</a>
-    <a href="/local-table/">Local Table</a>
-  </div>
-</footer>
-
-<nav class="bottom-nav">
-  <a href="/index.html" class="bnav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Home</a>
-  <a href="/diy.html" class="bnav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>DIY</a>
-  <a href="/index.html" class="bnav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Activities</a>
-</nav>
 
 <script>
-/* PROJECTS is the single source of truth for the reel, the grid and the modal.
-   Every field below is real page content — materials, steps, videos and photos are
-   carried over unchanged. needCount/stepCount in the cards are derived from
-   materials.length / steps.length, so they can never drift out of sync. */
-const PROJECTS=[
-{id:'fuse',emoji:'\u{1F3F3}',title:'Fuse Bead Designs',difficulty:'Easy',time:'30 min',ageLabel:'3–12',ages:['3-5','6-12'],cat:'\u{1F3A8} Crafts',
- desc:'Place colorful beads on a pegboard and iron them into amazing shapes. Butterflies, stars, hearts!',
- eyebrow:'Easy Craft · Ages 3-12',
- subtitle:'Place tiny colorful beads on a pegboard and melt them into beautiful shapes with an iron!',
- video:'/fuse-beads.mp4',
- images:['/images/diy-fusebeads-hero.jpg','/images/diy-fusebeads-finished.jpg','/images/diy-fusebeads-heart.jpg','/images/diy-fusebeads-star.jpg'],
- materials:['Pegboard','Fuse Beads','Parchment Paper','Iron (Adults only)','Shape Templates'],
- steps:[{who:'kid',text:'Pick your favorite template shape. Place it flat on your pegboard.'},{who:'kid',text:'Use your tiny builder fingers to place bright beads onto the spikes one by one. Fill the whole shape!'},{who:'kid',text:'Step back and admire your creation - take a photo before the magic happens!'},{who:'adult',text:'Adults Only: Place parchment paper flat over the finished design. Press a warm iron for 10-15 seconds until beads fuse together.'},{who:'adult',text:'Adults Only: Let cool for 2 minutes, peel off parchment. Flip and iron the back 5 more seconds.'},{who:'kid',text:'Peel off your masterpiece! Hang it on the window to see the colors shine!'}]},
+(function(){
+"use strict";
 
-{id:'lego',emoji:'\u{1F9F3}',title:'LEGO Building Challenge',difficulty:'Medium',time:'45 min',ageLabel:'3–Teen',ages:['3-5','6-12','teen'],cat:'\u{1F9E0} STEM',
- desc:'Build anything from a tiny house to a rocket ship! Weekly challenges keep it fresh every time.',
- eyebrow:'Medium · Ages 3-Teen',
- subtitle:'Weekly challenges to build anything from tiny houses to rocket ships. STEM meets imagination!',
- video:'/lego.mp4',images:['/images/diy-lego.png'],
- materials:['LEGO Bricks','Baseplate','Markers','Camera'],
- steps:[{who:'kid',text:"Today's challenge: Build a house with at least 3 rooms! Spread out all your bricks first."},{who:'kid',text:'Start with the baseplate foundation. Build walls up one layer at a time.'},{who:'kid',text:'Add windows and doors by leaving gaps. Can you make a slanted roof?'},{who:'adult',text:"Parent tip: Ask open questions like 'What room comes next?' to spark storytelling."},{who:'kid',text:'Add furniture, trees, a car - whatever makes it a home! Take a photo after.'},{who:'adult',text:'Parent tip: Challenge older kids to rebuild using fewer bricks for a harder puzzle!'}]},
-
-{id:'snakes',emoji:'\u{1F40D}',title:'Snakes & Ladders',difficulty:'Easy',time:'40 min',ageLabel:'3–12',ages:['3-5','6-12'],cat:'\u{1F3B2} Games',
- desc:'Draw your own board game! Use markers, stickers, and imagination to create your world.',
- eyebrow:'Easy · Ages 3-12',
- subtitle:'Draw your own board game and play it with the whole family!',
- video:'/snakes-ladders.mp4',images:['/images/diy-snake.png','/park.jpg'],
- materials:['Large Paper','Markers & Crayons','Scissors','Dice','Button Tokens','Ruler'],
- steps:[{who:'adult',text:'Parent tip: Pre-draw a 10x10 grid in pencil. Number squares 1-100 starting bottom-left.'},{who:'kid',text:'Draw colorful snakes going from high numbers DOWN to lower ones. Make funny tongues!'},{who:'kid',text:'Draw ladders going from low numbers UP to higher ones. Add stripes and colors.'},{who:'kid',text:'Pick a theme - jungle, space, or underwater! Draw pictures in each square.'},{who:'kid',text:'Choose your token. Place all tokens on square 1. Ready, set, ROLL!'},{who:'adult',text:'Rules: Land on ladder bottom = climb up. Land on snake head = slide down. First to 100 wins!'}]},
-
-{id:'checkers',emoji:'⭐',title:'Chinese Checkers',difficulty:'Medium',time:'60 min',ageLabel:'6–Teen',ages:['6-12','teen'],cat:'\u{1F3AF} Strategy',
- desc:'Paint marbles, make your board, and challenge everyone to this classic strategy game!',
- eyebrow:'Medium · Ages 6-Teen',
- subtitle:'Paint marbles, craft your star board, and challenge the family!',
- video:'/chinese-checkers.mp4',images:['/images/diy-chinese.png','/gemini3.png'],
- materials:['Star-shaped board','Marbles (6 per player)','Paint & brushes','Thick cardboard'],
- steps:[{who:'adult',text:'Parent prep: Print or draw a 6-pointed star grid. Each point is a home zone.'},{who:'kid',text:'Paint your 6 marbles your chosen color. Let them dry completely.'},{who:'kid',text:'Place your 6 marbles in YOUR corner of the star.'},{who:'kid',text:'On your turn, move one marble one step in any direction, or jump over a neighbor marble.'},{who:'kid',text:'Chain jumps are allowed! Plan ahead to hop across the board in one turn.'},{who:'adult',text:'Goal: Get ALL your marbles to the opposite corner first. Help younger kids spot big jump chains!'}]},
-
-{id:'marble',emoji:'\u{1F52E}',title:'Marble Solitaire',difficulty:'Hard',time:'20 min',ageLabel:'6–Teen',ages:['6-12','teen'],cat:'\u{1F9E9} Puzzle',
- desc:'Can you clear the board leaving just one marble? The ultimate solo brain challenge!',
- eyebrow:'Hard · Ages 6-Teen',
- subtitle:'The ultimate solo puzzle. Can you leave just ONE marble standing?',
- video:'/marble-solitaire.mp4',images:['/images/diy-marble.png','/stem.jpg'],
- materials:['Cross-shaped board','32 Marbles','Thick foam','Pencil'],
- steps:[{who:'adult',text:'Parent prep: Cut a cross-shaped board from thick foam. Poke 33 holes in a 7x7 cross. Leave center empty.'},{who:'kid',text:'Fill all 32 holes with marbles. Center stays empty - this is your start!'},{who:'kid',text:'A move = jump one marble OVER an adjacent marble into an empty hole. Remove the jumped marble.'},{who:'kid',text:'Keep jumping until no more moves are possible. Aim for just ONE marble left!'},{who:'adult',text:'Hint: The classic solution ends with the final marble in the center. Can your child figure out why?'},{who:'kid',text:'Stuck? Reset and try a different path. Every attempt teaches your brain something new!'}]},
-
-/* PLACEHOLDER ART: the 8 projects below still use generated gradient/emoji placeholder
-   images (/images/diy-*.jpg) rather than real project photos. Their guide videos are real.
-   Swap in real photos when available — nothing else needs to change. */
-{id:'sockpuppet',emoji:'\u{1F9E6}',title:'Sock Puppet Theater',difficulty:'Easy',time:'25 min',ageLabel:'0–5',ages:['0-2','3-5'],cat:'\u{1F3A8} Craft',
- desc:'Turn old socks into characters with buttons and yarn, then put on a mini puppet show for the family.',
- eyebrow:'Easy Craft · Ages 0-5',
- subtitle:'Turn old socks into characters with buttons and yarn, then put on a mini puppet show for the family.',
- video:'/sock-puppet.mp4',images:['/images/diy-sockpuppet.jpg'],
- materials:['Old socks','Buttons','Yarn','Fabric glue','Scissors (Adults only)'],
- steps:[{who:'kid',text:'Pick a sock and decide what character it will be - dragon, dog, or something silly!'},{who:'adult',text:'Adults Only: Cut felt shapes for eyes, ears, and a tongue with scissors.'},{who:'kid',text:'Glue on buttons for eyes and yarn for hair. Let it dry flat.'},{who:'kid',text:'Slide your hand in and put on a show behind a couch or table!'}]},
-
-{id:'paperplane',emoji:'✈️',title:'Paper Airplane Contest',difficulty:'Easy',time:'20 min',ageLabel:'6–12',ages:['6-12'],cat:'\u{1F3D7}️ Build',
- desc:'Fold five different plane designs and test them for distance, loops, and flight time in the backyard.',
- eyebrow:'Easy · Ages 6-12',
- subtitle:'Fold five different plane designs and test them for distance, loops, and flight time in the backyard.',
- video:'/paper-airplane.mp4',images:['/images/diy-paperplane.jpg'],
- materials:['Printer paper','Ruler','Markers','Tape measure'],
- steps:[{who:'kid',text:'Fold a classic dart design first - crease it sharp for a straight flight.'},{who:'kid',text:'Try a wide-wing glider design and compare how far each one flies.'},{who:'kid',text:'Decorate your planes with markers so you can tell them apart.'},{who:'adult',text:'Parent tip: Measure each flight with a tape measure and keep a scoreboard.'},{who:'kid',text:'Crown a distance champion and a stunt champion for loops and tricks!'}]},
-
-{id:'rockpainting',emoji:'\u{1F5FF}',title:'Rock Painting Garden',difficulty:'Easy',time:'30 min',ageLabel:'3–5',ages:['3-5'],cat:'\u{1F3A8} Craft',
- desc:'Collect smooth rocks and paint them into bugs, animals, or patterns to line a garden bed or path.',
- eyebrow:'Easy · Ages 3-5',
- subtitle:'Collect smooth rocks and paint them into bugs, animals, or patterns to line a garden bed or path.',
- video:'/rock-painting.mp4',images:['/images/diy-rockpainting.jpg'],
- materials:['Smooth rocks','Acrylic paint','Paintbrushes','Clear sealant (Adults only)'],
- steps:[{who:'kid',text:'Go on a walk and collect smooth, flat rocks of different sizes.'},{who:'kid',text:'Wash and dry the rocks, then paint a base color and let it dry.'},{who:'kid',text:'Add spots, stripes, or googly-eye dots to turn each rock into a bug or animal.'},{who:'adult',text:'Adults Only: Brush on a clear sealant so the paint survives outdoors.'},{who:'kid',text:'Line your painted rocks along a garden bed or walkway to show them off!'}]},
-
-{id:'cardboardfort',emoji:'\u{1F4E6}',title:'Cardboard Fort Building',difficulty:'Medium',time:'50 min',ageLabel:'6–12',ages:['6-12'],cat:'\u{1F3D7}️ Build',
- desc:'Stack and tape boxes into a fort with doors and windows, then decorate the walls with markers.',
- eyebrow:'Medium · Ages 6-12',
- subtitle:'Stack and tape boxes into a fort with doors and windows, then decorate the walls with markers.',
- video:'/cardboard-fort.mp4',images:['/images/diy-cardboardfort.jpg'],
- materials:['Large cardboard boxes','Packing tape','Box cutter (Adults only)','Markers'],
- steps:[{who:'kid',text:'Plan your fort - how many rooms? Where does the door go?'},{who:'adult',text:'Adults Only: Cut door and window openings with a box cutter.'},{who:'kid',text:'Tape boxes together to build the walls, checking they stand steady.'},{who:'kid',text:'Decorate the walls with markers - windows, bricks, or a secret sign.'},{who:'kid',text:'Move in your pillows and flashlight for the grand opening!'}]},
-
-{id:'slime',emoji:'\u{1F9EA}',title:'DIY Slime Lab',difficulty:'Medium',time:'20 min',ageLabel:'6–12',ages:['6-12'],cat:'\u{1F3A8} Craft',
- desc:'Mix glue, water, and activator to make stretchy slime, then experiment with color and glitter batches.',
- eyebrow:'Medium · Ages 6-12',
- subtitle:'Mix glue, water, and activator to make stretchy slime, then experiment with color and glitter batches.',
- video:'/slime-lab.mp4',images:['/images/diy-slime.jpg'],
- materials:['White glue','Water','Baking soda','Contact lens solution (Adults only)','Food coloring'],
- steps:[{who:'adult',text:'Adults Only: Measure the baking soda and contact lens solution activator.'},{who:'kid',text:'Mix glue, water, and a few drops of food coloring in a bowl.'},{who:'kid',text:'Stir in the activator a little at a time until it turns stretchy.'},{who:'kid',text:'Knead the slime with your hands until it stops sticking.'},{who:'kid',text:'Mix in glitter or beads for a new batch, and store slime in a sealed container.'}]},
-
-{id:'bracelets',emoji:'\u{1F9F5}',title:'Friendship Bracelets',difficulty:'Medium',time:'35 min',ageLabel:'Teen',ages:['teen'],cat:'\u{1F3A8} Craft',
- desc:'Learn a basic knot pattern and braid colorful string into wearable bracelets to trade with friends.',
- eyebrow:'Medium · Ages Teen',
- subtitle:'Learn a basic knot pattern and braid colorful string into wearable bracelets to trade with friends.',
- video:'/friendship-bracelets.mp4',images:['/images/diy-bracelets.jpg'],
- materials:['Embroidery floss','Scissors','Tape or clipboard','Beads (optional)'],
- steps:[{who:'kid',text:'Cut four strings about arm-length long and tape them to a table or clipboard.'},{who:'kid',text:'Learn the forward-knot pattern with two strings, practicing slowly at first.'},{who:'kid',text:'Repeat the pattern in rows, adding beads if you like, until it is wrist-length.'},{who:'kid',text:'Tie off the ends and trim any extra string, then trade with a friend!'}]},
-
-{id:'scavenger',emoji:'\u{1F50D}',title:'Backyard Scavenger Hunt',difficulty:'Easy',time:'30 min',ageLabel:'3–12',ages:['3-5','6-12'],cat:'\u{1F3B2} Game',
- desc:'Follow a printable checklist to find leaves, bugs, and shapes in nature, then log finds in a journal.',
- eyebrow:'Easy · Ages 3-12',
- subtitle:'Follow a printable checklist to find leaves, bugs, and shapes in nature, then log finds in a journal.',
- video:'/scavenger-hunt.mp4',images:['/images/diy-scavenger.jpg'],
- materials:['Checklist or notebook','Pencil','Magnifying glass (optional)'],
- steps:[{who:'adult',text:'Parent tip: Make a simple checklist - a red leaf, a round rock, an insect, a flower.'},{who:'kid',text:'Explore the yard or park and check off each item as you spot it.'},{who:'kid',text:'Draw or write a quick note about your favorite find in a journal.'},{who:'kid',text:'Race a sibling or friend to see who finds everything first!'}]},
-
-{id:'chalkart',emoji:'\u{1F31A}',title:'Sidewalk Chalk Art',difficulty:'Easy',time:'20 min',ageLabel:'0–5',ages:['0-2','3-5'],cat:'\u{1F3A8} Craft',
- desc:'Draw a giant mural, hopscotch board, or obstacle course right on the driveway with colorful chalk.',
- eyebrow:'Easy · Ages 0-5',
- subtitle:'Draw a giant mural, hopscotch board, or obstacle course right on the driveway with colorful chalk.',
- video:'/sidewalk-chalk.mp4',images:['/images/diy-chalkart.jpg'],
- materials:['Sidewalk chalk','Driveway or sidewalk','Water and rags for cleanup'],
- steps:[{who:'kid',text:'Pick a big idea - a rainbow, a maze, or a hopscotch board.'},{who:'kid',text:'Sketch the outline first, then fill it in with bright colors.'},{who:'kid',text:'Invite the family outside to play on your finished chalk art.'},{who:'kid',text:'Rinse it away with water when you are ready for a fresh canvas!'}]}
+/* =============================================================
+   PROJECTS — edit this array. Stable ids are used for deep links
+   (#lego) and for saved hearts in localStorage.
+   Paths are relative so the page works from file:// and any host.
+   ============================================================= */
+var PROJECTS = [
+  { id:"fuse", emoji:"🏳", title:"Fuse Bead Designs", desc:"Place colorful beads on a pegboard and iron them into amazing shapes. Butterflies, stars, hearts!", img:"images/diy-fusebeads-hero.jpg", video:"fuse-beads.mp4", difficulty:"Easy", time:"30 min", age:"3–12", cat:"🎨 Crafts", ages:["3-5","6-12"],
+    needs:["Fuse beads","Pegboard","Parchment paper","Iron (adult)"],
+    steps:["Pick a pattern and sort your beads by color.","Fill the pegboard peg by peg, pressing each bead down flat.","An adult irons over parchment paper for 15 seconds.","Peel, cool, and flip to fuse the back side."] },
+  { id:"lego", emoji:"🧳", title:"LEGO Building Challenge", desc:"Build anything from a tiny house to a rocket ship! Weekly challenges keep it fresh every time.", img:"images/diy-lego.png", video:"lego.mp4", difficulty:"Medium", time:"45 min", age:"3–Teen", cat:"🧠 STEM", ages:["3-5","6-12","teen"],
+    needs:["Any LEGO bricks","Timer","Challenge card"],
+    steps:["Draw a challenge: tallest tower, bridge, or vehicle.","Set a 20-minute timer and build without instructions.","Test it — does the bridge hold a book? Does it roll?","Rebuild one part to make it stronger."] },
+  { id:"snakes", emoji:"🐍", title:"Snakes & Ladders", desc:"Draw your own board game! Use markers, stickers, and imagination to create your world.", img:"images/diy-snake.png", video:"snakes-ladders.mp4", difficulty:"Easy", time:"40 min", age:"3–12", cat:"🎲 Games", ages:["3-5","6-12"],
+    needs:["Poster board","Markers","Stickers","Dice","Buttons as tokens"],
+    steps:["Grid out 100 numbered squares on the poster board.","Draw ladders going up and snakes coming down.","Decorate with a theme — jungle, space, ocean.","Grab dice and play the first round together."] },
+  { id:"chinese", emoji:"⭐", title:"Chinese Checkers", desc:"Paint marbles, make your board, and challenge everyone to this classic strategy game!", img:"images/diy-chinese.png", video:"chinese-checkers.mp4", difficulty:"Medium", time:"60 min", age:"6–Teen", cat:"🎱 Strategy", ages:["6-12","teen"],
+    needs:["Marbles","Acrylic paint","Cardboard","Compass or lid to trace"],
+    steps:["Trace a six-point star grid onto stiff cardboard.","Paint six sets of ten marbles in different colors.","Let everything dry fully before the first game.","Learn the jump rule and play a two-player round."] },
+  { id:"marble", emoji:"🔮", title:"Marble Solitaire", desc:"Can you clear the board leaving just one marble? The ultimate solo brain challenge!", img:"images/diy-marble.png", video:"marble-solitaire.mp4", difficulty:"Hard", time:"20 min", age:"6–Teen", cat:"🧩 Puzzle", ages:["6-12","teen"],
+    needs:["32 marbles","Egg carton or drilled board","Pencil"],
+    steps:["Mark a 33-hole cross layout on your board.","Fill every hole except the center one.","Jump one marble over another and remove the jumped marble.","Keep going until only a single marble is left."] },
+  { id:"sock", emoji:"🧶", title:"Sock Puppet Theater", desc:"Turn old socks into characters with buttons and yarn, then put on a mini puppet show for the family.", img:"images/diy-sockpuppet.jpg", video:"sock-puppet.mp4", difficulty:"Easy", time:"25 min", age:"0–5", cat:"🎨 Craft", ages:["0-2","3-5"],
+    needs:["Old socks","Buttons or googly eyes","Yarn","Glue"],
+    steps:["Slide a sock over your hand and find the mouth line.","Glue on eyes, a yarn mane, and a felt tongue.","Give each puppet a name and a silly voice.","Hang a blanket over two chairs and perform."] },
+  { id:"plane", emoji:"✈️", title:"Paper Airplane Contest", desc:"Fold five different plane designs and test them for distance, loops, and flight time in the backyard.", img:"images/diy-paperplane.jpg", video:"paper-airplane.mp4", difficulty:"Easy", time:"20 min", age:"6–12", cat:"🏗️ Build", ages:["6-12"],
+    needs:["Printer paper","Tape measure","Marker","Stopwatch"],
+    steps:["Fold five designs: dart, glider, stunt, tube, bat.","Label each plane and mark a throwing line.","Measure distance and time each flight, three throws apiece.","Crown a distance champ and an airtime champ."] },
+  { id:"rock", emoji:"🏖️", title:"Rock Painting Garden", desc:"Collect smooth rocks and paint them into bugs, animals, or patterns to line a garden bed or path.", img:"images/diy-rockpainting.jpg", video:"rock-painting.mp4", difficulty:"Easy", time:"30 min", age:"3–5", cat:"🎨 Craft", ages:["3-5"],
+    needs:["Smooth rocks","Acrylic paint","Brushes","Clear sealer"],
+    steps:["Hunt for flat, palm-sized rocks and wash them.","Base-coat each rock in one bright color and dry.","Add faces, bugs, or patterns with a fine brush.","Seal and line them along a garden path."] },
+  { id:"fort", emoji:"📦", title:"Cardboard Fort Building", desc:"Stack and tape boxes into a fort with doors and windows, then decorate the walls with markers.", img:"images/diy-cardboardfort.jpg", video:"cardboard-fort.mp4", difficulty:"Medium", time:"50 min", age:"6–12", cat:"🏗️ Build", ages:["6-12"],
+    needs:["Big cardboard boxes","Packing tape","Box cutter (adult)","Markers"],
+    steps:["Plan the footprint — one room or two?","Tape boxes into walls, overlapping the seams.","An adult cuts a door and two windows.","Decorate inside and out, then move in a pillow."] },
+  { id:"slime", emoji:"🦡", title:"DIY Slime Lab", desc:"Mix glue, water, and activator to make stretchy slime, then experiment with color and glitter batches.", img:"images/diy-slime.jpg", video:"slime-lab.mp4", difficulty:"Medium", time:"20 min", age:"6–12", cat:"🎨 Craft", ages:["6-12"],
+    needs:["White glue","Baking soda","Contact solution","Food coloring","Glitter"],
+    steps:["Stir 1/2 cup glue with 1/2 tsp baking soda.","Add color, then activator a few drops at a time.","Knead until it pulls away from the bowl.","Run a batch test: which mix stretches farthest?"] },
+  { id:"bracelet", emoji:"🧵", title:"Friendship Bracelets", desc:"Learn a basic knot pattern and braid colorful string into wearable bracelets to trade with friends.", img:"images/diy-bracelets.jpg", video:"friendship-bracelets.mp4", difficulty:"Medium", time:"35 min", age:"Teen", cat:"🎨 Craft", ages:["teen"],
+    needs:["Embroidery floss","Tape or clipboard","Scissors"],
+    steps:["Cut six strands 24 inches long and knot one end.","Tape the knot down and sort strands by color.","Tie forward knots left to right, row after row.","Finish with a braid and tie it on a friend's wrist."] },
+  { id:"scavenger", emoji:"🔍", title:"Backyard Scavenger Hunt", desc:"Follow a printable checklist to find leaves, bugs, and shapes in nature, then log finds in a journal.", img:"images/diy-scavenger.jpg", video:"scavenger-hunt.mp4", difficulty:"Easy", time:"30 min", age:"3–12", cat:"🎲 Game", ages:["3-5","6-12"],
+    needs:["Checklist","Pencil","Paper bag","Magnifying glass"],
+    steps:["Write ten things to find: something round, something rough.","Set a boundary and a 20-minute timer.","Collect or photograph each find.","Sketch the three best finds in a journal."] },
+  { id:"chalk", emoji:"🌚", title:"Sidewalk Chalk Art", desc:"Draw a giant mural, hopscotch board, or obstacle course right on the driveway with colorful chalk.", img:"images/diy-chalkart.jpg", video:"sidewalk-chalk.mp4", difficulty:"Easy", time:"20 min", age:"0–5", cat:"🎨 Craft", ages:["0-2","3-5"],
+    needs:["Sidewalk chalk","Water spray bottle","Driveway"],
+    steps:["Sweep a clear patch of driveway.","Outline a hopscotch board or a giant mural.","Fill it in, then smudge with a wet sponge for blending.","Add an obstacle course and race through it."] }
 ];
 
-const AGES=[{v:'all',label:'\u{1F31F} All ages'},{v:'0-2',label:'\u{1F476} 0-2'},{v:'3-5',label:'\u{1F9C1} 3-5'},{v:'6-12',label:'\u{1F303} 6-12'},{v:'teen',label:'\u{1F6F9} Teen'}];
-const DIFFS=[{v:'all',label:'All levels'},{v:'Easy',label:'Easy'},{v:'Medium',label:'Medium'},{v:'Hard',label:'Hard'}];
-const PAGE_SIZE=9;
-const SAVE_KEY='sunscout_diy';
+var AGES = [
+  { key:"all",  label:"🌟 All Ages" },
+  { key:"0-2",  label:"👶 0–2" },
+  { key:"3-5",  label:"🧸 3–5" },
+  { key:"6-12", label:"🎒 6–12" },
+  { key:"teen", label:"🛹 Teen" }
+];
+var DIFFS = ["All Difficulties","Easy","Medium","Hard"];
 
-let ageSel='all', diffSel='all', expanded=false, cur=null;
-const byId=id=>PROJECTS.find(p=>p.id===id);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+var PER_PAGE = 6;
+var STORE_KEY = "diy.saved";
 
-/* ── Saved projects (real localStorage data, shared with the old page's key) ── */
-function saved(){try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||'[]');return Array.isArray(v)?v:[];}catch(e){return [];}}
-function isSaved(id){return saved().indexOf(id)>-1;}
-function toggleSave(id){
-  const s=saved(), i=s.indexOf(id);
-  if(i>-1)s.splice(i,1); else s.push(id);
-  try{localStorage.setItem(SAVE_KEY,JSON.stringify(s));}catch(e){}
-  return i===-1;
-}
-
-/* ── Filters ── */
-function matches(p){
-  return (ageSel==='all'||p.ages.indexOf(ageSel)>-1)&&(diffSel==='all'||p.difficulty===diffSel);
-}
-function filtered(){return PROJECTS.filter(matches);}
-
-function renderFilters(){
-  document.getElementById('ageFilters').innerHTML=AGES.map(a=>
-    `<button type="button" class="fpill${a.v===ageSel?' on':''}" onclick="pickAge('${a.v}')">${a.label}</button>`).join('');
-  document.getElementById('diffFilters').innerHTML=DIFFS.map(d=>
-    `<button type="button" class="fpill${d.v===diffSel?' on':''}" onclick="pickDiff('${d.v}')">${d.label}</button>`).join('');
-}
-function pickAge(v){ageSel=v;expanded=false;renderFilters();renderGrid();}
-function pickDiff(v){diffSel=v;expanded=false;renderFilters();renderGrid();}
-
-/* ── Grid ── */
-function cardHTML(p){
-  const fav=isSaved(p.id);
-  return `<article class="card" onclick="openModal('${p.id}')">
-    <div class="card-thumb">
-      <img src="${esc(p.images[0])}" alt="${esc(p.title)}" loading="lazy"
-           onerror="this.style.display='none'"/>
-      <button type="button" class="heart" aria-pressed="${fav}"
-              aria-label="${fav?'Remove from saved':'Save project'}"
-              onclick="event.stopPropagation();heartClick('${p.id}',this)">${fav?'❤️':'\u{1F90D}'}</button>
-      <span class="pin">\u{1F4CD} At home</span>
-    </div>
-    <div class="card-body">
-      <h3>${p.emoji} ${esc(p.title)}</h3>
-      <div class="tags">
-        <span class="tag age">\u{1F476} ${esc(p.ageLabel)}</span>
-        <span class="tag cat">${esc(p.cat)}</span>
-        <span class="tag ${p.difficulty.toLowerCase()}">${esc(p.difficulty)}</span>
-      </div>
-      <div class="facts">
-        <div>⏰ ${esc(p.time)} · \u{1F3AC} Video guide</div>
-        <div>\u{1F9F0} ${p.materials.length} supplies · \u{1F4CB} ${p.steps.length} steps</div>
-      </div>
-      <p class="card-desc">${esc(p.desc)}</p>
-      <div class="card-foot">
-        <div class="chips"><span class="chip watch">\u{1F3AC} Watch</span><span class="chip steps">\u{1F4CB} Steps</span></div>
-        <span class="details">Details →</span>
-      </div>
-    </div>
-  </article>`;
-}
-
-function renderGrid(){
-  const list=filtered();
-  const shown=expanded?list:list.slice(0,PAGE_SIZE);
-  document.getElementById('grid').innerHTML=shown.map(cardHTML).join('');
-  document.getElementById('countLabel').textContent=list.length+' project'+(list.length===1?'':'s');
-  document.getElementById('emptyState').classList.toggle('show',list.length===0);
-
-  const wrap=document.getElementById('moreWrap');
-  if(list.length>PAGE_SIZE){
-    wrap.hidden=false;
-    document.getElementById('moreBtn').textContent=expanded
-      ? 'Show fewer projects'
-      : 'Show all '+list.length+' projects';
-  }else{
-    wrap.hidden=true;
-  }
-}
-function toggleMore(){expanded=!expanded;renderGrid();}
-
-function heartClick(id,btn){
-  const now=toggleSave(id);
-  btn.textContent=now?'❤️':'\u{1F90D}';
-  btn.setAttribute('aria-pressed',String(now));
-  btn.setAttribute('aria-label',now?'Remove from saved':'Save project');
-  if(cur===id)syncSaveBtn();
-}
-
-/* ── Detail modal ── */
-function openModal(id){
-  const p=byId(id);
-  if(!p)return;
-  cur=id;
-
-  const v=document.getElementById('mVideo');
-  v.poster=p.images[0]||'';
-  v.src=p.video;
-  v.load();
-  v.play().catch(()=>{});
-
-  // Extra photos only — images[0] is already the video poster.
-  const shots=document.getElementById('mShots');
-  const extra=p.images.slice(1);
-  shots.style.display=extra.length?'flex':'none';
-  shots.innerHTML=extra.map((s,i)=>
-    `<img src="${esc(s)}" alt="${esc(p.title)} photo ${i+2}" loading="lazy" onclick="showShot(this)" onerror="this.style.display='none'"/>`).join('');
-
-  document.getElementById('mMeta').innerHTML=
-    `<span class="tag ${p.difficulty.toLowerCase()}">${esc(p.difficulty)}</span>`+
-    `<span class="mpill neutral">⏰ ${esc(p.time)}</span>`+
-    `<span class="mpill age">\u{1F476} Age ${esc(p.ageLabel)}</span>`;
-  document.getElementById('mTitle').textContent=p.emoji+' '+p.title;
-  document.getElementById('mLede').textContent=p.subtitle;
-  document.getElementById('mNeeds').innerHTML=p.materials.map(m=>`<span class="need">${esc(m)}</span>`).join('');
-  // Every step renders identically, per the design. The adult-supervision warning is not
-  // lost with the styling: those steps open with "Adults Only:" / "Parent tip:" / "Parent
-  // prep:" in the step text itself, so keep that wording when editing PROJECTS.
-  document.getElementById('mSteps').innerHTML=p.steps.map((s,i)=>
-    `<div class="step"><span class="n">${i+1}</span><span class="t">${esc(s.text)}</span></div>`
-  ).join('');
-
-  syncSaveBtn();
-  document.getElementById('mCopy').textContent='\u{1F517} Copy link';
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function syncSaveBtn(){
-  const b=document.getElementById('mSave'), on=isSaved(cur);
-  b.textContent=on?'❤️ Saved':'\u{1F90D} Save project';
-  b.classList.toggle('saved',on);
-}
-function toggleSaveCurrent(){
-  toggleSave(cur);
-  syncSaveBtn();
-  renderGrid();
-}
-function showShot(el){
-  document.querySelectorAll('#mShots img').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
-  const v=document.getElementById('mVideo');
-  v.pause();
-  v.poster=el.getAttribute('src');
-}
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-  const v=document.getElementById('mVideo');
-  v.pause();v.removeAttribute('src');v.load();
-  cur=null;
-}
-function closeOnBg(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
-function copyLink(){
-  const url=location.origin+location.pathname+(cur?'#'+cur:'');
-  const btn=document.getElementById('mCopy');
-  const done=()=>{btn.textContent='✅ Link copied';setTimeout(()=>{btn.textContent='\u{1F517} Copy link';},1800);};
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done).catch(()=>{});}
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cur)closeModal();});
-
-/* ── Video reel ──
-   Tiles render with poster images only. Videos are attached lazily the first time the
-   reel enters the viewport, and never at all under prefers-reduced-motion — so a phone
-   on a slow connection loads 13 small posters, not 13 videos. */
-const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function tileHTML(p,withLabel,withVideo){
-  return `<div class="reel-tile"${withVideo?'':' aria-hidden="true"'}>
-    <div class="poster" style="background-image:url('${esc(p.images[0])}')"></div>
-    ${withVideo?`<video data-src="${esc(p.video)}" muted loop playsinline preload="none"></video>`:''}
-    ${withLabel?`<div class="label">${p.emoji} ${esc(p.title)}</div>`:''}
-  </div>`;
-}
-function buildReel(){
-  const half=Math.ceil(PROJECTS.length/2);
-  const a=PROJECTS.slice(0,half), b=PROJECTS.slice(half);
-  // A row loops by translating -50%, so ONE copy of the set has to be at least as wide as
-  // the screen — otherwise the tiles run out mid-scroll and the row trails off into empty
-  // band. Six small tiles only span ~1260px, so this showed up on ordinary desktops and got
-  // worse zoomed out. Repeat the set until it covers 2x the viewport, then duplicate that
-  // for the seamless wrap. Only the first pass carries a <video>; every later tile is a
-  // poster-only clone, so a wider reel costs DOM nodes but no extra video loads.
-  const row=(set,tileW,withLabel)=>{
-    const reps=Math.max(1,Math.ceil(window.innerWidth*2/(set.length*(tileW+14))));
-    let copy=[];
-    for(let i=0;i<reps;i++)copy=copy.concat(set);
-    return copy.concat(copy).map((p,i)=>tileHTML(p,withLabel,i<set.length)).join('');
-  };
-  document.getElementById('reelA').innerHTML=row(a,250,true);
-  document.getElementById('reelB').innerHTML=row(b,196,false);
-}
-function startReelVideos(){
-  document.querySelectorAll('.reel-tile video').forEach(v=>{
-    const src=v.getAttribute('data-src');
-    if(!src||v.src)return;
-    v.addEventListener('loadeddata',()=>v.classList.add('ready'),{once:true});
-    v.src=src;
-    v.play().catch(()=>{});
+/* ---------------- helpers ---------------- */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
   });
 }
-function armReel(){
-  const reel=document.getElementById('reel');
-  if(!reel)return;
-  if(reduceMotion)return;               // posters only
-  if(!('IntersectionObserver' in window)){startReelVideos();return;}
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){startReelVideos();io.disconnect();}
-    });
-  },{rootMargin:'200px'});
-  io.observe(reel);
+function $(id){ return document.getElementById(id); }
+
+function loadSaved(){
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+function persist(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state.saved)); } catch(e){}
 }
 
-/* ── Boot ── */
-window.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('heroCount').textContent=PROJECTS.length+' projects';
-  renderFilters();
-  buildReel();
-  renderGrid();
-  armReel();
-  const h=location.hash.replace('#','');
-  if(h&&byId(h)){expanded=true;renderGrid();openModal(h);}
+var state = { age:"all", diff:"All Difficulties", open:null, copied:false, saved:loadSaved(), expanded:false };
+
+var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function filtered(){
+  return PROJECTS.filter(function(p){
+    return (state.age === "all" || p.ages.indexOf(state.age) >= 0) &&
+           (state.diff === "All Difficulties" || p.difficulty === state.diff);
+  });
+}
+function byId(id){
+  for (var i=0;i<PROJECTS.length;i++) if (PROJECTS[i].id === id) return PROJECTS[i];
+  return null;
+}
+
+/* ---------------- video reel ---------------- */
+function renderReel(){
+  function tile(p, cls){
+    return '<div class="tile ' + cls + '">' +
+      '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async">' +
+      '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
+        'preload="none" aria-hidden="true" tabindex="-1"></video>' +
+      (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
+    '</div>';
+  }
+  var a = PROJECTS.slice(0,6).map(function(p){ return tile(p,"tile-a"); }).join("");
+  var b = PROJECTS.slice(6).map(function(p){ return tile(p,"tile-b"); }).join("");
+  // duplicated so the -50% keyframe loops seamlessly
+  $("rowA").innerHTML = a + a;
+  $("rowB").innerHTML = b + b;
+
+  if (reduceMotion) return;
+  // Stagger playback so 12+ videos don't all fetch at once.
+  var vids = Array.prototype.slice.call(document.querySelectorAll(".band video")).slice(0, 8);
+  vids.forEach(function(v, i){
+    v.addEventListener("loadeddata", function(){ v.classList.add("on"); });
+    setTimeout(function(){
+      v.preload = "auto";
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function(){});
+    }, i * 900);
+  });
+}
+
+/* ---------------- filters ---------------- */
+function renderFilters(){
+  $("agePills").innerHTML = AGES.map(function(a){
+    return '<button type="button" class="pill" data-age="' + esc(a.key) + '" aria-pressed="' +
+      (state.age === a.key) + '">' + esc(a.label) + '</button>';
+  }).join("");
+  $("diffPills").innerHTML = DIFFS.map(function(d){
+    return '<button type="button" class="pill" data-diff="' + esc(d) + '" aria-pressed="' +
+      (state.diff === d) + '">' + esc(d) + '</button>';
+  }).join("");
+}
+
+/* ---------------- grid ---------------- */
+function renderGrid(){
+  var list = filtered();
+  var shown = state.expanded ? list : list.slice(0, PER_PAGE);
+
+  $("countLabel").textContent = list.length === 1 ? "1 Project" : list.length + " Projects";
+
+  $("grid").innerHTML = shown.map(function(p){
+    var on = !!state.saved[p.id];
+    return '<article class="card" data-open="' + esc(p.id) + '" tabindex="0" role="button" ' +
+        'aria-label="' + esc(p.title) + ' — open details">' +
+      '<div class="card-media">' +
+        '<img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async">' +
+        '<button type="button" class="heart" data-heart="' + esc(p.id) + '" aria-pressed="' + on + '" ' +
+          'aria-label="Save ' + esc(p.title) + '">' + (on ? "❤️" : "🤍") + '</button>' +
+        '<span class="chip-loc">📍 At Home</span>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<h3>' + esc(p.emoji) + ' ' + esc(p.title) + '</h3>' +
+        '<div class="stars" aria-hidden="true">★★★★★</div>' +
+        '<div class="tags">' +
+          '<span class="tag tag-age">👶 ' + esc(p.age) + '</span>' +
+          '<span class="tag tag-cat">' + esc(p.cat) + '</span>' +
+          '<span class="diff diff-' + esc(p.difficulty) + '">' + esc(p.difficulty) + '</span>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<div>⏰ ' + esc(p.time) + ' · 🎬 Video guide</div>' +
+          '<div>🧰 ' + p.needs.length + ' supplies · 📋 ' + p.steps.length + ' steps</div>' +
+        '</div>' +
+        '<p class="card-desc">' + esc(p.desc) + '</p>' +
+        '<div class="card-foot">' +
+          '<div class="foot-chips">' +
+            '<span class="chip chip-watch">🎬 Watch</span>' +
+            '<span class="chip chip-steps">📋 Steps</span>' +
+          '</div>' +
+          '<span class="details">Details →</span>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }).join("");
+
+  $("empty").hidden = list.length !== 0;
+
+  var hasMore = list.length > PER_PAGE;
+  $("moreWrap").hidden = !hasMore;
+  if (hasMore) {
+    $("moreBtn").textContent = state.expanded
+      ? "Show Fewer ↑"
+      : "View More Projects (" + (list.length - PER_PAGE) + ") ↓";
+  }
+}
+
+/* ---------------- modal ---------------- */
+var lastFocus = null;
+
+function renderModal(){
+  var overlay = $("overlay");
+  var p = state.open ? byId(state.open) : null;
+  if (!p) { overlay.hidden = true; $("modal").innerHTML = ""; return; }
+
+  var on = !!state.saved[p.id];
+  $("modal").innerHTML =
+    '<div class="modal-media">' +
+      '<img src="' + esc(p.img) + '" alt="">' +
+      '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
+        (reduceMotion ? "" : "autoplay ") + 'controls ' +
+        'aria-label="' + esc(p.title) + ' guide video"></video>' +
+      '<button type="button" class="close" data-close aria-label="Close">✕</button>' +
+    '</div>' +
+    '<div class="modal-body">' +
+      '<div class="modal-pills">' +
+        '<span class="diff diff-' + esc(p.difficulty) + '">' + esc(p.difficulty) + '</span>' +
+        '<span class="mp mp-time">⏰ ' + esc(p.time) + '</span>' +
+        '<span class="mp mp-age">👶 Age ' + esc(p.age) + '</span>' +
+      '</div>' +
+      '<h2 id="modalTitle">' + esc(p.emoji) + ' ' + esc(p.title) + '</h2>' +
+      '<p class="modal-desc">' + esc(p.desc) + '</p>' +
+      '<div class="needs-box">' +
+        '<div class="sec-label">What you\'ll need</div>' +
+        '<div class="needs">' + p.needs.map(function(n){
+          return '<span class="need">' + esc(n) + '</span>';
+        }).join("") + '</div>' +
+      '</div>' +
+      '<div class="steps-box">' +
+        '<div class="sec-label">Step-by-step guide</div>' +
+        '<div class="steps">' + p.steps.map(function(t, i){
+          return '<div class="step"><span class="step-n">' + (i+1) + '</span>' +
+                 '<span class="step-t">' + esc(t) + '</span></div>';
+        }).join("") + '</div>' +
+      '</div>' +
+      '<div class="modal-actions">' +
+        '<button type="button" class="act-copy" data-copy>' +
+          (state.copied ? "✓ Link Copied" : "🔗 Copy Link") + '</button>' +
+        '<button type="button" class="act-save" data-save aria-pressed="' + on + '">' +
+          (on ? "❤️ Saved" : "🤍 Save Project") + '</button>' +
+      '</div>' +
+    '</div>';
+  overlay.hidden = false;
+}
+
+function openProject(id){
+  if (!byId(id)) return;
+  lastFocus = document.activeElement;
+  state.open = id; state.copied = false;
+  renderModal();
+  if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
+  var btn = $("modal").querySelector("[data-close]");
+  if (btn) btn.focus();
+}
+
+function closeProject(){
+  if (!state.open) return;
+  var v = $("modal").querySelector("video");
+  if (v) { try { v.pause(); } catch(e){} }
+  state.open = null; state.copied = false;
+  renderModal();
+  history.replaceState(null, "", location.pathname + location.search);
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+  lastFocus = null;
+}
+
+/* focus trap */
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && state.open) { closeProject(); return; }
+  if (e.key !== "Tab" || !state.open) return;
+  var f = $("modal").querySelectorAll('button, [href], video[controls], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
+
+/* ---------------- delegated events ---------------- */
+$("agePills").addEventListener("click", function(e){
+  var b = e.target.closest("[data-age]"); if (!b) return;
+  state.age = b.getAttribute("data-age"); state.expanded = false;
+  renderFilters(); renderGrid();
+});
+$("diffPills").addEventListener("click", function(e){
+  var b = e.target.closest("[data-diff]"); if (!b) return;
+  state.diff = b.getAttribute("data-diff"); state.expanded = false;
+  renderFilters(); renderGrid();
+});
+
+$("grid").addEventListener("click", function(e){
+  var h = e.target.closest("[data-heart]");
+  if (h) {
+    e.stopPropagation();
+    var hid = h.getAttribute("data-heart");
+    state.saved[hid] = !state.saved[hid];
+    persist();
+    h.setAttribute("aria-pressed", String(!!state.saved[hid]));
+    h.textContent = state.saved[hid] ? "❤️" : "🤍";
+    return;
+  }
+  var card = e.target.closest("[data-open]");
+  if (card) openProject(card.getAttribute("data-open"));
+});
+$("grid").addEventListener("keydown", function(e){
+  if (e.key !== "Enter" && e.key !== " ") return;
+  var card = e.target.closest("[data-open]");
+  if (card && e.target === card) { e.preventDefault(); openProject(card.getAttribute("data-open")); }
+});
+
+$("moreBtn").addEventListener("click", function(){
+  state.expanded = !state.expanded;
+  renderGrid();
+});
+
+$("overlay").addEventListener("click", function(e){
+  if (e.target === $("overlay")) { closeProject(); return; }
+  if (e.target.closest("[data-close]")) { closeProject(); return; }
+
+  if (e.target.closest("[data-copy]")) {
+    var url = "https://www.sunscoutkids.com/diy.html#" + (state.open || "");
+    if (navigator.clipboard) navigator.clipboard.writeText(url).catch(function(){});
+    state.copied = true;
+    e.target.closest("[data-copy]").textContent = "✓ Link Copied";
+    return;
+  }
+  var s = e.target.closest("[data-save]");
+  if (s) {
+    var id = state.open;
+    state.saved[id] = !state.saved[id];
+    persist();
+    s.setAttribute("aria-pressed", String(!!state.saved[id]));
+    s.textContent = state.saved[id] ? "❤️ Saved" : "🤍 Save Project";
+    renderGrid();
+  }
+});
+
+/* ---------------- boot ---------------- */
+renderReel();
+renderFilters();
+renderGrid();
+if (location.hash.length > 1) openProject(decodeURIComponent(location.hash.slice(1)));
+window.addEventListener("hashchange", function(){
+  var id = location.hash.slice(1);
+  if (id) openProject(decodeURIComponent(id)); else closeProject();
+});
+})();
 </script>
 </body>
 </html>
