@@ -33,9 +33,9 @@
   --glow:0 4px 16px rgba(255,155,62,.40);
   --ease:cubic-bezier(.2,.8,.2,1);
   --head-h:clamp(64px,9vw,86px);
-  /* Spec said .62. Measured against the actual background art, #6b5040 body copy
-     bottoms out at 3.1:1 over the pink regions at .62; .78 is the lowest value
-     that clears 4.5:1 everywhere. Raised the scrim rather than darkening the text.
+  /* Spec said .62. Measured against the background art, #6b5040 body copy bottoms
+     out at 3.38:1 over the pink regions at .62; .78 is the lowest value clearing
+     4.5:1 everywhere (worst 4.69:1). Raised the scrim rather than darkening text.
      Kept identical to Local Table so the shared tile reads the same on both pages. */
   --bg-scrim:.78;
 }
