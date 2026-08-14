@@ -32,6 +32,8 @@ const SURFACES = {
   'hero background (darkest px, .78 scrim)': '#e9c6c9',
   'white card':                              '#ffffff',
   'modal fact panel':                        '#f7f3ee',
+  'watch chip':                              '#e8f5ff',
+  'page surface':                            '#FFFCF7',
   'cream page':                              '#FFF9F0',
   'carousel band':                           '#241a13',
   'carousel chip':                           '#1d1510',
@@ -56,6 +58,12 @@ const TEXT = {
     // declares them.
     files: ['public/local-table/index.html'],
   },
+  '--orange-dark': {
+    value: '#a66300',            // was #E68A00: 2.63:1 on white, 2.51:1 on cream
+    surfaces: ['white card', 'cream page', 'page surface'],
+    // every `a` on both pages, plus the card's "Details ->" label. Also the
+    // background of .navcta:hover, so white-on-it is checked below.
+  },
   '--chip-text': {
     value: '#f3ece2',
     surfaces: ['carousel chip'],
@@ -66,21 +74,32 @@ const TEXT = {
   },
 };
 
+// Colours declared inline on a rule rather than as a token. Same assertion,
+// keyed by the file that has to contain them.
+const LITERALS = {
+  'public/diy.html': [
+    { name: '.chip-watch', value: '#0271ad', surface: 'watch chip' },  // was #0288D1: 3.48:1
+  ],
+};
+
+// White text sitting ON a token, rather than a token sitting on a surface.
+const ON_TOKEN = [
+  { label: '#fff on --orange-dark (nav CTA hover)', fg: '#ffffff', bg: '#a66300' },
+];
+
 // Surface tokens carry no text themselves, but the gate still asserts the
 // stylesheets declare them, so a change here cannot drift from what was checked.
 //
-// Per-file, because the two pages genuinely differ right now: the carousel-band
-// rework landed on diy.html only, so Local Table still declares the original
-// near-black --band #141110. Asserting a single global value would fail on a
-// file that was never in scope. If Local Table's band is reworked too, move
-// --band back into a shared block.
+// Per-file because --surface-chip is diy-only. --band is now the same on both
+// (see #51) but stays listed per file so the structure still catches a future
+// divergence rather than silently averaging one away.
 const SURFACE_TOKENS = {
   'public/diy.html': {
     '--band':         '#241a13',
     '--surface-chip': '#1d1510',
   },
   'public/local-table/index.html': {
-    '--band':         '#141110',   // unchanged; carousel rework was diy-only
+    '--band':         '#241a13',   // unified with diy.html, see #51
   },
 };
 
@@ -115,6 +134,22 @@ for (const [name, { value, surfaces }] of Object.entries(TEXT)) {
   }
 }
 
+for (const { label, fg, bg } of ON_TOKEN) {
+  const r = ratio(fg, bg);
+  const ok = r >= MIN;
+  if (!ok) failed = true;
+  console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}  ${r.toFixed(2)}:1`);
+}
+
+for (const [file, rules] of Object.entries(LITERALS)) {
+  for (const { name, value, surface } of rules) {
+    const r = ratio(value, SURFACES[surface]);
+    const ok = r >= MIN;
+    if (!ok) failed = true;
+    console.log(`${ok ? 'PASS' : 'FAIL'}  ${name} ${value} on ${surface}  ${r.toFixed(2)}:1`);
+  }
+}
+
 // The token values above must match what the stylesheets actually declare -
 // otherwise this gate passes while the pages ship something else.
 import { readFileSync } from 'node:fs';
@@ -141,6 +176,11 @@ for (const file of ['public/local-table/index.html', 'public/diy.html']) {
       `${ok ? 'PASS' : 'FAIL'}  ${file} declares ${name}: ${m[1]}` +
         (ok ? '' : ` (expected ${value})`)
     );
+  }
+  for (const { name, value } of LITERALS[file] ?? []) {
+    const hit = css.includes(`color:${value}`);
+    if (!hit) failed = true;
+    console.log(`${hit ? 'PASS' : 'FAIL'}  ${file} uses ${value} for ${name}`);
   }
 }
 
