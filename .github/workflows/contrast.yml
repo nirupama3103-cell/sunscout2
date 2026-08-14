@@ -1,0 +1,25 @@
+name: Contrast
+
+# Fails if a text token drops below 4.5:1 on a surface it actually renders on,
+# or if the stylesheets declare a different value than the gate was verified
+# against. Runs on every PR that touches the tokens or the checker.
+
+on:
+  pull_request:
+    paths:
+      - 'public/local-table/index.html'
+      - 'public/diy.html'
+      - 'scripts/check-contrast.mjs'
+      - '.github/workflows/contrast.yml'
+  push:
+    branches: [main]
+
+jobs:
+  contrast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/check-contrast.mjs
