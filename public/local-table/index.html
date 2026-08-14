@@ -437,20 +437,26 @@ button{font-family:inherit}
    DEALS — edit this array. Stable ids are used for deep links
    (#d1) and for saved hearts in localStorage.
    ============================================================= */
+// Photos served from this repo. Paths are relative to /local-table/.
+// Chosen by looking at each image, not by filename - assets/aub/pasta.jpg is
+// actually a pizza shot, for example.
 var U = "https://images.unsplash.com/photo-";
 var Q = "?auto=format&fit=crop&w=900&q=70";
 var PHOTO = {
+  dimsum: "assets/food/momos.jpg",        // dumplings on a plate
+  pub:    "assets/lt2/happyhour.jpg",     // two beers with pretzels
+  indian: "assets/aub/saibhavan.jpg",     // full thali: curries, rice, roti
+  korean: "assets/lt3/lt-wings.jpg",      // sauced fried chicken
+  taco:   "assets/aub/taco.jpg",          // three street tacos
+  pizza:  "assets/aub/pasta.jpg",         // cheese pizza (filename is wrong)
+  burger: "assets/lt/hero.jpg",           // burger and fries
+  cafe:   "assets/lt2/earlybird.jpg",     // breakfast plate with drip coffee
+  salad:  "assets/lt3/lt-buffet-trays.jpg", // build-your-own steam trays
+
+  // No photo in the repo depicts these three. Left on Unsplash rather than
+  // captioning a deal with the wrong dish on a page that claims verification.
   ramen:  U + "1569718212165-3a8278d5f624" + Q,
-  dimsum: U + "1563245372-f21724e3856d"   + Q,
-  pub:    U + "1436076863939-06870fe779c2" + Q,
-  indian: U + "1585937421612-70a008356fbe" + Q,
-  korean: U + "1562967914-608f82629710"   + Q,
-  taco:   U + "1565299624946-b28f40a0ae38" + Q,
-  cafe:   U + "1509042239860-f550ce710b93" + Q,
-  pizza:  U + "1513104890138-7c749659a591" + Q,
   sushi:  U + "1579871494447-9811cf80d66c" + Q,
-  salad:  U + "1512621776951-a57141f2eefd" + Q,
-  burger: U + "1568901346375-23c9450c58cd" + Q,
   pho:    U + "1547928576-b822bc410bdf"   + Q
 };
 
