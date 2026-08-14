@@ -568,6 +568,30 @@ html{overflow-x:hidden}
   .search-wrap{gap:8px;padding-left:14px}
   .search-input{font-size:16px}   /* 16px stops iOS zooming the page on focus */
 }
+
+/* ---- mobile: filter strip and nav -------------------------------------- */
+/* The strip is width:max-content with a 9999px radius. That reads as a pill
+   while it is one line; wrapped to four lines on a phone the radius resolves
+   against the full height and the whole thing renders as a circle with the
+   pills scattered inside it. Below 720px it becomes a full-width panel with a
+   sane corner radius. Declared last so nothing later re-rounds it. */
+@media (max-width:720px){
+  .filters-in{
+    width:100%;
+    max-width:100%;      /* the desktop rule caps it at 100% - 2*gutter */
+    border-radius:20px;
+    justify-content:flex-start;
+    gap:8px;
+    padding:10px;
+  }
+  .pillset{gap:6px}
+  .pill{padding:8px 14px;font-size:13px}
+  .search-wrap{margin-top:20px}
+}
+@media (max-width:700px){
+  .nav{gap:5px}
+  .navlink,.navcta{padding:8px 12px;font-size:12.5px}
+}
 </style>
 </head>
 <body>
@@ -709,7 +733,7 @@ var AGES = [
 ];
 var DIFFS = ["All Difficulties","Easy","Medium","Hard"];
 
-var PER_PAGE = 6;
+var PER_PAGE = 8;   // 4 columns x 2 rows, same first page as index.html
 var STORE_KEY = "diy.saved";
 
 /* ---------------- helpers ---------------- */
