@@ -254,6 +254,30 @@ button{font-family:inherit}
   }
   .ftr-links{flex-wrap:wrap;gap:14px 20px}
 }
+
+/* ---- mobile nav + filters ---------------------------------------------- */
+/* The nav is a right-aligned overflow-x scroller, so on a phone the in-page
+   anchors sat off-screen to the left with no affordance - the DIY link was
+   effectively invisible. Below 700px the in-page anchors drop (the sections are
+   still reachable by scrolling) and the two cross-page links stay. */
+@media (max-width:700px){
+  .nav .navlink:not(.navlink-cross){display:none}
+  .nav{gap:5px}
+  .navlink,.navcta{padding:7px 11px;font-size:12px}
+  /* "Local Table" + the LIVE badge + two links did not fit in 390px, so the
+     CTA overran the brand. The badge is decorative and the wordmark is already
+     in the logo, so both step down here. */
+  .brand{gap:8px;min-width:0}
+  .brand-name{font-size:15px;letter-spacing:-.3px;min-width:0}
+  .live{display:none}
+  .brand img{height:34px}
+  .navcta{white-space:nowrap}
+  /* the pill rows read as one block rather than four ragged lines */
+  .filters{padding:10px 14px}
+  .filters-in{gap:10px}
+  .pillset{gap:6px}
+  .pill{padding:8px 14px;font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -270,6 +294,7 @@ button{font-family:inherit}
       <a class="navlink" href="#lt-deals">Deals</a>
       <a class="navlink" href="#lt-pricing">List your business</a>
       <a class="navlink" href="#lt-about">About</a>
+      <a class="navlink navlink-cross" href="https://www.sunscoutkids.com/diy.html">🎨 DIY</a>
       <a class="navcta" href="https://www.sunscoutkids.com/">SunScout Kids →</a>
     </nav>
   </header>
@@ -408,7 +433,7 @@ var STEPS = [
   { n:"04", t:"Community drops",  d:"Spotted a deal we missed? Submit it, we verify it, you earn points." }
 ];
 
-var PER_PAGE = 6;
+var PER_PAGE = 8;   // 4 columns x 2 rows, same first page as index.html
 var STORE_KEY = "lt.saved";
 
 /* ---------------- helpers ---------------- */
