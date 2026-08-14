@@ -24,9 +24,17 @@
 :root{
   --bg:#FFF9F0; --surface:#FFFCF7; --card:#fff;
   --ink:#1a1a1a; --body:#6b5040; --secondary:#5a3e1b;
-  --faint:#625245; --faint2:#75695d;
+  /* No --faint here: this page has no var(--faint) reference. It lives in
+     local-table/index.html, where .stat-l renders it over the background image. */
+  --faint2:#75695d;
   --orange:#FF9900; --orange-dark:#E68A00; --green:#34C97A;
-  --band:#141110; --saved:#C0392B;
+  /* Carousel band: darkest step of the warm-brown ramp rather than near-black,
+     so the band reads as part of the page instead of a foreign embed. */
+  --band:#241a13; --saved:#C0392B;
+  /* Opaque chip surface. Translucent-over-photography cannot be asserted by the
+     contrast gate, because the effective background is whatever frame is behind
+     it. Giving the chip its own opaque surface makes it a fixed, checkable pair. */
+  --surface-chip:#1d1510; --chip-text:#f3ece2;
   --line:1px solid rgba(0,0,0,.09);
   --shadow:0 2px 12px rgba(0,0,0,.08);
   --shadow-hover:0 14px 34px rgba(0,0,0,.14);
@@ -50,8 +58,6 @@ button{font-family:inherit}
 :focus-visible{outline:3px solid var(--orange-dark);outline-offset:2px;border-radius:6px}
 ::-webkit-scrollbar{height:0;width:0}
 
-@keyframes ss-marquee-l{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-@keyframes ss-marquee-r{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 @keyframes ss-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* ---- page shell + tiled background ---- */
@@ -95,19 +101,32 @@ button{font-family:inherit}
 .band{position:relative;padding:26px 0 30px;background:var(--band);overflow:hidden}
 .band-glow{position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(255,153,0,.20),transparent 70%);pointer-events:none}
 .band-rows{position:relative;display:flex;flex-direction:column;gap:14px}
-.row{display:flex;width:max-content;gap:14px;animation-timing-function:linear;animation-iteration-count:infinite}
-.row-a{animation-name:ss-marquee-l;animation-duration:60s}
-.row-b{animation-name:ss-marquee-r;animation-duration:81s}
-.tile{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#221d1a;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none}
+/* Edge fade via mask rather than gradient overlays: the rail can overflow
+   freely and both ends dissolve into the band, so a clipped tile reads as
+   scrollable instead of broken. Prefixed for Safari. */
+.rail-mask{
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%);
+          mask-image:linear-gradient(to right,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%);
+}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 56px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
+.tile{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#3a2c21;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none;scroll-snap-align:start}
+/* Missing-asset state, applied by the img onerror handler. An empty tile should
+   say what is wrong rather than render as a blank rectangle. */
+.tile.is-missing .tile-poster,.tile.is-missing video{display:none}
+.tile.is-missing::after{
+  content:"Image unavailable";position:absolute;inset:0;display:grid;place-items:center;
+  color:#a3907e;font-size:11px;font-weight:800;letter-spacing:.4px;
+  background:repeating-linear-gradient(45deg,#33261c 0 8px,#2c2118 8px 16px);
+}
 .tile-a{width:clamp(176px,42vw,250px)}
 .tile-b{width:clamp(138px,32vw,196px);border-radius:16px}
 .tile-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 400ms ease}
 .tile video.on{opacity:1}
-.tile-label{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:9999px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:900;letter-spacing:.3px}
-.fade{position:absolute;top:0;width:120px;height:100%;pointer-events:none}
-.fade-l{left:0;background:linear-gradient(90deg,var(--band),rgba(20,17,16,0))}
-.fade-r{right:0;background:linear-gradient(270deg,var(--band),rgba(20,17,16,0))}
+/* Fully opaque: no alpha, no backdrop-filter. See --surface-chip. */
+.tile-label{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:5px 11px;border-radius:9999px;background:var(--surface-chip);color:var(--chip-text);font-size:11px;font-weight:900;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ---- sticky filter bar ---- */
 .filters{position:sticky;top:var(--head-h);z-index:30;background:var(--surface);border-bottom:1px solid rgba(0,0,0,.07);padding:clamp(12px,3vw,16px) clamp(14px,4vw,36px)}
@@ -197,8 +216,15 @@ button{font-family:inherit}
 .ftr-note{font-size:13px;font-weight:800;color:#999}
 .ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
 
+@media (max-width:600px){
+  .rail{padding:8px 24px}
+  .rail-mask{
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
+            mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
+  }
+}
 @media (prefers-reduced-motion:reduce){
-  .row{animation:none}
+  .rail{scroll-behavior:auto}
   .hero,.modal{animation:none}
   *{transition-duration:1ms !important}
   .card:hover,.pill:hover,.navlink:hover,.navcta:hover,.more:hover,
@@ -229,12 +255,10 @@ button{font-family:inherit}
 
   <section class="band" aria-label="Project video reel">
     <div class="band-glow"></div>
-    <div class="band-rows">
-      <div class="row row-a" id="rowA"></div>
-      <div class="row row-b" id="rowB"></div>
+    <div class="band-rows rail-mask">
+      <div class="rail" id="rowA" tabindex="0" role="group" aria-label="Featured projects, row 1"></div>
+      <div class="rail" id="rowB" tabindex="0" role="group" aria-label="Featured projects, row 2"></div>
     </div>
-    <div class="fade fade-l"></div>
-    <div class="fade fade-r"></div>
   </section>
 
   <section class="filters">
@@ -376,17 +400,17 @@ function byId(id){
 function renderReel(){
   function tile(p, cls){
     return '<div class="tile ' + cls + '">' +
-      '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async">' +
+      '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async" ' +
+        'onerror="this.closest(\'.tile\').classList.add(\'is-missing\')">' +
       '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
         'preload="none" aria-hidden="true" tabindex="-1"></video>' +
       (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
     '</div>';
   }
-  var a = PROJECTS.slice(0,6).map(function(p){ return tile(p,"tile-a"); }).join("");
-  var b = PROJECTS.slice(6).map(function(p){ return tile(p,"tile-b"); }).join("");
-  // duplicated so the -50% keyframe loops seamlessly
-  $("rowA").innerHTML = a + a;
-  $("rowB").innerHTML = b + b;
+  // The rails are user-scrolled now, not a marquee, so each project appears once.
+  // Duplicating the list here would show every project twice.
+  $("rowA").innerHTML = PROJECTS.slice(0,6).map(function(p){ return tile(p,"tile-a"); }).join("");
+  $("rowB").innerHTML = PROJECTS.slice(6).map(function(p){ return tile(p,"tile-b"); }).join("");
 
   if (reduceMotion) return;
   // Stagger playback so 12+ videos don't all fetch at once.
