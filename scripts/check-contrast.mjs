@@ -51,7 +51,10 @@ const TEXT = {
   '--faint2': {
     value: '#75695d',            // was #a0907f: 3.09:1 on white, 2.86:1 on the panel
     surfaces: ['white card', 'modal fact panel'],
-    // .was (white card), .fact-v s (modal fact panel)
+    // .was (white card), .fact-v s (modal fact panel).
+    // Local Table only - diy.html references neither faint token and no longer
+    // declares them.
+    files: ['public/local-table/index.html'],
   },
   '--chip-text': {
     value: '#f3ece2',
