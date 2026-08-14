@@ -42,7 +42,11 @@ const TEXT = {
   '--faint': {
     value: '#625245',            // was #8a7361: 2.84:1 on the real hero surface
     surfaces: ['hero background (darkest px, .78 scrim)', 'white card'],
-    // .stat-l (hero, over the background image), .tier-price span (white card)
+    // .stat-l (hero, over the background image), .tier-price span (white card).
+    // Local Table only - diy.html has no var(--faint) reference and no longer
+    // declares it. HERO_BG stays: it is the surface .stat-l actually renders on,
+    // and dropping it would turn this gate green on a live defect.
+    files: ['public/local-table/index.html'],
   },
   '--faint2': {
     value: '#75695d',            // was #a0907f: 3.09:1 on white, 2.86:1 on the panel
@@ -52,6 +56,7 @@ const TEXT = {
   '--chip-text': {
     value: '#f3ece2',
     surfaces: ['carousel chip'],
+    files: ['public/diy.html'],
     // .tile-label. Checkable only because the chip is opaque - while it was
     // rgba(0,0,0,.55) over a video frame the effective background was whatever
     // was playing behind it, which no gate can assert.
@@ -112,11 +117,21 @@ for (const [name, { value, surfaces }] of Object.entries(TEXT)) {
 import { readFileSync } from 'node:fs';
 for (const file of ['public/local-table/index.html', 'public/diy.html']) {
   const css = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
-  const declared = Object.entries(TEXT).map(([n, { value }]) => [n, value])
+  // A token is asserted in a file only if it is meant to be declared there.
+  // `files` absent = every file; `files` present = just those.
+  const declared = Object.entries(TEXT)
+    .filter(([, { files }]) => !files || files.includes(file))
+    .map(([n, { value }]) => [n, value])
     .concat(Object.entries(SURFACE_TOKENS[file] ?? {}));
   for (const [name, value] of declared) {
     const m = css.match(new RegExp(`${name}\\s*:\\s*(#[0-9a-fA-F]{6})`));
-    if (!m) continue;
+    if (!m) {
+      // Expected here and missing. Previously this was skipped, which meant
+      // deleting a token silently passed the gate.
+      failed = true;
+      console.log(`FAIL  ${file} does not declare ${name} (expected ${value})`);
+      continue;
+    }
     const ok = m[1].toLowerCase() === value.toLowerCase();
     if (!ok) failed = true;
     console.log(

@@ -24,7 +24,9 @@
 :root{
   --bg:#FFF9F0; --surface:#FFFCF7; --card:#fff;
   --ink:#1a1a1a; --body:#6b5040; --secondary:#5a3e1b;
-  --faint:#625245; --faint2:#75695d;
+  /* No --faint here: this page has no var(--faint) reference. It lives in
+     local-table/index.html, where .stat-l renders it over the background image. */
+  --faint2:#75695d;
   --orange:#FF9900; --orange-dark:#E68A00; --green:#34C97A;
   /* Carousel band: darkest step of the warm-brown ramp rather than near-black,
      so the band reads as part of the page instead of a foreign embed. */
