@@ -492,6 +492,82 @@ html{overflow-x:hidden}
   }
   .ftr-links{flex-wrap:wrap; gap:14px 20px}
 }
+
+/* --- 8. Card anatomy: three voices, not seven -------------- */
+/* Was title / stars / 3 tag pills / 2 meta lines / description / 2 foot chips
+   + Details, all stacked in one 200px column. Status moves onto the media,
+   the meta lines merge, the star row goes (every project carried five, so it
+   ranked nothing — and at 2.14:1 it failed contrast anyway), and the Watch and
+   Steps chips go, since the play badge and the meta row already say both. */
+.badge-diff{
+  position:absolute;top:11px;right:11px;z-index:2;
+  padding:5px 11px;border-radius:9999px;
+  font-size:10.5px;font-weight:900;letter-spacing:.2px;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.badge-play{
+  position:absolute;right:11px;bottom:11px;z-index:2;
+  width:30px;height:30px;border-radius:9999px;
+  display:grid;place-items:center;
+  background:var(--surface-chip);color:var(--chip-text);
+  font-size:11px;line-height:1;padding-left:2px;
+  box-shadow:0 2px 8px rgba(0,0,0,.22);
+}
+/* Two clamped lines each, so every card in a row ends at the same baseline
+   and the grid reads as a grid rather than a ragged stack. */
+.card-body h3{
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;min-height:2.5em;
+}
+.card .card-desc{
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;min-height:3.1em;
+}
+/* one row, one size, separated by hairline dots */
+.card .meta{
+  flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 10px;
+  font-size:12px;font-weight:700;color:var(--secondary);
+}
+.card .meta > span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.card .meta > span + span::before{
+  content:"";width:3px;height:3px;border-radius:50%;
+  background:currentColor;opacity:.45;margin-right:6px;
+}
+.card .card-foot .foot-chips{gap:6px;flex-wrap:wrap}
+
+/* --- 9. Search ------------------------------------------- */
+/* Same three-part anatomy as index.html (icon / input / clear), restyled to
+   this page's control language so it reads as one instrument with the filter
+   strip below it. Search narrows first, pills refine - so it sits above them. */
+.search-wrap{
+  display:flex;align-items:center;gap:10px;
+  width:min(560px, 100%);margin:26px auto 0;
+  padding:6px 6px 6px 16px;border-radius:9999px;
+  background:rgba(255,255,255,.82);border:1px solid rgba(60,40,20,.10);
+  box-shadow:var(--lift-1);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease);
+}
+.search-wrap:focus-within{border-color:var(--orange);box-shadow:var(--lift-2)}
+.search-icon{font-size:15px;line-height:1;flex:none;opacity:.75}
+.search-input{
+  flex:1;min-width:0;border:none;background:transparent;outline:none;
+  font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);
+  padding:10px 0;
+}
+.search-input::placeholder{color:var(--body);font-weight:600;opacity:.75}
+.search-input::-webkit-search-cancel-button{display:none}
+.search-clear{
+  flex:none;padding:8px 15px;border-radius:9999px;border:1px solid rgba(60,40,20,.12);
+  background:#fff;color:var(--secondary);font-size:12.5px;font-weight:800;cursor:pointer;
+  transition:background 160ms var(--ease),color 160ms var(--ease);
+}
+.search-clear:hover{background:#FFF3E0;color:var(--ink)}
+.search-clear[hidden]{display:none}
+@media (max-width:520px){
+  .search-wrap{gap:8px;padding-left:14px}
+  .search-input{font-size:16px}   /* 16px stops iOS zooming the page on focus */
+}
 </style>
 </head>
 <body>
@@ -512,6 +588,14 @@ html{overflow-x:hidden}
     <div class="eyebrow"><i></i>50+ Activities · Always Free</div>
     <h1>Free &amp; Fun<br><span>At-Home Projects</span></h1>
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input id="searchInput" class="search-input" type="search" autocomplete="off"
+             placeholder="Search projects, supplies, materials…"
+             aria-label="Search projects" aria-describedby="countLabel">
+      <button type="button" id="searchClear" class="search-clear" hidden>Clear</button>
+    </div>
 
     <div class="filters">
       <div class="filters-in">
@@ -644,14 +728,21 @@ function persist(){
   try { localStorage.setItem(STORE_KEY, JSON.stringify(state.saved)); } catch(e){}
 }
 
-var state = { age:"all", diff:"All Difficulties", open:null, copied:false, saved:loadSaved(), expanded:false };
+var state = { age:"all", diff:"All Difficulties", q:"", open:null, copied:false, saved:loadSaved(), expanded:false };
 
 var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Searches the fields a parent would actually type: the project name, what it
+// is, its category, and the supplies they might already have in a drawer.
+function haystack(p){
+  return (p.title + " " + p.desc + " " + p.cat + " " + p.needs.join(" ")).toLowerCase();
+}
 function filtered(){
+  var q = state.q.trim().toLowerCase();
   return PROJECTS.filter(function(p){
     return (state.age === "all" || p.ages.indexOf(state.age) >= 0) &&
-           (state.diff === "All Difficulties" || p.difficulty === state.diff);
+           (state.diff === "All Difficulties" || p.difficulty === state.diff) &&
+           (q === "" || haystack(p).indexOf(q) >= 0);
   });
 }
 function byId(id){
@@ -727,25 +818,24 @@ function renderGrid(){
         '<img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async">' +
         '<button type="button" class="heart" data-heart="' + esc(p.id) + '" aria-pressed="' + on + '" ' +
           'aria-label="Save ' + esc(p.title) + '">' + (on ? "❤️" : "🤍") + '</button>' +
+        // status belongs on the image, not stacked in the text column
+        '<span class="badge-diff diff-' + esc(p.difficulty) + '">' + esc(p.difficulty) + '</span>' +
         '<span class="chip-loc">📍 At Home</span>' +
+        // replaces the "🎬 Video guide" meta line and the "🎬 Watch" chip
+        '<span class="badge-play" aria-label="Has a video guide">▶</span>' +
       '</div>' +
       '<div class="card-body">' +
         '<h3>' + esc(p.emoji) + ' ' + esc(p.title) + '</h3>' +
-        '<div class="stars" aria-hidden="true">★★★★★</div>' +
-        '<div class="tags">' +
-          '<span class="tag tag-age">👶 ' + esc(p.age) + '</span>' +
-          '<span class="tag tag-cat">' + esc(p.cat) + '</span>' +
-          '<span class="diff diff-' + esc(p.difficulty) + '">' + esc(p.difficulty) + '</span>' +
-        '</div>' +
-        '<div class="meta">' +
-          '<div>⏰ ' + esc(p.time) + ' · 🎬 Video guide</div>' +
-          '<div>🧰 ' + p.needs.length + ' supplies · 📋 ' + p.steps.length + ' steps</div>' +
-        '</div>' +
         '<p class="card-desc">' + esc(p.desc) + '</p>' +
+        '<div class="meta">' +
+          '<span>⏰ ' + esc(p.time) + '</span>' +
+          '<span>🧰 ' + p.needs.length + ' supplies</span>' +
+          '<span>📋 ' + p.steps.length + ' steps</span>' +
+        '</div>' +
         '<div class="card-foot">' +
           '<div class="foot-chips">' +
-            '<span class="chip chip-watch">🎬 Watch</span>' +
-            '<span class="chip chip-steps">📋 Steps</span>' +
+            '<span class="tag tag-age">👶 ' + esc(p.age) + '</span>' +
+            '<span class="tag tag-cat">' + esc(p.cat) + '</span>' +
           '</div>' +
           '<span class="details">Details →</span>' +
         '</div>' +
@@ -883,6 +973,26 @@ $("grid").addEventListener("keydown", function(e){
   if (e.key !== "Enter" && e.key !== " ") return;
   var card = e.target.closest("[data-open]");
   if (card && e.target === card) { e.preventDefault(); openProject(card.getAttribute("data-open")); }
+});
+
+$("searchInput").addEventListener("input", function(e){
+  state.q = e.target.value;
+  state.expanded = false;                       // a new query starts at page one
+  $("searchClear").hidden = state.q === "";
+  renderGrid();
+});
+$("searchClear").addEventListener("click", function(){
+  state.q = "";
+  $("searchInput").value = "";
+  $("searchClear").hidden = true;
+  state.expanded = false;
+  renderGrid();
+  $("searchInput").focus();
+});
+// Escape clears the field rather than closing anything, which is what a search
+// input is expected to do while it has focus.
+$("searchInput").addEventListener("keydown", function(e){
+  if (e.key === "Escape" && state.q !== "") { e.stopPropagation(); $("searchClear").click(); }
 });
 
 $("moreBtn").addEventListener("click", function(){
