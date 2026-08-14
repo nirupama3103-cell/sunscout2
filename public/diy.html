@@ -592,6 +592,34 @@ html{overflow-x:hidden}
   .nav{gap:5px}
   .navlink,.navcta{padding:8px 12px;font-size:12.5px}
 }
+
+/* ---- mobile bottom nav ------------------------------------------------- */
+#bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:9990;
+  background:#fff;border-top:1px solid rgba(60,40,20,.10);
+  padding:6px 0 calc(10px + env(safe-area-inset-bottom));
+  box-shadow:0 -2px 12px rgba(0,0,0,.08);
+}
+.bnav-items{display:flex;justify-content:space-around;align-items:center}
+.bnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  flex:1;padding:5px 10px;text-decoration:none;
+  color:var(--body);transition:color 150ms var(--ease);
+}
+.bnav-btn:hover{color:var(--ink)}
+.bnav-btn .bnav-icon{font-size:19px;line-height:1}
+.bnav-btn:not(.active) .bnav-icon{opacity:.6}
+.bnav-btn .bnav-label{font-size:10px;font-weight:800;white-space:nowrap;letter-spacing:.1px}
+.bnav-btn.active{color:var(--orange-dark)}
+.bnav-btn.active .bnav-label{font-weight:900}
+.bnav-btn:focus-visible{outline:2px solid var(--orange-dark);outline-offset:-2px;border-radius:10px}
+/* 640px matches index.html, so all three pages swap to the bar at the same width */
+@media (max-width:640px){
+  #bottom-nav{display:block}
+  /* clear the bar so it never covers the footer's last line */
+  .ftr{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+}
 </style>
 </head>
 <body>
@@ -671,6 +699,26 @@ html{overflow-x:hidden}
       <a href="local-table/">Local Table</a>
     </div>
   </footer>
+
+  <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
+       primary navigation on a phone. Hidden at >640px, matching that page. -->
+  <nav id="bottom-nav" aria-label="Primary, mobile">
+    <div class="bnav-items">
+      <a class="bnav-btn" href="local-table/">
+        <span class="bnav-icon" aria-hidden="true">📍</span>
+        <span class="bnav-label">Local Table</span>
+      </a>
+      <a class="bnav-btn" href="index.html#about">
+        <span class="bnav-icon" aria-hidden="true">ℹ️</span>
+        <span class="bnav-label">About Us</span>
+      </a>
+      <a class="bnav-btn active" href="diy.html" aria-current="page">
+        <span class="bnav-icon" aria-hidden="true">🎨</span>
+        <span class="bnav-label">DIY</span>
+      </a>
+    </div>
+  </nav>
+
 </div>
 
 <script>
