@@ -24,9 +24,8 @@
 :root{
   --bg:#FFF9F0; --surface:#FFFCF7; --card:#fff;
   --ink:#1a1a1a; --body:#6b5040; --secondary:#5a3e1b;
-  /* No --faint here: this page has no var(--faint) reference. It lives in
-     local-table/index.html, where .stat-l renders it over the background image. */
-  --faint2:#75695d;
+  /* No --faint / --faint2 here: this page references neither. Both live in
+     local-table/index.html, where .stat-l, .was and .fact-v s render them. */
   --orange:#FF9900; --orange-dark:#E68A00; --green:#34C97A;
   /* Carousel band: darkest step of the warm-brown ramp rather than near-black,
      so the band reads as part of the page instead of a foreign embed. */
@@ -98,20 +97,29 @@ button{font-family:inherit}
 .hero-sub{max-width:620px;margin:20px auto 0;font-size:18px;font-weight:600;line-height:1.55;color:var(--body);text-wrap:pretty}
 
 /* ---- video marquee band ---- */
-.band{position:relative;padding:26px 0 30px;background:var(--band);overflow:hidden}
-.band-glow{position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(255,153,0,.20),transparent 70%);pointer-events:none}
-.band-rows{position:relative;display:flex;flex-direction:column;gap:14px}
-/* Edge fade via mask rather than gradient overlays: the rail can overflow
-   freely and both ends dissolve into the band, so a clipped tile reads as
-   scrollable instead of broken. Prefixed for Safari. */
-.rail-mask{
-  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%);
-          mask-image:linear-gradient(to right,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%);
+/* Edge fade lives on the band itself so both rails dissolve at the same
+   x-positions and nothing hard-clips. Prefixed for Safari. */
+.band{
+  position:relative;padding:26px 0 30px;background:var(--band);overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+          mask-image:linear-gradient(to right,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
 }
-.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:8px 56px;scrollbar-width:none}
-.rail::-webkit-scrollbar{display:none}
-.rail:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
-.tile{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#3a2c21;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none;scroll-snap-align:start}
+.band-glow{position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(255,153,0,.20),transparent 70%);pointer-events:none}
+.marquee{position:relative;overflow:hidden}
+.marquee+.marquee{margin-top:14px}
+.marquee-track{display:flex;gap:14px;width:max-content;animation:ss-slide 46s linear infinite}
+/* Not inline on the elements: an inline display:contents would outrank the
+   reduced-motion rule below that hides the duplicate set. */
+.marquee-set,.marquee-dup{display:contents}
+.marquee[data-dir="rev"] .marquee-track{animation-direction:reverse}
+.marquee[data-speed="slow"] .marquee-track{animation-duration:62s}
+/* -50% because the item list is duplicated exactly once */
+@keyframes ss-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Pause so people can actually read and click a moving tile */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track{animation-play-state:paused}
+.tile{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#3a2c21;border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.35);flex:none;display:block;padding:0;font:inherit;color:inherit;cursor:pointer;scroll-snap-align:start}
+.tile:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
 /* Missing-asset state, applied by the img onerror handler. An empty tile should
    say what is wrong rather than render as a blank rectangle. */
 .tile.is-missing .tile-poster,.tile.is-missing video{display:none}
@@ -129,8 +137,16 @@ button{font-family:inherit}
 .tile-label{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:5px 11px;border-radius:9999px;background:var(--surface-chip);color:var(--chip-text);font-size:11px;font-weight:900;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ---- sticky filter bar ---- */
-.filters{position:sticky;top:var(--head-h);z-index:30;background:var(--surface);border-bottom:1px solid rgba(0,0,0,.07);padding:clamp(12px,3vw,16px) clamp(14px,4vw,36px)}
-.filters-in{max-width:1760px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+/* Filter bar sits in the hero under the subhead: age left, difficulty right,
+   one row that wraps on narrow viewports. No longer sticky - it scrolls with
+   the hero rather than following the page. */
+.filters{margin:26px auto 0;max-width:1180px;padding:0 clamp(16px,4vw,40px)}
+.filters-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.pillset-diff{margin-left:auto}
+@media (max-width:720px){
+  .filters-in{justify-content:flex-start}
+  .pillset-diff{margin-left:0}
+}
 .pillset{display:flex;flex-wrap:wrap;gap:8px}
 .pill{padding:9px 17px;border-radius:9999px;font-size:14px;font-weight:900;cursor:pointer;transition:all 150ms var(--ease);background:#fff;color:var(--secondary);border:1.5px solid rgba(0,0,0,.09)}
 .pill:hover{transform:translateY(-2px)}
@@ -217,14 +233,19 @@ button{font-family:inherit}
 .ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
 
 @media (max-width:600px){
-  .rail{padding:8px 24px}
-  .rail-mask{
+  .band{
     -webkit-mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
             mask-image:linear-gradient(to right,transparent 0,#000 24px,#000 calc(100% - 24px),transparent 100%);
   }
 }
 @media (prefers-reduced-motion:reduce){
-  .rail{scroll-behavior:auto}
+  /* Motion here is decorative: kill the animation outright and hand the rail
+     back to the user as a plain scroller. The duplicate set exists only to make
+     the -50% loop seamless, so it is removed rather than left as a second copy
+     of every project. */
+  .marquee-track{animation:none;width:auto;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:auto;padding-inline:24px;scrollbar-width:none}
+  .marquee-track::-webkit-scrollbar{display:none}
+  .marquee-dup{display:none}
   .hero,.modal{animation:none}
   *{transition-duration:1ms !important}
   .card:hover,.pill:hover,.navlink:hover,.navcta:hover,.more:hover,
@@ -251,20 +272,22 @@ button{font-family:inherit}
     <div class="eyebrow"><i></i>50+ Activities · Always Free</div>
     <h1>Free &amp; Fun<br><span>At-Home Projects</span></h1>
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+
+    <div class="filters">
+      <div class="filters-in">
+        <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
+        <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
+      </div>
+    </div>
   </section>
 
   <section class="band" aria-label="Project video reel">
     <div class="band-glow"></div>
-    <div class="band-rows rail-mask">
-      <div class="rail" id="rowA" tabindex="0" role="group" aria-label="Featured projects, row 1"></div>
-      <div class="rail" id="rowB" tabindex="0" role="group" aria-label="Featured projects, row 2"></div>
+    <div class="marquee">
+      <div class="marquee-track" id="rowA" role="group" aria-label="Featured projects, row 1"></div>
     </div>
-  </section>
-
-  <section class="filters">
-    <div class="filters-in">
-      <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
-      <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
+    <div class="marquee" data-dir="rev" data-speed="slow">
+      <div class="marquee-track" id="rowB" role="group" aria-label="Featured projects, row 2"></div>
     </div>
   </section>
 
@@ -398,23 +421,35 @@ function byId(id){
 
 /* ---------------- video reel ---------------- */
 function renderReel(){
-  function tile(p, cls){
-    return '<div class="tile ' + cls + '">' +
+  function tile(p, cls, dup){
+    return '<button type="button" class="tile ' + cls + '"' +
+      (dup ? ' tabindex="-1"' : ' data-open="' + esc(p.id) + '"') +
+      ' aria-label="' + esc(p.title) + ' — open details">' +
       '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async" ' +
         'onerror="this.closest(\'.tile\').classList.add(\'is-missing\')">' +
       '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
         'preload="none" aria-hidden="true" tabindex="-1"></video>' +
       (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
-    '</div>';
+    '</button>';
   }
-  // The rails are user-scrolled now, not a marquee, so each project appears once.
-  // Duplicating the list here would show every project twice.
-  $("rowA").innerHTML = PROJECTS.slice(0,6).map(function(p){ return tile(p,"tile-a"); }).join("");
-  $("rowB").innerHTML = PROJECTS.slice(6).map(function(p){ return tile(p,"tile-b"); }).join("");
+  // Each rail holds the item set twice: the second copy is what makes the -50%
+  // translate loop seamlessly. It is aria-hidden and every tile in it carries
+  // tabindex="-1", so Tab reaches each project exactly once.
+  function rail(list, cls){
+    return '<div class="marquee-set">' +
+             list.map(function(p){ return tile(p, cls, false); }).join("") +
+           '</div>' +
+           '<div class="marquee-dup" aria-hidden="true">' +
+             list.map(function(p){ return tile(p, cls, true); }).join("") +
+           '</div>';
+  }
+  $("rowA").innerHTML = rail(PROJECTS.slice(0,6), "tile-a");
+  $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
 
   if (reduceMotion) return;
-  // Stagger playback so 12+ videos don't all fetch at once.
-  var vids = Array.prototype.slice.call(document.querySelectorAll(".band video")).slice(0, 8);
+  // Stagger playback so a dozen videos don't all fetch at once. Scoped to the
+  // real set so the duplicate copies never trigger their own downloads.
+  var vids = Array.prototype.slice.call(document.querySelectorAll(".marquee-set video")).slice(0, 8);
   vids.forEach(function(v, i){
     v.addEventListener("loadeddata", function(){ v.classList.add("on"); });
     setTimeout(function(){
@@ -613,6 +648,13 @@ $("grid").addEventListener("keydown", function(e){
 $("moreBtn").addEventListener("click", function(){
   state.expanded = !state.expanded;
   renderGrid();
+});
+
+// Reel tiles are real buttons, so they open the same modal the grid cards do.
+// Duplicate tiles carry no data-open, so a click on one is simply ignored.
+document.querySelector(".band").addEventListener("click", function(e){
+  var t = e.target.closest("[data-open]");
+  if (t) openProject(t.getAttribute("data-open"));
 });
 
 $("overlay").addEventListener("click", function(e){
