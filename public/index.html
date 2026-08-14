@@ -2911,6 +2911,21 @@ function weatherChipClick() {
   </div>
 </div>
 
+
+<script>
+/* The About panel is a modal with no URL of its own, so the "About Us" tab on
+   diy.html and local-table/ had nowhere real to point. #about opens it. */
+(function(){
+  function openAbout(){
+    var m = document.getElementById('about-modal');
+    if (m && location.hash === '#about') m.style.display = 'flex';
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', openAbout);
+  else openAbout();
+  window.addEventListener('hashchange', openAbout);
+})();
+</script>
 </body>
 </html>
 <!-- TABLET FIX injected -->
