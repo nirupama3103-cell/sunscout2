@@ -1019,17 +1019,50 @@ function renderReel(){
   $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
 
   if (reduceMotion) return;
-  // Stagger playback so a dozen videos don't all fetch at once. Scoped to the
-  // real set so the duplicate copies never trigger their own downloads.
+
+  /* The reel showed posters but never video. Two reasons, both about weight:
+     rowA's first six clips are fuse-beads 12.4MB, lego 11.6, snakes 2.9,
+     chinese 11.3, marble 11.5, sock 2.6 - 52MB - and the old fixed 900ms
+     stagger started all eight regardless of whether the band was on screen or
+     whether any had finished. A tile only reveals its video on `loadeddata`,
+     so on a phone every tile stayed at opacity 0 showing its poster.
+
+     Now: nothing is fetched until the band is actually visible, and at most
+     two clips load at a time, advancing as each becomes ready. The light ones
+     surface in a second or two instead of queueing behind a 12MB download.
+     Scoped to the real set so duplicate tiles never fetch. */
   var vids = Array.prototype.slice.call(document.querySelectorAll(".marquee-set video")).slice(0, 8);
-  vids.forEach(function(v, i){
-    v.addEventListener("loadeddata", function(){ v.classList.add("on"); });
-    setTimeout(function(){
-      v.preload = "auto";
-      var pr = v.play();
-      if (pr && pr.catch) pr.catch(function(){});
-    }, i * 900);
-  });
+  if (!vids.length) return;
+
+  var next = 0, active = 0, MAX = 2;
+  function pump(){
+    while (active < MAX && next < vids.length) {
+      (function(v){
+        active++;
+        var done = false;
+        function advance(){
+          if (done) return;
+          done = true; active--; pump();
+        }
+        v.addEventListener("loadeddata", function(){ v.classList.add("on"); advance(); });
+        // a clip that stalls or fails must not hold the queue shut
+        v.addEventListener("error", advance);
+        setTimeout(advance, 6000);
+        v.preload = "auto";
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function(){ advance(); });
+      })(vids[next++]);
+    }
+  }
+
+  var band = document.querySelector(".marquee") || document.querySelector(".band");
+  if (!band || typeof IntersectionObserver !== "function") { pump(); return; }
+  var io = new IntersectionObserver(function(entries){
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { io.disconnect(); pump(); return; }
+    }
+  }, { rootMargin: "200px" });
+  io.observe(band);
 }
 
 /* ---------------- filters ---------------- */
