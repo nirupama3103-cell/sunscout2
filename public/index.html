@@ -2742,6 +2742,14 @@ function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
 function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
 document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
+/* Each panel is a child of the button that toggles it, so a tap on the panel's
+   own padding or its heading bubbled to that button and closed the sheet again.
+   Option rows already stopPropagation in ssSelCity/ssSelAge; this covers the
+   rest of the panel so only a tap outside dismisses it. */
+["ssd-city","ssd-explore","ssd-age"].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el)el.addEventListener("click",function(ev){ev.stopPropagation();});
+});
 
 
 function floatWeekend() {var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}
@@ -2911,6 +2919,45 @@ function weatherChipClick() {
     -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);
             mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);
   }
+}
+
+/* ── FIX: the mobile City and Age pickers opened off the bottom of the screen ──
+   Both earlier blocks switch #ssd-city / #ssd-age to position:fixed !important
+   to stop the panel being clipped, but neither sets `top` or `bottom`. A fixed
+   box with both auto falls back to its static position - 694px down an 844px
+   viewport - so tapping CITY pushed a 382px list mostly below the fold, and
+   tapping AGE put its last row under the tab bar. Measured before this rule:
+   city panel bottom 1076px vs viewport 844px.
+
+   position:fixed was the right instinct; it just needed anchoring. These are
+   now bottom sheets sitting above the tab bar, which is also what the disabled
+   #mobile-search-bar was reaching for with its upward-opening dropdowns. */
+@media(max-width:640px){
+  #ssd-city,#ssd-age{
+    position:fixed !important;
+    top:auto !important;
+    bottom:calc(78px + env(safe-area-inset-bottom)) !important;
+    left:10px !important;
+    right:10px !important;
+    width:auto !important;
+    max-height:min(58vh, calc(100dvh - 190px)) !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch;
+    z-index:99999 !important;
+    border-radius:18px !important;
+    border:1px solid rgba(60,40,20,.10) !important;
+    box-shadow:0 -10px 44px rgba(60,40,20,.26), 0 2px 6px rgba(60,40,20,.08) !important;
+    padding:14px !important;
+    padding-bottom:16px !important;
+  }
+  /* a grab bar so the panel reads as a sheet rather than a stray popover */
+  #ssd-city::before,#ssd-age::before{
+    content:"";display:block;width:38px;height:4px;border-radius:99px;
+    background:rgba(60,40,20,.18);margin:-4px auto 12px;
+  }
+  /* the options were 12px text in a 10px box - under the 44px touch target */
+  #ssd-city .sscr,#ssd-age .ssac{min-height:46px;display:flex;align-items:center;justify-content:center}
+  #ssd-city .sscr{justify-content:flex-start;gap:10px}
 }
 </style>
 
