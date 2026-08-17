@@ -594,6 +594,10 @@ html{scroll-padding-top:var(--head-h)}
 
   .band{padding-block:16px}
   .band-rows{gap:10px}
+  /* at a 200px tile the title and price fought and the title won a clipped
+     "Delhi to K...". The price is the useful half, so it keeps the caption. */
+  .tile-a .tile-title{display:none}
+  .tile-cap{justify-content:flex-end}
   .step,.tier{padding:22px 20px 24px}
 }
 
@@ -638,6 +642,119 @@ html{scroll-padding-top:var(--head-h)}
   .grid{align-items:stretch}
   .card{height:100%}
 }
+
+/* ======================================================================
+   PREMIUM PASS
+   The page was loud rather than confident: 41 elements at font-weight 900,
+   20 at full-round radius, and three saturated pastel chips on every card.
+   When everything is the heaviest weight and the roundest shape, nothing
+   is emphasised - which is what read as a kids' app rather than a tool for
+   people buying lunch. Palette, background colour and brand are unchanged;
+   what changes is restraint.
+   ====================================================================== */
+
+/* --- 13. Weight hierarchy ---------------------------------------------
+   900 is now reserved for exactly two things: the deal price and the
+   primary CTA. Everything else steps down, so those two carry real
+   emphasis instead of competing with the nav links. */
+.hero h1{font-weight:800}
+.deals-head h2,.sec h2,.modal-body h2{font-weight:800}
+.card-body h3,.step h3,.tier h3{font-weight:700}
+.navlink{font-weight:700}
+.pill{font-weight:700}
+.pill[aria-pressed="true"]{font-weight:800}
+.tag,.mp{font-weight:700}
+.eyebrow,.deals-tag,.stat-l,.fact-l,.step-n{font-weight:700}
+.card-desc,.hero-sub,.deals-head p,.step p,.modal-desc{font-weight:500}
+.details,.was,.chip-loc,.badge{font-weight:700}
+.ftr-lead,.ftr-links{font-weight:700}
+.feat{font-weight:600}
+.more{font-weight:800}
+/* the two that keep the full weight */
+.price,.fact-v b,.stat-n,.tier-price b{font-weight:900}
+.btn-primary,.navcta{font-weight:900}
+
+/* --- 14. Quieter tags -------------------------------------------------
+   Yellow, purple and blue pastels on every card made the grid read as
+   three competing colour systems. One tonal family now, with the time
+   slot - the thing people actually filter on - carrying the only tint. */
+.tag{
+  background:transparent;
+  border:1px solid var(--hairline);
+  color:var(--faint);
+  letter-spacing:.01em;
+  border-radius:6px;
+  padding:3px 8px;
+}
+.tag-slot{background:var(--accent-tint,#FFF3E0);border-color:rgba(255,153,0,.28);color:#8a5200}
+.tag-cuisine{background:transparent;color:var(--faint)}
+.tag-hours{background:transparent;color:var(--faint)}
+.mp-slot{background:#FFF3E0;color:#8a5200}
+
+/* --- 15. Radius hierarchy ---------------------------------------------
+   Full-round belongs to things you press. Surfaces get a calmer corner,
+   so a card no longer reads as a big lozenge. */
+.card,.step,.tier{border-radius:16px}
+.modal{border-radius:20px}
+.fact{border-radius:12px}
+.empty{border-radius:16px}
+.tile{border-radius:14px}
+.tile-b{border-radius:12px}
+
+/* --- 16. Photo treatment ----------------------------------------------
+   Photos met the card edge with a hard cut, and three chips floated on
+   them unanchored. A hairline and a low gradient give the image an edge
+   and the chips something to sit on. */
+/* A full-width top gradient drew a visible dark band across every photo.
+   The scrim only needs to exist under the bottom chip; the top corners get
+   a soft radial behind the heart and badge instead of a bar. */
+.card-media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(38% 46% at 6% 4%,rgba(0,0,0,.30),transparent 70%),
+    radial-gradient(42% 46% at 94% 4%,rgba(0,0,0,.30),transparent 70%),
+    linear-gradient(180deg,transparent 62%,rgba(0,0,0,.30));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.heart,.badge,.chip-loc{z-index:2}
+.chip-loc{
+  background:rgba(255,255,255,.16);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.22);
+  font-size:10.5px;letter-spacing:.02em;padding:4px 9px;
+}
+/* 🤍 on translucent white vanished against a pale dish. A solid warm chip
+   keeps it legible on any photo, and the saved state stays obvious. */
+.heart{
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 2px 10px rgba(0,0,0,.22);
+  font-size:15px;
+}
+.heart[aria-pressed="true"]{background:#fff}
+
+/* --- 17. Softer depth -------------------------------------------------
+   Two tight dark shadows read as "drop shadow" rather than as light. */
+:root{
+  --lift-1:0 1px 1px rgba(60,40,20,.04), 0 6px 16px -10px rgba(60,40,20,.30);
+  --lift-2:0 2px 6px rgba(60,40,20,.05), 0 24px 48px -24px rgba(60,40,20,.34);
+  /* the low-poly pattern was competing with the cards at .78; the colour
+     is untouched, the pattern just sits further back */
+  --bg-scrim:.86;
+}
+
+/* --- 18. Detail --------------------------------------------------------
+   Small things that separate finished from assembled. */
+.price{letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.was,.stat-n,.fact-v b,.tier-price b{font-variant-numeric:tabular-nums}
+.card-desc{color:var(--body);opacity:.92}
+.deals-tag,.eyebrow{letter-spacing:.12em}
+.details{letter-spacing:.01em;transition:gap 160ms var(--ease)}
+.card:hover .details{gap:7px}
+.hdr{border-bottom:1px solid rgba(60,40,20,.08)}
+.card-foot{border-top-color:rgba(60,40,20,.09)}
+.navcta{box-shadow:0 2px 10px rgba(255,153,0,.30)}
+.btn-primary{box-shadow:0 4px 16px rgba(255,153,0,.32)}
+.live{font-weight:800;letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -787,9 +904,12 @@ var PHOTO = {
   dosaPoori:  "assets/food/curry-naan.jpg",   // dosa and poori with chutney
   thali:      "assets/aub/saibhavan.jpg",     // full thali: curries, rice, roti
 
-  // Deliberately blank: no photo in the repo honestly depicts these two, and
-  // the card falls back to its emoji on a tinted panel. Better than captioning
-  // a real restaurant's deal with another restaurant's food.
+  // Real photos, dropped in to replace the emoji fallback these two carried.
+  // If either file is missing the card degrades to its emoji on the tinted
+  // panel rather than showing a broken image, so the page is safe either way.
+  mcdMeal:    "assets/lt4/mcdonalds-meal.jpg", // burger, drink and fries on a tray
+  grazing:    "assets/lt4/valley-goat-grazing.jpg", // mezze spread, flatbread, cocktail
+
   none:       ""
 };
 
@@ -804,11 +924,11 @@ var DEALS = [
   { id:"d4",  img:PHOTO.wings,       icon:"🍗", title:"Wingstop BOGO wings",          city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Wings",        hours:"Daily, app only",    price:"BOGO",        was:"", src:"Uber Eats",    desc:"Buy one get one free on selected wings and combos. Ordered through the app or delivery." },
   { id:"d5",  img:PHOTO.pizzaSpread, icon:"🍕", title:"Domino's mix & match",         city:"Sunnyvale", area:"Caliente Dr",    slot:"Late night", cuisine:"Pizza",        hours:"Daily, to 12am+",    price:"Mix & match", was:"", src:"Uber Eats",    desc:"Build a multi-item bundle — pizza, wings, sides — at the bundle price. Kitchen runs past midnight." },
   { id:"d6",  img:PHOTO.pizza,       icon:"🍕", title:"Pizza Hut value bundles",      city:"Sunnyvale", area:"N Mathilda Ave", slot:"Late night", cuisine:"Pizza",        hours:"Daily, late",        price:"$10+",        was:"", src:"Official site",desc:"Hut Rewards local deals and family bundles, built to feed four to six. Reliable for a late order." },
-  { id:"d7",  img:PHOTO.none,        icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
+  { id:"d7",  img:PHOTO.mcdMeal,     icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
   { id:"d8",  img:PHOTO.burger,      icon:"🍔", title:"Lazy Dog happy hour",          city:"Sunnyvale", area:"Cupertino line", slot:"Happy hour", cuisine:"American",     hours:"Mon–Fri, 3–6pm",     price:"$5+",         was:"", src:"Official site",desc:"Discounted craft appetisers, draft beer, wine and signature cocktails. Just over the Cupertino line." },
   { id:"d9",  img:PHOTO.craftBeer,   icon:"🍺", title:"Off The Rails brewing",        city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Brewery",      hours:"Weekday afternoons", price:"Varies",      was:"", src:"Local guide",  desc:"House brews on rotating special with shareable pub plates. Neighbourhood pricing, five minutes from downtown." },
   { id:"d10", img:PHOTO.pints,       icon:"🍻", title:"Fibbar Magees pub night",      city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Irish pub",    hours:"Weekdays",           price:"Varies",      was:"", src:"Local guide",  desc:"Draft reductions and traditional pub food specials, rotating through the week. Adults-only room." },
-  { id:"d11", img:PHOTO.none,        icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
+  { id:"d11", img:PHOTO.grazing,     icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
   { id:"d12", img:PHOTO.taco,        icon:"🌮", title:"Palmita delivery deal",        city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Mexican",      hours:"Daily, delivery",    price:"$3 off",      was:"", src:"Uber Eats",    desc:"$3 off any order over $20. Fresh, lighter Mexican plates and bowls for a desk lunch." },
   { id:"d13", img:PHOTO.dosaPoori,   icon:"🍛", title:"Gully Bites order deal",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian fusion",hours:"Daily",              price:"$11 off",     was:"", src:"Restaurant",   desc:"$11 off orders over $40. Indian and fusion plates — the easiest way to feed a table here." },
   { id:"d14", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
@@ -889,17 +1009,24 @@ function renderStatic(){
   }).join("");
 
   // Marquee: each row's list is duplicated so the -50% keyframe loops seamlessly.
-  var tick = DEALS.map(function(d){ return { img:d.img, title:d.title, price:d.price }; });
+  // deals with no photo are skipped in the reel - an empty tile scrolling past
+  // reads as a broken image, and the reel is decorative, so it can be shorter
+  var tick = DEALS.filter(function(d){ return !!d.img; })
+                  .map(function(d){ return { img:d.img, title:d.title, price:d.price }; });
   function tileA(t){
+    // NOT loading="lazy": the row is moved by transform, and browsers decide
+    // lazy-loading from layout position, not transform. Tiles animating into
+    // view were therefore never fetched - 9 of 14 dishes scrolled past as
+    // empty boxes on a phone. fetchpriority keeps them behind the real content.
     return '<div class="tile tile-a">' +
-      '<img src="' + esc(t.img) + '" alt="" loading="lazy" decoding="async">' +
+      '<img src="' + esc(t.img) + '" alt="" decoding="async" fetchpriority="low">' +
       '<div class="scrim"></div><div class="tile-cap">' +
       '<span class="tile-title">' + esc(t.title) + '</span>' +
       '<span class="tile-price">' + esc(t.price) + '</span></div></div>';
   }
   function tileB(t){
     return '<div class="tile tile-b">' +
-      '<img src="' + esc(t.img) + '" alt="" loading="lazy" decoding="async">' +
+      '<img src="' + esc(t.img) + '" alt="" decoding="async" fetchpriority="low">' +
       '<div class="scrim"></div>' +
       '<span class="tile-price-b">' + esc(t.price) + '</span></div>';
   }
@@ -907,6 +1034,16 @@ function renderStatic(){
   var b = tick.slice(6).map(tileB).join("");
   $("rowA").innerHTML = a + a;
   $("rowB").innerHTML = b + b;
+
+  // A reel tile whose photo 404s scrolls past as a black rectangle, which is
+  // worse than a shorter reel. `error` does not bubble, so it is captured.
+  // Purely decorative: the grid below still lists every deal.
+  ["rowA","rowB"].forEach(function(id){
+    $(id).addEventListener("error", function(e){
+      var tile = e.target.closest(".tile");
+      if (tile) tile.remove();
+    }, true);
+  });
 }
 
 /* ---------------- filters ---------------- */
