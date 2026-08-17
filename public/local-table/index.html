@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Local Table — verified food deals in Sunnyvale &amp; Aubrey</title>
-<meta name="description" content="Local Table finds verified lunch specials, happy hours, and late-night bites near your office in Sunnyvale, CA and Aubrey, TX. Checked with the kitchen every week.">
+<title>Local Table — food deals in Sunnyvale &amp; Aubrey</title>
+<meta name="description" content="Local Table tracks lunch specials, happy hours, app deals and late-night bites near your office in Sunnyvale, CA and Aubrey, TX. Refreshed weekly from restaurant sites and delivery apps.">
 <link rel="canonical" href="https://www.sunscoutkids.com/local-table/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Local Table">
-<meta property="og:title" content="Local Table — verified food deals in Sunnyvale &amp; Aubrey">
-<meta property="og:description" content="Verified lunch specials, happy hours, and late-night bites near your office. Prices and hours confirmed with the kitchen.">
+<meta property="og:title" content="Local Table — food deals in Sunnyvale &amp; Aubrey">
+<meta property="og:description" content="Lunch specials, happy hours, app deals and late-night bites near your office. Refreshed weekly from restaurant sites and delivery apps.">
 <meta property="og:url" content="https://www.sunscoutkids.com/local-table/">
 <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -601,6 +601,43 @@ html{scroll-padding-top:var(--head-h)}
 @media (max-width:640px){
   .deals{padding-bottom:0}
 }
+
+/* --- 12. Real deal data -----------------------------------------------
+   The listings are live offers from real restaurants, which changes what
+   the card has to show. */
+
+/* None of these offers publish a before-price, so `was` is empty rather
+   than invented. An empty strikethrough span would still draw a gap. */
+.was:empty,.fact-v s:empty{display:none}
+
+/* `price` now carries the offer itself ("Mix & match", "Family pack") as
+   well as figures, so it has to survive a token twice as long as "$12"
+   without pushing "Details" off the row. */
+.price{font-size:clamp(16px,1.5vw,20px);line-height:1.2;text-wrap:balance}
+.card-foot{gap:12px;align-items:center}
+.price-row{min-width:0;flex-wrap:wrap}
+.fact-v b{font-size:clamp(20px,2.4vw,26px);line-height:1.15}
+
+/* The badge reports where a deal came from instead of asserting that we
+   verified it, so it is neutral rather than the green approval chip - and
+   it holds a word like "Official site" without wrapping over the photo. */
+.badge{
+  background:rgba(28,18,10,.72);color:#fff;
+  font-size:10.5px;letter-spacing:.03em;padding:5px 10px;
+  max-width:calc(100% - 92px);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  backdrop-filter:blur(2px);
+}
+.mp-verified{background:var(--surface-chip,#f7f3ee);color:var(--secondary)}
+
+/* Descriptions now run 2-3 lines depending on the offer, and `align-items:start`
+   left each card its own height, so footers in a row sat at different levels.
+   The card is already a column with `margin-top:auto` on its footer - it just
+   needed permission to fill the row. */
+@media (min-width:701px){
+  .grid{align-items:stretch}
+  .card{height:100%}
+}
 </style>
 </head>
 <body>
@@ -625,7 +662,7 @@ html{scroll-padding-top:var(--head-h)}
   <section class="hero">
     <div class="eyebrow">Lunch specials · Happy hours · Late-night bites</div>
     <h1>Good food nearby, at a <em>fair</em> price.</h1>
-    <p class="hero-sub">Local Table finds verified deals near your office — express lunch combos on Murphy Ave, post-work happy hours in Peery Park, and late-night Korean, dim sum, and Indian when the sprint runs long.</p>
+    <p class="hero-sub">Local Table tracks the live deals near your office — weekday lunch bowls downtown, 3pm happy hours on the Cupertino line, biryani family packs on El Camino, and pizza that is still taking orders past midnight.</p>
     <div class="hero-cta">
       <a class="btn-primary" href="#lt-deals">Browse today's deals</a>
       <a class="btn-ghost" href="#lt-pricing">List your restaurant</a>
@@ -652,9 +689,9 @@ html{scroll-padding-top:var(--head-h)}
 
   <section class="deals">
     <div class="deals-head">
-      <div class="deals-tag">🍽 This week · Aug 3–9</div>
+      <div class="deals-tag">🍽 This week · Aug 17–23</div>
       <h2>This week's table</h2>
-      <p>Verified deals in Sunnyvale and Aubrey, checked this week. Prices and hours confirmed with the kitchen.</p>
+      <p>Deals in Sunnyvale and Aubrey, gathered from restaurant sites, delivery apps and local guides. Confirm price and hours with the restaurant before you go.</p>
     </div>
 
     <div class="grid" id="grid"></div>
@@ -696,7 +733,7 @@ html{scroll-padding-top:var(--head-h)}
       <a href="https://www.sunscoutkids.com/diy.html">DIY</a>
       <a href="https://www.sunscoutkids.com/">SunScout home</a>
     </div>
-    <div class="ftr-note">Verified weekly · Sunnyvale, CA &amp; Aubrey, TX</div>
+    <div class="ftr-note">Updated weekly · Sunnyvale, CA &amp; Aubrey, TX</div>
   </footer>
 
   <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
@@ -732,46 +769,56 @@ html{scroll-padding-top:var(--head-h)}
    DEALS — edit this array. Stable ids are used for deep links
    (#d1) and for saved hearts in localStorage.
    ============================================================= */
-// Photos served from this repo. Paths are relative to /local-table/.
-// Chosen by looking at each image, not by filename - assets/aub/pasta.jpg is
-// actually a pizza shot, for example.
-var U = "https://images.unsplash.com/photo-";
-var Q = "?auto=format&fit=crop&w=900&q=70";
+// Photos served from this repo - no external CDN, so nothing here can 404
+// because a third party moved a file. Every path below was checked by opening
+// the image, not by reading the filename: assets/aub/pasta.jpg is a pizza
+// shot and assets/lt3/lt-mcdonalds.jpg is a branded ad for a different offer.
 var PHOTO = {
-  dimsum: "assets/food/momos.jpg",        // dumplings on a plate
-  pub:    "assets/lt2/happyhour.jpg",     // two beers with pretzels
-  indian: "assets/aub/saibhavan.jpg",     // full thali: curries, rice, roti
-  korean: "assets/lt3/lt-wings.jpg",      // sauced fried chicken
-  taco:   "assets/aub/taco.jpg",          // three street tacos
-  pizza:  "assets/aub/pasta.jpg",         // cheese pizza (filename is wrong)
-  burger: "assets/lt/hero.jpg",           // burger and fries
-  cafe:   "assets/lt2/earlybird.jpg",     // breakfast plate with drip coffee
-  salad:  "assets/lt3/lt-buffet-trays.jpg", // build-your-own steam trays
+  biryaniPot: "assets/lt2/ulavacharu.jpg",    // biryani pot with samosa starters
+  momos:      "assets/food/momos.jpg",        // steamed momos with chutney
+  friedRice:  "assets/lt2/indochinese.jpg",   // fried rice bowl with lime
+  wings:      "assets/lt3/lt-wings.jpg",      // sauced wings on a plate
+  pizzaSpread:"assets/lt3/lt-dominos.jpg",    // two pizzas, wings, salad, sides
+  pizza:      "assets/aub/pasta.jpg",         // cheese pizza (filename is wrong)
+  burger:     "assets/lt/hero.jpg",           // burger and fries
+  craftBeer:  "assets/lt3/lt-craft-beer.jpg", // tap wall with two pours
+  pints:      "assets/lt3/lt-beer.jpg",       // two pints toasting at a bar
+  taco:       "assets/aub/taco.jpg",          // three street tacos
+  dosaPoori:  "assets/food/curry-naan.jpg",   // dosa and poori with chutney
+  thali:      "assets/aub/saibhavan.jpg",     // full thali: curries, rice, roti
 
-  // No photo in the repo depicts these three. Left on Unsplash rather than
-  // captioning a deal with the wrong dish on a page that claims verification.
-  ramen:  U + "1569718212165-3a8278d5f624" + Q,
-  sushi:  U + "1579871494447-9811cf80d66c" + Q,
-  pho:    U + "1547928576-b822bc410bdf"   + Q
+  // Deliberately blank: no photo in the repo honestly depicts these two, and
+  // the card falls back to its emoji on a tinted panel. Better than captioning
+  // a real restaurant's deal with another restaurant's food.
+  none:       ""
 };
 
+/* Deals gathered from restaurant sites, delivery apps and local guides -
+   `src` records which, and the card prints it. Offers that have no published
+   fixed price carry the offer itself in `price` ("BOGO", "15% off"); `was` is
+   left empty rather than inventing a before-price for a real business. */
 var DEALS = [
-  { id:"d1",  img:PHOTO.ramen,  icon:"🍜", title:"Express lunch combo",        city:"Sunnyvale", area:"Murphy Ave", slot:"Lunch",       cuisine:"Ramen",      hours:"11am–2pm",       price:"$12", was:"$18", desc:"Bowl, side, and a drink on the express counter. Out the door in twenty minutes." },
-  { id:"d2",  img:PHOTO.dimsum, icon:"🥟", title:"Late-night dim sum cart",    city:"Sunnyvale", area:"El Camino",  slot:"Late night",  cuisine:"Dim sum",    hours:"9pm–12am",       price:"$16", was:"$24", desc:"Four baskets off the late cart, kitchen open until midnight on weeknights." },
-  { id:"d3",  img:PHOTO.pub,    icon:"🍺", title:"Post-work happy hour",       city:"Sunnyvale", area:"Peery Park", slot:"Happy hour",  cuisine:"Pub",        hours:"4pm–6pm",        price:"$7",  was:"$13", desc:"Draft pours and shared plates on the patio, two blocks from the office parks." },
-  { id:"d4",  img:PHOTO.indian, icon:"🍛", title:"Thali plate special",        city:"Sunnyvale", area:"Downtown",   slot:"Lunch",       cuisine:"Indian",     hours:"11:30am–2:30pm", price:"$14", was:"$21", desc:"Full thali with two curries, dal, rice, and bread. Vegetarian by default." },
-  { id:"d5",  img:PHOTO.korean, icon:"🍗", title:"Korean fried chicken night", city:"Sunnyvale", area:"Mathilda",   slot:"Late night",  cuisine:"Korean",     hours:"8pm–11pm",       price:"$18", was:"$27", desc:"Half order with pickled radish and a soda, served until the last table clears." },
-  { id:"d6",  img:PHOTO.taco,   icon:"🌮", title:"Off-peak taco drop",         city:"Aubrey",    area:"Main St",    slot:"Off-peak",    cuisine:"Mexican",    hours:"2pm–5pm",        price:"$9",  was:"$15", desc:"Three tacos and chips during the slow afternoon window. Quiet room, fast kitchen." },
-  { id:"d7",  img:PHOTO.cafe,   icon:"☕", title:"Afternoon pastry + coffee",  city:"Aubrey",    area:"Sherman Dr", slot:"Off-peak",    cuisine:"Cafe",       hours:"2pm–4pm",        price:"$6",  was:"$10", desc:"Any drip coffee with a same-day pastry before the counter closes for the day." },
-  { id:"d8",  img:PHOTO.pizza,  icon:"🍕", title:"Two-slice lunch",            city:"Aubrey",    area:"Hwy 377",    slot:"Lunch",       cuisine:"Pizza",      hours:"11am–1pm",       price:"$8",  was:"$13", desc:"Two slices and a fountain drink, cut fresh on the hour through the lunch rush." },
-  { id:"d9",  img:PHOTO.sushi,  icon:"🍣", title:"Sushi happy hour rolls",     city:"Sunnyvale", area:"Murphy Ave", slot:"Happy hour",  cuisine:"Japanese",   hours:"5pm–7pm",        price:"$11", was:"$19", desc:"Three house rolls at the bar only, weekdays before the dinner seating." },
-  { id:"d10", img:PHOTO.salad,  icon:"🥗", title:"Build-your-own bowl",        city:"Sunnyvale", area:"Peery Park", slot:"Lunch",       cuisine:"Salads",     hours:"11am–2pm",       price:"$10", was:"$16", desc:"Base, protein, and three toppings. Pre-order window opens at 10:30am." },
-  { id:"d11", img:PHOTO.burger, icon:"🍔", title:"Burger and fries drop",      city:"Aubrey",    area:"Main St",    slot:"Happy hour",  cuisine:"Burgers",    hours:"3pm–6pm",        price:"$10", was:"$17", desc:"Quarter-pound burger with fries during the gap between lunch and dinner." },
-  { id:"d12", img:PHOTO.pho,    icon:"🍲", title:"Pho after hours",            city:"Sunnyvale", area:"El Camino",  slot:"Late night",  cuisine:"Vietnamese", hours:"9pm–1am",        price:"$13", was:"$19", desc:"Large bowl with the full herb plate, last order thirty minutes before close." }
+  { id:"d1",  img:PHOTO.biryaniPot,  icon:"🍚", title:"Ulavacharu family pack",       city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"Family pack", was:"", src:"Restaurant",   desc:"Family-size biryani — chicken, veg or paneer — with a free starter included on the pack." },
+  { id:"d2",  img:PHOTO.momos,       icon:"🥟", title:"Delhi to Kathmandu takeout",   city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian · Nepali", hours:"Daily, takeout",  price:"15% off",     was:"", src:"Restaurant",   desc:"15% off takeout orders over $40. Curries, biryani and momos off the regular menu." },
+  { id:"d3",  img:PHOTO.friedRice,   icon:"🥡", title:"P.F. Chang's lunch bowls",     city:"Sunnyvale", area:"Downtown",       slot:"Lunch",      cuisine:"Chinese",      hours:"Mon–Fri, lunch",     price:"$13+",        was:"", src:"Official site",desc:"Mongolian beef, Chang's spicy chicken or firecracker shrimp in a lunch portion with rice and a side." },
+  { id:"d4",  img:PHOTO.wings,       icon:"🍗", title:"Wingstop BOGO wings",          city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Wings",        hours:"Daily, app only",    price:"BOGO",        was:"", src:"Uber Eats",    desc:"Buy one get one free on selected wings and combos. Ordered through the app or delivery." },
+  { id:"d5",  img:PHOTO.pizzaSpread, icon:"🍕", title:"Domino's mix & match",         city:"Sunnyvale", area:"Caliente Dr",    slot:"Late night", cuisine:"Pizza",        hours:"Daily, to 12am+",    price:"Mix & match", was:"", src:"Uber Eats",    desc:"Build a multi-item bundle — pizza, wings, sides — at the bundle price. Kitchen runs past midnight." },
+  { id:"d6",  img:PHOTO.pizza,       icon:"🍕", title:"Pizza Hut value bundles",      city:"Sunnyvale", area:"N Mathilda Ave", slot:"Late night", cuisine:"Pizza",        hours:"Daily, late",        price:"$10+",        was:"", src:"Official site",desc:"Hut Rewards local deals and family bundles, built to feed four to six. Reliable for a late order." },
+  { id:"d7",  img:PHOTO.none,        icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
+  { id:"d8",  img:PHOTO.burger,      icon:"🍔", title:"Lazy Dog happy hour",          city:"Sunnyvale", area:"Cupertino line", slot:"Happy hour", cuisine:"American",     hours:"Mon–Fri, 3–6pm",     price:"$5+",         was:"", src:"Official site",desc:"Discounted craft appetisers, draft beer, wine and signature cocktails. Just over the Cupertino line." },
+  { id:"d9",  img:PHOTO.craftBeer,   icon:"🍺", title:"Off The Rails brewing",        city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Brewery",      hours:"Weekday afternoons", price:"Varies",      was:"", src:"Local guide",  desc:"House brews on rotating special with shareable pub plates. Neighbourhood pricing, five minutes from downtown." },
+  { id:"d10", img:PHOTO.pints,       icon:"🍻", title:"Fibbar Magees pub night",      city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Irish pub",    hours:"Weekdays",           price:"Varies",      was:"", src:"Local guide",  desc:"Draft reductions and traditional pub food specials, rotating through the week. Adults-only room." },
+  { id:"d11", img:PHOTO.none,        icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
+  { id:"d12", img:PHOTO.taco,        icon:"🌮", title:"Palmita delivery deal",        city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Mexican",      hours:"Daily, delivery",    price:"$3 off",      was:"", src:"Uber Eats",    desc:"$3 off any order over $20. Fresh, lighter Mexican plates and bowls for a desk lunch." },
+  { id:"d13", img:PHOTO.dosaPoori,   icon:"🍛", title:"Gully Bites order deal",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian fusion",hours:"Daily",              price:"$11 off",     was:"", src:"Restaurant",   desc:"$11 off orders over $40. Indian and fusion plates — the easiest way to feed a table here." },
+  { id:"d14", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
 ];
 
 var CITIES = [{ k:"all", l:"🍽 All Cities" }, { k:"Sunnyvale", l:"☀️ Sunnyvale, CA" }, { k:"Aubrey", l:"🤠 Aubrey, TX" }];
-var SLOTS  = ["All Slots","Lunch","Happy hour","Off-peak","Late night"];
+/* "All day" covers the daily app and delivery promos, which have no time
+   window. Keeping the axis purely about *when* - the channel lives in the
+   hours field and the description. */
+var SLOTS  = ["All Slots","Lunch","Happy hour","Off-peak","Late night","All day"];
 
 var TIERS = [
   { name:"Basic",    price:"$25",  flag:false, cta:"List your restaurant", feats:["2 active deals","Photo gallery on your listing","Included in the weekly email"] },
@@ -820,7 +867,7 @@ function byId(id){
 
 /* ---------------- static sections ---------------- */
 function renderStatic(){
-  var stats = [{ n:DEALS.length, l:"active deals" }, { n:"2", l:"cities" }, { n:"96%", l:"verified weekly" }];
+  var stats = [{ n:DEALS.length, l:"active deals" }, { n:"2", l:"cities" }, { n:"Weekly", l:"deal refresh" }];
   $("stats").innerHTML = stats.map(function(s){
     return '<div><div class="stat-n">' + esc(s.n) + '</div><div class="stat-l">' + esc(s.l) + '</div></div>';
   }).join("");
@@ -885,10 +932,11 @@ function renderGrid(){
         'aria-label="' + esc(d.title) + ' — open details">' +
       '<div class="card-media">' +
         '<span class="card-icon" aria-hidden="true">' + esc(d.icon) + '</span>' +
-        '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '" loading="lazy" decoding="async">' +
+        // a deal with no honest photo shows its emoji on the tinted panel
+        (d.img ? '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '" loading="lazy" decoding="async">' : "") +
         '<button type="button" class="heart" data-heart="' + esc(d.id) + '" aria-pressed="' + on + '" ' +
           'aria-label="Save ' + esc(d.title) + '">' + (on ? "❤️" : "🤍") + '</button>' +
-        '<span class="badge">✓ VERIFIED</span>' +
+        '<span class="badge">' + esc(d.src) + '</span>' +
         '<span class="chip-loc">📍 ' + esc(d.city) + '</span>' +
       '</div>' +
       '<div class="card-body">' +
@@ -932,12 +980,12 @@ function renderModal(){
   $("modal").innerHTML =
     '<div class="modal-media">' +
       '<span class="modal-icon" aria-hidden="true">' + esc(d.icon) + '</span>' +
-      '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '">' +
+      (d.img ? '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '">' : "") +
       '<button type="button" class="close" data-close aria-label="Close">✕</button>' +
     '</div>' +
     '<div class="modal-body">' +
       '<div class="modal-pills">' +
-        '<span class="mp mp-verified">✓ Verified this week</span>' +
+        '<span class="mp mp-verified">Source: ' + esc(d.src) + '</span>' +
         '<span class="mp mp-slot">' + esc(d.slot) + '</span>' +
         '<span class="mp mp-city">📍 ' + esc(d.city) + '</span>' +
       '</div>' +
