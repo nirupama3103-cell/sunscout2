@@ -2885,6 +2885,33 @@ function weatherChipClick() {
 <!-- Pills hidden on mobile - moved into bottom nav -->
 <style>
 @media(min-width:641px){#floatingPills{display:none!important;}.mobile-filter-tabs{display:none!important;}.weather-banner{display:none!important;}} /* pills desktop hidden - using buttons instead */
+
+/* Keyboard focus was invisible everywhere on this page - no :focus-visible
+   rule existed, and several controls clear the UA outline via their own
+   `outline:none`. diy.html and local-table/ both draw an orange ring; this
+   matches them so the three pages behave the same for keyboard users.
+   Presentation only: nothing here changes layout or behaviour. */
+:focus-visible{
+  outline:3px solid #a66300;
+  outline-offset:2px;
+  border-radius:6px;
+}
+/* the two bars are dense and their items sit flush, so an offset ring would
+   overlap the neighbouring control */
+#bottom-nav a:focus-visible,
+#bottom-nav button:focus-visible,
+.tab-bar .tab-btn:focus-visible{outline-offset:-2px}
+
+/* The bottom bar carries seven tabs in 390px (scrollWidth 437), so "Deals"
+   sits off the right edge. It already scrolls - there was just no cue that
+   it did, and a tab bar rarely reads as swipeable. Fading the clipped edge
+   is the cue; nothing moves, and no tab is added or removed. */
+@media(max-width:640px){
+  .bnav-items{
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);
+            mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);
+  }
+}
 </style>
 
 

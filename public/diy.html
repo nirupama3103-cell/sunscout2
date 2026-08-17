@@ -620,6 +620,69 @@ html{overflow-x:hidden}
   /* clear the bar so it never covers the footer's last line */
   .ftr{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 }
+
+/* ======================================================================
+   DESIGN REFINEMENT LAYER — presentation only.
+   ====================================================================== */
+
+/* The overlay's z-index 60 sits under the mobile bottom nav's 9990, so the
+   tab bar painted at full opacity on top of the dimmed project modal. */
+.overlay{z-index:9995;background:rgba(28,18,10,.58);backdrop-filter:blur(3px)}
+
+/* A card photo that 404s or has not decoded yet rendered its alt text as
+   live copy, which spilled out of the media box and over the card's rounded
+   corner. The gradient panel underneath is the intended fallback; alt stays
+   in the DOM for assistive tech, it just stops painting. */
+.card-media img,.modal-media img,.tile-poster{font-size:0;color:transparent}
+
+/* Anchors were landing under the sticky header. */
+html{scroll-padding-top:calc(var(--head-h,80px) + 8px)}
+
+@media (max-width:700px){
+  /* The pill groups are flat until selected, which reads as a segmented
+     control on a wide bar but on a phone left the unselected options looking
+     like plain text rather than tappable controls - and the two groups
+     wrapped into four ragged rows. Each group is one swipeable row now, and
+     every pill carries a visible chip. */
+  /* .filters-in .pillset (0,2,0) sets flex-wrap:wrap higher up, so the
+     selector has to match its specificity to switch the row to scrolling */
+  .filters-in .pillset,.pillset{
+    flex-wrap:nowrap;overflow-x:auto;gap:7px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;padding-block:2px;
+    /* fades the clipped edge so it reads as scrollable rather than cut off */
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
+            mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
+  }
+  .pillset::-webkit-scrollbar{display:none}
+  .pillset .pill{flex:none;min-height:40px;display:inline-flex;align-items:center}
+  .pill:not([aria-pressed="true"]){
+    background:rgba(255,255,255,.9);
+    border-color:rgba(60,40,20,.12);
+  }
+  .pillset-diff{margin-left:0;padding-left:0;margin-top:6px}
+  .pillset-diff::before{display:none}
+
+  /* the placeholder was clipped mid-word with no ellipsis */
+  .search-input::placeholder{text-overflow:ellipsis}
+
+  /* project photos are the point of this page; the sheet keeps them in view
+     while the steps scroll, and puts the actions under the thumb */
+  .overlay{align-items:flex-end;padding:0}
+  .modal{
+    margin:0;max-width:none;max-height:92dvh;
+    border-radius:22px 22px 0 0;
+    display:flex;flex-direction:column;
+  }
+  .modal-media{flex:none}
+  .modal-body{
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding-bottom:calc(24px + env(safe-area-inset-bottom));
+  }
+  .close{width:42px;height:42px}
+  .heart{width:40px;height:40px;font-size:16px}
+  .more{width:100%;max-width:340px;min-height:52px}
+}
 </style>
 </head>
 <body>
@@ -927,6 +990,7 @@ function renderGrid(){
     $("moreBtn").textContent = state.expanded
       ? "Show Fewer ↑"
       : "View More Projects (" + (list.length - PER_PAGE) + ") ↓";
+    $("moreBtn").setAttribute("aria-expanded", String(state.expanded));
   }
 }
 
@@ -1071,9 +1135,47 @@ $("searchInput").addEventListener("keydown", function(e){
   if (e.key === "Escape" && state.q !== "") { e.stopPropagation(); $("searchClear").click(); }
 });
 
+/* Same "View more" scroll bug local-table had: the newly revealed cards are
+   inserted above the button, so leaving scroll position alone drops the
+   button far below the fold while the visible cards do not change - the tap
+   reads as a no-op. Expanding brings the first new card to the top of the
+   content area; collapsing pins the button where it was. Scroll position and
+   focus only; which projects render is untouched. */
+function stickyOffset(){
+  var h = document.querySelector(".hdr"), f = document.querySelector(".filters");
+  var top = 0;
+  if (h && getComputedStyle(h).position === "sticky") top += h.offsetHeight;
+  if (f && getComputedStyle(f).position === "sticky") top += f.offsetHeight;
+  return top + 12;
+}
+function scrollBehavior(){
+  return (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    ? "auto" : "smooth";
+}
+function scrollToY(y, behavior){
+  y = Math.max(0, Math.round(y));
+  try { window.scrollTo({ top:y, behavior:behavior }); }
+  catch(e){ window.scrollTo(0, y); }
+}
+
 $("moreBtn").addEventListener("click", function(){
+  var btn = this;
+  var btnTopBefore = btn.getBoundingClientRect().top;
+
   state.expanded = !state.expanded;
   renderGrid();
+
+  if (state.expanded) {
+    var firstNew = $("grid").children[PER_PAGE];
+    if (firstNew) {
+      scrollToY(window.pageYOffset + firstNew.getBoundingClientRect().top - stickyOffset(),
+                scrollBehavior());
+      if (firstNew.focus) firstNew.focus({ preventScroll:true });
+    }
+  } else {
+    scrollToY(window.pageYOffset + btn.getBoundingClientRect().top - btnTopBefore, "auto");
+    btn.focus({ preventScroll:true });
+  }
 });
 
 // Reel tiles are real buttons, so they open the same modal the grid cards do.
