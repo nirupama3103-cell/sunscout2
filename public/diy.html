@@ -620,6 +620,171 @@ html{overflow-x:hidden}
   /* clear the bar so it never covers the footer's last line */
   .ftr{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 }
+
+/* ======================================================================
+   DESIGN REFINEMENT LAYER — presentation only.
+   ====================================================================== */
+
+/* The overlay's z-index 60 sits under the mobile bottom nav's 9990, so the
+   tab bar painted at full opacity on top of the dimmed project modal. */
+.overlay{z-index:9995;background:rgba(28,18,10,.58);backdrop-filter:blur(3px)}
+
+/* A card photo that 404s or has not decoded yet rendered its alt text as
+   live copy, which spilled out of the media box and over the card's rounded
+   corner. The gradient panel underneath is the intended fallback; alt stays
+   in the DOM for assistive tech, it just stops painting. */
+.card-media img,.modal-media img,.tile-poster{font-size:0;color:transparent}
+
+/* Anchors were landing under the sticky header. */
+html{scroll-padding-top:calc(var(--head-h,80px) + 8px)}
+
+@media (max-width:700px){
+  /* The pill groups are flat until selected, which reads as a segmented
+     control on a wide bar but on a phone left the unselected options looking
+     like plain text rather than tappable controls - and the two groups
+     wrapped into four ragged rows. Each group is one swipeable row now, and
+     every pill carries a visible chip. */
+  /* .filters-in .pillset (0,2,0) sets flex-wrap:wrap higher up, so the
+     selector has to match its specificity to switch the row to scrolling */
+  .filters-in .pillset,.pillset{
+    flex-wrap:nowrap;overflow-x:auto;gap:7px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;padding-block:2px;
+    /* fades the clipped edge so it reads as scrollable rather than cut off */
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
+            mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
+  }
+  .pillset::-webkit-scrollbar{display:none}
+  .pillset .pill{flex:none;min-height:40px;display:inline-flex;align-items:center}
+  .pill:not([aria-pressed="true"]){
+    background:rgba(255,255,255,.9);
+    border-color:rgba(60,40,20,.12);
+  }
+  .pillset-diff{margin-left:0;padding-left:0;margin-top:6px}
+  .pillset-diff::before{display:none}
+
+  /* the placeholder was clipped mid-word with no ellipsis */
+  .search-input::placeholder{text-overflow:ellipsis}
+
+  /* project photos are the point of this page; the sheet keeps them in view
+     while the steps scroll, and puts the actions under the thumb */
+  .overlay{align-items:flex-end;padding:0}
+  .modal{
+    margin:0;max-width:none;max-height:92dvh;
+    border-radius:22px 22px 0 0;
+    display:flex;flex-direction:column;
+  }
+  .modal-media{flex:none}
+  .modal-body{
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding-bottom:calc(24px + env(safe-area-inset-bottom));
+  }
+  .close{width:42px;height:42px}
+  .heart{width:40px;height:40px;font-size:16px}
+  .more{width:100%;max-width:340px;min-height:52px}
+}
+
+/* ======================================================================
+   PREMIUM PASS
+   Mirrors the pass applied to local-table/ so the two sister pages read as
+   one product. Palette and brand unchanged; what changes is restraint.
+   ====================================================================== */
+
+/* --- Page surface ------------------------------------------------------
+   The low-poly triangle tile was the loudest thing on the page - a busy,
+   high-frequency texture directly behind white cards. index.html already
+   solved this with two soft radial washes over warm cream, and that is the
+   page that reads as premium. Same system here and on local-table/, so all
+   three surfaces match. Warm cream stays the ground; only the tile goes. */
+:root{ --p-cream:#EDE4D6; }
+html,body{background:var(--p-cream)}
+.page{
+  background-color:var(--p-cream);
+  background-image:
+    radial-gradient(700px 420px at 88% -6%, rgba(255,217,61,.30), rgba(255,217,61,0) 70%),
+    radial-gradient(620px 420px at 4% 12%, rgba(79,195,247,.18), rgba(79,195,247,0) 70%);
+  background-repeat:no-repeat,no-repeat;
+  background-size:auto,auto;
+  background-position:center,center;
+  background-attachment:fixed,fixed;
+}
+@media (hover:none){ .page{background-attachment:scroll,scroll} }
+@media (prefers-reduced-motion:reduce){ .page{background-attachment:scroll,scroll} }
+.card,.step,.empty{background:#fff}
+.hdr{background:rgba(253,250,245,.94)}
+
+/* --- Weight hierarchy --------------------------------------------------
+   21 elements sat at font-weight 900. It is now reserved for the primary
+   CTA, so everything else can step down and those keep real emphasis. */
+.hero h1{font-weight:800}
+.count-row strong,.sec h2{font-weight:800}
+.card .card-body h3{font-weight:700}
+.navlink{font-weight:700}
+.pill{font-weight:700}
+.pill[aria-pressed="true"]{font-weight:800}
+.tag,.meta,.card-desc,.hero-sub{font-weight:600}
+.card-desc,.hero-sub{font-weight:500}
+.details,.chip-loc,.tile-label{font-weight:700}
+.more{font-weight:800}
+.navcta{font-weight:900}
+
+/* --- Quieter tags ------------------------------------------------------
+   Yellow and purple pastels on every card competed with the photography,
+   which is the thing this page is actually selling. */
+.tag{
+  background:transparent;
+  border:1px solid rgba(60,40,20,.12);
+  color:#75695d;
+  border-radius:6px;
+  padding:3px 9px;
+  letter-spacing:.01em;
+}
+.tag-age{background:#FFF3E0;border-color:rgba(255,153,0,.28);color:#8a5200}
+.tag-cat{background:transparent;color:#75695d}
+
+/* --- Radius hierarchy --------------------------------------------------
+   Full-round belongs to things you press, not to every surface. */
+.card,.step{border-radius:16px}
+.modal{border-radius:20px}
+.empty{border-radius:16px}
+.tile{border-radius:14px}
+
+/* --- Photo treatment ---------------------------------------------------
+   Project photos met the card edge with a hard cut and the chips floated
+   unanchored. Corner radials rather than a full-width bar, which would
+   draw a visible band across every image. */
+.card-media{position:relative;isolation:isolate}
+.card-media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(38% 46% at 6% 4%,rgba(0,0,0,.28),transparent 70%),
+    radial-gradient(42% 46% at 94% 4%,rgba(0,0,0,.28),transparent 70%),
+    linear-gradient(180deg,transparent 64%,rgba(0,0,0,.28));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.heart,.badge-diff,.chip-loc,.badge-play{z-index:2}
+.heart{
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 2px 10px rgba(0,0,0,.22);
+}
+
+/* --- Softer depth ------------------------------------------------------ */
+:root{
+  --lift-1:0 1px 1px rgba(60,40,20,.04), 0 6px 16px -10px rgba(60,40,20,.30);
+  --lift-2:0 2px 6px rgba(60,40,20,.05), 0 24px 48px -24px rgba(60,40,20,.34);
+}
+.card{border:1px solid rgba(60,40,20,.12);box-shadow:var(--lift-1)}
+.card:hover{box-shadow:var(--lift-2);border-color:rgba(60,40,20,.18)}
+.more{background:#fff;border-color:rgba(60,40,20,.12);box-shadow:var(--lift-1)}
+.pill:not([aria-pressed="true"]){background:#fff}
+
+/* --- Detail ------------------------------------------------------------ */
+.card .card-body h3{letter-spacing:-.015em}
+.hero h1{letter-spacing:-.03em}
+.details{display:inline-flex;align-items:center;gap:4px;transition:gap 160ms var(--ease)}
+.card:hover .details{gap:7px}
+.meta{color:#75695d}
 </style>
 </head>
 <body>
@@ -854,17 +1019,50 @@ function renderReel(){
   $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
 
   if (reduceMotion) return;
-  // Stagger playback so a dozen videos don't all fetch at once. Scoped to the
-  // real set so the duplicate copies never trigger their own downloads.
+
+  /* The reel showed posters but never video. Two reasons, both about weight:
+     rowA's first six clips are fuse-beads 12.4MB, lego 11.6, snakes 2.9,
+     chinese 11.3, marble 11.5, sock 2.6 - 52MB - and the old fixed 900ms
+     stagger started all eight regardless of whether the band was on screen or
+     whether any had finished. A tile only reveals its video on `loadeddata`,
+     so on a phone every tile stayed at opacity 0 showing its poster.
+
+     Now: nothing is fetched until the band is actually visible, and at most
+     two clips load at a time, advancing as each becomes ready. The light ones
+     surface in a second or two instead of queueing behind a 12MB download.
+     Scoped to the real set so duplicate tiles never fetch. */
   var vids = Array.prototype.slice.call(document.querySelectorAll(".marquee-set video")).slice(0, 8);
-  vids.forEach(function(v, i){
-    v.addEventListener("loadeddata", function(){ v.classList.add("on"); });
-    setTimeout(function(){
-      v.preload = "auto";
-      var pr = v.play();
-      if (pr && pr.catch) pr.catch(function(){});
-    }, i * 900);
-  });
+  if (!vids.length) return;
+
+  var next = 0, active = 0, MAX = 2;
+  function pump(){
+    while (active < MAX && next < vids.length) {
+      (function(v){
+        active++;
+        var done = false;
+        function advance(){
+          if (done) return;
+          done = true; active--; pump();
+        }
+        v.addEventListener("loadeddata", function(){ v.classList.add("on"); advance(); });
+        // a clip that stalls or fails must not hold the queue shut
+        v.addEventListener("error", advance);
+        setTimeout(advance, 6000);
+        v.preload = "auto";
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function(){ advance(); });
+      })(vids[next++]);
+    }
+  }
+
+  var band = document.querySelector(".marquee") || document.querySelector(".band");
+  if (!band || typeof IntersectionObserver !== "function") { pump(); return; }
+  var io = new IntersectionObserver(function(entries){
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { io.disconnect(); pump(); return; }
+    }
+  }, { rootMargin: "200px" });
+  io.observe(band);
 }
 
 /* ---------------- filters ---------------- */
@@ -927,6 +1125,7 @@ function renderGrid(){
     $("moreBtn").textContent = state.expanded
       ? "Show Fewer ↑"
       : "View More Projects (" + (list.length - PER_PAGE) + ") ↓";
+    $("moreBtn").setAttribute("aria-expanded", String(state.expanded));
   }
 }
 
@@ -1071,9 +1270,47 @@ $("searchInput").addEventListener("keydown", function(e){
   if (e.key === "Escape" && state.q !== "") { e.stopPropagation(); $("searchClear").click(); }
 });
 
+/* Same "View more" scroll bug local-table had: the newly revealed cards are
+   inserted above the button, so leaving scroll position alone drops the
+   button far below the fold while the visible cards do not change - the tap
+   reads as a no-op. Expanding brings the first new card to the top of the
+   content area; collapsing pins the button where it was. Scroll position and
+   focus only; which projects render is untouched. */
+function stickyOffset(){
+  var h = document.querySelector(".hdr"), f = document.querySelector(".filters");
+  var top = 0;
+  if (h && getComputedStyle(h).position === "sticky") top += h.offsetHeight;
+  if (f && getComputedStyle(f).position === "sticky") top += f.offsetHeight;
+  return top + 12;
+}
+function scrollBehavior(){
+  return (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    ? "auto" : "smooth";
+}
+function scrollToY(y, behavior){
+  y = Math.max(0, Math.round(y));
+  try { window.scrollTo({ top:y, behavior:behavior }); }
+  catch(e){ window.scrollTo(0, y); }
+}
+
 $("moreBtn").addEventListener("click", function(){
+  var btn = this;
+  var btnTopBefore = btn.getBoundingClientRect().top;
+
   state.expanded = !state.expanded;
   renderGrid();
+
+  if (state.expanded) {
+    var firstNew = $("grid").children[PER_PAGE];
+    if (firstNew) {
+      scrollToY(window.pageYOffset + firstNew.getBoundingClientRect().top - stickyOffset(),
+                scrollBehavior());
+      if (firstNew.focus) firstNew.focus({ preventScroll:true });
+    }
+  } else {
+    scrollToY(window.pageYOffset + btn.getBoundingClientRect().top - btnTopBefore, "auto");
+    btn.focus({ preventScroll:true });
+  }
 });
 
 // Reel tiles are real buttons, so they open the same modal the grid cards do.
