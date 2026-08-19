@@ -766,7 +766,7 @@ html { scroll-behavior: smooth; }
 <style id="ss-premium">
 :root{
   --p-cream:#EDE4D6; --p-surface:#FFF9F0; --p-card:#ffffff;
-  --p-ink:#2c1a00; --p-muted:#6b5040; --p-faint:#8a7358;
+  --p-ink:#2c1a00; --p-muted:#6b5040; --p-faint:#6b5040;   /* was #8a7358: 3.57:1 on the cream ground, below the 4.5:1 AA needs. Now 5.86:1 */
   --p-sun:#FF9900; --p-sun-dk:#E68A00; --p-sky:#4FC3F7;
   --p-free:#34C97A; --p-paid:#FF6B6B;
   --p-line:rgba(0,0,0,.07);
@@ -990,6 +990,20 @@ body{color:var(--p-ink) !important}
 .p-foot-col a{font-size:13.5px;font-weight:700;color:rgba(255,255,255,.82);cursor:pointer}
 /* Trust states what the site does rather than linking away, so its two
    claims are set as text, dimmer and narrower than the link columns. */
+/* Those column entries were <a onclick> with no href, so they were not in the
+   tab order at all - keyboard and switch users could not reach Free
+   activities, Plan my day, My list, Privacy policy or About SunScout. They
+   are buttons now (they fire actions, they do not navigate) and the column
+   styles cover both elements. Targets were also 15-22px tall; padding takes
+   them to 44px on a phone. */
+.p-foot-col button{
+  font-size:13.5px;font-weight:700;color:rgba(255,255,255,.82);cursor:pointer;
+  background:none;border:0;padding:0;text-align:left;font-family:inherit;
+}
+.p-foot-col a,.p-foot-col button{display:block;padding-block:6px;min-height:32px}
+@media(max-width:700px){.p-foot-col a,.p-foot-col button{padding-block:11px;min-height:44px}}
+.p-foot-col a:hover,.p-foot-col button:hover{color:#fff}
+.p-foot-col button:focus-visible{outline:3px solid #FF9900;outline-offset:2px;border-radius:6px}
 .p-foot-claim{margin:0;font-size:12.5px;font-weight:600;line-height:1.45;
   color:rgba(255,255,255,.58);max-width:26ch}
 .p-foot-col a:hover{color:var(--p-sun)}
@@ -1151,7 +1165,7 @@ body{color:var(--p-ink) !important}
 
     <!-- Full width search -->
     <div class="hero-search hide-mobile" style="display:none!important;" style="max-width:680px;margin:0 auto 20px;">
-      <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM..." autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
+      <input type="search" id="heroSearch" placeholder="Search camps, splash pads, museums, hiking, STEM…" autocomplete="off" oninput="setSearch(this.value)" style="font-size:16px;padding:16px 24px;border-radius:99px;border:none;width:100%;font-family:Nunito,sans-serif;font-weight:600;" />
       <button onclick="setSearch(document.getElementById('heroSearch').value)" style="padding:16px 32px;font-size:15px;font-weight:800;border-radius:99px;background:#FF9900;color:#fff;border:none;cursor:pointer;font-family:Nunito,sans-serif;">Search</button>
     </div>
 
@@ -1162,8 +1176,8 @@ body{color:var(--p-ink) !important}
       <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 16px rgba(0,0,0,.10);font-family:Nunito,sans-serif;">
         <a class="p-searchbar-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/></picture></a>
         <div style="flex:2;padding:10px 16px;border-radius:99px 0 0 99px;text-align:left;">
-          <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">SEARCH</div>
-          <input type="search" id="desktopSearch" placeholder="Camps, parks, STEM..." style="border:none;outline:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:600;color:#1a1a1a;width:100%;background:transparent;" oninput="setSearch(this.value);"/>
+          <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">SEARCH</div>
+          <input type="search" id="desktopSearch" placeholder="Camps, parks, STEM…" style="border:none;outline:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:600;color:#1a1a1a;width:100%;background:transparent;" oninput="setSearch(this.value);"/>
         </div>
         <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
         <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtCD',this,event)">
@@ -1265,10 +1279,10 @@ body{color:var(--p-ink) !important}
     </div>
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
+      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">📍 CITY</div>
       <div id="ssv-city" style="font-size:11px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
       <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
         <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci">☀️</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
         <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci">🏙️</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
         <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci">🍎</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
@@ -1280,10 +1294,10 @@ body{color:var(--p-ink) !important}
     </div>
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
+      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
       <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
       <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">🆓 Free</div>
           <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">💰 Paid</div>
@@ -1296,10 +1310,10 @@ body{color:var(--p-ink) !important}
     </div>
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-age" onclick="ssTog('age',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
+      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">👶 AGE</div>
       <div id="ssv-age" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
       <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All</div>
           <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">👶 0–2</div>
@@ -1313,7 +1327,7 @@ body{color:var(--p-ink) !important}
     <div style="position:relative;flex-shrink:0;margin:auto 5px auto 0;">
       <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">☰</button>
       <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;font-family:Nunito,sans-serif;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
         <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">📅 Plan My Day</div>
         <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
         <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
@@ -1355,7 +1369,7 @@ body{color:var(--p-ink) !important}
 
 <div class="header" style="display:none">
   <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
-  <p class="tagline">Your Go-To Guide for Bay Area Summer Fun—Free &amp; Budget-Friendly Picks!</p>
+  <p class="tagline">Your go-to guide for Bay Area summer fun — free and budget-friendly picks</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
@@ -1369,11 +1383,11 @@ body{color:var(--p-ink) !important}
 
     <!-- CITY button -->
     <div id="mob-city-btn" onclick="mobTog('city',event)" style="flex:1;padding:10px 14px;cursor:pointer;border-radius:99px 0 0 99px;position:relative;border-right:1px solid #eee;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">📍 CITY</div>
+      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">📍 CITY</div>
       <div id="mob-city-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sunnyvale</div>
       <!-- City dropdown — opens UPWARD -->
       <div id="mob-dd-city" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:260px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">☀️ Sunnyvale</div>
           <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">🏙️ San Jose</div>
@@ -1388,11 +1402,11 @@ body{color:var(--p-ink) !important}
 
     <!-- AGE button -->
     <div id="mob-age-btn" onclick="mobTog('age',event)" style="flex:1;padding:10px 14px;cursor:pointer;position:relative;">
-      <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;">👶 AGE</div>
+      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">👶 AGE</div>
       <div id="mob-age-val" style="font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
       <!-- Age dropdown — opens UPWARD -->
       <div id="mob-dd-age" style="display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#999;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All</div>
           <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">👶 0–2</div>
@@ -1518,7 +1532,7 @@ function mobSearch() {
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">📅</span>
     <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun Only</span><span class="tab-count-badge" id="badge-weekend"></span>
+    <span class="tab-sub">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
   </button>
 </div>
 
@@ -1553,7 +1567,7 @@ function mobSearch() {
 <main id="main">
   <div class="grid" id="grid"></div>
   <div class="show-more-wrap" id="showMoreWrap" style="display:none">
-    <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show More Activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">🌤️ About SunScout</button>
+    <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show more activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">🌤️ About SunScout</button>
   </div>
 </main>
 <div class="footer">
@@ -1565,21 +1579,21 @@ function mobSearch() {
     <nav class="p-foot-cols" aria-label="Footer">
       <div class="p-foot-col">
         <b>Explore</b>
-        <a onclick="dtE('free','Free',event);window.scrollTo({top:0,behavior:'smooth'})">Free activities</a>
-        <a onclick="dtE('paid','Paid',event);window.scrollTo({top:0,behavior:'smooth'})">Paid programs</a>
-        <a onclick="floatWeekend()">Weekend plans</a>
-        <a onclick="openPlan()">Plan my day</a>
-        <a onclick="openMyList()">My list</a>
+        <button type="button" onclick="dtE('free','Free',event);window.scrollTo({top:0,behavior:'smooth'})">Free activities</button>
+        <button type="button" onclick="dtE('paid','Paid',event);window.scrollTo({top:0,behavior:'smooth'})">Paid programs</button>
+        <button type="button" onclick="floatWeekend()">Weekend plans</button>
+        <button type="button" onclick="openPlan()">Plan my day</button>
+        <button type="button" onclick="openMyList()">My list</button>
       </div>
       <div class="p-foot-col">
         <b>More</b>
         <a href="/diy.html">DIY projects</a>
         <a href="/local-table/">Local Table</a>
-        <a onclick="document.getElementById('about-modal').style.display='flex'">About SunScout</a>
+        <button type="button" onclick="document.getElementById('about-modal').style.display='flex'">About SunScout</button>
       </div>
       <div class="p-foot-col">
         <b>Trust</b>
-        <a onclick="document.getElementById('privacy-modal').style.display='flex'">Privacy policy</a>
+        <button type="button" onclick="document.getElementById('privacy-modal').style.display='flex'">Privacy policy</button>
         <p class="p-foot-claim">No tracking, no ads, no data collection.</p>
         <p class="p-foot-claim">Events from Ticketmaster, photos by Pexels.</p>
       </div>
@@ -1900,7 +1914,7 @@ async function loadActivities() {
   try {
     var p = new URLSearchParams({ tab: activeTab, city: activeCity, age: activeAge });
     var r = await fetch("/api/activities?" + p);
-    if (!r.ok) throw new Error("Server error " + r.status);
+    if (!r.ok) throw new Error("We could not reach the activity list just now.");
     var data = await r.json();
     allActivities = data.activities || [];
     allActivities = allActivities.filter(function(a) {
@@ -2032,7 +2046,7 @@ function showSkeleton() {
 }
 
 function showError(msg) {
-  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Could not load activities</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try Again</button></div>";
+  document.getElementById("grid").innerHTML = "<div class=\"no-results\"><div class=\"no-results-icon\">⚠️</div><h2>Activities didn\u2019t load</h2><p>"+msg+"</p><button class=\"show-more-btn\" onclick=\"loadActivities()\" style=\"margin-top:12px\">Try again</button></div>";
   document.getElementById("statusBar").innerHTML = "Error loading activities";
 }
 
@@ -2521,10 +2535,10 @@ function syncBnav(tab) {
       <!-- NOTES TAB -->
       <div id="tab-notes">
         <p style="color:#888;font-size:13px;margin:0 0 10px;">General notes, reminders, ideas...</p>
-        <input type="search" id="notes-search" placeholder="🔍 Search your notes..." 
+        <input type="search" id="notes-search" placeholder="🔍 Search your notes…" 
   style="width:100%;padding:8px 14px;border-radius:99px;border:1.5px solid #e0e7ff;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:10px;outline:none;box-sizing:border-box;"
   oninput="filterNotes(this.value)"/>
-<textarea id="notepad-general" placeholder="Write your notes here..." style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
+<textarea id="notepad-general" placeholder="Write your notes here…" style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
         <div style="display:flex;gap:8px;margin-top:8px;">
           <button class="save-btn" onclick="saveGeneralNote()" style="flex:1;background:#6366f1;color:#fff;border:none;border-radius:99px;padding:10px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">💾 Save Note</button>
           <button onclick="clearGeneralNote()" style="background:#fee2e2;color:#ef4444;border:none;border-radius:99px;padding:10px 16px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;">🗑️</button>
