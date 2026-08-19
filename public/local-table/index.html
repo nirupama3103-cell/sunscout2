@@ -592,6 +592,67 @@ html{scroll-padding-top:var(--head-h)}
   .modal-actions{gap:10px}
   .act-copy,.act-save{flex:1 1 100%;min-width:0}
 
+  /* --- Mobile filter bar (mirrors diy.html and the homepage) -----------
+     Two horizontally-scrolling pill rows read as messy on a phone: both sat
+     mid-scroll with pills sliced at either edge and nothing said they
+     scrolled. Below 700px the rows become two sheets behind one bar; the
+     pill buttons inside are the same elements, so filtering is untouched. */
+  .fbar[hidden]{display:flex}
+  .fbar{
+    display:flex;align-items:stretch;margin:0 var(--gutter);
+    background:#fff;border:1px solid var(--hairline);border-radius:999px;
+    box-shadow:var(--lift-1);overflow:hidden;
+  }
+  .fbar-seg{
+    flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;
+    padding:9px 16px;background:none;border:0;cursor:pointer;text-align:left;
+    font-family:inherit;color:var(--ink);
+  }
+  .fbar-l{font-size:9.5px;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint)}
+  .fbar-v{font-size:13.5px;font-weight:800;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fbar-seg[aria-expanded="true"]{background:#FFF6EC}
+  .fbar-seg[aria-expanded="true"] .fbar-v{color:var(--orange-dark)}
+  .fbar-div{width:1px;background:var(--hairline);margin:9px 0}
+  .fbar-seg:focus-visible{outline:2px solid var(--orange-dark);outline-offset:-3px}
+
+  /* .filters is sticky with its own z-index, which scopes the sheet inside a
+     stacking context and lets the scrim paint over the options. Lifting the
+     whole section keeps its subtree above the scrim. */
+  .filters{padding:8px 0 9px;z-index:9996}
+  .filters-in{display:block;max-width:none;margin:0}
+  .filters-in .pillset{
+    display:none;
+    position:fixed;left:10px;right:10px;
+    bottom:calc(78px + env(safe-area-inset-bottom));
+    z-index:9995;
+    flex-wrap:wrap;gap:8px;padding:14px;margin:0;
+    background:#fff;border:1px solid var(--hairline);border-radius:18px;
+    box-shadow:0 -10px 44px rgba(60,40,20,.26);
+    max-height:58vh;overflow-y:auto;
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .filters-in .pillset.is-open{display:flex}
+  .filters-in .pillset::before{
+    content:"";display:block;width:38px;height:4px;border-radius:99px;
+    background:rgba(60,40,20,.18);margin:-4px auto 10px;flex-basis:100%;
+  }
+  .filters-in .pillset + .pillset{padding-left:14px;margin-left:0;margin-top:0}
+  .filters-in .pillset + .pillset::before{background:rgba(60,40,20,.18);
+    width:38px;height:4px;position:static;transform:none}
+  .filters-in .pillset .pill{
+    flex:1 1 100%;min-height:46px;justify-content:center;
+    border:1px solid var(--hairline);
+  }
+  .filters-in .pillset .pill:not([aria-pressed="true"]){background:#fff}
+  .filters-in .pillset .pill[aria-pressed="true"]{border-color:transparent}
+  .fsheet-scrim{
+    position:fixed;inset:0;z-index:9994;
+    background:rgba(28,18,10,.42);backdrop-filter:blur(2px);
+  }
+  .fsheet-scrim[hidden]{display:none}
+
   .band{padding-block:16px}
   .band-rows{gap:10px}
   /* at a 200px tile the title and price fought and the title won a clipped
@@ -755,6 +816,10 @@ html{scroll-padding-top:var(--head-h)}
 .navcta{box-shadow:0 2px 10px rgba(255,153,0,.30)}
 .btn-primary{box-shadow:0 4px 16px rgba(255,153,0,.32)}
 .live{font-weight:800;letter-spacing:.08em}
+/* Scoped to desktop rather than left unconditional: this block sits after
+   the mobile one, so a bare `.fbar{display:none}` would win at every width
+   once JS clears the [hidden] attribute. */
+@media (min-width:701px){.fbar,.fsheet-scrim{display:none}}
 
 /* --- 21. Where the deal is -------------------------------------------
    The cards named a deal but never a restaurant, and the only location cue
@@ -933,10 +998,25 @@ html,body{background:var(--p-cream)}
   </section>
 
   <section class="filters" id="lt-deals">
+    <!-- Phone-only trigger bar, mirroring diy.html and the homepage search bar.
+         Above 700px it is hidden and the pill rows show as usual; the pillsets
+         are the same elements either way, so filtering logic is untouched. -->
+    <div class="fbar" id="fbar" hidden>
+      <button type="button" class="fbar-seg" id="fbarCity" aria-expanded="false" aria-controls="cityPills">
+        <span class="fbar-l">City</span>
+        <span class="fbar-v" id="fbarCityVal">All Cities</span>
+      </button>
+      <span class="fbar-div" aria-hidden="true"></span>
+      <button type="button" class="fbar-seg" id="fbarSlot" aria-expanded="false" aria-controls="slotPills">
+        <span class="fbar-l">When</span>
+        <span class="fbar-v" id="fbarSlotVal">All Slots</span>
+      </button>
+    </div>
     <div class="filters-in">
       <div class="pillset pillset-city" id="cityPills" role="group" aria-label="Filter by city"></div>
       <div class="pillset pillset-slot" id="slotPills" role="group" aria-label="Filter by time slot"></div>
     </div>
+    <div class="fsheet-scrim" id="fscrim" hidden></div>
   </section>
 
   <section class="deals">
@@ -1205,6 +1285,7 @@ function renderFilters(){
     return '<button type="button" class="pill" data-slot="' + esc(s) + '" aria-pressed="' +
       (state.slot === s) + '">' + esc(s) + '</button>';
   }).join("");
+  if (typeof syncFilterBar === "function") syncFilterBar();
 }
 
 /* ---------------- grid ---------------- */
@@ -1391,6 +1472,51 @@ function scrollToY(y, behavior){
   try { window.scrollTo({ top:y, behavior:behavior }); }
   catch(e){ window.scrollTo(0, y); }
 }
+
+/* ---- mobile filter sheets ----
+   Presentation only: the sheets hold the same pill buttons the desktop rows
+   do and their delegated handlers still run, so what gets filtered is
+   unchanged. This controls which pillset is visible and mirrors the current
+   selection into the bar's labels. */
+(function(){
+  var bar = $("fbar"), scrim = $("fscrim");
+  if (!bar) return;
+  var segs = [
+    { btn:$("fbarCity"), set:$("cityPills"), val:$("fbarCityVal") },
+    { btn:$("fbarSlot"), set:$("slotPills"), val:$("fbarSlotVal") }
+  ];
+  bar.hidden = false;
+
+  function close(){
+    segs.forEach(function(s){
+      s.set.classList.remove("is-open");
+      s.btn.setAttribute("aria-expanded", "false");
+    });
+    scrim.hidden = true;
+  }
+  function open(i){
+    var wasOpen = segs[i].set.classList.contains("is-open");
+    close();
+    if (wasOpen) return;
+    segs[i].set.classList.add("is-open");
+    segs[i].btn.setAttribute("aria-expanded", "true");
+    scrim.hidden = false;
+  }
+  segs.forEach(function(s, i){
+    s.btn.addEventListener("click", function(e){ e.stopPropagation(); open(i); });
+    s.set.addEventListener("click", function(e){ if (e.target.closest(".pill")) close(); });
+  });
+  scrim.addEventListener("click", close);
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+
+  window.syncFilterBar = function(){
+    segs.forEach(function(s){
+      var on = s.set.querySelector('.pill[aria-pressed="true"]');
+      if (on) s.val.textContent = on.textContent.trim();
+    });
+  };
+  syncFilterBar();
+})();
 
 $("moreBtn").addEventListener("click", function(){
   var btn = this;

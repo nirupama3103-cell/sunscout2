@@ -42,6 +42,7 @@
 html,body{background:linear-gradient(rgba(240,249,255,.82),rgba(240,249,255,.82)),url('/images/bg-sparkle-clouds.webp') center/cover no-repeat fixed!important;}
 body{font-family:'Nunito',sans-serif;color:#1a1a1a!important;min-height:unset;color-scheme:light only;}
 @media(prefers-reduced-motion:reduce){html,body{background-attachment:scroll!important;}}
+@media (hover:none){html,body{background-attachment:scroll!important;}}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:inherit}
 img{max-width:100%;display:block}
@@ -783,6 +784,13 @@ html,body{
   background-attachment:fixed,fixed,fixed !important;
 }
 @media(prefers-reduced-motion:reduce){html,body{background-attachment:scroll,scroll,scroll !important}}
+/* iOS Safari does not implement background-attachment:fixed properly. The
+   background paints against the viewport rather than the document, so when the
+   URL bar collapses or the page rubber-bands at the end of a scroll, a band of
+   painted background is left below the content - the full-height beige block
+   reported under the footer. diy.html and local-table/ have carried this guard
+   since they were built; index.html only guarded prefers-reduced-motion. */
+@media (hover:none){html,body{background-attachment:scroll,scroll,scroll !important}}
 body{color:var(--p-ink) !important}
 
 /* ── Hero ── */
