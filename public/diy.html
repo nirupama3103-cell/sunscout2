@@ -263,7 +263,8 @@ button{font-family:inherit}
 /* ---- footer ---- */
 .ftr{border-top:1px solid rgba(0,0,0,.07);padding:34px clamp(16px,4vw,32px) 46px;text-align:center}
 .ftr img{height:44px;width:auto;display:block;margin:0 auto 14px}
-.ftr-note{font-size:13px;font-weight:800;color:#999}
+/* was #999: 2.26:1 on the cream ground, well under the 4.5:1 AA needs. Now 4.68:1 */
+.ftr-note{font-size:13px;font-weight:800;color:#6f6257}
 .ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
 
 @media (max-width:600px){
@@ -458,6 +459,12 @@ button{font-family:inherit}
   padding-block:clamp(36px, 5vw, 60px);
 }
 .ftr,.ftr a{font-size:.9375rem}
+/* var(--orange-dark) #a66300 measures 3.78:1 on the cream ground; the footer
+   links need 4.5:1 as normal-size text. #8a5200 measures 5.07:1. */
+.ftr-links a{color:#8a5200}
+.ftr-links a:hover{color:var(--ink)}
+/* 18-26px tall was under any touch guidance */
+.ftr-links a{display:inline-block;padding:10px 6px;min-height:44px}
 .ftr-links{display:flex; gap:20px; justify-content:center}
 
 /* --- 6. Quality floor ------------------------------------- */
@@ -796,6 +803,8 @@ html,body{background:var(--p-cream)}
 .details{display:inline-flex;align-items:center;gap:4px;transition:gap 160ms var(--ease)}
 .card:hover .details{gap:7px}
 .meta{color:#75695d}
+/* the count row is an h2 for document structure, not for scale */
+h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}
 
 /* --- Tail spacing -----------------------------------------------------
    The seam between the "View more" button and the footer was paying for the
@@ -1004,7 +1013,10 @@ html,body{background:var(--p-cream)}
 
   <section class="projects">
     <div class="count-row">
-      <div class="count-n" id="countLabel"></div>
+      <!-- h2: the page ran h1 -> h3 with nothing between, so a screen reader's
+           heading list jumped a level straight into the project cards. This row
+           already labels the grid, so it is the section heading. -->
+      <h2 class="count-n" id="countLabel"></h2>
       <div class="count-l">ready to build</div>
     </div>
 
