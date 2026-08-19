@@ -756,6 +756,46 @@ html{scroll-padding-top:var(--head-h)}
 .btn-primary{box-shadow:0 4px 16px rgba(255,153,0,.32)}
 .live{font-weight:800;letter-spacing:.08em}
 
+/* --- 21. Where the deal is -------------------------------------------
+   The cards named a deal but never a restaurant, and the only location cue
+   was a city chip on the photo - so "Family pack" gave no way to find the
+   place. The venue and its street now sit under the title, and the modal
+   carries a tappable address block that opens Google Maps.
+
+   A search URL, matching what index.html does for activities: no API key,
+   no map script, nothing to load, and it hands off to whichever map app the
+   phone already uses. */
+.card-place{
+  margin-top:-3px;font-size:12.5px;font-weight:700;letter-spacing:.01em;
+  color:var(--faint);
+}
+.modal-where{
+  display:flex;align-items:center;gap:12px;margin-top:18px;
+  padding:13px 15px;border-radius:var(--r-md);
+  background:#faf7f2;border:1px solid var(--hairline);
+  color:var(--ink);text-decoration:none;
+  transition:background 160ms var(--ease),border-color 160ms var(--ease),
+             transform 160ms var(--ease);
+}
+.modal-where:hover{
+  background:#FFF3E0;border-color:rgba(255,153,0,.35);
+  color:var(--ink);transform:translateY(-1px);
+}
+.where-pin{font-size:19px;line-height:1;flex:none}
+.where-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.where-txt b{font-size:14.5px;font-weight:800;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.where-txt span{font-size:12.5px;font-weight:600;color:var(--body);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.where-go{
+  flex:none;font-size:12px;font-weight:800;color:var(--orange-dark);
+  white-space:nowrap;
+}
+@media (max-width:700px){
+  .where-go{display:none}          /* the whole block is the tap target here */
+  .modal-where{padding:14px;gap:11px}
+}
+
 /* --- 20. Designed plate for deals with no photograph -------------------
    Two deals have no honest photo: the only McDonald's asset in the repo is a
    branded ad for a different offer, and nothing depicts Valley Goat's mezze.
@@ -1012,20 +1052,20 @@ var PHOTO = {
    fixed price carry the offer itself in `price` ("BOGO", "15% off"); `was` is
    left empty rather than inventing a before-price for a real business. */
 var DEALS = [
-  { id:"d1",  img:PHOTO.biryaniPot,  icon:"🍚", title:"Ulavacharu family pack",       city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"Family pack", was:"", src:"Restaurant",   desc:"Family-size biryani — chicken, veg or paneer — with a free starter included on the pack." },
-  { id:"d2",  img:PHOTO.momos,       icon:"🥟", title:"Delhi to Kathmandu takeout",   city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian · Nepali", hours:"Daily, takeout",  price:"15% off",     was:"", src:"Restaurant",   desc:"15% off takeout orders over $40. Curries, biryani and momos off the regular menu." },
-  { id:"d3",  img:PHOTO.friedRice,   icon:"🥡", title:"P.F. Chang's lunch bowls",     city:"Sunnyvale", area:"Downtown",       slot:"Lunch",      cuisine:"Chinese",      hours:"Mon–Fri, lunch",     price:"$13+",        was:"", src:"Official site",desc:"Mongolian beef, Chang's spicy chicken or firecracker shrimp in a lunch portion with rice and a side." },
-  { id:"d4",  img:PHOTO.wings,       icon:"🍗", title:"Wingstop BOGO wings",          city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Wings",        hours:"Daily, app only",    price:"BOGO",        was:"", src:"Uber Eats",    desc:"Buy one get one free on selected wings and combos. Ordered through the app or delivery." },
-  { id:"d5",  img:PHOTO.pizzaSpread, icon:"🍕", title:"Domino's mix & match",         city:"Sunnyvale", area:"Caliente Dr",    slot:"Late night", cuisine:"Pizza",        hours:"Daily, to 12am+",    price:"Mix & match", was:"", src:"Uber Eats",    desc:"Build a multi-item bundle — pizza, wings, sides — at the bundle price. Kitchen runs past midnight." },
-  { id:"d6",  img:PHOTO.pizza,       icon:"🍕", title:"Pizza Hut value bundles",      city:"Sunnyvale", area:"N Mathilda Ave", slot:"Late night", cuisine:"Pizza",        hours:"Daily, late",        price:"$10+",        was:"", src:"Official site",desc:"Hut Rewards local deals and family bundles, built to feed four to six. Reliable for a late order." },
-  { id:"d7",  img:PHOTO.mcdMeal,     icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
-  { id:"d8",  img:PHOTO.burger,      icon:"🍔", title:"Lazy Dog happy hour",          city:"Sunnyvale", area:"Cupertino line", slot:"Happy hour", cuisine:"American",     hours:"Mon–Fri, 3–6pm",     price:"$5+",         was:"", src:"Official site",desc:"Discounted craft appetisers, draft beer, wine and signature cocktails. Just over the Cupertino line." },
-  { id:"d9",  img:PHOTO.craftBeer,   icon:"🍺", title:"Off The Rails brewing",        city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Brewery",      hours:"Weekday afternoons", price:"Varies",      was:"", src:"Local guide",  desc:"House brews on rotating special with shareable pub plates. Neighbourhood pricing, five minutes from downtown." },
-  { id:"d10", img:PHOTO.pints,       icon:"🍻", title:"Fibbar Magees pub night",      city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Irish pub",    hours:"Weekdays",           price:"Varies",      was:"", src:"Local guide",  desc:"Draft reductions and traditional pub food specials, rotating through the week. Adults-only room." },
-  { id:"d11", img:PHOTO.grazing,     icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
-  { id:"d12", img:PHOTO.taco,        icon:"🌮", title:"Palmita delivery deal",        city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Mexican",      hours:"Daily, delivery",    price:"$3 off",      was:"", src:"Uber Eats",    desc:"$3 off any order over $20. Fresh, lighter Mexican plates and bowls for a desk lunch." },
-  { id:"d13", img:PHOTO.dosaPoori,   icon:"🍛", title:"Gully Bites order deal",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian fusion",hours:"Daily",              price:"$11 off",     was:"", src:"Restaurant",   desc:"$11 off orders over $40. Indian and fusion plates — the easiest way to feed a table here." },
-  { id:"d14", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
+  { id:"d1",  place:"Ulavacharu", state:"CA", img:PHOTO.biryaniPot,  icon:"🍚", title:"Ulavacharu family pack",       city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"Family pack", was:"", src:"Restaurant",   desc:"Family-size biryani — chicken, veg or paneer — with a free starter included on the pack." },
+  { id:"d2",  place:"Delhi to Kathmandu", state:"CA", img:PHOTO.momos,       icon:"🥟", title:"Delhi to Kathmandu takeout",   city:"Sunnyvale", area:"El Camino Real", slot:"All day",    cuisine:"Indian · Nepali", hours:"Daily, takeout",  price:"15% off",     was:"", src:"Restaurant",   desc:"15% off takeout orders over $40. Curries, biryani and momos off the regular menu." },
+  { id:"d3",  place:"P.F. Chang's", state:"CA", img:PHOTO.friedRice,   icon:"🥡", title:"P.F. Chang's lunch bowls",     city:"Sunnyvale", area:"Downtown",       slot:"Lunch",      cuisine:"Chinese",      hours:"Mon–Fri, lunch",     price:"$13+",        was:"", src:"Official site",desc:"Mongolian beef, Chang's spicy chicken or firecracker shrimp in a lunch portion with rice and a side." },
+  { id:"d4",  place:"Wingstop", state:"CA", img:PHOTO.wings,       icon:"🍗", title:"Wingstop BOGO wings",          city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Wings",        hours:"Daily, app only",    price:"BOGO",        was:"", src:"Uber Eats",    desc:"Buy one get one free on selected wings and combos. Ordered through the app or delivery." },
+  { id:"d5",  place:"Domino's Pizza", state:"CA", img:PHOTO.pizzaSpread, icon:"🍕", title:"Domino's mix & match",         city:"Sunnyvale", area:"Caliente Dr",    slot:"Late night", cuisine:"Pizza",        hours:"Daily, to 12am+",    price:"Mix & match", was:"", src:"Uber Eats",    desc:"Build a multi-item bundle — pizza, wings, sides — at the bundle price. Kitchen runs past midnight." },
+  { id:"d6",  place:"Pizza Hut", state:"CA", img:PHOTO.pizza,       icon:"🍕", title:"Pizza Hut value bundles",      city:"Sunnyvale", area:"N Mathilda Ave", slot:"Late night", cuisine:"Pizza",        hours:"Daily, late",        price:"$10+",        was:"", src:"Official site",desc:"Hut Rewards local deals and family bundles, built to feed four to six. Reliable for a late order." },
+  { id:"d7",  place:"McDonald's", state:"CA", img:PHOTO.mcdMeal,     icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
+  { id:"d8",  place:"Lazy Dog Restaurant & Bar", state:"CA", img:PHOTO.burger,      icon:"🍔", title:"Lazy Dog happy hour",          city:"Sunnyvale", area:"Cupertino line", slot:"Happy hour", cuisine:"American",     hours:"Mon–Fri, 3–6pm",     price:"$5+",         was:"", src:"Official site",desc:"Discounted craft appetisers, draft beer, wine and signature cocktails. Just over the Cupertino line." },
+  { id:"d9",  place:"Off The Rails Brewing Co.", state:"CA", img:PHOTO.craftBeer,   icon:"🍺", title:"Off The Rails brewing",        city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Brewery",      hours:"Weekday afternoons", price:"Varies",      was:"", src:"Local guide",  desc:"House brews on rotating special with shareable pub plates. Neighbourhood pricing, five minutes from downtown." },
+  { id:"d10", place:"Fibbar Magees", state:"CA", img:PHOTO.pints,       icon:"🍻", title:"Fibbar Magees pub night",      city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Irish pub",    hours:"Weekdays",           price:"Varies",      was:"", src:"Local guide",  desc:"Draft reductions and traditional pub food specials, rotating through the week. Adults-only room." },
+  { id:"d11", place:"Valley Goat", state:"CA", img:PHOTO.grazing,     icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
+  { id:"d12", place:"Palmita", state:"CA", img:PHOTO.taco,        icon:"🌮", title:"Palmita delivery deal",        city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Mexican",      hours:"Daily, delivery",    price:"$3 off",      was:"", src:"Uber Eats",    desc:"$3 off any order over $20. Fresh, lighter Mexican plates and bowls for a desk lunch." },
+  { id:"d13", place:"Gully Bites", state:"TX", img:PHOTO.dosaPoori,   icon:"🍛", title:"Gully Bites order deal",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian fusion",hours:"Daily",              price:"$11 off",     was:"", src:"Restaurant",   desc:"$11 off orders over $40. Indian and fusion plates — the easiest way to feed a table here." },
+  { id:"d14", place:"Hareli Kitchen", state:"TX", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
 ];
 
 var CITIES = [{ k:"all", l:"🍽 All Cities" }, { k:"Sunnyvale", l:"☀️ Sunnyvale, CA" }, { k:"Aubrey", l:"🤠 Aubrey, TX" }];
@@ -1074,6 +1114,21 @@ function filtered(){
            (state.slot === "All Slots" || d.slot === state.slot);
   });
 }
+/* Google Maps search link, same approach index.html uses for activities: a
+   search URL rather than an embedded map, so no API key, no extra script and
+   nothing to load. Built from the venue name and its area so the result is
+   the restaurant, not the deal title - "Ulavacharu family pack" would not
+   resolve to anything. */
+function mapsUrl(d){
+  // three deals carry the city as their area ("Aubrey, Aubrey, TX"), so the
+  // duplicate is dropped rather than sent to the search
+  var parts = [d.place];
+  if (d.area && d.area !== d.city) parts.push(d.area);
+  parts.push(d.city, d.state);
+  return "https://www.google.com/maps/search/?api=1&query=" +
+         encodeURIComponent(parts.filter(Boolean).join(", "));
+}
+
 function byId(id){
   for (var i=0;i<DEALS.length;i++) if (DEALS[i].id === id) return DEALS[i];
   return null;
@@ -1175,6 +1230,8 @@ function renderGrid(){
       '</div>' +
       '<div class="card-body">' +
         '<h3>' + esc(d.title) + '</h3>' +
+        '<div class="card-place">' + esc(d.place) +
+          (d.area && d.area !== d.city ? ' · ' + esc(d.area) : '') + '</div>' +
         '<div class="tags">' +
           '<span class="tag tag-slot">' + esc(d.slot) + '</span>' +
           '<span class="tag tag-cuisine">' + esc(d.cuisine) + '</span>' +
@@ -1226,6 +1283,13 @@ function renderModal(){
       '</div>' +
       '<h2 id="modalTitle">' + esc(d.title) + '</h2>' +
       '<p class="modal-desc">' + esc(d.desc) + '</p>' +
+      '<a class="modal-where" href="' + esc(mapsUrl(d)) + '" target="_blank" rel="noopener">' +
+        '<span class="where-pin" aria-hidden="true">📍</span>' +
+        '<span class="where-txt"><b>' + esc(d.place) + '</b>' +
+          '<span>' + (d.area && d.area !== d.city ? esc(d.area) + ' · ' : '') +
+            esc(d.city) + ', ' + esc(d.state) + '</span></span>' +
+        '<span class="where-go" aria-hidden="true">Open in Maps →</span>' +
+      '</a>' +
       '<div class="facts">' +
         '<div class="fact"><div class="fact-l">Deal price</div>' +
           '<div class="fact-v"><b>' + esc(d.price) + '</b><s>' + esc(d.was) + '</s></div></div>' +
