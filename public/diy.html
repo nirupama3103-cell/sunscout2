@@ -859,6 +859,35 @@ html,body{background:var(--p-cream)}
      they looked tappable but swallowed every tap. Lifting .filters itself puts
      its whole subtree above the scrim. */
   .filters{position:relative;z-index:9996}
+  /* --- One bar, like the homepage ---------------------------------------
+     The search field and the AGE/LEVEL bar were two separate pills stacked
+     with a gap, where the homepage puts search, city and age in a single
+     control. They are joined into one rounded bar here: the field sits on
+     top, the two segments beneath it, sharing one border and one shadow, so
+     the hero reads as one search control rather than two. */
+  .search-wrap{
+    margin:0;                    /* .hero already applies the gutter */
+    border-radius:26px 26px 0 0;
+    border-bottom:0;
+    box-shadow:none;
+    background:#fff;
+  }
+  .search-wrap:focus-within{box-shadow:none}
+  /* .filters brings its own top margin and gutter padding, which pushed the
+     bar 30px below the field and made it 80px narrower */
+  /* .filters is already inset to the measure's gutter by an ancestor rule, so
+     the bar's own margin double-inset it and left it 40px narrower than the
+     field above */
+  .filters{margin-top:0;padding:0}
+  .fbar{
+    margin:0;
+    border-radius:0 0 26px 26px;
+    border-top:1px solid rgba(60,40,20,.10);
+    box-shadow:0 1px 2px rgba(60,40,20,.05), 0 10px 26px -16px rgba(60,40,20,.45);
+  }
+  /* the joined control is one unit, so the pair carries the outer shadow */
+  .hero .search-wrap{box-shadow:0 -1px 0 rgba(60,40,20,.06)}
+
   /* .hero animates with `ss-rise ... both`, and fill-mode:both keeps the final
      keyframe applied forever. An applied transform - even the identity matrix
      the last keyframe resolves to - makes .hero the containing block for fixed

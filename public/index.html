@@ -1235,7 +1235,9 @@ body{color:var(--p-ink) !important}
     <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
   </div>
-  <div style="text-align:center;margin-bottom:6px;display:none;"><span id="ssChip" onclick="weatherChipClick()" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:#FFF8E1;border:0.5px solid #FFD580;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:700;color:#c05e00;font-family:Nunito,sans-serif;">🌤️ Pick a city to see weather</span></div>
+    <!-- removed: a second, display:none #ssChip. Duplicate ids meant
+       getElementById("ssChip") returned this hidden one, so every weather
+       update wrote to an element nobody could see. -->
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
     <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
@@ -1834,18 +1836,18 @@ async function fetchWeather(city) {
     var msg, bg;
     if (t >= 90) {
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
-      msg = "🔥 <strong>"+t+"°F in "+city+"</strong> — Heat Alert! Stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
+      msg = "🔥 <strong>Heat alert</strong> — stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
       goTab("indoor");
     } else if (t >= 70) {
       bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
-      msg = "☀️ <strong>"+t+"°F in "+city+"</strong> — Perfect outdoor weather!"+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
+      msg = "☀️ <strong>Perfect outdoor weather</strong> today."+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
     } else if (t >= 56) {
       var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
       bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = "🌤️ <strong>"+t+"°F in "+city+"</strong> — "+s[Math.floor(Math.random()*s.length)]+wBtn("surpriseMe()","✨ Surprise Me →");
+      msg = "<strong>"+s[Math.floor(Math.random()*s.length)]+"</strong>"+wBtn("surpriseMe()","✨ Surprise Me →");
     } else {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
-      msg = "🧥 <strong>"+t+"°F in "+city+"</strong> — Cool day! Great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
+      msg = "🧥 <strong>Cool day</strong> — great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
     }
     banner.style.display    = "block";
     banner.style.background = bg;
@@ -1854,7 +1856,7 @@ async function fetchWeather(city) {
     ssPremiumWeather(city, null);
     banner.style.display    = "block";
     banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
-    banner.innerHTML        = "☀️ <strong>Great day in "+city+"!</strong> Check out activities below.";
+    banner.innerHTML        = "☀️ <strong>Plenty on today</strong> — have a look below.";
   }
 }
 
