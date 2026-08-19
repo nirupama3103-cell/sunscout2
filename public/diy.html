@@ -797,6 +797,23 @@ html,body{background:var(--p-cream)}
 .card:hover .details{gap:7px}
 .meta{color:#75695d}
 
+/* --- Tail spacing -----------------------------------------------------
+   The seam between the "View more" button and the footer was paying for the
+   same gap three times: .projects padding-bottom 96px, .ftr margin-top 96px,
+   then .ftr padding-top 60px. Measured 192px of empty ground before the
+   footer even started, on a section that ends in a single centred button.
+
+   The footer's margin is the one separator now, at a tighter step; the
+   section stops adding its own, and the footer's internal padding no longer
+   has to clear a gap that is already there. */
+.projects{padding-bottom:0}
+.ftr{margin-top:clamp(28px,3.4vw,56px);padding-top:clamp(28px,3vw,40px)}
+@media (max-width:700px){
+  .projects{padding-bottom:0}
+  .ftr{margin-top:clamp(20px,5vw,32px)}
+  .more-wrap{margin-top:clamp(20px,4vw,30px)}
+}
+
 /* --- Mobile filter bar -------------------------------------------------
    Two horizontally-scrolling pill rows read as messy on a phone: both rows
    sat mid-scroll with pills sliced at either edge, so "All Difficulties"

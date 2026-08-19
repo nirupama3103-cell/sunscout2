@@ -827,6 +827,9 @@ html{scroll-padding-top:var(--head-h)}
 .navcta{box-shadow:0 2px 10px rgba(255,153,0,.30)}
 .btn-primary{box-shadow:0 4px 16px rgba(255,153,0,.32)}
 .live{font-weight:800;letter-spacing:.08em}
+/* Footer seam matched to diy.html, so both pages end on the same step. */
+.ftr{margin-top:clamp(28px,3.4vw,56px);padding-top:clamp(28px,3vw,40px)}
+@media (max-width:700px){ .ftr{margin-top:clamp(20px,5vw,32px)} }
 /* Scoped to desktop rather than left unconditional: this block sits after
    the mobile one, so a bare `.fbar{display:none}` would win at every width
    once JS clears the [hidden] attribute. */
