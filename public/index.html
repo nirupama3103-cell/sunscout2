@@ -980,6 +980,10 @@ body{color:var(--p-ink) !important}
 .p-foot-col b{font-size:10.5px;font-weight:900;letter-spacing:1.4px;
   text-transform:uppercase;color:rgba(255,255,255,.42)}
 .p-foot-col a{font-size:13.5px;font-weight:700;color:rgba(255,255,255,.82);cursor:pointer}
+/* Trust states what the site does rather than linking away, so its two
+   claims are set as text, dimmer and narrower than the link columns. */
+.p-foot-claim{margin:0;font-size:12.5px;font-weight:600;line-height:1.45;
+  color:rgba(255,255,255,.58);max-width:26ch}
 .p-foot-col a:hover{color:var(--p-sun)}
 .p-foot-fine{max-width:1200px;margin:26px auto 0;padding-top:18px;
   border-top:1px solid rgba(255,255,255,.12);font-size:12px;
@@ -1537,6 +1541,8 @@ function mobSearch() {
         <a onclick="dtE('free','Free',event);window.scrollTo({top:0,behavior:'smooth'})">Free activities</a>
         <a onclick="dtE('paid','Paid',event);window.scrollTo({top:0,behavior:'smooth'})">Paid programs</a>
         <a onclick="floatWeekend()">Weekend plans</a>
+        <a onclick="openPlan()">Plan my day</a>
+        <a onclick="openMyList()">My list</a>
       </div>
       <div class="p-foot-col">
         <b>More</b>
@@ -1546,15 +1552,14 @@ function mobSearch() {
       </div>
       <div class="p-foot-col">
         <b>Trust</b>
-        <a onclick="document.getElementById('privacy-modal').style.display='flex'">🔒 Privacy policy</a>
-        <a onclick="openPlan()">📅 Plan my day</a>
-        <a onclick="openMyList()">❤️ My list</a>
+        <a onclick="document.getElementById('privacy-modal').style.display='flex'">Privacy policy</a>
+        <p class="p-foot-claim">No tracking, no ads, no data collection.</p>
+        <p class="p-foot-claim">Events from Ticketmaster, photos by Pexels.</p>
       </div>
     </nav>
   </div>
   <div class="p-foot-fine">
-    <span>Events from Ticketmaster &amp; curated local data · Photos by Pexels · Bay Area Summer 2026</span>
-    <span>No tracking · No ads · No data collection</span>
+    <span>Bay Area Summer 2026</span>
     <span>🔄 Refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></span>
   </div>
 </div>
