@@ -756,6 +756,67 @@ html{scroll-padding-top:var(--head-h)}
 .btn-primary{box-shadow:0 4px 16px rgba(255,153,0,.32)}
 .live{font-weight:800;letter-spacing:.08em}
 
+/* --- 20. Designed plate for deals with no photograph -------------------
+   Two deals have no honest photo: the only McDonald's asset in the repo is a
+   branded ad for a different offer, and nothing depicts Valley Goat's mezze.
+   Captioning a real restaurant's deal with another restaurant's food is not
+   an option, and a stock-looking placeholder reads as broken.
+
+   So the absence is designed rather than patched. The panel is a warm plate
+   drawn entirely in CSS - a radial wash, a fine dot grid at low opacity, the
+   cuisine set large as a ghosted wordmark, and the dish emoji as the focal
+   point. It reads as an editorial choice, costs no bytes, is sharp at any
+   size, and drops out the moment a real photograph is added: the markup only
+   renders it when `img` is empty. */
+.card-media.is-plate,.modal-media.is-plate{
+  /* the wordmark is sized against the card, not the viewport, so a long
+     cuisine like "mediterranean" fits at every column count */
+  container-type:inline-size;
+  background:
+    radial-gradient(120% 130% at 22% 8%, rgba(255,153,0,.20), rgba(255,153,0,0) 58%),
+    radial-gradient(120% 130% at 84% 96%, rgba(79,195,247,.20), rgba(79,195,247,0) 60%),
+    linear-gradient(158deg,#FFF6E8 0%,#FDEFE4 46%,#EFF4FA 100%);
+  position:relative;overflow:hidden;
+}
+/* fine dot grid: texture without pattern noise */
+.card-media.is-plate::before,.modal-media.is-plate::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(rgba(60,40,20,.16) 1px, transparent 1px);
+  background-size:14px 14px;
+  -webkit-mask-image:radial-gradient(80% 80% at 50% 50%,#000,transparent 78%);
+          mask-image:radial-gradient(80% 80% at 50% 50%,#000,transparent 78%);
+  opacity:.5;
+}
+/* the cuisine, set large and ghosted, carries the panel */
+.plate-word{
+  /* sits low so the emoji stacks above the letterforms rather than landing
+     mid-word and chopping it in half */
+  position:absolute;left:0;right:0;bottom:8%;
+  z-index:0;text-align:center;pointer-events:none;
+  padding-inline:14px;
+  font-size:clamp(19px,10.5cqw,46px);font-weight:900;letter-spacing:-.05em;
+  line-height:1;text-transform:lowercase;
+  color:rgba(90,62,27,.13);
+  white-space:nowrap;overflow:hidden;text-overflow:clip;
+}
+.card-media.is-plate .card-icon,.modal-media.is-plate .modal-icon{
+  position:relative;z-index:1;opacity:1;transform:translateY(-10%);
+  font-size:clamp(46px,7vw,66px);
+  filter:drop-shadow(0 6px 14px rgba(60,40,20,.22));
+}
+.modal-media.is-plate .modal-icon{font-size:clamp(52px,9vw,78px)}
+/* the photo scrim exists to anchor chips over imagery; on the plate it only
+   muddies the artwork, so only the corner darkening is kept */
+.card-media.is-plate::after{
+  background:
+    radial-gradient(38% 46% at 6% 4%,rgba(0,0,0,.16),transparent 70%),
+    radial-gradient(42% 46% at 94% 4%,rgba(0,0,0,.16),transparent 70%),
+    linear-gradient(180deg,transparent 70%,rgba(0,0,0,.14));
+}
+.card-media.is-plate .chip-loc{
+  background:rgba(28,18,10,.55);border-color:rgba(255,255,255,.14);
+}
+
 /* --- 19. Page surface ---------------------------------------------------
    The low-poly triangle tile was the loudest thing on the page: a busy,
    high-frequency texture sitting directly behind white cards, which is why
@@ -958,11 +1019,11 @@ var DEALS = [
   { id:"d4",  img:PHOTO.wings,       icon:"🍗", title:"Wingstop BOGO wings",          city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Wings",        hours:"Daily, app only",    price:"BOGO",        was:"", src:"Uber Eats",    desc:"Buy one get one free on selected wings and combos. Ordered through the app or delivery." },
   { id:"d5",  img:PHOTO.pizzaSpread, icon:"🍕", title:"Domino's mix & match",         city:"Sunnyvale", area:"Caliente Dr",    slot:"Late night", cuisine:"Pizza",        hours:"Daily, to 12am+",    price:"Mix & match", was:"", src:"Uber Eats",    desc:"Build a multi-item bundle — pizza, wings, sides — at the bundle price. Kitchen runs past midnight." },
   { id:"d6",  img:PHOTO.pizza,       icon:"🍕", title:"Pizza Hut value bundles",      city:"Sunnyvale", area:"N Mathilda Ave", slot:"Late night", cuisine:"Pizza",        hours:"Daily, late",        price:"$10+",        was:"", src:"Official site",desc:"Hut Rewards local deals and family bundles, built to feed four to six. Reliable for a late order." },
-  { id:"d7",  img:PHOTO.mcdMeal,     icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
+  { id:"d7",  img:PHOTO.none,        icon:"🍟", title:"McDonald's free item",         city:"Sunnyvale", area:"E El Camino Real", slot:"Late night", cuisine:"Fast food",  hours:"Daily, late",        price:"Free item",   was:"", src:"Uber Eats",    desc:"A free qualifying menu item on app or delivery orders over $15. Open late most nights." },
   { id:"d8",  img:PHOTO.burger,      icon:"🍔", title:"Lazy Dog happy hour",          city:"Sunnyvale", area:"Cupertino line", slot:"Happy hour", cuisine:"American",     hours:"Mon–Fri, 3–6pm",     price:"$5+",         was:"", src:"Official site",desc:"Discounted craft appetisers, draft beer, wine and signature cocktails. Just over the Cupertino line." },
   { id:"d9",  img:PHOTO.craftBeer,   icon:"🍺", title:"Off The Rails brewing",        city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Brewery",      hours:"Weekday afternoons", price:"Varies",      was:"", src:"Local guide",  desc:"House brews on rotating special with shareable pub plates. Neighbourhood pricing, five minutes from downtown." },
   { id:"d10", img:PHOTO.pints,       icon:"🍻", title:"Fibbar Magees pub night",      city:"Sunnyvale", area:"Downtown",       slot:"Happy hour", cuisine:"Irish pub",    hours:"Weekdays",           price:"Varies",      was:"", src:"Local guide",  desc:"Draft reductions and traditional pub food specials, rotating through the week. Adults-only room." },
-  { id:"d11", img:PHOTO.grazing,     icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
+  { id:"d11", img:PHOTO.none,        icon:"🫓", title:"Valley Goat grazing hour",     city:"Sunnyvale", area:"Treehouse Hotel", slot:"Off-peak",  cuisine:"Mediterranean",hours:"Daily, 2–5pm",       price:"$13+",        was:"", src:"Official site",desc:"Pita and dips, spiced fries and small plates on the patio through the quiet afternoon. Snacks $13–21." },
   { id:"d12", img:PHOTO.taco,        icon:"🌮", title:"Palmita delivery deal",        city:"Sunnyvale", area:"Sunnyvale",      slot:"All day",    cuisine:"Mexican",      hours:"Daily, delivery",    price:"$3 off",      was:"", src:"Uber Eats",    desc:"$3 off any order over $20. Fresh, lighter Mexican plates and bowls for a desk lunch." },
   { id:"d13", img:PHOTO.dosaPoori,   icon:"🍛", title:"Gully Bites order deal",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian fusion",hours:"Daily",              price:"$11 off",     was:"", src:"Restaurant",   desc:"$11 off orders over $40. Indian and fusion plates — the easiest way to feed a table here." },
   { id:"d14", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
@@ -1101,7 +1162,10 @@ function renderGrid(){
     var on = !!state.saved[d.id];
     return '<article class="card" data-open="' + esc(d.id) + '" tabindex="0" role="button" ' +
         'aria-label="' + esc(d.title) + ' — open details">' +
-      '<div class="card-media">' +
+      '<div class="card-media' + (d.img ? '' : ' is-plate') + '">' +
+        // no photo: the panel below draws a designed plate instead, using the
+        // cuisine as a large ghosted wordmark behind the dish emoji
+        (d.img ? '' : '<span class="plate-word" aria-hidden="true">' + esc(d.cuisine) + '</span>') +
         '<span class="card-icon" aria-hidden="true">' + esc(d.icon) + '</span>' +
         // a deal with no honest photo shows its emoji on the tinted panel
         (d.img ? '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '" loading="lazy" decoding="async">' : "") +
@@ -1149,7 +1213,8 @@ function renderModal(){
 
   var on = !!state.saved[d.id];
   $("modal").innerHTML =
-    '<div class="modal-media">' +
+    '<div class="modal-media' + (d.img ? '' : ' is-plate') + '">' +
+      (d.img ? '' : '<span class="plate-word" aria-hidden="true">' + esc(d.cuisine) + '</span>') +
       '<span class="modal-icon" aria-hidden="true">' + esc(d.icon) + '</span>' +
       (d.img ? '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '">' : "") +
       '<button type="button" class="close" data-close aria-label="Close">✕</button>' +
