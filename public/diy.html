@@ -660,7 +660,18 @@ html{scroll-padding-top:calc(var(--head-h,80px) + 8px)}
     background:rgba(255,255,255,.9);
     border-color:rgba(60,40,20,.12);
   }
-  .pillset-diff{margin-left:0;padding-left:0;margin-top:6px}
+  /* The desktop divider rule `.filters-in .pillset + .pillset` sets
+     position:relative at 0,3,0 and is not inside a media query, so it beat the
+     mobile `.filters-in .pillset{position:fixed}` at 0,2,0 - the SECOND sheet
+     stayed relative and opened downward off the bottom of the screen while the
+     first opened upward. Both sheets are anchored to the bottom here. */
+  .filters-in .pillset + .pillset{
+    position:fixed;
+    left:10px;right:10px;top:auto;
+    bottom:calc(78px + env(safe-area-inset-bottom));
+    padding:14px;margin:0;
+  }
+
   .pillset-diff::before{display:none}
 
   /* the placeholder was clipped mid-word with no ellipsis */
@@ -831,7 +842,24 @@ html,body{background:var(--p-cream)}
      they looked tappable but swallowed every tap. Lifting .filters itself puts
      its whole subtree above the scrim. */
   .filters{position:relative;z-index:9996}
-  .filters-in{display:block;margin:0}
+  /* .hero animates with `ss-rise ... both`, and fill-mode:both keeps the final
+     keyframe applied forever. An applied transform - even the identity matrix
+     the last keyframe resolves to - makes .hero the containing block for fixed
+     descendants, so the sheets inside it anchored to the hero rather than the
+     viewport and floated mid-page. Local Table was unaffected only because its
+     filters sit outside .hero. The entrance animation is decorative and the
+     hero is above the fold on load, so it is dropped on phones. */
+  .hero{animation:none}
+
+  /* backdrop-filter on .filters-in makes it a containing block, so the sheets'
+     position:fixed resolved against the bar rather than the viewport and they
+     floated mid-page instead of sitting above the tab bar. The blur is a
+     desktop nicety; on a phone the bar is opaque anyway. */
+  .filters-in{
+    display:block;margin:0;width:auto;
+    background:none;border:0;box-shadow:none;padding:0;border-radius:0;
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+  }
   .filters-in .pillset{
     display:none;
     position:fixed;left:10px;right:10px;
