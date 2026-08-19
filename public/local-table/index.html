@@ -1592,5 +1592,23 @@ window.addEventListener("hashchange", function(){
 });
 })();
 </script>
+<style>
+/* --- Contrast on the brand orange -------------------------------------
+   White on #FF9900 measures 2.14:1, against the 4.5:1 WCAG AA needs, and it
+   is the primary CTA, the price badges and the selected filter across every
+   page. The orange itself is the brand and is untouched; the label carries
+   the fix instead. #2c1a00 on #FF9900 measures 7.82:1. */
+.navcta,
+.btn-primary,
+.tile-price,
+.tile-price-b,
+.tier-flag,
+.tier.flag .tier-cta,
+.act-save,
+.pillset-city .pill[aria-pressed="true"] {
+  color:#2c1a00 !important;
+  text-shadow:none;
+}
+</style>
 </body>
 </html>

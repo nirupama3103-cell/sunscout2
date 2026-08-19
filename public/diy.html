@@ -1588,5 +1588,23 @@ window.addEventListener("hashchange", function(){
 });
 })();
 </script>
+<style>
+/* The hero's second line is orange text on the cream ground: 1.70:1, under
+   the 3:1 large text needs. #C96A00 measures 3.01:1 and holds the sunny
+   register; the orange used as a FILL is untouched. */
+.hero h1 .accent,.hero h1 span,.hero h1 em{color:#C96A00 !important}
+
+/* --- Contrast on the brand orange -------------------------------------
+   White on #FF9900 measures 2.14:1, against the 4.5:1 WCAG AA needs, and it
+   is the primary CTA, the price badges and the selected filter across every
+   page. The orange itself is the brand and is untouched; the label carries
+   the fix instead. #2c1a00 on #FF9900 measures 7.82:1. */
+.navcta,
+.pillset-age .pill[aria-pressed="true"],
+.act-save {
+  color:#2c1a00 !important;
+  text-shadow:none;
+}
+</style>
 </body>
 </html>

@@ -1045,6 +1045,9 @@ body{color:var(--p-ink) !important}
   }
   #ssBar > div:first-child button:last-child{
     background:var(--p-sun) !important;
+    /* the sibling rule sets color:#fff, which on the sun fill is 2.14:1
+       against the 4.5:1 AA needs. The fill is the brand; the label moves. */
+    color:#2c1a00 !important;
     box-shadow:0 6px 18px rgba(255,155,62,.42) !important;
   }
   /* Filter pill row */
@@ -3046,6 +3049,17 @@ function weatherChipClick() {
   window.addEventListener('hashchange', openAbout);
 })();
 </script>
+<style>
+/* --- Contrast on the light brand gradients -----------------------------
+   "My List" is white on a gradient running to #f9d423, and the Local Table
+   pill runs to #D9A441. White on those light ends measures around 2:1,
+   against the 4.5:1 WCAG AA needs. The gradients are the brand and are
+   untouched; the label carries the fix. #2c1a00 measures 7.8:1 on #f9d423
+   and 6.3:1 on #D9A441. Both are set inline, so !important is required. */
+[style*="f9d423"], [style*="D9A441"]{ color:#2c1a00 !important; }
+/* the bottom bar's active item is orange on cream at 2.51:1 */
+#bottom-nav .bnav-btn.active{ color:#8a5200 !important; }
+</style>
 </body>
 </html>
 <!-- TABLET FIX injected -->
