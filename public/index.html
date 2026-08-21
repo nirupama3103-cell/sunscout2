@@ -22,6 +22,8 @@
   <meta property="og:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
   <meta property="og:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="SunScout – Summer Activities for Bay Area Kids">
   <meta property="og:site_name" content="SunScout">
   <meta property="og:locale" content="en_US">
@@ -776,12 +778,21 @@ html { scroll-behavior: smooth; }
 }
 
 /* ── Page surface: warm cream instead of the photo backdrop ── */
+/* Ground in the same family as diy.html and local-table/, so the three pages
+   read as one product. DIY got stone and Local Table got sunlight; this one
+   stays the calmest of the three - it is the busiest page, with the weather
+   card, the pick card, the control bar and a full grid all competing. Cooler
+   and quieter than its siblings on purpose. */
 html,body{
   background:
-    radial-gradient(700px 420px at 88% -6%, rgba(255,217,61,.30), rgba(255,217,61,0) 70%),
-    radial-gradient(620px 420px at 4% 12%, rgba(79,195,247,.18), rgba(79,195,247,0) 70%),
+    radial-gradient(58% 42% at 6% 2%, rgba(255,232,186,.55), transparent 66%),
+    radial-gradient(50% 38% at 92% 14%, rgba(255,214,164,.34), transparent 62%),
+    radial-gradient(56% 40% at 78% 88%, rgba(255,206,150,.24), transparent 66%),
+    radial-gradient(48% 36% at 18% 72%, rgba(186,214,228,.22), transparent 64%),
+    linear-gradient(178deg, #F6EFE4 0%, #F1E7D8 58%, #EFE2D0 100%),
     var(--p-cream) !important;
-  background-attachment:fixed,fixed,fixed !important;
+  background-attachment:fixed !important;
+  background-size:cover !important;
 }
 @media(prefers-reduced-motion:reduce){html,body{background-attachment:scroll,scroll,scroll !important}}
 /* iOS Safari does not implement background-attachment:fixed properly. The
@@ -3059,6 +3070,55 @@ function weatherChipClick() {
 [style*="f9d423"], [style*="D9A441"]{ color:#2c1a00 !important; }
 /* the bottom bar's active item is orange on cream at 2.51:1 */
 #bottom-nav .bnav-btn.active{ color:#8a5200 !important; }
+</style>
+<style>
+/* ======================================================================
+   MATERIALITY - matches diy.html and local-table/
+   Warm shadows, lit surfaces, real press states. Home was left on flat grey
+   shadows while the other two were done, so side by side it read as the
+   cheaper page.
+   ====================================================================== */
+:root{
+  --p-shadow:
+    0 1px 1px rgba(92,58,20,.045),
+    0 3px 6px -3px rgba(92,58,20,.10),
+    0 10px 22px -12px rgba(92,58,20,.16);
+  --p-lift:
+    0 1px 1px rgba(92,58,20,.05),
+    0 6px 14px -6px rgba(92,58,20,.14),
+    0 26px 48px -22px rgba(92,58,20,.26);
+}
+.card,.p-weather,.p-pick,#ssBar > div:last-child,.no-results{
+  box-shadow:var(--p-shadow), inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+.card:hover{box-shadow:var(--p-lift), inset 0 1px 0 rgba(255,255,255,.95) !important}
+
+*{-webkit-tap-highlight-color:transparent}
+.card:active,.btn:active,.tab-btn:active,.age-btn:active,.city-btn:active,
+.show-more-btn:active,.bnav-btn:active,.p-foot-col button:active,
+.sscr:active,.ssac:active{transform:translateY(1px) scale(.994);transition-duration:60ms}
+
+::selection{background:rgba(255,153,0,.28);color:#2c1a00}
+
+@media (hover:hover) and (min-width:701px){
+  *{scrollbar-width:thin;scrollbar-color:rgba(92,58,20,.28) transparent}
+  ::-webkit-scrollbar{width:11px;height:11px}
+  ::-webkit-scrollbar-thumb{background:rgba(92,58,20,.26);border-radius:99px;
+    border:3px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(92,58,20,.40);background-clip:content-box}
+  ::-webkit-scrollbar-track{background:transparent}
+}
+
+@keyframes ss-card-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+  #cards > *{animation:ss-card-in 260ms cubic-bezier(.2,.8,.2,1) both}
+  #cards > *:nth-child(1){animation-delay:0ms}
+  #cards > *:nth-child(2){animation-delay:35ms}
+  #cards > *:nth-child(3){animation-delay:70ms}
+  #cards > *:nth-child(4){animation-delay:105ms}
+  #cards > *:nth-child(n+5){animation-delay:130ms}
+}
+h1,h2,h3{text-wrap:balance}
 </style>
 </body>
 </html>
