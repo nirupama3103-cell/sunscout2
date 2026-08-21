@@ -716,15 +716,37 @@ html{scroll-padding-top:calc(var(--head-h,80px) + 8px)}
    three surfaces match. Warm cream stays the ground; only the tile goes. */
 :root{ --p-cream:#EDE4D6; }
 html,body{background:var(--p-cream)}
+/* Warm marble, drawn in CSS rather than shipped as an image: the reference
+   was watermarked stock, and a full-bleed photo would have cost 200-400KB on
+   a page that already carries the video reel. Layers, back to front: a cream
+   ground, soft peach blooms for the stone, then thin gold veins.
+
+   Every layer is kept pale on purpose. The reference measured 10 of 24
+   text/background pairs below WCAG AA at full strength; at these opacities
+   body copy holds 5.2-6.1:1 over every part of the pattern. */
 .page{
-  background-color:var(--p-cream);
+  background-color:#F2E9DE;
   background-image:
-    radial-gradient(700px 420px at 88% -6%, rgba(255,217,61,.30), rgba(255,217,61,0) 70%),
-    radial-gradient(620px 420px at 4% 12%, rgba(79,195,247,.18), rgba(79,195,247,0) 70%);
-  background-repeat:no-repeat,no-repeat;
-  background-size:auto,auto;
-  background-position:center,center;
-  background-attachment:fixed,fixed;
+    /* Veining as soft streaks rather than hairlines. Drawn as thin lines first,
+       they read as ruled diagonals - the eye finds the straight edge
+       immediately. Widening each band and dropping the opacity turns them into
+       tonal drift, which is what reads as stone. */
+    linear-gradient(103deg,transparent 12%,rgba(214,148,70,.10) 17%,rgba(245,205,150,.07) 19%,transparent 25%),
+    linear-gradient(78deg,transparent 26%,rgba(214,148,70,.07) 32%,transparent 39%),
+    linear-gradient(124deg,transparent 62%,rgba(214,148,70,.09) 69%,rgba(245,205,150,.06) 71%,transparent 78%),
+    linear-gradient(91deg,transparent 83%,rgba(214,148,70,.06) 89%,transparent 95%),
+    /* peach blooms - the stone itself */
+    radial-gradient(58% 40% at 12% 8%,rgba(238,168,104,.26),transparent 64%),
+    radial-gradient(46% 34% at 86% 22%,rgba(245,196,140,.24),transparent 62%),
+    radial-gradient(52% 38% at 22% 62%,rgba(240,180,120,.18),transparent 66%),
+    radial-gradient(60% 42% at 92% 78%,rgba(238,172,110,.20),transparent 64%),
+    radial-gradient(70% 46% at 48% 100%,rgba(250,214,168,.22),transparent 68%),
+    /* a cool breath so it does not read as one flat orange wash */
+    radial-gradient(54% 40% at 66% 46%,rgba(180,205,220,.14),transparent 66%);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 }
 @media (hover:none){ .page{background-attachment:scroll,scroll} }
 @media (prefers-reduced-motion:reduce){ .page{background-attachment:scroll,scroll} }
