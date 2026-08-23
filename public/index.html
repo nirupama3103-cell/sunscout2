@@ -2494,6 +2494,14 @@ function syncBnav(tab) {
       <span class="bnav-icon">🆓</span>
       <span class="bnav-label">Free Camps</span>
     </button>
+    <!-- Paid was the only one of the five canonical tabs missing from this bar:
+         free, indoor, outdoor and weekend were all here, paid was reachable
+         only through a footer link. It sits next to Free because the two are
+         a pair, which is also the desktop tab-bar order. -->
+    <button class="bnav-btn" onclick="bnavTab('paid',this)">
+      <span class="bnav-icon">🎟️</span>
+      <span class="bnav-label">Paid</span>
+    </button>
     <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
       <span class="bnav-icon">🌳</span>
       <span class="bnav-label">Outdoor</span>
