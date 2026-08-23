@@ -1,22 +1,38 @@
 /**
  * Email subscribe endpoint.
  *
- * Option B of the three we discussed: the form posts here, and this function
- * talks to the list provider using a key held in a Vercel environment
- * variable. The key never reaches the browser, no third-party script runs on
- * the page, and nothing about the visitor is sent anywhere except the address
- * they typed - which is what the privacy policy promises.
+ * The form posts here, and this function talks to the list provider using a
+ * key held in a Vercel environment variable. The key never reaches the
+ * browser, no third-party script runs on the page, and nothing about the
+ * visitor is sent anywhere except the address they typed - which is what the
+ * privacy policy promises.
  *
- * Required environment variables (Vercel > Settings > Environment Variables):
- *   BUTTONDOWN_API_KEY   the key from buttondown.com/settings/api
+ * Provider is Brevo. Buttondown was the first choice and had to go: its API
+ * is gated to the $29/mo Standard plan, so on the free plan a valid-looking
+ * key answers 403 to every call. Brevo's contacts API is open on the free
+ * tier (100k contacts stored, 300 sends/day), which is what this needs.
  *
- * Swapping provider means changing PROVIDER_URL and the request body only;
- * everything around it stays.
+ * Environment variables (Vercel > Settings > Environment Variables):
+ *   BREVO_API_KEY   required. From Brevo > SMTP & API > API keys.
+ *   BREVO_LIST_ID   optional. The numeric list id, visible in the URL when
+ *                   you open the list. Without it contacts are still created,
+ *                   they just are not filed into a list.
  */
 
-// api.buttondown.com, NOT the old api.buttondown.email - that host redirects,
-// and a cross-host 301/302 turns this POST into a GET, which fails.
-const PROVIDER_URL = "https://api.buttondown.com/v1/subscribers";
+const PROVIDER_URL = "https://api.brevo.com/v3/contacts";
+
+// Vercel env names are case-sensitive and this one has been typed both ways.
+// Accept either rather than fail silently on a capital letter.
+function providerKey() {
+  const raw = process.env.BREVO_API_KEY || process.env.Brevo_API_KEY || "";
+  return raw.trim();
+}
+
+function listIds() {
+  const raw = (process.env.BREVO_LIST_ID || "").trim();
+  const n = Number(raw);
+  return raw && Number.isFinite(n) ? [n] : null;
+}
 
 // crude per-instance throttle. Serverless instances are short-lived, so this
 // blunts bursts rather than replacing a real rate limiter.
@@ -34,39 +50,42 @@ function rateLimited(ip) {
 }
 
 // Deliberately permissive. Rejecting odd-but-valid addresses annoys real
-// people; the provider does the authoritative check and sends the opt-in.
+// people; the provider does the authoritative check.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // Marker so a self-test can prove which build is actually serving. Bump it
 // whenever this file changes in a way you need to confirm reached production.
-const BUILD = "2026-08-23-buttondown-com";
+const BUILD = "2026-08-23-brevo";
 
 /**
  * GET /api/subscribe?selftest=1
  *
  * Diagnostic only. Says which build is live, whether the key is readable and
- * roughly what shape it is, and what Buttondown answers to an authenticated
+ * roughly what shape it is, and what the provider answers to an authenticated
  * read. Never returns the key itself - only its length and last four
  * characters, which is enough to spot a truncated or quote-wrapped paste.
  */
 async function selftest(res) {
-  const key = process.env.BUTTONDOWN_API_KEY || "";
+  const key = providerKey();
   const out = {
     build: BUILD,
+    provider: "brevo",
     providerUrl: PROVIDER_URL,
     keyPresent: Boolean(key),
+    keyEnvName: process.env.BREVO_API_KEY ? "BREVO_API_KEY"
+              : process.env.Brevo_API_KEY ? "Brevo_API_KEY" : null,
     keyLength: key.length,
     keyTail: key ? key.slice(-4) : null,
     keyLooksQuoted: /^["']|["']$/.test(key),
-    keyHasWhitespace: key !== key.trim(),
+    listIds: listIds(),
   };
 
   if (!key) return res.status(200).json(out);
 
   try {
-    // cheapest authenticated call: read one page of subscribers
-    const r = await fetch(PROVIDER_URL + "?page=1", {
-      headers: { Authorization: `Token ${key.trim()}` },
+    // cheapest authenticated call: read one contact
+    const r = await fetch(PROVIDER_URL + "?limit=1", {
+      headers: { "api-key": key, accept: "application/json" },
     });
     out.providerStatus = r.status;
     out.providerBody = (await r.text()).slice(0, 200);
@@ -108,27 +127,39 @@ export default async function handler(req, res) {
     return res.status(429).json({ ok: false, error: "Too many tries. Give it a minute." });
   }
 
-  const key = process.env.BUTTONDOWN_API_KEY;
+  const key = providerKey();
   if (!key) {
-    console.error("BUTTONDOWN_API_KEY is not set");
+    console.error("BREVO_API_KEY is not set");
     return res.status(503).json({ ok: false, error: "Sign-up is not switched on yet." });
   }
+
+  // No custom attributes: Brevo 400s on any attribute the account has not
+  // defined, and a fresh account has none.
+  const payload = { email, updateEnabled: true };
+  const ids = listIds();
+  if (ids) payload.listIds = ids;
 
   try {
     const r = await fetch(PROVIDER_URL, {
       method: "POST",
-      headers: { Authorization: `Token ${key.trim()}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email_address: email, tags: ["sunscout-web"] }),
+      headers: {
+        "api-key": key,
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(payload),
     });
 
+    // 201 created, 204 updated (updateEnabled turns a repeat into a no-op)
     if (r.ok) return res.status(200).json({ ok: true });
 
-    // already subscribed is a success from the visitor's point of view.
-    // Buttondown has answered this with both 400 and 409 over time.
     const text = await r.text();
-    if ((r.status === 400 || r.status === 409) && /already|exists/i.test(text)) {
+
+    // a returning visitor is a success from their point of view
+    if (r.status === 400 && /duplicate|already exist/i.test(text)) {
       return res.status(200).json({ ok: true, already: true });
     }
+
     console.error("provider error", r.status, PROVIDER_URL, text.slice(0, 300));
     return res.status(502).json({
       ok: false,
