@@ -14,7 +14,9 @@
  * everything around it stays.
  */
 
-const PROVIDER_URL = "https://api.buttondown.email/v1/subscribers";
+// api.buttondown.com, NOT the old api.buttondown.email - that host redirects,
+// and a cross-host 301/302 turns this POST into a GET, which fails.
+const PROVIDER_URL = "https://api.buttondown.com/v1/subscribers";
 
 // crude per-instance throttle. Serverless instances are short-lived, so this
 // blunts bursts rather than replacing a real rate limiter.
@@ -77,12 +79,13 @@ export default async function handler(req, res) {
 
     if (r.ok) return res.status(200).json({ ok: true });
 
-    // already subscribed is a success from the visitor's point of view
+    // already subscribed is a success from the visitor's point of view.
+    // Buttondown has answered this with both 400 and 409 over time.
     const text = await r.text();
-    if (r.status === 400 && /already/i.test(text)) {
+    if ((r.status === 400 || r.status === 409) && /already|exists/i.test(text)) {
       return res.status(200).json({ ok: true, already: true });
     }
-    console.error("provider error", r.status, text.slice(0, 300));
+    console.error("provider error", r.status, PROVIDER_URL, text.slice(0, 300));
     return res.status(502).json({ ok: false, error: "We could not sign you up just now." });
   } catch (e) {
     console.error("subscribe failed", e);
