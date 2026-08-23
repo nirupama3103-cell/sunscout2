@@ -1099,6 +1099,15 @@ body{color:var(--p-ink) !important}
   .weather-banner{display:flex !important;flex-wrap:wrap;align-items:center;
     gap:8px;justify-content:flex-start}
 
+  /* The Plan / My List pair became a trio when Weekend joined it. Three
+     12px labels do not fit 320px, so the row wraps to two lines there rather
+     than shrinking the text below a readable size. */
+  #ssBar > div:first-child{flex-wrap:wrap}
+  #ssBar > div:first-child button{min-width:calc(50% - 4px)}
+  @media (max-width:360px){
+    #ssBar > div:first-child button{min-width:100%}
+  }
+
   /* Bottom nav */
   #bottom-nav{
     background:rgba(255,249,240,.96) !important;
@@ -1279,6 +1288,7 @@ body{color:var(--p-ink) !important}
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
     <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
+    <button onclick="floatWeekend()" style="flex:1;background:linear-gradient(135deg,#4FC3F7,#1565c0);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Weekend</button>
   </div>
     <!-- removed: a second, display:none #ssChip. Duplicate ids meant
        getElementById("ssChip") returned this hidden one, so every weather
@@ -1594,8 +1604,7 @@ function mobSearch() {
       <div class="p-foot-col">
         <b>Explore</b>
         <button type="button" onclick="dtE('free','Free',event);window.scrollTo({top:0,behavior:'smooth'})">Free activities</button>
-        <button type="button" onclick="dtE('paid','Paid',event);window.scrollTo({top:0,behavior:'smooth'})">Paid programs</button>
-        <button type="button" onclick="floatWeekend()">Weekend plans</button>
+        <button type="button" onclick="dtE('paid','Paid',event);window.scrollTo({top:0,behavior:'smooth'})">Paid camps</button>
         <button type="button" onclick="openPlan()">Plan my day</button>
         <button type="button" onclick="openMyList()">My list</button>
       </div>
@@ -1604,6 +1613,19 @@ function mobSearch() {
         <a href="/diy.html">DIY projects</a>
         <a href="/local-table/">Local Table</a>
         <button type="button" onclick="document.getElementById('about-modal').style.display='flex'">About SunScout</button>
+      </div>
+      <div class="p-foot-col p-foot-sub">
+        <b>Weekend picks</b>
+        <p class="p-foot-claim">One email a week with what is on. Unsubscribe from any of them.</p>
+        <form id="subForm" class="sub-form" novalidate>
+          <label class="sr-only" for="subEmail">Email address</label>
+          <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+                 placeholder="you@example.com" required>
+          <!-- honeypot: hidden from people, tempting to bots -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
+          <button type="submit" id="subBtn">Subscribe</button>
+        </form>
+        <p id="subMsg" class="sub-msg" role="status" aria-live="polite"></p>
       </div>
       <div class="p-foot-col">
         <b>Trust</b>
@@ -3180,6 +3202,76 @@ h1,h2,h3{text-wrap:balance}
 }
 .p-foot-fine a{color:#8a5200 !important}
 </style>
+<style>
+/* --- Footer email sign-up ---------------------------------------------
+   Posts to /api/subscribe, which holds the provider key server-side. No
+   third-party script runs on the page, which is what lets the privacy policy
+   say what it says. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sub-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.sub-form{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.sub-form input[type=email]{
+  flex:1 1 190px;min-width:0;min-height:46px;padding:0 15px;
+  font:inherit;font-size:15px;font-weight:600;color:#2c1a00;
+  background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px;
+}
+.sub-form input[type=email]::placeholder{color:#8a7a6a}
+.sub-form input[type=email]:focus-visible{outline:3px solid #a66300;outline-offset:2px}
+.sub-form button{
+  flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;
+  font:inherit;font-size:15px;font-weight:900;
+  color:#2c1a00;background:#FF9900;border:0;border-radius:99px;
+  box-shadow:0 1px 1px rgba(92,58,20,.05),0 6px 16px -8px rgba(92,58,20,.35);
+}
+.sub-form button:disabled{opacity:.6;cursor:default}
+.sub-msg{margin:9px 0 0;font-size:13px;font-weight:700;min-height:1.2em}
+.sub-msg[data-state="ok"]{color:#1b6e46}
+.sub-msg[data-state="err"]{color:#b3352a}
+@media (max-width:700px){
+  .p-foot-sub{grid-column:1 / -1;margin-top:14px;padding-top:14px;
+    border-top:1px solid rgba(60,40,20,.12)}
+  .sub-form input[type=email],.sub-form button{flex:1 1 100%}
+}
+</style>
+<script>
+(function(){
+  var f=document.getElementById("subForm");
+  if(!f) return;
+  var msg=document.getElementById("subMsg"), btn=document.getElementById("subBtn"),
+      input=document.getElementById("subEmail");
+  function say(text,state){ msg.textContent=text; msg.setAttribute("data-state",state||""); }
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var email=(input.value||"").trim();
+    if(!email){ say("Enter an email address.","err"); input.focus(); return; }
+    /* The form carries novalidate so the message lands in our own status line
+       rather than a browser bubble, which means the format check has to live
+       here. Without it a typo costs a round trip before the server says no.
+       Same permissive pattern the server uses - it stays authoritative. */
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || email.length>254){
+      say("That email address does not look right.","err"); input.focus(); return;
+    }
+    btn.disabled=true; say("Signing you up\u2026","");
+    fetch("/api/subscribe",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email, website:f.website.value})
+    })
+    .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
+    .then(function(res){
+      if(res.ok && res.d.ok){
+        say(res.d.already ? "You are already on the list." : "Done. Check your inbox to confirm.","ok");
+        f.reset();
+      } else {
+        say((res.d && res.d.error) || "We could not sign you up just now.","err");
+      }
+    })
+    .catch(function(){ say("We could not sign you up just now.","err"); })
+    .finally(function(){ btn.disabled=false; });
+  });
+})();
+</script>
 </body>
 </html>
 <!-- TABLET FIX injected -->
