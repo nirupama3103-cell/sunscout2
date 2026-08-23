@@ -37,8 +37,52 @@ function rateLimited(ip) {
 // people; the provider does the authoritative check and sends the opt-in.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+// Marker so a self-test can prove which build is actually serving. Bump it
+// whenever this file changes in a way you need to confirm reached production.
+const BUILD = "2026-08-23-buttondown-com";
+
+/**
+ * GET /api/subscribe?selftest=1
+ *
+ * Diagnostic only. Says which build is live, whether the key is readable and
+ * roughly what shape it is, and what Buttondown answers to an authenticated
+ * read. Never returns the key itself - only its length and last four
+ * characters, which is enough to spot a truncated or quote-wrapped paste.
+ */
+async function selftest(res) {
+  const key = process.env.BUTTONDOWN_API_KEY || "";
+  const out = {
+    build: BUILD,
+    providerUrl: PROVIDER_URL,
+    keyPresent: Boolean(key),
+    keyLength: key.length,
+    keyTail: key ? key.slice(-4) : null,
+    keyLooksQuoted: /^["']|["']$/.test(key),
+    keyHasWhitespace: key !== key.trim(),
+  };
+
+  if (!key) return res.status(200).json(out);
+
+  try {
+    // cheapest authenticated call: read one page of subscribers
+    const r = await fetch(PROVIDER_URL + "?page=1", {
+      headers: { Authorization: `Token ${key.trim()}` },
+    });
+    out.providerStatus = r.status;
+    out.providerBody = (await r.text()).slice(0, 200);
+  } catch (e) {
+    out.providerStatus = "fetch-failed";
+    out.providerBody = String(e && e.message).slice(0, 200);
+  }
+  return res.status(200).json(out);
+}
+
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
+
+  if (req.method === "GET" && /selftest=1/.test(req.url || "")) {
+    return selftest(res);
+  }
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -73,7 +117,7 @@ export default async function handler(req, res) {
   try {
     const r = await fetch(PROVIDER_URL, {
       method: "POST",
-      headers: { Authorization: `Token ${key}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Token ${key.trim()}`, "Content-Type": "application/json" },
       body: JSON.stringify({ email_address: email, tags: ["sunscout-web"] }),
     });
 
@@ -86,7 +130,11 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, already: true });
     }
     console.error("provider error", r.status, PROVIDER_URL, text.slice(0, 300));
-    return res.status(502).json({ ok: false, error: "We could not sign you up just now." });
+    return res.status(502).json({
+      ok: false,
+      error: "We could not sign you up just now.",
+      providerStatus: r.status,   // shown nowhere in the UI; visible in devtools
+    });
   } catch (e) {
     console.error("subscribe failed", e);
     return res.status(502).json({ ok: false, error: "We could not sign you up just now." });
