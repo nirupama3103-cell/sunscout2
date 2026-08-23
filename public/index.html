@@ -3120,6 +3120,58 @@ function weatherChipClick() {
 }
 h1,h2,h3{text-wrap:balance}
 </style>
+<style>
+/* ======================================================================
+   FOOTER
+   index.html was the only page ending on a dark slab: .p-foot sat on
+   var(--p-ink) with white text at 62% opacity, while diy.html and
+   local-table/ end light on the page ground with a hairline rule. Side by
+   side the brown read as muddy rather than grounding, and it fought the warm
+   grounds the three pages now share.
+
+   It is light and warm here too, so all three end the same way, and the
+   column rhythm is tightened - 44px touch targets were being paid for twice,
+   once as min-height and again as row gap, which spread five links over most
+   of a phone screen.
+   ====================================================================== */
+.footer{background:transparent !important;color:#4a4034 !important}
+.p-foot{
+  background:transparent !important;
+  border-top:1px solid rgba(60,40,20,.14);
+  color:#4a4034 !important;
+}
+.p-foot-brand p{color:#5c4a3a !important}
+.p-foot-logo .s1{color:#D67400 !important}
+.p-foot-logo .s2{color:#1565c0 !important}
+
+/* column labels: uppercase micro-type needs real contrast, not 62% white */
+.p-foot-col b{color:#6b5040 !important}
+.p-foot-col a,.p-foot-col button{color:#2c1a00 !important;font-weight:700}
+.p-foot-col a:hover,.p-foot-col button:hover{color:#8a5200 !important}
+.p-foot-claim{color:#6f6257 !important}
+
+/* the target stays 44px; the gap between targets does not need to be another
+   44px on top of it */
+.p-foot-col{gap:0 !important}
+.p-foot-col a,.p-foot-col button{
+  padding-block:9px !important;min-height:40px !important;
+  display:flex !important;align-items:center;
+}
+@media (max-width:700px){
+  .p-foot-col a,.p-foot-col button{padding-block:10px !important;min-height:44px !important}
+  /* Explore carries five links and More three, so a two-column grid left a
+     tall void on the right. Trust spans the full width underneath instead. */
+  .p-foot-cols{display:grid !important;grid-template-columns:1fr 1fr;gap:4px 18px}
+  .p-foot-col:last-child{grid-column:1 / -1;margin-top:14px;
+    padding-top:14px;border-top:1px solid rgba(60,40,20,.12)}
+  .p-foot-claim{max-width:none}
+}
+.p-foot-fine{
+  border-top:1px solid rgba(60,40,20,.12) !important;
+  color:#6f6257 !important;
+}
+.p-foot-fine a{color:#8a5200 !important}
+</style>
 </body>
 </html>
 <!-- TABLET FIX injected -->
