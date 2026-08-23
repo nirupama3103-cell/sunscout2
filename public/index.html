@@ -3261,7 +3261,7 @@ h1,h2,h3{text-wrap:balance}
     .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
     .then(function(res){
       if(res.ok && res.d.ok){
-        say(res.d.already ? "You are already on the list." : "Done. Check your inbox to confirm.","ok");
+        say(res.d.already ? "You are already on the list." : "Done. You are on the list.","ok");
         f.reset();
       } else {
         say((res.d && res.d.error) || "We could not sign you up just now.","err");
