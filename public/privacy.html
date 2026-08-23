@@ -2,41 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Privacy Policy – SunScout</title>
+  <title>Privacy policy – SunScout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <meta name="description" content="What SunScout collects, what it doesn't, and where your saved activities live."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    body{font-family:Nunito,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.7}
-    h1{color:#FF9900;font-size:2rem}
-    h2{color:#333;margin-top:2rem}
-    a{color:#FF9900}
-    .back{display:inline-block;margin-bottom:20px;background:#FF9900;color:#fff;padding:8px 20px;border-radius:99px;text-decoration:none;font-weight:800}
+    *,*::before,*::after{box-sizing:border-box}
+    body{
+      font-family:Nunito,system-ui,sans-serif;color:#2c1a00;line-height:1.72;
+      margin:0;padding:clamp(24px,5vw,56px) clamp(20px,5vw,32px) 80px;
+      background:
+        radial-gradient(58% 42% at 6% 2%, rgba(255,232,186,.55), transparent 66%),
+        radial-gradient(50% 38% at 92% 14%, rgba(255,214,164,.34), transparent 62%),
+        linear-gradient(178deg,#F6EFE4 0%,#F1E7D8 58%,#EFE2D0 100%),
+        #EDE4D6;
+      background-attachment:fixed;
+    }
+    @media (hover:none){body{background-attachment:scroll}}
+    .wrap{max-width:680px;margin:0 auto}
+    .back{
+      display:inline-flex;align-items:center;gap:7px;margin-bottom:28px;
+      background:#FF9900;color:#2c1a00;padding:11px 22px;border-radius:99px;
+      text-decoration:none;font-weight:900;font-size:14.5px;min-height:44px;
+      box-shadow:0 1px 1px rgba(92,58,20,.05),0 6px 16px -8px rgba(92,58,20,.35);
+    }
+    .card{
+      background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:20px;
+      padding:clamp(24px,4vw,40px);
+      box-shadow:0 1px 1px rgba(92,58,20,.045),0 3px 6px -3px rgba(92,58,20,.10),
+                 0 10px 22px -12px rgba(92,58,20,.16), inset 0 1px 0 rgba(255,255,255,.9);
+    }
+    h1{font-size:clamp(28px,5vw,38px);font-weight:800;letter-spacing:-.025em;margin:0 0 6px;text-wrap:balance}
+    .updated{margin:0 0 26px;font-size:13.5px;font-weight:700;color:#6f6257}
+    h2{font-size:17px;font-weight:800;letter-spacing:-.01em;margin:26px 0 6px;color:#2c1a00}
+    p{margin:0;font-weight:500;color:#4a4034;text-wrap:pretty}
+    a{color:#8a5200;font-weight:700}
+    a:hover{color:#2c1a00}
+    :focus-visible{outline:3px solid #a66300;outline-offset:3px;border-radius:8px}
+    .foot{margin-top:30px;padding-top:18px;border-top:1px solid rgba(60,40,20,.12);
+      font-size:13.5px;color:#6f6257;font-weight:600}
   </style>
 </head>
 <body>
-  <a class="back" href="/">← Back to SunScout</a>
-  <h1>🌤️ Privacy Policy</h1>
-  <p><strong>Last updated: May 2026</strong></p>
+  <div class="wrap">
+    <a class="back" href="/">← Back to SunScout</a>
+    <div class="card">
+      <h1>Privacy policy</h1>
+      <p class="updated">Last updated: August 2026</p>
 
-  <h2>What we collect</h2>
-  <p>SunScout does <strong>not</strong> collect any personal information. We do not require login, registration, or any personal details.</p>
+      <h2>What we collect</h2>
+      <p>If you subscribe to our email list, we store your email address to send you weekend activity picks. Nothing else. You can unsubscribe any time using the link in every email.</p>
 
-  <h2>Local storage</h2>
-  <p>Your saved "My List" favorites are stored <strong>only on your device</strong> using browser localStorage. This data never leaves your device and is never sent to our servers.</p>
+      <h2>What we don’t collect</h2>
+      <p>We don’t ask for your name, your children’s information, or your precise location. City selection stays on your device.</p>
 
-  <h2>Weather data</h2>
-  <p>We use the <a href="https://open-meteo.com" target="_blank">Open-Meteo API</a> to show local weather. This requires sending your selected city name — no personal data is shared.</p>
+      <h2>Local storage only</h2>
+      <p>Your saved activities (My List) and notes are stored on your device and never sent to any server.</p>
 
-  <h2>Google Maps</h2>
-  <p>Activity photos are fetched via Google Places API. No personal data is sent to Google through our app.</p>
+      <h2>Analytics</h2>
+      <!-- TODO: name the analytics tool here before this is treated as final.
+           A privacy policy that does not name its analytics provider is weaker
+           than one that does, and some regimes expect it. -->
+      <p>We use a privacy-focused analytics tool to count page views and understand which activities are popular. This is aggregate only — we don’t build profiles or track individuals across sites.</p>
 
-  <h2>No tracking</h2>
-  <p>We do not use cookies, analytics, or any tracking tools. We do not sell or share any data.</p>
+      <h2>Sponsors</h2>
+      <p>Some listings may be marked as sponsored or featured. These are clearly labelled. Sponsors never receive your personal data.</p>
 
-  <h2>Children's privacy</h2>
-  <p>SunScout is designed for families. We do not knowingly collect any data from children under 13.</p>
+      <h2>Children’s privacy</h2>
+      <p>SunScout is built for families. We do not knowingly collect any information from children under 13.</p>
 
-  <h2>Contact</h2>
-  <p>Questions? Email us at <a href="mailto:sunscout2026@gmail.com">sunscout2026@gmail.com</a></p>
+      <h2>Contact</h2>
+      <p>Questions? Email <a href="mailto:sunscout2026@gmail.com">sunscout2026@gmail.com</a>.</p>
+
+      <div class="foot">SunScout · Bay Area · A family project.</div>
+    </div>
+  </div>
 </body>
 </html>
