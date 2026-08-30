@@ -34,6 +34,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 
+<!-- Shared 2026 geometric premium layer, same as the homepage. -->
+<link rel="stylesheet" href="/css/premium.css">
+<script>
+  try{ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.documentElement.className += ' geo-ready'; } }catch(e){}
+</script>
+
 <!-- Shared seasonal config: the hub reads SEASON.year rather than
      re-hardcoding the year in the footer. Plain sync script, no defer. -->
 <script src="/config/seasons.js"></script>
@@ -694,6 +701,8 @@ a{color:inherit}
 </head>
 <body>
 
+<div id="geoProgress" role="presentation" aria-hidden="true"></div>
+
 <div class="wrap">
 
   <header class="hh-top">
@@ -769,6 +778,12 @@ a{color:inherit}
       <button class="reset" type="button" id="resetBtn">Clear all filters</button>
     </div>
   </section>
+
+  <div class="geo-sec" aria-hidden="true">
+    <span class="geo-idx">01</span>
+    <span class="geo-label">Every event</span>
+    <span class="geo-rule"></span>
+  </div>
 
   <main id="grid" class="grid" aria-label="Halloween events"></main>
   <div id="empty" class="empty" style="display:none">
@@ -973,5 +988,6 @@ document.addEventListener("DOMContentLoaded", boot);
   });
 })();
 </script>
+<script src="/js/motion.js" defer></script>
 </body>
 </html>

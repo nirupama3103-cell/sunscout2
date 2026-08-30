@@ -34,6 +34,21 @@
   <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
 
+  <!-- 2026 geometric premium layer. Remove these three tags and the
+       motion.js tag before </body> to strip it entirely. -->
+  <link rel="stylesheet" href="/css/premium.css">
+  <script>
+    /* Set before first paint: the reveal styles are gated on .geo-ready, so
+       with JS off (or if motion.js fails) nothing is ever hidden. Skipped
+       under reduced motion so those visitors get static content, not a
+       hidden-then-shown flash. */
+    try{
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.documentElement.className += ' geo-ready';
+      }
+    }catch(e){}
+  </script>
+
   <!-- Seasonal config: must be a plain sync script so SEASON exists before
        the inline page scripts below run. Do not add defer/async. -->
   <script src="/config/seasons.js"></script>
@@ -1253,7 +1268,13 @@ body{color:var(--p-ink) !important}
 <body>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
+<div id="geoProgress" role="presentation" aria-hidden="true"></div>
 <section class="hero" style="text-align:center;padding:20px 16px 12px;">
+  <div class="geo-grid" aria-hidden="true"></div>
+  <span class="geo-tick tl" aria-hidden="true"></span>
+  <span class="geo-tick tr" aria-hidden="true"></span>
+  <span class="geo-tick bl" aria-hidden="true"></span>
+  <span class="geo-tick br" aria-hidden="true"></span>
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
@@ -1392,6 +1413,31 @@ body{color:var(--p-ink) !important}
 <!-- Plan My Day / My List moved to header row on desktop -->
   </div>
 </section>
+
+<!-- Auto-scrolling highlights. Decorative and navigational only: it carries
+     no filter control, so the motion can never change what is on screen.
+     Pausable by button, hover, focus and tab-hide; fully still under
+     prefers-reduced-motion (WCAG 2.2.2). -->
+<div class="geo-ticker-wrap" id="geoTicker" data-paused="false">
+  <div class="geo-ticker">
+    <div class="geo-track">
+      <span>Hand-checked by a Bay Area family</span>
+      <span>7 South Bay cities</span>
+      <span>Free &amp; budget-friendly picks</span>
+      <span>Filtered by your kid&rsquo;s age</span>
+      <span>Sunnyvale</span>
+      <span>San Jose</span>
+      <span>Cupertino</span>
+      <span>Mountain View</span>
+      <span>Palo Alto</span>
+      <span>Saratoga</span>
+      <span>Fremont</span>
+      <span>Rainy day? We switch you indoors</span>
+      <span>No ads. No profiles.</span>
+    </div>
+  </div>
+  <button class="geo-pause" type="button" aria-label="Pause the scrolling highlights" aria-pressed="false">&#10074;&#10074;</button>
+</div>
 
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
@@ -1700,6 +1746,12 @@ function mobSearch() {
   <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
   <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
   <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
+</div>
+
+<div class="geo-sec" aria-hidden="true">
+  <span class="geo-idx">01</span>
+  <span class="geo-label">What&rsquo;s on</span>
+  <span class="geo-rule"></span>
 </div>
 
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
@@ -3677,6 +3729,7 @@ h1,h2,h3{text-wrap:balance}
   });
 })();
 </script>
+<script src="/js/motion.js" defer></script>
 </body>
 </html>
 <!-- TABLET FIX injected -->
