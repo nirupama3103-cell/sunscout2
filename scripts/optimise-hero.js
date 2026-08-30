@@ -2,11 +2,13 @@
 /**
  * Resize + re-encode a hero photograph to the sizes the site expects.
  *
- *   node scripts/optimise-hero.js <source-image> <season>
+ *   node scripts/optimise-hero.js <source-image> <season|name> [outDir]
  *   node scripts/optimise-hero.js ~/sky.jpg summer
+ *   node scripts/optimise-hero.js ~/moon.jpg halloween-hero public/images/seasons
  *
- * Writes public/images/hero/hero-<season>.jpg and .webp, both 1600px wide,
- * quality ~0.72, and prints the final byte sizes.
+ * A season name writes public/images/hero/hero-<season>.{jpg,webp}; any other
+ * name writes <outDir>/<name>.{jpg,webp} (outDir defaults to public/images).
+ * Both are 1600px wide, quality ~0.72, and the final byte sizes are printed.
  *
  * No new dependencies: the encoding is done by Chromium's own canvas
  * (toDataURL supports both image/jpeg and image/webp), driven through the
@@ -28,21 +30,27 @@ function findPlaywright() {
 }
 
 async function main() {
-  const [src, season] = process.argv.slice(2);
-  if (!src || !season) {
-    console.error('usage: node scripts/optimise-hero.js <source-image> <season>');
-    console.error('       season is one of: ' + SEASONS.join(', '));
+  const [src, name, outDirArg] = process.argv.slice(2);
+  if (!src || !name) {
+    console.error('usage: node scripts/optimise-hero.js <source-image> <season|name> [outDir]');
+    console.error('       seasons: ' + SEASONS.join(', ') + '  (any other name is used verbatim)');
     process.exit(1);
   }
-  if (!SEASONS.includes(season)) {
-    console.error(`unknown season "${season}" — expected one of: ${SEASONS.join(', ')}`);
+  if (!/^[a-z0-9][a-z0-9-]*$/i.test(name)) {
+    console.error(`invalid output name "${name}" — letters, digits and hyphens only`);
     process.exit(1);
   }
   if (!fs.existsSync(src)) {
     console.error('source image not found:', src);
     process.exit(1);
   }
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+  /* A season keeps the hero-<season> convention applySeason() looks for;
+     anything else is a one-off asset and lands where it is told. */
+  const isSeason = SEASONS.includes(name);
+  const outDir = isSeason ? OUT_DIR
+    : path.resolve(outDirArg || path.join(__dirname, '..', 'public', 'images'));
+  const base = isSeason ? `hero-${name}` : name;
+  fs.mkdirSync(outDir, { recursive: true });
 
   const { chromium } = findPlaywright();
   const browser = await chromium.launch({
@@ -80,8 +88,8 @@ async function main() {
     fs.writeFileSync(file, buf);
     return buf.length;
   };
-  const jpgPath = path.join(OUT_DIR, `hero-${season}.jpg`);
-  const webpPath = path.join(OUT_DIR, `hero-${season}.webp`);
+  const jpgPath = path.join(outDir, `${base}.jpg`);
+  const webpPath = path.join(outDir, `${base}.webp`);
   const jpgSize = write(out.jpeg, jpgPath);
   const webpSize = write(out.webp, webpPath);
 
