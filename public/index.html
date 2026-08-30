@@ -828,12 +828,98 @@ html,body{
 body{color:var(--p-ink) !important}
 
 /* ── Hero ── */
+/* ══════════════════════════════════════════════════════════════════════
+   SEASONAL PHOTOGRAPHIC HERO
+   ---------------------------------------------------------------------
+   --hero-bg is set by applySeason() from SEASON.heroBg. It resolves to an
+   image-set() so the browser takes the .webp and falls back to the .jpg.
+   (A <picture> element cannot back a CSS background — image-set() is the
+   equivalent mechanism for backgrounds.)
+
+   Layer order, topmost first:
+     1. the mandated scrim gradient
+     2. the photograph
+     3. background-color: Horizon Navy — so the hero is never a white
+        flash, and white text is legible before the image lands (and if it
+        never does).
+   Scoped to .hero only: body and cards are untouched.
+   ══════════════════════════════════════════════════════════════════════ */
 .hero{
-  background:linear-gradient(168deg,#DCF5F1 0%,#FDEDE6 42%,#FFF9F0 100%) !important;
+  /* The mandated scrim, exactly as specified. */
+  --hero-scrim:linear-gradient(180deg,
+      rgba(23,50,77,0.55) 0%,
+      rgba(23,50,77,0.30) 45%,
+      rgba(23,50,77,0.65) 100%);
+  /* ADDITION — not in the original spec. The mandated scrim alone cannot
+     reach 4.5:1: its 45% mid-stop is only 0.30 alpha, which measures
+     2.56:1 for white text over a pale sky (1.81:1 worst case). This second
+     layer darkens only the left-hand text column and fades out before the
+     weather card, so the photograph keeps its brightness on the right
+     while the text clears AA. Delete this one line and the --hero-text-scrim
+     entry from background-image to return to the scrim as originally
+     specified — and expect the contrast checker to fail. */
+  --hero-text-scrim:linear-gradient(90deg,
+      rgba(23,50,77,0.55) 0%,
+      rgba(23,50,77,0.55) 52%,
+      rgba(23,50,77,0.00) 82%);
+  background-color:#17324D !important;
+  background-image:var(--hero-text-scrim), var(--hero-scrim), var(--hero-bg, none) !important;
+  background-size:cover, cover, cover !important;
+  background-position:center center, center center, center 40% !important;
+  background-repeat:no-repeat, no-repeat, no-repeat !important;
   padding:26px 20px 30px !important;
   text-align:left !important;
   border-radius:0 0 28px 28px;
   box-shadow:0 18px 44px rgba(70,45,10,.10);
+}
+/* No image configured yet (or it failed to load): keep the original warm
+   gradient rather than a flat navy slab. */
+.hero:not([data-hero-img="on"]){
+  background-image:linear-gradient(168deg,#DCF5F1 0%,#FDEDE6 42%,#FFF9F0 100%) !important;
+  background-color:#FFF9F0 !important;
+}
+
+/* ── Hero text: white/near-white once the photograph is behind it ── */
+.hero[data-hero-img="on"] .p-h1,
+.hero[data-hero-img="on"] .p-stat b{color:#FFFFFF}
+.hero[data-hero-img="on"] .p-lede,
+.hero[data-hero-img="on"] .hero-sub{color:#F5F8FA !important}
+.hero[data-hero-img="on"] .p-stat span{color:#E4EDF3}
+.hero[data-hero-img="on"] .p-stat-rule{background:rgba(255,255,255,.28)}
+.hero[data-hero-img="on"]::before,
+.hero[data-hero-img="on"]::after{display:none}
+/* The logo wordmark is dark navy artwork; on the photographic ground it
+   loses contrast. A soft light halo keeps the brand colours intact rather
+   than swapping in a second logo asset. */
+.hero[data-hero-img="on"] .hero-logo img{
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.95))
+         drop-shadow(0 1px 8px rgba(255,255,255,.75));
+}
+
+/* ── Mobile: the crop is much tighter, so favour the cloud band higher up
+      and lift the scrim — narrow viewports show more of the pale bottom. ── */
+@media(max-width:600px){
+  .hero{
+    --hero-scrim:linear-gradient(180deg,
+        rgba(23,50,77,0.60) 0%,
+        rgba(23,50,77,0.40) 45%,
+        rgba(23,50,77,0.70) 100%);
+    /* The grid stacks here, so text spans the full width and the column
+       scrim has to as well. */
+    --hero-text-scrim:linear-gradient(90deg,
+        rgba(23,50,77,0.62) 0%,
+        rgba(23,50,77,0.62) 100%);
+    background-position:center center, center center, center 30% !important;
+  }
+}
+
+/* ── Save-Data: skip the photograph entirely, keep the navy ground and the
+      scrim so the hero still reads as designed. ── */
+@media(prefers-reduced-data:reduce){
+  .hero[data-hero-img="on"]{
+    background-image:var(--hero-text-scrim), var(--hero-scrim) !important;
+    background-color:#17324D !important;
+  }
 }
 .hero .cloud{display:none !important}
 .hero::before,.hero::after{
@@ -1173,7 +1259,7 @@ body{color:var(--p-ink) !important}
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->
@@ -1723,6 +1809,51 @@ function applySeason(){
   // Seasonal hub cross-link: only surfaced when it is actually the season.
   var hw = document.getElementById("halloweenCard");
   if (hw) hw.style.display = (SEASON.key === "fall") ? "flex" : "none";
+
+  applyHeroBg();
+}
+
+/* Seasonal photographic hero.
+
+   Preloads the active season's image so it does not wait on the CSS to be
+   parsed and the background rule matched, then points --hero-bg at an
+   image-set() (webp preferred, jpg fallback).
+
+   The data-hero-img="on" flag is only set once the jpg is confirmed to
+   decode. That is a deliberate departure from "navy immediately": the four
+   hero images are not in the repo yet, and without the probe every visitor
+   would get a flat navy slab where the warm gradient used to be. Once the
+   assets land the preload means the probe resolves from cache, so the
+   navy ground -> photograph sequence is what people actually see. To make
+   it unconditional, drop the probe and set the attribute directly. */
+function applyHeroBg(){
+  var hero = document.querySelector(".hero");
+  if (!hero || !SEASON.heroBg) return;
+
+  var jpg  = SEASON.heroBg;
+  var webp = jpg.replace(/\.jpg$/i, ".webp");
+
+  /* Save-Data: do not fetch the photograph at all. The CSS drops the image
+     layer too; this stops the preload from spending the bytes. */
+  try {
+    if (navigator.connection && navigator.connection.saveData) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-data: reduce)").matches) return;
+  } catch(e) {}
+
+  if (!document.getElementById("heroPreload")) {
+    var link = document.createElement("link");
+    link.id = "heroPreload"; link.rel = "preload"; link.as = "image";
+    link.href = jpg;
+    document.head.appendChild(link);
+  }
+
+  var probe = new Image();
+  probe.onload = function(){
+    hero.style.setProperty("--hero-bg",
+      'image-set(url("' + webp + '") type("image/webp"), url("' + jpg + '") type("image/jpeg"))');
+    hero.setAttribute("data-hero-img", "on");
+  };
+  probe.src = jpg;
 }
 
 /* This script tag sits after the hero, tabs and footer markup and before any

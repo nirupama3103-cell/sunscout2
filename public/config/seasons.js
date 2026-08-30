@@ -20,7 +20,7 @@ const SEASONS = {
     title:"SunScout \u2013 Free & Paid Spring Activities for Bay Area Kids",
     desc:"Discover free and paid spring activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
     keywords:"spring break camps Bay Area, Easter egg hunt Sunnyvale, free kids activities San Jose, family activities Cupertino",
-    og:"/og/og-spring.jpg", endsOn:"05-31"
+    og:"/og/og-spring.jpg", heroBg:"/images/hero/hero-spring.jpg", endsOn:"05-31"
   },
   summer: {
     key:"summer", label:"Summer", emoji:"\u2600\uFE0F", year:2026,
@@ -35,7 +35,7 @@ const SEASONS = {
     title:"SunScout \u2013 Free & Paid Summer Activities for Bay Area Kids",
     desc:"Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
     keywords:"summer camps Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino",
-    og:"/og/og-summer.jpg", endsOn:"08-31"
+    og:"/og/og-summer.jpg", heroBg:"/images/hero/hero-summer.jpg", endsOn:"08-31"
   },
   fall: {
     key:"fall", label:"Fall", emoji:"\uD83C\uDF42", year:2026,
@@ -50,7 +50,7 @@ const SEASONS = {
     title:"SunScout \u2013 Fall Activities & Halloween Fun for Bay Area Kids",
     desc:"Discover free and paid fall activities for Bay Area kids \u2014 pumpkin patches, harvest festivals, fall break camps and Halloween events across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
     keywords:"pumpkin patch Bay Area, fall festival Sunnyvale, fall break camps San Jose, Halloween events for kids Cupertino",
-    og:"/og/og-fall.jpg", endsOn:"11-30"
+    og:"/og/og-fall.jpg", heroBg:"/images/hero/hero-fall.jpg", endsOn:"11-30"
   },
   winter: {
     key:"winter", label:"Winter", emoji:"\u2744\uFE0F", year:2026,
@@ -65,7 +65,7 @@ const SEASONS = {
     title:"SunScout \u2013 Winter Activities & Holiday Fun for Bay Area Kids",
     desc:"Discover free and paid winter activities for Bay Area kids \u2014 holiday lights, ice skating, winter break camps across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
     keywords:"holiday lights Bay Area, winter break camps San Jose, indoor activities for kids rainy day, ice skating Sunnyvale",
-    og:"/og/og-winter.jpg", endsOn:"02-28"
+    og:"/og/og-winter.jpg", heroBg:"/images/hero/hero-winter.jpg", endsOn:"02-28"
   }
 };
 
