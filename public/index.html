@@ -34,6 +34,10 @@
   <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
 
+  <!-- Seasonal config: must be a plain sync script so SEASON exists before
+       the inline page scripts below run. Do not add defer/async. -->
+  <script src="/config/seasons.js"></script>
+
   <!-- ── PWA Manifest ── -->
   <link rel="manifest" href="/manifest.json">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
@@ -58,6 +62,12 @@ img{max-width:100%;display:block}
 .logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
+.rain-banner{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+.rain-banner .rain-x{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:inherit;
+  font-size:15px;font-weight:900;line-height:1;cursor:pointer;border-radius:99px;
+  width:26px;height:26px;flex:0 0 auto}
+.rain-banner .rain-x:hover{background:rgba(255,255,255,.4)}
+@media(max-width:700px){.rain-banner .rain-x{width:32px;height:32px}}
 .weather-banner{display:none!important;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
@@ -1399,6 +1409,7 @@ body{color:var(--p-ink) !important}
 
 
 <div id="weatherBanner" class="weather-banner" style="display:none"></div>
+<div id="rainBanner" class="weather-banner rain-banner" style="display:none" role="status" aria-live="polite"></div>
 <!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
 <div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
 
@@ -1642,86 +1653,8 @@ function mobSearch() {
 </div>
 
 <script>
-/* ══════════════════════════════════════════════════════════════════
-   SEASONAL CONFIG — single source of truth for all seasonal copy.
-   Nothing seasonal should be hardcoded in the markup; edit here only.
-   Does NOT affect data fetching, API calls, or activity rendering.
-   ══════════════════════════════════════════════════════════════════ */
-const SEASONS = {
-  spring: {
-    key:"spring", label:"Spring", emoji:"\uD83C\uDF38", year:2026,
-    chip:"Spring 2026 \u00B7 Bay Area",
-    heroLine1:"Your spring,", heroLine2:"already planned.",
-    sub:"Egg hunts, blossom trails and spring break camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
-    tabs:{free:"Free Spring Activities", paid:"Spring Classes & Camps",
-          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
-    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Gardens", paid:"Spring Break \u00B7 STEM \u00B7 Cooking",
-             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Hiking \u00B7 Farms \u00B7 Blossom Trails",
-             weekend:"Sat & Sun only"},
-    title:"SunScout \u2013 Free & Paid Spring Activities for Bay Area Kids",
-    desc:"Discover free and paid spring activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
-    keywords:"spring break camps Bay Area, Easter egg hunt Sunnyvale, free kids activities San Jose, family activities Cupertino",
-    og:"/og/og-spring.jpg", endsOn:"05-31"
-  },
-  summer: {
-    key:"summer", label:"Summer", emoji:"\u2600\uFE0F", year:2026,
-    chip:"Summer 2026 \u00B7 Bay Area",
-    heroLine1:"Your summer,", heroLine2:"already planned.",
-    sub:"Splash pads, storytimes and standout camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
-    tabs:{free:"Free Summer Activities", paid:"Paid Summer Activities",
-          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
-    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Splash Pads", paid:"YMCA \u00B7 STEM \u00B7 Cooking",
-             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Hiking \u00B7 Petting Zoos \u00B7 Farms",
-             weekend:"Sat & Sun only"},
-    title:"SunScout \u2013 Free & Paid Summer Activities for Bay Area Kids",
-    desc:"Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
-    keywords:"summer camps Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino",
-    og:"/og/og-summer.jpg", endsOn:"08-31"
-  },
-  fall: {
-    key:"fall", label:"Fall", emoji:"\uD83C\uDF42", year:2026,
-    chip:"Fall 2026 \u00B7 Bay Area",
-    heroLine1:"Your fall,", heroLine2:"already planned.",
-    sub:"Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
-    tabs:{free:"Free Fall Activities", paid:"Fall Classes & Camps",
-          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
-    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Harvest Fun", paid:"Fall Break \u00B7 STEM \u00B7 Cooking",
-             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Pumpkin Patches \u00B7 Farms \u00B7 Trails",
-             weekend:"Sat & Sun only"},
-    title:"SunScout \u2013 Fall Activities & Halloween Fun for Bay Area Kids",
-    desc:"Discover free and paid fall activities for Bay Area kids \u2014 pumpkin patches, harvest festivals, fall break camps and Halloween events across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
-    keywords:"pumpkin patch Bay Area, fall festival Sunnyvale, fall break camps San Jose, Halloween events for kids Cupertino",
-    og:"/og/og-fall.jpg", endsOn:"11-30"
-  },
-  winter: {
-    key:"winter", label:"Winter", emoji:"\u2744\uFE0F", year:2026,
-    chip:"Winter 2026 \u00B7 Bay Area",
-    heroLine1:"Your winter,", heroLine2:"already planned.",
-    sub:"Holiday lights, ice rinks and winter break camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
-    tabs:{free:"Free Winter Activities", paid:"Winter Break Camps",
-          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
-    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Light Displays", paid:"Winter Break \u00B7 STEM \u00B7 Cooking",
-             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Ice Rinks \u00B7 Trails \u00B7 Farms",
-             weekend:"Sat & Sun only"},
-    title:"SunScout \u2013 Winter Activities & Holiday Fun for Bay Area Kids",
-    desc:"Discover free and paid winter activities for Bay Area kids \u2014 holiday lights, ice skating, winter break camps across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
-    keywords:"holiday lights Bay Area, winter break camps San Jose, indoor activities for kids rainy day, ice skating Sunnyvale",
-    og:"/og/og-winter.jpg", endsOn:"02-28"
-  }
-};
+/* SEASONS / getSeason() / SEASON now live in /config/seasons.js (loaded in <head>). */
 
-// Runs ONE season ahead of the calendar (parents plan early).
-// Override with ?season=fall for testing.
-function getSeason(){
-  const q = new URLSearchParams(location.search).get('season');
-  if (q && SEASONS[q]) return SEASONS[q];
-  const m = new Date().getMonth(); // 0-11
-  if (m >= 7 && m <= 9)  return SEASONS.fall;    // Aug 1 \u2013 Oct 31
-  if (m === 10 || m === 11 || m === 0) return SEASONS.winter; // Nov \u2013 Jan
-  if (m >= 1 && m <= 3)  return SEASONS.spring;  // Feb \u2013 Apr
-  return SEASONS.summer;                          // May \u2013 Jul
-}
-const SEASON = getSeason();
 
 /* Writes every seasonal string into the DOM + <head>. Copy only \u2014 never
    touches filters, fetches or rendering. Safe to call more than once. */
@@ -1921,9 +1854,14 @@ function getCardHTML(a) {
 function wBtn(fn, label) {
   return "<button onclick=\""+fn+"\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">"+label+"</button>";
 }
+/* Programmatic tab change (weather auto-switch, Surprise Me, banner CTAs).
+   Flagged so setTab() can tell it apart from a human clicking a tab. */
+var _programmaticTab = false;
 function goTab(name) {
   var b = document.querySelector(".tab-btn[data-tab='"+name+"']");
-  if (b) setTab(b);
+  if (!b) return;
+  _programmaticTab = true;
+  try { setTab(b); } finally { _programmaticTab = false; }
 }
 function surpriseMe() {
   var tabs = ["free","outdoor","indoor","paid","weekend"];
@@ -2023,6 +1961,147 @@ function shareActivity(i) {
     window.open(wa, "_blank");
   }
 }
+/* ══════════════════════════════════════════════════════════════════════
+   RAIN MODE
+   ---------------------------------------------------------------------
+   States: RAIN_NOW | RAIN_LIKELY | RAIN_MAYBE | DRY
+
+   PRECEDENCE: RAIN_NOW and RAIN_LIKELY outrank the heat alert — rain in
+   the Bay Area at 90F is rare enough that rain is the more actionable
+   signal. RAIN_MAYBE is advisory only and never changes the tab.
+
+   DATA SOURCE: parsed out of the SAME /v1/forecast response the page
+   already fetches — no second call, no URL change. That request asks for
+   `current_weather=true`, whose payload is
+   {temperature, windspeed, winddirection, weathercode, is_day, time}:
+   it carries a WMO `weathercode` but NO precipitation probability. So
+   RAIN_NOW is derived from the weathercode, and probability is simply
+   unavailable from live data (readRain returns prob:null). The
+   probability branches below are still implemented and are reachable
+   via the ?weather= override, and will start working automatically if a
+   precipitation field ever appears in the response — readRain looks for
+   the usual field names first and only then falls back to weathercode.
+
+   MANUAL TEST OVERRIDE (no API involved):
+     ?weather=rain-now | rain-likely | rain-maybe | heat | dry
+   e.g. /?weather=rain-likely forces a 60% RAIN_LIKELY state.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* WMO weather codes that mean water is falling right now.
+   51-57 drizzle · 61-67 rain · 80-82 rain showers · 95-99 thunderstorm.
+   Snow (71-77, 85-86) is excluded — not a Bay Area concern. */
+function isRainingCode(code) {
+  if (code === null || code === undefined || isNaN(code)) return false;
+  var c = Number(code);
+  return (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || (c >= 95 && c <= 99);
+}
+
+/* Pulls whatever precipitation signal the response actually carries.
+   Never throws: any missing/!malformed field degrades to {prob:null,code:null}. */
+function readRain(d) {
+  var out = { prob: null, code: null, desc: "", raining: false };
+  try {
+    var cw = (d && d.current_weather) || (d && d.current) || {};
+    var code = cw.weathercode;
+    if (code === undefined) code = cw.weather_code;
+    if (code !== undefined && code !== null && !isNaN(code)) out.code = Number(code);
+
+    /* Probability: only present if the request ever starts asking for it.
+       Checked in order of how the provider names it across endpoints. */
+    var probSources = [
+      cw.precipitation_probability,
+      d && d.daily && d.daily.precipitation_probability_max && d.daily.precipitation_probability_max[0],
+      d && d.hourly && d.hourly.precipitation_probability && d.hourly.precipitation_probability[0]
+    ];
+    for (var i = 0; i < probSources.length; i++) {
+      var v = probSources[i];
+      if (v !== undefined && v !== null && !isNaN(v)) { out.prob = Math.max(0, Math.min(100, Number(v))); break; }
+    }
+
+    /* Actively-raining signal: a real precipitation amount if present,
+       otherwise the weathercode. */
+    var amt = cw.precipitation !== undefined ? cw.precipitation : cw.rain;
+    if (amt !== undefined && amt !== null && !isNaN(amt) && Number(amt) > 0) out.raining = true;
+    else out.raining = isRainingCode(out.code);
+
+    out.desc = WMO_DESC[out.code] || "";
+  } catch (e) { /* never block render on a weather parse */ }
+  return out;
+}
+
+var WMO_DESC = {0:"Clear",1:"Mainly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Fog",
+  51:"Light drizzle",53:"Drizzle",55:"Heavy drizzle",56:"Freezing drizzle",57:"Freezing drizzle",
+  61:"Light rain",63:"Rain",65:"Heavy rain",66:"Freezing rain",67:"Freezing rain",
+  71:"Light snow",73:"Snow",75:"Heavy snow",77:"Snow grains",
+  80:"Light showers",81:"Showers",82:"Violent showers",85:"Snow showers",86:"Snow showers",
+  95:"Thunderstorm",96:"Thunderstorm with hail",99:"Thunderstorm with hail"};
+
+/* Reads the ?weather= override once. Returns null when absent. */
+function weatherOverride() {
+  try { return new URLSearchParams(location.search).get("weather"); } catch (e) { return null; }
+}
+
+/* Maps a parsed rain reading to a state. Override wins when present. */
+function rainState(rain) {
+  var o = weatherOverride();
+  if (o === "rain-now")    return { state:"RAIN_NOW",    prob: rain && rain.prob };
+  if (o === "rain-likely") return { state:"RAIN_LIKELY", prob: 60 };
+  if (o === "rain-maybe")  return { state:"RAIN_MAYBE",  prob: 40 };
+  if (o === "heat" || o === "dry") return { state:"DRY", prob: rain && rain.prob };
+  if (rain && rain.raining)                     return { state:"RAIN_NOW",    prob: rain.prob };
+  if (rain && rain.prob !== null && rain.prob >= 50) return { state:"RAIN_LIKELY", prob: rain.prob };
+  if (rain && rain.prob !== null && rain.prob >= 30) return { state:"RAIN_MAYBE",  prob: rain.prob };
+  return { state:"DRY", prob: rain ? rain.prob : null };
+}
+
+/* Session-only dismissal — tomorrow's weather is new information, so this
+   deliberately uses sessionStorage rather than localStorage. */
+function rainDismissed(state) {
+  try { return sessionStorage.getItem("ss_rain_dismissed") === state; } catch (e) { return false; }
+}
+function dismissRain(state) {
+  try { sessionStorage.setItem("ss_rain_dismissed", state); } catch (e) {}
+  var b = document.getElementById("rainBanner");
+  if (b) b.style.display = "none";
+}
+
+/* Auto-switch fires at most ONCE per session, on first load only, and never
+   over a tab the visitor has chosen themselves. */
+var _autoTabSwitched = false;
+function autoGoTab(name) {
+  if (_autoTabSwitched) return;      // never re-fire (incl. the 10-min refresh)
+  if (window.userPickedTab) return;  // never override a deliberate choice
+  _autoTabSwitched = true;
+  goTab(name);
+}
+
+function renderRainBanner(st, city) {
+  var host = document.getElementById("rainBanner");
+  if (!host) return;
+  if (st.state === "DRY" || rainDismissed(st.state)) { host.style.display = "none"; return; }
+  var pct = (st.prob === null || st.prob === undefined) ? null : Math.round(st.prob);
+  var msg, bg;
+  if (st.state === "RAIN_NOW") {
+    bg  = "linear-gradient(135deg,#17324D,#4FA8DA)";
+    msg = "🌧️ <strong>Rain right now in "+esc(city||"the Bay Area")+"</strong> — here’s indoor fun.";
+  } else if (st.state === "RAIN_LIKELY") {
+    bg  = "linear-gradient(135deg,#17324D,#4FA8DA)";
+    msg = "🌧️ <strong>"+(pct === null ? "High" : pct+"%")+" chance of rain today</strong> — indoor picks first.";
+  } else {
+    bg  = "linear-gradient(135deg,#4FA8DA,#F2A93B)";
+    msg = "☔ <strong>Rain possible later</strong> — worth a backup plan.";
+  }
+  host.style.display    = "flex";
+  host.style.background = bg;
+  host.innerHTML = msg
+    + wBtn("goTab('indoor')", "🌧️ Rainy Day Rescue →")
+    + '<button class="rain-x" type="button" aria-label="Dismiss weather notice">✕</button>';
+  /* Listener rather than an inline handler: keeps the state string out of an
+     HTML attribute, so no quote-escaping to get wrong. */
+  var x = host.querySelector(".rain-x");
+  if (x) x.addEventListener("click", function(){ dismissRain(st.state); });
+}
+
 async function fetchWeather(city) {
   var co = CITY_COORDS[city] || [37.3688,-122.0363];
   var banner = document.getElementById("weatherBanner");
@@ -2032,11 +2111,41 @@ async function fetchWeather(city) {
     var d = await r.json();
     var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
     ssPremiumWeather(city, t);
-    var msg, bg;
-    if (t >= 90) {
+    applyWeatherState(d, t, city);
+  } catch(e) {
+    ssPremiumWeather(city, null);
+    /* Even with no network the override must still work, so the state
+       machine runs on an empty reading rather than bailing out. */
+    if (weatherOverride()) { applyWeatherState({}, 72, city); return; }
+    banner.style.display    = "block";
+    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
+    banner.innerHTML        = "☀️ <strong>Plenty on today</strong> — have a look below.";
+  }
+}
+
+/* Decides between the rain states and the existing temp alerts, then paints.
+   Split out of fetchWeather so the ?weather= override can drive it directly. */
+function applyWeatherState(d, t, city) {
+  var banner = document.getElementById("weatherBanner");
+  var ov = weatherOverride();
+  if (ov === "heat") t = 95;
+  var st = rainState(readRain(d));
+  renderRainBanner(st, city);
+
+  /* RAIN_NOW / RAIN_LIKELY outrank the heat alert and own the tab. */
+  if (st.state === "RAIN_NOW" || st.state === "RAIN_LIKELY") {
+    autoGoTab("indoor");
+    if (banner) banner.style.display = "none";
+    return;
+  }
+
+  /* DRY (or advisory RAIN_MAYBE): the original temp alerts run unchanged. */
+  if (!banner) return;
+  var msg, bg;
+  if (t >= 90) {
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
       msg = "🔥 <strong>Heat alert</strong> — stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-      goTab("indoor");
+      autoGoTab("indoor");
     } else if (t >= 70) {
       bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
       msg = "☀️ <strong>Perfect outdoor weather</strong> today."+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
@@ -2048,15 +2157,9 @@ async function fetchWeather(city) {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
       msg = "🧥 <strong>Cool day</strong> — great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
     }
-    banner.style.display    = "block";
-    banner.style.background = bg;
-    banner.innerHTML        = msg;
-  } catch(e) {
-    ssPremiumWeather(city, null);
-    banner.style.display    = "block";
-    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
-    banner.innerHTML        = "☀️ <strong>Plenty on today</strong> — have a look below.";
-  }
+  banner.style.display    = "block";
+  banner.style.background = bg;
+  banner.innerHTML        = msg;
 }
 
 async function loadActivities() {
@@ -2270,7 +2373,16 @@ function setCity(btn) {
   loadActivities();
 }
 
+/* Set by every user-initiated tab change so the weather auto-switch never
+   overrides a deliberate choice. goTab() is the programmatic path and
+   deliberately does NOT set it. */
+window.userPickedTab = false;
+
 function setTab(btn) {
+  /* Every one of the ~5 parallel filter UIs (desktop tab bar, ssSelExplore,
+     dtE, floating pills, bnavTab) routes through here, so this single line
+     covers them all. */
+  if (!_programmaticTab) window.userPickedTab = true;
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
   if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
@@ -2489,8 +2601,9 @@ function checkWeekendMode() {
   if (day === 0 || day === 6) {
     var wb_el = document.getElementById("weekendBanner");
     if (wb_el) wb_el.style.display = "block";
-    var wb = document.querySelector(".tab-btn[data-tab='weekend']");
-    if (wb) setTab(wb);
+    /* Programmatic, not a user pick: goTab() keeps userPickedTab false so a
+       rain alert can still take over on first load. */
+    goTab("weekend");
     var cityBar = document.querySelector(".city-bar");
     if (cityBar) cityBar.classList.add("weekend-mode");
   }
