@@ -62,6 +62,19 @@ img{max-width:100%;display:block}
 .logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
+#halloweenCard{display:flex;align-items:center;gap:14px;margin:14px 16px 0;padding:14px 18px;
+  border-radius:16px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,#17324D,#24557d 60%,#4FA8DA);
+  box-shadow:0 2px 10px rgba(23,50,77,.18);transition:transform .15s}
+#halloweenCard:hover{transform:translateY(-2px)}
+#halloweenCard .hw-emoji{font-size:30px;flex:0 0 auto}
+#halloweenCard .hw-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+#halloweenCard .hw-text b{font-size:14.5px;font-weight:900;line-height:1.25}
+#halloweenCard .hw-text span{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.82)}
+#halloweenCard .hw-go{margin-left:auto;font-size:20px;font-weight:900;color:#F2A93B;flex:0 0 auto}
+@media(max-width:700px){#halloweenCard{margin:10px 10px 0;padding:12px 14px;gap:11px}
+  #halloweenCard .hw-emoji{font-size:25px}#halloweenCard .hw-text b{font-size:13.5px}}
+@media(prefers-reduced-motion:reduce){#halloweenCard{transition:none}#halloweenCard:hover{transform:none}}
 .rain-banner{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
 .rain-banner .rain-x{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:inherit;
   font-size:15px;font-weight:900;line-height:1;cursor:pointer;border-radius:99px;
@@ -1160,7 +1173,7 @@ body{color:var(--p-ink) !important}
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->
@@ -1410,6 +1423,12 @@ body{color:var(--p-ink) !important}
 
 <div id="weatherBanner" class="weather-banner" style="display:none"></div>
 <div id="rainBanner" class="weather-banner rain-banner" style="display:none" role="status" aria-live="polite"></div>
+<!-- Shown by applySeason() only when SEASON.key === "fall". -->
+<a id="halloweenCard" href="/seasons/halloween/" style="display:none">
+  <span class="hw-emoji" aria-hidden="true">🎃</span>
+  <span class="hw-text"><b>Halloween in the South Bay, sorted by how scary it isn’t</b><span>Pumpkin patches, trunk-or-treats and sensory-friendly picks — rated 1 to 4.</span></span>
+  <span class="hw-go" aria-hidden="true">→</span>
+</a>
 <!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
 <div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
 
@@ -1623,6 +1642,7 @@ function mobSearch() {
         <b>More</b>
         <a href="/diy.html">DIY projects</a>
         <a href="/local-table/">Local Table</a>
+        <a href="/seasons/halloween/">Halloween hub</a>
         <button type="button" onclick="document.getElementById('about-modal').style.display='flex'">About SunScout</button>
       </div>
       <div class="p-foot-col p-foot-sub">
@@ -1699,6 +1719,10 @@ function applySeason(){
 
   // Footer badge
   setTxt("footSeasonBadge", "Bay Area " + SEASON.label + " " + SEASON.year);
+
+  // Seasonal hub cross-link: only surfaced when it is actually the season.
+  var hw = document.getElementById("halloweenCard");
+  if (hw) hw.style.display = (SEASON.key === "fall") ? "flex" : "none";
 }
 
 /* This script tag sits after the hero, tabs and footer markup and before any
