@@ -1158,8 +1158,8 @@ body{color:var(--p-ink) !important}
       <div class="p-hero-grid">
         <div class="p-hero-main">
           <div class="p-badge"><span>⏳</span><span id="pHeroBadge">Summer 2026 · Bay Area</span></div>
-          <h1 class="p-h1">Your summer,<br>already planned.</h1>
-          <p class="p-lede">Splash pads, storytimes and standout camps across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
+          <h1 class="p-h1"><span id="heroLine1">Your summer,</span><br><span id="heroLine2">already planned.</span></h1>
+          <p class="p-lede" id="heroSub">Splash pads, storytimes and standout camps across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
             <div class="p-stat"><b id="pStatCount">—</b><span>Activities live</span></div>
             <div class="p-stat-rule"></div>
@@ -1393,7 +1393,7 @@ body{color:var(--p-ink) !important}
 
 <div class="header" style="display:none">
   <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
-  <p class="tagline">Your go-to guide for Bay Area summer fun — free and budget-friendly picks</p>
+  <p class="tagline">Your go-to guide for Bay Area family fun — free and budget-friendly picks</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
@@ -1535,28 +1535,28 @@ function mobSearch() {
   <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
     <span class="tab-free-dot">$0</span>
     <span class="tab-icon">🆓</span>
-    <span class="tab-label">Free Summer Activities</span>
-    <span class="tab-sub">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
+    <span class="tab-label" id="tabLabel-free">Free Summer Activities</span>
+    <span class="tab-sub" id="tabSub-free">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
   </button>
   <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🎟️</span>
-    <span class="tab-label">Paid Summer Activities</span>
-    <span class="tab-sub">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
+    <span class="tab-label" id="tabLabel-paid">Paid Summer Activities</span>
+    <span class="tab-sub" id="tabSub-paid">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
   </button>
   <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🏛️</span>
-    <span class="tab-label">Indoor Activities</span>
-    <span class="tab-sub">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
+    <span class="tab-label" id="tabLabel-indoor">Indoor Activities</span>
+    <span class="tab-sub" id="tabSub-indoor">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
   </button>
   <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🌳</span>
-    <span class="tab-label">Outdoor Activities</span>
-    <span class="tab-sub">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
+    <span class="tab-label" id="tabLabel-outdoor">Outdoor Activities</span>
+    <span class="tab-sub" id="tabSub-outdoor">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
   </button>
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">📅</span>
-    <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
+    <span class="tab-label" id="tabLabel-weekend">Weekend Activities</span>
+    <span class="tab-sub" id="tabSub-weekend">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
   </button>
 </div>
 
@@ -1598,7 +1598,7 @@ function mobSearch() {
   <div class="p-foot">
     <div class="p-foot-brand">
       <div class="p-foot-logo"><span>☀️</span><span><span class="s1">Sun</span><span class="s2">Scout</span></span></div>
-      <p>Summer is too short to spend it scrolling. Built by a Bay Area family, for Bay Area families.</p>
+      <p>Weekends are too short to spend them scrolling. Built by a Bay Area family, for Bay Area families.</p>
     </div>
     <nav class="p-foot-cols" aria-label="Footer">
       <div class="p-foot-col">
@@ -1636,12 +1636,144 @@ function mobSearch() {
     </nav>
   </div>
   <div class="p-foot-fine">
-    <span>Bay Area Summer 2026</span>
+    <span id="footSeasonBadge">Bay Area Summer 2026</span>
     <span>🔄 Refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></span>
   </div>
 </div>
 
 <script>
+/* ══════════════════════════════════════════════════════════════════
+   SEASONAL CONFIG — single source of truth for all seasonal copy.
+   Nothing seasonal should be hardcoded in the markup; edit here only.
+   Does NOT affect data fetching, API calls, or activity rendering.
+   ══════════════════════════════════════════════════════════════════ */
+const SEASONS = {
+  spring: {
+    key:"spring", label:"Spring", emoji:"\uD83C\uDF38", year:2026,
+    chip:"Spring 2026 \u00B7 Bay Area",
+    heroLine1:"Your spring,", heroLine2:"already planned.",
+    sub:"Egg hunts, blossom trails and spring break camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
+    tabs:{free:"Free Spring Activities", paid:"Spring Classes & Camps",
+          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
+    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Gardens", paid:"Spring Break \u00B7 STEM \u00B7 Cooking",
+             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Hiking \u00B7 Farms \u00B7 Blossom Trails",
+             weekend:"Sat & Sun only"},
+    title:"SunScout \u2013 Free & Paid Spring Activities for Bay Area Kids",
+    desc:"Discover free and paid spring activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
+    keywords:"spring break camps Bay Area, Easter egg hunt Sunnyvale, free kids activities San Jose, family activities Cupertino",
+    og:"/og/og-spring.jpg", endsOn:"05-31"
+  },
+  summer: {
+    key:"summer", label:"Summer", emoji:"\u2600\uFE0F", year:2026,
+    chip:"Summer 2026 \u00B7 Bay Area",
+    heroLine1:"Your summer,", heroLine2:"already planned.",
+    sub:"Splash pads, storytimes and standout camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
+    tabs:{free:"Free Summer Activities", paid:"Paid Summer Activities",
+          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
+    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Splash Pads", paid:"YMCA \u00B7 STEM \u00B7 Cooking",
+             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Hiking \u00B7 Petting Zoos \u00B7 Farms",
+             weekend:"Sat & Sun only"},
+    title:"SunScout \u2013 Free & Paid Summer Activities for Bay Area Kids",
+    desc:"Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor \u2014 Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
+    keywords:"summer camps Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino",
+    og:"/og/og-summer.jpg", endsOn:"08-31"
+  },
+  fall: {
+    key:"fall", label:"Fall", emoji:"\uD83C\uDF42", year:2026,
+    chip:"Fall 2026 \u00B7 Bay Area",
+    heroLine1:"Your fall,", heroLine2:"already planned.",
+    sub:"Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
+    tabs:{free:"Free Fall Activities", paid:"Fall Classes & Camps",
+          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
+    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Harvest Fun", paid:"Fall Break \u00B7 STEM \u00B7 Cooking",
+             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Pumpkin Patches \u00B7 Farms \u00B7 Trails",
+             weekend:"Sat & Sun only"},
+    title:"SunScout \u2013 Fall Activities & Halloween Fun for Bay Area Kids",
+    desc:"Discover free and paid fall activities for Bay Area kids \u2014 pumpkin patches, harvest festivals, fall break camps and Halloween events across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
+    keywords:"pumpkin patch Bay Area, fall festival Sunnyvale, fall break camps San Jose, Halloween events for kids Cupertino",
+    og:"/og/og-fall.jpg", endsOn:"11-30"
+  },
+  winter: {
+    key:"winter", label:"Winter", emoji:"\u2744\uFE0F", year:2026,
+    chip:"Winter 2026 \u00B7 Bay Area",
+    heroLine1:"Your winter,", heroLine2:"already planned.",
+    sub:"Holiday lights, ice rinks and winter break camps across seven South Bay cities \u2014 hand-checked, priced, and sorted by your kid\u2019s age.",
+    tabs:{free:"Free Winter Activities", paid:"Winter Break Camps",
+          indoor:"Indoor Activities", outdoor:"Outdoor Activities", weekend:"Weekend Activities"},
+    tabSubs:{free:"Parks \u00B7 Libraries \u00B7 Light Displays", paid:"Winter Break \u00B7 STEM \u00B7 Cooking",
+             indoor:"Museums \u00B7 Pools \u00B7 Workshops", outdoor:"Ice Rinks \u00B7 Trails \u00B7 Farms",
+             weekend:"Sat & Sun only"},
+    title:"SunScout \u2013 Winter Activities & Holiday Fun for Bay Area Kids",
+    desc:"Discover free and paid winter activities for Bay Area kids \u2014 holiday lights, ice skating, winter break camps across Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga & Fremont.",
+    keywords:"holiday lights Bay Area, winter break camps San Jose, indoor activities for kids rainy day, ice skating Sunnyvale",
+    og:"/og/og-winter.jpg", endsOn:"02-28"
+  }
+};
+
+// Runs ONE season ahead of the calendar (parents plan early).
+// Override with ?season=fall for testing.
+function getSeason(){
+  const q = new URLSearchParams(location.search).get('season');
+  if (q && SEASONS[q]) return SEASONS[q];
+  const m = new Date().getMonth(); // 0-11
+  if (m >= 7 && m <= 9)  return SEASONS.fall;    // Aug 1 \u2013 Oct 31
+  if (m === 10 || m === 11 || m === 0) return SEASONS.winter; // Nov \u2013 Jan
+  if (m >= 1 && m <= 3)  return SEASONS.spring;  // Feb \u2013 Apr
+  return SEASONS.summer;                          // May \u2013 Jul
+}
+const SEASON = getSeason();
+
+/* Writes every seasonal string into the DOM + <head>. Copy only \u2014 never
+   touches filters, fetches or rendering. Safe to call more than once. */
+function applySeason(){
+  var setTxt = function(id, val){ var el = document.getElementById(id); if (el && val) el.textContent = val; };
+  var setMeta = function(sel, val){ var el = document.querySelector(sel); if (el && val) el.setAttribute("content", val); };
+
+  // <head>
+  document.title = SEASON.title;
+  setMeta('meta[name="description"]',         SEASON.desc);
+  setMeta('meta[name="keywords"]',            SEASON.keywords);
+  setMeta('meta[property="og:title"]',        SEASON.title);
+  setMeta('meta[property="og:description"]',  SEASON.desc);
+  setMeta('meta[property="og:image:alt"]',    SEASON.title);
+  setMeta('meta[name="twitter:title"]',       SEASON.title);
+  setMeta('meta[name="twitter:description"]', SEASON.desc);
+  // og:url is intentionally left as the canonical site URL.
+
+  // Seasonal OG art is opt-in: only swap once the file is confirmed to load,
+  // so a missing /og/*.jpg silently keeps the evergreen /og-image.jpg.
+  if (SEASON.og) {
+    var probe = new Image();
+    probe.onload = function(){
+      var abs = location.origin + SEASON.og;
+      setMeta('meta[property="og:image"]',  abs);
+      setMeta('meta[name="twitter:image"]', abs);
+    };
+    probe.src = SEASON.og;
+  }
+
+  // Hero
+  setTxt("pHeroBadge", SEASON.chip);   // may be replaced by updateCountdown()
+  setTxt("heroLine1",  SEASON.heroLine1);
+  setTxt("heroLine2",  SEASON.heroLine2);
+  setTxt("heroSub",    SEASON.sub);
+
+  // Category tabs (canonical .tab-btn set \u2014 the other filter UIs proxy into it)
+  ["free","paid","indoor","outdoor","weekend"].forEach(function(k){
+    setTxt("tabLabel-"+k, SEASON.tabs[k]);
+    setTxt("tabSub-"+k,   SEASON.tabSubs[k]);
+  });
+
+  // Footer badge
+  setTxt("footSeasonBadge", "Bay Area " + SEASON.label + " " + SEASON.year);
+}
+
+/* This script tag sits after the hero, tabs and footer markup and before any
+   data fetch, so applying now guarantees copy lands before loadActivities().
+   The DOMContentLoaded pass is a belt-and-braces re-apply. */
+applySeason();
+document.addEventListener("DOMContentLoaded", applySeason);
+
 function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
 const PAGE_SIZE = getPageSize();
 window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
@@ -2189,14 +2321,19 @@ function showMore() {
 }
 
 function updateCountdown() {
-  var end  = new Date(new Date().getFullYear()+"-08-31");
-  var days = Math.max(0, Math.ceil((end-new Date())/86400000));
+  var now  = new Date();
+  var end  = new Date(now.getFullYear()+"-"+SEASON.endsOn);
+  if (end < now) end = new Date((now.getFullYear()+1)+"-"+SEASON.endsOn);
+  var days = Math.max(0, Math.ceil((end-now)/86400000));
+  var word = SEASON.label.toLowerCase();
+  var msg  = days > 0 ? "⏳ "+days+" days of "+word+" left!" : SEASON.emoji+" "+SEASON.label+" has ended!";
   var el   = document.getElementById("countdown");
-  if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
+  if (el) el.textContent = msg;
   var el2 = document.getElementById("heroCountdown");
-  if (el2) el2.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
-  var el3 = document.getElementById("pHeroBadge");
-  if (el3) el3.textContent = (days > 0 ? days+" days of summer left" : "Summer has ended")+" · "+activeCity;
+  if (el2) el2.textContent = msg;
+  // The hero chip is owned by applySeason() (SEASON.chip) and is deliberately
+  // NOT overwritten here — otherwise a city change would clobber the seasonal
+  // label with countdown text.
 }
 
 /* ── Premium hero bindings (display only — reads existing state, changes none) ── */
@@ -2440,7 +2577,7 @@ function syncBnav(tab) {
 
 </script>
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
-<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
+<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Family Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid activities year-round — saving parents time, connecting communities, and making every weekend count.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
   <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
 </div></div></div>
