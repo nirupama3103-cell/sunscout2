@@ -675,6 +675,15 @@ a{color:inherit}
 .card{background-color:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
 .card h3{font-size:16.5px;font-weight:900;color:var(--navy);line-height:1.25}
+/* Collapsed until a photo loads, so a card without one is exactly the card
+   that shipped before — no gap, no placeholder, no layout shift on failure. */
+.c-img{display:none;margin:-16px -16px 2px;height:150px;overflow:hidden;
+  border-radius:16px 16px 0 0;background:#0E1D2E;position:relative}
+.c-img.has-img{display:block}
+.c-img img{width:100%;height:100%;object-fit:cover;display:block}
+.c-img::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,23,35,0) 45%,rgba(11,23,35,.55) 100%)}
+@media(max-width:700px){.c-img{height:170px}}
 .c-meta{font-size:12.5px;font-weight:800;color:var(--muted)}
 .c-badges{display:flex;flex-wrap:wrap;gap:6px}
 .badge{font-size:11px;font-weight:900;padding:3px 9px;border-radius:99px;white-space:nowrap}
@@ -772,7 +781,20 @@ a{color:inherit}
   --line:rgba(255,255,255,.13);
   --shadow:0 6px 20px rgba(0,0,0,.38);
   --ctl:#18293D;          /* control surfaces that used to be #fff */
+  --pumpkin:#FC764A;      /* the grid + geometric accents on this page */
 }
+/* The geometric furniture is marigold site-wide; on the Halloween hub it runs
+   pumpkin instead. Scoped here so the homepage is untouched. */
+.geo-sec .geo-idx{color:var(--pumpkin)}
+.geo-sec .geo-rule{background:linear-gradient(90deg,
+  rgba(252,118,74,.55) 0%, rgba(252,118,74,.16) 45%, rgba(255,255,255,.10) 100%)}
+#geoProgress::after{background:linear-gradient(90deg,
+  var(--sky), var(--pumpkin) 60%, #FFB27A)}
+.card::after{background:linear-gradient(90deg,
+  var(--sky), var(--pumpkin) 55%, #FFB27A)}
+.count b{color:var(--pumpkin)}
+.hh-hero h1 em{color:var(--pumpkin)}
+.hh-badge{border-color:rgba(252,118,74,.55);background:rgba(252,118,74,.16);color:#FFD2BC}
 html{background:#0B1723}
 html,body{background-image:none}
 body{background:transparent;color:var(--ink)}
@@ -1040,7 +1062,8 @@ function cardHTML(e){
     ? '<span class="badge b-free">🆓 Free</span>'
     : '<span class="badge b-paid">🎟️ Paid</span>';
   var unver = e.verified ? '' : '<p class="c-unver">⚠️ Confirm dates on their site.</p>';
-  return '<article class="card">'
+  return '<article class="card" data-id="'+esc(e.id)+'" data-type="'+esc(e.type)+'">'
+    + '<div class="c-img" aria-hidden="true"></div>'
     + '<h3>'+esc(e.name)+'</h3>'
     + '<p class="c-meta">📍 '+esc(e.city)+' · 📅 '+esc(e.dates)+'</p>'
     + '<div class="c-badges">'+sb+sens+cost+'</div>'
@@ -1053,9 +1076,90 @@ function cardHTML(e){
     + '</article>';
 }
 
+/* Photo lookup phrases per event type. The /api/photos matcher works on
+   keywords in name+desc, so each type is given wording that lands on a
+   sensible Pexels category rather than the generic default. */
+var PHOTO_HINT = {
+  "pumpkin-patch":  "pumpkin patch farm animals family kids",
+  "trunk-or-treat": "halloween street festival fair family kids",
+  "festival":       "family festival fair outdoor kids",
+  "haunt":          "haunted house museum night halloween",
+  "storytime":      "library storytime books reading kids",
+  "display":        "park playground halloween lights display"
+};
+
+/* Photos are decorative enhancement ONLY. The page is required to render from
+   events.json alone (it must not depend on the activities API), so nothing
+   here blocks or alters a card: if the request fails, is slow, or returns no
+   image, the slot simply stays collapsed and the card is what it always was.
+
+   Fetches are gated behind an IntersectionObserver so 18 cards do not fire 18
+   requests on load — only what the visitor actually scrolls to. */
+var photoSeen = {};
+var photoObserver = null;
+function loadCardPhotos(){
+  if (!("IntersectionObserver" in window) || !window.fetch) return;
+  if (!photoObserver) {
+    photoObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var card = en.target;
+        photoObserver.unobserve(card);
+        var id = card.getAttribute("data-id");
+        var slot = card.querySelector(".c-img");
+        if (!slot || !id) return;
+
+        /* One lookup per event for the life of the page — filtering rebuilds
+           the cards, and re-fetching the same photo each time would be waste. */
+        if (photoSeen[id]) {
+          if (photoSeen[id] !== "none") showPhoto(slot, photoSeen[id]);
+          return;
+        }
+        var ev = EVENTS.filter(function(x){ return x.id === id; })[0];
+        if (!ev) return;
+        photoSeen[id] = "none";   // pessimistic until proven otherwise
+        var hint = PHOTO_HINT[ev.type] || "halloween family kids";
+        fetch("/api/photos?name=" + encodeURIComponent(ev.name) +
+              "&desc=" + encodeURIComponent(hint))
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(d){
+            if (!d || !d.url) return;
+            photoSeen[id] = d.url;
+            showPhoto(slot, d.url);
+          })
+          .catch(function(){ /* stays collapsed — by design */ });
+      });
+    }, { rootMargin: "300px 0px" });
+  }
+  document.querySelectorAll("#grid .card[data-id]").forEach(function(c){
+    if (!c.querySelector(".c-img img")) photoObserver.observe(c);
+  });
+}
+
+function showPhoto(slot, url){
+  if (slot.querySelector("img")) return;
+  var img = new Image();
+  img.alt = "";
+  img.decoding = "async";
+  /* Append immediately, reveal only on a successful load. The slot is
+     display:none until .has-img, so nothing is visible in the meantime and a
+     broken URL never leaves an empty band above the title.
+
+     The image must be IN the document to load: an element that is still
+     detached will not fetch, so building it fully before appending would
+     deadlock — onload would never fire and the photo would never appear.
+     No loading="lazy" either, for the same reason and because the
+     IntersectionObserver above already provides the laziness. */
+  img.onload  = function(){ slot.classList.add("has-img"); };
+  img.onerror = function(){ if (img.parentNode) img.parentNode.removeChild(img); };
+  slot.appendChild(img);
+  img.src = url;
+}
+
 function render(){
   var shown = EVENTS.filter(matches);
   document.getElementById("grid").innerHTML = shown.map(cardHTML).join("");
+  loadCardPhotos();
   document.getElementById("empty").style.display = shown.length ? "none" : "block";
   document.getElementById("count").innerHTML =
     "<b>"+shown.length+"</b> of "+EVENTS.length+" event"+(EVENTS.length===1?"":"s");
