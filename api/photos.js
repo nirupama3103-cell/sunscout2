@@ -64,10 +64,72 @@ function getCategory(name, desc) {
   return "default";
 }
 
+// Marker so the self-test can prove which build is actually serving. Bump it
+// whenever this file changes in a way you need to confirm reached production.
+const BUILD = "2026-08-31-photos-selftest";
+
+/**
+ * GET /api/photos?selftest=1
+ *
+ * Diagnostic only, mirroring /api/subscribe?selftest=1. Without this, a
+ * missing or wrong PEXELS_API_KEY is invisible: the request 401s, data.photos
+ * comes back undefined, and the handler answers {url:null} — which is exactly
+ * what "no photo matched this query" looks like. Pages then degrade silently
+ * and correctly, and nobody can tell misconfiguration from a genuine miss.
+ *
+ * Never returns the key, only its length and last four characters — enough to
+ * spot a truncated or quote-wrapped paste.
+ */
+async function selftest(res) {
+  const key = process.env.PEXELS_API_KEY || "";
+  const out = {
+    build: BUILD,
+    provider: "pexels",
+    keyPresent: Boolean(key),
+    keyLength: key.length,
+    keyTail: key ? key.slice(-4) : null,
+    keyLooksQuoted: /^["']|["']$/.test(key),
+    cacheEntries: CACHE.size,
+  };
+  if (!key) {
+    out.verdict = "PEXELS_API_KEY is not set — /api/photos will return url:null for every request.";
+    return res.status(200).json(out);
+  }
+  try {
+    const r = await fetch(
+      "https://api.pexels.com/v1/search?query=kids%20park&per_page=1",
+      { headers: { Authorization: key } }
+    );
+    out.providerStatus = r.status;
+    const body = await r.text();
+    out.providerBody = body.slice(0, 200);
+    out.verdict = r.ok
+      ? "OK — key is valid and Pexels is answering."
+      : "Key is set but Pexels rejected it (see providerStatus/providerBody).";
+  } catch (e) {
+    out.providerStatus = "fetch-failed";
+    out.providerBody = String(e && e.message).slice(0, 200);
+    out.verdict = "Could not reach Pexels at all.";
+  }
+  return res.status(200).json(out);
+}
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  if (req.method === "GET" && /selftest=1/.test(req.url || "")) {
+    res.setHeader("Cache-Control", "no-store");
+    return selftest(res);
+  }
+
   const { name, desc } = req.query;
   if (!name) return res.status(400).json({ error: "name required" });
+
+  /* Fail loudly on misconfiguration instead of impersonating "no match".
+     Callers still degrade gracefully — every one of them checks d.url — but
+     the reason is now in the payload and the status code. */
+  if (!process.env.PEXELS_API_KEY) {
+    return res.status(503).json({ url: null, reason: "no-api-key", build: BUILD });
+  }
 
   const category = getCategory(name, desc || "");
   const query = CATEGORY_QUERIES[category];
@@ -86,13 +148,22 @@ export default async function handler(req, res) {
       `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&page=${page}&orientation=landscape`,
       { headers: { Authorization: process.env.PEXELS_API_KEY } }
     );
+    /* A 401/429 from Pexels used to fall through as "no photos", which is
+       indistinguishable from a genuine miss. Name it. */
+    if (!r.ok) {
+      const body = await r.text();
+      return res.status(502).json({
+        url: null, reason: "provider-error",
+        providerStatus: r.status, providerBody: body.slice(0, 200), build: BUILD,
+      });
+    }
     const data = await r.json();
     const photos = data.photos || [];
-    if (photos.length === 0) return res.json({ url: null });
+    if (photos.length === 0) return res.json({ url: null, reason: "no-match", category });
     const pick = photos[Math.floor(Math.random() * photos.length)];
     CACHE.set(cacheKey, { url: pick.src.large, ts: Date.now() });
     return res.json({ url: pick.src.large, category, cached: false });
   } catch(e) {
-    return res.status(500).json({ error: e.message });
+    return res.status(500).json({ url: null, reason: "exception", error: e.message, build: BUILD });
   }
 }

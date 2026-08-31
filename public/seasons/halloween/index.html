@@ -1097,6 +1097,7 @@ var PHOTO_HINT = {
    requests on load — only what the visitor actually scrolls to. */
 var photoSeen = {};
 var photoObserver = null;
+var photoWarned = false;   /* warn once, not eighteen times */
 function loadCardPhotos(){
   if (!("IntersectionObserver" in window) || !window.fetch) return;
   if (!photoObserver) {
@@ -1121,9 +1122,20 @@ function loadCardPhotos(){
         var hint = PHOTO_HINT[ev.type] || "halloween family kids";
         fetch("/api/photos?name=" + encodeURIComponent(ev.name) +
               "&desc=" + encodeURIComponent(hint))
-          .then(function(r){ return r.ok ? r.json() : null; })
+          /* Parse the body even on an error status: the handler puts the
+             reason there, and a silent "no photos" is exactly the failure
+             that used to be impossible to diagnose. */
+          .then(function(r){ return r.json().catch(function(){ return null; }); })
           .then(function(d){
-            if (!d || !d.url) return;
+            if (!d) return;
+            if (!d.url) {
+              if (d.reason && d.reason !== "no-match" && !photoWarned) {
+                photoWarned = true;
+                console.warn("[SunScout] event photos unavailable — reason: " + d.reason +
+                  ". Check /api/photos?selftest=1");
+              }
+              return;
+            }
             photoSeen[id] = d.url;
             showPhoto(slot, d.url);
           })
