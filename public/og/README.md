@@ -1,21 +1,37 @@
 # Open Graph share images
 
-<!-- TODO: create the 4 seasonal OG images listed below. -->
+`applySeason()` points `og:image` / `twitter:image` at `SEASON.og`, swapping
+it in only once the file is confirmed to load — so a missing card falls back
+to `/og-image.jpg` rather than producing a broken share preview.
 
-`applySeason()` in `public/index.html` points `og:image` / `twitter:image` at
-`SEASON.og`. Each file is **1200 × 630 px JPG** (matches the existing
-`og:image:width` / `og:image:height` meta tags).
+All 1200 × 630 JPG, matching the `og:image:width` / `og:image:height` meta.
 
-Until a file exists here the page silently falls back to `/og-image.jpg` —
-the swap only happens after the seasonal image is confirmed to load, so a
-missing file never produces a broken share card.
+| File | Status | Source |
+| ---- | ------ | ------ |
+| `og-spring.jpg` | ✅ | `scripts/build-og-seasons.js` |
+| `og-summer.jpg` | ✅ | `scripts/build-og-seasons.js` |
+| `og-fall.jpg` | ✅ | `scripts/build-og-seasons.js` |
+| `og-winter.jpg` | ✅ | `scripts/build-og-seasons.js` |
+| `og-halloween.jpg` | ✅ | `scripts/og-halloween.template.html` |
 
-| Season | File            | Suggested art                                  |
-| ------ | --------------- | ---------------------------------------------- |
-| Spring | `og-spring.jpg` | 🌸 Blossom trails, egg hunts, spring break camps |
-| Summer | `og-summer.jpg` | ☀️ Splash pads, storytimes, summer camps         |
-| Fall   | `og-fall.jpg`   | 🍂 Pumpkin patches, harvest festivals            |
-| Winter | `og-winter.jpg` | ❄️ Holiday lights, ice rinks                     |
+## Regenerating the four seasonal cards
 
-Keep the SunScout logo, Nunito type and the brand palette
-(sunny orange `#FF9900` + blue `#1565c0`). Compress before committing.
+```sh
+node scripts/build-og-seasons.js
+```
+
+The copy is read out of `public/config/seasons.js` at render time — the chip,
+both hero lines and the opening clause of the sub — so a card can never
+contradict the site. **Re-run this after editing any season's copy**, or the
+share preview will quote wording the page no longer uses.
+
+Art direction lives in `scripts/og-season.template.html`; each season
+contributes only a palette, defined in the `PALETTE` map in the build script.
+The hairline grid and corner ticks mirror the site hero so the cards and the
+page read as one system.
+
+## Fonts
+
+The renderer pulls Nunito from Google Fonts. Where that is unreachable it
+falls back to a system sans and the cards still render, just not in the brand
+face — regenerate somewhere with network access if the type looks wrong.

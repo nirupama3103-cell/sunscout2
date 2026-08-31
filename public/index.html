@@ -7,11 +7,26 @@
 <meta charset="UTF-8"/>
   <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SunScout – Summer Activities for Kids</title>
+  <!-- ══════════════════════════════════════════════════════════════════
+       These static values are deliberately EVERGREEN, and must stay that way.
+
+       applySeason() rewrites them at runtime, so a visitor always sees the
+       current season. Crawlers, though, read the HTML as served and do not
+       wait for script — so anything seasonal written here is wrong for nine
+       months of the year. It previously said "Summer" every day of the year.
+
+       There is no build step in this project (see CLAUDE.md), so the served
+       HTML cannot be generated per season. Seasonal keyword targeting
+       therefore lives on the hub pages, which are hand-built and carry real
+       static seasonal meta — /seasons/halloween/ is the first of them.
+
+       Do not "helpfully" put a season back into these five tags.
+       ══════════════════════════════════════════════════════════════════ -->
+  <title>SunScout – Free &amp; Paid Activities for Bay Area Kids</title>
 
   <!-- ── SEO: Meta Description ── -->
-  <meta name="description" content="Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor and more — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
-  <meta name="keywords" content="summer activities kids Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino, kids events Fremont">
+  <meta name="description" content="Hand-checked things to do with kids across the South Bay, all year round. Filter by city, age, price and indoor/outdoor — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
+  <meta name="keywords" content="kids activities Bay Area, things to do with kids South Bay, free kids activities Sunnyvale, family activities San Jose, kids activities Cupertino, kids events Fremont">
   <meta name="author" content="Nirupama Vadapalli">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.sunscoutkids.com/">
@@ -19,19 +34,19 @@
   <!-- ── Open Graph ── -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.sunscoutkids.com/">
-  <meta property="og:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta property="og:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
+  <meta property="og:title" content="SunScout – Free &amp; Paid Activities for Bay Area Kids">
+  <meta property="og:description" content="Hand-checked things to do with kids across 7 South Bay cities, all year round. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="SunScout – Summer Activities for Bay Area Kids">
+  <meta property="og:image:alt" content="SunScout – Activities for Bay Area Kids">
   <meta property="og:site_name" content="SunScout">
   <meta property="og:locale" content="en_US">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
+  <meta name="twitter:title" content="SunScout – Free &amp; Paid Activities for Bay Area Kids">
+  <meta name="twitter:description" content="Hand-checked things to do with kids across 7 South Bay cities, all year round. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
 
   <!-- 2026 geometric premium layer. Remove these three tags and the
@@ -2203,6 +2218,44 @@ function isRainingCode(code) {
   return (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || (c >= 95 && c <= 99);
 }
 
+/* Highest precipitation probability over the next few hours.
+
+   The banner says "{N}% chance of rain today", so the useful number is a
+   look-ahead, not the value at hourly index 0 — that is midnight UTC, which
+   in the Bay Area is the middle of the previous evening and says nothing
+   about the afternoon.
+
+   Finds the entry matching current_weather.time and takes the maximum over
+   the following LOOKAHEAD_H hours. Both timestamps come back in the same
+   (UTC) frame, so no timezone maths is needed. Returns null on anything
+   unexpected rather than guessing. */
+var LOOKAHEAD_H = 12;
+function hourlyProbAhead(d) {
+  try {
+    var h = d && d.hourly;
+    if (!h || !h.precipitation_probability || !h.time) return null;
+    var probs = h.precipitation_probability, times = h.time;
+    if (!probs.length || probs.length !== times.length) return null;
+
+    var now = d.current_weather && d.current_weather.time;
+    var start = 0;
+    if (now) {
+      var stamp = String(now).slice(0, 13);          // YYYY-MM-DDTHH
+      for (var i = 0; i < times.length; i++) {
+        if (String(times[i]).slice(0, 13) === stamp) { start = i; break; }
+      }
+    }
+    var best = null;
+    for (var j = start; j < Math.min(times.length, start + LOOKAHEAD_H); j++) {
+      var v = probs[j];
+      if (v === null || v === undefined || isNaN(v)) continue;
+      var n = Number(v);
+      if (best === null || n > best) best = n;
+    }
+    return best;
+  } catch (e) { return null; }
+}
+
 /* Pulls whatever precipitation signal the response actually carries.
    Never throws: any missing/!malformed field degrades to {prob:null,code:null}. */
 function readRain(d) {
@@ -2218,7 +2271,7 @@ function readRain(d) {
     var probSources = [
       cw.precipitation_probability,
       d && d.daily && d.daily.precipitation_probability_max && d.daily.precipitation_probability_max[0],
-      d && d.hourly && d.hourly.precipitation_probability && d.hourly.precipitation_probability[0]
+      hourlyProbAhead(d)
     ];
     for (var i = 0; i < probSources.length; i++) {
       var v = probSources[i];
@@ -2314,7 +2367,10 @@ async function fetchWeather(city) {
   var banner = document.getElementById("weatherBanner");
   if (!banner) return;
   try {
-    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&temperature_unit=fahrenheit");
+    /* hourly=precipitation_probability is what makes RAIN_LIKELY and
+       RAIN_MAYBE reachable — current_weather alone carries a weathercode but
+       no probability. forecast_days=1 keeps the payload to a single day. */
+    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&hourly=precipitation_probability&forecast_days=1&temperature_unit=fahrenheit");
     var d = await r.json();
     var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
     ssPremiumWeather(city, t);

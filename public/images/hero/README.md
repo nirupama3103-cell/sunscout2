@@ -9,8 +9,8 @@ supported, falling back to the jpg.
 
 | Season | Files | Status |
 | ------ | ----- | ------ |
-| Spring | `hero-spring.jpg` + `.webp` | **TODO** — awaiting the sky image |
-| Summer | `hero-summer.jpg` + `.webp` | **TODO** — awaiting the sky image |
+| Spring | `hero-spring.jpg` + `.webp` | ✅ sunset sky (shared with summer) |
+| Summer | `hero-summer.jpg` + `.webp` | ✅ sunset sky (shared with spring) |
 | Fall   | `hero-fall.jpg` + `.webp`   | **TODO** — warm low sun, bare branches, overcast |
 | Winter | `hero-winter.jpg` + `.webp` | **TODO** — cool blue-grey, low contrast |
 
@@ -40,6 +40,13 @@ node scripts/check-hero-contrast.js "http://localhost:8765/?season=summer"
 
 It samples the real rendered pixels behind the top, middle and bottom of
 the hero text and fails (exit 1) if anything falls below 4.5:1.
+
+## Resolution
+
+The optimiser **never upscales**, so the source sets the ceiling. Below
+1600px wide it prints a warning and the hero will look soft on a wide
+desktop — the current sunset sky is 913px and does exactly that. Nothing
+downstream can recover detail that was not in the file.
 
 ## Choosing an image
 

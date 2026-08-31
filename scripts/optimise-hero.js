@@ -95,6 +95,14 @@ async function main() {
 
   const kb = n => (n / 1024).toFixed(1) + ' KB';
   console.log(`source : ${out.srcW}x${out.srcH}`);
+  /* Detail cannot be invented: if the source is narrower than the target the
+     hero will look soft on a wide desktop, and no amount of re-encoding
+     fixes it. Say so loudly at the point the mistake is made. */
+  if (out.srcW < WIDTH) {
+    console.warn(`WARNING: source is only ${out.srcW}px wide, below the ${WIDTH}px target.`);
+    console.warn(`         Never upscaled, so the hero will look soft on displays wider`);
+    console.warn(`         than ${out.srcW}px. Re-run with a larger original to sharpen it.`);
+  }
   console.log(`output : ${out.w}x${out.h}  (quality ${QUALITY})`);
   console.log(`  ${path.relative(process.cwd(), jpgPath)}  ${kb(jpgSize)}  ${jpgSize <= 200 * 1024 ? 'OK (<200KB)' : 'OVER 200KB — lower quality or width'}`);
   console.log(`  ${path.relative(process.cwd(), webpPath)}  ${kb(webpSize)}  (${Math.round((1 - webpSize / jpgSize) * 100)}% smaller than the jpg)`);
