@@ -34,6 +34,25 @@
   <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
 
+  <!-- 2026 geometric premium layer. Remove these three tags and the
+       motion.js tag before </body> to strip it entirely. -->
+  <link rel="stylesheet" href="/css/premium.css">
+  <script>
+    /* Set before first paint: the reveal styles are gated on .geo-ready, so
+       with JS off (or if motion.js fails) nothing is ever hidden. Skipped
+       under reduced motion so those visitors get static content, not a
+       hidden-then-shown flash. */
+    try{
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.documentElement.className += ' geo-ready';
+      }
+    }catch(e){}
+  </script>
+
+  <!-- Seasonal config: must be a plain sync script so SEASON exists before
+       the inline page scripts below run. Do not add defer/async. -->
+  <script src="/config/seasons.js"></script>
+
   <!-- ── PWA Manifest ── -->
   <link rel="manifest" href="/manifest.json">
   <link rel="dns-prefetch" href="//api.open-meteo.com">
@@ -58,6 +77,25 @@ img{max-width:100%;display:block}
 .logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
+#halloweenCard{display:flex;align-items:center;gap:14px;margin:14px 16px 0;padding:14px 18px;
+  border-radius:16px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,#17324D,#24557d 60%,#4FA8DA);
+  box-shadow:0 2px 10px rgba(23,50,77,.18);transition:transform .15s}
+#halloweenCard:hover{transform:translateY(-2px)}
+#halloweenCard .hw-emoji{font-size:30px;flex:0 0 auto}
+#halloweenCard .hw-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+#halloweenCard .hw-text b{font-size:14.5px;font-weight:900;line-height:1.25}
+#halloweenCard .hw-text span{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.82)}
+#halloweenCard .hw-go{margin-left:auto;font-size:20px;font-weight:900;color:#F2A93B;flex:0 0 auto}
+@media(max-width:700px){#halloweenCard{margin:10px 10px 0;padding:12px 14px;gap:11px}
+  #halloweenCard .hw-emoji{font-size:25px}#halloweenCard .hw-text b{font-size:13.5px}}
+@media(prefers-reduced-motion:reduce){#halloweenCard{transition:none}#halloweenCard:hover{transform:none}}
+.rain-banner{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+.rain-banner .rain-x{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:inherit;
+  font-size:15px;font-weight:900;line-height:1;cursor:pointer;border-radius:99px;
+  width:26px;height:26px;flex:0 0 auto}
+.rain-banner .rain-x:hover{background:rgba(255,255,255,.4)}
+@media(max-width:700px){.rain-banner .rain-x{width:32px;height:32px}}
 .weather-banner{display:none!important;margin:14px 16px 0;padding:12px 20px;border-radius:14px;font-weight:800;font-size:14px;color:#fff;text-align:center;transition:background .3s}
 .city-fact{text-align:center;font-size:12px;color:#888;font-weight:600;padding:6px 16px}
 .city-bar{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;padding:14px 16px 0}
@@ -805,12 +843,98 @@ html,body{
 body{color:var(--p-ink) !important}
 
 /* ── Hero ── */
+/* ══════════════════════════════════════════════════════════════════════
+   SEASONAL PHOTOGRAPHIC HERO
+   ---------------------------------------------------------------------
+   --hero-bg is set by applySeason() from SEASON.heroBg. It resolves to an
+   image-set() so the browser takes the .webp and falls back to the .jpg.
+   (A <picture> element cannot back a CSS background — image-set() is the
+   equivalent mechanism for backgrounds.)
+
+   Layer order, topmost first:
+     1. the mandated scrim gradient
+     2. the photograph
+     3. background-color: Horizon Navy — so the hero is never a white
+        flash, and white text is legible before the image lands (and if it
+        never does).
+   Scoped to .hero only: body and cards are untouched.
+   ══════════════════════════════════════════════════════════════════════ */
 .hero{
-  background:linear-gradient(168deg,#DCF5F1 0%,#FDEDE6 42%,#FFF9F0 100%) !important;
+  /* The mandated scrim, exactly as specified. */
+  --hero-scrim:linear-gradient(180deg,
+      rgba(23,50,77,0.55) 0%,
+      rgba(23,50,77,0.30) 45%,
+      rgba(23,50,77,0.65) 100%);
+  /* ADDITION — not in the original spec. The mandated scrim alone cannot
+     reach 4.5:1: its 45% mid-stop is only 0.30 alpha, which measures
+     2.56:1 for white text over a pale sky (1.81:1 worst case). This second
+     layer darkens only the left-hand text column and fades out before the
+     weather card, so the photograph keeps its brightness on the right
+     while the text clears AA. Delete this one line and the --hero-text-scrim
+     entry from background-image to return to the scrim as originally
+     specified — and expect the contrast checker to fail. */
+  --hero-text-scrim:linear-gradient(90deg,
+      rgba(23,50,77,0.55) 0%,
+      rgba(23,50,77,0.55) 52%,
+      rgba(23,50,77,0.00) 82%);
+  background-color:#17324D !important;
+  background-image:var(--hero-text-scrim), var(--hero-scrim), var(--hero-bg, none) !important;
+  background-size:cover, cover, cover !important;
+  background-position:center center, center center, center 40% !important;
+  background-repeat:no-repeat, no-repeat, no-repeat !important;
   padding:26px 20px 30px !important;
   text-align:left !important;
   border-radius:0 0 28px 28px;
   box-shadow:0 18px 44px rgba(70,45,10,.10);
+}
+/* No image configured yet (or it failed to load): keep the original warm
+   gradient rather than a flat navy slab. */
+.hero:not([data-hero-img="on"]){
+  background-image:linear-gradient(168deg,#DCF5F1 0%,#FDEDE6 42%,#FFF9F0 100%) !important;
+  background-color:#FFF9F0 !important;
+}
+
+/* ── Hero text: white/near-white once the photograph is behind it ── */
+.hero[data-hero-img="on"] .p-h1,
+.hero[data-hero-img="on"] .p-stat b{color:#FFFFFF}
+.hero[data-hero-img="on"] .p-lede,
+.hero[data-hero-img="on"] .hero-sub{color:#F5F8FA !important}
+.hero[data-hero-img="on"] .p-stat span{color:#E4EDF3}
+.hero[data-hero-img="on"] .p-stat-rule{background:rgba(255,255,255,.28)}
+.hero[data-hero-img="on"]::before,
+.hero[data-hero-img="on"]::after{display:none}
+/* The logo wordmark is dark navy artwork; on the photographic ground it
+   loses contrast. A soft light halo keeps the brand colours intact rather
+   than swapping in a second logo asset. */
+.hero[data-hero-img="on"] .hero-logo img{
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.95))
+         drop-shadow(0 1px 8px rgba(255,255,255,.75));
+}
+
+/* ── Mobile: the crop is much tighter, so favour the cloud band higher up
+      and lift the scrim — narrow viewports show more of the pale bottom. ── */
+@media(max-width:600px){
+  .hero{
+    --hero-scrim:linear-gradient(180deg,
+        rgba(23,50,77,0.60) 0%,
+        rgba(23,50,77,0.40) 45%,
+        rgba(23,50,77,0.70) 100%);
+    /* The grid stacks here, so text spans the full width and the column
+       scrim has to as well. */
+    --hero-text-scrim:linear-gradient(90deg,
+        rgba(23,50,77,0.62) 0%,
+        rgba(23,50,77,0.62) 100%);
+    background-position:center center, center center, center 30% !important;
+  }
+}
+
+/* ── Save-Data: skip the photograph entirely, keep the navy ground and the
+      scrim so the hero still reads as designed. ── */
+@media(prefers-reduced-data:reduce){
+  .hero[data-hero-img="on"]{
+    background-image:var(--hero-text-scrim), var(--hero-scrim) !important;
+    background-color:#17324D !important;
+  }
 }
 .hero .cloud{display:none !important}
 .hero::before,.hero::after{
@@ -1144,13 +1268,19 @@ body{color:var(--p-ink) !important}
 <body>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
+<div id="geoProgress" role="presentation" aria-hidden="true"></div>
 <section class="hero" style="text-align:center;padding:20px 16px 12px;">
+  <div class="geo-grid" aria-hidden="true"></div>
+  <span class="geo-tick tl" aria-hidden="true"></span>
+  <span class="geo-tick tr" aria-hidden="true"></span>
+  <span class="geo-tick bl" aria-hidden="true"></span>
+  <span class="geo-tick br" aria-hidden="true"></span>
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->
@@ -1158,8 +1288,8 @@ body{color:var(--p-ink) !important}
       <div class="p-hero-grid">
         <div class="p-hero-main">
           <div class="p-badge"><span>⏳</span><span id="pHeroBadge">Summer 2026 · Bay Area</span></div>
-          <h1 class="p-h1">Your summer,<br>already planned.</h1>
-          <p class="p-lede">Splash pads, storytimes and standout camps across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
+          <h1 class="p-h1"><span id="heroLine1">Your summer,</span><br><span id="heroLine2">already planned.</span></h1>
+          <p class="p-lede" id="heroSub">Splash pads, storytimes and standout camps across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
             <div class="p-stat"><b id="pStatCount">—</b><span>Activities live</span></div>
             <div class="p-stat-rule"></div>
@@ -1284,6 +1414,31 @@ body{color:var(--p-ink) !important}
   </div>
 </section>
 
+<!-- Auto-scrolling highlights. Decorative and navigational only: it carries
+     no filter control, so the motion can never change what is on screen.
+     Pausable by button, hover, focus and tab-hide; fully still under
+     prefers-reduced-motion (WCAG 2.2.2). -->
+<div class="geo-ticker-wrap" id="geoTicker" data-paused="false">
+  <div class="geo-ticker">
+    <div class="geo-track">
+      <span>Hand-checked by a Bay Area family</span>
+      <span>7 South Bay cities</span>
+      <span>Free &amp; budget-friendly picks</span>
+      <span>Filtered by your kid&rsquo;s age</span>
+      <span>Sunnyvale</span>
+      <span>San Jose</span>
+      <span>Cupertino</span>
+      <span>Mountain View</span>
+      <span>Palo Alto</span>
+      <span>Saratoga</span>
+      <span>Fremont</span>
+      <span>Rainy day? We switch you indoors</span>
+      <span>No ads. No profiles.</span>
+    </div>
+  </div>
+  <button class="geo-pause" type="button" aria-label="Pause the scrolling highlights" aria-pressed="false">&#10074;&#10074;</button>
+</div>
+
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
     <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
@@ -1393,12 +1548,19 @@ body{color:var(--p-ink) !important}
 
 <div class="header" style="display:none">
   <div class="logo"><img src="./sun-logo.png" alt="SunScout" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></div>
-  <p class="tagline">Your go-to guide for Bay Area summer fun — free and budget-friendly picks</p>
+  <p class="tagline">Your go-to guide for Bay Area family fun — free and budget-friendly picks</p>
   <div class="countdown" id="countdown">⏳ Loading...</div>
 </div>
 
 
 <div id="weatherBanner" class="weather-banner" style="display:none"></div>
+<div id="rainBanner" class="weather-banner rain-banner" style="display:none" role="status" aria-live="polite"></div>
+<!-- Shown by applySeason() only when SEASON.key === "fall". -->
+<a id="halloweenCard" href="/seasons/halloween/" style="display:none">
+  <span class="hw-emoji" aria-hidden="true">🎃</span>
+  <span class="hw-text"><b>Halloween in the South Bay, sorted by how scary it isn’t</b><span>Pumpkin patches, trunk-or-treats and sensory-friendly picks — rated 1 to 4.</span></span>
+  <span class="hw-go" aria-hidden="true">→</span>
+</a>
 <!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
 <div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
 
@@ -1535,28 +1697,28 @@ function mobSearch() {
   <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
     <span class="tab-free-dot">$0</span>
     <span class="tab-icon">🆓</span>
-    <span class="tab-label">Free Summer Activities</span>
-    <span class="tab-sub">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
+    <span class="tab-label" id="tabLabel-free">Free Summer Activities</span>
+    <span class="tab-sub" id="tabSub-free">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
   </button>
   <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🎟️</span>
-    <span class="tab-label">Paid Summer Activities</span>
-    <span class="tab-sub">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
+    <span class="tab-label" id="tabLabel-paid">Paid Summer Activities</span>
+    <span class="tab-sub" id="tabSub-paid">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
   </button>
   <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🏛️</span>
-    <span class="tab-label">Indoor Activities</span>
-    <span class="tab-sub">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
+    <span class="tab-label" id="tabLabel-indoor">Indoor Activities</span>
+    <span class="tab-sub" id="tabSub-indoor">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
   </button>
   <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">🌳</span>
-    <span class="tab-label">Outdoor Activities</span>
-    <span class="tab-sub">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
+    <span class="tab-label" id="tabLabel-outdoor">Outdoor Activities</span>
+    <span class="tab-sub" id="tabSub-outdoor">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
   </button>
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
     <span class="tab-icon">📅</span>
-    <span class="tab-label">Weekend Activities</span>
-    <span class="tab-sub">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
+    <span class="tab-label" id="tabLabel-weekend">Weekend Activities</span>
+    <span class="tab-sub" id="tabSub-weekend">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
   </button>
 </div>
 
@@ -1586,6 +1748,12 @@ function mobSearch() {
   <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
 </div>
 
+<div class="geo-sec" aria-hidden="true">
+  <span class="geo-idx">01</span>
+  <span class="geo-label">What&rsquo;s on</span>
+  <span class="geo-rule"></span>
+</div>
+
 <div class="status-bar" id="statusBar" aria-live="polite">Loading activities…</div>
 
 <main id="main">
@@ -1598,7 +1766,7 @@ function mobSearch() {
   <div class="p-foot">
     <div class="p-foot-brand">
       <div class="p-foot-logo"><span>☀️</span><span><span class="s1">Sun</span><span class="s2">Scout</span></span></div>
-      <p>Summer is too short to spend it scrolling. Built by a Bay Area family, for Bay Area families.</p>
+      <p>Weekends are too short to spend them scrolling. Built by a Bay Area family, for Bay Area families.</p>
     </div>
     <nav class="p-foot-cols" aria-label="Footer">
       <div class="p-foot-col">
@@ -1612,6 +1780,7 @@ function mobSearch() {
         <b>More</b>
         <a href="/diy.html">DIY projects</a>
         <a href="/local-table/">Local Table</a>
+        <a href="/seasons/halloween/">Halloween hub</a>
         <button type="button" onclick="document.getElementById('about-modal').style.display='flex'">About SunScout</button>
       </div>
       <div class="p-foot-col p-foot-sub">
@@ -1636,12 +1805,115 @@ function mobSearch() {
     </nav>
   </div>
   <div class="p-foot-fine">
-    <span>Bay Area Summer 2026</span>
+    <span id="footSeasonBadge">Bay Area Summer 2026</span>
     <span>🔄 Refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></span>
   </div>
 </div>
 
 <script>
+/* SEASONS / getSeason() / SEASON now live in /config/seasons.js (loaded in <head>). */
+
+
+/* Writes every seasonal string into the DOM + <head>. Copy only \u2014 never
+   touches filters, fetches or rendering. Safe to call more than once. */
+function applySeason(){
+  var setTxt = function(id, val){ var el = document.getElementById(id); if (el && val) el.textContent = val; };
+  var setMeta = function(sel, val){ var el = document.querySelector(sel); if (el && val) el.setAttribute("content", val); };
+
+  // <head>
+  document.title = SEASON.title;
+  setMeta('meta[name="description"]',         SEASON.desc);
+  setMeta('meta[name="keywords"]',            SEASON.keywords);
+  setMeta('meta[property="og:title"]',        SEASON.title);
+  setMeta('meta[property="og:description"]',  SEASON.desc);
+  setMeta('meta[property="og:image:alt"]',    SEASON.title);
+  setMeta('meta[name="twitter:title"]',       SEASON.title);
+  setMeta('meta[name="twitter:description"]', SEASON.desc);
+  // og:url is intentionally left as the canonical site URL.
+
+  // Seasonal OG art is opt-in: only swap once the file is confirmed to load,
+  // so a missing /og/*.jpg silently keeps the evergreen /og-image.jpg.
+  if (SEASON.og) {
+    var probe = new Image();
+    probe.onload = function(){
+      var abs = location.origin + SEASON.og;
+      setMeta('meta[property="og:image"]',  abs);
+      setMeta('meta[name="twitter:image"]', abs);
+    };
+    probe.src = SEASON.og;
+  }
+
+  // Hero
+  setTxt("pHeroBadge", SEASON.chip);   // may be replaced by updateCountdown()
+  setTxt("heroLine1",  SEASON.heroLine1);
+  setTxt("heroLine2",  SEASON.heroLine2);
+  setTxt("heroSub",    SEASON.sub);
+
+  // Category tabs (canonical .tab-btn set \u2014 the other filter UIs proxy into it)
+  ["free","paid","indoor","outdoor","weekend"].forEach(function(k){
+    setTxt("tabLabel-"+k, SEASON.tabs[k]);
+    setTxt("tabSub-"+k,   SEASON.tabSubs[k]);
+  });
+
+  // Footer badge
+  setTxt("footSeasonBadge", "Bay Area " + SEASON.label + " " + SEASON.year);
+
+  // Seasonal hub cross-link: only surfaced when it is actually the season.
+  var hw = document.getElementById("halloweenCard");
+  if (hw) hw.style.display = (SEASON.key === "fall") ? "flex" : "none";
+
+  applyHeroBg();
+}
+
+/* Seasonal photographic hero.
+
+   Preloads the active season's image so it does not wait on the CSS to be
+   parsed and the background rule matched, then points --hero-bg at an
+   image-set() (webp preferred, jpg fallback).
+
+   The data-hero-img="on" flag is only set once the jpg is confirmed to
+   decode. That is a deliberate departure from "navy immediately": the four
+   hero images are not in the repo yet, and without the probe every visitor
+   would get a flat navy slab where the warm gradient used to be. Once the
+   assets land the preload means the probe resolves from cache, so the
+   navy ground -> photograph sequence is what people actually see. To make
+   it unconditional, drop the probe and set the attribute directly. */
+function applyHeroBg(){
+  var hero = document.querySelector(".hero");
+  if (!hero || !SEASON.heroBg) return;
+
+  var jpg  = SEASON.heroBg;
+  var webp = jpg.replace(/\.jpg$/i, ".webp");
+
+  /* Save-Data: do not fetch the photograph at all. The CSS drops the image
+     layer too; this stops the preload from spending the bytes. */
+  try {
+    if (navigator.connection && navigator.connection.saveData) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-data: reduce)").matches) return;
+  } catch(e) {}
+
+  if (!document.getElementById("heroPreload")) {
+    var link = document.createElement("link");
+    link.id = "heroPreload"; link.rel = "preload"; link.as = "image";
+    link.href = jpg;
+    document.head.appendChild(link);
+  }
+
+  var probe = new Image();
+  probe.onload = function(){
+    hero.style.setProperty("--hero-bg",
+      'image-set(url("' + webp + '") type("image/webp"), url("' + jpg + '") type("image/jpeg"))');
+    hero.setAttribute("data-hero-img", "on");
+  };
+  probe.src = jpg;
+}
+
+/* This script tag sits after the hero, tabs and footer markup and before any
+   data fetch, so applying now guarantees copy lands before loadActivities().
+   The DOMContentLoaded pass is a belt-and-braces re-apply. */
+applySeason();
+document.addEventListener("DOMContentLoaded", applySeason);
+
 function getPageSize() { return window.innerWidth <= 700 ? 5 : 8; }
 const PAGE_SIZE = getPageSize();
 window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
@@ -1789,9 +2061,14 @@ function getCardHTML(a) {
 function wBtn(fn, label) {
   return "<button onclick=\""+fn+"\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">"+label+"</button>";
 }
+/* Programmatic tab change (weather auto-switch, Surprise Me, banner CTAs).
+   Flagged so setTab() can tell it apart from a human clicking a tab. */
+var _programmaticTab = false;
 function goTab(name) {
   var b = document.querySelector(".tab-btn[data-tab='"+name+"']");
-  if (b) setTab(b);
+  if (!b) return;
+  _programmaticTab = true;
+  try { setTab(b); } finally { _programmaticTab = false; }
 }
 function surpriseMe() {
   var tabs = ["free","outdoor","indoor","paid","weekend"];
@@ -1891,6 +2168,147 @@ function shareActivity(i) {
     window.open(wa, "_blank");
   }
 }
+/* ══════════════════════════════════════════════════════════════════════
+   RAIN MODE
+   ---------------------------------------------------------------------
+   States: RAIN_NOW | RAIN_LIKELY | RAIN_MAYBE | DRY
+
+   PRECEDENCE: RAIN_NOW and RAIN_LIKELY outrank the heat alert — rain in
+   the Bay Area at 90F is rare enough that rain is the more actionable
+   signal. RAIN_MAYBE is advisory only and never changes the tab.
+
+   DATA SOURCE: parsed out of the SAME /v1/forecast response the page
+   already fetches — no second call, no URL change. That request asks for
+   `current_weather=true`, whose payload is
+   {temperature, windspeed, winddirection, weathercode, is_day, time}:
+   it carries a WMO `weathercode` but NO precipitation probability. So
+   RAIN_NOW is derived from the weathercode, and probability is simply
+   unavailable from live data (readRain returns prob:null). The
+   probability branches below are still implemented and are reachable
+   via the ?weather= override, and will start working automatically if a
+   precipitation field ever appears in the response — readRain looks for
+   the usual field names first and only then falls back to weathercode.
+
+   MANUAL TEST OVERRIDE (no API involved):
+     ?weather=rain-now | rain-likely | rain-maybe | heat | dry
+   e.g. /?weather=rain-likely forces a 60% RAIN_LIKELY state.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* WMO weather codes that mean water is falling right now.
+   51-57 drizzle · 61-67 rain · 80-82 rain showers · 95-99 thunderstorm.
+   Snow (71-77, 85-86) is excluded — not a Bay Area concern. */
+function isRainingCode(code) {
+  if (code === null || code === undefined || isNaN(code)) return false;
+  var c = Number(code);
+  return (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || (c >= 95 && c <= 99);
+}
+
+/* Pulls whatever precipitation signal the response actually carries.
+   Never throws: any missing/!malformed field degrades to {prob:null,code:null}. */
+function readRain(d) {
+  var out = { prob: null, code: null, desc: "", raining: false };
+  try {
+    var cw = (d && d.current_weather) || (d && d.current) || {};
+    var code = cw.weathercode;
+    if (code === undefined) code = cw.weather_code;
+    if (code !== undefined && code !== null && !isNaN(code)) out.code = Number(code);
+
+    /* Probability: only present if the request ever starts asking for it.
+       Checked in order of how the provider names it across endpoints. */
+    var probSources = [
+      cw.precipitation_probability,
+      d && d.daily && d.daily.precipitation_probability_max && d.daily.precipitation_probability_max[0],
+      d && d.hourly && d.hourly.precipitation_probability && d.hourly.precipitation_probability[0]
+    ];
+    for (var i = 0; i < probSources.length; i++) {
+      var v = probSources[i];
+      if (v !== undefined && v !== null && !isNaN(v)) { out.prob = Math.max(0, Math.min(100, Number(v))); break; }
+    }
+
+    /* Actively-raining signal: a real precipitation amount if present,
+       otherwise the weathercode. */
+    var amt = cw.precipitation !== undefined ? cw.precipitation : cw.rain;
+    if (amt !== undefined && amt !== null && !isNaN(amt) && Number(amt) > 0) out.raining = true;
+    else out.raining = isRainingCode(out.code);
+
+    out.desc = WMO_DESC[out.code] || "";
+  } catch (e) { /* never block render on a weather parse */ }
+  return out;
+}
+
+var WMO_DESC = {0:"Clear",1:"Mainly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Fog",
+  51:"Light drizzle",53:"Drizzle",55:"Heavy drizzle",56:"Freezing drizzle",57:"Freezing drizzle",
+  61:"Light rain",63:"Rain",65:"Heavy rain",66:"Freezing rain",67:"Freezing rain",
+  71:"Light snow",73:"Snow",75:"Heavy snow",77:"Snow grains",
+  80:"Light showers",81:"Showers",82:"Violent showers",85:"Snow showers",86:"Snow showers",
+  95:"Thunderstorm",96:"Thunderstorm with hail",99:"Thunderstorm with hail"};
+
+/* Reads the ?weather= override once. Returns null when absent. */
+function weatherOverride() {
+  try { return new URLSearchParams(location.search).get("weather"); } catch (e) { return null; }
+}
+
+/* Maps a parsed rain reading to a state. Override wins when present. */
+function rainState(rain) {
+  var o = weatherOverride();
+  if (o === "rain-now")    return { state:"RAIN_NOW",    prob: rain && rain.prob };
+  if (o === "rain-likely") return { state:"RAIN_LIKELY", prob: 60 };
+  if (o === "rain-maybe")  return { state:"RAIN_MAYBE",  prob: 40 };
+  if (o === "heat" || o === "dry") return { state:"DRY", prob: rain && rain.prob };
+  if (rain && rain.raining)                     return { state:"RAIN_NOW",    prob: rain.prob };
+  if (rain && rain.prob !== null && rain.prob >= 50) return { state:"RAIN_LIKELY", prob: rain.prob };
+  if (rain && rain.prob !== null && rain.prob >= 30) return { state:"RAIN_MAYBE",  prob: rain.prob };
+  return { state:"DRY", prob: rain ? rain.prob : null };
+}
+
+/* Session-only dismissal — tomorrow's weather is new information, so this
+   deliberately uses sessionStorage rather than localStorage. */
+function rainDismissed(state) {
+  try { return sessionStorage.getItem("ss_rain_dismissed") === state; } catch (e) { return false; }
+}
+function dismissRain(state) {
+  try { sessionStorage.setItem("ss_rain_dismissed", state); } catch (e) {}
+  var b = document.getElementById("rainBanner");
+  if (b) b.style.display = "none";
+}
+
+/* Auto-switch fires at most ONCE per session, on first load only, and never
+   over a tab the visitor has chosen themselves. */
+var _autoTabSwitched = false;
+function autoGoTab(name) {
+  if (_autoTabSwitched) return;      // never re-fire (incl. the 10-min refresh)
+  if (window.userPickedTab) return;  // never override a deliberate choice
+  _autoTabSwitched = true;
+  goTab(name);
+}
+
+function renderRainBanner(st, city) {
+  var host = document.getElementById("rainBanner");
+  if (!host) return;
+  if (st.state === "DRY" || rainDismissed(st.state)) { host.style.display = "none"; return; }
+  var pct = (st.prob === null || st.prob === undefined) ? null : Math.round(st.prob);
+  var msg, bg;
+  if (st.state === "RAIN_NOW") {
+    bg  = "linear-gradient(135deg,#17324D,#4FA8DA)";
+    msg = "🌧️ <strong>Rain right now in "+esc(city||"the Bay Area")+"</strong> — here’s indoor fun.";
+  } else if (st.state === "RAIN_LIKELY") {
+    bg  = "linear-gradient(135deg,#17324D,#4FA8DA)";
+    msg = "🌧️ <strong>"+(pct === null ? "High" : pct+"%")+" chance of rain today</strong> — indoor picks first.";
+  } else {
+    bg  = "linear-gradient(135deg,#4FA8DA,#F2A93B)";
+    msg = "☔ <strong>Rain possible later</strong> — worth a backup plan.";
+  }
+  host.style.display    = "flex";
+  host.style.background = bg;
+  host.innerHTML = msg
+    + wBtn("goTab('indoor')", "🌧️ Rainy Day Rescue →")
+    + '<button class="rain-x" type="button" aria-label="Dismiss weather notice">✕</button>';
+  /* Listener rather than an inline handler: keeps the state string out of an
+     HTML attribute, so no quote-escaping to get wrong. */
+  var x = host.querySelector(".rain-x");
+  if (x) x.addEventListener("click", function(){ dismissRain(st.state); });
+}
+
 async function fetchWeather(city) {
   var co = CITY_COORDS[city] || [37.3688,-122.0363];
   var banner = document.getElementById("weatherBanner");
@@ -1900,11 +2318,41 @@ async function fetchWeather(city) {
     var d = await r.json();
     var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
     ssPremiumWeather(city, t);
-    var msg, bg;
-    if (t >= 90) {
+    applyWeatherState(d, t, city);
+  } catch(e) {
+    ssPremiumWeather(city, null);
+    /* Even with no network the override must still work, so the state
+       machine runs on an empty reading rather than bailing out. */
+    if (weatherOverride()) { applyWeatherState({}, 72, city); return; }
+    banner.style.display    = "block";
+    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
+    banner.innerHTML        = "☀️ <strong>Plenty on today</strong> — have a look below.";
+  }
+}
+
+/* Decides between the rain states and the existing temp alerts, then paints.
+   Split out of fetchWeather so the ?weather= override can drive it directly. */
+function applyWeatherState(d, t, city) {
+  var banner = document.getElementById("weatherBanner");
+  var ov = weatherOverride();
+  if (ov === "heat") t = 95;
+  var st = rainState(readRain(d));
+  renderRainBanner(st, city);
+
+  /* RAIN_NOW / RAIN_LIKELY outrank the heat alert and own the tab. */
+  if (st.state === "RAIN_NOW" || st.state === "RAIN_LIKELY") {
+    autoGoTab("indoor");
+    if (banner) banner.style.display = "none";
+    return;
+  }
+
+  /* DRY (or advisory RAIN_MAYBE): the original temp alerts run unchanged. */
+  if (!banner) return;
+  var msg, bg;
+  if (t >= 90) {
       bg  = "linear-gradient(135deg,#ef4444,#f97316)";
       msg = "🔥 <strong>Heat alert</strong> — stay cool indoors."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
-      goTab("indoor");
+      autoGoTab("indoor");
     } else if (t >= 70) {
       bg  = "linear-gradient(135deg,#f7971e,#ffd200)";
       msg = "☀️ <strong>Perfect outdoor weather</strong> today."+wBtn("goTab('outdoor')","🌳 Go Outdoor →");
@@ -1916,15 +2364,9 @@ async function fetchWeather(city) {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
       msg = "🧥 <strong>Cool day</strong> — great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
     }
-    banner.style.display    = "block";
-    banner.style.background = bg;
-    banner.innerHTML        = msg;
-  } catch(e) {
-    ssPremiumWeather(city, null);
-    banner.style.display    = "block";
-    banner.style.background = "linear-gradient(135deg,#f97316,#fbbf24)";
-    banner.innerHTML        = "☀️ <strong>Plenty on today</strong> — have a look below.";
-  }
+  banner.style.display    = "block";
+  banner.style.background = bg;
+  banner.innerHTML        = msg;
 }
 
 async function loadActivities() {
@@ -2138,7 +2580,16 @@ function setCity(btn) {
   loadActivities();
 }
 
+/* Set by every user-initiated tab change so the weather auto-switch never
+   overrides a deliberate choice. goTab() is the programmatic path and
+   deliberately does NOT set it. */
+window.userPickedTab = false;
+
 function setTab(btn) {
+  /* Every one of the ~5 parallel filter UIs (desktop tab bar, ssSelExplore,
+     dtE, floating pills, bnavTab) routes through here, so this single line
+     covers them all. */
+  if (!_programmaticTab) window.userPickedTab = true;
   document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
   btn.classList.add("on"); btn.setAttribute("aria-selected","true");
   if(btn.dataset.tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then.");return;}}activeTab = btn.dataset.tab; activeAge = "all"; searchQuery = ""; showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
@@ -2189,14 +2640,19 @@ function showMore() {
 }
 
 function updateCountdown() {
-  var end  = new Date(new Date().getFullYear()+"-08-31");
-  var days = Math.max(0, Math.ceil((end-new Date())/86400000));
+  var now  = new Date();
+  var end  = new Date(now.getFullYear()+"-"+SEASON.endsOn);
+  if (end < now) end = new Date((now.getFullYear()+1)+"-"+SEASON.endsOn);
+  var days = Math.max(0, Math.ceil((end-now)/86400000));
+  var word = SEASON.label.toLowerCase();
+  var msg  = days > 0 ? "⏳ "+days+" days of "+word+" left!" : SEASON.emoji+" "+SEASON.label+" has ended!";
   var el   = document.getElementById("countdown");
-  if (el) el.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
+  if (el) el.textContent = msg;
   var el2 = document.getElementById("heroCountdown");
-  if (el2) el2.textContent = days > 0 ? "⏳ "+days+" days of summer left!" : "🍂 Summer has ended!";
-  var el3 = document.getElementById("pHeroBadge");
-  if (el3) el3.textContent = (days > 0 ? days+" days of summer left" : "Summer has ended")+" · "+activeCity;
+  if (el2) el2.textContent = msg;
+  // The hero chip is owned by applySeason() (SEASON.chip) and is deliberately
+  // NOT overwritten here — otherwise a city change would clobber the seasonal
+  // label with countdown text.
 }
 
 /* ── Premium hero bindings (display only — reads existing state, changes none) ── */
@@ -2352,8 +2808,9 @@ function checkWeekendMode() {
   if (day === 0 || day === 6) {
     var wb_el = document.getElementById("weekendBanner");
     if (wb_el) wb_el.style.display = "block";
-    var wb = document.querySelector(".tab-btn[data-tab='weekend']");
-    if (wb) setTab(wb);
+    /* Programmatic, not a user pick: goTab() keeps userPickedTab false so a
+       rain alert can still take over on first load. */
+    goTab("weekend");
     var cityBar = document.querySelector(".city-bar");
     if (cityBar) cityBar.classList.add("weekend-mode");
   }
@@ -2440,7 +2897,7 @@ function syncBnav(tab) {
 
 </script>
 <div id="detail-modal-bg" class="detail-modal-bg" onclick="if(event.target===this)closeDetail()"></div>
-<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Summer Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid summer activities — saving parents time, connecting communities, and making every summer unforgettable.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — Summer 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
+<div id="about-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;" onclick="if(event.target===this)this.style.display='none'"><div style="background:#fff;border-radius:20px;max-width:520px;width:100%;padding:2rem;position:relative;max-height:90vh;overflow-y:auto;font-family:Nunito,sans-serif;"><button onclick="document.getElementById('about-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;border:none;background:#f1f1f1;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">✕</button><div style="text-align:center;margin-bottom:1.5rem;"><div style="font-size:3rem;">🌤️</div><h2 style="margin:0.5rem 0 0.25rem;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#FF9900,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SunScout</h2><p style="color:#666;margin:0;">Family Activities for Bay Area Kids</p></div><div style="background:#fff8f0;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#e65100;">🎯 Our Mission</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;">Help Bay Area families discover free and paid activities year-round — saving parents time, connecting communities, and making every weekend count.</p></div><div style="background:#f0f8ff;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.75rem;color:#1565c0;">✨ What We Offer</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.85rem;color:#444;"><div>🆓 Free activities</div><div>🎟️ Paid programs</div><div>🏛️ Indoor venues</div><div>🌳 Outdoor adventures</div><div>📅 Weekend events</div><div>🌡️ Weather alerts</div><div>👶 Age filters</div><div>📍 Maps &amp; directions</div></div></div><div style="background:#f0fff4;border-radius:12px;padding:1.25rem;margin-bottom:1rem;"><h3 style="margin:0 0 0.5rem;color:#2e7d32;">🏙️ 7 Bay Area Cities</h3><p style="margin:0;color:#555;font-size:0.9rem;">Sunnyvale · San Jose · Cupertino · Mountain View · Palo Alto · Saratoga · Fremont</p></div><div style="background:#fdf0ff;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;"><h3 style="margin:0 0 0.5rem;color:#6a1b9a;">👩‍💻 Created By</h3><p style="margin:0;color:#555;font-size:0.9rem;line-height:1.6;"><strong>Nirupama Vadapalli</strong> &amp; family.<br><br>Built with ❤️ for Bay Area families — 2026.</p></div><div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
   <a href="https://github.com/nirupama3103-cell/sunscout2" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#FF9900,#ff6b35);color:#fff;padding:0.6rem 1.5rem;border-radius:99px;text-decoration:none;font-weight:700;">⭐ View on GitHub</a>
   <button onclick="if(navigator.share){navigator.share({title:'SunScout',text:'Find free & paid summer activities for kids in the Bay Area!',url:'https://sunscout2.vercel.app'})}else{window.open('https://wa.me/?text='+encodeURIComponent('🌤️ Check out SunScout - Free & paid summer activities for Bay Area kids! https://sunscout2.vercel.app'),'_blank')}" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:99px;padding:0.6rem 1.5rem;font-weight:700;cursor:pointer;font-size:1rem;">📤 Share SunScout</button>
 </div></div></div>
@@ -3272,6 +3729,7 @@ h1,h2,h3{text-wrap:balance}
   });
 })();
 </script>
+<script src="/js/motion.js" defer></script>
 </body>
 </html>
 <!-- TABLET FIX injected -->

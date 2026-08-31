@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Internal/legacy pages that should not be indexed
+Disallow: /diy-old-broken.html
+Disallow: /diy-carousel.html
+Disallow: /api/
+
+Sitemap: https://www.sunscoutkids.com/sitemap.xml
