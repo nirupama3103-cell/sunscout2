@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
+<!-- Dark ground and color-scheme set on the element itself: an inline style
+     beats the stylesheet, and this is what shows during overscroll and before
+     CSS arrives. color-scheme:dark also gives native scrollbars and form
+     chrome that match the page. -->
+<html lang="en" style="color-scheme:dark;background:#0B1723;">
 <head>
 <meta charset="UTF-8"/>
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <!-- Static meta on purpose: this hub is not runtime-patched by applySeason(). -->
@@ -742,6 +746,123 @@ a{color:inherit}
     background-size:auto 96%!important;
     background-color:var(--navy)!important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FULL-PAGE ATMOSPHERE — the haunted house behind the whole hub.
+   --------------------------------------------------------------------------
+   Self-contained: delete this block and the page returns to the light theme
+   with the photograph confined to the hero.
+
+   Two deliberate choices worth knowing:
+
+   1. A fixed pseudo-element, NOT background-attachment:fixed. The latter is
+      janky-to-broken on iOS Safari, and this audience is parents on phones.
+      A fixed layer is composited once and never repaints on scroll.
+
+   2. The photograph is heavily darkened and desaturated before any content
+      sits on it. A busy image competing with 18 cards of dense text is a
+      legibility problem, not atmosphere — so the picture supplies mood at
+      the edges while the reading surfaces stay calm and high-contrast.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#F3F7FA;          /* was #1a1a1a */
+  --muted:#AFC3D4;        /* was #5a6b7a */
+  --card:#132234;         /* was #fff    */
+  --line:rgba(255,255,255,.13);
+  --shadow:0 6px 20px rgba(0,0,0,.38);
+  --ctl:#18293D;          /* control surfaces that used to be #fff */
+}
+html{background:#0B1723}
+html,body{background-image:none}
+body{background:transparent;color:var(--ink)}
+
+body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
+body::before{
+  z-index:-2;
+  background-image:image-set(
+    url("/images/halloween/hero-house.webp") type("image/webp"),
+    url("/images/halloween/hero-house.jpg")  type("image/jpeg"));
+  background-size:cover;background-position:center 18%;
+  filter:saturate(.72) brightness(.62);
+}
+body::after{
+  z-index:-1;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 0%,  rgba(11,23,35,.28) 0%, rgba(11,23,35,.80) 62%),
+    linear-gradient(180deg, rgba(11,23,35,.62) 0%, rgba(11,23,35,.88) 46%, #0B1723 88%);
+}
+@media(max-width:700px){
+  /* The tall crop, and a heavier wash: a phone shows a much narrower slice
+     with proportionally more text over it. */
+  body::before{
+    background-image:image-set(
+      url("/images/halloween/hero-house-tall.webp") type("image/webp"),
+      url("/images/halloween/hero-house-tall.jpg")  type("image/jpeg"));
+    background-position:center 12%;
+  }
+  body::after{background:linear-gradient(180deg,
+    rgba(11,23,35,.70) 0%, rgba(11,23,35,.92) 38%, #0B1723 72%)}
+}
+
+/* ── reading surfaces ── */
+.hh-filters,.card,.empty{background-color:var(--card);border-color:var(--line)}
+.card h3{color:#FFFFFF}
+.c-note{color:#C6D6E3}
+.c-meta,.c-unver,.scare-hint,.f-lab,.p-foot-claim{color:var(--muted)}
+.count{color:#FFFFFF}
+.empty p{color:#FFFFFF}
+
+/* ── controls: the four surfaces that were hardcoded #fff ── */
+.scare-btn,.chip-btn,.sens-btn,.geo-pause{background-color:var(--ctl);color:var(--muted)}
+.scare-btn:hover,.chip-btn:hover,.sens-btn:hover,.geo-pause:hover{
+  background-color:#1E3247;border-color:var(--sky);color:#FFFFFF}
+/* The tick glyph is always in the DOM; in the light theme it was white on a
+   white box, so it read as empty when unchecked. On a dark box that accident
+   stops working and the control looks checked when it is not. Hide the glyph
+   unless the toggle is actually on. */
+.sens-box{border-color:#5E7A93;color:transparent}
+.sens-btn.on .sens-box{color:#08192B;background-color:var(--sky);border-color:var(--sky)}
+.reset{color:var(--muted)}
+.reset:hover{color:#FFFFFF}
+.tip{background-color:#22374D;color:#DCE8F2}
+
+/* Selected states keep their palette colour but need a lighter face on
+   navy — navy-on-navy would vanish. */
+.scare-btn.on[data-scare="1"]{background-color:var(--sky);color:#08192B}
+.chip-btn.on{background-color:var(--sky);color:#08192B;border-color:var(--sky)}
+.sens-btn.on{background-color:#1C3D55;border-color:var(--sky);color:#FFFFFF}
+.b-s1{background-color:var(--sky);color:#08192B}
+/* White on sky-blue is 2.64:1 — a pre-existing AA failure inherited from the
+   light theme, where the same pairing was used for scare level 2. Dark ink on
+   the same blue keeps the colour coding and clears the threshold. */
+.b-s2{background-color:var(--sky);color:#08192B}
+.scare-btn.on[data-scare="2"]{background-color:var(--sky);color:#08192B}
+.b-sens{background-color:#1C3D55;color:#DCE8F2;border-color:var(--sky)}
+.b-free{background-color:#12351F;color:#8FE0AC;border-color:#2E7D4F}
+.b-paid{background-color:#3A2A12;color:#F2C888;border-color:#8A6320}
+.l-site{background-color:var(--sky);color:#08192B}
+.l-map{background-color:#22374D;color:#DCE8F2}
+
+/* ── the geometric layer, which assumed a light ground ── */
+.geo-sec .geo-label{color:#E6EEF5}
+.geo-sec .geo-rule{background:rgba(255,255,255,.18)}
+
+/* ── hero and footer sit on the same photograph, so they lose their own
+      copy of it and become glass instead ── */
+.hh-hero{background-image:none!important;background-color:rgba(9,20,32,.62)!important;
+  border:1px solid rgba(255,255,255,.10)}
+.hh-hero::before{background:linear-gradient(100deg,
+  rgba(9,20,32,.72) 0%, rgba(9,20,32,.52) 46%, rgba(9,20,32,.28) 100%)!important}
+.hh-foot{background-color:rgba(9,20,32,.72);border:1px solid rgba(255,255,255,.10);
+  border-bottom:none}
+.hh-sub{background:linear-gradient(135deg,rgba(23,50,77,.86),rgba(36,85,125,.80));
+  border:1px solid rgba(255,255,255,.10)}
+.sub-form input{background:#F3F7FA;color:#12202E}
+
+@media(prefers-reduced-data:reduce){
+  /* No photograph at all — the flat dark ground is already the design. */
+  body::before{background-image:none}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
