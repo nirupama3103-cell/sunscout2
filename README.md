@@ -43,7 +43,7 @@ Bay Area parents spend hours every summer Googling "free things to do with kids 
 | Layer | Technology |
 |---|---|
 | Frontend | Vanilla HTML, CSS, JavaScript (no framework) |
-| Data | Google Places API · Eventbrite · Ticketmaster |
+| Data | Ticketmaster (events) · Pexels (photos) |
 | Weather | Open-Meteo API (free, no key required) |
 | Hosting | Vercel (auto-deploy from GitHub) |
 | Storage | localStorage (favorites, notes — device only) |
