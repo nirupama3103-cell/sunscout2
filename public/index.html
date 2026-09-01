@@ -2101,7 +2101,7 @@ function showDetail(i) {
   var a = window._activities[i];
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||(SEASON.label + " " + SEASON.year));
   var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
   var imgSrc = "/park.jpg";
   var cardEl = document.querySelector(".card[data-idx='" + i + "']");
@@ -2496,7 +2496,7 @@ function renderCards() {
 
   window._activities = visible;
   grid.innerHTML = visible.map(function(a, i) {
-    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||(SEASON.label + " " + SEASON.year));
     var st  = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
     var mu  = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
     var ac  = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
