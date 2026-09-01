@@ -3,7 +3,10 @@
      beats the stylesheet, and this is what shows during overscroll and before
      CSS arrives. color-scheme:dark also gives native scrollbars and form
      chrome that match the page. -->
-<html lang="en" style="color-scheme:dark;background:#0B1723;">
+<!-- Ground colour is set by applyHub() before first paint, from the hub's
+     config entry. Deliberately not hardcoded here: an inline style would beat
+     the stylesheet and pin every season to one colour. -->
+<html lang="en" style="color-scheme:dark;">
 <head>
 <meta charset="UTF-8"/>
 <meta name="color-scheme" content="dark">
@@ -37,6 +40,18 @@
 <link rel="apple-touch-icon" href="/sun-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+
+<!-- This page is a season-agnostic TEMPLATE. Its identity is the one line
+     below; everything seasonal (ground, accent, backdrop, scrim, photo
+     hints) comes from /config/seasonal-hubs.js. Adding a season means adding
+     an entry there and copying this file — no styles or logic change. -->
+<script>window.HUB_ID = "halloween";</script>
+<script src="/config/seasonal-hubs.js"></script>
+<script>
+  /* Applied before first paint so the ground colour and accent are correct
+     from the first frame — no flash of the previous season's palette. */
+  try { applyHub(window.HUB_ID); } catch (e) {}
+</script>
 
 <!-- Shared 2026 geometric premium layer, same as the homepage. -->
 <link rel="stylesheet" href="/css/premium.css">
@@ -571,9 +586,7 @@ a{color:inherit}
   background-color:var(--navy);
   /* webp preferred, jpg fallback — image-set() is the background equivalent
      of <picture>. */
-  background-image:image-set(
-    url("/images/halloween/hero-house.webp") type("image/webp"),
-    url("/images/halloween/hero-house.jpg")  type("image/jpeg"));
+  background-image:var(--backdrop-wide);
   background-repeat:no-repeat;
   background-position:center 32%;
   background-size:cover;
@@ -596,9 +609,7 @@ a{color:inherit}
   /* A phone shows a much narrower slice, so switch to the taller crop and
      let it fill the card behind the text. */
   .hh-hero{min-height:0;padding-bottom:clamp(22px,4vw,38px);
-    background-image:image-set(
-      url("/images/halloween/hero-house-tall.webp") type("image/webp"),
-      url("/images/halloween/hero-house-tall.jpg")  type("image/jpeg"));
+    background-image:var(--backdrop-tall);
     background-position:center 28%;background-size:cover}
   .hh-hero::before{background:linear-gradient(180deg,
     rgba(11,25,40,.90) 0%, rgba(11,25,40,.86) 55%,
@@ -750,7 +761,7 @@ a{color:inherit}
    dropping the artwork altogether. */
 @media(prefers-reduced-data:reduce){
   .hh-hero{
-    background-image:url("/images/halloween/hero-scene.svg")!important;
+    background-image:var(--backdrop-fallback)!important;
     background-position:right bottom!important;
     background-size:auto 96%!important;
     background-color:var(--navy)!important;
@@ -781,50 +792,46 @@ a{color:inherit}
   --line:rgba(255,255,255,.13);
   --shadow:0 6px 20px rgba(0,0,0,.38);
   --ctl:#18293D;          /* control surfaces that used to be #fff */
-  --pumpkin:#FC764A;      /* the grid + geometric accents on this page */
+  /* --ground, --accent, --accent-ink, --backdrop-*, --scrim-* are set by
+     applyHub() from /config/seasonal-hubs.js. The values here are only a
+     safety net for the config failing to load. */
+  --ground:#101A24;
+  --accent:#4FA8DA;
+  --accent-ink:#06131C;
+  --accent-tint:rgba(79,168,218,.16);
+  --accent-edge:rgba(79,168,218,.55);
+  --accent-soft:#C4E2F3;
 }
-/* The geometric furniture is marigold site-wide; on the Halloween hub it runs
-   pumpkin instead. Scoped here so the homepage is untouched. */
-.geo-sec .geo-idx{color:var(--pumpkin)}
+/* The geometric furniture is marigold site-wide; on a seasonal hub it runs
+   the hub's --accent instead. Scoped here so the homepage is untouched. */
+.geo-sec .geo-idx{color:var(--accent)}
 .geo-sec .geo-rule{background:linear-gradient(90deg,
-  rgba(252,118,74,.55) 0%, rgba(252,118,74,.16) 45%, rgba(255,255,255,.10) 100%)}
+  var(--accent-edge) 0%, var(--accent-tint) 45%, rgba(255,255,255,.10) 100%)}
 #geoProgress::after{background:linear-gradient(90deg,
-  var(--sky), var(--pumpkin) 60%, #FFB27A)}
+  var(--sky), var(--accent) 60%, #FFB27A)}
 .card::after{background:linear-gradient(90deg,
-  var(--sky), var(--pumpkin) 55%, #FFB27A)}
-.count b{color:var(--pumpkin)}
-.hh-hero h1 em{color:var(--pumpkin)}
-.hh-badge{border-color:rgba(252,118,74,.55);background:rgba(252,118,74,.16);color:#FFD2BC}
-html{background:#0B1723}
+  var(--sky), var(--accent) 55%, #FFB27A)}
+.count b{color:var(--accent)}
+.hh-hero h1 em{color:var(--accent)}
+.hh-badge{border-color:var(--accent-edge);background:var(--accent-tint);
+  color:var(--accent-soft)}
+html{background:var(--ground)}
 html,body{background-image:none}
 body{background:transparent;color:var(--ink)}
 
 body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
 body::before{
   z-index:-2;
-  background-image:image-set(
-    url("/images/halloween/hero-house.webp") type("image/webp"),
-    url("/images/halloween/hero-house.jpg")  type("image/jpeg"));
+  background-image:var(--backdrop-wide);
   background-size:cover;background-position:center 18%;
   filter:saturate(.72) brightness(.62);
 }
-body::after{
-  z-index:-1;
-  background:
-    radial-gradient(ellipse 120% 80% at 50% 0%,  rgba(11,23,35,.28) 0%, rgba(11,23,35,.80) 62%),
-    linear-gradient(180deg, rgba(11,23,35,.62) 0%, rgba(11,23,35,.88) 46%, #0B1723 88%);
-}
+body::after{ z-index:-1; background:var(--scrim-wide); }
 @media(max-width:700px){
   /* The tall crop, and a heavier wash: a phone shows a much narrower slice
      with proportionally more text over it. */
-  body::before{
-    background-image:image-set(
-      url("/images/halloween/hero-house-tall.webp") type("image/webp"),
-      url("/images/halloween/hero-house-tall.jpg")  type("image/jpeg"));
-    background-position:center 12%;
-  }
-  body::after{background:linear-gradient(180deg,
-    rgba(11,23,35,.70) 0%, rgba(11,23,35,.92) 38%, #0B1723 72%)}
+  body::before{ background-image:var(--backdrop-tall); background-position:center 12%; }
+  body::after{ background:var(--scrim-tall); }
 }
 
 /* ── reading surfaces ── */
@@ -851,7 +858,7 @@ body::after{
 
 /* Selected states keep their palette colour but need a lighter face on
    navy — navy-on-navy would vanish. */
-.scare-btn.on[data-scare="1"]{background-color:var(--sky);color:#08192B}
+.scare-btn.on[data-scare="1"]{background-color:var(--sky);color:var(--accent-ink)}
 .chip-btn.on{background-color:var(--sky);color:#08192B;border-color:var(--sky)}
 .sens-btn.on{background-color:#1C3D55;border-color:var(--sky);color:#FFFFFF}
 .b-s1{background-color:var(--sky);color:#08192B}
@@ -1011,7 +1018,7 @@ body::after{
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════
-   Halloween hub — fully client-side over events.json.
+   Seasonal hub — fully client-side over events.json.
    Deliberately does NOT touch the activities API: this page must render
    from static data alone so it stays fast and indexable.
    ══════════════════════════════════════════════════════════════════════ */
@@ -1079,14 +1086,11 @@ function cardHTML(e){
 /* Photo lookup phrases per event type. The /api/photos matcher works on
    keywords in name+desc, so each type is given wording that lands on a
    sensible Pexels category rather than the generic default. */
-var PHOTO_HINT = {
-  "pumpkin-patch":  "pumpkin patch farm animals family kids",
-  "trunk-or-treat": "halloween street festival fair family kids",
-  "festival":       "family festival fair outdoor kids",
-  "haunt":          "haunted house museum night halloween",
-  "storytime":      "library storytime books reading kids",
-  "display":        "park playground halloween lights display"
-};
+/* Read from the hub's config entry — see /config/seasonal-hubs.js. Kept as a
+   lookup with a safe default so a type with no hint still gets a query. */
+var HUB = (typeof SEASONAL_HUBS !== "undefined" && SEASONAL_HUBS[window.HUB_ID]) || {};
+var PHOTO_HINT = HUB.photoHints || {};
+var PHOTO_HINT_DEFAULT = HUB.photoHintDefault || "family kids outdoors";
 
 /* Photos are decorative enhancement ONLY. The page is required to render from
    events.json alone (it must not depend on the activities API), so nothing
@@ -1119,7 +1123,7 @@ function loadCardPhotos(){
         var ev = EVENTS.filter(function(x){ return x.id === id; })[0];
         if (!ev) return;
         photoSeen[id] = "none";   // pessimistic until proven otherwise
-        var hint = PHOTO_HINT[ev.type] || "halloween family kids";
+        var hint = PHOTO_HINT[ev.type] || PHOTO_HINT_DEFAULT;
         fetch("/api/photos?name=" + encodeURIComponent(ev.name) +
               "&desc=" + encodeURIComponent(hint))
           /* Parse the body even on an error status: the handler puts the
@@ -1227,7 +1231,8 @@ function boot(){
   /* SEASON comes from /config/seasons.js — the year is not re-hardcoded here. */
   try {
     document.getElementById("footFine").textContent =
-      "Bay Area Halloween " + (typeof SEASON !== "undefined" ? SEASON.year : "");
+      "Bay Area " + (HUB.label || "") + " " +
+      (typeof SEASON !== "undefined" ? SEASON.year : "");
   } catch(e){}
 
   fetch("events.json")
