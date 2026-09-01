@@ -1,67 +1,160 @@
 const CACHE = new Map();
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
+/* ══════════════════════════════════════════════════════════════════════════
+   QUERY BUILDING
+
+   Pexels searches the phrase, so the phrase IS the photo quality. Three
+   things were wrong with the old matcher:
+
+     1. Almost every generic query said "summer". A December tree lighting
+        asked Pexels for "kids summer activities fun outdoor" and got a
+        beach.
+     2. Matching was a chain of substring tests in source order, so
+        "farmers market" hit the `market` test inside the festival rule and
+        never reached the `market` category — which was unreachable code.
+     3. The caller's own hint was discarded. The Halloween hub sends
+        "pumpkin patch field autumn orange pumpkins" as desc and got the
+        summer default, because no rule mentioned pumpkins at all.
+
+   The fix: rules are an ORDERED list of phrases, most specific first, so
+   "farmers market" is tested before "market" and "tree lighting" before
+   "tree"; seasonal event types have their own categories; generic
+   categories take a season word from the request date instead of always
+   saying summer; and a caller that already knows what it wants can pass
+   &hint= and have it used verbatim.
+
+   scripts/test-photo-queries.js pins the before/after for the event types
+   we actually list.
+   ══════════════════════════════════════════════════════════════════════════ */
+
 const CATEGORY_QUERIES = {
-  swimming:     "children swimming pool summer fun",
-  splash:       "kids splash pad water park summer",
-  soccer:       "kids soccer camp field outdoor",
+  /* Seasonal — these are the ones the old matcher got most wrong. */
+  pumpkin:      "pumpkin patch family children autumn orange pumpkins",
+  cornmaze:     "corn maze autumn farm field aerial",
+  trickortreat: "children halloween costumes trick or treating street",
+  haunt:        "haunted house at night jack o lantern",
+  harvest:      "autumn harvest festival families hay bales",
+  lights:       "christmas lights display house night neighbourhood",
+  treelighting: "christmas tree lighting ceremony crowd evening",
+  treefarm:     "christmas tree farm family choosing tree",
+  santa:        "santa claus children visit christmas",
+
+  /* Everyday activities. */
+  swimming:     "children swimming pool fun",
+  splash:       "kids splash pad water park",
+  soccer:       "kids soccer field outdoor",
   stem:         "children coding robotics stem class",
   ballet:       "kids ballet dance recital class",
-  museum:       "children museum interactive exhibit",
-  library:      "kids library reading storytime books",
-  camp:         "summer camp kids outdoor adventure",
+  museum:       "children museum interactive hands on exhibit",
+  library:      "kids library storytime reading circle",
+  camp:         "kids day camp outdoor group activity",
   gymnastics:   "kids gymnastics class tumbling",
   music:        "children music class instruments singing",
   art:          "kids art painting craft class",
   hiking:       "family hiking trail nature kids",
-  horse:        "kids horseback riding equestrian carriage",
+  horse:        "kids horseback riding pony equestrian",
   cherry:       "cherry picking orchard family kids",
   berry:        "berry picking strawberry farm family",
   farm:         "kids petting zoo goats farm animals",
-  playground:   "children playground park sunny",
-  beach:        "family beach summer fun kids waves",
+  playground:   "children playground park",
+  beach:        "family beach kids waves sand",
   climbing:     "kids rock climbing gym bouldering",
   cooking:      "kids cooking baking class chef",
   yoga:         "kids yoga class stretching",
-  tennis:       "kids tennis camp court",
-  market:       "farmers market family outdoor produce",
-  festival:     "kids festival outdoor summer fair",
+  tennis:       "kids tennis court lesson",
+  market:       "farmers market families produce stalls outdoor",
+  festival:     "family street festival outdoor fair crowd",
   train:        "children train ride scenic railway",
   fishing:      "kids fishing pier family outdoor",
   bowling:      "kids bowling alley fun",
-  skating:      "kids ice skating rink",
-  default:      "kids summer activities fun outdoor"
+  skating:      "children ice skating rink",
+  default:      "kids activities fun outdoor family",
 };
 
+/* Categories whose photo reads wrong in the wrong season — a playground in
+   snow, a beach in December. The season word goes in front so Pexels
+   weights it. Explicitly seasonal categories are NOT in here: a pumpkin
+   patch is already autumn by definition. */
+const SEASON_SENSITIVE = new Set([
+  "playground", "hiking", "farm", "market", "festival", "camp", "default",
+]);
+const SEASON_BY_MONTH = ["winter", "winter", "spring", "spring", "spring", "summer",
+                         "summer", "summer", "fall", "fall", "fall", "winter"];
+const SEASON_WORD = { spring: "spring", summer: "summer", fall: "autumn", winter: "winter" };
+
+/* Ordered most specific first — the order is the whole contract. A phrase
+   earlier in this list wins over a broader one later, which is what stops
+   "farmers market" being read as a festival and "tree lighting" as a farm. */
+const RULES = [
+  ["pumpkin",      ["pumpkin patch", "pumpkin farm", "pick a pumpkin", "pumpkin"]],
+  ["cornmaze",     ["corn maze", "hay maze", "maze"]],
+  ["trickortreat", ["trunk-or-treat", "trunk or treat", "trick-or-treat", "trick or treat",
+                    "halloween parade", "costume parade", "safe treat"]],
+  ["haunt",        ["haunted house", "haunted", "haunt", "spooky", "scare", "ghost tour",
+                    "after-dark", "fright"]],
+  ["treelighting", ["tree lighting", "tree-lighting", "lighting ceremony", "menorah lighting",
+                    "light up the", "holiday kickoff"]],
+  ["lights",       ["holiday lights", "christmas lights", "light display", "lights display",
+                    "winter lights", "lights walk", "lights drive", "zoolights", "glow"]],
+  ["treefarm",     ["christmas tree farm", "tree farm", "cut your own tree"]],
+  ["santa",        ["santa", "breakfast with st", "polar express"]],
+  ["harvest",      ["harvest festival", "harvest days", "harvest", "fall festival",
+                    "autumn festival", "apple picking", "cider"]],
+  ["market",       ["farmers market", "farmers' market", "farmer's market", "night market",
+                    "holiday market", "craft market", "makers market"]],
+  ["cherry",       ["cherry", "stone fruit", "orchard"]],
+  ["berry",        ["berry picking", "strawberry", "blueberry", "raspberry", "berry"]],
+  ["horse",        ["horseback", "horse", "pony", "equestrian", "carriage", "riding"]],
+  ["train",        ["train ride", "railway", "railroad", "train"]],
+  ["fishing",      ["fishing", "angling"]],
+  ["splash",       ["splash pad", "spray ground", "splash"]],
+  ["swimming",     ["swim", "pool", "aquatic"]],
+  ["soccer",       ["soccer", "football"]],
+  ["stem",         ["stem", "coding", "robot", "lego", "science", "maker", "tech"]],
+  ["ballet",       ["ballet", "nutcracker", "dance"]],
+  /* "children's museum" / "kids museum" is a distinct thing from a gallery,
+     and it is one of the most common cards we render. */
+  ["museum",       ["children's museum", "childrens museum", "kids museum", "discovery museum",
+                    "discovery center", "museum", "winchester", "exploratorium"]],
+  ["library",      ["storytime", "story time", "library", "reading", "book"]],
+  ["gymnastics",   ["gymnastics", "trampoline", "tumbling", "kidstrong"]],
+  ["music",        ["music", "instrument", "piano", "guitar", "sing"]],
+  ["art",          ["art", "paint", "pottery", "clay", "craft"]],
+  ["skating",      ["ice skating", "ice rink", "skating", "skate"]],
+  ["hiking",       ["hike", "hiking", "trail", "nature walk", "creek", "nature"]],
+  ["farm",         ["petting zoo", "farm", "zoo", "animal", "barnyard"]],
+  ["climbing",     ["rock climbing", "climbing", "ropes course", "zip line"]],
+  ["cooking",      ["cooking", "baking", "chef", "kitchen"]],
+  ["tennis",       ["tennis", "pickleball"]],
+  ["yoga",         ["yoga"]],
+  ["beach",        ["beach", "boardwalk", "pier", "tide pool"]],
+  ["bowling",      ["bowling"]],
+  ["festival",     ["street fair", "festival", "fair", "carnival", "parade"]],
+  ["playground",   ["playground", "park"]],
+  ["camp",         ["day camp", "summer camp", "camp", "galileo", "kidventure", "ymca",
+                    "afterschool", "after school"]],
+];
+
 function getCategory(name, desc) {
-  const t = (name + " " + (desc||"")).toLowerCase();
-  if (t.includes("cherry")||t.includes("stone fruit")||t.includes("orchard")) return "cherry";
-  if (t.includes("berry")||t.includes("strawberry")||t.includes("blueberry")||t.includes("raspberry")) return "berry";
-  if (t.includes("horse")||t.includes("pony")||t.includes("equestrian")||t.includes("carriage")||t.includes("riding")) return "horse";
-  if (t.includes("train")||t.includes("railway")||t.includes("railroad")) return "train";
-  if (t.includes("fish")||t.includes("pier")||t.includes("angling")) return "fishing";
-  if (t.includes("splash pad")||t.includes("splash")) return "splash";
-  if (t.includes("swim")||t.includes("pool")||t.includes("aquatic")) return "swimming";
-  if (t.includes("soccer")||t.includes("football")) return "soccer";
-  if (t.includes("stem")||t.includes("coding")||t.includes("robot")||t.includes("lego")||t.includes("science")||t.includes("tech")) return "stem";
-  if (t.includes("ballet")||t.includes("dance")) return "ballet";
-  if (t.includes("museum")||t.includes("discovery")||t.includes("winchester")) return "museum";
-  if (t.includes("library")||t.includes("storytime")||t.includes("reading")||t.includes("book")) return "library";
-  if (t.includes("gymnastics")||t.includes("trampoline")||t.includes("kidstrong")) return "gymnastics";
-  if (t.includes("music")||t.includes("instrument")||t.includes("piano")||t.includes("guitar")) return "music";
-  if (t.includes("art")||t.includes("paint")||t.includes("pottery")||t.includes("clay")||t.includes("craft")) return "art";
-  if (t.includes("hike")||t.includes("trail")||t.includes("nature")||t.includes("creek")) return "hiking";
-  if (t.includes("farm")||t.includes("petting")||t.includes("zoo")||t.includes("animal")) return "farm";
-  if (t.includes("climbing")||t.includes("ropes course")||t.includes("zip")) return "climbing";
-  if (t.includes("cook")||t.includes("bak")||t.includes("chef")||t.includes("kitchen")) return "cooking";
-  if (t.includes("tennis")||t.includes("pickleball")) return "tennis";
-  if (t.includes("beach")||t.includes("boardwalk")||t.includes("pier")) return "beach";
-  if (t.includes("bowl")) return "bowling";
-  if (t.includes("skat")||t.includes("ice rink")||t.includes("ice centre")) return "skating";
-  if (t.includes("market")||t.includes("fair")||t.includes("festival")) return "festival";
-  if (t.includes("playground")||t.includes("park")) return "playground";
-  if (t.includes("camp")||t.includes("galileo")||t.includes("kidventure")||t.includes("ymca")) return "camp";
+  const t = (name + " " + (desc || "")).toLowerCase();
+  for (const [category, phrases] of RULES) {
+    for (const p of phrases) if (t.includes(p)) return category;
+  }
   return "default";
+}
+
+/* The query handed to Pexels. `hint`, when a caller supplies one, is used
+   verbatim: the seasonal hubs keep curated phrases per event type in
+   config/seasonal-hubs.js and know better than any keyword rule. */
+function buildQuery(name, desc, hint, date) {
+  if (hint && hint.trim()) return { query: hint.trim().slice(0, 120), category: "hint" };
+  const category = getCategory(name, desc || "");
+  let query = CATEGORY_QUERIES[category] || CATEGORY_QUERIES.default;
+  if (SEASON_SENSITIVE.has(category)) {
+    query = SEASON_WORD[SEASON_BY_MONTH[(date || new Date()).getMonth()]] + " " + query;
+  }
+  return { query, category };
 }
 
 // Marker so the self-test can prove which build is actually serving. Bump it
@@ -121,7 +214,7 @@ export default async function handler(req, res) {
     return selftest(res);
   }
 
-  const { name, desc } = req.query;
+  const { name, desc, hint } = req.query;
   if (!name) return res.status(400).json({ error: "name required" });
 
   /* Fail loudly on misconfiguration instead of impersonating "no match".
@@ -131,9 +224,11 @@ export default async function handler(req, res) {
     return res.status(503).json({ url: null, reason: "no-api-key", build: BUILD });
   }
 
-  const category = getCategory(name, desc || "");
-  const query = CATEGORY_QUERIES[category];
-  const cacheKey = name.toLowerCase().trim();
+  const { query, category } = buildQuery(name, desc, hint);
+  /* Keyed on the query too, not the name alone: the same venue is a pumpkin
+     patch in October and a tree farm in December, and a name-only key served
+     October's photo for the rest of the year. */
+  const cacheKey = name.toLowerCase().trim() + "|" + query;
 
   if (CACHE.has(cacheKey)) {
     const { url, ts } = CACHE.get(cacheKey);

@@ -1124,8 +1124,11 @@ function loadCardPhotos(){
         if (!ev) return;
         photoSeen[id] = "none";   // pessimistic until proven otherwise
         var hint = PHOTO_HINT[ev.type] || PHOTO_HINT_DEFAULT;
+        /* Sent as `hint`, not `desc`: /api/photos uses a hint verbatim
+           instead of running its keyword rules, and the curated phrase in
+           the hub config is more specific than any rule could be. */
         fetch("/api/photos?name=" + encodeURIComponent(ev.name) +
-              "&desc=" + encodeURIComponent(hint))
+              "&hint=" + encodeURIComponent(hint))
           /* Parse the body even on an error status: the handler puts the
              reason there, and a silent "no photos" is exactly the failure
              that used to be impossible to diagnose. */
