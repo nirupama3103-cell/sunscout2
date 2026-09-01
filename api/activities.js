@@ -81,22 +81,28 @@ async function applyImageFallback(a) {
     const url     = await fetchPexelsImage(query, a.name);
     if (url) { a.image = url; return; }
   }
+  /* Last resort: images that SHIP WITH THE SITE. This used to be eight
+     unpinned images.unsplash.com URLs — a host we do not control, serving
+     photo ids that can be retired without notice. When one 404s the card
+     shows a broken-image icon, which is worse than the generic photo it was
+     standing in for. A file in /public cannot go missing behind our backs.
+     scripts/test-photo-fallback.js covers this tier failing. */
   if (t.includes("swim") || t.includes("pool") || t.includes("splash"))
-    a.image = "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
+    a.image = "/splash.jpg";
   else if (t.includes("stem") || t.includes("robot") || t.includes("science"))
-    a.image = "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
+    a.image = "/stem.jpg";
   else if (t.includes("hike") || t.includes("trail") || t.includes("nature"))
-    a.image = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
+    a.image = "/trail.jpg";
   else if (t.includes("museum") || t.includes("discovery"))
-    a.image = "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
+    a.image = "/museum.jpg";
   else if (t.includes("camp") || t.includes("ymca"))
-    a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+    a.image = "/camp.jpg";
   else if (t.includes("art") || t.includes("paint") || t.includes("craft"))
-    a.image = "https://images.unsplash.com/photo-1588497859490-85d1c17db96d?w=600&q=80";
+    a.image = "/stem.jpg";
   else if (t.includes("danc") || t.includes("ballet"))
-    a.image = "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
+    a.image = "/ballet.jpg";
   else
-    a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+    a.image = "/park.jpg";
 }
 
 

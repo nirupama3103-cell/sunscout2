@@ -34,6 +34,29 @@ function assert(label, actual, expected) {
 
 /* A 2x2 PNG. Real bytes, so onload genuinely fires — a stub that never decodes
    would make the reveal path look broken when it is not. */
+/* Main-page activities for scenario 4. `image` is a remote URL on purpose:
+   it is what api/activities.js hands back for a Pexels hit, and it is the
+   tier above the fallback under test. No `city` field, so these survive the
+   page's city filter whichever city is selected. */
+const SAMPLE = [
+  { id: 's1', name: 'Las Palmas Park playground', desc: 'Shaded play structures',
+    address: 'Sunnyvale, CA', image: 'https://images.unsplash.com/photo-0000000000000?w=600',
+    isFree: true, price: 'Free', stars: 5, ages: ['0','1','2'], a11y: [],
+    mapsUrl: 'https://maps.google.com/?q=Las+Palmas+Park' },
+  { id: 's2', name: "Children's Discovery Museum", desc: 'Hands-on exhibits',
+    address: 'San Jose, CA', image: 'https://images.unsplash.com/photo-0000000000001?w=600',
+    isFree: false, price: '$15', stars: 5, ages: ['1','2','3'], a11y: [],
+    mapsUrl: 'https://maps.google.com/?q=Discovery+Museum' },
+  { id: 's3', name: 'Sunnyvale Farmers Market', desc: 'Saturday produce market',
+    address: 'Sunnyvale, CA', image: 'https://images.unsplash.com/photo-0000000000002?w=600',
+    isFree: true, price: 'Free', stars: 4, ages: ['0','1','2','3'], a11y: [],
+    mapsUrl: 'https://maps.google.com/?q=Sunnyvale+Farmers+Market' },
+  { id: 's4', name: 'Rancho San Antonio trail walk', desc: 'Easy nature trail',
+    address: 'Cupertino, CA', image: 'https://images.unsplash.com/photo-0000000000003?w=600',
+    isFree: true, price: 'Free', stars: 5, ages: ['2','3'], a11y: [],
+    mapsUrl: 'https://maps.google.com/?q=Rancho+San+Antonio' },
+];
+
 const PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFUlEQVR42mNk+M9Qz0BFwDiqkL4KAWmZBAFHiKgOAAAAAElFTkSuQmCC';
 
 async function scenario(browser, label, routeHandler) {
@@ -123,6 +146,58 @@ async function scenario(browser, label, routeHandler) {
     assert('every card has both links', r.state.linked, EXPECTED_CARDS);
     assert('no empty band above any title', r.state.openButEmpty, 0);
     assert('no JS errors', r.jsErrors, []);
+  }
+
+  /* 4 — THE LAST-RESORT TIER ITSELF FAILING (main page).
+         Card art there is three tiers deep: a Pexels URL from /api/photos,
+         then whatever a.image holds, then the onerror fallback. That last
+         tier used to be a single images.unsplash.com photo id — a host we do
+         not control. If it 404s there is nothing left and the card shows a
+         broken-image icon. Every remote image host is blocked here, so the
+         only way to pass is a fallback that ships with the site. */
+  {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 1200 } });
+    const jsErrors = [];
+    page.on('pageerror', e => jsErrors.push(e.message));
+
+    /* Order matters: the most recently registered route wins, so the
+       catch-all goes first. */
+    await page.route('**/*', r => {
+      const u = r.request().url();
+      return u.startsWith(BASE) ? r.continue() : r.abort();   // no third party resolves
+    });
+    await page.route('**/api/photos**', r =>
+      r.fulfill({ status: 502, contentType: 'application/json',
+                  body: '{"url":null,"reason":"provider-error"}' }));
+    await page.route('**/api/activities**', r =>
+      r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+        fetchedAt: new Date().toISOString(),
+        activities: SAMPLE,
+      }) }));
+
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(3500);
+
+    const art = await page.evaluate(() => {
+      const imgs = [...document.querySelectorAll('#grid .card-img-wrap img')];
+      return {
+        cards: document.querySelectorAll('#grid .card').length,
+        imgs: imgs.length,
+        /* naturalWidth is the only honest test: a broken image still has a
+           src, still has an <img>, and still reports complete. */
+        drawn: imgs.filter(i => i.complete && i.naturalWidth > 0).length,
+        remote: imgs.filter(i => !i.currentSrc.startsWith(location.origin)).length,
+        visible: imgs.filter(i => getComputedStyle(i).opacity === '1').length,
+      };
+    });
+    await page.close();
+    console.log('\n4. LAST-RESORT TIER (main page, every remote host blocked)');
+    assert('cards render', art.cards, SAMPLE.length);
+    assert('every card has an image element', art.imgs, SAMPLE.length);
+    assert('every image actually decoded', art.drawn, SAMPLE.length);
+    assert('no image depends on a third-party host', art.remote, 0);
+    assert('no image left faded out', art.visible, SAMPLE.length);
+    assert('no JS errors', jsErrors, []);
   }
 
   await browser.close();
