@@ -84,7 +84,11 @@
   margin:34px 0 2px;padding:0 20px;
 }
 .geo-sec .geo-idx{
-  font-size:11px;font-weight:900;letter-spacing:2px;color:var(--geo-marigold);
+  /* Not --geo-marigold: as small bold type on the cream ground that is
+     1.56:1. The darker amber keeps the same hue family at 4.93:1. Everywhere
+     else --geo-marigold is a rule, a dot or a focus ring, not text, so it
+     stays as it is. */
+  font-size:11px;font-weight:900;letter-spacing:2px;color:#8C5200;
   flex:0 0 auto;
 }
 .geo-sec .geo-label{
