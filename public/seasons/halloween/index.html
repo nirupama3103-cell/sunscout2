@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme:light only;background:#f0f9ff;">
+<!-- Dark ground and color-scheme set on the element itself: an inline style
+     beats the stylesheet, and this is what shows during overscroll and before
+     CSS arrives. color-scheme:dark also gives native scrollbars and form
+     chrome that match the page. -->
+<!-- Ground colour is set by applyHub() before first paint, from the hub's
+     config entry. Deliberately not hardcoded here: an inline style would beat
+     the stylesheet and pin every season to one colour. -->
+<html lang="en" style="color-scheme:dark;">
 <head>
 <meta charset="UTF-8"/>
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <!-- Static meta on purpose: this hub is not runtime-patched by applySeason(). -->
@@ -33,6 +40,18 @@
 <link rel="apple-touch-icon" href="/sun-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+
+<!-- This page is a season-agnostic TEMPLATE. Its identity is the one line
+     below; everything seasonal (ground, accent, backdrop, scrim, photo
+     hints) comes from /config/seasonal-hubs.js. Adding a season means adding
+     an entry there and copying this file — no styles or logic change. -->
+<script>window.HUB_ID = "halloween";</script>
+<script src="/config/seasonal-hubs.js"></script>
+<script>
+  /* Applied before first paint so the ground colour and accent are correct
+     from the first frame — no flash of the previous season's palette. */
+  try { applyHub(window.HUB_ID); } catch (e) {}
+</script>
 
 <!-- Shared 2026 geometric premium layer, same as the homepage. -->
 <link rel="stylesheet" href="/css/premium.css">
@@ -567,9 +586,7 @@ a{color:inherit}
   background-color:var(--navy);
   /* webp preferred, jpg fallback — image-set() is the background equivalent
      of <picture>. */
-  background-image:image-set(
-    url("/images/halloween/hero-house.webp") type("image/webp"),
-    url("/images/halloween/hero-house.jpg")  type("image/jpeg"));
+  background-image:var(--backdrop-wide);
   background-repeat:no-repeat;
   background-position:center 32%;
   background-size:cover;
@@ -592,9 +609,7 @@ a{color:inherit}
   /* A phone shows a much narrower slice, so switch to the taller crop and
      let it fill the card behind the text. */
   .hh-hero{min-height:0;padding-bottom:clamp(22px,4vw,38px);
-    background-image:image-set(
-      url("/images/halloween/hero-house-tall.webp") type("image/webp"),
-      url("/images/halloween/hero-house-tall.jpg")  type("image/jpeg"));
+    background-image:var(--backdrop-tall);
     background-position:center 28%;background-size:cover}
   .hh-hero::before{background:linear-gradient(180deg,
     rgba(11,25,40,.90) 0%, rgba(11,25,40,.86) 55%,
@@ -671,6 +686,15 @@ a{color:inherit}
 .card{background-color:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
 .card h3{font-size:16.5px;font-weight:900;color:var(--navy);line-height:1.25}
+/* Collapsed until a photo loads, so a card without one is exactly the card
+   that shipped before — no gap, no placeholder, no layout shift on failure. */
+.c-img{display:none;margin:-16px -16px 2px;height:150px;overflow:hidden;
+  border-radius:16px 16px 0 0;background:#0E1D2E;position:relative}
+.c-img.has-img{display:block}
+.c-img img{width:100%;height:100%;object-fit:cover;display:block}
+.c-img::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,23,35,0) 45%,rgba(11,23,35,.55) 100%)}
+@media(max-width:700px){.c-img{height:170px}}
 .c-meta{font-size:12.5px;font-weight:800;color:var(--muted)}
 .c-badges{display:flex;flex-wrap:wrap;gap:6px}
 .badge{font-size:11px;font-weight:900;padding:3px 9px;border-radius:99px;white-space:nowrap}
@@ -737,18 +761,405 @@ a{color:inherit}
    dropping the artwork altogether. */
 @media(prefers-reduced-data:reduce){
   .hh-hero{
-    background-image:url("/images/halloween/hero-scene.svg")!important;
+    background-image:var(--backdrop-fallback)!important;
     background-position:right bottom!important;
     background-size:auto 96%!important;
     background-color:var(--navy)!important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FULL-PAGE ATMOSPHERE — the haunted house behind the whole hub.
+   --------------------------------------------------------------------------
+   Self-contained: delete this block and the page returns to the light theme
+   with the photograph confined to the hero.
+
+   Two deliberate choices worth knowing:
+
+   1. A fixed pseudo-element, NOT background-attachment:fixed. The latter is
+      janky-to-broken on iOS Safari, and this audience is parents on phones.
+      A fixed layer is composited once and never repaints on scroll.
+
+   2. The photograph is heavily darkened and desaturated before any content
+      sits on it. A busy image competing with 18 cards of dense text is a
+      legibility problem, not atmosphere — so the picture supplies mood at
+      the edges while the reading surfaces stay calm and high-contrast.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#F3F7FA;          /* was #1a1a1a */
+  --muted:#AFC3D4;        /* was #5a6b7a */
+  --card:#132234;         /* was #fff    */
+  --line:rgba(255,255,255,.13);
+  --shadow:0 6px 20px rgba(0,0,0,.38);
+  --ctl:#18293D;          /* control surfaces that used to be #fff */
+  /* --ground, --accent, --accent-ink, --backdrop-*, --scrim-* are set by
+     applyHub() from /config/seasonal-hubs.js. The values here are only a
+     safety net for the config failing to load. */
+  --ground:#101A24;
+  --accent:#4FA8DA;
+  --accent-ink:#06131C;
+  --accent-tint:rgba(79,168,218,.16);
+  --accent-edge:rgba(79,168,218,.55);
+  --accent-soft:#C4E2F3;
+}
+/* The geometric furniture is marigold site-wide; on a seasonal hub it runs
+   the hub's --accent instead. Scoped here so the homepage is untouched. */
+.geo-sec .geo-idx{color:var(--accent)}
+.geo-sec .geo-rule{background:linear-gradient(90deg,
+  var(--accent-edge) 0%, var(--accent-tint) 45%, rgba(255,255,255,.10) 100%)}
+#geoProgress::after{background:linear-gradient(90deg,
+  var(--sky), var(--accent) 60%, #FFB27A)}
+.card::after{background:linear-gradient(90deg,
+  var(--sky), var(--accent) 55%, #FFB27A)}
+.count b{color:var(--accent)}
+.hh-hero h1 em{color:var(--accent)}
+.hh-badge{border-color:var(--accent-edge);background:var(--accent-tint);
+  color:var(--accent-soft)}
+html{background:var(--ground)}
+html,body{background-image:none}
+body{background:transparent;color:var(--ink)}
+
+body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
+body::before{
+  z-index:-2;
+  background-image:var(--backdrop-wide);
+  background-size:cover;background-position:center 18%;
+  filter:saturate(.72) brightness(.62);
+}
+body::after{ z-index:-1; background:var(--scrim-wide); }
+@media(max-width:700px){
+  /* The tall crop, and a heavier wash: a phone shows a much narrower slice
+     with proportionally more text over it. */
+  body::before{ background-image:var(--backdrop-tall); background-position:center 12%; }
+  body::after{ background:var(--scrim-tall); }
+}
+
+/* ── reading surfaces ── */
+.hh-filters,.card,.empty{background-color:var(--card);border-color:var(--line)}
+.card h3{color:#FFFFFF}
+.c-note{color:#C6D6E3}
+.c-meta,.c-unver,.scare-hint,.f-lab,.p-foot-claim{color:var(--muted)}
+.count{color:#FFFFFF}
+.empty p{color:#FFFFFF}
+
+/* ── controls: the four surfaces that were hardcoded #fff ── */
+.scare-btn,.chip-btn,.sens-btn,.geo-pause{background-color:var(--ctl);color:var(--muted)}
+.scare-btn:hover,.chip-btn:hover,.sens-btn:hover,.geo-pause:hover{
+  background-color:#1E3247;border-color:var(--sky);color:#FFFFFF}
+/* The tick glyph is always in the DOM; in the light theme it was white on a
+   white box, so it read as empty when unchecked. On a dark box that accident
+   stops working and the control looks checked when it is not. Hide the glyph
+   unless the toggle is actually on. */
+.sens-box{border-color:#5E7A93;color:transparent}
+.sens-btn.on .sens-box{color:#08192B;background-color:var(--sky);border-color:var(--sky)}
+.reset{color:var(--muted)}
+.reset:hover{color:#FFFFFF}
+.tip{background-color:#22374D;color:#DCE8F2}
+
+/* Selected states keep their palette colour but need a lighter face on
+   navy — navy-on-navy would vanish. */
+.scare-btn.on[data-scare="1"]{background-color:var(--sky);color:var(--accent-ink)}
+.chip-btn.on{background-color:var(--sky);color:#08192B;border-color:var(--sky)}
+.sens-btn.on{background-color:#1C3D55;border-color:var(--sky);color:#FFFFFF}
+.b-s1{background-color:var(--sky);color:#08192B}
+/* White on sky-blue is 2.64:1 — a pre-existing AA failure inherited from the
+   light theme, where the same pairing was used for scare level 2. Dark ink on
+   the same blue keeps the colour coding and clears the threshold. */
+.b-s2{background-color:var(--sky);color:#08192B}
+.scare-btn.on[data-scare="2"]{background-color:var(--sky);color:#08192B}
+.b-sens{background-color:#1C3D55;color:#DCE8F2;border-color:var(--sky)}
+.b-free{background-color:#12351F;color:#8FE0AC;border-color:#2E7D4F}
+.b-paid{background-color:#3A2A12;color:#F2C888;border-color:#8A6320}
+.l-site{background-color:var(--sky);color:#08192B}
+.l-map{background-color:#22374D;color:#DCE8F2}
+
+/* ── the geometric layer, which assumed a light ground ── */
+.geo-sec .geo-label{color:#E6EEF5}
+.geo-sec .geo-rule{background:rgba(255,255,255,.18)}
+
+/* ── hero and footer sit on the same photograph, so they lose their own
+      copy of it and become glass instead ── */
+.hh-hero{background-image:none!important;background-color:rgba(9,20,32,.62)!important;
+  border:1px solid rgba(255,255,255,.10)}
+.hh-hero::before{background:linear-gradient(100deg,
+  rgba(9,20,32,.72) 0%, rgba(9,20,32,.52) 46%, rgba(9,20,32,.28) 100%)!important}
+.hh-foot{background-color:rgba(9,20,32,.72);border:1px solid rgba(255,255,255,.10);
+  border-bottom:none}
+.hh-sub{background:linear-gradient(135deg,rgba(23,50,77,.86),rgba(36,85,125,.80));
+  border:1px solid rgba(255,255,255,.10)}
+.sub-form input{background:#F3F7FA;color:#12202E}
+
+@media(prefers-reduced-data:reduce){
+  /* No photograph at all — the flat dark ground is already the design. */
+  body::before{background-image:none}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HALLOWEEN HOUSE — the atmospheric layer
+   --------------------------------------------------------------------------
+   The illustration was already behind the page but almost invisible: a .62
+   brightness plus a heavy flat wash left a dark rectangle where the house,
+   the moon and the lit windows should be. This block does three things:
+
+     1. Lets the illustration actually show, and carries text contrast on the
+        PANELS instead of on the wash. Solid-enough glass over a legible
+        picture is both prettier and more accessible than a murky picture
+        under grey text.
+     2. Gives the page a display voice. No webfont: a Halloween face would
+        cost a render-blocking request on a phone for one page, and
+        CLAUDE.md puts load ahead of flash. Georgia in wide uppercase with an
+        ember gradient reads gothic and costs nothing.
+     3. Adds atmosphere that a visitor can switch off. Every moving or
+        glowing thing here is decorative, aria-hidden, and gone under
+        prefers-reduced-motion; the photograph itself is gone under
+        prefers-reduced-data.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --hh-glass:rgba(12,24,38,.88);
+  --hh-glass-soft:rgba(14,28,44,.74);
+  --hh-edge:rgba(255,255,255,.12);
+  --hh-ember:#FFB27A;
+  --display:Georgia,'Iowan Old Style','Times New Roman',serif;
+}
+
+/* ── 1. let the house show ───────────────────────────────────────────────── */
+body::before{ filter:saturate(.94) brightness(.86); }
+body::after{
+  /* Bright through the middle where the house and moon are, deep at the
+     edges so the fixed image never fights the content column. */
+  background:
+    radial-gradient(ellipse 92% 62% at 50% 20%,
+      rgba(11,23,35,.06) 0%, rgba(11,23,35,.42) 58%, rgba(11,23,35,.66) 100%),
+    linear-gradient(180deg,
+      rgba(11,23,35,.30) 0%, rgba(11,23,35,.46) 52%, rgba(11,23,35,.74) 100%);
+}
+@media(max-width:700px){
+  body::before{ filter:saturate(.94) brightness(.80); }
+  body::after{
+    background:
+      radial-gradient(ellipse 130% 46% at 50% 13%,
+        rgba(11,23,35,.10) 0%, rgba(11,23,35,.50) 62%, rgba(11,23,35,.72) 100%),
+      linear-gradient(180deg,
+        rgba(11,23,35,.36) 0%, rgba(11,23,35,.58) 46%, rgba(11,23,35,.80) 100%);
+  }
+}
+/* Panels now carry the contrast, so they get heavier and gain a blur. The
+   blur is progressive enhancement — the alpha alone already clears AA. */
+.hh-filters,.card,.empty,.hh-tips{
+  background-color:var(--hh-glass);
+  border-color:var(--hh-edge);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+}
+.hh-hero{background-color:rgba(9,20,32,.72)!important}
+@media(min-width:1000px){
+  /* Cap the panel rather than stretching it: the empty half was the
+     illustration being covered by a box with nothing in it. */
+  .hh-hero{max-width:760px}
+}
+
+/* ── 2. the display voice ────────────────────────────────────────────────── */
+.hh-welcome{
+  font-family:var(--display);
+  font-size:clamp(19px,3.1vw,31px);
+  line-height:1.16;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  font-weight:400;
+  margin:14px 0 6px;
+  color:#FFE7CF;
+  text-shadow:0 0 26px rgba(255,150,60,.42), 0 2px 0 rgba(0,0,0,.5);
+}
+.hh-hero h1{
+  font-family:var(--display);
+  font-weight:400;
+  letter-spacing:-.005em;
+  line-height:1.1;
+  text-shadow:0 2px 18px rgba(0,0,0,.55);
+}
+.hh-hero h1 em{
+  font-style:italic;
+  /* Gradient text with a painted fallback: if background-clip:text is not
+     honoured the colour below is what shows, so it never renders invisible. */
+  color:var(--hh-ember);
+  background:linear-gradient(94deg,var(--accent) 0%,var(--hh-ember) 62%,#FFD9A8 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+@supports((-webkit-background-clip:text) or (background-clip:text)){
+  .hh-hero h1 em{-webkit-text-fill-color:transparent}
+}
+.hh-tips h2,.hh-sub h2{
+  font-family:var(--display);font-weight:400;letter-spacing:.012em;
+}
+.geo-sec .geo-label{font-family:var(--display);letter-spacing:.16em}
+
+/* ── 3. the header ───────────────────────────────────────────────────────── */
+.hh-top{
+  position:sticky;top:0;z-index:40;
+  margin-inline:-16px;padding:10px 16px;
+  background:linear-gradient(180deg,rgba(8,17,27,.92),rgba(8,17,27,.72));
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.hh-top img{height:clamp(38px,7vw,50px)}
+.hh-nav{gap:2px}
+.hh-nav a{
+  background:none!important;border-radius:8px;
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(12px,1.25vw,14.5px);letter-spacing:.085em;text-transform:uppercase;
+  color:#E7D9C8;padding:9px 11px;position:relative;
+  transition:color .18s ease;
+}
+.hh-nav a::after{
+  content:'';position:absolute;left:11px;right:11px;bottom:5px;height:1.5px;
+  background:linear-gradient(90deg,var(--accent),var(--hh-ember));
+  transform:scaleX(0);transform-origin:left;transition:transform .22s ease;
+}
+.hh-nav a:hover,.hh-nav a:focus-visible{color:#FFF3E6}
+.hh-nav a:hover::after,.hh-nav a:focus-visible::after{transform:scaleX(1)}
+
+/* ── 4. the three doors ──────────────────────────────────────────────────── */
+.hh-tiles{
+  display:grid;gap:14px;grid-template-columns:repeat(3,1fr);
+  margin:16px 0 4px;
+}
+.tile{
+  display:flex;flex-direction:column;text-align:left;gap:0;
+  background:var(--hh-glass-soft);
+  border:1px solid var(--hh-edge);border-radius:18px;overflow:hidden;
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:none;
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.tile:hover,.tile:focus-visible{
+  transform:translateY(-3px);
+  border-color:var(--accent-edge);
+  box-shadow:0 14px 34px rgba(0,0,0,.42);
+}
+.tile-art{
+  display:block;height:126px;
+  /* Three crops of the backdrop already in cache — atmosphere for no extra
+     request. Decorative, so no alt text is owed. */
+  background-image:var(--backdrop-wide);
+  background-size:210% auto;
+  border-bottom:1px solid var(--hh-edge);
+  filter:saturate(.95) brightness(.9);
+}
+/* Three genuinely different parts of the illustration: the lit porch, the
+   moon over the roofline, and the pumpkins along the path. */
+.tile-art-1{background-position:32% 76%}
+.tile-art-2{background-position:62% 12%}
+.tile-art-3{background-position:9% 88%}
+.tile-body{display:block;padding:14px 16px 16px}
+.tile-kicker{
+  display:block;font-family:var(--display);text-transform:uppercase;
+  letter-spacing:.19em;font-size:10.5px;color:var(--accent-soft);margin-bottom:5px;
+}
+.tile-h{
+  display:block;font-family:var(--display);font-size:19px;line-height:1.2;
+  color:#FFFFFF;margin-bottom:6px;
+}
+.tile-p{display:block;font-size:13.5px;font-weight:600;color:#C6D6E3;line-height:1.5}
+.tile-go{
+  display:inline-block;margin-top:10px;font-size:12.5px;font-weight:900;
+  letter-spacing:.02em;color:var(--hh-ember);
+}
+.tile:hover .tile-go span{margin-left:4px}
+.tile-go span{display:inline-block;transition:margin-left .2s ease}
+
+/* ── 5. the tips ─────────────────────────────────────────────────────────── */
+.hh-tips{border:1px solid var(--hh-edge);border-radius:18px;padding:20px 22px;margin:18px 0}
+.hh-tips h2{font-size:clamp(19px,2.4vw,25px);color:#FFF3E6;margin-bottom:12px}
+.hh-tips ul{list-style:none;display:grid;gap:11px;grid-template-columns:repeat(2,1fr)}
+.hh-tips li{
+  font-size:13.5px;font-weight:600;color:#C6D6E3;line-height:1.55;
+  padding-left:20px;position:relative;
+}
+.hh-tips li::before{
+  content:'🕯️';position:absolute;left:0;top:0;font-size:12px;line-height:1.6;
+}
+.hh-tips strong{color:#FFFFFF;font-weight:900}
+
+/* ── 6. atmosphere, all of it optional ───────────────────────────────────── */
+.bats{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bat{
+  position:absolute;font-size:15px;line-height:1;opacity:.42;
+  filter:drop-shadow(0 0 6px rgba(0,0,0,.6));
+  animation:batDrift linear infinite;
+}
+.bat:nth-child(1){left:-6%;top:16%;animation-duration:41s;animation-delay:-3s;font-size:19px}
+.bat:nth-child(2){left:-6%;top:27%;animation-duration:57s;animation-delay:-19s;opacity:.3}
+.bat:nth-child(3){left:-6%;top:9%; animation-duration:49s;animation-delay:-31s;font-size:13px}
+.bat:nth-child(4){left:-6%;top:35%;animation-duration:63s;animation-delay:-46s;opacity:.24}
+@keyframes batDrift{
+  from{transform:translate3d(0,0,0) rotate(-4deg)}
+  50% {transform:translate3d(52vw,-26px,0) rotate(5deg)}
+  to  {transform:translate3d(114vw,10px,0) rotate(-3deg)}
+}
+/* A warm lift behind the header, as if the porch lanterns were on. */
+.hh-top::after{
+  content:'';position:absolute;inset:auto 0 -46px 0;height:46px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,150,60,.14),rgba(255,150,60,0));
+}
+
+/* The header is sticky, so an in-page anchor would land its target underneath
+   it. Every jump target gets clearance. */
+#grid,#filters,#tips,#subscribe{scroll-margin-top:88px}
+@media(max-width:700px){#grid,#filters,#tips,#subscribe{scroll-margin-top:74px}}
+
+/* ── 7. keyboard users get a visible ring on every new control ───────────── */
+.tile:focus-visible,.hh-nav a:focus-visible{
+  outline:3px solid var(--hh-ember);outline-offset:3px;
+}
+
+/* ── 8. narrower screens ─────────────────────────────────────────────────── */
+@media(max-width:860px){
+  .hh-tiles{grid-template-columns:1fr}
+  .tile{flex-direction:row;align-items:stretch}
+  .tile-art{height:auto;width:104px;flex:0 0 104px;
+    border-bottom:none;border-right:1px solid var(--hh-edge);background-size:auto 190%}
+  .hh-tips ul{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .hh-top{padding:8px 16px}
+  /* One row that scrolls. Wrapping put a 150px navigation bar above the
+     fold on a 390px phone, which is most of the first screen. */
+  .hh-top{gap:8px;flex-wrap:nowrap}
+  .hh-top>a{flex:0 0 auto}
+  /* min-width:0 is the load-bearing bit — without it the flex child refuses
+     to shrink below its content and the nav wraps onto its own row, which is
+     how this became a 107px bar on a 390px phone. */
+  .hh-nav{flex:1 1 auto;min-width:0;flex-wrap:nowrap;gap:0;justify-content:flex-start;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;max-width:100%;
+    /* fade the right edge so it reads as scrollable */
+    -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 88%,transparent 100%)}
+  .hh-nav::-webkit-scrollbar{display:none}
+  .hh-nav a{padding:11px 9px;white-space:nowrap;min-height:44px}
+  .hh-welcome{letter-spacing:.04em}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .bats{display:none}
+  .tile:hover,.tile:focus-visible{transform:none}
+}
+@media(prefers-reduced-data:reduce){
+  /* No photograph anywhere, including the tile crops. */
+  .bats{display:none}
+  .tile-art{background-image:none;background-color:#16273A}
+}
+
 </style>
 </head>
 <body>
 
 <div id="geoProgress" role="presentation" aria-hidden="true"></div>
+
+<!-- Decorative only. Hidden from assistive tech, removed entirely under
+     prefers-reduced-motion and prefers-reduced-data. -->
+<div class="bats" aria-hidden="true"><span class="bat">🦇</span><span class="bat">🦇</span><span class="bat">🦇</span><span class="bat">🦇</span></div>
 
 <div class="wrap">
 
@@ -760,14 +1171,18 @@ a{color:inherit}
       </picture>
     </a>
     <nav class="hh-nav" aria-label="Site">
-      <a class="n-home" href="/">🌤️ All activities</a>
-      <a class="n-diy" href="/diy.html">🛠️ DIY</a>
-      <a class="n-lt" href="/local-table/">🍽️ Local Table</a>
+      <a href="/">Home</a>
+      <a href="#grid">Spooky picks</a>
+      <a href="#tips">Halloween tips</a>
+      <a href="#filters">Sensory&#8209;friendly</a>
+      <a href="/diy.html">DIY crafts</a>
+      <a href="#subscribe">Get the list</a>
     </nav>
   </header>
 
   <section class="hh-hero">
     <span class="hh-badge">🎃 Halloween 2026 · South Bay</span>
+    <p class="hh-welcome">Welcome to our haunted Halloween house</p>
     <h1>Halloween in the South Bay, sorted by <em>how scary it isn't</em></h1>
     <p>
       Most Halloween round-ups assume your kid wants to be frightened. This one starts from the
@@ -778,8 +1193,44 @@ a{color:inherit}
     </p>
   </section>
 
+  <!-- ── THREE DOORS ──
+       Not decoration: each one drives the filter state below, so a parent who
+       knows what they want never has to read the filter panel at all. -->
+  <section class="hh-tiles" aria-label="Start here">
+    <button class="tile" type="button" data-door="weekend">
+      <span class="tile-art tile-art-1" aria-hidden="true"></span>
+      <span class="tile-body">
+        <span class="tile-kicker">Door one</span>
+        <span class="tile-h">Upcoming this week</span>
+        <span class="tile-p">Everything still running, nearest dates first — pumpkin patches,
+          trunk&#8209;or&#8209;treats and library storytimes.</span>
+        <span class="tile-go">Show me <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </button>
+    <button class="tile" type="button" data-door="gentle">
+      <span class="tile-art tile-art-2" aria-hidden="true"></span>
+      <span class="tile-body">
+        <span class="tile-kicker">Door two</span>
+        <span class="tile-h">Nothing that jumps</span>
+        <span class="tile-p">Scare level one only, plus the sensory&#8209;friendly filter —
+          lower lights, no strobes, quieter rooms.</span>
+        <span class="tile-go">Show me <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </button>
+    <a class="tile" href="/diy.html">
+      <span class="tile-art tile-art-3" aria-hidden="true"></span>
+      <span class="tile-body">
+        <span class="tile-kicker">Door three</span>
+        <span class="tile-h">Make it at home</span>
+        <span class="tile-p">Costumes and decorations from what is already in the cupboard.
+          Adult&#8209;supervision steps are flagged.</span>
+        <span class="tile-go">Open the crafts <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </a>
+  </section>
+
   <!-- ── FILTERS ── -->
-  <section class="hh-filters" aria-label="Filter events">
+  <section class="hh-filters" id="filters" aria-label="Filter events">
     <div class="f-row">
       <div class="f-lab">Scare level</div>
       <div class="scare-seg" id="scareSeg" role="group" aria-label="Maximum scare level">
@@ -839,7 +1290,22 @@ a{color:inherit}
   </div>
 
   <!-- ── EMAIL CAPTURE (same /api/subscribe endpoint as the homepage) ── -->
-  <section class="hh-sub">
+  <!-- ── TIPS ── -->
+  <section class="hh-tips" id="tips" aria-labelledby="tipsH">
+    <h2 id="tipsH">Four things worth knowing before you go</h2>
+    <ul>
+      <li><strong>Ask about the quiet hour.</strong> Most patches and museums run one early,
+        before the queues and the sound system start. It is rarely advertised — phone and ask.</li>
+      <li><strong>Full face masks are usually a no</strong> on rides and in zoos. Face paint
+        travels better than a mask your child cannot see out of.</li>
+      <li><strong>Check the date on the venue&rsquo;s own site.</strong> Small patches change
+        hours late in the season. Where we could not confirm, the card says so.</li>
+      <li><strong>Scare level 3 and 4 mean it.</strong> Jump scares are performers stepping out
+        at close range. Under&#8209;tens tap out of the hay maze about halfway through.</li>
+    </ul>
+  </section>
+
+  <section class="hh-sub" id="subscribe">
     <h2>🎄 Winter break camps — the list drops Nov 1. Get it first.</h2>
     <p>One email a week with what is on. Unsubscribe from any of them.</p>
     <form id="subForm" class="sub-form" novalidate>
@@ -868,7 +1334,7 @@ a{color:inherit}
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════
-   Halloween hub — fully client-side over events.json.
+   Seasonal hub — fully client-side over events.json.
    Deliberately does NOT touch the activities API: this page must render
    from static data alone so it stays fast and indexable.
    ══════════════════════════════════════════════════════════════════════ */
@@ -919,7 +1385,8 @@ function cardHTML(e){
     ? '<span class="badge b-free">🆓 Free</span>'
     : '<span class="badge b-paid">🎟️ Paid</span>';
   var unver = e.verified ? '' : '<p class="c-unver">⚠️ Confirm dates on their site.</p>';
-  return '<article class="card">'
+  return '<article class="card" data-id="'+esc(e.id)+'" data-type="'+esc(e.type)+'">'
+    + '<div class="c-img" aria-hidden="true"></div>'
     + '<h3>'+esc(e.name)+'</h3>'
     + '<p class="c-meta">📍 '+esc(e.city)+' · 📅 '+esc(e.dates)+'</p>'
     + '<div class="c-badges">'+sb+sens+cost+'</div>'
@@ -932,9 +1399,102 @@ function cardHTML(e){
     + '</article>';
 }
 
+/* Photo lookup phrases per event type. The /api/photos matcher works on
+   keywords in name+desc, so each type is given wording that lands on a
+   sensible Pexels category rather than the generic default. */
+/* Read from the hub's config entry — see /config/seasonal-hubs.js. Kept as a
+   lookup with a safe default so a type with no hint still gets a query. */
+var HUB = (typeof SEASONAL_HUBS !== "undefined" && SEASONAL_HUBS[window.HUB_ID]) || {};
+var PHOTO_HINT = HUB.photoHints || {};
+var PHOTO_HINT_DEFAULT = HUB.photoHintDefault || "family kids outdoors";
+
+/* Photos are decorative enhancement ONLY. The page is required to render from
+   events.json alone (it must not depend on the activities API), so nothing
+   here blocks or alters a card: if the request fails, is slow, or returns no
+   image, the slot simply stays collapsed and the card is what it always was.
+
+   Fetches are gated behind an IntersectionObserver so 18 cards do not fire 18
+   requests on load — only what the visitor actually scrolls to. */
+var photoSeen = {};
+var photoObserver = null;
+var photoWarned = false;   /* warn once, not eighteen times */
+function loadCardPhotos(){
+  if (!("IntersectionObserver" in window) || !window.fetch) return;
+  if (!photoObserver) {
+    photoObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var card = en.target;
+        photoObserver.unobserve(card);
+        var id = card.getAttribute("data-id");
+        var slot = card.querySelector(".c-img");
+        if (!slot || !id) return;
+
+        /* One lookup per event for the life of the page — filtering rebuilds
+           the cards, and re-fetching the same photo each time would be waste. */
+        if (photoSeen[id]) {
+          if (photoSeen[id] !== "none") showPhoto(slot, photoSeen[id]);
+          return;
+        }
+        var ev = EVENTS.filter(function(x){ return x.id === id; })[0];
+        if (!ev) return;
+        photoSeen[id] = "none";   // pessimistic until proven otherwise
+        var hint = PHOTO_HINT[ev.type] || PHOTO_HINT_DEFAULT;
+        /* Sent as `hint`, not `desc`: /api/photos uses a hint verbatim
+           instead of running its keyword rules, and the curated phrase in
+           the hub config is more specific than any rule could be. */
+        fetch("/api/photos?name=" + encodeURIComponent(ev.name) +
+              "&hint=" + encodeURIComponent(hint))
+          /* Parse the body even on an error status: the handler puts the
+             reason there, and a silent "no photos" is exactly the failure
+             that used to be impossible to diagnose. */
+          .then(function(r){ return r.json().catch(function(){ return null; }); })
+          .then(function(d){
+            if (!d) return;
+            if (!d.url) {
+              if (d.reason && d.reason !== "no-match" && !photoWarned) {
+                photoWarned = true;
+                console.warn("[SunScout] event photos unavailable — reason: " + d.reason +
+                  ". Check /api/photos?selftest=1");
+              }
+              return;
+            }
+            photoSeen[id] = d.url;
+            showPhoto(slot, d.url);
+          })
+          .catch(function(){ /* stays collapsed — by design */ });
+      });
+    }, { rootMargin: "300px 0px" });
+  }
+  document.querySelectorAll("#grid .card[data-id]").forEach(function(c){
+    if (!c.querySelector(".c-img img")) photoObserver.observe(c);
+  });
+}
+
+function showPhoto(slot, url){
+  if (slot.querySelector("img")) return;
+  var img = new Image();
+  img.alt = "";
+  img.decoding = "async";
+  /* Append immediately, reveal only on a successful load. The slot is
+     display:none until .has-img, so nothing is visible in the meantime and a
+     broken URL never leaves an empty band above the title.
+
+     The image must be IN the document to load: an element that is still
+     detached will not fetch, so building it fully before appending would
+     deadlock — onload would never fire and the photo would never appear.
+     No loading="lazy" either, for the same reason and because the
+     IntersectionObserver above already provides the laziness. */
+  img.onload  = function(){ slot.classList.add("has-img"); };
+  img.onerror = function(){ if (img.parentNode) img.parentNode.removeChild(img); };
+  slot.appendChild(img);
+  img.src = url;
+}
+
 function render(){
   var shown = EVENTS.filter(matches);
   document.getElementById("grid").innerHTML = shown.map(cardHTML).join("");
+  loadCardPhotos();
   document.getElementById("empty").style.display = shown.length ? "none" : "block";
   document.getElementById("count").innerHTML =
     "<b>"+shown.length+"</b> of "+EVENTS.length+" event"+(EVENTS.length===1?"":"s");
@@ -982,6 +1542,26 @@ function wireControls(){
   document.getElementById("resetBtn").addEventListener("click",function(){
     state = { scare:null, sensory:false, city:null, age:null, cost:null }; render();
   });
+
+  /* The three doors above the filter panel are shortcuts INTO this same
+     state, not a second filtering path — so whatever a door sets, the panel
+     below shows as selected and "Clear all filters" undoes. */
+  document.querySelectorAll(".hh-tiles [data-door]").forEach(function(b){
+    b.addEventListener("click",function(){
+      if (b.dataset.door === "gentle") { state.scare = 1; state.sensory = true; }
+      else { state.scare = null; state.sensory = false; state.city = null;
+             state.age = null; state.cost = null; }
+      render();
+      var grid = document.getElementById("grid");
+      if (grid) {
+        /* Honour the visitor's motion setting here too — a forced smooth
+           scroll is exactly what 2.2.2 is about. */
+        var smooth = !window.matchMedia ||
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        grid.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+      }
+    });
+  });
 }
 
 /* ── boot ── */
@@ -990,7 +1570,8 @@ function boot(){
   /* SEASON comes from /config/seasons.js — the year is not re-hardcoded here. */
   try {
     document.getElementById("footFine").textContent =
-      "Bay Area Halloween " + (typeof SEASON !== "undefined" ? SEASON.year : "");
+      "Bay Area " + (HUB.label || "") + " " +
+      (typeof SEASON !== "undefined" ? SEASON.year : "");
   } catch(e){}
 
   fetch("events.json")

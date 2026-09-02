@@ -81,22 +81,28 @@ async function applyImageFallback(a) {
     const url     = await fetchPexelsImage(query, a.name);
     if (url) { a.image = url; return; }
   }
+  /* Last resort: images that SHIP WITH THE SITE. This used to be eight
+     unpinned images.unsplash.com URLs — a host we do not control, serving
+     photo ids that can be retired without notice. When one 404s the card
+     shows a broken-image icon, which is worse than the generic photo it was
+     standing in for. A file in /public cannot go missing behind our backs.
+     scripts/test-photo-fallback.js covers this tier failing. */
   if (t.includes("swim") || t.includes("pool") || t.includes("splash"))
-    a.image = "https://images.unsplash.com/photo-1560090995-57e2e7e9ff84?w=600&q=80";
+    a.image = "/splash.jpg";
   else if (t.includes("stem") || t.includes("robot") || t.includes("science"))
-    a.image = "https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?w=600&q=80";
+    a.image = "/stem.jpg";
   else if (t.includes("hike") || t.includes("trail") || t.includes("nature"))
-    a.image = "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80";
+    a.image = "/trail.jpg";
   else if (t.includes("museum") || t.includes("discovery"))
-    a.image = "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=600&q=80";
+    a.image = "/museum.jpg";
   else if (t.includes("camp") || t.includes("ymca"))
-    a.image = "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80";
+    a.image = "/camp.jpg";
   else if (t.includes("art") || t.includes("paint") || t.includes("craft"))
-    a.image = "https://images.unsplash.com/photo-1588497859490-85d1c17db96d?w=600&q=80";
+    a.image = "/stem.jpg";
   else if (t.includes("danc") || t.includes("ballet"))
-    a.image = "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&q=80";
+    a.image = "/ballet.jpg";
   else
-    a.image = "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80";
+    a.image = "/park.jpg";
 }
 
 
@@ -125,92 +131,16 @@ function getDefaultImage(name, desc) {
 }
 
 // fetch available globally in Node 18+
-const PHOTO_CACHE = new Map();
-
-function buildPhotoQuery(name, address) {
-  const n = name.toLowerCase();
-  if (n.includes("cherry") || n.includes("berry") || n.includes("fruit pick") || n.includes("orchard"))
-    return "cherry picking fruit orchard farm California kids";
-  if (n.includes("horse") || n.includes("horseback") || n.includes("equestrian") || n.includes("ranch"))
-    return "horseback riding ranch California kids family";
-  if (n.includes("petting zoo") || n.includes("farm animal") || n.includes("ardenwood") || n.includes("hidden villa") || n.includes("deer hollow") || n.includes("lemos"))
-    return "petting zoo farm animals kids California";
-  if (n.includes("hike") || n.includes("trail") || n.includes("mission peak") || n.includes("coyote"))
-    return "family hiking trail nature California";
-  if (n.includes("splash pad") || n.includes("spray park") || n.includes("water play"))
-    return "kids splash pad water play summer park";
-  if (n.includes("fishing") || n.includes("pier"))
-    return "family fishing pier ocean California kids";
-  if (n.includes("beach") || n.includes("boardwalk") || n.includes("santa cruz"))
-    return "Santa Cruz beach boardwalk family kids summer";
-  if (n.includes("farmers market") || n.includes("sunnyvale market"))
-    return "farmers market California family outdoor stalls";
-  if (n.includes("stem") || n.includes("robot") || n.includes("coding") || n.includes("integem") || n.includes("snapology") || n.includes("id tech"))
-    return "kids STEM robotics coding camp classroom California";
-  if (n.includes("museum") || n.includes("discovery") || n.includes("winchester") || n.includes("tech interactive"))
-    return "children discovery museum California exhibit interactive";
-  if (n.includes("trampoline") || n.includes("altitude"))
-    return "kids trampoline park indoor jump California";
-  if (n.includes("swim") || n.includes("pool") || n.includes("aquatic") || n.includes("ymca"))
-    return "kids swimming pool YMCA California summer";
-  if (n.includes("ballet") || n.includes("dance") || n.includes("music"))
-    return "kids ballet dance class studio California";
-  if (n.includes("art") || n.includes("paint") || n.includes("craft") || n.includes("pottery"))
-    return "kids art craft class studio painting California";
-  if (n.includes("library") || n.includes("storytime") || n.includes("reading"))
-    return "children library storytime reading program kids";
-  // camps use exact name for unique photos — handled by fallback below
-  if (n.includes("zoo") || n.includes("happy hollow") || n.includes("animal"))
-    return "kids zoo animals California family summer";
-  if (n.includes("great america") || n.includes("theme park") || n.includes("amusement"))
-    return "Great America theme park rides California family";
-  if (n.includes("bowling")) return "kids bowling alley family California";
-  if (n.includes("laser tag") || n.includes("lazer")) return "laser tag kids family arena California";
-  if (n.includes("climbing") || n.includes("rock climb")) return "kids rock climbing gym California";
-  if (n.includes("park") || n.includes("playground"))
-    return "family park playground California sunny day kids";
-  // Use exact name for unique photos
-  return name + " " + (address || "");
-}
-
-async function getPlacePhoto(name, address, apiKey) {
-  const cacheKey = name;
-  if (PHOTO_CACHE.has(cacheKey)) return PHOTO_CACHE.get(cacheKey);
-  if (!apiKey) { PHOTO_CACHE.set(cacheKey, null); return null; }
-  try {
-    const smartQuery = buildPhotoQuery(name, address);
-    const findUrl = "https://places.googleapis.com/v1/places:searchText";
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4000);
-    const findRes = await fetch(findUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": apiKey,
-        "X-Goog-FieldMask": "places.photos,places.displayName"
-      },
-      body: JSON.stringify({ textQuery: smartQuery, maxResultCount: 1 }),
-      signal: controller.signal
-    });
-    clearTimeout(timeout);
-    const findData = await findRes.json();
-    const photoName = findData.places?.[0]?.photos?.[0]?.name;
-    if (!photoName) { PHOTO_CACHE.set(cacheKey, null); return null; }
-    const photoUrl = "/api/photo?ref=" + encodeURIComponent(photoName);
-    PHOTO_CACHE.set(cacheKey, photoUrl);
-    return photoUrl;
-  } catch(e) {
-    console.warn("Photo fetch failed for", name, e.message);
-    PHOTO_CACHE.set(cacheKey, null);
-    return null;
-  }
-}
+// Google Places photo lookup lived here and has been removed. Places Photos
+// bills per call with no hard free tier, and a page of event cards would be
+// two billable calls each on every load. Pexels is the single image source;
+// see applyImageFallback() above. CLAUDE.md lists Places as do-not-re-add.
 
 
 
 // ============================================================
 // SunScout — api/activities.js
-// Live data: Eventbrite + Google Places + Ticketmaster
+// Live data: Ticketmaster (events) + Pexels (photos)
 // Keys server-side only — never exposed to browser
 // ============================================================
 
@@ -898,7 +828,7 @@ export default async function handler(req, res) {
   let activities = [];
   const seen = new Set();
 
-  // Add hardcoded first — fetch Google Places photos in parallel, fall back to Unsplash
+  // Add hardcoded first — images are filled in by applyImageFallback() (Pexels)
   const uniqueHardcoded = [];
   for (const a of hardcodedFiltered) {
     const key = a.name.toLowerCase().slice(0, 30);

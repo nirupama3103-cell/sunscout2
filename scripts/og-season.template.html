@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<!--
+  Source template for the four seasonal OG cards. Rendered at 1200x630 by
+  scripts/build-og-seasons.js, which injects the copy from
+  public/config/seasons.js so the share card can never contradict the site.
+  Same treatment as scripts/og-halloween.template.html.
+-->
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:630px;overflow:hidden;position:relative;
+  font-family:'Nunito',-apple-system,'Segoe UI',sans-serif;
+  color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 78px;
+  background:var(--grad)}
+.glow{position:absolute;width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(circle,var(--glow1) 0%,rgba(0,0,0,0) 70%);right:-150px;top:-160px}
+.glow2{position:absolute;width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,var(--glow2) 0%,rgba(0,0,0,0) 70%);left:-170px;bottom:-200px}
+/* hairline grid + corner ticks — the same geometric furniture as the site hero */
+.grid{position:absolute;inset:0;opacity:.5;
+  background-image:linear-gradient(to right,rgba(255,255,255,.09) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(255,255,255,.09) 1px,transparent 1px);
+  background-size:100px 100px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 70% at 50% 42%,#000 28%,transparent 76%)}
+.tick{position:absolute;width:20px;height:20px;border:0 solid rgba(255,255,255,.55)}
+.tl{top:30px;left:30px;border-top-width:2px;border-left-width:2px}
+.tr{top:30px;right:30px;border-top-width:2px;border-right-width:2px}
+.bl{bottom:30px;left:30px;border-bottom-width:2px;border-left-width:2px}
+.br{bottom:30px;right:30px;border-bottom-width:2px;border-right-width:2px}
+.badge{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;
+  background:var(--chipbg);border:2px solid var(--chipbd);color:var(--chipfg);
+  border-radius:99px;padding:10px 26px;font-size:23px;font-weight:900;
+  letter-spacing:.4px;margin-bottom:30px;position:relative;z-index:2}
+h1{font-size:78px;font-weight:900;letter-spacing:-2.6px;line-height:1.02;
+  max-width:940px;margin-bottom:26px;position:relative;z-index:2}
+h1 em{font-style:normal;color:var(--accent)}
+p{font-size:26px;font-weight:700;color:rgba(255,255,255,.88);max-width:880px;
+  line-height:1.36;position:relative;z-index:2}
+.foot{position:absolute;left:78px;bottom:46px;display:flex;align-items:center;gap:14px;z-index:2}
+.dot{width:13px;height:13px;border-radius:50%;background:var(--accent)}
+.brand{font-size:26px;font-weight:900}
+.brand span:first-child{color:var(--accent)}
+.cities{position:absolute;right:78px;bottom:50px;font-size:19px;font-weight:800;
+  color:rgba(255,255,255,.62);text-align:right;line-height:1.45;z-index:2}
+</style></head><body>
+<div class="glow"></div><div class="glow2"></div><div class="grid"></div>
+<span class="tick tl"></span><span class="tick tr"></span>
+<span class="tick bl"></span><span class="tick br"></span>
+<span class="badge" id="badge"></span>
+<h1><span id="l1"></span><br><em id="l2"></em></h1>
+<p id="sub"></p>
+<div class="foot"><span class="dot"></span><span class="brand"><span>Sun</span><span>Scout</span></span></div>
+<div class="cities">Sunnyvale · San Jose · Cupertino · Mountain&nbsp;View<br>Palo Alto · Saratoga · Fremont</div>
+</body></html>

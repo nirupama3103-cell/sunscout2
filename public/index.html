@@ -7,11 +7,26 @@
 <meta charset="UTF-8"/>
   <meta name="color-scheme" content="light only">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SunScout – Summer Activities for Kids</title>
+  <!-- ══════════════════════════════════════════════════════════════════
+       These static values are deliberately EVERGREEN, and must stay that way.
+
+       applySeason() rewrites them at runtime, so a visitor always sees the
+       current season. Crawlers, though, read the HTML as served and do not
+       wait for script — so anything seasonal written here is wrong for nine
+       months of the year. It previously said "Summer" every day of the year.
+
+       There is no build step in this project (see CLAUDE.md), so the served
+       HTML cannot be generated per season. Seasonal keyword targeting
+       therefore lives on the hub pages, which are hand-built and carry real
+       static seasonal meta — /seasons/halloween/ is the first of them.
+
+       Do not "helpfully" put a season back into these five tags.
+       ══════════════════════════════════════════════════════════════════ -->
+  <title>SunScout – Free &amp; Paid Activities for Bay Area Kids</title>
 
   <!-- ── SEO: Meta Description ── -->
-  <meta name="description" content="Discover free and paid summer activities for Bay Area kids. Filter by city, age, indoor/outdoor and more — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
-  <meta name="keywords" content="summer activities kids Bay Area, free kids activities Sunnyvale, family activities San Jose, summer camps Cupertino, kids events Fremont">
+  <meta name="description" content="Hand-checked things to do with kids across the South Bay, all year round. Filter by city, age, price and indoor/outdoor — Sunnyvale, San Jose, Cupertino, Mountain View, Palo Alto, Saratoga &amp; Fremont.">
+  <meta name="keywords" content="kids activities Bay Area, things to do with kids South Bay, free kids activities Sunnyvale, family activities San Jose, kids activities Cupertino, kids events Fremont">
   <meta name="author" content="Nirupama Vadapalli">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.sunscoutkids.com/">
@@ -19,19 +34,19 @@
   <!-- ── Open Graph ── -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.sunscoutkids.com/">
-  <meta property="og:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta property="og:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
+  <meta property="og:title" content="SunScout – Free &amp; Paid Activities for Bay Area Kids">
+  <meta property="og:description" content="Hand-checked things to do with kids across 7 South Bay cities, all year round. Free events, paid camps, indoor &amp; outdoor — filtered by age and city.">
   <meta property="og:image" content="https://www.sunscoutkids.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="SunScout – Summer Activities for Bay Area Kids">
+  <meta property="og:image:alt" content="SunScout – Activities for Bay Area Kids">
   <meta property="og:site_name" content="SunScout">
   <meta property="og:locale" content="en_US">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="SunScout – Free &amp; Paid Summer Activities for Bay Area Kids">
-  <meta name="twitter:description" content="Find the best summer activities for your kids across 7 Bay Area cities. Free, paid, indoor, outdoor — filtered by age.">
+  <meta name="twitter:title" content="SunScout – Free &amp; Paid Activities for Bay Area Kids">
+  <meta name="twitter:description" content="Hand-checked things to do with kids across 7 South Bay cities, all year round. Free, paid, indoor, outdoor — filtered by age.">
   <meta name="twitter:image" content="https://www.sunscoutkids.com/og-image.jpg">
 
   <!-- 2026 geometric premium layer. Remove these three tags and the
@@ -200,7 +215,7 @@ img{max-width:100%;display:block}
 .no-results{text-align:center;padding:2rem 1rem;grid-column:1/-1}
 .no-results-icon{font-size:3rem;margin-bottom:10px}
 .no-results h2{font-size:18px;font-weight:900;margin-bottom:8px}
-.no-results p{font-size:13px;color:#666;margin-bottom:14px}
+.no-results p{font-size:13px;color:#595959;margin-bottom:14px}  /* #666 was 4.43:1 on the cream panel */
 .diy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto}@media(max-width:640px){.diy-grid{grid-template-columns:1fr}}
 .diy-card{background:#fff;border:1px solid #eee;border-radius:10px;padding:12px;font-size:12px;color:#666}
 .diy-card strong{display:block;font-size:13px;color:#1a1a1a;margin-bottom:4px}
@@ -249,7 +264,7 @@ img{max-width:100%;display:block}
 .fav-btn.faved{background:#ffe0e0}
 .mylist-tab-btn{background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;position:relative}
 .mylist-badge{position:absolute;top:-5px;right:-5px;background:#1a1a1a;color:#fff;font-size:10px;font-weight:900;border-radius:50%;width:18px;height:18px;display:none;align-items:center;justify-content:center}
-.plan-btn{background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif}
+.plan-btn{background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:9px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif}
 #plan-modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
 #plan-modal{background:#fff;border-radius:16px;max-width:380px;width:100%;padding:18px;position:relative;font-family:Nunito,sans-serif;max-height:80vh;overflow-y:auto}
 .plan-step{display:none}.plan-step.active{display:block}
@@ -755,7 +770,7 @@ html { scroll-behavior: smooth; }
   font-family: Nunito, sans-serif;
   white-space: nowrap;
 }
-.fp-plan { background: linear-gradient(135deg,#11998e,#38ef7d); color: #fff; }
+.fp-plan { background: linear-gradient(135deg,#0B7268,#0E7A3C); color: #fff; }
 .fp-list { background: linear-gradient(135deg,#ff4e50,#f9d423); color: #fff; position: relative; }
 #float-pill-badge {
   display: none;
@@ -808,7 +823,7 @@ html { scroll-behavior: smooth; }
   --p-cream:#EDE4D6; --p-surface:#FFF9F0; --p-card:#ffffff;
   --p-ink:#2c1a00; --p-muted:#6b5040; --p-faint:#6b5040;   /* was #8a7358: 3.57:1 on the cream ground, below the 4.5:1 AA needs. Now 5.86:1 */
   --p-sun:#FF9900; --p-sun-dk:#E68A00; --p-sky:#4FC3F7;
-  --p-free:#34C97A; --p-paid:#FF6B6B;
+  --p-free:#1E7A45; --p-paid:#FF6B6B;
   --p-line:rgba(0,0,0,.07);
   --p-ease:cubic-bezier(.2,.8,.2,1);
   --p-shadow:0 2px 12px rgba(0,0,0,.07);
@@ -1280,7 +1295,7 @@ body{color:var(--p-ink) !important}
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#127A3B,#0F6A33);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->
@@ -1334,8 +1349,8 @@ body{color:var(--p-ink) !important}
         </div>
         <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
         <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtCD',this,event)">
-          <div style="font-size:11px;font-weight:900;color:#e65100;letter-spacing:.06em;">📍 CITY</div>
-          <div id="dtCV" style="font-size:13px;font-weight:700;color:#aaa;">Pick city</div>
+          <div style="font-size:11px;font-weight:900;color:#B84200;letter-spacing:.06em;">📍 CITY</div>
+          <div id="dtCV" style="font-size:13px;font-weight:700;color:#6B6157;">Pick city</div>
           <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
             <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;letter-spacing:.06em;">📍 CITIES</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
@@ -1352,7 +1367,7 @@ body{color:var(--p-ink) !important}
         <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
         <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtED',this,event)">
           <div style="font-size:11px;font-weight:900;color:#1d4ed8;letter-spacing:.06em;">🎡 EXPLORE</div>
-          <div id="dtEV" style="font-size:13px;font-weight:700;color:#aaa;">Activity</div>
+          <div id="dtEV" style="font-size:13px;font-weight:700;color:#6B6157;">Activity</div>
           <div id="dtED" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-110px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
               <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtE('free','Free',event)">Free</div>
@@ -1367,7 +1382,7 @@ body{color:var(--p-ink) !important}
         <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
         <div style="flex:1;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtAD',this,event)">
           <div style="font-size:11px;font-weight:900;color:#15803d;letter-spacing:.06em;">👶 AGE</div>
-          <div id="dtAV" style="font-size:13px;font-weight:700;color:#aaa;">All ages</div>
+          <div id="dtAV" style="font-size:13px;font-weight:700;color:#6B6157;">All ages</div>
           <div id="dtAD" style="display:none;position:fixed;top:160px;right:calc(50% - 360px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
               <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All Ages</div>
@@ -1441,7 +1456,7 @@ body{color:var(--p-ink) !important}
 
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
-    <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
+    <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
     <button onclick="floatWeekend()" style="flex:1;background:linear-gradient(135deg,#4FC3F7,#1565c0);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Weekend</button>
   </div>
@@ -1449,17 +1464,17 @@ body{color:var(--p-ink) !important}
        getElementById("ssChip") returned this hidden one, so every weather
        update wrote to an element nobody could see. -->
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
-    <button onclick="openPlan()" style="background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
+    <button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
     <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
   </div>
   <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
     <div onclick="weatherChipClick()" style="flex:0 0 auto;padding:6px 10px 6px 14px;cursor:pointer;border-radius:99px 0 0 99px;display:flex;align-items:center;min-width:0;" title="Weather">
-      <span id="ssWeatherLabel" style="font-size:11px;font-weight:700;color:#c05e00;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;display:block;">🌤️ Weather</span>
+      <span id="ssWeatherLabel" style="font-size:11px;font-weight:700;color:#A85200;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;display:block;">🌤️ Weather</span>
     </div>
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
       <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">📍 CITY</div>
-      <div id="ssv-city" style="font-size:11px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
+      <div id="ssv-city" style="font-size:11px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
       <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
         <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci">☀️</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
@@ -1474,7 +1489,7 @@ body{color:var(--p-ink) !important}
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
       <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
-      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
+      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
       <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
@@ -1490,7 +1505,7 @@ body{color:var(--p-ink) !important}
     <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
     <div id="ssc-age" onclick="ssTog('age',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
       <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">👶 AGE</div>
-      <div id="ssv-age" style="font-size:12px;font-weight:700;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
+      <div id="ssv-age" style="font-size:12px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
       <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
@@ -2037,6 +2052,11 @@ function getCardHTML(a) {
   else if (f.indexOf("parks")>=0||f.indexOf("marketplace")>=0) src="/park.jpg";
   else if (f.indexOf("highropecamp")>=0||f.indexOf("high rope camp")>=0) src="/highropecamp.jpg";
   else if (f.indexOf("farm")>=0||f.indexOf("zoo")>=0||f.indexOf("animal")>=0||f.indexOf("petting")>=0||f.indexOf("ardenwood")>=0||f.indexOf("happy hollow")>=0||f.indexOf("deer hollow")>=0||f.indexOf("hidden villa")>=0||f.indexOf("lemos")>=0) src="/park.jpg";
+  /* `src` is the category image that ships with the site. finalSrc prefers a
+     remote photo when we have one, and onerror below drops back to `src`
+     rather than to another remote URL — the previous last resort was a single
+     unpinned images.unsplash.com id, so when that 404d the card showed a
+     broken-image icon with nothing left to try. */
   var finalSrc = (a.image && a.image.length > 10 && a.image.indexOf('http') === 0) ? a.image : src;
   var isAboveFold = (window._cardIndex || 0) < 4;
   window._cardIndex = (window._cardIndex || 0) + 1;
@@ -2054,7 +2074,7 @@ function getCardHTML(a) {
     }).catch(function(){});
   }
   return "<div style=\"position:relative;width:100%;height:100%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.2s infinite\">"
-    + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&q=80';this.style.opacity='1'\" />"
+    + "<img id=\""+cardId+"\" src=\""+finalSrc+"\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s\" loading=\""+loadAttr+"\" onload=\"this.style.opacity='1'\" onerror=\"this.onerror=null;this.src='"+src+"';this.style.opacity='1'\" />"
     + "</div>";
 }
 
@@ -2081,7 +2101,7 @@ function showDetail(i) {
   var a = window._activities[i];
   if (!a) return;
   var mu = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||"")+" CA");
-  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+  var ds = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||(SEASON.label + " " + SEASON.year));
   var st = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
   var imgSrc = "/park.jpg";
   var cardEl = document.querySelector(".card[data-idx='" + i + "']");
@@ -2203,6 +2223,44 @@ function isRainingCode(code) {
   return (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || (c >= 95 && c <= 99);
 }
 
+/* Highest precipitation probability over the next few hours.
+
+   The banner says "{N}% chance of rain today", so the useful number is a
+   look-ahead, not the value at hourly index 0 — that is midnight UTC, which
+   in the Bay Area is the middle of the previous evening and says nothing
+   about the afternoon.
+
+   Finds the entry matching current_weather.time and takes the maximum over
+   the following LOOKAHEAD_H hours. Both timestamps come back in the same
+   (UTC) frame, so no timezone maths is needed. Returns null on anything
+   unexpected rather than guessing. */
+var LOOKAHEAD_H = 12;
+function hourlyProbAhead(d) {
+  try {
+    var h = d && d.hourly;
+    if (!h || !h.precipitation_probability || !h.time) return null;
+    var probs = h.precipitation_probability, times = h.time;
+    if (!probs.length || probs.length !== times.length) return null;
+
+    var now = d.current_weather && d.current_weather.time;
+    var start = 0;
+    if (now) {
+      var stamp = String(now).slice(0, 13);          // YYYY-MM-DDTHH
+      for (var i = 0; i < times.length; i++) {
+        if (String(times[i]).slice(0, 13) === stamp) { start = i; break; }
+      }
+    }
+    var best = null;
+    for (var j = start; j < Math.min(times.length, start + LOOKAHEAD_H); j++) {
+      var v = probs[j];
+      if (v === null || v === undefined || isNaN(v)) continue;
+      var n = Number(v);
+      if (best === null || n > best) best = n;
+    }
+    return best;
+  } catch (e) { return null; }
+}
+
 /* Pulls whatever precipitation signal the response actually carries.
    Never throws: any missing/!malformed field degrades to {prob:null,code:null}. */
 function readRain(d) {
@@ -2218,7 +2276,7 @@ function readRain(d) {
     var probSources = [
       cw.precipitation_probability,
       d && d.daily && d.daily.precipitation_probability_max && d.daily.precipitation_probability_max[0],
-      d && d.hourly && d.hourly.precipitation_probability && d.hourly.precipitation_probability[0]
+      hourlyProbAhead(d)
     ];
     for (var i = 0; i < probSources.length; i++) {
       var v = probSources[i];
@@ -2314,7 +2372,10 @@ async function fetchWeather(city) {
   var banner = document.getElementById("weatherBanner");
   if (!banner) return;
   try {
-    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&temperature_unit=fahrenheit");
+    /* hourly=precipitation_probability is what makes RAIN_LIKELY and
+       RAIN_MAYBE reachable — current_weather alone carries a weathercode but
+       no probability. forecast_days=1 keeps the payload to a single day. */
+    var r = await fetch("https://api.open-meteo.com/v1/forecast?latitude="+co[0]+"&longitude="+co[1]+"&current_weather=true&hourly=precipitation_probability&forecast_days=1&temperature_unit=fahrenheit");
     var d = await r.json();
     var t = Math.round(d.current_weather ? d.current_weather.temperature : 72);
     ssPremiumWeather(city, t);
@@ -2435,7 +2496,7 @@ function renderCards() {
 
   window._activities = visible;
   grid.innerHTML = visible.map(function(a, i) {
-    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||"Summer 2026");
+    var ds  = a.startDate ? (a.endDate && a.startDate!==a.endDate ? fmtDate(a.startDate)+" – "+fmtDate(a.endDate) : fmtDate(a.startDate)) : (a.dates||(SEASON.label + " " + SEASON.year));
     var st  = a.stars ? "★".repeat(Math.min(5,a.stars))+"☆".repeat(5-Math.min(5,a.stars)) : "";
     var mu  = a.mapsUrl || "https://www.google.com/maps/search/"+encodeURIComponent((a.name||"")+" "+(a.city||activeCity)+" CA");
     var ac  = (a.ages||[]).map(function(g){ return "<span class=\"chip "+(AGE_COLORS[g]||"")+"\">"+( AGE_LABELS[g]||g)+"</span>"; }).join("");
@@ -3628,7 +3689,7 @@ h1,h2,h3{text-wrap:balance}
   color:#4a4034 !important;
 }
 .p-foot-brand p{color:#5c4a3a !important}
-.p-foot-logo .s1{color:#D67400 !important}
+.p-foot-logo .s1{color:#A85800 !important}
 .p-foot-logo .s2{color:#1565c0 !important}
 
 /* column labels: uppercase micro-type needs real contrast, not 62% white */
