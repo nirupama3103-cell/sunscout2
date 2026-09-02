@@ -78,6 +78,14 @@ console.log('\n6. No season BRANCHING or STYLING in any component');
    What must not exist is logic or styling keyed to a season id, because that
    is what would force a component edit when adding one. So this checks the
    <style> and <script> regions, not the markup. */
+/* Comments are prose, not styling or logic: a note explaining why the page
+   does not load a Halloween display font is exactly as much a per-season
+   dependency as the word "Halloween" in a paragraph of copy. Strip them
+   before checking, or the test stops measuring what it claims to. */
+function stripComments(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, ' ')
+            .replace(/^[ \t]*\/\/.*$/gm, ' ');
+}
 function regions(src) {
   const grab = (tag) => {
     const out = [];
@@ -91,7 +99,7 @@ function regions(src) {
     }
     return out.join('\n');
   };
-  return { style: grab('style'), script: grab('script') };
+  return { style: stripComments(grab('style')), script: stripComments(grab('script')) };
 }
 const ids = Object.keys(SEASONAL_HUBS);
 const hubSrc = fs.readFileSync(path.join(ROOT, 'public/seasons/halloween/index.html'), 'utf8');
