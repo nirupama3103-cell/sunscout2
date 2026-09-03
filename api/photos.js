@@ -1,6 +1,33 @@
 const CACHE = new Map();
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
+/* Stable 32-bit hash — same function api/activities.js uses. */
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+/* ── staying inside the free tier ──────────────────────────────────────────
+   Pexels gives 200 requests/hour and 20,000/month for free, with no card.
+   The in-memory CACHE above cannot protect that on its own: every cold
+   start of the function begins with an empty Map, and serverless cold-starts
+   constantly. Without a CDN header every visitor spends one Pexels call per
+   card on the page.
+
+   These headers make Vercel's edge answer repeat requests itself, so the
+   function is not even invoked. One call per distinct query per day, rather
+   than one per card per visitor. With roughly 30 distinct queries that is
+   about 900 calls a month against an allowance of 20,000.
+
+   stale-while-revalidate means a visitor never waits for a refresh: the edge
+   serves the day-old photo instantly and updates behind them. */
+function edgeCache(res, seconds) {
+  const s = seconds || 24 * 3600;
+  res.setHeader("Cache-Control",
+    `public, max-age=0, s-maxage=${s}, stale-while-revalidate=${7 * 24 * 3600}`);
+}
+
 /* ══════════════════════════════════════════════════════════════════════════
    QUERY BUILDING
 
@@ -221,6 +248,9 @@ export default async function handler(req, res) {
      Callers still degrade gracefully — every one of them checks d.url — but
      the reason is now in the payload and the status code. */
   if (!process.env.PEXELS_API_KEY) {
+    /* Never cache a failure: the key being added should take effect at once,
+       not in 24 hours. Same for every error path below. */
+    res.setHeader("Cache-Control", "no-store");
     return res.status(503).json({ url: null, reason: "no-api-key", build: BUILD });
   }
 
@@ -233,12 +263,18 @@ export default async function handler(req, res) {
   if (CACHE.has(cacheKey)) {
     const { url, ts } = CACHE.get(cacheKey);
     if (Date.now() - ts < CACHE_TTL) {
+      edgeCache(res);
       return res.json({ url, category, cached: true });
     }
   }
 
   try {
-    const page = Math.floor(Math.random() * 3) + 1;
+    /* Deterministic, not random. A random page and a random pick meant the
+       same card showed a different photo on every load, which looks broken
+       AND makes every response uncacheable — so every visitor spent a
+       Pexels call for every card. Hashing the key gives a stable choice
+       that a CDN can hold onto. */
+    const page = (hashStr(cacheKey) % 3) + 1;
     const r = await fetch(
       `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=15&page=${page}&orientation=landscape`,
       { headers: { Authorization: process.env.PEXELS_API_KEY } }
@@ -247,6 +283,7 @@ export default async function handler(req, res) {
        indistinguishable from a genuine miss. Name it. */
     if (!r.ok) {
       const body = await r.text();
+      res.setHeader("Cache-Control", "no-store");
       return res.status(502).json({
         url: null, reason: "provider-error",
         providerStatus: r.status, providerBody: body.slice(0, 200), build: BUILD,
@@ -254,11 +291,15 @@ export default async function handler(req, res) {
     }
     const data = await r.json();
     const photos = data.photos || [];
-    if (photos.length === 0) return res.json({ url: null, reason: "no-match", category });
-    const pick = photos[Math.floor(Math.random() * photos.length)];
+    /* A miss is worth caching too, and for longer: the query is not going to
+       start matching on its own, and re-asking hourly just burns quota. */
+    if (photos.length === 0) { edgeCache(res, 7 * 24 * 3600); return res.json({ url: null, reason: "no-match", category }); }
+    const pick = photos[hashStr(cacheKey) % photos.length];
     CACHE.set(cacheKey, { url: pick.src.large, ts: Date.now() });
+    edgeCache(res);
     return res.json({ url: pick.src.large, category, cached: false });
   } catch(e) {
+    res.setHeader("Cache-Control", "no-store");
     return res.status(500).json({ url: null, reason: "exception", error: e.message, build: BUILD });
   }
 }

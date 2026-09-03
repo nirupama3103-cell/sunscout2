@@ -1,0 +1,330 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   EDITORIAL LAYER — the shared premium surface
+   --------------------------------------------------------------------------
+   One design system for every page. The homepage, the seasonal hubs, the DIY
+   page and Local Table all pull from the tokens at the top; a page that needs
+   a dark palette re-declares them and everything below follows.
+
+   The four things this fixes, in the order they were hurting:
+
+     1. CARD LOAD. A listing card carried nine rows — photo, title, five
+        stars, three coloured age chips, address, phone, date, description,
+        then a footer of four buttons and two more labels. Premium listing
+        cards carry three or four. Everything removed here is still in the
+        DOM and still in the detail modal; it is off the CARD FACE, which is
+        the only place it was doing harm.
+     2. COLOUR COUNT. Orange slab, blue map button, green/red/yellow/purple
+        age chips, gold stars, orange link — six hues fighting. Two now: ink
+        and one accent, with a hairline for structure.
+     3. EMOJI AS INTERFACE. A pin, a calendar, a map, a star and a megaphone
+        in the card chrome read as a hobby project. Type and rules instead.
+     4. TYPE HIERARCHY. Title, meta and chips were all a similar size and
+        weight, so nothing led. A real scale now: 17/13/11.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --ed-ink:#171310;
+  --ed-ink-2:#5C5148;          /* meta text — 6.0:1 on paper */
+  --ed-hair:#E7DED2;
+  --ed-paper:#FCFAF7;
+  /* One accent that works BOTH ways: as text on paper (5.2:1) and as a
+     filled button under white text (5.4:1). The lighter #D9560A read better
+     but measured 3.97:1 under white — an accent you cannot put white on is
+     not one accent, it is two. */
+  --ed-accent:#B8440A;
+  --ed-accent-ink:#FFFFFF;
+  --ed-card:#FFFFFF;
+  --ed-radius:14px;
+}
+
+/* ── section header: a label, a hairline, a label ─────────────────────── */
+.ed-sec{display:flex;align-items:center;gap:18px;margin:clamp(30px,4vw,54px) auto clamp(16px,2vw,22px)}
+.ed-sec .ed-n{font-size:11px;font-weight:900;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--ed-ink-2);white-space:nowrap}
+.ed-sec .ed-rule{height:1px;background:var(--ed-hair);flex:1}
+
+/* ══ THE CARD ══════════════════════════════════════════════════════════ */
+.ed .card{
+  background:var(--ed-card)!important;
+  border:1px solid var(--ed-hair)!important;
+  border-radius:var(--ed-radius)!important;
+  box-shadow:none!important;
+  overflow:hidden;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.ed .card:hover{
+  transform:translateY(-3px);
+  border-color:#D9CDBB!important;
+  box-shadow:0 16px 34px rgba(23,19,16,.10)!important;
+}
+
+/* photo */
+.ed .card-img-wrap{aspect-ratio:4/3!important;border-radius:0!important;background:#EFE9E0!important}
+.ed .card-img-wrap img{transition:transform .55s ease}
+.ed .card:hover .card-img-wrap img{transform:scale(1.045)}
+/* The scrim only existed to hold the city pill; the pill is gone from the
+   photo, so the gradient is too. */
+.ed .card-scrim{display:none!important}
+.ed .card-city{display:none!important}
+
+/* one pill, top left, and it says the price — real data, not a label
+   invented to match a reference */
+.ed .card-img-wrap .badge-free{
+  top:12px!important;left:12px!important;right:auto!important;
+  background:var(--ed-accent)!important;color:var(--ed-accent-ink)!important;
+  font-size:10.5px!important;font-weight:900!important;letter-spacing:.06em!important;
+  text-transform:uppercase;padding:6px 11px!important;border-radius:6px!important;
+  box-shadow:none!important;
+}
+.ed .card-img-wrap .card-heart{
+  top:10px!important;right:10px!important;left:auto!important;
+  background:rgba(255,255,255,.92)!important;box-shadow:0 2px 8px rgba(0,0,0,.16)!important;
+}
+
+/* body: title, then ONE meta line */
+.ed .card-body{padding:15px 16px 4px!important;gap:0!important}
+.ed .card-title{
+  font-size:16.5px!important;font-weight:800!important;line-height:1.3!important;
+  letter-spacing:-.012em!important;color:var(--ed-ink)!important;margin:0!important;
+}
+/* everything that made the card a wall of rows */
+.ed .card-body .stars,
+.ed .card-body .info{display:none!important}
+
+/* the meta line: date, then ages as plain text rather than five coloured
+   pills. The data is unchanged; it stops shouting. */
+.ed .card-body .date-line{
+  font-size:12.5px!important;color:var(--ed-ink-2)!important;font-weight:700!important;
+  margin-top:7px!important;
+}
+.ed .card-body .date-line strong{color:var(--ed-ink)!important;font-weight:800!important}
+.ed .card-body .chips{
+  display:flex!important;flex-wrap:wrap;gap:0 10px!important;margin-top:4px!important;
+}
+.ed .card-body .chips .chip{
+  background:none!important;border:none!important;padding:0!important;
+  font-size:12px!important;font-weight:700!important;color:var(--ed-ink-2)!important;
+}
+.ed .card-body .chips .chip-price{color:var(--ed-ink)!important;font-weight:800!important}
+
+/* foot: a hairline and two text links. No boxes, no icons. */
+.ed .card-foot{
+  padding:12px 16px 0!important;margin-top:12px!important;gap:16px!important;
+  border-top:1px solid var(--ed-hair);align-items:center;
+}
+.ed .card-foot .btn{
+  background:none!important;border:none!important;padding:0!important;
+  font-size:12.5px!important;font-weight:800!important;color:var(--ed-ink-2)!important;
+  min-height:44px;display:inline-flex;align-items:center;
+}
+.ed .card-foot .btn:hover{color:var(--ed-ink)!important}
+.ed .card-meta-row{
+  padding:0 16px 14px!important;border-top:none!important;
+  font-size:11px!important;
+}
+.ed .card-src{color:#7A6E63!important;font-weight:700}
+.ed .card-details{color:var(--ed-accent)!important;font-weight:900!important}
+
+/* ── the lead card ────────────────────────────────────────────────────── */
+@media(min-width:980px){
+  /* align-items:start, or the card beside a double-width lead stretches to
+     match it and leaves a tall empty column. */
+  .ed .grid{align-items:start}
+  .ed .grid > .card:first-child{grid-column:span 2}
+  .ed .grid > .card:first-child .card-img-wrap{
+    aspect-ratio:auto!important;height:clamp(230px,24vw,320px)!important}
+  .ed .grid > .card:first-child .card-title{font-size:21px!important}
+}
+
+/* ── the hero ─────────────────────────────────────────────────────────── */
+.ed-hero{
+  position:relative;overflow:hidden;border-radius:20px;
+  min-height:clamp(320px,46vw,460px);display:flex;align-items:center;
+  isolation:isolate;
+}
+.ed-hero::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(94deg,
+    rgba(12,9,6,.86) 0%, rgba(12,9,6,.66) 42%, rgba(12,9,6,.16) 78%, rgba(12,9,6,0) 100%);
+}
+@media(max-width:820px){
+  .ed-hero::after{background:linear-gradient(180deg,
+    rgba(12,9,6,.62) 0%, rgba(12,9,6,.82) 52%, rgba(12,9,6,.90) 100%)}
+}
+
+/* ══ THE HOMEPAGE HERO ══════════════════════════════════════════════════
+   An ink panel, not a photograph. The seasonal photo path still works and
+   still wins when an image is present (.hero[data-hero-img="on"]), but the
+   only hero art in the repo is 913x327 — far too small for a full-bleed
+   band on a 1440px screen, and upscaling it is what makes a page look
+   cheap. A deep ink panel with real typographic hierarchy does not.
+   The selectors are body-qualified on purpose: the rules they override live
+   in index.html's inline <style>, which comes after the stylesheet links and
+   therefore wins every specificity tie. Without the extra element in the
+   selector the white headline applied and the dark panel behind it did not.
+   ══════════════════════════════════════════════════════════════════════ */
+body.ed-shell .hero{
+  background:#171310!important;
+  border-radius:20px;
+  margin:6px 16px 0;
+  padding:clamp(30px,4vw,52px) clamp(22px,3.5vw,48px) clamp(26px,3vw,40px)!important;
+  overflow:hidden;position:relative;isolation:isolate;
+}
+/* a single warm wash so the panel is not a flat rectangle */
+body.ed-shell .hero::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 88% 8%, rgba(217,86,10,.28) 0%, transparent 62%),
+    radial-gradient(90% 70% at 6% 96%, rgba(21,101,192,.20) 0%, transparent 60%);
+}
+body.ed-shell .hero > *{position:relative;z-index:1}
+
+body.ed-shell .hero .hero-sub{color:#C9BEB2!important;font-size:12.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase}
+body.ed-shell .hero .p-h1{color:#FFFFFF!important;letter-spacing:-.03em!important;line-height:1.04!important}
+body.ed-shell .hero .p-h1 #heroLine2{color:#FFB068}
+body.ed-shell .hero .p-lede{color:#D9D0C6!important}
+body.ed-shell .hero .p-badge{background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.22)!important;
+  color:#F3C9A6!important}
+body.ed-shell .hero .p-stat b{color:#FFFFFF!important}
+body.ed-shell .hero .p-stat.is-free b{color:#FFB068!important}
+body.ed-shell .hero .p-stat span{color:#B7ABA0!important}
+body.ed-shell .hero .p-stat-rule{background:rgba(255,255,255,.20)!important}
+body.ed-shell .hero .p-wcard,body.ed-shell .hero .p-pick{
+  background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:none!important}
+body.ed-shell .hero .p-wlabel{color:#C9BEB2!important}
+body.ed-shell .hero .p-wtemp,body.ed-shell .hero .p-pick-title{color:#FFFFFF!important}
+body.ed-shell .hero .p-wnote,body.ed-shell .hero .p-pick-meta{color:#BFB4A9!important}
+/* The logo halo was tuned for a photograph; on ink it is not needed. */
+body.ed-shell .hero .hero-logo img{filter:none!important}
+
+/* When a real photograph IS present the panel steps aside and the existing
+   [data-hero-img="on"] rules take over. */
+body.ed-shell .hero[data-hero-img="on"]{background:transparent!important}
+body.ed-shell .hero[data-hero-img="on"]::before{display:none}
+
+/* ── page shell: paper ground and calmer section furniture ────────────── */
+.ed-shell{background:var(--ed-paper)}
+.ed-shell .status-bar{color:var(--ed-ink-2)!important;font-weight:800!important;
+  letter-spacing:.01em!important}
+.ed-shell .status-bar strong{color:var(--ed-ink)!important}
+.ed-shell .geo-sec .geo-idx{color:var(--ed-ink-2)!important}
+.ed-shell .geo-sec .geo-label{color:var(--ed-ink)!important}
+.ed-shell .geo-sec .geo-rule{background:var(--ed-hair)!important}
+
+/* ── the hero's own navigation ────────────────────────────────────────────
+   Five buttons in five different gradients was most of the "too many
+   colours" problem. On the ink panel they become quiet outlines with one
+   filled call to action, which is what makes the headline read first. */
+body.ed-shell .hero .hide-on-mobile > a,
+body.ed-shell .hero .hide-on-mobile > button{
+  background:transparent!important;
+  border:1px solid rgba(255,255,255,.26)!important;
+  color:#EDE6DE!important;
+  border-radius:99px!important;
+  padding:9px 16px!important;
+  font-weight:800!important;
+  min-height:44px;display:inline-flex;align-items:center;
+  transition:background .2s ease,border-color .2s ease;
+}
+body.ed-shell .hero .hide-on-mobile > a:hover,
+body.ed-shell .hero .hide-on-mobile > button:hover{
+  background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.45)!important;
+}
+/* one filled action: Plan My Day */
+body.ed-shell .hero .hide-on-mobile > button:first-child{
+  background:var(--ed-accent)!important;border-color:transparent!important;color:#fff!important;
+}
+
+/* ── the seasonal cross-link ──────────────────────────────────────────────
+   It was a saturated blue band directly under a warm page. Ink, with the
+   accent doing the pointing. */
+body.ed-shell #halloweenCard{
+  background:#171310!important;border:1px solid #2A241E!important;
+}
+body.ed-shell #halloweenCard .hw-text b{color:#FFFFFF!important}
+body.ed-shell #halloweenCard .hw-text span{color:#C4B9AE!important}
+body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
+
+/* Two pictographs were left in the card foot. */
+.ed .card-foot .btn[title],
+.ed .card-foot button.btn{display:none!important}
+
+/* ══ DARK PAGES ═════════════════════════════════════════════════════════
+   A page that re-declares these six tokens gets the same card, section
+   header and hairline system on a dark ground. No second copy of the rules.
+   ══════════════════════════════════════════════════════════════════════ */
+.ed-dark{
+  --ed-ink:#F3F7FA;
+  --ed-ink-2:#AFC0D0;
+  --ed-hair:rgba(255,255,255,.13);
+  --ed-paper:#0B1220;
+  --ed-card:#131C29;
+  --ed-accent:#FFA274;          /* lighter than the light-mode accent: the
+                                   light-mode #D9560A is 2.4:1 on this ground */
+  --ed-accent-ink:#2A1000;
+}
+.ed-dark .card:hover{border-color:rgba(255,255,255,.24)!important;
+  box-shadow:0 18px 40px rgba(0,0,0,.45)!important}
+.ed-dark .card-img-wrap{background:#1B2634!important}
+.ed-dark .card-img-wrap .badge-free{color:var(--ed-accent-ink)!important}
+.ed-dark .card-src{color:#8FA0B2!important}
+
+/* ══ THE SEASONAL HUB CARD ══════════════════════════════════════════════
+   Same system, different class names — this hub's card markup predates the
+   homepage's. Mapped here rather than rewritten, so the filter code that
+   reads .card[data-id] keeps working untouched.
+   ══════════════════════════════════════════════════════════════════════ */
+.ed-dark .card{padding:0!important;overflow:hidden}
+/* NOT display:block. The slot is deliberately collapsed until a photo has
+   actually loaded — forcing it open put an empty band above every title on
+   any card whose photo failed, which is worse than no photo feature at all.
+   scripts/test-photo-fallback.js is the gate that caught it. */
+.ed-dark .card .c-img{
+  margin:0!important;height:auto!important;aspect-ratio:4/3;
+  background:#1B2634;position:relative}
+.ed-dark .card .c-img::after{display:none!important}
+.ed-dark .card h3{
+  font-size:16.5px!important;font-weight:800!important;line-height:1.3!important;
+  letter-spacing:-.012em!important;padding:15px 16px 0!important;color:var(--ed-ink)!important}
+.ed-dark .card .c-meta{
+  font-size:12.5px!important;font-weight:700!important;color:var(--ed-ink-2)!important;
+  padding:7px 16px 0!important}
+/* badges as plain labels, not five coloured pills */
+.ed-dark .card .c-badges{gap:0 12px!important;padding:5px 16px 0!important}
+.ed-dark .card .c-badges .badge{
+  background:none!important;border:none!important;padding:0!important;
+  font-size:12px!important;font-weight:700!important;color:var(--ed-ink-2)!important}
+/* except the two that carry the warning — those keep the accent */
+.ed-dark .card .c-badges .b-s3,
+.ed-dark .card .c-badges .b-s4{color:var(--ed-accent)!important;font-weight:900!important}
+/* description and the unverified note come off the face */
+.ed-dark .card .c-note{display:none!important}
+.ed-dark .card .c-unver{
+  font-size:11.5px!important;font-weight:700!important;color:var(--ed-accent)!important;
+  padding:8px 16px 0!important;font-style:normal!important}
+/* links become a hairline row of text, matching the homepage card */
+.ed-dark .card .c-links{
+  margin:14px 0 0!important;padding:12px 16px!important;gap:18px!important;
+  border-top:1px solid var(--ed-hair)}
+.ed-dark .card .c-links a{
+  background:none!important;padding:0!important;border-radius:0!important;
+  font-size:12.5px!important;font-weight:800!important;min-height:44px;
+  display:inline-flex;align-items:center}
+.ed-dark .card .c-links .l-site{color:var(--ed-accent)!important}
+.ed-dark .card .c-links .l-map{color:var(--ed-ink-2)!important}
+.ed-dark .card .c-links .l-map:hover{color:var(--ed-ink)!important}
+@media(min-width:980px){
+  /* The lead card's photo needs the same cap here; this hub's photo element
+     is .c-img, not .card-img-wrap, so the homepage rule does not reach it
+     and a 4:3 photo across two columns became half a screen tall. */
+  .ed-dark .grid > .card:first-child .c-img.has-img{
+    aspect-ratio:auto!important;height:clamp(230px,24vw,320px)!important}
+  .ed-dark .grid > .card:first-child h3{font-size:21px!important}
+}
+
+/* the geo section header on the dark ground */
+.ed-dark .geo-sec .geo-idx{color:var(--ed-accent)!important}
+.ed-dark .geo-sec .geo-label{color:var(--ed-ink)!important}
+.ed-dark .geo-sec .geo-rule{background:var(--ed-hair)!important}

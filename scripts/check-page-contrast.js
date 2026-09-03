@@ -106,6 +106,14 @@ function findPlaywright() {
                 (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).join('.') : '')).slice(0, 46),
         sample: own.slice(0, 34),
         color: cs.color, large,
+        /* An OPAQUE background on the element itself is, by definition, what
+           is behind its glyphs — no screenshot needed, and no artefact from
+           a carousel clone or a lazily painted photo underneath. Only
+           trusted when the text actually fits its box. */
+        ownBg: (cs.backgroundColor && !/rgba\(.*,\s*0(\.\d+)?\)$/.test(cs.backgroundColor)
+                && cs.backgroundColor !== 'transparent'
+                && el.scrollWidth <= el.clientWidth + 1
+                && el.scrollHeight <= el.clientHeight + 1) ? cs.backgroundColor : null,
         colorAlpha: (cs.webkitTextFillColor || '').includes('rgba(0, 0, 0, 0)') ? 0 : 1,
         rect: { x: r.left + window.scrollX, y: r.top + window.scrollY,
                 w: Math.min(r.width, 1200), h: Math.min(r.height, 200) },
@@ -175,6 +183,11 @@ function findPlaywright() {
     const parse = s => (s.match(/[\d.]+/g) || [0, 0, 0]).slice(0, 3).map(Number);
 
     return targets.map(t => {
+      if (t.ownBg) {
+        const [br, bg, bb] = parse(t.ownBg), [fr2, fg2, fb2] = parse(t.color);
+        return { ...t, ratio: ratio(lum(fr2, fg2, fb2), lum(br, bg, bb)),
+                 worstPx: [br, bg, bb], fromOwnBg: true };
+      }
       const x = Math.max(0, Math.round(t.rect.x)), y = Math.max(0, Math.round(t.rect.y));
       const w = Math.max(1, Math.min(Math.round(t.rect.w), c.width - x));
       const h = Math.max(1, Math.min(Math.round(t.rect.h), c.height - y));
@@ -228,7 +241,7 @@ function findPlaywright() {
      Every FAIL is therefore measured a second time from a pair of
      screenshots clipped to that one element, taken back to back with
      nothing scrolled in between. The second number is the one reported. */
-  const failing = results.filter(r => r.ratio !== null &&
+  const failing = results.filter(r => r.ratio !== null && !r.fromOwnBg &&
     r.ratio < (r.large ? 3.0 : 4.5));
   for (const r of failing) {
     const box = await page.evaluate((i) => {

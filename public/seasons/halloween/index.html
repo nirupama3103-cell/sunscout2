@@ -55,6 +55,7 @@
 
 <!-- Shared 2026 geometric premium layer, same as the homepage. -->
 <link rel="stylesheet" href="/css/premium.css">
+<link rel="stylesheet" href="/css/editorial.css">
 <script>
   try{ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.documentElement.className += ' geo-ready'; } }catch(e){}
@@ -1388,6 +1389,8 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
   .pop-2{min-width:min(260px,calc(100vw - 48px))}
 }
 
+
+
 @media(prefers-reduced-motion:reduce){
   .bats{display:none}
   .tile:hover,.tile:focus-visible{transform:none}
@@ -1601,16 +1604,20 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
     </a>
   </section>
 
-  <div class="geo-sec" aria-hidden="true">
-    <span class="geo-idx">01</span>
-    <span class="geo-label">Every event</span>
-    <span class="geo-rule"></span>
-  </div>
+  <!-- Styling scope for the editorial card system; this page re-declares the
+       tokens for a dark palette in its own <style>. -->
+  <div class="ed ed-dark">
+    <div class="geo-sec" aria-hidden="true">
+      <span class="geo-idx">01</span>
+      <span class="geo-label">Every event</span>
+      <span class="geo-rule"></span>
+    </div>
 
-  <main id="grid" class="grid" aria-label="Halloween events"></main>
-  <div id="empty" class="empty" style="display:none">
-    <div aria-hidden="true">🕸️</div>
-    <p>Nothing matches — try widening the scare level.</p>
+    <main id="grid" class="grid" aria-label="Halloween events"></main>
+    <div id="empty" class="empty" style="display:none">
+      <div aria-hidden="true">🕸️</div>
+      <p>Nothing matches — try widening the scare level.</p>
+    </div>
   </div>
 
   <!-- ── EMAIL CAPTURE (same /api/subscribe endpoint as the homepage) ── -->
@@ -1744,23 +1751,28 @@ function matches(e){
   return true;
 }
 
+/* The card face carries four things: photo, title, one meta line, and two
+   text links. The scare level and access badges stay — they are the whole
+   point of this hub — but as plain labels rather than five coloured pills,
+   and the pictographs are gone from the chrome. The description moves off
+   the face; nothing is removed from the data. */
 function cardHTML(e){
-  var sb = '<span class="badge b-s'+e.scare+'">'+esc(SCARE_LABEL[e.scare])+'</span>';
-  var sens = e.sensoryFriendly ? '<span class="badge b-sens">♿ Sensory-friendly</span>' : '';
+  var sb = '<span class="badge b-s'+e.scare+'">'+esc(SCARE_LABEL[e.scare].replace(/^\S+\s/,''))+'</span>';
+  var sens = e.sensoryFriendly ? '<span class="badge b-sens">Sensory-friendly</span>' : '';
   var cost = e.cost==="free"
-    ? '<span class="badge b-free">🆓 Free</span>'
-    : '<span class="badge b-paid">🎟️ Paid</span>';
-  var unver = e.verified ? '' : '<p class="c-unver">⚠️ Confirm dates on their site.</p>';
+    ? '<span class="badge b-free">Free</span>'
+    : '<span class="badge b-paid">Paid</span>';
+  var unver = e.verified ? '' : '<p class="c-unver">Confirm dates on their site.</p>';
   return '<article class="card" data-id="'+esc(e.id)+'" data-type="'+esc(e.type)+'">'
     + '<div class="c-img" aria-hidden="true"></div>'
     + '<h3>'+esc(e.name)+'</h3>'
-    + '<p class="c-meta">📍 '+esc(e.city)+' · 📅 '+esc(e.dates)+'</p>'
+    + '<p class="c-meta">'+esc(e.city)+' · '+esc(e.dates)+'</p>'
     + '<div class="c-badges">'+sb+sens+cost+'</div>'
     + '<p class="c-note">'+esc(e.notes)+'</p>'
     + unver
     + '<div class="c-links">'
-      + '<a class="l-site" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Official site ↗</a>'
-      + '<a class="l-map" href="'+esc(e.mapsUrl)+'" target="_blank" rel="noopener noreferrer">🗺️ Directions</a>'
+      + '<a class="l-site" href="'+esc(e.url)+'" target="_blank" rel="noopener noreferrer">Official site</a>'
+      + '<a class="l-map" href="'+esc(e.mapsUrl)+'" target="_blank" rel="noopener noreferrer">Directions</a>'
     + '</div>'
     + '</article>';
 }
