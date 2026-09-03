@@ -411,3 +411,34 @@ body.ed-shell .hero.has-leaves{
   background:linear-gradient(180deg,rgba(23,19,16,.34),rgba(23,19,16,.72));
 }
 @media(prefers-reduced-data:reduce){ .lt-hero-art::before{background-image:none} }
+
+/* ══ PAGE SWITCHER (homepage, mobile) ═══════════════════════════════════
+   The homepage's bottom bar is its FILTER bar — Free Camps, Paid, Outdoor
+   and so on, all of which proxy into setTab(). Page links do not belong in
+   it, and the header pills that do carry them are hide-on-mobile. So on a
+   phone the homepage had no route to Local Table, DIY or the Halloween hub
+   at all. This row is those four destinations, above the fold, phone only.
+   The other three pages carry the same four in their bottom bar instead.
+   ══════════════════════════════════════════════════════════════════════ */
+body.ed-shell .ed-pages{display:none}
+@media(max-width:640px){
+  body.ed-shell .ed-pages{
+    display:flex;gap:8px;margin:12px 0 2px;padding-bottom:2px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    /* fade the right edge so it reads as scrollable */
+    -webkit-mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
+            mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
+  }
+  body.ed-shell .ed-pages::-webkit-scrollbar{display:none}
+  body.ed-shell .ed-page{
+    display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;
+    min-height:44px;padding:0 15px;border-radius:99px;
+    background:rgba(255,255,255,.66);border:1px solid rgba(32,22,14,.16);
+    color:#3A2A1A;font-size:12.5px;font-weight:800;text-decoration:none;
+    white-space:nowrap;
+  }
+  body.ed-shell .ed-page.is-here{
+    background:var(--ed-accent);border-color:transparent;color:#fff;
+  }
+  body.ed-shell .ed-page:focus-visible{outline:3px solid var(--ed-accent);outline-offset:2px}
+}
