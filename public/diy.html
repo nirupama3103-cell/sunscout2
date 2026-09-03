@@ -1712,6 +1712,16 @@ window.addEventListener("hashchange", function(){
 /* --- Type detail ------------------------------------------------------ */
 h1,h2,h3{text-wrap:balance}
 .card-desc,.hero-sub,.step p,.modal-desc,.deals-head p{text-wrap:pretty}
+
+/* ── contrast fixes ───────────────────────────────────────────────────────
+   scripts/check-page-contrast.js measured the tile label at 2.64:1 against
+   the brightest part of the photograph behind it. The chip colour was
+   already dark; what was missing was an opaque background under the glyphs
+   on every tile, whatever the photo does there. */
+.tile-label{background:#1D1510 !important;color:#F3ECE2 !important}
+/* 4.49:1 at 390px — a hundredth under. Not a rounding quibble: the gate is
+   the gate, and a value that only passes at one breakpoint has not passed. */
+.fbar-l{color:#6A6158 !important}
 </style>
 </body>
 </html>

@@ -1721,6 +1721,17 @@ window.addEventListener("hashchange", function(){
 /* --- Type detail ------------------------------------------------------ */
 h1,h2,h3{text-wrap:balance}
 .card-desc,.hero-sub,.step p,.modal-desc,.deals-head p{text-wrap:pretty}
+
+/* ── contrast fixes ───────────────────────────────────────────────────────
+   Five failures from scripts/check-page-contrast.js, all colour-only.
+   The price badge is the interesting one: an earlier sweep forced dark ink
+   on every element carrying a price, but this badge sits over the dark
+   bottom of a photograph, so the "fix" took it to 1.44:1. */
+.hero h1 em{color:#8A4B00 !important}          /* was --orange, 1.74:1 on cream */
+.step-n{color:#8A4B00 !important}              /* was --orange, 2.14:1 on white */
+.ftr a{color:#5A3E1C !important}               /* was 3.82:1 */
+.ftr-note{color:#4A443A !important}            /* was #999, 2.21:1 */
+.tile-price-b{color:#FFD9A8 !important}        /* dark ink on a dark photo: 1.44:1 */
 </style>
 </body>
 </html>
