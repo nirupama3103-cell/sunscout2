@@ -55,6 +55,7 @@
 
 <!-- Shared 2026 geometric premium layer, same as the homepage. -->
 <link rel="stylesheet" href="/css/premium.css">
+<link rel="stylesheet" href="/css/magazine.css">
 <script>
   try{ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.documentElement.className += ' geo-ready'; } }catch(e){}
@@ -1388,6 +1389,26 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
   .pop-2{min-width:min(260px,calc(100vw - 48px))}
 }
 
+
+/* ── the magazine slab, in this hub's palette ────────────────────────────
+   Same component as the homepage; only these tokens differ. The slab is the
+   accent colour, so the two pieces of text that sit directly on it — the
+   section index and its label — take dark ink, and the cards inside keep
+   their dark surfaces untouched. */
+.mag-slab{
+  --mag-slab:var(--accent);
+  --mag-slab-ink:#2B1400;
+  --mag-slab-ink-soft:#4A1A02;
+  --mag-lift:clamp(18px,3vw,34px);
+  max-width:1080px;
+  box-shadow:0 26px 70px rgba(3,6,12,.55);
+}
+.mag-slab .geo-sec{margin-top:0}
+.mag-slab .geo-sec .geo-rule{background:rgba(58,18,0,.32)}
+/* The grid inside the slab loses its outer margin — the slab provides it. */
+.mag-slab .grid{margin:0}
+.mag-slab .empty{margin-top:14px}
+
 @media(prefers-reduced-motion:reduce){
   .bats{display:none}
   .tile:hover,.tile:focus-visible{transform:none}
@@ -1601,16 +1622,20 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
     </a>
   </section>
 
-  <div class="geo-sec" aria-hidden="true">
-    <span class="geo-idx">01</span>
-    <span class="geo-label">Every event</span>
-    <span class="geo-rule"></span>
-  </div>
+  <!-- The same slab the homepage uses, in the hub's palette: see
+       /css/magazine.css and the token overrides in this page's <style>. -->
+  <div class="mag-slab">
+    <div class="geo-sec" aria-hidden="true">
+      <span class="geo-idx">01</span>
+      <span class="geo-label">Every event</span>
+      <span class="geo-rule"></span>
+    </div>
 
-  <main id="grid" class="grid" aria-label="Halloween events"></main>
-  <div id="empty" class="empty" style="display:none">
-    <div aria-hidden="true">🕸️</div>
-    <p>Nothing matches — try widening the scare level.</p>
+    <main id="grid" class="grid" aria-label="Halloween events"></main>
+    <div id="empty" class="empty" style="display:none">
+      <div aria-hidden="true">🕸️</div>
+      <p>Nothing matches — try widening the scare level.</p>
+    </div>
   </div>
 
   <!-- ── EMAIL CAPTURE (same /api/subscribe endpoint as the homepage) ── -->
