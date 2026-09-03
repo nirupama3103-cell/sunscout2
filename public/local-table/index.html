@@ -1753,6 +1753,13 @@ h1,h2,h3{text-wrap:balance}
 .lt-hero .stat-v,.lt-hero .fact-v{color:#FFFFFF !important}
 .lt-hero .btn-ghost{background:transparent !important;color:#F6F1EA !important;
   border-color:rgba(255,255,255,.38) !important;box-shadow:none !important}
+
+/* ── sunset ground ───────────────────────────────────────────────────────
+   The site background, shared with the homepage: warm where the sun is,
+   cooling to sky lower down. --bg stays as the flat fallback for anything
+   that paints its own panel. */
+body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#FFDDBE 32%,#FDE3D0 56%,#EDF2FA 82%,#E9F2FB 100%))
+  no-repeat !important;background-size:100% 100% !important;min-height:100vh}
 </style>
 </body>
 </html>

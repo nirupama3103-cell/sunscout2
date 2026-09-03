@@ -23,18 +23,25 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 :root{
-  --ed-ink:#171310;
-  --ed-ink-2:#5C5148;          /* meta text — 6.0:1 on paper */
-  --ed-hair:#E7DED2;
-  --ed-paper:#FCFAF7;
-  /* One accent that works BOTH ways: as text on paper (5.2:1) and as a
-     filled button under white text (5.4:1). The lighter #D9560A read better
-     but measured 3.97:1 under white — an accent you cannot put white on is
-     not one accent, it is two. */
-  --ed-accent:#B8440A;
+  /* ── palette ───────────────────────────────────────────────────────────
+     Two brand colours, used sparingly, over a sunset ground. The orange and
+     the blue are darkened from the brand values so they can carry TEXT: the
+     brand #FF9900 measures 2.2:1 on a light ground and #4FC3F7 is worse, so
+     they stay for fills and artwork while these two do the talking. */
+  --ed-ink:#20160E;            /* warm near-black; 13-16:1 on every ground */
+  --ed-ink-2:#5C4A3A;          /* meta text; 6.5-7.9:1 */
+  --ed-hair:#F0DCC4;
+  --ed-accent:#A8380A;         /* orange — >=5.0:1 on every sunset stop */
+  --ed-sky:#0F4C93;            /* sky blue — >=6.6:1 */
   --ed-accent-ink:#FFFFFF;
   --ed-card:#FFFFFF;
   --ed-radius:14px;
+
+  /* The sunset itself: warm at the top where the sun is, cooling to sky at
+     the bottom. One gradient over the whole document rather than a fixed
+     layer — no compositing cost, and it never janks on iOS. */
+  --ed-sunset:linear-gradient(180deg,
+    #FFF6EC 0%, #FFEDD9 12%, #FFDDBE 32%, #FDE3D0 56%, #EDF2FA 82%, #E9F2FB 100%);
 }
 
 /* ── section header: a label, a hairline, a label ─────────────────────── */
@@ -166,48 +173,53 @@
 body.ed-shell .hero{
   --ed-pad-t:clamp(30px,4vw,52px);
   --ed-pad-x:clamp(22px,3.5vw,48px);
-  background:#171310!important;
+  /* A sunset panel, not an ink one. Every colour here is light, so the hero
+     text is dark: white on this would be 1.5:1. */
+  background:linear-gradient(135deg,
+    #FFE7C9 0%, #FFD6AE 36%, #FBD9CE 62%, #DCEAF7 100%)!important;
+  border:1px solid #F3DCC0;
   border-radius:20px;
   margin:6px 16px 0;
   padding:var(--ed-pad-t) var(--ed-pad-x) clamp(26px,3vw,40px)!important;
   overflow:hidden;position:relative;isolation:isolate;
 }
-/* a single warm wash so the panel is not a flat rectangle */
+/* A soft low sun in the corner rather than a flat wash. */
 body.ed-shell .hero::before{
   content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(120% 90% at 88% 8%, rgba(217,86,10,.28) 0%, transparent 62%),
-    radial-gradient(90% 70% at 6% 96%, rgba(21,101,192,.20) 0%, transparent 60%);
+    radial-gradient(58% 74% at 84% 6%, rgba(255,153,0,.34) 0%, transparent 64%),
+    radial-gradient(70% 60% at 4% 96%, rgba(79,195,247,.26) 0%, transparent 62%);
 }
 body.ed-shell .hero > *:not(.ed-leaves){position:relative;z-index:1}
 
-body.ed-shell .hero .hero-sub{color:#C9BEB2!important;font-size:12.5px;font-weight:800;
+body.ed-shell .hero .hero-sub{color:#6B5647!important;font-size:12.5px;font-weight:800;
   letter-spacing:.14em;text-transform:uppercase}
-body.ed-shell .hero .p-h1{color:#FFFFFF!important;letter-spacing:-.03em!important;line-height:1.04!important}
-body.ed-shell .hero .p-h1 #heroLine2{color:#FFB068}
-body.ed-shell .hero .p-lede{color:#D9D0C6!important}
-body.ed-shell .hero .p-badge{background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.22)!important;
-  color:#F3C9A6!important}
-body.ed-shell .hero .p-stat b{color:#FFFFFF!important}
-body.ed-shell .hero .p-stat.is-free b{color:#FFB068!important}
-body.ed-shell .hero .p-stat span{color:#B7ABA0!important}
-body.ed-shell .hero .p-stat-rule{background:rgba(255,255,255,.20)!important}
+body.ed-shell .hero .p-h1{color:var(--ed-ink)!important;letter-spacing:-.03em!important;
+  line-height:1.04!important}
+body.ed-shell .hero .p-h1 #heroLine2{color:var(--ed-accent)}
+body.ed-shell .hero .p-lede{color:#4A3B2E!important}
+body.ed-shell .hero .p-badge{background:rgba(255,255,255,.66)!important;
+  border-color:#EFD4B4!important;color:#7A3A0B!important}
+body.ed-shell .hero .p-stat b{color:var(--ed-ink)!important}
+body.ed-shell .hero .p-stat.is-free b{color:var(--ed-accent)!important}
+body.ed-shell .hero .p-stat span{color:#6B5647!important}
+body.ed-shell .hero .p-stat-rule{background:rgba(32,22,14,.18)!important}
 body.ed-shell .hero .p-wcard,body.ed-shell .hero .p-pick{
-  background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.16)!important;
-  box-shadow:none!important}
-body.ed-shell .hero .p-wlabel{color:#C9BEB2!important}
-body.ed-shell .hero .p-wtemp,body.ed-shell .hero .p-pick-title{color:#FFFFFF!important}
-body.ed-shell .hero .p-wnote,body.ed-shell .hero .p-pick-meta{color:#BFB4A9!important}
-/* The logo halo was tuned for a photograph; on ink it is not needed. */
+  background:rgba(255,255,255,.74)!important;border:1px solid rgba(255,255,255,.9)!important;
+  box-shadow:0 6px 18px rgba(90,60,20,.10)!important}
+body.ed-shell .hero .p-wlabel{color:#6B5647!important}
+body.ed-shell .hero .p-wtemp,body.ed-shell .hero .p-pick-title{color:var(--ed-ink)!important}
+body.ed-shell .hero .p-wnote,body.ed-shell .hero .p-pick-meta{color:#5C4A3A!important}
 body.ed-shell .hero .hero-logo img{filter:none!important}
 
 /* When a real photograph IS present the panel steps aside and the existing
    [data-hero-img="on"] rules take over. */
-body.ed-shell .hero[data-hero-img="on"]{background:transparent!important}
+body.ed-shell .hero[data-hero-img="on"]{background:transparent!important;border-color:transparent}
 body.ed-shell .hero[data-hero-img="on"]::before{display:none}
 
 /* ── page shell: paper ground and calmer section furniture ────────────── */
-.ed-shell{background:var(--ed-paper)}
+body.ed-shell{background:var(--ed-sunset) no-repeat;background-attachment:scroll;
+  background-size:100% 100%;min-height:100vh}
 .ed-shell .status-bar{color:var(--ed-ink-2)!important;font-weight:800!important;
   letter-spacing:.01em!important}
 .ed-shell .status-bar strong{color:var(--ed-ink)!important}
@@ -221,9 +233,9 @@ body.ed-shell .hero[data-hero-img="on"]::before{display:none}
    filled call to action, which is what makes the headline read first. */
 body.ed-shell .hero .hide-on-mobile > a,
 body.ed-shell .hero .hide-on-mobile > button{
-  background:transparent!important;
-  border:1px solid rgba(255,255,255,.26)!important;
-  color:#EDE6DE!important;
+  background:rgba(255,255,255,.60)!important;
+  border:1px solid rgba(32,22,14,.16)!important;
+  color:#3A2A1A!important;
   border-radius:99px!important;
   padding:9px 16px!important;
   font-weight:800!important;
@@ -232,7 +244,7 @@ body.ed-shell .hero .hide-on-mobile > button{
 }
 body.ed-shell .hero .hide-on-mobile > a:hover,
 body.ed-shell .hero .hide-on-mobile > button:hover{
-  background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.45)!important;
+  background:#FFFFFF!important;border-color:rgba(32,22,14,.34)!important;
 }
 /* one filled action: Plan My Day */
 body.ed-shell .hero .hide-on-mobile > button:first-child{
@@ -243,10 +255,10 @@ body.ed-shell .hero .hide-on-mobile > button:first-child{
    It was a saturated blue band directly under a warm page. Ink, with the
    accent doing the pointing. */
 body.ed-shell #halloweenCard{
-  background:#171310!important;border:1px solid #2A241E!important;
+  background:#20160E!important;border:1px solid #3A2A1A!important;
 }
 body.ed-shell #halloweenCard .hw-text b{color:#FFFFFF!important}
-body.ed-shell #halloweenCard .hw-text span{color:#C4B9AE!important}
+body.ed-shell #halloweenCard .hw-text span{color:#D3C7BB!important}
 body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
 
 /* Two pictographs were left in the card foot. */

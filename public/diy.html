@@ -975,6 +975,7 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   .fsheet-scrim[hidden]{display:none}
 }
 </style>
+<link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
 <div class="page">
@@ -1722,6 +1723,13 @@ h1,h2,h3{text-wrap:balance}
 /* 4.49:1 at 390px — a hundredth under. Not a rounding quibble: the gate is
    the gate, and a value that only passes at one breakpoint has not passed. */
 .fbar-l{color:#6A6158 !important}
+
+/* ── sunset ground ───────────────────────────────────────────────────────
+   The site background, shared with the homepage: warm where the sun is,
+   cooling to sky lower down. --bg stays as the flat fallback for anything
+   that paints its own panel. */
+body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#FFDDBE 32%,#FDE3D0 56%,#EDF2FA 82%,#E9F2FB 100%))
+  no-repeat !important;background-size:100% 100% !important;min-height:100vh}
 </style>
 </body>
 </html>
