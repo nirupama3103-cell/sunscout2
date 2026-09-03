@@ -1,0 +1,107 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   MAGAZINE LAYER
+   --------------------------------------------------------------------------
+   The travel-magazine layout: a photographic hero, and a coloured slab that
+   rides up over the bottom of it holding the card grid. Used by BOTH the
+   homepage and the seasonal hubs, which differ only in the four tokens at
+   the top — the hub re-declares them and gets the same layout in its own
+   palette.
+
+   Everything here is layout and surface. No page's content, filters or
+   card markup changes to use it: the slab is a wrapper, and the card image
+   badge is the price badge that was already on the card, restyled and moved
+   to the corner the reference puts it in.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --mag-slab:#F0862A;          /* the slab itself */
+  /* Text sitting ON the slab, not inside a card. Both are darker than they
+     look like they need to be: the slab renders a shade lighter than the
+     token after colour management, so 4.6:1 on paper measured 4.27:1 on
+     screen. These leave real margin. */
+  --mag-slab-ink:#2B1400;
+  --mag-slab-ink-soft:#4A1A02;
+  --mag-tag:#FF9900;           /* the pill on a card image */
+  --mag-tag-ink:#3B1C0D;
+  /* How far the slab rides up whatever is above it. The reference lifts it
+     over a photographic hero. That only works when the hero is the element
+     directly above: on the homepage two promotional strips (the ticker and
+     the seasonal cross-link) sit in between, and lifting there swallows
+     them rather than the picture. So the homepage runs flush and the
+     seasonal hubs, where the hero IS directly above the grid, get the lift. */
+  --mag-lift:0px;
+}
+
+/* ── the slab ─────────────────────────────────────────────────────────────
+   position:relative + z-index so it sits over the hero it overlaps, and
+   isolation so nothing inside it escapes into the hero's stacking context. */
+.mag-slab{
+  position:relative;z-index:3;isolation:isolate;
+  margin:calc(var(--mag-lift) * -1) auto 0;
+  box-sizing:border-box;
+  max-width:1240px;
+  background:var(--mag-slab);
+  border-radius:clamp(16px,2.2vw,26px);
+  padding:clamp(16px,2.4vw,30px) clamp(12px,2vw,26px) clamp(20px,3vw,34px);
+  box-shadow:0 22px 60px rgba(20,10,0,.30);
+}
+@media(max-width:700px){
+  /* Less lift on a phone: the hero is proportionally shorter, and a big
+     negative margin swallows the headline rather than the picture. */
+  .mag-slab{margin-left:10px;margin-right:10px;border-radius:16px}
+}
+
+/* Text that sits directly on the slab rather than inside a card. Dark ink,
+   because the page's own greys are 2.7-3.9:1 on this orange.
+
+   !important on several of these is not decoration: the rules being
+   overridden use it themselves, and without matching it the status line
+   rendered at 2.86:1 over the slab. */
+.mag-slab .status-bar,
+.mag-slab .geo-sec .geo-label,
+.mag-slab .count{color:var(--mag-slab-ink)!important}
+.mag-slab .status-bar strong{color:#1F0E00!important}
+.mag-slab .geo-sec .geo-idx{color:var(--mag-slab-ink-soft)!important}
+.mag-slab .geo-sec .geo-rule{background:rgba(43,20,0,.34)}
+/* The empty and error states render inside the slab too. */
+.mag-slab .no-results h2,
+.mag-slab .no-results p,
+.mag-slab .empty p{color:var(--mag-slab-ink)!important}
+.mag-slab .no-results p{font-weight:700}
+
+/* ── the pill on a card image ────────────────────────────────────────────
+   The reference puts a small tag in the top-left of every card photo. That
+   is the price badge this card already carried in the top right; it moves
+   rather than being invented, so it still says something true. */
+.mag-slab .card-img-wrap .badge-free{
+  /* !important because the rule this overrides uses it too — the price badge
+     was pinned right, and the reference puts its tag on the left. The heart
+     takes the right-hand corner in exchange, so the two never meet. */
+  left:12px!important;right:auto!important;
+  background:var(--mag-tag)!important;
+  color:var(--mag-tag-ink);
+  border-radius:7px;
+  font-weight:900;
+  letter-spacing:.02em;
+  box-shadow:0 3px 10px rgba(0,0,0,.28);
+}
+/* The heart moves to the right so the two do not collide. */
+.mag-slab .card-img-wrap .card-heart{right:10px;left:auto}
+
+/* ── the featured card ───────────────────────────────────────────────────
+   The reference leads with one wide card. On a grid this is the first card
+   spanning two columns, which needs no change to the card markup at all. */
+@media(min-width:900px){
+  /* align-items:start matters: without it every card in the row stretches to
+     the tallest, and a double-width lead card left its neighbour as a tall
+     white column of nothing. */
+  .mag-slab .grid{align-items:start}
+  .mag-slab .grid > .card:first-child{grid-column:span 2}
+  .mag-slab .grid > .card:first-child .card-img-wrap{
+    aspect-ratio:auto;height:clamp(220px,22vw,300px)}
+}
+
+/* ── the hero the slab overlaps ──────────────────────────────────────────
+   Bottom padding has to clear the lift, or the slab covers the last line of
+   the hero instead of the picture below it. */
+.mag-hero{padding-bottom:calc(var(--mag-lift) + clamp(14px,2vw,26px))!important}

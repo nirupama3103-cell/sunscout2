@@ -52,6 +52,7 @@
   <!-- 2026 geometric premium layer. Remove these three tags and the
        motion.js tag before </body> to strip it entirely. -->
   <link rel="stylesheet" href="/css/premium.css">
+<link rel="stylesheet" href="/css/magazine.css">
   <script>
     /* Set before first paint: the reveal styles are gated on .geo-ready, so
        with JS off (or if motion.js fails) nothing is ever hidden. Skipped
@@ -1284,7 +1285,7 @@ body{color:var(--p-ink) !important}
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
 <div id="geoProgress" role="presentation" aria-hidden="true"></div>
-<section class="hero" style="text-align:center;padding:20px 16px 12px;">
+<section class="hero mag-hero" style="text-align:center;padding:20px 16px 12px;">
   <div class="geo-grid" aria-hidden="true"></div>
   <span class="geo-tick tl" aria-hidden="true"></span>
   <span class="geo-tick tr" aria-hidden="true"></span>
@@ -1763,6 +1764,10 @@ function mobSearch() {
   <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
 </div>
 
+<!-- The slab: the coloured panel that rides up over the hero and holds the
+     card grid. Styling only — see /css/magazine.css. Nothing inside it
+     changed, so every filter still targets the same nodes. -->
+<div class="mag-slab">
 <div class="geo-sec" aria-hidden="true">
   <span class="geo-idx">01</span>
   <span class="geo-label">What&rsquo;s on</span>
@@ -1777,6 +1782,7 @@ function mobSearch() {
     <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show more activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">🌤️ About SunScout</button>
   </div>
 </main>
+</div>
 <div class="footer">
   <div class="p-foot">
     <div class="p-foot-brand">
