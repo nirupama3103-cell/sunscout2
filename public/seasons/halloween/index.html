@@ -887,8 +887,9 @@ body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
     rgba(7,14,26,.60) 68%, rgba(7,14,26,0) 100%)!important;
   border-radius:18px;
 }
-.hh-hero>*{position:relative;z-index:1;max-width:min(640px,66%)}
-.hh-hero{padding:clamp(22px,3vw,34px) clamp(20px,3vw,32px)}
+.hh-hero>*:not(.ed-leaves){position:relative;z-index:1;max-width:min(640px,66%)}
+.hh-hero{--ed-pad-t:clamp(22px,3vw,34px);--ed-pad-x:clamp(20px,3vw,32px);
+  padding:var(--ed-pad-t) var(--ed-pad-x)}
 @media(max-width:820px){
   .hh-hero>*{max-width:100%}
   .hh-hero::before{background:linear-gradient(180deg,
@@ -1434,7 +1435,8 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
     </nav>
   </header>
 
-  <section class="hh-hero">
+  <section class="hh-hero has-leaves">
+    <div class="ed-leaves" aria-hidden="true"></div>
     <span class="hh-badge">🎃 Halloween 2026 · South Bay</span>
     <p class="hh-welcome">Welcome to our haunted Halloween house</p>
     <h1>Halloween in the South Bay, sorted by <em>how scary it isn&rsquo;t</em></h1>

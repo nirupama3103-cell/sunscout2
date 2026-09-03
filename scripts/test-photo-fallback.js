@@ -72,8 +72,19 @@ async function scenario(browser, label, routeHandler) {
 
   await page.goto(HUB, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(1400);
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await page.waitForTimeout(2200);
+  /* Scroll until the page stops growing. Every revealed photo adds height,
+     so a single jump to scrollHeight lands short of the new bottom and the
+     last card never enters the observer — which looked like a reveal bug and
+     was a measurement one. */
+  let last = 0;
+  for (let i = 0; i < 8; i++) {
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(700);
+    const h = await page.evaluate(() => document.body.scrollHeight);
+    if (h === last) break;
+    last = h;
+  }
+  await page.waitForTimeout(1200);
 
   const state = await page.evaluate(() => {
     const cards = [...document.querySelectorAll('#grid .card')];
