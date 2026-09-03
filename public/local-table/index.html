@@ -1006,6 +1006,7 @@ html,body{background:var(--p-cream)}
 .pill{background:#fff}
 .eyebrow,.deals-tag{background:#fff}
 </style>
+<link rel="stylesheet" href="/css/editorial.css">
 </head>
 <body>
 <div class="page">
@@ -1026,7 +1027,10 @@ html,body{background:var(--p-cream)}
     </nav>
   </header>
 
-  <section class="hero">
+  <section class="hero lt-hero">
+    <!-- Header art: the supplied food banner, cropped to its
+         photographic region. Decorative only. -->
+    <div class="lt-hero-art" aria-hidden="true"></div>
     <div class="eyebrow">Lunch specials · Happy hours · Late-night bites</div>
     <h1>Good food nearby, at a <em>fair</em> price.</h1>
     <p class="hero-sub">Local Table tracks the live deals near your office — weekday lunch bowls downtown, 3pm happy hours on the Cupertino line, biryani family packs on El Camino, and pizza that is still taking orders past midnight.</p>
@@ -1732,6 +1736,23 @@ h1,h2,h3{text-wrap:balance}
 .ftr a{color:#5A3E1C !important}               /* was 3.82:1 */
 .ftr-note{color:#4A443A !important}            /* was #999, 2.21:1 */
 .tile-price-b{color:#FFD9A8 !important}        /* dark ink on a dark photo: 1.44:1 */
+
+/* The hero becomes an ink panel so the food art has something to sit in.
+   Text colours are re-stated here rather than inherited: the page's own
+   greys were chosen for a cream ground and measure 2-3:1 on ink. */
+.lt-hero{position:relative;isolation:isolate;overflow:hidden;border-radius:22px;
+  margin:10px auto 0;background:#171310;color:#F6F1EA}
+.lt-hero > *:not(.lt-hero-art){position:relative;z-index:1}
+/* The eyebrow keeps its white pill, so it takes dark ink: the warm cream it
+   inherited measured 1.60:1 on white. */
+.lt-hero .eyebrow{color:#5A3E1C !important}
+.lt-hero h1{color:#FFFFFF !important}
+.lt-hero h1 em{color:#FFB068 !important}
+.lt-hero .hero-sub{color:#D6CCC2 !important}
+.lt-hero .stat-l,.lt-hero .fact-l{color:#C2B7AC !important}
+.lt-hero .stat-v,.lt-hero .fact-v{color:#FFFFFF !important}
+.lt-hero .btn-ghost{background:transparent !important;color:#F6F1EA !important;
+  border-color:rgba(255,255,255,.38) !important;box-shadow:none !important}
 </style>
 </body>
 </html>

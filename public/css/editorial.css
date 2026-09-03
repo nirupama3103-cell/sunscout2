@@ -164,10 +164,12 @@
    selector the white headline applied and the dark panel behind it did not.
    ══════════════════════════════════════════════════════════════════════ */
 body.ed-shell .hero{
+  --ed-pad-t:clamp(30px,4vw,52px);
+  --ed-pad-x:clamp(22px,3.5vw,48px);
   background:#171310!important;
   border-radius:20px;
   margin:6px 16px 0;
-  padding:clamp(30px,4vw,52px) clamp(22px,3.5vw,48px) clamp(26px,3vw,40px)!important;
+  padding:var(--ed-pad-t) var(--ed-pad-x) clamp(26px,3vw,40px)!important;
   overflow:hidden;position:relative;isolation:isolate;
 }
 /* a single warm wash so the panel is not a flat rectangle */
@@ -177,7 +179,7 @@ body.ed-shell .hero::before{
     radial-gradient(120% 90% at 88% 8%, rgba(217,86,10,.28) 0%, transparent 62%),
     radial-gradient(90% 70% at 6% 96%, rgba(21,101,192,.20) 0%, transparent 60%);
 }
-body.ed-shell .hero > *{position:relative;z-index:1}
+body.ed-shell .hero > *:not(.ed-leaves){position:relative;z-index:1}
 
 body.ed-shell .hero .hero-sub{color:#C9BEB2!important;font-size:12.5px;font-weight:800;
   letter-spacing:.14em;text-transform:uppercase}
@@ -328,3 +330,72 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
 .ed-dark .geo-sec .geo-idx{color:var(--ed-accent)!important}
 .ed-dark .geo-sec .geo-label{color:var(--ed-ink)!important}
 .ed-dark .geo-sec .geo-rule{background:var(--ed-hair)!important}
+
+
+/* ══ SEASONAL HEADER ART ════════════════════════════════════════════════
+   A band of paper-cut autumn leaves across the top of a hero. The source
+   art arrives on a white rectangle; scripts/prepare-header-art.js floods the
+   background out to alpha so it hangs over any ground, light or dark.
+
+   It is decorative and it is a decoration only: aria-hidden, behind every
+   piece of content, and the hero pads itself down by the band height so no
+   text ever sits on a leaf. That is the whole reason it reads as premium
+   rather than as clutter — nothing has to fight it.
+   ══════════════════════════════════════════════════════════════════════ */
+.ed-leaves{
+  /* inset:0 is against the hero's PADDING box, which is flush with its
+     border — so the band spans edge to edge with no compensation needed.
+     What did break it: two `.hero > *` rules that set position:relative on
+     every child. Both now exclude this element; while it was relative, the
+     offsets shifted it instead of stretching it and the band stopped one
+     padding-width short of each side. */
+  position:absolute;top:0;left:0;right:0;z-index:0;pointer-events:none;
+  height:var(--leaf-h,clamp(64px,9vw,116px));
+  background-image:image-set(url("/images/header/autumn-leaves.webp") type("image/webp"),
+                             url("/images/header/autumn-leaves.png") type("image/png"));
+  background-repeat:repeat-x;
+  background-position:center top;
+  background-size:auto 100%;
+}
+/* The homepage hero's padding is set in a body-qualified rule above, which
+   outranks the generic .has-leaves one — so the nav row sat inside the leaf
+   band and its white labels measured 1.41:1 against a yellow leaf. Restated
+   at the same weight. */
+body.ed-shell .hero.has-leaves{
+  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+
+/* Content clears the band rather than competing with it. */
+.has-leaves{position:relative;
+  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+/* :not(.ed-leaves) matters. Without it this rule wins the specificity tie
+   and turns the band from absolute to relative, which is why it stopped one
+   padding-width short of each edge. */
+.has-leaves > *:not(.ed-leaves){position:relative;z-index:1}
+@media(prefers-reduced-data:reduce){ .ed-leaves{display:none} }
+
+/* ══ LOCAL TABLE HERO ═══════════════════════════════════════════════════
+   The supplied food banner, cropped to the photographic region — the source
+   carries another brand's headline, a Lorem ipsum block and an ORDER NOW
+   button baked into the pixels, none of which can appear here.
+
+   It sits at 22% opacity behind an ink panel rather than full strength: the
+   usable crop is only 609px wide, and a low-resolution photograph shown
+   large and sharp is exactly what makes a header look cheap. At this weight
+   it reads as texture, and the softness never shows.
+   ══════════════════════════════════════════════════════════════════════ */
+.lt-hero-art{
+  position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  border-radius:inherit;
+}
+.lt-hero-art::before{
+  content:'';position:absolute;inset:0;
+  background-image:image-set(url("/images/header/local-table-food.webp") type("image/webp"),
+                             url("/images/header/local-table-food.jpg") type("image/jpeg"));
+  background-size:cover;background-position:center;
+  opacity:.42;filter:saturate(.95);
+}
+.lt-hero-art::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(23,19,16,.34),rgba(23,19,16,.72));
+}
+@media(prefers-reduced-data:reduce){ .lt-hero-art::before{background-image:none} }
