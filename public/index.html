@@ -1300,6 +1300,17 @@ body{color:var(--p-ink) !important}
 
   <div style="position:relative;z-index:2;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#127A3B,#0F6A33);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
+    <!-- ── PAGE SWITCHER (mobile) ──
+         The pills above are hide-on-mobile, and this page's bottom bar is the
+         FILTER bar, not a page nav — so on a phone there was no way to reach
+         Local Table, DIY or the Halloween hub from the homepage at all. This
+         row is the same four destinations, scrollable, phone only. -->
+    <nav class="ed-pages" aria-label="Other pages">
+      <a class="ed-page is-here" href="/" aria-current="page"><span aria-hidden="true">🌤️</span>Home</a>
+      <a class="ed-page" href="/local-table/"><span aria-hidden="true">📍</span>Local Table</a>
+      <a class="ed-page" href="/diy.html"><span aria-hidden="true">🎨</span>DIY</a>
+      <a class="ed-page" href="/seasons/halloween/"><span aria-hidden="true">🎃</span>Halloween</a>
+    </nav>
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->

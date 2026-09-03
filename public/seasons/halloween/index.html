@@ -1392,6 +1392,33 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
 
 
 
+
+/* ── page switcher: the shared bottom bar, in this hub's palette ────────── */
+#bottom-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:9990;
+  background:rgba(10,18,30,.96);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,255,255,.14);
+  padding:6px 0 calc(10px + env(safe-area-inset-bottom));
+}
+#bottom-nav .bnav-items{display:flex;justify-content:space-around;align-items:center}
+#bottom-nav .bnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;
+  padding:6px 8px;text-decoration:none;color:#AFC0D0;min-height:44px;justify-content:center;
+}
+#bottom-nav .bnav-icon{font-size:19px;line-height:1}
+#bottom-nav .bnav-btn:not(.active) .bnav-icon{opacity:.72}
+#bottom-nav .bnav-label{font-size:10px;font-weight:800;white-space:nowrap}
+#bottom-nav .bnav-btn.active{color:var(--accent-soft)}
+#bottom-nav .bnav-btn.active .bnav-label{font-weight:900}
+#bottom-nav .bnav-btn:focus-visible{outline:2px solid var(--hh-ember);outline-offset:-2px;border-radius:10px}
+/* 640px matches the other pages, so all four swap to the bar together. */
+@media(max-width:640px){
+  #bottom-nav{display:block}
+  /* clear the bar so it never covers the last line of the footer */
+  .hh-foot{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+}
+
 @media(prefers-reduced-motion:reduce){
   .bats{display:none}
   .tile:hover,.tile:focus-visible{transform:none}
@@ -2111,5 +2138,35 @@ document.addEventListener("DOMContentLoaded", boot);
 })();
 </script>
 <script src="/js/motion.js" defer></script>
+<!-- ── PAGE SWITCHER ──
+     The same bottom bar Local Table and the DIY page carry, so the four
+     pages are reachable from each other on a phone. Its CSS lives here
+     rather than in editorial.css because the homepage uses these same
+     class names for its FILTER bar; shared rules would restyle that. -->
+<nav id="bottom-nav" aria-label="Site sections">
+  <div class="bnav-items">
+    <a class="bnav-btn" href="/">
+      <span class="bnav-icon" aria-hidden="true">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <a class="bnav-btn" href="/local-table/">
+      <span class="bnav-icon" aria-hidden="true">📍</span>
+      <span class="bnav-label">Local Table</span>
+    </a>
+    <a class="bnav-btn" href="/diy.html">
+      <span class="bnav-icon" aria-hidden="true">🎨</span>
+      <span class="bnav-label">DIY</span>
+    </a>
+    <a class="bnav-btn active" href="/seasons/halloween/" aria-current="page">
+      <span class="bnav-icon" aria-hidden="true">🎃</span>
+      <span class="bnav-label">Halloween</span>
+    </a>
+    <a class="bnav-btn" href="/#about">
+      <span class="bnav-icon" aria-hidden="true">ℹ️</span>
+      <span class="bnav-label">About Us</span>
+    </a>
+  </div>
+</nav>
+
 </body>
 </html>
