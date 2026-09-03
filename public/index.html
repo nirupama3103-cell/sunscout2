@@ -1540,6 +1540,11 @@ body{color:var(--p-ink) !important}
         <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">📅 Plan My Day</div>
         <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
         <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
+        <!-- Outdoor and Indoor moved here when the footer tabs became page
+             tabs. On a phone the bottom bar was their only route, and the
+             Explore segment of the search bar is desktop-only. -->
+        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;outdoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#15803d;" onmouseover="this.style.background='#F0FDF4'" onmouseout="this.style.background='none'">🌳 Outdoor</div>
+        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;indoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1d4ed8;" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">🏛️ Indoor</div>
         <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">❤️ My List</div>
         <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">📝 Notes</div>
         <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">🌤️ About</div>
@@ -3051,44 +3056,47 @@ function syncBnav(tab) {
 </div>
 
 <!-- Bottom Nav (mobile only) -->
-<nav id="bottom-nav">
+<!-- ── FOOTER TABS ──
+     The same five the other three pages carry, in the same order, plus the
+     two the homepage owns. Free Camps and Paid Camps sit next to Home rather
+     than at the end because at 390px only the first four are visible without
+     scrolling, and on this page filtering is the primary action.
+
+     Outdoor, Indoor and Weekend Plan left this bar. They are NOT stranded:
+     Weekend was already in the ☰ menu, and Outdoor and Indoor are added to
+     it in this change. On a phone this bar was their only route, so removing
+     them without that would have made two of the five canonical tabs
+     unreachable. -->
+<nav id="bottom-nav" aria-label="Site sections">
   <div class="bnav-items">
-    <button class="bnav-btn active" onclick="bnavTab('free',this)">
-      <span class="bnav-icon">🆓</span>
+    <a class="bnav-btn active" href="/" aria-current="page">
+      <span class="bnav-icon" aria-hidden="true">🏠</span>
+      <span class="bnav-label">Home</span>
+    </a>
+    <button class="bnav-btn" onclick="bnavTab('free',this)">
+      <span class="bnav-icon" aria-hidden="true">🆓</span>
       <span class="bnav-label">Free Camps</span>
     </button>
-    <!-- Paid was the only one of the five canonical tabs missing from this bar:
-         free, indoor, outdoor and weekend were all here, paid was reachable
-         only through a footer link. It sits next to Free because the two are
-         a pair, which is also the desktop tab-bar order. -->
     <button class="bnav-btn" onclick="bnavTab('paid',this)">
-      <span class="bnav-icon">🎟️</span>
-      <span class="bnav-label">Paid</span>
+      <span class="bnav-icon" aria-hidden="true">🎟️</span>
+      <span class="bnav-label">Paid Camps</span>
     </button>
-    <button class="bnav-btn" onclick="bnavTab('outdoor',this)">
-      <span class="bnav-icon">🌳</span>
-      <span class="bnav-label">Outdoor</span>
-    </button>
-    <button class="bnav-btn" onclick="bnavTab('indoor',this)">
-      <span class="bnav-icon">🏛️</span>
-      <span class="bnav-label">Indoor</span>
-    </button>
-    <button class="bnav-btn" onclick="floatWeekend()">
-      <span class="bnav-icon">📅</span>
-      <span class="bnav-label">Weekend Plan</span>
-    </button>
-    <button class="bnav-btn" onclick="document.getElementById('about-modal').style.display='flex'">
-      <span class="bnav-icon">ℹ️</span>
-      <span class="bnav-label">About Us</span>
-    </button>
-    <a class="bnav-btn" href="/diy.html" style="text-decoration:none;">
-      <span class="bnav-icon">🛠️</span>
+    <a class="bnav-btn" href="/local-table/">
+      <span class="bnav-icon" aria-hidden="true">📍</span>
+      <span class="bnav-label">Local Table</span>
+    </a>
+    <a class="bnav-btn" href="/diy.html">
+      <span class="bnav-icon" aria-hidden="true">🎨</span>
       <span class="bnav-label">DIY</span>
     </a>
-    <a class="bnav-btn" href="/local-table/" style="text-decoration:none;">
-      <span class="bnav-icon">🍽️</span>
-      <span class="bnav-label">Deals</span>
+    <a class="bnav-btn" href="/seasons/halloween/">
+      <span class="bnav-icon" aria-hidden="true">🎃</span>
+      <span class="bnav-label">Halloween</span>
     </a>
+    <button class="bnav-btn" onclick="document.getElementById('about-modal').style.display='flex'">
+      <span class="bnav-icon" aria-hidden="true">ℹ️</span>
+      <span class="bnav-label">About Us</span>
+    </button>
   </div>
 </nav>
 
@@ -3774,6 +3782,10 @@ h1,h2,h3{text-wrap:balance}
     border-top:1px solid rgba(60,40,20,.12)}
   .sub-form input[type=email],.sub-form button{flex:1 1 100%}
 }
+
+/* 44px minimum on every footer tab. They were 34-38px, which is under the
+   touch-target size the rest of the site is held to. */
+#bottom-nav .bnav-btn{min-height:44px;justify-content:center}
 </style>
 <script>
 (function(){

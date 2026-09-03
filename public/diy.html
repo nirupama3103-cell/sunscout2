@@ -1086,10 +1086,6 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
         <span class="bnav-icon" aria-hidden="true">📍</span>
         <span class="bnav-label">Local Table</span>
       </a>
-      <a class="bnav-btn" href="index.html#about">
-        <span class="bnav-icon" aria-hidden="true">ℹ️</span>
-        <span class="bnav-label">About Us</span>
-      </a>
       <a class="bnav-btn active" href="diy.html" aria-current="page">
         <span class="bnav-icon" aria-hidden="true">🎨</span>
         <span class="bnav-label">DIY</span>
@@ -1097,6 +1093,10 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
       <a class="bnav-btn" href="seasons/halloween/">
         <span class="bnav-icon" aria-hidden="true">🎃</span>
         <span class="bnav-label">Halloween</span>
+      </a>
+      <a class="bnav-btn" href="index.html#about">
+        <span class="bnav-icon" aria-hidden="true">ℹ️</span>
+        <span class="bnav-label">About Us</span>
       </a>
     </div>
   </nav>
@@ -1735,6 +1735,10 @@ h1,h2,h3{text-wrap:balance}
    that paints its own panel. */
 body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#FFDDBE 32%,#FDE3D0 56%,#EDF2FA 82%,#E9F2FB 100%))
   no-repeat !important;background-size:100% 100% !important;min-height:100vh}
+
+/* 44px minimum on every footer tab. They were 34-38px, which is under the
+   touch-target size the rest of the site is held to. */
+#bottom-nav .bnav-btn{min-height:44px;justify-content:center}
 </style>
 </body>
 </html>

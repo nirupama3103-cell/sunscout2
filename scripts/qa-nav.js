@@ -36,6 +36,8 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
   const browser = await chromium.launch({
     executablePath: fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined });
 
+  /* The five tabs every page must carry, in this order. */
+  const SHARED = ['Home', 'Local Table', 'DIY', 'Halloween', 'About Us'];
   const seen = new Set();
   for (const [name, path] of PAGES) {
     for (const [label, vp] of [['mobile', { width: 390, height: 844 }],
@@ -56,10 +58,53 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
         });
         A(`can reach ${dname}`, hit, true);
       }
+      if (label === 'mobile') {
+        const tabs = await page.evaluate(() => {
+          const bar = document.getElementById('bottom-nav');
+          /* NOT offsetParent: the bar is position:fixed, and a fixed element
+             always reports offsetParent null. That is the same trap that
+             made an earlier check call every bar invisible. */
+          if (!bar || getComputedStyle(bar).display === 'none') return null;
+          return [...bar.querySelectorAll('.bnav-label')].map(e => e.textContent.trim());
+        });
+        A('the footer bar is on screen', tabs !== null, true);
+        if (tabs) {
+          /* Order matters: the shared five must appear in the same sequence
+             on every page, whatever else a page adds around them. */
+          A('carries the five shared tabs, in order',
+            tabs.filter(t => SHARED.includes(t)), SHARED);
+          const small = await page.evaluate(() => [...document.querySelectorAll('#bottom-nav .bnav-btn')]
+            .filter(e => e.getBoundingClientRect().height < 44).length);
+          A('every footer tab is at least 44px tall', small, 0);
+        }
+      }
       links.forEach(l => { try { const u = new URL(l.abs);
         if (u.origin === BASE) seen.add(u.pathname); } catch (e) {} });
       await page.close();
     }
+  }
+
+  /* Removing a filter from the footer bar must not strand it. */
+  console.log('\nHomepage: every canonical tab is still reachable on a phone');
+  {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await page.route('**/*', r => r.request().url().startsWith(BASE) ? r.continue() : r.abort());
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(1800);
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll('button')].find(b => b.offsetParent && /☰/.test(b.textContent));
+      if (b) b.click();
+    });
+    await page.waitForTimeout(500);
+    const reach = await page.evaluate(() => {
+      const txt = [...document.querySelectorAll('#bottom-nav .bnav-label, #ssMenu div')]
+        .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
+      const has = w => txt.some(t => t.includes(w));
+      return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),
+               indoor: has('indoor'), weekend: has('weekend') };
+    });
+    for (const [k, v] of Object.entries(reach)) A(`${k} reachable`, v, true);
+    await page.close();
   }
 
   console.log('\nEvery internal link resolves');
