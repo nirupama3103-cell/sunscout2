@@ -27,6 +27,9 @@
      scrim        {wide,tall} the wash over the backdrop, behind all content
      photoHints   event type -> phrase handed to /api/photos. Keep these
                   concrete and photographable; see scripts/test-photo-queries.js
+     assetsReady  false until the backdrop images exist. applyHub() refuses
+                  to apply such a hub and logs an error, so a hub that is
+                  configured but not yet drawn cannot ship silently blank.
    ══════════════════════════════════════════════════════════════════════════ */
 
 const SEASONAL_HUBS = {
@@ -35,18 +38,27 @@ const SEASONAL_HUBS = {
     label: "Halloween",
     emoji: "🎃",
     range: { from: "09-20", to: "11-02" },
-    ground: "#0B1723",
+    ground: "#0B1220",
     accent: "#FC764A",
     accentInk: "#08192B",
     backdrop: {
-      wide: "/images/halloween/hero-house",
-      tall: "/images/halloween/hero-house-tall",
+      wide: "/images/halloween/haunted-house",
+      tall: "/images/halloween/haunted-house-tall",
       fallback: "/images/halloween/hero-scene.svg",
     },
+    /* The two artwork files above exist. A hub without them still resolves
+       by date and still applies, but applyHub() says so loudly rather than
+       quietly serving the SVG placeholder — see assetsReady below. */
+    assetsReady: true,
     scrim: {
-      wide: "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(11,23,35,.28) 0%, rgba(11,23,35,.80) 62%)," +
-            "linear-gradient(180deg, rgba(11,23,35,.62) 0%, rgba(11,23,35,.88) 46%, #0B1723 88%)",
-      tall: "linear-gradient(180deg, rgba(11,23,35,.70) 0%, rgba(11,23,35,.92) 38%, #0B1723 72%)",
+      /* The MINIMUM wash that holds AA once the panels are accounted for.
+         Bright through the middle where the moon and the house are; the
+         reading surfaces carry the contrast, not this. scripts/
+         check-page-contrast.js is the gate that says whether it is enough. */
+      wide: "radial-gradient(ellipse 96% 62% at 52% 14%, rgba(11,18,32,.02) 0%, rgba(11,18,32,.34) 62%, rgba(11,18,32,.56) 100%)," +
+            "linear-gradient(180deg, rgba(11,18,32,.20) 0%, rgba(11,18,32,.40) 46%, rgba(11,18,32,.72) 100%)",
+      tall: "radial-gradient(ellipse 150% 40% at 50% 10%, rgba(11,18,32,.06) 0%, rgba(11,18,32,.44) 62%, rgba(11,18,32,.62) 100%)," +
+            "linear-gradient(180deg, rgba(11,18,32,.26) 0%, rgba(11,18,32,.52) 44%, rgba(11,18,32,.80) 100%)",
     },
     photoHints: {
       "pumpkin-patch":  "pumpkin patch field autumn orange pumpkins",
@@ -71,6 +83,10 @@ const SEASONAL_HUBS = {
       tall: "/images/thanksgiving/hero-harvest-tall",
       fallback: "/images/thanksgiving/hero-scene.svg",
     },
+    /* NO ARTWORK YET. Nothing links to /seasons/thanksgiving/ and the directory
+       does not exist; applyHub() refuses to apply a hub in this state so a
+       stray link fails loudly instead of rendering a blank navy page. */
+    assetsReady: false,
     scrim: {
       wide: "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(26,17,8,.26) 0%, rgba(26,17,8,.78) 62%)," +
             "linear-gradient(180deg, rgba(26,17,8,.60) 0%, rgba(26,17,8,.88) 46%, #1A1108 88%)",
@@ -101,6 +117,10 @@ const SEASONAL_HUBS = {
       tall: "/images/winter/hero-lights-tall",
       fallback: "/images/winter/hero-scene.svg",
     },
+    /* NO ARTWORK YET. Nothing links to /seasons/winter/ and the directory
+       does not exist; applyHub() refuses to apply a hub in this state so a
+       stray link fails loudly instead of rendering a blank navy page. */
+    assetsReady: false,
     scrim: {
       wide: "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(8,21,31,.26) 0%, rgba(8,21,31,.78) 62%)," +
             "linear-gradient(180deg, rgba(8,21,31,.60) 0%, rgba(8,21,31,.88) 46%, #08151F 88%)",
@@ -146,6 +166,17 @@ function applyHub(id, doc) {
   const d = doc || document;
   const hub = SEASONAL_HUBS[id];
   if (!hub) return null;
+  /* Fail loud, not blank. A hub whose backdrop has not been drawn yet would
+     otherwise render as flat navy with no indication anything is missing,
+     and that is exactly the state a stray link would ship to a visitor. */
+  if (hub.assetsReady === false) {
+    const msg = "[seasonal-hubs] \"" + id + "\" has no backdrop artwork in " +
+      hub.backdrop.wide.replace(/\/[^/]*$/, "/") + " — not applying. " +
+      "Add the images and set assetsReady:true before linking to this hub.";
+    if (typeof console !== "undefined") console.error(msg);
+    d.documentElement.setAttribute("data-hub-error", id);
+    return null;
+  }
   const r = d.documentElement.style;
   const set = (k, v) => r.setProperty(k, v);
   const imageSet = (base) =>
