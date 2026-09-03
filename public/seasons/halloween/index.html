@@ -977,8 +977,8 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
      invisible (max channel delta 0 across a 170px patch) until this was
      changed. The alpha is halved at 2dppx so the perceived weight matches. */
   background-image:
-    linear-gradient(rgba(252,118,74,.085) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(252,118,74,.085) 1px, transparent 1px);
+    linear-gradient(rgba(252,118,74,.115) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252,118,74,.115) 1px, transparent 1px);
   background-size:30px 30px;
   -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.55) 0%,#000 30%,#000 100%);
           mask-image:linear-gradient(180deg,rgba(0,0,0,.55) 0%,#000 30%,#000 100%);
@@ -1917,7 +1917,10 @@ function render(){
   var st = document.getElementById("statEvents");
   if (st) {
     st.textContent = EVENTS.length;
-    var cities = {}; EVENTS.forEach(function(e){ if (e.city) cities[e.city]=1; });
+    /* "Nearby" is a bucket for day trips outside the seven cities we cover,
+       not a city — counting it would claim eight. */
+    var cities = {};
+    EVENTS.forEach(function(e){ if (e.city && e.city !== "Nearby") cities[e.city]=1; });
     document.getElementById("statCities").textContent = Object.keys(cities).length;
     document.getElementById("statCalm").textContent =
       EVENTS.filter(function(e){ return e.scare === 1; }).length;
