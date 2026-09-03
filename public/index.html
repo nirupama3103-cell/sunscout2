@@ -52,7 +52,7 @@
   <!-- 2026 geometric premium layer. Remove these three tags and the
        motion.js tag before </body> to strip it entirely. -->
   <link rel="stylesheet" href="/css/premium.css">
-<link rel="stylesheet" href="/css/magazine.css">
+<link rel="stylesheet" href="/css/editorial.css">
   <script>
     /* Set before first paint: the reveal styles are gated on .geo-ready, so
        with JS off (or if motion.js fails) nothing is ever hidden. Skipped
@@ -1281,11 +1281,12 @@ body{color:var(--p-ink) !important}
 }
 </style>
 </head>
-<body>
+<body class="ed-shell">
+<!-- Editorial shell: the shared premium surface. See /css/editorial.css. -->
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">☝️</button>
 <div id="geoProgress" role="presentation" aria-hidden="true"></div>
-<section class="hero mag-hero" style="text-align:center;padding:20px 16px 12px;">
+<section class="hero" style="text-align:center;padding:20px 16px 12px;">
   <div class="geo-grid" aria-hidden="true"></div>
   <span class="geo-tick tl" aria-hidden="true"></span>
   <span class="geo-tick tr" aria-hidden="true"></span>
@@ -1764,10 +1765,9 @@ function mobSearch() {
   <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
 </div>
 
-<!-- The slab: the coloured panel that rides up over the hero and holds the
-     card grid. Styling only — see /css/magazine.css. Nothing inside it
-     changed, so every filter still targets the same nodes. -->
-<div class="mag-slab">
+<!-- Styling scope for the editorial card system — see /css/editorial.css.
+     Nothing inside it changed, so every filter still targets the same nodes. -->
+<div class="ed">
 <div class="geo-sec" aria-hidden="true">
   <span class="geo-idx">01</span>
   <span class="geo-label">What&rsquo;s on</span>
@@ -1946,7 +1946,11 @@ let showCount     = PAGE_SIZE;
 let allActivities = [];
 
 function updateTabBadge(tab,count){var b=document.getElementById("badge-"+tab);if(!b)return;if(count>0){b.textContent=count;b.style.display="inline-block";}else{b.style.display="none";}}
-const AGE_LABELS = { "0":"👶 0–2", "1":"🧸 3–5", "2":"🎒 6–12", "3":"🛹 Teen" };
+/* No emoji here. These labels render inside the card meta line, and a row of
+   pictographs in the chrome is the single loudest "hobby project" signal on
+   a listing card. The age filter buttons keep theirs — there the emoji is
+   the affordance, not decoration. */
+const AGE_LABELS = { "0":"0–2", "1":"3–5", "2":"6–12", "3":"Teen" };
 const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
 const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
 
@@ -2531,12 +2535,12 @@ function renderCards() {
         "<div class=\"chips\">"+ac+a11+pc+"</div>"+
         (a.address ? "<p class=\"info\"><span>📍</span><span>"+esc(a.address)+"</span></p>" : "")+
         (a.phone   ? "<p class=\"info\"><span>📞</span><span>"+a.phone+"</span></p>" : "")+
-        "<p class=\"date-line\">📅 <strong>"+ds+"</strong></p>"+
+        "<p class=\"date-line\"><strong>"+ds+"</strong></p>"+
         (a.desc ? "<p class=\"info\"><span></span><span>"+esc(a.desc.slice(0,120))+(a.desc.length>120?"…":"")+"</span></p>" : "")+
       "</div>"+
       "<div class=\"card-foot\">"+
-        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">🗺 Map</a>"+
-        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">🌐 Site</a>" : "")+
+        "<a class=\"btn btn-map\" href=\""+mu+"\" target=\"_blank\" rel=\"noopener\">Map</a>"+
+        (a.website ? "<a class=\"btn\" href=\""+a.website+"\" target=\"_blank\" rel=\"noopener\">Website</a>" : "")+
         "<button class=\"btn\" onclick=\"event.stopPropagation();var shareUrl='https://www.sunscoutkids.com';if(navigator.share){navigator.share({title:this.closest('article').querySelector('.card-title').textContent,url:shareUrl});}else{navigator.clipboard.writeText(shareUrl);this.textContent='✅';}\" style=\"margin-left:auto;font-size:12px;padding:5px 10px;\">📤</button>"+
         "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
       "</div>"+
