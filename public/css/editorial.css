@@ -1028,3 +1028,43 @@ body.ed-shell > .footer,
 /* The marquee is meant to run off both edges, so its track keeps the bleed
    while the band around it holds the column. */
 .page > .band{padding-left:0!important;padding-right:0!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SEASONAL HERO PHOTOGRAPH, UNDER THE EDITORIAL HERO.
+
+   index.html's [data-hero-img="on"] rules belong to the hero this design
+   replaced: a navy ground, a heavy scrim and white text. That path had
+   never actually run, because hero-fall.jpg did not exist — the first time
+   a season's photograph landed it would have flipped the headline to white
+   over a pale sunset sky and made the hero panel transparent, taking the
+   logo, the nav and the search bar's ground with it.
+
+   So the photograph goes UNDER the sunset gradient instead of replacing it.
+   The gradient is already translucent, so the sky reads as warmth and
+   texture behind the panel, and not one text colour changes.
+   ══════════════════════════════════════════════════════════════════════════ */
+body.ed-shell .hero[data-hero-img="on"]{
+  /* top layer first: the panel's own tint, then the season's sky. */
+  background-image:
+    linear-gradient(135deg,
+      rgba(255,231,201,.88) 0%, rgba(255,214,174,.84) 36%,
+      rgba(251,217,206,.82) 62%, rgba(220,234,247,.88) 100%),
+    var(--hero-bg, none)!important;
+  background-size:auto, cover!important;
+  background-position:center, center 42%!important;
+  background-repeat:no-repeat, no-repeat!important;
+  background-color:#FFF6EC!important;
+  border-color:var(--ed-hair,#F0DCC4);
+}
+/* The dark text stays dark. Every one of these is white in index.html. */
+body.ed-shell .hero[data-hero-img="on"] .p-h1{color:var(--ed-ink,#20160E)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-h1 #heroLine2{color:var(--ed-accent,#A8380A)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat b{color:var(--ed-ink,#20160E)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-lede{color:#4A3B2E!important}
+body.ed-shell .hero[data-hero-img="on"] .hero-sub{color:#6B5647!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat span{color:#4A3B2E!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat-rule{background:rgba(0,0,0,.09)!important}
+/* The halo exists to lift a dark logo off a dark photo; on this ground it
+   just smears. */
+body.ed-shell .hero[data-hero-img="on"] .hdr-logo img,
+body.ed-shell .hero[data-hero-img="on"] .hero-logo img{filter:none!important}

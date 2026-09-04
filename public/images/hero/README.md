@@ -11,14 +11,27 @@ supported, falling back to the jpg.
 | ------ | ----- | ------ |
 | Spring | `hero-spring.jpg` + `.webp` | ✅ sunset sky (shared with summer) |
 | Summer | `hero-summer.jpg` + `.webp` | ✅ sunset sky (shared with spring) |
-| Fall   | `hero-fall.jpg` + `.webp`   | **TODO** — warm low sun, bare branches, overcast |
-| Winter | `hero-winter.jpg` + `.webp` | **TODO** — cool blue-grey, low contrast |
+| Fall   | `hero-fall.jpg` + `.webp`   | ✅ sunset sky, graded warm |
+| Winter | `hero-winter.jpg` + `.webp` | ✅ sunset sky, graded cool and flat |
 
-Spring and summer are seasonally adjacent and are meant to share one asset:
-save the same source image under both names.
+Spring and summer are seasonally adjacent and share one asset: the same
+source image saved under both names.
 
-Until a file exists the hero falls back to the original warm gradient with
-dark text — nothing breaks, and no request is made for a missing image.
+Fall and winter are that same sky, graded — see
+`scripts/build-season-heroes.js`. Grading rather than sourcing four
+photographs is deliberate: this sky has no subject in it, so there is no
+edge for a headline to land on and the luminance barely moves across the
+frame. A scene with branches and a horizon would put hard contrast under
+the type. Both grades stay light on purpose, because the hero sets dark
+text on a light ground.
+
+The photograph sits UNDER the hero's translucent sunset panel rather than
+replacing it — see the `[data-hero-img="on"]` block in
+`/public/css/editorial.css`. index.html's own rules for that attribute
+belong to an earlier navy hero and would flip the headline to white.
+
+Until a file exists the hero falls back to the warm gradient — nothing
+breaks, and no request is made for a missing image.
 
 ## Adding one
 
