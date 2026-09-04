@@ -247,7 +247,7 @@ img{max-width:100%;display:block}
   .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
-@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:11px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:12px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
@@ -2483,7 +2483,7 @@ function renderCards() {
         "<span class=\"card-city\"><span>📍</span><span>"+esc(a.city||activeCity)+"</span></span>"+
       "</div>"+
       "<div class=\"card-body\">"+
-        "<h3 class=\"card-title\">"+esc(a.name)+"</h3>"+
+        "<h3 class=\"card-title\">"+"<img class=\"card-ico\" src=\"/fall-icon.png\" alt=\"\" aria-hidden=\"true\" width=\"28\" height=\"28\" loading=\"lazy\" decoding=\"async\">"+"<span>"+esc(a.name)+"</span></h3>"+
         (st ? "<div class=\"stars\">"+st+"</div>" : "")+
         "<div class=\"chips\">"+ac+a11+pc+"</div>"+
         (a.address ? "<p class=\"info\"><span>📍</span><span>"+esc(a.address)+"</span></p>" : "")+

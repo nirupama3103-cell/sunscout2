@@ -778,3 +778,16 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   content:"\2713\00a0";font-weight:900;
 }
 .ssac.on,.ssec.on{border-color:currentColor!important}
+
+/* Leading round icon on every activity card. Decorative — alt="" and
+   aria-hidden, so a screen reader reads the title and nothing else. The
+   title becomes the flex row rather than adding a wrapper, so no existing
+   selector that targets .card-title changes meaning. */
+.card-title{display:flex;align-items:center;gap:10px}
+.card-ico{
+  flex:0 0 auto;
+  width:28px;height:28px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+}
