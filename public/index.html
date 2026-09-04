@@ -1264,10 +1264,10 @@ body{color:var(--p-ink) !important}
   <!-- Seasonal header art. Decorative; see .ed-leaves in editorial.css. -->
   <div class="ed-leaves" aria-hidden="true"></div>
   <div class="geo-grid" aria-hidden="true"></div>
-  <span class="geo-tick tl" aria-hidden="true"></span>
-  <span class="geo-tick tr" aria-hidden="true"></span>
-  <span class="geo-tick bl" aria-hidden="true"></span>
-  <span class="geo-tick br" aria-hidden="true"></span>
+  <!-- The four corner ticks are gone. They were meant to be positioned at
+       the hero's corners, but no rule places them any more, so they
+       collapsed into a stack of four 1px bars at the top left and read as
+       a rendering glitch. -->
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
@@ -1298,6 +1298,19 @@ body{color:var(--p-ink) !important}
        Each segment is a real button that opens its existing listbox, so
        ssTog / ssSelCity / ssSelAge / ssSelExplore / ssSearch /
        weatherChipClick are untouched — only the markup around them. -->
+
+  <nav class="hdr-nav" aria-label="Primary">
+    <a href="/" class="is-here" aria-current="page">Home</a>
+    <a href="/local-table/">Local Table</a>
+    <a href="/diy.html">DIY</a>
+    <a href="/seasons/halloween/">Halloween</a>
+  </nav>
+</div>
+<!-- The search bar is its own full-width row, first in the content and
+     above the hero, rather than a third thing squeezed into the header
+     beside the logo and the nav. That row is what made the desktop
+     header read as cramped. -->
+<div class="hsearch-row">
   <div class="hsearch">
     <div class="hsearch-bar" role="search">
       <div class="hseg hseg-search">
@@ -1372,13 +1385,6 @@ body{color:var(--p-ink) !important}
       </div>
     </div>
   </div>
-
-  <nav class="hdr-nav" aria-label="Primary">
-    <a href="/" class="is-here" aria-current="page">Home</a>
-    <a href="/local-table/">Local Table</a>
-    <a href="/diy.html">DIY</a>
-    <a href="/seasons/halloween/">Halloween</a>
-  </nav>
 </div>
     <!-- ── PAGE SWITCHER (mobile) ──
          The pills above are hide-on-mobile, and this page's bottom bar is the

@@ -1049,17 +1049,10 @@ html,body{background:var(--p-cream)}
     </div>
     <div class="stats" id="stats"></div>
   </section>
-
-  <section class="band" aria-label="Featured deals">
-    <div class="band-glow"></div>
-    <div class="band-rows">
-      <div class="row row-a" id="rowA"></div>
-      <div class="row row-b" id="rowB"></div>
-    </div>
-    <div class="fade fade-l"></div>
-    <div class="fade fade-r"></div>
-  </section>
-
+<!-- The filter bar moved up to sit directly under the hero, ahead of the
+     featured strip. It used to come after the strip, so the first control
+     on the page was two screens down. This is the order the Halloween hub
+     uses: header, hero, bar, then content. -->
   <section class="filters" id="lt-deals">
     <!-- Phone-only trigger bar, mirroring diy.html and the homepage search bar.
          Above 700px it is hidden and the pill rows show as usual; the pillsets
@@ -1081,6 +1074,17 @@ html,body{background:var(--p-cream)}
     </div>
     <div class="fsheet-scrim" id="fscrim" hidden></div>
   </section>
+
+  <section class="band" aria-label="Featured deals">
+    <div class="band-glow"></div>
+    <div class="band-rows">
+      <div class="row row-a" id="rowA"></div>
+      <div class="row row-b" id="rowB"></div>
+    </div>
+    <div class="fade fade-l"></div>
+    <div class="fade fade-r"></div>
+  </section>
+
 
   <section class="deals">
     <div class="deals-head">

@@ -891,9 +891,26 @@ body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
 .hh-hero{--ed-pad-t:clamp(22px,3vw,34px);--ed-pad-x:clamp(20px,3vw,32px);
   padding:var(--ed-pad-t) var(--ed-pad-x)}
 @media(max-width:820px){
+  /* On a phone the text column is full width, so the desktop scrim's
+     "clear on the right" has nowhere to clear to. The previous fix ran a
+     vertical gradient at .78-.94 the whole way down, which made the hero a
+     flat dark panel — the house and the moon were gone entirely and the
+     space beside the heading read as empty.
+
+     Instead the scrim clears at the TOP and darkens downward, and the hero
+     gains enough top padding for that clear band to be a real slice of the
+     picture. The moon sits high in the tall crop, so that is what shows;
+     the copy starts below it on a surface dark enough to hold AA. */
   .hh-hero>*{max-width:100%}
+  .hh-hero{padding-top:clamp(150px,42vw,230px)!important}
   .hh-hero::before{background:linear-gradient(180deg,
-    rgba(7,14,26,.78) 0%, rgba(7,14,26,.90) 46%, rgba(7,14,26,.94) 100%)!important}
+    rgba(7,14,26,.12) 0%,
+    rgba(7,14,26,.20) 22%,
+    rgba(7,14,26,.72) 38%,
+    rgba(7,14,26,.92) 52%,
+    rgba(7,14,26,.95) 100%)!important}
+  /* The leaf band sits in that clear zone; keep it at the very top. */
+  .hh-hero.has-leaves .ed-leaves{top:0}
 }
 .hh-foot{background-color:rgba(9,20,32,.72);border:1px solid rgba(255,255,255,.10);
   border-bottom:none}
