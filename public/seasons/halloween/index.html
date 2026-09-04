@@ -1429,6 +1429,61 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
   .tile-art{background-image:none;background-color:#16273A}
 }
 
+
+/* ── HAL-02 / A11Y-02 — text beside the artwork, never over it ──────────
+   The hero scrim already ran opaque on the left and cleared on the right,
+   but the copy spanned the full card, so the lede's last lines crossed into
+   the 24%-opacity band and sat directly on the photograph. Contrast there
+   varies pixel to pixel and cannot be guaranteed at any point.
+
+   Two changes: hold the scrim near-opaque out to 56% before it falls away,
+   and cap the text column at 56% so it never reaches the clear side. The
+   house is unchanged and now actually readable as artwork. */
+@media(min-width:760px){
+  .hh-hero::before{
+    background:linear-gradient(100deg,
+      rgba(11,25,40,.95) 0%,
+      rgba(13,30,48,.94) 38%,
+      rgba(15,34,54,.90) 56%,
+      rgba(17,38,60,.40) 76%,
+      rgba(17,38,60,.16) 100%);
+  }
+  .hh-hero > .hh-badge,
+  .hh-hero > .hh-welcome,
+  .hh-hero > h1,
+  .hh-hero > .hh-lead,
+  .hh-hero > .hh-stats{max-width:56%}
+  .hh-hero{min-height:clamp(300px,32vw,420px)}
+  /* The band to the right of the copy was reading as empty dark sky: at
+     `center 32%` the moon sat just above the visible slice, so the space
+     beside the heading held nothing but roofline. Raising the focal point
+     brings the moon, the bats and the treetops into that band, which is
+     what the space is for. */
+  .hh-hero{background-position:center 14%}
+}
+
+/* ── Step 3 icons ───────────────────────────────────────────────────────
+   Both decorative: alt="" and aria-hidden, so the badge and the card title
+   read as their text alone. */
+.hh-badge-ico{
+  width:14px;height:14px;border-radius:50%;object-fit:cover;
+  vertical-align:-2px;display:inline-block;flex:0 0 auto;
+}
+.card h3,.c-body h3{display:flex;align-items:center;gap:10px}
+.c-ico{width:28px;height:28px;border-radius:50%;object-fit:cover;display:block;flex:0 0 auto}
+
+/* ── 13 — the house beside the copy, never behind it ────────────────────
+   The hero already held its scrim to 56% and capped the text column there.
+   The new copy is shorter, so the column can be narrower still and the
+   house gets more of the frame. Text never crosses onto the photograph;
+   scripts/check-page-contrast.js measures this at both widths. */
+@media(min-width:760px){
+  .hh-hero > .hh-badge,
+  .hh-hero > .hh-welcome,
+  .hh-hero > h1,
+  .hh-hero > .hh-lead,
+  .hh-hero > .hh-stats{max-width:52%}
+}
 </style>
 </head>
 <body>
@@ -1452,25 +1507,22 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
         <img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/>
       </picture>
     </a>
-    <nav class="hh-nav" aria-label="Site">
-      <a href="/">Home</a>
+    <nav class="hh-nav" aria-label="On this page">
       <a href="#grid">Spooky picks</a>
-      <a href="#tips">Halloween tips</a>
       <a href="#filters">Sensory&#8209;friendly</a>
-      <a href="/diy.html">DIY crafts</a>
+      <a href="#tips">Halloween tips</a>
       <a href="#subscribe">Get the list</a>
     </nav>
   </header>
 
   <section class="hh-hero has-leaves">
     <div class="ed-leaves" aria-hidden="true"></div>
-    <span class="hh-badge">🎃 Halloween 2026 · South Bay</span>
-    <p class="hh-welcome">Welcome to our haunted Halloween house</p>
-    <h1>Halloween in the South Bay, sorted by <em>how scary it isn&rsquo;t</em></h1>
+    <span class="hh-badge"><img class="hh-badge-ico" src="/moon-icon.png" alt="" aria-hidden="true" width="14" height="14" decoding="async">Halloween 2026 &#183; South Bay</span>
+    <p class="hh-welcome">Trick-or-treat, minus the tears</p>
+    <h1>Every event rated <em>by how scary it isn&rsquo;t</em></h1>
     <p class="hh-lead">
-      Most Halloween round-ups assume your kid wants to be frightened. This one starts from the
-      opposite end: every event is rated one to four for scare level, and you can filter to
-      sensory-friendly options — lower lights, no strobes, quieter rooms — in one tap.
+      Not every kid wants a fright. Each listing gets a scare rating from one to four, and one
+      tap filters down to sensory-friendly picks &mdash; softer lights, no strobes, quieter rooms.
     </p>
     <!-- Counted from events.json at render time, never typed in. A stat row
          that can drift from the list under it is worse than no stat row. -->
@@ -1505,10 +1557,10 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
         </button>
         <div class="pop" id="popScare" role="listbox" aria-label="Maximum scare level" hidden>
           <button type="button" role="option" aria-selected="true"  data-scare="">Any level</button>
-          <button type="button" role="option" aria-selected="false" data-scare="1">😊 No scares</button>
-          <button type="button" role="option" aria-selected="false" data-scare="2">🙂 Mild</button>
-          <button type="button" role="option" aria-selected="false" data-scare="3">😬 Jump scares</button>
-          <button type="button" role="option" aria-selected="false" data-scare="4">😱 Full haunt</button>
+          <button type="button" role="option" aria-selected="false" data-scare="1">No scares &#183; 1/4</button>
+          <button type="button" role="option" aria-selected="false" data-scare="2">Mild &#183; 2/4</button>
+          <button type="button" role="option" aria-selected="false" data-scare="3">Jump scares &#183; 3/4</button>
+          <button type="button" role="option" aria-selected="false" data-scare="4">Full haunt &#183; 4/4</button>
           <p class="pop-note" id="scareHint">Pick one to see that level and everything gentler.</p>
         </div>
       </div>
@@ -1535,18 +1587,18 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
 
       <div class="bar-acts">
         <button type="button" class="bar-go" id="barGo" aria-label="Show matching events">
-          <span aria-hidden="true">🔍</span>
+          <span aria-hidden="true">&#8981;</span>
         </button>
         <button type="button" class="bar-adj" id="barAdj" aria-expanded="false"
                 aria-controls="hhSheet" aria-label="More filters: access and cost">
-          <span aria-hidden="true">☰</span>
+          <span aria-hidden="true">&#8801;</span>
           <span class="adj-dot" id="adjDot" hidden></span>
         </button>
       </div>
     </div>
 
     <div class="bar-under">
-      <p class="bar-hint" id="barHint">Access and cost are behind the ☰ control.</p>
+      <p class="bar-hint" id="barHint">Access and cost are behind the &#8801; control.</p>
       <div class="bar-foot">
         <span class="count" id="count" role="status" aria-live="polite">—</span>
         <button class="reset" type="button" id="resetBtn">Clear all filters</button>
@@ -1671,6 +1723,7 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
     <form id="subForm" class="sub-form" novalidate>
       <label class="sr-only" for="subEmail">Email address</label>
       <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+             aria-label="Your email address"
              placeholder="you@example.com" required>
       <!-- honeypot: hidden from people, tempting to bots -->
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
@@ -1786,7 +1839,7 @@ function matches(e){
    and the pictographs are gone from the chrome. The description moves off
    the face; nothing is removed from the data. */
 function cardHTML(e){
-  var sb = '<span class="badge b-s'+e.scare+'">'+esc(SCARE_LABEL[e.scare].replace(/^\S+\s/,''))+'</span>';
+  var sb = '<span class="badge b-s'+e.scare+'">'+esc(SCARE_LABEL[e.scare].replace(/^\S+\s/,''))+' \u00b7 '+e.scare+'/4</span>';
   var sens = e.sensoryFriendly ? '<span class="badge b-sens">Sensory-friendly</span>' : '';
   var cost = e.cost==="free"
     ? '<span class="badge b-free">Free</span>'
@@ -1794,7 +1847,9 @@ function cardHTML(e){
   var unver = e.verified ? '' : '<p class="c-unver">Confirm dates on their site.</p>';
   return '<article class="card" data-id="'+esc(e.id)+'" data-type="'+esc(e.type)+'">'
     + '<div class="c-img" aria-hidden="true"></div>'
-    + '<h3>'+esc(e.name)+'</h3>'
+    + '<h3><img class="c-ico" src="/moon-icon.png" alt="" aria-hidden="true" '
+        + 'width="28" height="28" loading="lazy" decoding="async">'
+        + '<span>'+esc(e.name)+'</span></h3>'
     + '<p class="c-meta">'+esc(e.city)+' · '+esc(e.dates)+'</p>'
     + '<div class="c-badges">'+sb+sens+cost+'</div>'
     + '<p class="c-note">'+esc(e.notes)+'</p>'
@@ -2146,24 +2201,20 @@ document.addEventListener("DOMContentLoaded", boot);
 <nav id="bottom-nav" aria-label="Site sections">
   <div class="bnav-items">
     <a class="bnav-btn" href="/">
-      <span class="bnav-icon" aria-hidden="true">🏠</span>
+      <span class="bnav-icon" aria-hidden="true">&#8962;</span>
       <span class="bnav-label">Home</span>
     </a>
     <a class="bnav-btn" href="/local-table/">
-      <span class="bnav-icon" aria-hidden="true">📍</span>
+      <span class="bnav-icon" aria-hidden="true">&#10045;</span>
       <span class="bnav-label">Local Table</span>
     </a>
     <a class="bnav-btn" href="/diy.html">
-      <span class="bnav-icon" aria-hidden="true">🎨</span>
+      <span class="bnav-icon" aria-hidden="true">&#10023;</span>
       <span class="bnav-label">DIY</span>
     </a>
     <a class="bnav-btn active" href="/seasons/halloween/" aria-current="page">
-      <span class="bnav-icon" aria-hidden="true">🎃</span>
+      <span class="bnav-icon" aria-hidden="true">&#9790;</span>
       <span class="bnav-label">Halloween</span>
-    </a>
-    <a class="bnav-btn" href="/#about">
-      <span class="bnav-icon" aria-hidden="true">ℹ️</span>
-      <span class="bnav-label">About Us</span>
     </a>
   </div>
 </nav>

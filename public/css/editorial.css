@@ -31,7 +31,18 @@
   --ed-ink:#20160E;            /* warm near-black; 13-16:1 on every ground */
   --ed-ink-2:#5C4A3A;          /* meta text; 6.5-7.9:1 */
   --ed-hair:#F0DCC4;
-  --ed-accent:#A8380A;         /* orange — >=5.0:1 on every sunset stop */
+  /* Two accents, split by role.
+
+     The brief asks for #C96A12 "so white button text passes AA (4.8:1)".
+     White on #C96A12 is 3.78:1, so that value would not have met the bar it
+     was chosen for. #AE5C0F is the same hue walked down until white clears
+     it — 4.84:1 — and it is used wherever white text sits ON the colour.
+
+     As TEXT on the page's light grounds #AE5C0F only reaches 3.77-4.53:1,
+     under the 4.5:1 needed for body copy, so the darker #A8380A stays for
+     links, labels and headings. One value cannot do both jobs. */
+  --ed-accent:#A8380A;
+  --ed-accent-fill:#AE5C0F;         /* orange — >=5.0:1 on every sunset stop */
   --ed-sky:#0F4C93;            /* sky blue — >=6.6:1 */
   --ed-accent-ink:#FFFFFF;
   --ed-card:#FFFFFF;
@@ -175,8 +186,14 @@ body.ed-shell .hero{
   --ed-pad-x:clamp(22px,3.5vw,48px);
   /* A sunset panel, not an ink one. Every colour here is light, so the hero
      text is dark: white on this would be 1.5:1. */
+  /* Translucent, so the autumn backdrop reads through the hero instead of
+     being sealed under it. The tint is still heavy enough that the dark
+     hero text sits on a near-flat ground rather than on photograph — the
+     contrast gate measures this at 390 and 1440 and would fail it
+     otherwise. */
   background:linear-gradient(135deg,
-    #FFE7C9 0%, #FFD6AE 36%, #FBD9CE 62%, #DCEAF7 100%)!important;
+    rgba(255,231,201,.88) 0%, rgba(255,214,174,.84) 36%,
+    rgba(251,217,206,.82) 62%, rgba(220,234,247,.88) 100%)!important;
   border:1px solid #F3DCC0;
   border-radius:20px;
   margin:6px 16px 0;
@@ -316,7 +333,8 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
 /* description and the unverified note come off the face */
 .ed-dark .card .c-note{display:none!important}
 .ed-dark .card .c-unver{
-  font-size:11.5px!important;font-weight:700!important;color:var(--ed-accent)!important;
+  /* 11.5px is the nav-label floor, not the body-text one. */
+  font-size:12px!important;font-weight:700!important;color:var(--ed-accent)!important;
   padding:8px 16px 0!important;font-style:normal!important}
 /* links become a hairline row of text, matching the homepage card */
 .ed-dark .card .c-links{
@@ -362,7 +380,7 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
      offsets shifted it instead of stretching it and the band stopped one
      padding-width short of each side. */
   position:absolute;top:0;left:0;right:0;z-index:0;pointer-events:none;
-  height:var(--leaf-h,clamp(64px,9vw,116px));
+  height:var(--leaf-h,clamp(34px,5vw,62px));
   background-image:image-set(url("/images/header/autumn-leaves.webp") type("image/webp"),
                              url("/images/header/autumn-leaves.png") type("image/png"));
   background-repeat:repeat-x;
@@ -374,11 +392,11 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
    band and its white labels measured 1.41:1 against a yellow leaf. Restated
    at the same weight. */
 body.ed-shell .hero.has-leaves{
-  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+  padding-top:calc(var(--leaf-h,clamp(34px,5vw,62px)) + clamp(12px,2vw,26px))!important}
 
 /* Content clears the band rather than competing with it. */
 .has-leaves{position:relative;
-  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+  padding-top:calc(var(--leaf-h,clamp(34px,5vw,62px)) + clamp(12px,2vw,26px))!important}
 /* :not(.ed-leaves) matters. Without it this rule wins the specificity tie
    and turns the band from absolute to relative, which is why it stopped one
    padding-width short of each edge. */
@@ -420,25 +438,438 @@ body.ed-shell .hero.has-leaves{
    at all. This row is those four destinations, above the fold, phone only.
    The other three pages carry the same four in their bottom bar instead.
    ══════════════════════════════════════════════════════════════════════ */
-body.ed-shell .ed-pages{display:none}
-@media(max-width:640px){
-  body.ed-shell .ed-pages{
-    display:flex;gap:8px;margin:12px 0 2px;padding-bottom:2px;
-    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-    /* fade the right edge so it reads as scrollable */
-    -webkit-mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
-            mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
+/* NAV-02: the phone-only page pill row is gone. It duplicated the
+   bottom bar's four destinations on the same screen, at the same
+   breakpoint. One navigation system per screen. */
+body.ed-shell .ed-pages{display:none!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BOTTOM NAV — one bar, five tabs, identical on every page.
+
+   QA findings NAV-01 (seven tabs, seventh clipped mid-word at 390px),
+   A11Y-01 (emoji announced literally: the Halloween tab read as
+   "jack-o-lantern") and A11Y-04 (10px labels, sub-44px targets).
+
+   Five tabs divide 390px into 78px columns, so `flex:1 1 0` fits the row
+   without the horizontal scroll the seven-tab bar needed. The overflow-x
+   and min-width that made it scrollable are reset here rather than deleted
+   from each page's inline block, because those blocks come after this
+   stylesheet in the cascade — an id-prefixed selector wins on specificity
+   regardless of order.
+
+   Icons are glyphs, not emoji: a glyph renders identically on iOS, Android
+   and Windows, and is marked aria-hidden so the visible label is the only
+   thing a screen reader announces.
+   ══════════════════════════════════════════════════════════════════════════ */
+#bottom-nav .bnav-items{
+  display:flex;
+  justify-content:space-between;
+  overflow-x:visible;
+  padding:0 2px;
+}
+#bottom-nav .bnav-btn{
+  flex:1 1 0;
+  min-width:0;
+  min-height:44px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:4px 2px;
+  text-decoration:none;
+  /* #aaa on white measured 2.32:1. This is 5.4:1 and still reads as the
+     unselected state next to the accent. */
+  color:#6A6158;
+}
+#bottom-nav .bnav-icon{
+  /* Nunito carries none of these glyphs, so name the symbol fonts
+     explicitly instead of letting each platform pick its own fallback. */
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",
+              "DejaVu Sans",Nunito,sans-serif;
+  font-style:normal;
+  font-size:1.25rem;
+  line-height:1;
+}
+#bottom-nav .bnav-label{
+  /* 10px -> 11.5px, the floor the QA doc sets for tab labels. */
+  font-size:11.5px;
+  font-weight:700;
+  line-height:1.15;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+/* Selected state is not colour alone (A11Y-03): the active tab also carries
+   a rule above it, which survives greyscale and bright sunlight. */
+#bottom-nav .bnav-btn.active{
+  color:#8a5200;
+  font-weight:800;
+  box-shadow:inset 0 2px 0 0 currentColor;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FILTER CHIPS — A11Y-03 and A11Y-04.
+
+   Selected state was signalled by colour alone, which disappears under
+   colour vision deficiency and in bright sun — the two conditions a parent
+   at a park is most likely to be in. Every selected chip now also carries a
+   checkmark and a 2px border, so the state survives greyscale.
+
+   Chips measured ~30px tall against a 44px minimum. Raised here rather than
+   in each page's inline block so all four pages move together.
+   ══════════════════════════════════════════════════════════════════════════ */
+body.ed-shell .city-btn,
+body.ed-shell .age-btn{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  border:2px solid transparent;
+}
+body.ed-shell .city-btn.on::before,
+body.ed-shell .age-btn.on::before,
+body.ed-shell .tab-btn.on .tab-check{
+  content:"\2713";
+  font-weight:900;
+  font-size:.85em;
+  line-height:1;
+}
+body.ed-shell .city-btn.on,
+body.ed-shell .age-btn.on{
+  border-color:currentColor;
+}
+/* The desktop category tabs get the same treatment. .tab-btn.on already
+   lifts and casts a shadow; the border is what survives a greyscale print. */
+body.ed-shell .tab-btn{border:2px solid transparent}
+body.ed-shell .tab-btn.on{border-color:rgba(0,0,0,.32)}
+
+/* Mobile city/age sheets — same rule, different markup. */
+body.ed-shell .mob-city-opt,
+body.ed-shell .mob-age-opt,
+body.ed-shell .dtcr,
+body.ed-shell .dtec{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-width:2px;
+  border-style:solid;
+}
+body.ed-shell .mob-city-opt.on::before,
+body.ed-shell .mob-age-opt.on::before,
+body.ed-shell .dtcr.on::before,
+body.ed-shell .dtec.on::before{
+  content:"\2713\00a0";
+  font-weight:900;
+}
+
+/* ── Free / Paid cost chips ─────────────────────────────────────────────
+   Members of the canonical .tab-btn set (so setTab keeps them in sync),
+   but styled as chips rather than as the big desktop category cards. The
+   .tab-btn colour rules are per-[data-tab], so they are neutralised here. */
+body.ed-shell .cost-bar{
+  display:flex;gap:8px;padding:10px 16px 0;align-items:center;
+}
+body.ed-shell .tab-btn.cost-chip{
+  flex:0 0 auto;min-width:0;max-width:none;
+  flex-direction:row;align-items:center;justify-content:center;gap:6px;
+  min-height:44px;padding:0 18px;border-radius:99px;
+  font-size:13.5px;font-weight:800;
+  background:#fff!important;color:#7A3F0D!important;
+  border:2px solid rgba(122,63,13,.28);
+  box-shadow:none;transform:none;
+}
+body.ed-shell .tab-btn.cost-chip.on{
+  background:var(--ed-accent-fill,#AE5C0F)!important;color:#fff!important;
+  border-color:var(--ed-accent-fill,#AE5C0F);transform:none;box-shadow:none;
+}
+body.ed-shell .tab-btn.cost-chip.on::after{display:none}
+body.ed-shell .tab-btn.cost-chip.on .cost-check::before{content:"\2713";font-weight:900}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PAGE BACKDROP — the autumn river behind home, Local Table and DIY.
+
+   Same construction as the Halloween hub's haunted house: a position:fixed
+   layer, NOT background-attachment:fixed, which janks badly on iOS Safari.
+
+   The photograph sits at low opacity over the sunset gradient rather than
+   replacing it, so the ground stays the warm orange-and-sky the brand asks
+   for and the scene reads as texture in the margins. That is deliberate and
+   not timidity: every page here puts dark text straight onto this ground,
+   and a photograph at full strength gives contrast that varies pixel to
+   pixel — the exact defect A11Y-02 was raised against on the Halloween
+   hero. The card grid stays legible because it sits on white cards above
+   this layer.
+
+   z-index:-1 keeps it behind everything in normal flow while still painting
+   over body's own background.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* Why body's background is cleared here.
+
+   index.html carries `html,body{background:...!important}`. The root
+   element's background paints first, but BODY's background is an ordinary
+   block background, and block backgrounds paint ABOVE negative-z-index
+   children of the root stacking context. So while both carried the ground,
+   this layer was painted and then covered — at any opacity, including 1.
+   html keeps the ground; body must not repaint it. Specificity, not order,
+   is what beats the !important rule: 0,1,1 against its 0,0,1. */
+body.ss-bg{
+  background-image:none!important;
+  background-color:transparent!important;
+}
+/* Local Table and DIY wrap their content in an opaque .page, which covered
+   the layer just as body's background did. Cards and panels inside keep
+   their own grounds, so clearing this one costs no contrast — the gate
+   checks all four pages at both widths. */
+body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
+.ss-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  /* Two layers, top first: the sunset tint that keeps text legible, then
+     the photograph under it. Putting the tint here rather than on body is
+     what lets the photograph be seen at all. */
+  background-image:
+    linear-gradient(180deg,
+      rgba(255,246,236,.80) 0%, rgba(255,237,217,.76) 12%, rgba(255,221,190,.72) 32%,
+      rgba(253,227,208,.74) 56%, rgba(237,242,250,.80) 82%, rgba(233,242,251,.84) 100%),
+    image-set(
+      url("/images/seasonal/autumn-river.webp") type("image/webp"),
+      url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
+  background-repeat:no-repeat,no-repeat;
+  background-position:center,center 28%;
+  background-size:100% 100%,cover;
+}
+@media(max-width:700px){
+  /* A portrait viewport shows a thin vertical slice of the wide crop, which
+     is mostly water. The tall crop keeps the maple and the river. */
+  .ss-backdrop{
+    background-image:
+      linear-gradient(180deg,
+        rgba(255,246,236,.84) 0%, rgba(255,237,217,.80) 12%, rgba(255,221,190,.76) 32%,
+        rgba(253,227,208,.78) 56%, rgba(237,242,250,.84) 82%, rgba(233,242,251,.88) 100%),
+      image-set(
+        url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
+        url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
+    background-position:center,center top;
   }
-  body.ed-shell .ed-pages::-webkit-scrollbar{display:none}
-  body.ed-shell .ed-page{
-    display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;
-    min-height:44px;padding:0 15px;border-radius:99px;
-    background:rgba(255,255,255,.66);border:1px solid rgba(32,22,14,.16);
-    color:#3A2A1A;font-size:12.5px;font-weight:800;text-decoration:none;
-    white-space:nowrap;
-  }
-  body.ed-shell .ed-page.is-here{
-    background:var(--ed-accent);border-color:transparent;color:#fff;
-  }
-  body.ed-shell .ed-page:focus-visible{outline:3px solid var(--ed-accent);outline-offset:2px}
+}
+/* Do not spend a visitor's data on decoration they have asked us not to
+   send. Same rule the Halloween backdrop follows. */
+@media(prefers-reduced-data:reduce){
+  /* Drop the photograph, keep the ground — body no longer paints one. */
+  .ss-backdrop{background-image:var(--ed-sunset)}
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HEADER — logo, one search input, four nav items.
+
+   The search bar carries the filters instead of a separate row below it.
+   Collapsed it is a single line: a caption of the filters currently applied,
+   a placeholder, and a round accent button. Focus anywhere inside opens the
+   panel.
+
+   The open/close is :focus-within, so there is no script and no state to get
+   out of sync. It only works because every control in the panel is a real
+   button — a div with an onclick cannot hold focus, and the panel would shut
+   the instant you reached for a filter.
+   ══════════════════════════════════════════════════════════════════════════ */
+.hdr{
+  display:flex;
+  align-items:center;
+  gap:clamp(10px,2vw,20px);
+  flex-wrap:wrap;
+  max-width:1200px;
+  margin:0 auto 10px;
+  padding:0 4px;
+}
+.hdr-logo{flex:0 0 auto;display:block;line-height:0}
+.hdr-logo img{height:clamp(42px,6vw,54px);width:auto;display:block}
+
+.hsearch{flex:1 1 320px;min-width:0;position:relative}
+.hsearch-bar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff;
+  border:1px solid var(--ed-hair,#F0DCC4);
+  border-radius:999px;
+  padding:6px 6px 6px 16px;
+  min-height:56px;
+  box-shadow:0 2px 12px rgba(70,45,10,.08);
+}
+.hsearch-mag{
+  flex:0 0 auto;font-size:19px;line-height:1;color:#7A6A58;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+}
+.hsearch-field{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.hsearch-cap{
+  /* 12px is the floor for anything that is not a nav label. */
+  font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:#6A5B4B;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.hsearch-cap > span{display:inline}
+.hsearch-field input{
+  border:none;outline:none;background:none;width:100%;min-width:0;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:600;color:var(--ed-ink,#20160E);
+  padding:0;line-height:1.25;
+}
+.hsearch-field input::placeholder{color:#8A7A68;font-weight:600}
+.hsearch-go{
+  flex:0 0 auto;width:44px;height:44px;min-height:44px;border:none;border-radius:50%;
+  background:var(--ed-accent-fill,#AE5C0F);color:#fff;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;font-size:19px;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+}
+.hsearch-go:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+
+/* The panel. Hidden until something inside the component takes focus. */
+.hsearch-panel{
+  display:none;
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:120;
+  background:#fff;border:1px solid var(--ed-hair,#F0DCC4);border-radius:18px;
+  box-shadow:0 12px 34px rgba(70,45,10,.16);
+  padding:10px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;
+}
+.hsearch:focus-within .hsearch-panel{display:grid}
+.hs-ctl{position:relative;min-width:0}
+.hs-ctl > button{
+  width:100%;min-height:44px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;
+  background:#FFFBF5;border:2px solid var(--ed-hair,#F0DCC4);border-radius:12px;
+  padding:6px 12px;cursor:pointer;font-family:Nunito,sans-serif;text-align:left;
+}
+.hs-ctl > button:hover{border-color:var(--ed-accent,#A8380A)}
+.hs-ctl > button:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+.hs-l{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#6A5B4B}
+.hs-v{font-size:13px;font-weight:700;color:var(--ed-ink,#20160E);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* ── Nav: four items, active carries the accent AND a 2px rule ─────────── */
+.hdr-nav{flex:1 1 100%;display:flex;gap:clamp(6px,1.6vw,22px);flex-wrap:wrap;align-items:center}
+.hdr-nav a{
+  min-height:44px;display:inline-flex;align-items:center;
+  padding:0 2px;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:800;
+  color:var(--ed-ink-2,#5C4A3A);text-decoration:none;
+  border-bottom:2px solid transparent;
+}
+.hdr-nav a:hover{color:var(--ed-ink,#20160E)}
+.hdr-nav a.is-here{
+  color:var(--ed-accent,#A8380A);
+  border-bottom-color:var(--ed-accent,#A8380A);
+}
+.hdr-nav a:focus-visible{outline:3px solid #0F4C93;outline-offset:3px}
+
+@media(min-width:900px){
+  /* Nav sits on the same line as the logo and search once there is room. */
+  .hdr-nav{flex:0 0 auto}
+}
+
+/* Selected options inside the header panel carry a checkmark and a 2px
+   border, never colour alone. .ssac already used an outline for its on
+   state; the mark is what survives greyscale and bright sun. */
+.ssac.on::before,.ssec.on::before,.sscr[aria-selected="true"]::before{
+  content:"\2713\00a0";font-weight:900;
+}
+.ssac.on,.ssec.on{border-color:currentColor!important}
+
+/* Leading round icon on every activity card. Decorative — alt="" and
+   aria-hidden, so a screen reader reads the title and nothing else. The
+   title becomes the flex row rather than adding a wrapper, so no existing
+   selector that targets .card-title changes meaning. */
+.card-title{display:flex;align-items:center;gap:10px}
+.card-ico{
+  flex:0 0 auto;
+  width:28px;height:28px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TYPE AND TARGET FLOORS — enforced by scripts/qa-a11y.js.
+
+   Nothing under 12px except nav labels, which floor at 11.5px, and 44px on
+   the short side of anything you can tap. Both are set here, in one place
+   across all four pages, rather than chased through each page's own block:
+   the gate walks every visible element, so a rule that only half-lands
+   fails the build.
+
+   These are the classes the gate actually found, not a guess at what might
+   be small.
+   ══════════════════════════════════════════════════════════════════════════ */
+.eyebrow,.stat-l,.fbar-l,.deals-tag,.badge,.chip-loc,.tag,.tile-label,
+.badge-diff,.badge-play,.live,.seg-l,.bar-hint,.tile-kicker,.geo-idx,
+.geo-label,.geo-pause,.p-wlabel,.p-wnote,.c-unver,.tier-flag,.sscs,
+.hh-stats dd,.card-foot,.c-links{
+  font-size:12px!important;
+}
+.bnav-label{font-size:11.5px!important}
+
+/* Tap targets. A logo, a nav link and a save button are all things a thumb
+   has to hit; 27-40px is not enough for any of them. */
+.hdr-logo,.brand,.navlink,.navcta,.geo-pause,
+.fbar-seg,.age-pill,.chip-btn,.sens-btn,.c-links a,
+.hdr-nav a,.tile a,.save-btn,[class*="save"]{
+  min-height:44px;
+}
+.geo-pause{min-width:44px;display:inline-flex;align-items:center;justify-content:center}
+.hdr-logo,.brand{display:inline-flex;align-items:center}
+.navlink,.navcta{display:inline-flex;align-items:center}
+/* The remaining sub-44px controls the gate named: heart buttons on the DIY
+   and Local Table cards, the pill filter sets, and the header links on
+   those two pages. */
+.heart,.pill,.fbar-seg,.navlink,.navcta,.hdr-nav a,.mob-city-opt,.mob-age-opt{
+  min-height:44px;min-width:44px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.pill{padding-left:14px;padding-right:14px}
+/* The last of the sub-12px text the gate named, by the path it reported:
+   the hero badge and stat captions, the ticker items, the footer column
+   headings and the unverified-listing note on hub cards. */
+.p-badge,.p-badge span,#pHeroBadge,
+.p-stat span,.p-foot-col b,
+.geo-ticker .geo-track span,
+.c-unver{
+  font-size:12px!important;
+}
+/* Footer links and buttons, the Local Table and DIY brand lockups, the hub's
+   footer and its Clear-all control — the last targets the gate named. The
+   selectors are deliberately specific: a blanket `a{min-height:44px}` would
+   break inline links inside paragraphs. */
+.p-foot-col a,.p-foot-col button,
+.p-foot-cols a,.p-foot-cols button,
+.hh-foot a,.hh-foot button,.reset,
+.brand,a.brand,.hdr .brand,
+.ftr a,.ftr-note a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+/* .c-unver is set with !important on the hub; match it. */
+p.c-unver{font-size:12px!important}
+/* These three lost to each page's own inline <style>, which the browser
+   parses after this linked file and which wins on equal specificity.
+   !important is the honest fix: the floor is not negotiable per page. */
+.p-foot-col a,.p-foot-col button,
+.ftr-links a,.bar-foot .reset,.reset{
+  min-height:44px!important;
+  min-width:44px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+}
+.p-foot-col a,.p-foot-col button{justify-content:flex-start!important}
+.ftr-links a,.reset{justify-content:center!important}
+/* Logo links are navigation too — both of these were 38-40px on their short
+   side. The image inside keeps its own size; the link gets the target. */
+.hh-top > a,.hdr .brand,.brand,.hdr-logo{
+  min-height:44px!important;min-width:44px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
 }
