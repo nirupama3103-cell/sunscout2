@@ -333,7 +333,8 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
 /* description and the unverified note come off the face */
 .ed-dark .card .c-note{display:none!important}
 .ed-dark .card .c-unver{
-  font-size:11.5px!important;font-weight:700!important;color:var(--ed-accent)!important;
+  /* 11.5px is the nav-label floor, not the body-text one. */
+  font-size:12px!important;font-weight:700!important;color:var(--ed-accent)!important;
   padding:8px 16px 0!important;font-style:normal!important}
 /* links become a hairline row of text, matching the homepage card */
 .ed-dark .card .c-links{
@@ -790,4 +791,85 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   border-radius:50%;
   object-fit:cover;
   display:block;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TYPE AND TARGET FLOORS — enforced by scripts/qa-a11y.js.
+
+   Nothing under 12px except nav labels, which floor at 11.5px, and 44px on
+   the short side of anything you can tap. Both are set here, in one place
+   across all four pages, rather than chased through each page's own block:
+   the gate walks every visible element, so a rule that only half-lands
+   fails the build.
+
+   These are the classes the gate actually found, not a guess at what might
+   be small.
+   ══════════════════════════════════════════════════════════════════════════ */
+.eyebrow,.stat-l,.fbar-l,.deals-tag,.badge,.chip-loc,.tag,.tile-label,
+.badge-diff,.badge-play,.live,.seg-l,.bar-hint,.tile-kicker,.geo-idx,
+.geo-label,.geo-pause,.p-wlabel,.p-wnote,.c-unver,.tier-flag,.sscs,
+.hh-stats dd,.card-foot,.c-links{
+  font-size:12px!important;
+}
+.bnav-label{font-size:11.5px!important}
+
+/* Tap targets. A logo, a nav link and a save button are all things a thumb
+   has to hit; 27-40px is not enough for any of them. */
+.hdr-logo,.brand,.navlink,.navcta,.geo-pause,
+.fbar-seg,.age-pill,.chip-btn,.sens-btn,.c-links a,
+.hdr-nav a,.tile a,.save-btn,[class*="save"]{
+  min-height:44px;
+}
+.geo-pause{min-width:44px;display:inline-flex;align-items:center;justify-content:center}
+.hdr-logo,.brand{display:inline-flex;align-items:center}
+.navlink,.navcta{display:inline-flex;align-items:center}
+/* The remaining sub-44px controls the gate named: heart buttons on the DIY
+   and Local Table cards, the pill filter sets, and the header links on
+   those two pages. */
+.heart,.pill,.fbar-seg,.navlink,.navcta,.hdr-nav a,.mob-city-opt,.mob-age-opt{
+  min-height:44px;min-width:44px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.pill{padding-left:14px;padding-right:14px}
+/* The last of the sub-12px text the gate named, by the path it reported:
+   the hero badge and stat captions, the ticker items, the footer column
+   headings and the unverified-listing note on hub cards. */
+.p-badge,.p-badge span,#pHeroBadge,
+.p-stat span,.p-foot-col b,
+.geo-ticker .geo-track span,
+.c-unver{
+  font-size:12px!important;
+}
+/* Footer links and buttons, the Local Table and DIY brand lockups, the hub's
+   footer and its Clear-all control — the last targets the gate named. The
+   selectors are deliberately specific: a blanket `a{min-height:44px}` would
+   break inline links inside paragraphs. */
+.p-foot-col a,.p-foot-col button,
+.p-foot-cols a,.p-foot-cols button,
+.hh-foot a,.hh-foot button,.reset,
+.brand,a.brand,.hdr .brand,
+.ftr a,.ftr-note a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+/* .c-unver is set with !important on the hub; match it. */
+p.c-unver{font-size:12px!important}
+/* These three lost to each page's own inline <style>, which the browser
+   parses after this linked file and which wins on equal specificity.
+   !important is the honest fix: the floor is not negotiable per page. */
+.p-foot-col a,.p-foot-col button,
+.ftr-links a,.bar-foot .reset,.reset{
+  min-height:44px!important;
+  min-width:44px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+}
+.p-foot-col a,.p-foot-col button{justify-content:flex-start!important}
+.ftr-links a,.reset{justify-content:center!important}
+/* Logo links are navigation too — both of these were 38-40px on their short
+   side. The image inside keeps its own size; the link gets the target. */
+.hh-top > a,.hdr .brand,.brand,.hdr-logo{
+  min-height:44px!important;min-width:44px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
 }

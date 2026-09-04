@@ -1365,7 +1365,7 @@ function renderGrid(){
         // a deal with no honest photo shows its emoji on the tinted panel
         (d.img ? '<img src="' + esc(d.img) + '" alt="' + esc(d.title) + '" loading="lazy" decoding="async">' : "") +
         '<button type="button" class="heart" data-heart="' + esc(d.id) + '" aria-pressed="' + on + '" ' +
-          'aria-label="Save ' + esc(d.title) + '">' + (on ? "❤️" : "🤍") + '</button>' +
+          'aria-label="Save ' + esc(d.title) + '">' + (on ? "\u2665" : "\u2661") + '</button>' +
         '<span class="badge">' + esc(d.src) + '</span>' +
         '<span class="chip-loc">📍 ' + esc(d.city) + '</span>' +
       '</div>' +

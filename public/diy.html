@@ -1158,10 +1158,10 @@ var PROJECTS = [
 
 var AGES = [
   { key:"all",  label:"All ages" },
-  { key:"0-2",  label:"👶 0–2" },
-  { key:"3-5",  label:"🧸 3–5" },
-  { key:"6-12", label:"🎒 6–12" },
-  { key:"teen", label:"🛹 Teen" }
+  { key:"0-2",  label:"0–2" },
+  { key:"3-5",  label:"3–5" },
+  { key:"6-12", label:"6–12" },
+  { key:"teen", label:"Teen" }
 ];
 var DIFFS = ["All Difficulties","Easy","Medium","Hard"];
 
@@ -1308,7 +1308,7 @@ function renderGrid(){
       '<div class="card-media">' +
         '<img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async">' +
         '<button type="button" class="heart" data-heart="' + esc(p.id) + '" aria-pressed="' + on + '" ' +
-          'aria-label="Save ' + esc(p.title) + '">' + (on ? "❤️" : "🤍") + '</button>' +
+          'aria-label="Save ' + esc(p.title) + '">' + (on ? "\u2665" : "\u2661") + '</button>' +
         // status belongs on the image, not stacked in the text column
         '<span class="badge-diff diff-' + esc(p.difficulty) + '">' + esc(p.difficulty) + '</span>' +
         '<span class="chip-loc">📍 At Home</span>' +

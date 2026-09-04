@@ -1763,6 +1763,7 @@ function mobSearch() {
         <form id="subForm" class="sub-form" novalidate>
           <label class="sr-only" for="subEmail">Email address</label>
           <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+             aria-label="Your email address"
                  placeholder="you@example.com" required>
           <!-- honeypot: hidden from people, tempting to bots -->
           <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
@@ -3653,7 +3654,7 @@ h1,h2,h3{text-wrap:balance}
    44px on top of it */
 .p-foot-col{gap:0 !important}
 .p-foot-col a,.p-foot-col button{
-  padding-block:9px !important;min-height:40px !important;
+  padding-block:11px !important;min-height:44px !important;
   display:flex !important;align-items:center;
 }
 @media (max-width:700px){

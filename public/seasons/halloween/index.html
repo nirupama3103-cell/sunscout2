@@ -1461,6 +1461,29 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
      what the space is for. */
   .hh-hero{background-position:center 14%}
 }
+
+/* ── Step 3 icons ───────────────────────────────────────────────────────
+   Both decorative: alt="" and aria-hidden, so the badge and the card title
+   read as their text alone. */
+.hh-badge-ico{
+  width:14px;height:14px;border-radius:50%;object-fit:cover;
+  vertical-align:-2px;display:inline-block;flex:0 0 auto;
+}
+.card h3,.c-body h3{display:flex;align-items:center;gap:10px}
+.c-ico{width:28px;height:28px;border-radius:50%;object-fit:cover;display:block;flex:0 0 auto}
+
+/* ── 13 — the house beside the copy, never behind it ────────────────────
+   The hero already held its scrim to 56% and capped the text column there.
+   The new copy is shorter, so the column can be narrower still and the
+   house gets more of the frame. Text never crosses onto the photograph;
+   scripts/check-page-contrast.js measures this at both widths. */
+@media(min-width:760px){
+  .hh-hero > .hh-badge,
+  .hh-hero > .hh-welcome,
+  .hh-hero > h1,
+  .hh-hero > .hh-lead,
+  .hh-hero > .hh-stats{max-width:52%}
+}
 </style>
 </head>
 <body>
@@ -1494,13 +1517,12 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
 
   <section class="hh-hero has-leaves">
     <div class="ed-leaves" aria-hidden="true"></div>
-    <span class="hh-badge">🎃 Halloween 2026 · South Bay</span>
-    <p class="hh-welcome">Welcome to our haunted Halloween house</p>
-    <h1>Halloween in the South Bay, sorted by <em>how scary it isn&rsquo;t</em></h1>
+    <span class="hh-badge"><img class="hh-badge-ico" src="/moon-icon.png" alt="" aria-hidden="true" width="14" height="14" decoding="async">Halloween 2026 &#183; South Bay</span>
+    <p class="hh-welcome">Trick-or-treat, minus the tears</p>
+    <h1>Every event rated <em>by how scary it isn&rsquo;t</em></h1>
     <p class="hh-lead">
-      Most Halloween round-ups assume your kid wants to be frightened. This one starts from the
-      opposite end: every event is rated one to four for scare level, and you can filter to
-      sensory-friendly options — lower lights, no strobes, quieter rooms — in one tap.
+      Not every kid wants a fright. Each listing gets a scare rating from one to four, and one
+      tap filters down to sensory-friendly picks &mdash; softer lights, no strobes, quieter rooms.
     </p>
     <!-- Counted from events.json at render time, never typed in. A stat row
          that can drift from the list under it is worse than no stat row. -->
@@ -1701,6 +1723,7 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
     <form id="subForm" class="sub-form" novalidate>
       <label class="sr-only" for="subEmail">Email address</label>
       <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+             aria-label="Your email address"
              placeholder="you@example.com" required>
       <!-- honeypot: hidden from people, tempting to bots -->
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
@@ -1824,7 +1847,9 @@ function cardHTML(e){
   var unver = e.verified ? '' : '<p class="c-unver">Confirm dates on their site.</p>';
   return '<article class="card" data-id="'+esc(e.id)+'" data-type="'+esc(e.type)+'">'
     + '<div class="c-img" aria-hidden="true"></div>'
-    + '<h3>'+esc(e.name)+'</h3>'
+    + '<h3><img class="c-ico" src="/moon-icon.png" alt="" aria-hidden="true" '
+        + 'width="28" height="28" loading="lazy" decoding="async">'
+        + '<span>'+esc(e.name)+'</span></h3>'
     + '<p class="c-meta">'+esc(e.city)+' · '+esc(e.dates)+'</p>'
     + '<div class="c-badges">'+sb+sens+cost+'</div>'
     + '<p class="c-note">'+esc(e.notes)+'</p>'
