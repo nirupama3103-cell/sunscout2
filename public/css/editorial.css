@@ -362,7 +362,7 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
      offsets shifted it instead of stretching it and the band stopped one
      padding-width short of each side. */
   position:absolute;top:0;left:0;right:0;z-index:0;pointer-events:none;
-  height:var(--leaf-h,clamp(64px,9vw,116px));
+  height:var(--leaf-h,clamp(34px,5vw,62px));
   background-image:image-set(url("/images/header/autumn-leaves.webp") type("image/webp"),
                              url("/images/header/autumn-leaves.png") type("image/png"));
   background-repeat:repeat-x;
@@ -374,11 +374,11 @@ body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
    band and its white labels measured 1.41:1 against a yellow leaf. Restated
    at the same weight. */
 body.ed-shell .hero.has-leaves{
-  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+  padding-top:calc(var(--leaf-h,clamp(34px,5vw,62px)) + clamp(12px,2vw,26px))!important}
 
 /* Content clears the band rather than competing with it. */
 .has-leaves{position:relative;
-  padding-top:calc(var(--leaf-h,clamp(64px,9vw,116px)) + clamp(12px,2vw,26px))!important}
+  padding-top:calc(var(--leaf-h,clamp(34px,5vw,62px)) + clamp(12px,2vw,26px))!important}
 /* :not(.ed-leaves) matters. Without it this rule wins the specificity tie
    and turns the band from absolute to relative, which is why it stopped one
    padding-width short of each edge. */
@@ -420,25 +420,153 @@ body.ed-shell .hero.has-leaves{
    at all. This row is those four destinations, above the fold, phone only.
    The other three pages carry the same four in their bottom bar instead.
    ══════════════════════════════════════════════════════════════════════ */
-body.ed-shell .ed-pages{display:none}
-@media(max-width:640px){
-  body.ed-shell .ed-pages{
-    display:flex;gap:8px;margin:12px 0 2px;padding-bottom:2px;
-    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-    /* fade the right edge so it reads as scrollable */
-    -webkit-mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
-            mask-image:linear-gradient(90deg,#000 90%,transparent 100%);
-  }
-  body.ed-shell .ed-pages::-webkit-scrollbar{display:none}
-  body.ed-shell .ed-page{
-    display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;
-    min-height:44px;padding:0 15px;border-radius:99px;
-    background:rgba(255,255,255,.66);border:1px solid rgba(32,22,14,.16);
-    color:#3A2A1A;font-size:12.5px;font-weight:800;text-decoration:none;
-    white-space:nowrap;
-  }
-  body.ed-shell .ed-page.is-here{
-    background:var(--ed-accent);border-color:transparent;color:#fff;
-  }
-  body.ed-shell .ed-page:focus-visible{outline:3px solid var(--ed-accent);outline-offset:2px}
+/* NAV-02: the phone-only page pill row is gone. It duplicated the
+   bottom bar's four destinations on the same screen, at the same
+   breakpoint. One navigation system per screen. */
+body.ed-shell .ed-pages{display:none!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BOTTOM NAV — one bar, five tabs, identical on every page.
+
+   QA findings NAV-01 (seven tabs, seventh clipped mid-word at 390px),
+   A11Y-01 (emoji announced literally: the Halloween tab read as
+   "jack-o-lantern") and A11Y-04 (10px labels, sub-44px targets).
+
+   Five tabs divide 390px into 78px columns, so `flex:1 1 0` fits the row
+   without the horizontal scroll the seven-tab bar needed. The overflow-x
+   and min-width that made it scrollable are reset here rather than deleted
+   from each page's inline block, because those blocks come after this
+   stylesheet in the cascade — an id-prefixed selector wins on specificity
+   regardless of order.
+
+   Icons are glyphs, not emoji: a glyph renders identically on iOS, Android
+   and Windows, and is marked aria-hidden so the visible label is the only
+   thing a screen reader announces.
+   ══════════════════════════════════════════════════════════════════════════ */
+#bottom-nav .bnav-items{
+  display:flex;
+  justify-content:space-between;
+  overflow-x:visible;
+  padding:0 2px;
 }
+#bottom-nav .bnav-btn{
+  flex:1 1 0;
+  min-width:0;
+  min-height:44px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:4px 2px;
+  text-decoration:none;
+  /* #aaa on white measured 2.32:1. This is 5.4:1 and still reads as the
+     unselected state next to the accent. */
+  color:#6A6158;
+}
+#bottom-nav .bnav-icon{
+  /* Nunito carries none of these glyphs, so name the symbol fonts
+     explicitly instead of letting each platform pick its own fallback. */
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",
+              "DejaVu Sans",Nunito,sans-serif;
+  font-style:normal;
+  font-size:1.25rem;
+  line-height:1;
+}
+#bottom-nav .bnav-label{
+  /* 10px -> 11.5px, the floor the QA doc sets for tab labels. */
+  font-size:11.5px;
+  font-weight:700;
+  line-height:1.15;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+/* Selected state is not colour alone (A11Y-03): the active tab also carries
+   a rule above it, which survives greyscale and bright sunlight. */
+#bottom-nav .bnav-btn.active{
+  color:#8a5200;
+  font-weight:800;
+  box-shadow:inset 0 2px 0 0 currentColor;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FILTER CHIPS — A11Y-03 and A11Y-04.
+
+   Selected state was signalled by colour alone, which disappears under
+   colour vision deficiency and in bright sun — the two conditions a parent
+   at a park is most likely to be in. Every selected chip now also carries a
+   checkmark and a 2px border, so the state survives greyscale.
+
+   Chips measured ~30px tall against a 44px minimum. Raised here rather than
+   in each page's inline block so all four pages move together.
+   ══════════════════════════════════════════════════════════════════════════ */
+body.ed-shell .city-btn,
+body.ed-shell .age-btn{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  border:2px solid transparent;
+}
+body.ed-shell .city-btn.on::before,
+body.ed-shell .age-btn.on::before,
+body.ed-shell .tab-btn.on .tab-check{
+  content:"\2713";
+  font-weight:900;
+  font-size:.85em;
+  line-height:1;
+}
+body.ed-shell .city-btn.on,
+body.ed-shell .age-btn.on{
+  border-color:currentColor;
+}
+/* The desktop category tabs get the same treatment. .tab-btn.on already
+   lifts and casts a shadow; the border is what survives a greyscale print. */
+body.ed-shell .tab-btn{border:2px solid transparent}
+body.ed-shell .tab-btn.on{border-color:rgba(0,0,0,.32)}
+
+/* Mobile city/age sheets — same rule, different markup. */
+body.ed-shell .mob-city-opt,
+body.ed-shell .mob-age-opt,
+body.ed-shell .dtcr,
+body.ed-shell .dtec{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-width:2px;
+  border-style:solid;
+}
+body.ed-shell .mob-city-opt.on::before,
+body.ed-shell .mob-age-opt.on::before,
+body.ed-shell .dtcr.on::before,
+body.ed-shell .dtec.on::before{
+  content:"\2713\00a0";
+  font-weight:900;
+}
+
+/* ── Free / Paid cost chips ─────────────────────────────────────────────
+   Members of the canonical .tab-btn set (so setTab keeps them in sync),
+   but styled as chips rather than as the big desktop category cards. The
+   .tab-btn colour rules are per-[data-tab], so they are neutralised here. */
+body.ed-shell .cost-bar{
+  display:flex;gap:8px;padding:10px 16px 0;align-items:center;
+}
+body.ed-shell .tab-btn.cost-chip{
+  flex:0 0 auto;min-width:0;max-width:none;
+  flex-direction:row;align-items:center;justify-content:center;gap:6px;
+  min-height:44px;padding:0 18px;border-radius:99px;
+  font-size:13.5px;font-weight:800;
+  background:#fff!important;color:#7A3F0D!important;
+  border:2px solid rgba(122,63,13,.28);
+  box-shadow:none;transform:none;
+}
+body.ed-shell .tab-btn.cost-chip.on{
+  background:#A8380A!important;color:#fff!important;
+  border-color:#A8380A;transform:none;box-shadow:none;
+}
+body.ed-shell .tab-btn.cost-chip.on::after{display:none}
+body.ed-shell .tab-btn.cost-chip.on .cost-check::before{content:"\2713";font-weight:900}

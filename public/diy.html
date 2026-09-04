@@ -985,10 +985,12 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
       <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220">
     </a>
     <nav class="nav" aria-label="Primary">
-      <a class="navlink" href="index.html">🏠 Home</a>
-      <a class="navlink" href="local-table/">📍 Local Table</a>
-      <a class="navlink" href="seasons/halloween/">🎃 Halloween</a>
-      <a class="navcta" href="diy.html" aria-current="page">🎨 DIY</a>
+      <!-- VIS-01 / NAV-02 — glyphs, not emoji, and hidden at the breakpoint
+           where the bottom bar takes over cross-page travel. -->
+      <a class="navlink navlink-cross" href="index.html">Home</a>
+      <a class="navlink navlink-cross" href="local-table/">Local Table</a>
+      <a class="navlink navlink-cross" href="seasons/halloween/">Halloween</a>
+      <a class="navcta" href="diy.html" aria-current="page">DIY</a>
     </nav>
   </header>
 
@@ -998,7 +1000,7 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
 
     <div class="search-wrap">
-      <span class="search-icon" aria-hidden="true">🔍</span>
+      <span class="search-icon" aria-hidden="true">&#8981;</span>
       <input id="searchInput" class="search-input" type="search" autocomplete="off"
              placeholder="Search projects, supplies, materials…"
              aria-label="Search projects" aria-describedby="countLabel">
@@ -1012,7 +1014,7 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
       <div class="fbar" id="fbar" hidden>
         <button type="button" class="fbar-seg" id="fbarAge" aria-expanded="false" aria-controls="agePills">
           <span class="fbar-l">Age</span>
-          <span class="fbar-v" id="fbarAgeVal">All Ages</span>
+          <span class="fbar-v" id="fbarAgeVal">All ages</span>
         </button>
         <span class="fbar-div" aria-hidden="true"></span>
         <button type="button" class="fbar-seg" id="fbarDiff" aria-expanded="false" aria-controls="diffPills">
@@ -1066,7 +1068,7 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
 
   <footer class="ftr">
     <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
-    <div class="ftr-note">SunScout · Bay Area Summer 2026 · Stop searching. Start playing. 🍦</div>
+    <div class="ftr-note">SunScout · Bay Area · Stop searching. Start playing.</div>
     <div class="ftr-links">
       <a href="index.html">Home</a>
       <a href="diy.html">DIY</a>
@@ -1079,24 +1081,24 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="index.html">
-        <span class="bnav-icon" aria-hidden="true">🏠</span>
+        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
         <span class="bnav-label">Home</span>
       </a>
+      <a class="bnav-btn" href="index.html#main">
+        <span class="bnav-icon" aria-hidden="true">&#9719;</span>
+        <span class="bnav-label">Camps</span>
+      </a>
       <a class="bnav-btn" href="local-table/">
-        <span class="bnav-icon" aria-hidden="true">📍</span>
+        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn active" href="diy.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">🎨</span>
+        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">🎃</span>
+        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
         <span class="bnav-label">Halloween</span>
-      </a>
-      <a class="bnav-btn" href="index.html#about">
-        <span class="bnav-icon" aria-hidden="true">ℹ️</span>
-        <span class="bnav-label">About Us</span>
       </a>
     </div>
   </nav>
@@ -1155,7 +1157,7 @@ var PROJECTS = [
 ];
 
 var AGES = [
-  { key:"all",  label:"🌟 All Ages" },
+  { key:"all",  label:"All ages" },
   { key:"0-2",  label:"👶 0–2" },
   { key:"3-5",  label:"🧸 3–5" },
   { key:"6-12", label:"🎒 6–12" },
@@ -1739,6 +1741,12 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
 /* 44px minimum on every footer tab. They were 34-38px, which is under the
    touch-target size the rest of the site is held to. */
 #bottom-nav .bnav-btn{min-height:44px;justify-content:center}
+
+/* NAV-02 — one navigation system per screen: the header's cross-page links
+   stay on desktop, where there is no bottom bar, and go on a phone. */
+@media(max-width:640px){
+  .hdr .navlink-cross{display:none}
+}
 </style>
 </body>
 </html>

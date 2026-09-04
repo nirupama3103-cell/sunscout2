@@ -36,8 +36,10 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
   const browser = await chromium.launch({
     executablePath: fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined });
 
-  /* The five tabs every page must carry, in this order. */
-  const SHARED = ['Home', 'Local Table', 'DIY', 'Halloween', 'About Us'];
+  /* The bar is now exactly these five, in this order, on every page.
+     QA finding NAV-01: seven tabs overflowed 390px and clipped the seventh
+     mid-word, so the assertion is equality, not containment. */
+  const SHARED = ['Home', 'Camps', 'Local Table', 'DIY', 'Halloween'];
   const seen = new Set();
   for (const [name, path] of PAGES) {
     for (const [label, vp] of [['mobile', { width: 390, height: 844 }],
@@ -69,13 +71,28 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
         });
         A('the footer bar is on screen', tabs !== null, true);
         if (tabs) {
-          /* Order matters: the shared five must appear in the same sequence
-             on every page, whatever else a page adds around them. */
-          A('carries the five shared tabs, in order',
-            tabs.filter(t => SHARED.includes(t)), SHARED);
+          /* Equality, not containment: no page may add a sixth tab. */
+          A('carries exactly the five shared tabs, in order', tabs, SHARED);
           const small = await page.evaluate(() => [...document.querySelectorAll('#bottom-nav .bnav-btn')]
             .filter(e => e.getBoundingClientRect().height < 44).length);
           A('every footer tab is at least 44px tall', small, 0);
+          /* NAV-01's actual complaint: the bar scrolled sideways and the
+             last tab was clipped. Five tabs must fit 390px outright. */
+          const geo = await page.evaluate(() => {
+            const items = document.querySelector('#bottom-nav .bnav-items');
+            const btns = [...document.querySelectorAll('#bottom-nav .bnav-btn')];
+            const barRight = items.getBoundingClientRect().right;
+            return { overflow: items.scrollWidth - items.clientWidth,
+                     clipped: btns.filter(b => b.getBoundingClientRect().right > barRight + 1).length };
+          });
+          A('bar does not scroll sideways at 390px', geo.overflow <= 1, true);
+          A('no tab is clipped off the right edge', geo.clipped, 0);
+          /* A11Y-01: a tab's accessible name must be the destination, not a
+             picture. Emoji in the label would be read out literally. */
+          const emojiTabs = await page.evaluate(() =>
+            [...document.querySelectorAll('#bottom-nav .bnav-label')]
+              .filter(e => /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(e.textContent)).length);
+          A('no emoji in any tab label', emojiTabs, 0);
         }
       }
       links.forEach(l => { try { const u = new URL(l.abs);
@@ -92,18 +109,28 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1800);
     await page.evaluate(() => {
-      const b = [...document.querySelectorAll('button')].find(b => b.offsetParent && /☰/.test(b.textContent));
+      const b = [...document.querySelectorAll('button')].find(b => b.offsetParent && /[\u2630\u2261]/.test(b.textContent));
       if (b) b.click();
     });
     await page.waitForTimeout(500);
     const reach = await page.evaluate(() => {
-      const txt = [...document.querySelectorAll('#bottom-nav .bnav-label, #ssMenu div')]
+      /* Free and Paid left the footer bar for the Camps tab, so the
+         canonical .tab-btn row and the drawer are what must still carry
+         them. Nothing may become unreachable on a phone. */
+      const txt = [...document.querySelectorAll(
+          '#bottom-nav .bnav-label, #ssMenu div, .tab-bar .tab-label, .cost-chip')]
         .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
       const has = w => txt.some(t => t.includes(w));
       return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),
                indoor: has('indoor'), weekend: has('weekend') };
     });
     for (const [k, v] of Object.entries(reach)) A(`${k} reachable`, v, true);
+    /* About Us left the footer bar (it was the seventh, clipped tab).
+       It must still be openable from a visible control on a phone. */
+    const aboutReachable = await page.evaluate(() =>
+      [...document.querySelectorAll('[onclick*="about-modal"]')]
+        .some(e => e.offsetParent !== null));
+    A('about reachable', aboutReachable, true);
     await page.close();
   }
 

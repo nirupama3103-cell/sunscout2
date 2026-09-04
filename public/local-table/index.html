@@ -1022,9 +1022,13 @@ html,body{background:var(--p-cream)}
       <a class="navlink" href="#lt-deals">Deals</a>
       <a class="navlink" href="#lt-pricing">List your business</a>
       <a class="navlink" href="#lt-about">About</a>
-      <a class="navlink navlink-cross" href="https://www.sunscoutkids.com/diy.html">🎨 DIY</a>
-      <a class="navlink navlink-cross" href="https://www.sunscoutkids.com/seasons/halloween/">🎃 Halloween</a>
-      <a class="navcta" href="https://www.sunscoutkids.com/">SunScout Kids →</a>
+      <!-- NAV-02 — these three duplicated the bottom bar and pushed the row
+           past 390px, clipping "Halloween" to "lloween". They are hidden at
+           the breakpoint where the bottom bar appears and kept above it,
+           because there is no bottom bar on a desktop to carry them. -->
+      <a class="navlink navlink-cross" href="/diy.html">DIY</a>
+      <a class="navlink navlink-cross" href="/seasons/halloween/">Halloween</a>
+      <a class="navcta" href="/">SunScout Kids &#8594;</a>
     </nav>
   </header>
 
@@ -1059,12 +1063,12 @@ html,body{background:var(--p-cream)}
     <div class="fbar" id="fbar" hidden>
       <button type="button" class="fbar-seg" id="fbarCity" aria-expanded="false" aria-controls="cityPills">
         <span class="fbar-l">City</span>
-        <span class="fbar-v" id="fbarCityVal">All Cities</span>
+        <span class="fbar-v" id="fbarCityVal">All cities</span>
       </button>
       <span class="fbar-div" aria-hidden="true"></span>
       <button type="button" class="fbar-seg" id="fbarSlot" aria-expanded="false" aria-controls="slotPills">
         <span class="fbar-l">When</span>
-        <span class="fbar-v" id="fbarSlotVal">All Slots</span>
+        <span class="fbar-v" id="fbarSlotVal">All slots</span>
       </button>
     </div>
     <div class="filters-in">
@@ -1128,24 +1132,24 @@ html,body{background:var(--p-cream)}
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="../index.html">
-        <span class="bnav-icon" aria-hidden="true">🏠</span>
+        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
         <span class="bnav-label">Home</span>
       </a>
+      <a class="bnav-btn" href="../index.html#main">
+        <span class="bnav-icon" aria-hidden="true">&#9719;</span>
+        <span class="bnav-label">Camps</span>
+      </a>
       <a class="bnav-btn active" href="index.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">📍</span>
+        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn" href="../diy.html">
-        <span class="bnav-icon" aria-hidden="true">🎨</span>
+        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="../seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">🎃</span>
+        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
         <span class="bnav-label">Halloween</span>
-      </a>
-      <a class="bnav-btn" href="../index.html#about">
-        <span class="bnav-icon" aria-hidden="true">ℹ️</span>
-        <span class="bnav-label">About Us</span>
       </a>
     </div>
   </nav>
@@ -1207,11 +1211,11 @@ var DEALS = [
   { id:"d14", place:"Hareli Kitchen", state:"TX", img:PHOTO.thali,       icon:"🍽", title:"Hareli Kitchen 20% off",       city:"Aubrey",    area:"Aubrey",         slot:"All day",    cuisine:"Indian",       hours:"Daily",              price:"20% off",     was:"", src:"Restaurant",   desc:"20% off orders over $10 — a low threshold, so it works for a single thali as well as a family order." }
 ];
 
-var CITIES = [{ k:"all", l:"🍽 All Cities" }, { k:"Sunnyvale", l:"☀️ Sunnyvale, CA" }, { k:"Aubrey", l:"🤠 Aubrey, TX" }];
+var CITIES = [{ k:"all", l:"All cities" }, { k:"Sunnyvale", l:"Sunnyvale, CA" }, { k:"Aubrey", l:"Aubrey, TX" }];
 /* "All day" covers the daily app and delivery promos, which have no time
    window. Keeping the axis purely about *when* - the channel lives in the
    hours field and the description. */
-var SLOTS  = ["All Slots","Lunch","Happy hour","Off-peak","Late night","All day"];
+var SLOTS  = ["All slots","Lunch","Happy hour","Off-peak","Late night","All day"];
 
 var TIERS = [
   { name:"Basic",    price:"$25",  flag:false, cta:"List your restaurant", feats:["2 active deals","Photo gallery on your listing","Included in the weekly email"] },
@@ -1245,12 +1249,12 @@ function persist(){
   try { localStorage.setItem(STORE_KEY, JSON.stringify(state.saved)); } catch(e){}
 }
 
-var state = { city:"all", slot:"All Slots", open:null, copied:false, saved:loadSaved(), expanded:false };
+var state = { city:"all", slot:"All slots", open:null, copied:false, saved:loadSaved(), expanded:false };
 
 function filtered(){
   return DEALS.filter(function(d){
     return (state.city === "all" || d.city === state.city) &&
-           (state.slot === "All Slots" || d.slot === state.slot);
+           (state.slot === "All slots" || d.slot === state.slot);
   });
 }
 /* Google Maps search link, same approach index.html uses for activities: a
@@ -1769,6 +1773,13 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
 /* 44px minimum on every footer tab. They were 34-38px, which is under the
    touch-target size the rest of the site is held to. */
 #bottom-nav .bnav-btn{min-height:44px;justify-content:center}
+
+/* NAV-02 — cross-page links stay on desktop, where there is no bottom bar,
+   and go on a phone, where the bottom bar already carries them. */
+@media(max-width:640px){
+  .hdr .navlink-cross,
+  .hdr .navcta{display:none}
+}
 </style>
 </body>
 </html>

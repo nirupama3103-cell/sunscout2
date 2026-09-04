@@ -1136,7 +1136,7 @@ body{color:var(--p-ink) !important}
 .p-foot-brand p{font-size:13.5px;font-weight:600;line-height:1.6;color:rgba(255,255,255,.62)}
 .p-foot-cols{display:flex;gap:clamp(28px,6vw,64px);flex-wrap:wrap}
 .p-foot-col{display:flex;flex-direction:column;gap:9px}
-.p-foot-col b{font-size:10.5px;font-weight:900;letter-spacing:1.4px;
+.p-foot-col b{font-size:11.5px;font-weight:900;letter-spacing:1.4px;
   text-transform:uppercase;color:rgba(255,255,255,.42)}
 .p-foot-col a{font-size:13.5px;font-weight:700;color:rgba(255,255,255,.82);cursor:pointer}
 /* Trust states what the site does rather than linking away, so its two
@@ -1187,19 +1187,33 @@ body{color:var(--p-ink) !important}
   .p-pick-title{font-size:14px}
   .p-pick-meta{font-size:12px}
 
-  /* Plan / My List: the mockup's flat dark + sun pair, not the old gradients */
+  /* VIS-03 — one primary, one secondary, no third style.
+
+     This row used to be a dark pill plus a sun pill, sized by their own
+     padding. A third button (Weekend) joined it and the row wrapped: two
+     buttons on one line and a full-width third below, which read as two
+     unrelated rows. flex:1 with min-width:0 lets all three share the row
+     and shrink; the labels are short enough to survive it at 320px.
+
+     Primary is #A8380A rather than the QA doc's #C96A12 — white on
+     #C96A12 measures 3.78:1, not the 4.8:1 the doc claims, so it would
+     have failed the same AA bar the finding was raised to meet. #A8380A
+     is the accent already in the design system and clears at 6.49:1. */
+  #ssBar > div:first-child{gap:8px !important}
   #ssBar > div:first-child button{
-    background:#1a1a1a !important;color:#fff !important;
-    border-radius:9999px !important;font-weight:900 !important;
-    padding:11px 14px !important;font-size:13px !important;
-    box-shadow:0 4px 14px rgba(0,0,0,.16) !important;
+    flex:1 1 0 !important;min-width:0 !important;
+    background:#fff !important;color:#7A3F0D !important;
+    border:2px solid rgba(122,63,13,.26) !important;
+    border-radius:9999px !important;font-weight:800 !important;
+    padding:0 10px !important;min-height:44px !important;font-size:12.5px !important;
+    box-shadow:none !important;
+    display:inline-flex !important;align-items:center !important;
+    justify-content:center !important;gap:6px !important;
+    white-space:nowrap !important;
   }
-  #ssBar > div:first-child button:last-child{
-    background:var(--p-sun) !important;
-    /* the sibling rule sets color:#fff, which on the sun fill is 2.14:1
-       against the 4.5:1 AA needs. The fill is the brand; the label moves. */
-    color:#2c1a00 !important;
-    box-shadow:0 6px 18px rgba(255,155,62,.42) !important;
+  #ssBar > div:first-child button:first-child{
+    background:#A8380A !important;color:#fff !important;
+    border-color:#A8380A !important;
   }
   /* Filter pill row */
   #ssBar .ss-pill,
@@ -1299,29 +1313,24 @@ body{color:var(--p-ink) !important}
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button><a href="/diy.html" style="background:linear-gradient(135deg,#127A3B,#0F6A33);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🛠️ DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🍽️ Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">🎃 Halloween</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">&#9636; Plan my day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">&#9825; My list</button><a href="/diy.html" style="background:linear-gradient(135deg,#127A3B,#0F6A33);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#10023; DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#10045; Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#9790; Halloween</a></div></div>
     <!-- ── PAGE SWITCHER (mobile) ──
          The pills above are hide-on-mobile, and this page's bottom bar is the
          FILTER bar, not a page nav — so on a phone there was no way to reach
          Local Table, DIY or the Halloween hub from the homepage at all. This
          row is the same four destinations, scrollable, phone only. -->
-    <nav class="ed-pages" aria-label="Other pages">
-      <a class="ed-page is-here" href="/" aria-current="page"><span aria-hidden="true">🌤️</span>Home</a>
-      <a class="ed-page" href="/local-table/"><span aria-hidden="true">📍</span>Local Table</a>
-      <a class="ed-page" href="/diy.html"><span aria-hidden="true">🎨</span>DIY</a>
-      <a class="ed-page" href="/seasons/halloween/"><span aria-hidden="true">🎃</span>Halloween</a>
-    </nav>
+    <!-- NAV-02: page pill row removed; the bottom bar carries these. -->
     <div class="hero-sub" style="margin-bottom:12px;text-align:left;padding:0 4px;">South Bay Kids Activities: Budget-Friendly &amp; Premium Fun Near You</div>
 
     <!-- ══ PREMIUM HERO ══ -->
     <div class="p-hero-inner">
       <div class="p-hero-grid">
         <div class="p-hero-main">
-          <div class="p-badge"><span>⏳</span><span id="pHeroBadge">Summer 2026 · Bay Area</span></div>
-          <h1 class="p-h1"><span id="heroLine1">Your summer,</span><br><span id="heroLine2">already planned.</span></h1>
-          <p class="p-lede" id="heroSub">Splash pads, storytimes and standout camps across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
+          <div class="p-badge"><span aria-hidden="true">&#9670;</span><span id="pHeroBadge">Fall 2026 · Bay Area</span></div>
+          <h1 class="p-h1"><span id="heroLine1">Your fall,</span><br><span id="heroLine2">already planned.</span></h1>
+          <p class="p-lede" id="heroSub">Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
-            <div class="p-stat"><b id="pStatCount">—</b><span>Activities live</span></div>
+            <div class="p-stat"><b id="pStatCount">320+</b><span>Activities live</span></div>
             <div class="p-stat-rule"></div>
             <div class="p-stat"><b>7</b><span>Cities covered</span></div>
             <div class="p-stat-rule"></div>
@@ -1332,14 +1341,14 @@ body{color:var(--p-ink) !important}
           <div class="p-wcard">
             <div>
               <div class="p-wlabel" id="pWCity">Sunnyvale now</div>
-              <div class="p-wtemp" id="pWTemp">—</div>
-              <div class="p-wnote" id="pWNote">Checking the sky…</div>
+              <div class="p-wtemp" id="pWTemp"></div>
+              <div class="p-wnote" id="pWNote">Today in Sunnyvale</div>
             </div>
             <div class="p-wicon" id="pWIcon">🌤️</div>
           </div>
           <div class="p-pick">
             <span class="p-wlabel">Today&rsquo;s pick</span>
-            <div class="p-pick-title" id="pPickTitle">Loading a pick…</div>
+            <div class="p-pick-title" id="pPickTitle">See what&rsquo;s on today</div>
             <div class="p-pick-meta" id="pPickMeta">&nbsp;</div>
           </div>
         </aside>
@@ -1369,13 +1378,13 @@ body{color:var(--p-ink) !important}
           <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
             <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;letter-spacing:.06em;">📍 CITIES</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtcr" style="color:#c05e00;background:#FFFBEE;border:0.5px solid #FFD580;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Sunnyvale',event)">☀️ Sunnyvale</div>
-              <div class="dtcr" style="color:#1d4ed8;background:#EFF6FF;border:0.5px solid #93c5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('San Jose',event)">🌉 San Jose</div>
-              <div class="dtcr" style="color:#991b1b;background:#FFF5F5;border:0.5px solid #fca5a5;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Cupertino',event)">🍎 Cupertino</div>
-              <div class="dtcr" style="color:#15803d;background:#F0FDF4;border:0.5px solid #86efac;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Mountain View',event)">🏔️ Mtn View</div>
-              <div class="dtcr" style="color:#6d28d9;background:#F5F3FF;border:0.5px solid #c4b5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Palo Alto',event)">🎓 Palo Alto</div>
-              <div class="dtcr" style="color:#0369a1;background:#F0F9FF;border:0.5px solid #7dd3fc;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Saratoga',event)">🌸 Saratoga</div>
-              <div class="dtcr" style="color:#b45309;background:#FFFBEB;border:0.5px solid #fcd34d;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;grid-column:span 2;" onclick="dtC('Fremont',event)">🌉 Fremont</div>
+              <div class="dtcr" style="color:#c05e00;background:#FFFBEE;border:0.5px solid #FFD580;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Sunnyvale',event)">Sunnyvale</div>
+              <div class="dtcr" style="color:#1d4ed8;background:#EFF6FF;border:0.5px solid #93c5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('San Jose',event)">San Jose</div>
+              <div class="dtcr" style="color:#991b1b;background:#FFF5F5;border:0.5px solid #fca5a5;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Cupertino',event)">Cupertino</div>
+              <div class="dtcr" style="color:#15803d;background:#F0FDF4;border:0.5px solid #86efac;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Mountain View',event)">Mountain View</div>
+              <div class="dtcr" style="color:#6d28d9;background:#F5F3FF;border:0.5px solid #c4b5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Palo Alto',event)">Palo Alto</div>
+              <div class="dtcr" style="color:#0369a1;background:#F0F9FF;border:0.5px solid #7dd3fc;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Saratoga',event)">Saratoga</div>
+              <div class="dtcr" style="color:#b45309;background:#FFFBEB;border:0.5px solid #fcd34d;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;grid-column:span 2;" onclick="dtC('Fremont',event)">Fremont</div>
             </div>
           </div>
         </div>
@@ -1389,8 +1398,8 @@ body{color:var(--p-ink) !important}
               <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtE('paid','Paid',event)">Paid</div>
               <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtE('outdoor','Outdoor',event)">Outdoor</div>
               <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtE('indoor','Indoor',event)">Indoor</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;" onclick="dtE('weekend','Weekend',event)">📅 Weekend</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FF9900;" onclick="dtE('surprise','Surprise',event)">🎲 Surprise</div>
+              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;" onclick="dtE('weekend','Weekend',event)">Weekend</div>
+              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FF9900;" onclick="dtE('surprise','Surprise',event)">&#10022; Surprise</div>
             </div>
           </div>
         </div>
@@ -1400,27 +1409,27 @@ body{color:var(--p-ink) !important}
           <div id="dtAV" style="font-size:13px;font-weight:700;color:#6B6157;">All ages</div>
           <div id="dtAD" style="display:none;position:fixed;top:160px;right:calc(50% - 360px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All Ages</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtA('0','0-2',event)">👶 0–2</div>
-              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtA('1','3-5',event)">🧸 3–5</div>
-              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtA('2','6-12',event)">🎒 6–12</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;grid-column:span 2;" onclick="dtA('3','Teen',event)">🛹 Teen 13–19</div>
+              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All ages</div>
+              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtA('0','0-2',event)">0–2</div>
+              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtA('1','3-5',event)">3–5</div>
+              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtA('2','6-12',event)">6–12</div>
+              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;grid-column:span 2;" onclick="dtA('3','Teen',event)">Teen 13–19</div>
             </div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;margin:auto 8px auto 0;flex-shrink:0;">
-          <button onclick="dtSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;">🔍</button><button onclick="document.getElementById('about-modal').style.display='flex'" id="topbarAboutBtn" title="About SunScout" style="background:linear-gradient(135deg,#FF9900,#ff6b35);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">🌤️</button><div style="position:relative;">
-            <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">☰</button>
+          <button onclick="dtSearch()" aria-label="Search activities" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;">&#8981;</button><button onclick="document.getElementById('about-modal').style.display='flex'" id="topbarAboutBtn" title="About SunScout" aria-label="About SunScout" style="background:linear-gradient(135deg,#FF9900,#ff6b35);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">🌤️</button><div style="position:relative;">
+            <button onclick="toggleSsMenu(event)" aria-label="Menu" style="background:#1a1a1a;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">&#8801;</button>
             <div id="ssMenuDesktop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;">
-              <div class="dtmr" onclick="openPlan();toggleSsMenu(event)">📅 Plan My Day</div>
+              <div class="dtmr" onclick="openPlan();toggleSsMenu(event)">&#9636; Plan my day</div>
               <div class="dtmr" onclick="floatWeekend();toggleSsMenu(event)" style="color:#6d28d9;">📅 Weekend</div>
-              <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">🎲 Surprise</div>
+              <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">&#10022; Surprise</div>
               
-              <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">❤️ My List</div>
-              <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">📝 Notes</div>
-              <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">🛠️ DIY Projects</div>
-              <div class="dtmr" onclick="window.location.href='/local-table/';toggleSsMenu(event)" style="color:#C6633B;">🍽️ Local Table Deals</div>
-              <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">🌤️ About</div>
+              <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">&#9825; My list</div>
+              <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">&#9998; Notes</div>
+              <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">&#10023; DIY projects</div>
+              <div class="dtmr" onclick="window.location.href='/local-table/';toggleSsMenu(event)" style="color:#C6633B;">&#10045; Local Table</div>
+              <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">&#9678; About</div>
             </div>
           </div>
         </div>
@@ -1471,17 +1480,14 @@ body{color:var(--p-ink) !important}
 
 <div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
-    <button onclick="openPlan()" style="flex:1;background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
-    <button onclick="openMyList()" style="flex:1;background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
-    <button onclick="floatWeekend()" style="flex:1;background:linear-gradient(135deg,#4FC3F7,#1565c0);color:#fff;border:none;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Weekend</button>
+    <button onclick="openPlan()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#A8380A;color:#fff;border:2px solid #A8380A;">&#9636; Plan my day</button>
+    <button onclick="openMyList()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#fff;color:#7A3F0D;border:2px solid rgba(122,63,13,.28);">&#9825; My list</button>
+    <button onclick="floatWeekend()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#fff;color:#7A3F0D;border:2px solid rgba(122,63,13,.28);">&#9638; Weekend</button>
   </div>
     <!-- removed: a second, display:none #ssChip. Duplicate ids meant
        getElementById("ssChip") returned this hidden one, so every weather
        update wrote to an element nobody could see. -->
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:8px;display:none!important;">
-    <button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">📅 Plan My Day</button>
-    <button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">❤️ My List</button>
-  </div>
+  <!-- NAV-03: removed a hidden duplicate of the Plan / My list pair. -->
   <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
     <div onclick="weatherChipClick()" style="flex:0 0 auto;padding:6px 10px 6px 14px;cursor:pointer;border-radius:99px 0 0 99px;display:flex;align-items:center;min-width:0;" title="Weather">
       <span id="ssWeatherLabel" style="font-size:11px;font-weight:700;color:#A85200;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;display:block;">🌤️ Weather</span>
@@ -1510,10 +1516,10 @@ body{color:var(--p-ink) !important}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">🆓 Free</div>
           <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">💰 Paid</div>
-          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">🌳 Outdoor</div>
-          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">🏛️ Indoor</div>
+          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">&#10020; Outdoor</div>
+          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">&#9635; Indoor</div>
           <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">📅 Weekend</div>
-          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">🎲 Surprise</div>
+          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
         </div>
       </div>
     </div>
@@ -1524,7 +1530,7 @@ body{color:var(--p-ink) !important}
       <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All</div>
+          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All ages</div>
           <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">👶 0–2</div>
           <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">🧸 3–5</div>
           <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">🎒 6–12</div>
@@ -1532,22 +1538,22 @@ body{color:var(--p-ink) !important}
         </div>
       </div>
     </div>
-    <button onclick="ssSearch()" style="background:#FF9900;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin:auto 2px auto 0;" aria-label="Search">🔍</button>
+    <button onclick="ssSearch()" aria-label="Search activities" style="background:#FF9900;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin:auto 2px auto 0;" aria-label="Search">&#8981;</button>
     <div style="position:relative;flex-shrink:0;margin:auto 5px auto 0;">
-      <button onclick="toggleSsMenu(event)" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">☰</button>
+      <button onclick="toggleSsMenu(event)" aria-label="Menu" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">&#8801;</button>
       <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;font-family:Nunito,sans-serif;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
-        <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">📅 Plan My Day</div>
-        <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">📅 Weekend Mode</div>
-        <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">🎲 Surprise Me!</div>
+        <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">&#9636; Plan my day</div>
+        <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">&#9638; Weekend</div>
+        <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">&#10022; Surprise</div>
         <!-- Outdoor and Indoor moved here when the footer tabs became page
              tabs. On a phone the bottom bar was their only route, and the
              Explore segment of the search bar is desktop-only. -->
-        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;outdoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#15803d;" onmouseover="this.style.background='#F0FDF4'" onmouseout="this.style.background='none'">🌳 Outdoor</div>
-        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;indoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1d4ed8;" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">🏛️ Indoor</div>
-        <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">❤️ My List</div>
-        <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">📝 Notes</div>
-        <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">🌤️ About</div>
+        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;outdoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#15803d;" onmouseover="this.style.background='#F0FDF4'" onmouseout="this.style.background='none'">&#10020; Outdoor</div>
+        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;indoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1d4ed8;" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">&#9635; Indoor</div>
+        <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">&#9825; My list</div>
+        <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">&#9998; Notes</div>
+        <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">&#9678; About</div>
       </div>
     </div>
   </div>
@@ -1582,9 +1588,9 @@ body{color:var(--p-ink) !important}
 </style>
 
 <div class="header" style="display:none">
-  <div class="logo"><picture><source srcset="/sun-logo.webp" type="image/webp"><img src="/sun-logo.png" alt="SunScout" width="440" height="240" loading="lazy" decoding="async" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></picture></div>
+  <div class="logo"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout" width="230" height="220" loading="lazy" decoding="async" style="height:110px;width:auto;object-fit:contain;display:block;margin:0 auto;" /></picture></div>
   <p class="tagline">Your go-to guide for Bay Area family fun — free and budget-friendly picks</p>
-  <div class="countdown" id="countdown">⏳ Loading...</div>
+  <div class="countdown" id="countdown"></div>
 </div>
 
 
@@ -1610,13 +1616,13 @@ body{color:var(--p-ink) !important}
       <div id="mob-dd-city" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:260px;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:8px;">SELECT CITY</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">☀️ Sunnyvale</div>
-          <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">🏙️ San Jose</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Cupertino',event)">🍎 Cupertino</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Mountain View',event)">⛰️ Mtn View</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Palo Alto',event)">🎓 Palo Alto</div>
-          <div class="mob-city-opt" onclick="mobSelCity('Saratoga',event)">🌲 Saratoga</div>
-          <div class="mob-city-opt" style="grid-column:span 2;" onclick="mobSelCity('Fremont',event)">🌉 Fremont</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Sunnyvale',event)">Sunnyvale</div>
+          <div class="mob-city-opt" onclick="mobSelCity('San Jose',event)">San Jose</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Cupertino',event)">Cupertino</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Mountain View',event)">Mountain View</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Palo Alto',event)">Palo Alto</div>
+          <div class="mob-city-opt" onclick="mobSelCity('Saratoga',event)">Saratoga</div>
+          <div class="mob-city-opt" style="grid-column:span 2;" onclick="mobSelCity('Fremont',event)">Fremont</div>
         </div>
       </div>
     </div>
@@ -1629,17 +1635,17 @@ body{color:var(--p-ink) !important}
       <div id="mob-dd-age" style="display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:0 -4px 32px rgba(0,0,0,.16);z-index:99999;padding:10px;min-width:220px;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:8px;">YOUR KID'S AGE</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All</div>
-          <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">👶 0–2</div>
-          <div class="mob-age-opt" onclick="mobSelAge('1','3–5',event)">🧸 3–5</div>
-          <div class="mob-age-opt" onclick="mobSelAge('2','6–12',event)">🎒 6–12</div>
-          <div class="mob-age-opt" style="grid-column:span 2;" onclick="mobSelAge('3','Teen',event)">🛹 Teen 13–19</div>
+          <div class="mob-age-opt" onclick="mobSelAge('all','All ages',event)">⭐ All ages</div>
+          <div class="mob-age-opt" onclick="mobSelAge('0','0–2',event)">0–2</div>
+          <div class="mob-age-opt" onclick="mobSelAge('1','3–5',event)">3–5</div>
+          <div class="mob-age-opt" onclick="mobSelAge('2','6–12',event)">6–12</div>
+          <div class="mob-age-opt" style="grid-column:span 2;" onclick="mobSelAge('3','Teen 13–19',event)">Teen 13–19</div>
         </div>
       </div>
     </div>
 
     <!-- SEARCH button -->
-    <button onclick="mobSearch()" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;margin:auto 6px auto 4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px;" aria-label="Search">🔍</button>
+    <button onclick="mobSearch()" aria-label="Search activities" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;margin:auto 6px auto 4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:16px;" aria-label="Search">&#8981;</button>
   </div>
 </div>
 
@@ -1719,39 +1725,39 @@ function mobSearch() {
 <p class="city-fact" id="cityFact"></p>
 
 <nav class="city-bar" aria-label="Select city">
-  <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">☀️ Sunnyvale</button>
-  <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">🌉 San Jose</button>
-  <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">🍎 Cupertino</button>
-  <button class="city-btn"    data-city="Mountain View" onclick="setCity(this)">🏔️ Mountain View</button>
-  <button class="city-btn"    data-city="Palo Alto"     onclick="setCity(this)">🎓 Palo Alto</button>
-  <button class="city-btn"    data-city="Saratoga"      onclick="setCity(this)">🌸 Saratoga</button>
-  <button class="city-btn"    data-city="Fremont"       onclick="setCity(this)">🌉 Fremont</button>
+  <button class="city-btn on" data-city="Sunnyvale"     onclick="setCity(this)">Sunnyvale</button>
+  <button class="city-btn"    data-city="San Jose"      onclick="setCity(this)">San Jose</button>
+  <button class="city-btn"    data-city="Cupertino"     onclick="setCity(this)">Cupertino</button>
+  <button class="city-btn"    data-city="Mountain View" onclick="setCity(this)">Mountain View</button>
+  <button class="city-btn"    data-city="Palo Alto"     onclick="setCity(this)">Palo Alto</button>
+  <button class="city-btn"    data-city="Saratoga"      onclick="setCity(this)">Saratoga</button>
+  <button class="city-btn"    data-city="Fremont"       onclick="setCity(this)">Fremont</button>
 </nav>
 
 <div class="tab-bar" role="tablist" aria-label="Activity categories">
   <button class="tab-btn on" data-tab="free" role="tab" aria-selected="true" onclick="setTab(this)">
     <span class="tab-free-dot">$0</span>
-    <span class="tab-icon">🆓</span>
-    <span class="tab-label" id="tabLabel-free">Free Summer Activities</span>
-    <span class="tab-sub" id="tabSub-free">Parks · Libraries · Splash Pads</span><span class="tab-count-badge" id="badge-free"></span>
+    <span class="tab-icon" aria-hidden="true">&#9671;</span>
+    <span class="tab-label" id="tabLabel-free">Free Fall Activities</span>
+    <span class="tab-sub" id="tabSub-free">Parks · Libraries · Harvest Fun</span><span class="tab-count-badge" id="badge-free"></span>
   </button>
   <button class="tab-btn" data-tab="paid" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🎟️</span>
-    <span class="tab-label" id="tabLabel-paid">Paid Summer Activities</span>
-    <span class="tab-sub" id="tabSub-paid">YMCA · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
+    <span class="tab-icon" aria-hidden="true">&#9670;</span>
+    <span class="tab-label" id="tabLabel-paid">Fall Classes &amp; Camps</span>
+    <span class="tab-sub" id="tabSub-paid">Fall Break · STEM · Cooking</span><span class="tab-count-badge" id="badge-paid"></span>
   </button>
   <button class="tab-btn" data-tab="indoor" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🏛️</span>
+    <span class="tab-icon" aria-hidden="true">&#9635;</span>
     <span class="tab-label" id="tabLabel-indoor">Indoor Activities</span>
     <span class="tab-sub" id="tabSub-indoor">Museums · Pools · Workshops</span><span class="tab-count-badge" id="badge-indoor"></span>
   </button>
   <button class="tab-btn" data-tab="outdoor" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">🌳</span>
+    <span class="tab-icon" aria-hidden="true">&#10020;</span>
     <span class="tab-label" id="tabLabel-outdoor">Outdoor Activities</span>
-    <span class="tab-sub" id="tabSub-outdoor">Hiking · Petting Zoos · Farms</span><span class="tab-count-badge" id="badge-outdoor"></span>
+    <span class="tab-sub" id="tabSub-outdoor">Pumpkin Patches · Farms · Trails</span><span class="tab-count-badge" id="badge-outdoor"></span>
   </button>
   <button class="tab-btn" data-tab="weekend" role="tab" aria-selected="false" onclick="setTab(this)">
-    <span class="tab-icon">📅</span>
+    <span class="tab-icon" aria-hidden="true">&#9638;</span>
     <span class="tab-label" id="tabLabel-weekend">Weekend Activities</span>
     <span class="tab-sub" id="tabSub-weekend">Sat &amp; Sun only</span><span class="tab-count-badge" id="badge-weekend"></span>
   </button>
@@ -1759,15 +1765,15 @@ function mobSearch() {
 
 <!-- ── FIX 1: Desktop action bar — Plan Day + My List (hidden on mobile via CSS) ── -->
 <div class="action-bar" style="display:none">
-  <button class="action-bar-plan" onclick="openPlan()">📅 Plan My Day</button>
+  <button class="action-bar-plan" onclick="openPlan()">&#9636; Plan my day</button>
   <button class="action-bar-mylist" id="desktopMyListBtn" onclick="openMyList()">
-    ❤️ My List
+    &#9825; My list
     <span class="action-bar-badge" id="desktopMyListBadge"></span>
   </button>
 </div>
 
 <div class="search-wrap" style="display:none">
-  <span class="search-icon">🔍</span>
+  <span class="search-icon" aria-hidden="true">&#8981;</span>
   <input type="search" id="searchInput" class="search-input" style="display:none"
     placeholder="Search park, swimming, library, splash pad…"
     aria-label="Search activities"
@@ -1776,11 +1782,28 @@ function mobSearch() {
 </div>
 
 <div id="filterStrip" style="display:none;flex-wrap:wrap;gap:8px;padding:8px 16px 0;align-items:center"></div>
+<!-- Free / Paid moved off the footer bar when it went to five tabs. On a
+     phone the bar was their only route (.tab-bar is hidden below 768px), so
+     they live here instead, directly above the age filters and above the
+     grid they filter.
+
+     These are real members of the canonical .tab-btn set, so setTab() keeps
+     them in sync with every other filter surface on its own — no new
+     wiring. A11Y-03: the selected one carries a checkmark and a border, not
+     just a colour. -->
+<div class="cost-bar" role="group" aria-label="Filter by cost">
+  <button class="tab-btn cost-chip on" data-tab="free" onclick="setTab(this)">
+    <span class="cost-check" aria-hidden="true"></span>Free
+  </button>
+  <button class="tab-btn cost-chip" data-tab="paid" onclick="setTab(this)">
+    <span class="cost-check" aria-hidden="true"></span>Paid
+  </button>
+</div>
 <div class="age-bar" role="group" aria-label="Filter by age">
-  <button class="age-btn" data-age="0" onclick="setAge(this)">👶 0–2 <span class="age-desc">Infant/Toddler</span></button>
-  <button class="age-btn" data-age="1" onclick="setAge(this)">🧸 3–5 <span class="age-desc">Preschool</span></button>
-  <button class="age-btn" data-age="2" onclick="setAge(this)">🎒 6–12 <span class="age-desc">School Age</span></button>
-  <button class="age-btn" data-age="3" onclick="setAge(this)">🛹 Teen <span class="age-desc">13–19</span></button>
+  <button class="age-btn" data-age="0" onclick="setAge(this)">0–2 <span class="age-desc">Infant/Toddler</span></button>
+  <button class="age-btn" data-age="1" onclick="setAge(this)">3–5 <span class="age-desc">Preschool</span></button>
+  <button class="age-btn" data-age="2" onclick="setAge(this)">6–12 <span class="age-desc">School Age</span></button>
+  <button class="age-btn" data-age="3" onclick="setAge(this)">Teen <span class="age-desc">13–19</span></button>
 </div>
 
 <!-- Styling scope for the editorial card system — see /css/editorial.css.
@@ -1797,7 +1820,7 @@ function mobSearch() {
 <main id="main">
   <div class="grid" id="grid"></div>
   <div class="show-more-wrap" id="showMoreWrap" style="display:none">
-    <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show more activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">🌤️ About SunScout</button>
+    <button class="show-more-btn" id="showMoreBtn" onclick="showMore()">Show more activities ↓</button> <button class="show-more-btn" id="footerAboutBtn" onclick="document.getElementById('about-modal').style.display='flex'">&#9678; About SunScout</button>
   </div>
 </main>
 </div>
@@ -1844,7 +1867,7 @@ function mobSearch() {
     </nav>
   </div>
   <div class="p-foot-fine">
-    <span id="footSeasonBadge">Bay Area Summer 2026</span>
+    <span id="footSeasonBadge">Bay Area Fall 2026</span>
     <span>🔄 Refreshes every 10 minutes · Last updated <span id="lastUpdated">now</span></span>
   </div>
 </div>
@@ -2109,7 +2132,7 @@ function getCardHTML(a) {
 function wBtn(fn, label) {
   return "<button onclick=\""+fn+"\" style=\"margin-left:10px;padding:4px 14px;border-radius:99px;border:none;background:rgba(255,255,255,0.3);color:#fff;font-weight:800;cursor:pointer\">"+label+"</button>";
 }
-/* Programmatic tab change (weather auto-switch, Surprise Me, banner CTAs).
+/* Programmatic tab change (weather auto-switch, Surprise, banner CTAs).
    Flagged so setTab() can tell it apart from a human clicking a tab. */
 var _programmaticTab = false;
 function goTab(name) {
@@ -2448,7 +2471,7 @@ function applyWeatherState(d, t, city) {
     } else if (t >= 56) {
       var s = ["🎪 Try something new!","🎨 Art adventure day!","🚴 Explore somewhere new!","🎭 Surprise the kids!"];
       bg  = "linear-gradient(135deg,#43cea2,#185a9d)";
-      msg = "<strong>"+s[Math.floor(Math.random()*s.length)]+"</strong>"+wBtn("surpriseMe()","✨ Surprise Me →");
+      msg = "<strong>"+s[Math.floor(Math.random()*s.length)]+"</strong>"+wBtn("surpriseMe()","✨ Surprise →");
     } else {
       bg  = "linear-gradient(135deg,#2980b9,#6dd5fa)";
       msg = "🧥 <strong>Cool day</strong> — great for indoor fun."+wBtn("goTab('indoor')","🏛️ Go Indoor →");
@@ -2997,7 +3020,7 @@ function syncBnav(tab) {
     <button onclick="closeMyList()" style="background:#f0f0f0;border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer">✕</button>
   </div>
   <div id="mylist-items"></div>
-  <div id="mylist-empty" style="text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:700"><div style="font-size:3rem;margin-bottom:10px">💛</div>Tap ❤️ on any activity card to save it here!</div>
+  <div id="mylist-empty" style="text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:700"><div style="font-size:3rem;margin-bottom:10px">💛</div>Nothing saved yet. Tap the heart on any activity.</div>
 </div>
 <div id="mylist-overlay" onclick="closeMyList()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:99997;background:rgba(0,0,0,0.3)"></div>
 
@@ -3062,7 +3085,7 @@ function syncBnav(tab) {
      than at the end because at 390px only the first four are visible without
      scrolling, and on this page filtering is the primary action.
 
-     Outdoor, Indoor and Weekend Plan left this bar. They are NOT stranded:
+     Outdoor, Indoor and Weekend left this bar. They are NOT stranded:
      Weekend was already in the ☰ menu, and Outdoor and Indoor are added to
      it in this change. On a phone this bar was their only route, so removing
      them without that would have made two of the five canonical tabs
@@ -3070,33 +3093,25 @@ function syncBnav(tab) {
 <nav id="bottom-nav" aria-label="Site sections">
   <div class="bnav-items">
     <a class="bnav-btn active" href="/" aria-current="page">
-      <span class="bnav-icon" aria-hidden="true">🏠</span>
+      <span class="bnav-icon" aria-hidden="true">&#8962;</span>
       <span class="bnav-label">Home</span>
     </a>
     <button class="bnav-btn" onclick="bnavTab('free',this)">
-      <span class="bnav-icon" aria-hidden="true">🆓</span>
-      <span class="bnav-label">Free Camps</span>
-    </button>
-    <button class="bnav-btn" onclick="bnavTab('paid',this)">
-      <span class="bnav-icon" aria-hidden="true">🎟️</span>
-      <span class="bnav-label">Paid Camps</span>
+      <span class="bnav-icon" aria-hidden="true">&#9719;</span>
+      <span class="bnav-label">Camps</span>
     </button>
     <a class="bnav-btn" href="/local-table/">
-      <span class="bnav-icon" aria-hidden="true">📍</span>
+      <span class="bnav-icon" aria-hidden="true">&#10045;</span>
       <span class="bnav-label">Local Table</span>
     </a>
     <a class="bnav-btn" href="/diy.html">
-      <span class="bnav-icon" aria-hidden="true">🎨</span>
+      <span class="bnav-icon" aria-hidden="true">&#10023;</span>
       <span class="bnav-label">DIY</span>
     </a>
     <a class="bnav-btn" href="/seasons/halloween/">
-      <span class="bnav-icon" aria-hidden="true">🎃</span>
+      <span class="bnav-icon" aria-hidden="true">&#9790;</span>
       <span class="bnav-label">Halloween</span>
     </a>
-    <button class="bnav-btn" onclick="document.getElementById('about-modal').style.display='flex'">
-      <span class="bnav-icon" aria-hidden="true">ℹ️</span>
-      <span class="bnav-label">About Us</span>
-    </button>
   </div>
 </nav>
 
@@ -3119,7 +3134,7 @@ function syncBnav(tab) {
     <div style="display:flex;border-bottom:2px solid #f0f0f0;flex-shrink:0;padding:0 16px;">
       <button id="tab-btn-notes" onclick="switchTab('notes')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid #6366f1;color:#6366f1;">📝 Notes</button>
       <button id="tab-btn-calendar" onclick="switchTab('calendar')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">📅 Calendar</button>
-      <button id="tab-btn-mylist" onclick="switchTab('mylist')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">❤️ My List</button>
+      <button id="tab-btn-mylist" onclick="switchTab('mylist')" style="flex:1;padding:10px 4px;border:none;background:none;font-family:Nunito,sans-serif;font-weight:800;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;color:#aaa;">&#9825; My list</button>
     </div>
 
     <!-- Tab Content -->
@@ -3128,7 +3143,7 @@ function syncBnav(tab) {
       <!-- NOTES TAB -->
       <div id="tab-notes">
         <p style="color:#888;font-size:13px;margin:0 0 10px;">General notes, reminders, ideas...</p>
-        <input type="search" id="notes-search" placeholder="🔍 Search your notes…" 
+        <input type="search" id="notes-search" placeholder="Search your notes…" 
   style="width:100%;padding:8px 14px;border-radius:99px;border:1.5px solid #e0e7ff;font-family:Nunito,sans-serif;font-size:13px;margin-bottom:10px;outline:none;box-sizing:border-box;"
   oninput="filterNotes(this.value)"/>
 <textarea id="notepad-general" placeholder="Write your notes here…" style="width:100%;height:110px;border:2px solid #e0e7ff;border-radius:12px;padding:12px;font-family:Nunito,sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box;"></textarea>
@@ -3267,7 +3282,7 @@ function renderPlannerCalendar() {
 function renderMyListTab() {
   var myList=JSON.parse(localStorage.getItem('sunscout_mylist')||'[]');
   var div=document.getElementById('mylist-content');
-  if(myList.length===0){ div.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:20px 0;">No saved activities yet.<br>Tap ❤️ on any activity to save it!</p>'; return; }
+  if(myList.length===0){ div.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:20px 0;">Nothing saved yet.<br>Tap the heart on any activity.</p>'; return; }
   var h='<p style="color:#888;font-size:13px;margin:0 0 12px;">'+myList.length+' saved activit'+(myList.length===1?'y':'ies')+'</p>';
   for(var i=0;i<myList.length;i++){
     var a=myList[i]; var dateKey='sunscout_date_'+i; var savedDate=localStorage.getItem(dateKey)||''; var noteKey='sunscout_anote_'+i; var note=localStorage.getItem(noteKey)||'';
@@ -3603,7 +3618,7 @@ function weatherChipClick() {
 
 <!-- Floating Plan My Day + My List pill (mobile) -->
 <div id="float-pill">
-  <button class="fp-plan" onclick="openPlan()">📅 Plan My Day</button>
+  <button class="fp-plan" onclick="openPlan()">&#9636; Plan my day</button>
   <button class="fp-list" onclick="openMyList()">❤️ My List<span id="float-pill-badge"></span></button>
 </div>
 
