@@ -175,8 +175,14 @@ body.ed-shell .hero{
   --ed-pad-x:clamp(22px,3.5vw,48px);
   /* A sunset panel, not an ink one. Every colour here is light, so the hero
      text is dark: white on this would be 1.5:1. */
+  /* Translucent, so the autumn backdrop reads through the hero instead of
+     being sealed under it. The tint is still heavy enough that the dark
+     hero text sits on a near-flat ground rather than on photograph — the
+     contrast gate measures this at 390 and 1440 and would fail it
+     otherwise. */
   background:linear-gradient(135deg,
-    #FFE7C9 0%, #FFD6AE 36%, #FBD9CE 62%, #DCEAF7 100%)!important;
+    rgba(255,231,201,.88) 0%, rgba(255,214,174,.84) 36%,
+    rgba(251,217,206,.82) 62%, rgba(220,234,247,.88) 100%)!important;
   border:1px solid #F3DCC0;
   border-radius:20px;
   margin:6px 16px 0;
@@ -570,3 +576,79 @@ body.ed-shell .tab-btn.cost-chip.on{
 }
 body.ed-shell .tab-btn.cost-chip.on::after{display:none}
 body.ed-shell .tab-btn.cost-chip.on .cost-check::before{content:"\2713";font-weight:900}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PAGE BACKDROP — the autumn river behind home, Local Table and DIY.
+
+   Same construction as the Halloween hub's haunted house: a position:fixed
+   layer, NOT background-attachment:fixed, which janks badly on iOS Safari.
+
+   The photograph sits at low opacity over the sunset gradient rather than
+   replacing it, so the ground stays the warm orange-and-sky the brand asks
+   for and the scene reads as texture in the margins. That is deliberate and
+   not timidity: every page here puts dark text straight onto this ground,
+   and a photograph at full strength gives contrast that varies pixel to
+   pixel — the exact defect A11Y-02 was raised against on the Halloween
+   hero. The card grid stays legible because it sits on white cards above
+   this layer.
+
+   z-index:-1 keeps it behind everything in normal flow while still painting
+   over body's own background.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* Why body's background is cleared here.
+
+   index.html carries `html,body{background:...!important}`. The root
+   element's background paints first, but BODY's background is an ordinary
+   block background, and block backgrounds paint ABOVE negative-z-index
+   children of the root stacking context. So while both carried the ground,
+   this layer was painted and then covered — at any opacity, including 1.
+   html keeps the ground; body must not repaint it. Specificity, not order,
+   is what beats the !important rule: 0,1,1 against its 0,0,1. */
+body.ss-bg{
+  background-image:none!important;
+  background-color:transparent!important;
+}
+/* Local Table and DIY wrap their content in an opaque .page, which covered
+   the layer just as body's background did. Cards and panels inside keep
+   their own grounds, so clearing this one costs no contrast — the gate
+   checks all four pages at both widths. */
+body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
+.ss-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  /* Two layers, top first: the sunset tint that keeps text legible, then
+     the photograph under it. Putting the tint here rather than on body is
+     what lets the photograph be seen at all. */
+  background-image:
+    linear-gradient(180deg,
+      rgba(255,246,236,.80) 0%, rgba(255,237,217,.76) 12%, rgba(255,221,190,.72) 32%,
+      rgba(253,227,208,.74) 56%, rgba(237,242,250,.80) 82%, rgba(233,242,251,.84) 100%),
+    image-set(
+      url("/images/seasonal/autumn-river.webp") type("image/webp"),
+      url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
+  background-repeat:no-repeat,no-repeat;
+  background-position:center,center 28%;
+  background-size:100% 100%,cover;
+}
+@media(max-width:700px){
+  /* A portrait viewport shows a thin vertical slice of the wide crop, which
+     is mostly water. The tall crop keeps the maple and the river. */
+  .ss-backdrop{
+    background-image:
+      linear-gradient(180deg,
+        rgba(255,246,236,.84) 0%, rgba(255,237,217,.80) 12%, rgba(255,221,190,.76) 32%,
+        rgba(253,227,208,.78) 56%, rgba(237,242,250,.84) 82%, rgba(233,242,251,.88) 100%),
+      image-set(
+        url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
+        url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
+    background-position:center,center top;
+  }
+}
+/* Do not spend a visitor's data on decoration they have asked us not to
+   send. Same rule the Halloween backdrop follows. */
+@media(prefers-reduced-data:reduce){
+  /* Drop the photograph, keep the ground — body no longer paints one. */
+  .ss-backdrop{background-image:var(--ed-sunset)}
+}

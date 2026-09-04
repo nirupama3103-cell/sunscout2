@@ -106,7 +106,10 @@ button{font-family:inherit}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 13px;border-radius:9999px;background:rgba(255,255,255,.78);border:1px solid rgba(60,40,20,.10);box-shadow:var(--lift-1);font-size:10.5px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--secondary)}
 .eyebrow i{width:7px;height:7px;border-radius:9999px;background:var(--green);display:block}
 .hero h1{margin:20px 0 0;font-size:clamp(40px,6vw,74px);font-weight:900;letter-spacing:-.035em;line-height:1.0;color:var(--ink);text-wrap:balance}
-.hero h1 span{color:var(--orange);display:block}
+.hero h1 span{color:#A8380A;display:block}  /* was var(--orange) #FF9900,
+   which measured 2.76:1 against the 3.0:1 large-text minimum once the
+   backdrop lightened the ground under it. #A8380A is the design
+   system's accent and clears comfortably. */
 .hero-sub{max-width:52ch;margin:18px auto 0;font-size:clamp(15.5px,1.3vw,17.5px);font-weight:600;line-height:1.6;color:var(--body);text-wrap:pretty}
 
 /* ---- video marquee band ---- */
@@ -977,7 +980,8 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
 </style>
 <link rel="stylesheet" href="/css/editorial.css">
 </head>
-<body>
+<body class="ss-bg">
+<div class="ss-backdrop" aria-hidden="true"></div>
 <div class="page">
 
   <header class="hdr">
@@ -1625,7 +1629,7 @@ window.addEventListener("hashchange", function(){
 /* The hero's second line is orange text on the cream ground: 1.70:1, under
    the 3:1 large text needs. #C96A00 measures 3.01:1 and holds the sunny
    register; the orange used as a FILL is untouched. */
-.hero h1 .accent,.hero h1 span,.hero h1 em{color:#C96A00 !important}
+.hero h1 .accent,.hero h1 span,.hero h1 em{color:#A8380A !important}  /* #C96A00 was 2.76:1 on the lightened ground; needs 3.0 at this size. */
 
 /* --- Contrast on the brand orange -------------------------------------
    White on #FF9900 measures 2.14:1, against the 4.5:1 WCAG AA needs, and it

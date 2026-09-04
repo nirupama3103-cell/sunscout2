@@ -1454,6 +1454,12 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
   .hh-hero > .hh-lead,
   .hh-hero > .hh-stats{max-width:56%}
   .hh-hero{min-height:clamp(300px,32vw,420px)}
+  /* The band to the right of the copy was reading as empty dark sky: at
+     `center 32%` the moon sat just above the visible slice, so the space
+     beside the heading held nothing but roofline. Raising the focal point
+     brings the moon, the bats and the treetops into that band, which is
+     what the space is for. */
+  .hh-hero{background-position:center 14%}
 }
 </style>
 </head>
