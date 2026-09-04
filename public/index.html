@@ -1712,14 +1712,9 @@ function mobSearch() {
      them in sync with every other filter surface on its own — no new
      wiring. A11Y-03: the selected one carries a checkmark and a border, not
      just a colour. -->
-<div class="cost-bar" role="group" aria-label="Filter by cost">
-  <button class="tab-btn cost-chip on" data-tab="free" onclick="setTab(this)">
-    <span class="cost-check" aria-hidden="true"></span>Free
-  </button>
-  <button class="tab-btn cost-chip" data-tab="paid" onclick="setTab(this)">
-    <span class="cost-check" aria-hidden="true"></span>Paid
-  </button>
-</div>
+<!-- Free and Paid are in the header's Explore control and nowhere else.
+     This chip pair repeated them a screen further down, so the same filter
+     had two places to live and two states to keep in sync. -->
 <div class="age-bar" role="group" aria-label="Filter by age">
   <button class="age-btn" data-age="0" onclick="setAge(this)">0–2 <span class="age-desc">Infant/Toddler</span></button>
   <button class="age-btn" data-age="1" onclick="setAge(this)">3–5 <span class="age-desc">Preschool</span></button>

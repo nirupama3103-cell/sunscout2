@@ -138,8 +138,10 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
          canonical .tab-btn row and the drawer are what must still carry
          them. Nothing may become unreachable on a phone. */
       const txt = [...document.querySelectorAll(
+          /* .cost-chip is gone — Free and Paid live only in the header's
+             Explore listbox now, which this block opens above. */
           '#bottom-nav .bnav-label, .hseg button, .hseg-v, '
-          + '#ssd-explore [onclick], .tab-bar .tab-label, .cost-chip')]
+          + '#ssd-explore [onclick], .tab-bar .tab-label')]
         .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
       const has = w => txt.some(t => t.includes(w));
       return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),
