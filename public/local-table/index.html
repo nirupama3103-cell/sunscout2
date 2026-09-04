@@ -1019,7 +1019,13 @@ html,body{background:var(--p-cream)}
         <span class="live"><i></i>LIVE</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav nav-cross" aria-label="Primary">
+      <a class="navlink navlink-cross" href="/">Home</a>
+      <a class="navlink navlink-cross is-here" href="/local-table/" aria-current="page">Local Table</a>
+      <a class="navlink navlink-cross" href="/diy.html">DIY</a>
+      <a class="navlink navlink-cross" href="/seasons/halloween/">Halloween</a>
+    </nav>
+    <nav class="nav nav-page" aria-label="On this page">
       <a class="navlink" href="#lt-deals">Deals</a>
       <a class="navlink" href="#lt-pricing">List your business</a>
       <a class="navlink" href="#lt-about">About</a>
@@ -1027,9 +1033,6 @@ html,body{background:var(--p-cream)}
            past 390px, clipping "Halloween" to "lloween". They are hidden at
            the breakpoint where the bottom bar appears and kept above it,
            because there is no bottom bar on a desktop to carry them. -->
-      <a class="navlink navlink-cross" href="/diy.html">DIY</a>
-      <a class="navlink navlink-cross" href="/seasons/halloween/">Halloween</a>
-      <a class="navcta" href="/">SunScout Kids &#8594;</a>
     </nav>
   </header>
 
@@ -1776,6 +1779,21 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
 @media(max-width:640px){
   .hdr .navlink-cross,
   .hdr .navcta{display:none}
+}
+
+/* The marquee's edge fade means these two labels sit on a blend of photo
+   and page, not on a known colour, so contrast could not be guaranteed —
+   the same defect A11Y-02 named on the Halloween hero. Give each its own
+   opaque chip and the ground stops mattering. */
+.tile-title{
+  background:rgba(20,14,9,.82);
+  padding:3px 9px;border-radius:8px;
+  display:inline-block;max-width:100%;
+}
+.tile-price-b{
+  background:rgba(20,14,9,.82);
+  padding:3px 9px;border-radius:8px;
+  color:#FFD9A8!important;
 }
 </style>
 </body>

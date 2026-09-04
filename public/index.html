@@ -657,10 +657,10 @@ html { scroll-behavior: smooth; }
 /* Hide old tab bar and old city/age bars on mobile */
 @media(max-width:640px){
     .tab-bar { display:none !important; }
-  #ssc-search { display:none !important; }
-  #ssc-explore { display:none !important; }
-  #ssc-city { flex: 3 !important; }
-  #ssc-age  { flex: 2 !important; }
+  /* These three are gone. #ssc-search no longer exists; Explore was hidden
+     on a phone back when the hamburger carried Outdoor, Indoor and Weekend,
+     and now it is their only route; and the flex values belong to a bar
+     that is a grid at this width. */
   /* Dropdowns: fixed full-width so they don't get clipped */
   #ssd-city, #ssd-age {
     position: fixed !important;
@@ -1289,29 +1289,28 @@ body{color:var(--p-ink) !important}
 <div class="hdr">
   <a class="hdr-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/></picture></a>
 
+  <!-- One segmented bar, every filter visible at rest, matching the
+       Halloween hub's. The previous version hid City, Age and Explore
+       behind a focus-panel and lifted their values into a caption above the
+       placeholder, which left "CITY" and "AGE" reading as empty boxes when
+       the panel was open. The values live in their own segments again.
+
+       Each segment is a real button that opens its existing listbox, so
+       ssTog / ssSelCity / ssSelAge / ssSelExplore / ssSearch /
+       weatherChipClick are untouched — only the markup around them. -->
   <div class="hsearch">
-    <div class="hsearch-bar">
-      <span class="hsearch-mag" aria-hidden="true">&#8981;</span>
-      <div class="hsearch-field">
-        <!-- The caption is the live filter values themselves, so it can
-             never drift from what is actually applied. Uppercased in CSS. -->
-        <span class="hsearch-cap">
-          <span id="ssv-city">Sunnyvale</span>
-          <span aria-hidden="true">&#183;</span>
-          <span id="ssv-age">All ages</span>
-        </span>
-        <input type="search" id="desktopSearch" placeholder="Search parks, camps&hellip;"
+    <div class="hsearch-bar" role="search">
+      <div class="hseg hseg-search">
+        <span class="hseg-l">Search</span>
+        <input type="search" id="desktopSearch" placeholder="Parks, camps, splash pads&hellip;"
                aria-label="Search activities" autocomplete="off">
       </div>
-      <button type="button" class="hsearch-go" onclick="ssSearch()" aria-label="Search activities">
-        <span aria-hidden="true">&#8981;</span>
-      </button>
-    </div>
+      <span class="hseg-div" aria-hidden="true"></span>
 
-    <div class="hsearch-panel">
-      <div class="hs-ctl">
+      <div class="hseg hseg-city">
         <button type="button" id="ssc-city" onclick="ssTog('city',event)" aria-haspopup="listbox">
-          <span class="hs-l">City</span>
+          <span class="hseg-l">City</span>
+          <span class="hseg-v" id="ssv-city">Sunnyvale</span>
         </button>
       <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
@@ -1324,9 +1323,12 @@ body{color:var(--p-ink) !important}
         <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
       </div>
       </div>
-      <div class="hs-ctl">
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <div class="hseg hseg-age">
         <button type="button" id="ssc-age" onclick="ssTog('age',event)" aria-haspopup="listbox">
-          <span class="hs-l">Age</span>
+          <span class="hseg-l">Age</span>
+          <span class="hseg-v" id="ssv-age">All ages</span>
         </button>
       <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
@@ -1339,21 +1341,12 @@ body{color:var(--p-ink) !important}
         </div>
       </div>
       </div>
-      <div class="hs-ctl">
-        <button type="button" onclick="weatherChipClick()">
-          <span class="hs-l">Weather</span>
-          <span class="hs-v" id="ssWeatherLabel">Today</span>
-        </button>
-      </div>
-      <!-- Explore is the fourth control rather than the three the brief
-           asks for. Outdoor, Indoor and Weekend reached the page through
-           the hamburger, and the hamburger is gone; the desktop category
-           row is hidden below 768px. Without this they are unreachable on
-           a phone, which scripts/qa-nav.js fails the build over. -->
-      <div class="hs-ctl">
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <div class="hseg hseg-explore">
         <button type="button" id="ssc-explore" onclick="ssTog('explore',event)" aria-haspopup="listbox">
-          <span class="hs-l">Explore</span>
-          <span class="hs-v" id="ssv-explore">Everything</span>
+          <span class="hseg-l">Explore</span>
+          <span class="hseg-v" id="ssv-explore">Everything</span>
         </button>
       <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
         <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
@@ -1366,6 +1359,16 @@ body{color:var(--p-ink) !important}
           <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
         </div>
       </div>
+      </div>
+
+      <div class="hsearch-acts">
+        <button type="button" class="hsearch-go" onclick="ssSearch()" aria-label="Search activities">
+          <span aria-hidden="true">&#8981;</span>
+        </button>
+        <button type="button" class="hsearch-wx" onclick="weatherChipClick()"
+                aria-label="Switch to what the weather suits">
+          <span aria-hidden="true" id="ssWeatherLabel">&#9728;</span>
+        </button>
       </div>
     </div>
   </div>
