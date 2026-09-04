@@ -89,6 +89,45 @@ const A=(l,a,e)=>{const ok=JSON.stringify(a)===JSON.stringify(e); ok?pass++:fail
       });
       if (ratios.length) A('card art holds one aspect ratio', ratios.length <= 2, true);
 
+      /* 3b. One content column.
+
+            "Messy" turned out to be measurable: the Halloween hub put every
+            block on one pair of edges, and the other three had four
+            different left edges on a single screen — a 1408px hero over a
+            1440px grid over an 80px-inset section. This asserts that every
+            contained block shares one column, so that cannot drift back.
+
+            Full-bleed bands (sticky header, marquee, footer) are exempt by
+            design: they carry a background across the viewport and inset
+            their own content instead. */
+      if (w >= 1024) {
+        const cols = await page.evaluate(() => {
+          /* One root, not two. Measuring body's children AND .wrap's meant
+             the wrapper itself was compared against its own padded
+             children — a legitimate 16px difference that is not a
+             misalignment. */
+          const root = document.querySelector('.page, .wrap') || document.body;
+          const rootW = root.getBoundingClientRect().width;
+          const lefts = [];
+          [...root.children].forEach(e => {
+            const cs = getComputedStyle(e);
+            if (cs.display === 'none' || cs.position === 'fixed') return;
+            const b = e.getBoundingClientRect();
+            if (b.height < 20 || b.width < 50) return;
+            /* Bands are exempt: they carry a background edge to edge and
+               inset their own content instead. A band can span the viewport
+               (the home footer) or just its container — the hub's sticky
+               header breaks out of .wrap's padding to do exactly that. */
+            if (b.width >= document.documentElement.clientWidth - 1) return;
+            if (b.width >= rootW - 1) return;
+            lefts.push(Math.round(b.left));
+          });
+          return [...new Set(lefts)].sort((a, b) => a - b);
+        });
+        A('contained blocks share one left edge', cols.length <= 1, true);
+        if (cols.length > 1) console.log(`        left edges found: ${cols.join(', ')}`);
+      }
+
       /* 4. The page must reserve room for the fixed bottom bar.
 
             An earlier version of this check scrolled to the bottom and

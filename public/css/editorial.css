@@ -635,10 +635,14 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   /* Two layers, top first: the sunset tint that keeps text legible, then
      the photograph under it. Putting the tint here rather than on body is
      what lets the photograph be seen at all. */
+  /* Tint raised now that the content sits in a 1048px column: with wide
+     margins the photograph was the loudest thing on the screen and the
+     column read as floating on top of a holiday snap. It should be
+     texture behind the page, not a competitor to it. */
   background-image:
     linear-gradient(180deg,
-      rgba(255,246,236,.80) 0%, rgba(255,237,217,.76) 12%, rgba(255,221,190,.72) 32%,
-      rgba(253,227,208,.74) 56%, rgba(237,242,250,.80) 82%, rgba(233,242,251,.84) 100%),
+      rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
+      rgba(253,227,208,.87) 56%, rgba(237,242,250,.90) 82%, rgba(233,242,251,.92) 100%),
     image-set(
       url("/images/seasonal/autumn-river.webp") type("image/webp"),
       url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
@@ -652,8 +656,8 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   .ss-backdrop{
     background-image:
       linear-gradient(180deg,
-        rgba(255,246,236,.84) 0%, rgba(255,237,217,.80) 12%, rgba(255,221,190,.76) 32%,
-        rgba(253,227,208,.78) 56%, rgba(237,242,250,.84) 82%, rgba(233,242,251,.88) 100%),
+        rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
+        rgba(253,227,208,.88) 56%, rgba(237,242,250,.91) 82%, rgba(233,242,251,.93) 100%),
       image-set(
         url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
         url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
@@ -996,3 +1000,52 @@ p.c-unver{font-size:12px!important}
    moved the hero down onto a lighter part of the backdrop. Two hundredths
    short is still short. */
 .p-stat span{font-size:12px!important;color:#4A3B2E!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ONE CONTENT COLUMN, ON ALL FOUR PAGES.
+
+   This is the difference between the Halloween hub and the other three, and
+   it is measurable rather than a matter of taste. On the hub every block
+   shares one pair of edges: .wrap sits at 180-1260 on a 1440 viewport and
+   all seven sections at 196-1244. On the home page nothing was contained at
+   all — the hero ran 1408px wide, and the ticker, cost chips, card grid and
+   footer all ran the full 1440 edge to edge. Local Table and DIY inset only
+   their hero and let everything else bleed. Four different left edges on one
+   screen is what "messy" looks like.
+
+   Two rules, not one, because full-bleed surfaces are not a mistake:
+     - blocks that ARE cards get a max-width and centre
+     - bands that carry a background across the viewport (sticky header,
+       marquee, footer) keep the bleed and inset their CONTENT to the same
+       column, with padding that collapses to a sane gutter on a phone
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{ --shell:1048px; --shell-gutter:16px; }
+
+/* — cards: constrain the box — */
+body.ed-shell > .hero,
+body.ed-shell > #halloweenCard,
+body.ed-shell > .city-fact,
+body.ed-shell > .cost-bar,
+body.ed-shell > .ed,
+.page > section.hero,
+.page > section.filters,
+.page > section.deals,
+.page > section.projects,
+.page > section.sec{
+  max-width:var(--shell);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* — bands: keep the bleed, inset the content — */
+body.ed-shell > .geo-ticker-wrap,
+body.ed-shell > .footer,
+.page > .band,
+.page > .ftr,
+.page > .hdr{
+  padding-left:max(var(--shell-gutter), calc((100% - var(--shell)) / 2))!important;
+  padding-right:max(var(--shell-gutter), calc((100% - var(--shell)) / 2))!important;
+}
+/* The marquee is meant to run off both edges, so its track keeps the bleed
+   while the band around it holds the column. */
+.page > .band{padding-left:0!important;padding-right:0!important}
