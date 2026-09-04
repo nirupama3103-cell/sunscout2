@@ -36,10 +36,11 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
   const browser = await chromium.launch({
     executablePath: fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined });
 
-  /* The bar is now exactly these five, in this order, on every page.
-     QA finding NAV-01: seven tabs overflowed 390px and clipped the seventh
-     mid-word, so the assertion is equality, not containment. */
-  const SHARED = ['Home', 'Camps', 'Local Table', 'DIY', 'Halloween'];
+  /* Exactly these four, in this order, on every page. Camps came out of
+     the bar when the nav went to four items; its route is untouched and
+     its filters are reachable from the cost chips and the search panel,
+     which the reachability block below proves. */
+  const SHARED = ['Home', 'Local Table', 'DIY', 'Halloween'];
   const seen = new Set();
   for (const [name, path] of PAGES) {
     for (const [label, vp] of [['mobile', { width: 390, height: 844 }],
@@ -72,7 +73,7 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
         A('the footer bar is on screen', tabs !== null, true);
         if (tabs) {
           /* Equality, not containment: no page may add a sixth tab. */
-          A('carries exactly the five shared tabs, in order', tabs, SHARED);
+          A('carries exactly the four shared tabs, in order', tabs, SHARED);
           const small = await page.evaluate(() => [...document.querySelectorAll('#bottom-nav .bnav-btn')]
             .filter(e => e.getBoundingClientRect().height < 44).length);
           A('every footer tab is at least 44px tall', small, 0);
@@ -108,17 +109,38 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
     await page.route('**/*', r => r.request().url().startsWith(BASE) ? r.continue() : r.abort());
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1800);
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll('button')].find(b => b.offsetParent && /[\u2630\u2261]/.test(b.textContent));
-      if (b) b.click();
+    /* The drawer is gone; its filters moved into the header search panel.
+       Two separate things are checked here.
+
+       First the contract a person actually meets: focusing the input must
+       open the panel. */
+    const opensOnFocus = await page.evaluate(() => {
+      const panel = document.querySelector('.hsearch-panel');
+      const shut = getComputedStyle(panel).display;
+      document.getElementById('desktopSearch').focus();
+      return { shut, open: getComputedStyle(panel).display };
     });
-    await page.waitForTimeout(500);
+    A('search panel is closed at rest', opensOnFocus.shut, 'none');
+    A('focusing the input opens it', opensOnFocus.open !== 'none', true);
+
+    /* Then reachability. Drive it from script rather than real focus and
+       clicks: card rendering finishes asynchronously and steals focus back,
+       which made a real-focus version of this check flaky rather than
+       wrong. Reachable means a person can get there in a tap or two, not
+       that it is already on screen. */
+    await page.evaluate(() => {
+      document.getElementById('desktopSearch').focus();
+      const e = document.getElementById('ssc-explore');
+      if (e) e.click();
+    });
+    await page.waitForTimeout(300);
     const reach = await page.evaluate(() => {
       /* Free and Paid left the footer bar for the Camps tab, so the
          canonical .tab-btn row and the drawer are what must still carry
          them. Nothing may become unreachable on a phone. */
       const txt = [...document.querySelectorAll(
-          '#bottom-nav .bnav-label, #ssMenu div, .tab-bar .tab-label, .cost-chip')]
+          '#bottom-nav .bnav-label, .hsearch-panel button, .hsearch-panel [onclick], '
+          + '#ssd-explore [onclick], .tab-bar .tab-label, .cost-chip')]
         .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
       const has = w => txt.some(t => t.includes(w));
       return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),

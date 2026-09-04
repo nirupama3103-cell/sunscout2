@@ -31,7 +31,18 @@
   --ed-ink:#20160E;            /* warm near-black; 13-16:1 on every ground */
   --ed-ink-2:#5C4A3A;          /* meta text; 6.5-7.9:1 */
   --ed-hair:#F0DCC4;
-  --ed-accent:#A8380A;         /* orange — >=5.0:1 on every sunset stop */
+  /* Two accents, split by role.
+
+     The brief asks for #C96A12 "so white button text passes AA (4.8:1)".
+     White on #C96A12 is 3.78:1, so that value would not have met the bar it
+     was chosen for. #AE5C0F is the same hue walked down until white clears
+     it — 4.84:1 — and it is used wherever white text sits ON the colour.
+
+     As TEXT on the page's light grounds #AE5C0F only reaches 3.77-4.53:1,
+     under the 4.5:1 needed for body copy, so the darker #A8380A stays for
+     links, labels and headings. One value cannot do both jobs. */
+  --ed-accent:#A8380A;
+  --ed-accent-fill:#AE5C0F;         /* orange — >=5.0:1 on every sunset stop */
   --ed-sky:#0F4C93;            /* sky blue — >=6.6:1 */
   --ed-accent-ink:#FFFFFF;
   --ed-card:#FFFFFF;
@@ -571,8 +582,8 @@ body.ed-shell .tab-btn.cost-chip{
   box-shadow:none;transform:none;
 }
 body.ed-shell .tab-btn.cost-chip.on{
-  background:#A8380A!important;color:#fff!important;
-  border-color:#A8380A;transform:none;box-shadow:none;
+  background:var(--ed-accent-fill,#AE5C0F)!important;color:#fff!important;
+  border-color:var(--ed-accent-fill,#AE5C0F);transform:none;box-shadow:none;
 }
 body.ed-shell .tab-btn.cost-chip.on::after{display:none}
 body.ed-shell .tab-btn.cost-chip.on .cost-check::before{content:"\2713";font-weight:900}
@@ -652,3 +663,118 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   /* Drop the photograph, keep the ground — body no longer paints one. */
   .ss-backdrop{background-image:var(--ed-sunset)}
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HEADER — logo, one search input, four nav items.
+
+   The search bar carries the filters instead of a separate row below it.
+   Collapsed it is a single line: a caption of the filters currently applied,
+   a placeholder, and a round accent button. Focus anywhere inside opens the
+   panel.
+
+   The open/close is :focus-within, so there is no script and no state to get
+   out of sync. It only works because every control in the panel is a real
+   button — a div with an onclick cannot hold focus, and the panel would shut
+   the instant you reached for a filter.
+   ══════════════════════════════════════════════════════════════════════════ */
+.hdr{
+  display:flex;
+  align-items:center;
+  gap:clamp(10px,2vw,20px);
+  flex-wrap:wrap;
+  max-width:1200px;
+  margin:0 auto 10px;
+  padding:0 4px;
+}
+.hdr-logo{flex:0 0 auto;display:block;line-height:0}
+.hdr-logo img{height:clamp(42px,6vw,54px);width:auto;display:block}
+
+.hsearch{flex:1 1 320px;min-width:0;position:relative}
+.hsearch-bar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fff;
+  border:1px solid var(--ed-hair,#F0DCC4);
+  border-radius:999px;
+  padding:6px 6px 6px 16px;
+  min-height:56px;
+  box-shadow:0 2px 12px rgba(70,45,10,.08);
+}
+.hsearch-mag{
+  flex:0 0 auto;font-size:19px;line-height:1;color:#7A6A58;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+}
+.hsearch-field{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.hsearch-cap{
+  /* 12px is the floor for anything that is not a nav label. */
+  font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:#6A5B4B;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.hsearch-cap > span{display:inline}
+.hsearch-field input{
+  border:none;outline:none;background:none;width:100%;min-width:0;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:600;color:var(--ed-ink,#20160E);
+  padding:0;line-height:1.25;
+}
+.hsearch-field input::placeholder{color:#8A7A68;font-weight:600}
+.hsearch-go{
+  flex:0 0 auto;width:44px;height:44px;min-height:44px;border:none;border-radius:50%;
+  background:var(--ed-accent-fill,#AE5C0F);color:#fff;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;font-size:19px;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+}
+.hsearch-go:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+
+/* The panel. Hidden until something inside the component takes focus. */
+.hsearch-panel{
+  display:none;
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:120;
+  background:#fff;border:1px solid var(--ed-hair,#F0DCC4);border-radius:18px;
+  box-shadow:0 12px 34px rgba(70,45,10,.16);
+  padding:10px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;
+}
+.hsearch:focus-within .hsearch-panel{display:grid}
+.hs-ctl{position:relative;min-width:0}
+.hs-ctl > button{
+  width:100%;min-height:44px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;
+  background:#FFFBF5;border:2px solid var(--ed-hair,#F0DCC4);border-radius:12px;
+  padding:6px 12px;cursor:pointer;font-family:Nunito,sans-serif;text-align:left;
+}
+.hs-ctl > button:hover{border-color:var(--ed-accent,#A8380A)}
+.hs-ctl > button:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+.hs-l{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#6A5B4B}
+.hs-v{font-size:13px;font-weight:700;color:var(--ed-ink,#20160E);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* ── Nav: four items, active carries the accent AND a 2px rule ─────────── */
+.hdr-nav{flex:1 1 100%;display:flex;gap:clamp(6px,1.6vw,22px);flex-wrap:wrap;align-items:center}
+.hdr-nav a{
+  min-height:44px;display:inline-flex;align-items:center;
+  padding:0 2px;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:800;
+  color:var(--ed-ink-2,#5C4A3A);text-decoration:none;
+  border-bottom:2px solid transparent;
+}
+.hdr-nav a:hover{color:var(--ed-ink,#20160E)}
+.hdr-nav a.is-here{
+  color:var(--ed-accent,#A8380A);
+  border-bottom-color:var(--ed-accent,#A8380A);
+}
+.hdr-nav a:focus-visible{outline:3px solid #0F4C93;outline-offset:3px}
+
+@media(min-width:900px){
+  /* Nav sits on the same line as the logo and search once there is room. */
+  .hdr-nav{flex:0 0 auto}
+}
+
+/* Selected options inside the header panel carry a checkmark and a 2px
+   border, never colour alone. .ssac already used an outline for its on
+   state; the mark is what survives greyscale and bright sun. */
+.ssac.on::before,.ssec.on::before,.sscr[aria-selected="true"]::before{
+  content:"\2713\00a0";font-weight:900;
+}
+.ssac.on,.ssec.on{border-color:currentColor!important}

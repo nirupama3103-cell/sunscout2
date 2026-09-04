@@ -656,8 +656,7 @@ html { scroll-behavior: smooth; }
 
 /* Hide old tab bar and old city/age bars on mobile */
 @media(max-width:640px){
-  #ssBar { display:block !important; }
-  .tab-bar { display:none !important; }
+    .tab-bar { display:none !important; }
   #ssc-search { display:none !important; }
   #ssc-explore { display:none !important; }
   #ssc-city { flex: 3 !important; }
@@ -689,8 +688,7 @@ html { scroll-behavior: smooth; }
 }
 /* hide-old-bars-desktop */
 @media(min-width:641px){
-  #ssBar{display:none!important;}
-  .city-bar{display:none!important;}
+    .city-bar{display:none!important;}
   .age-bar{display:none!important;}
   .tab-bar{display:none!important;}
   .mobile-filter-tabs{display:flex!important;}
@@ -1011,34 +1009,21 @@ body{color:var(--p-ink) !important}
 .p-pick-meta{font-size:13px;font-weight:700;color:var(--p-muted);margin-top:3px}
 
 /* ── Desktop search / filter bar ── */
-.p-searchbar{max-width:1200px !important;margin:30px auto 6px !important;position:relative;z-index:3}
+
 /* No backdrop-filter/transform/filter here: any of those would make this a
    containing block for the position:fixed dropdowns below, which then get
    clipped by .hero's overflow:hidden. */
-.p-searchbar > div{
-  border-radius:9999px !important;border:1px solid rgba(0,0,0,.07) !important;
-  box-shadow:0 12px 34px rgba(70,45,10,.14) !important;
-  background:#fff !important;
-}
+
 /* The mark is a tall lockup with a wordmark under it, so it needs real height
    to stay legible — give the bar the extra room rather than shrinking it. */
-.p-searchbar > div > div[style*="padding:10px"]{padding-top:14px !important;padding-bottom:14px !important}
-.p-searchbar-logo{
-  display:flex;align-items:center;flex-shrink:0;
-  padding:0 16px 0 20px;margin:10px 0;
-  border-right:1px solid #e0e0e0;
-}
-.p-searchbar-logo img{height:46px;width:auto;display:block}
-.p-searchbar [id^="dt"][id$="V"]{font-weight:800 !important}
+
+
+
+
 /* The old inline countdown is now the hero badge */
 .hero-meta{display:none !important}
 
 /* ── Filter bar chrome ── */
-#ssBar > div:first-child button,
-.hide-on-mobile > div > button[onclick^="openPlan"],
-.hide-on-mobile > div > button[onclick^="openMyList"]{
-  box-shadow:0 4px 16px rgba(0,0,0,.12);transition:transform .15s var(--p-ease),box-shadow .15s var(--p-ease);
-}
 .hide-on-mobile > div > button[onclick^="openPlan"]:hover,
 .hide-on-mobile > div > button[onclick^="openMyList"]:hover{transform:translateY(-2px)}
 .dtcr,.dtec,.dtac,.dtmr{transition:all .15s var(--p-ease)}
@@ -1046,7 +1031,8 @@ body{color:var(--p-ink) !important}
 /* ── Status bar ── */
 .status-bar{color:var(--p-faint) !important;font-weight:800;letter-spacing:.2px}
 .status-bar strong{color:var(--p-ink) !important}
-.city-fact{color:var(--p-faint) !important}
+.city-fact{color:#4A3B2E !important}  /* --p-faint measured 3.68:1 once the
+   hero shrank and the backdrop showed through under this line. */
 
 /* ── Cards ── */
 .status-bar{padding:14px 20px 4px !important}
@@ -1199,32 +1185,8 @@ body{color:var(--p-ink) !important}
      #C96A12 measures 3.78:1, not the 4.8:1 the doc claims, so it would
      have failed the same AA bar the finding was raised to meet. #A8380A
      is the accent already in the design system and clears at 6.49:1. */
-  #ssBar > div:first-child{gap:8px !important}
-  #ssBar > div:first-child button{
-    flex:1 1 0 !important;min-width:0 !important;
-    background:#fff !important;color:#7A3F0D !important;
-    border:2px solid rgba(122,63,13,.26) !important;
-    border-radius:9999px !important;font-weight:800 !important;
-    padding:0 10px !important;min-height:44px !important;font-size:12.5px !important;
-    box-shadow:none !important;
-    display:inline-flex !important;align-items:center !important;
-    justify-content:center !important;gap:6px !important;
-    white-space:nowrap !important;
-  }
-  #ssBar > div:first-child button:first-child{
-    background:#A8380A !important;color:#fff !important;
-    border-color:#A8380A !important;
-  }
-  /* Filter pill row */
-  #ssBar .ss-pill,
-  #ssBar > div:nth-child(4){border-radius:9999px !important}
-  #ssBar [id^="ssc-"]{border-radius:9999px}
-  #ssBar > div{font-family:Nunito,sans-serif}
-  #ssBar > div[style*="border-radius:99px"]{
-    border-radius:9999px !important;border:1px solid rgba(0,0,0,.08) !important;
-    background:#fff !important;box-shadow:0 4px 16px rgba(70,45,10,.10) !important;
-  }
-  #ssv-city,#ssv-age,#ssv-explore{font-weight:800 !important;color:var(--p-ink) !important}
+        /* Filter pill row */
+          #ssv-city,#ssv-age,#ssv-explore{font-weight:800 !important;color:var(--p-ink) !important}
 
   /* Weather banner → the mockup's soft alert strip */
   .weather-banner{
@@ -1256,11 +1218,8 @@ body{color:var(--p-ink) !important}
   /* The Plan / My List pair became a trio when Weekend joined it. Three
      12px labels do not fit 320px, so the row wraps to two lines there rather
      than shrinking the text below a readable size. */
-  #ssBar > div:first-child{flex-wrap:wrap}
-  #ssBar > div:first-child button{min-width:calc(50% - 4px)}
-  @media (max-width:360px){
-    #ssBar > div:first-child button{min-width:100%}
-  }
+      @media (max-width:360px){
+      }
 
   /* Bottom nav */
   #bottom-nav{
@@ -1314,7 +1273,110 @@ body{color:var(--p-ink) !important}
   <div class="cloud cloud-3"></div>
 
   <div style="position:relative;z-index:2;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;padding:0 4px;"><div class="hero-logo" style="display:flex;align-items:center;gap:8px;"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async" style="height:clamp(48px,10vw,66px);width:auto;display:block"/></picture></div><div class="hide-on-mobile" style="display:flex;gap:8px;align-items:center;"><button onclick="openPlan()" style="background:linear-gradient(135deg,#0B7268,#0E7A3C);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">&#9636; Plan my day</button><button onclick="openMyList()" style="background:linear-gradient(135deg,#ff4e50,#f9d423);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;">&#9825; My list</button><a href="/diy.html" style="background:linear-gradient(135deg,#127A3B,#0F6A33);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#10023; DIY</a><a href="/local-table/" style="background:linear-gradient(135deg,#C6633B,#D9A441);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#10045; Local Table</a><a href="/seasons/halloween/" style="background:linear-gradient(135deg,#17324D,#4FA8DA);color:#fff;border:none;border-radius:99px;padding:7px 16px;font-size:12px;font-weight:800;font-family:Nunito,sans-serif;text-decoration:none;">&#9790; Halloween</a></div></div>
+<!-- ══ HEADER ══════════════════════════════════════════════════════════
+     Logo and the site's single search input share one flex row. The city,
+     age, weather and explore filters live INSIDE that input rather than in
+     a row of their own: collapsed it is one line, and it opens on focus.
+
+     The panel opens with :focus-within, not script — which is why every
+     control in it is a real <button>. A <div onclick> cannot take focus, so
+     the panel would have closed the moment you reached for a filter.
+
+     Every id here is the one the existing handlers already look up by
+     getElementById, so ssTog / ssSelCity / ssSelAge / ssSelExplore /
+     ssSearch / weatherChipClick are untouched. Only the markup moved.
+     ═════════════════════════════════════════════════════════════════════ -->
+<div class="hdr">
+  <a class="hdr-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/></picture></a>
+
+  <div class="hsearch">
+    <div class="hsearch-bar">
+      <span class="hsearch-mag" aria-hidden="true">&#8981;</span>
+      <div class="hsearch-field">
+        <!-- The caption is the live filter values themselves, so it can
+             never drift from what is actually applied. Uppercased in CSS. -->
+        <span class="hsearch-cap">
+          <span id="ssv-city">Sunnyvale</span>
+          <span aria-hidden="true">&#183;</span>
+          <span id="ssv-age">All ages</span>
+        </span>
+        <input type="search" id="desktopSearch" placeholder="Search parks, camps&hellip;"
+               aria-label="Search activities" autocomplete="off">
+      </div>
+      <button type="button" class="hsearch-go" onclick="ssSearch()" aria-label="Search activities">
+        <span aria-hidden="true">&#8981;</span>
+      </button>
+    </div>
+
+    <div class="hsearch-panel">
+      <div class="hs-ctl">
+        <button type="button" id="ssc-city" onclick="ssTog('city',event)" aria-haspopup="listbox">
+          <span class="hs-l">City</span>
+        </button>
+      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
+        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
+        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
+        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
+        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
+        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
+      </div>
+      </div>
+      <div class="hs-ctl">
+        <button type="button" id="ssc-age" onclick="ssTog('age',event)" aria-haspopup="listbox">
+          <span class="hs-l">Age</span>
+        </button>
+      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All ages</div>
+          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">0–2</div>
+          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">3–5</div>
+          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">6–12</div>
+          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">Teen</div>
+        </div>
+      </div>
+      </div>
+      <div class="hs-ctl">
+        <button type="button" onclick="weatherChipClick()">
+          <span class="hs-l">Weather</span>
+          <span class="hs-v" id="ssWeatherLabel">Today</span>
+        </button>
+      </div>
+      <!-- Explore is the fourth control rather than the three the brief
+           asks for. Outdoor, Indoor and Weekend reached the page through
+           the hamburger, and the hamburger is gone; the desktop category
+           row is hidden below 768px. Without this they are unreachable on
+           a phone, which scripts/qa-nav.js fails the build over. -->
+      <div class="hs-ctl">
+        <button type="button" id="ssc-explore" onclick="ssTog('explore',event)" aria-haspopup="listbox">
+          <span class="hs-l">Explore</span>
+          <span class="hs-v" id="ssv-explore">Everything</span>
+        </button>
+      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">&#9671; Free</div>
+          <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">&#9670; Paid</div>
+          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">&#10020; Outdoor</div>
+          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">&#9635; Indoor</div>
+          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">&#9638; Weekend</div>
+          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="hdr-nav" aria-label="Primary">
+    <a href="/" class="is-here" aria-current="page">Home</a>
+    <a href="/local-table/">Local Table</a>
+    <a href="/diy.html">DIY</a>
+    <a href="/seasons/halloween/">Halloween</a>
+  </nav>
+</div>
     <!-- ── PAGE SWITCHER (mobile) ──
          The pills above are hide-on-mobile, and this page's bottom bar is the
          FILTER bar, not a page nav — so on a phone there was no way to reach
@@ -1365,77 +1427,6 @@ body{color:var(--p-ink) !important}
     
 
         <!-- Desktop Airbnb Bar -->
-    <div class="hide-on-mobile p-searchbar" style="max-width:720px;margin:0 auto 4px;">
-      <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 16px rgba(0,0,0,.10);font-family:Nunito,sans-serif;">
-        <a class="p-searchbar-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/></picture></a>
-        <div style="flex:2;padding:10px 16px;border-radius:99px 0 0 99px;text-align:left;">
-          <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">SEARCH</div>
-          <input type="search" id="desktopSearch" placeholder="Camps, parks, STEM…" style="border:none;outline:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:600;color:#1a1a1a;width:100%;background:transparent;" oninput="setSearch(this.value);"/>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtCD',this,event)">
-          <div style="font-size:11px;font-weight:900;color:#B84200;letter-spacing:.06em;">📍 CITY</div>
-          <div id="dtCV" style="font-size:13px;font-weight:700;color:#6B6157;">Pick city</div>
-          <div id="dtCD" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-280px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-            <div style="font-size:9px;font-weight:800;color:#999;margin-bottom:8px;letter-spacing:.06em;">📍 CITIES</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtcr" style="color:#c05e00;background:#FFFBEE;border:0.5px solid #FFD580;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Sunnyvale',event)">Sunnyvale</div>
-              <div class="dtcr" style="color:#1d4ed8;background:#EFF6FF;border:0.5px solid #93c5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('San Jose',event)">San Jose</div>
-              <div class="dtcr" style="color:#991b1b;background:#FFF5F5;border:0.5px solid #fca5a5;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Cupertino',event)">Cupertino</div>
-              <div class="dtcr" style="color:#15803d;background:#F0FDF4;border:0.5px solid #86efac;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Mountain View',event)">Mountain View</div>
-              <div class="dtcr" style="color:#6d28d9;background:#F5F3FF;border:0.5px solid #c4b5fd;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Palo Alto',event)">Palo Alto</div>
-              <div class="dtcr" style="color:#0369a1;background:#F0F9FF;border:0.5px solid #7dd3fc;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;" onclick="dtC('Saratoga',event)">Saratoga</div>
-              <div class="dtcr" style="color:#b45309;background:#FFFBEB;border:0.5px solid #fcd34d;border-radius:10px;text-align:center;padding:9px 6px;font-size:12px;grid-column:span 2;" onclick="dtC('Fremont',event)">Fremont</div>
-            </div>
-          </div>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1.2;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtED',this,event)">
-          <div style="font-size:11px;font-weight:900;color:#1d4ed8;letter-spacing:.06em;">🎡 EXPLORE</div>
-          <div id="dtEV" style="font-size:13px;font-weight:700;color:#6B6157;">Activity</div>
-          <div id="dtED" style="display:none;position:fixed;top:160px;left:50%;transform:translateX(-110px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtE('free','Free',event)">Free</div>
-              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtE('paid','Paid',event)">Paid</div>
-              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtE('outdoor','Outdoor',event)">Outdoor</div>
-              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtE('indoor','Indoor',event)">Indoor</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;" onclick="dtE('weekend','Weekend',event)">Weekend</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FF9900;" onclick="dtE('surprise','Surprise',event)">&#10022; Surprise</div>
-            </div>
-          </div>
-        </div>
-        <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-        <div style="flex:1;padding:10px 14px;cursor:pointer;text-align:left;position:relative;" onclick="dtOpen('dtAD',this,event)">
-          <div style="font-size:11px;font-weight:900;color:#15803d;letter-spacing:.06em;">👶 AGE</div>
-          <div id="dtAV" style="font-size:13px;font-weight:700;color:#6B6157;">All ages</div>
-          <div id="dtAD" style="display:none;position:fixed;top:160px;right:calc(50% - 360px);background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:200px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-              <div class="dtec" style="color:#1d4ed8;background:#EFF6FF;border-color:#93c5fd;" onclick="dtA('all','All',event)">⭐ All ages</div>
-              <div class="dtec" style="color:#c05e00;background:#FFFBEE;border-color:#FFD580;" onclick="dtA('0','0-2',event)">0–2</div>
-              <div class="dtec" style="color:#15803d;background:#F0FDF4;border-color:#86efac;" onclick="dtA('1','3-5',event)">3–5</div>
-              <div class="dtec" style="color:#991b1b;background:#FFF5F5;border-color:#fca5a5;" onclick="dtA('2','6-12',event)">6–12</div>
-              <div class="dtec" style="color:#6d28d9;background:#F5F3FF;border-color:#c4b5fd;grid-column:span 2;" onclick="dtA('3','Teen',event)">Teen 13–19</div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;margin:auto 8px auto 0;flex-shrink:0;">
-          <button onclick="dtSearch()" aria-label="Search activities" style="background:#FF9900;border:none;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;">&#8981;</button><button onclick="document.getElementById('about-modal').style.display='flex'" id="topbarAboutBtn" title="About SunScout" aria-label="About SunScout" style="background:linear-gradient(135deg,#FF9900,#ff6b35);border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">🌤️</button><div style="position:relative;">
-            <button onclick="toggleSsMenu(event)" aria-label="Menu" style="background:#1a1a1a;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;color:#fff;">&#8801;</button>
-            <div id="ssMenuDesktop" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;">
-              <div class="dtmr" onclick="openPlan();toggleSsMenu(event)">&#9636; Plan my day</div>
-              <div class="dtmr" onclick="floatWeekend();toggleSsMenu(event)" style="color:#6d28d9;">📅 Weekend</div>
-              <div class="dtmr" onclick="floatSurprise();toggleSsMenu(event)" style="color:#FF9900;">&#10022; Surprise</div>
-              
-              <div class="dtmr" onclick="openMyList();toggleSsMenu(event)" style="color:#ef4444;">&#9825; My list</div>
-              <div class="dtmr" onclick="openPlan();setTimeout(function(){switchTab('notes')},200);toggleSsMenu(event)" style="color:#6366f1;">&#9998; Notes</div>
-              <div class="dtmr" onclick="window.location.href='/diy.html';toggleSsMenu(event)" style="color:#16a34a;">&#10023; DIY projects</div>
-              <div class="dtmr" onclick="window.location.href='/local-table/';toggleSsMenu(event)" style="color:#C6633B;">&#10045; Local Table</div>
-              <div class="dtmr" onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="color:#FF9900;">&#9678; About</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <style>
     .dtcr{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
     .dtcr:hover{background:#FFF3E0;}
@@ -1479,94 +1470,14 @@ body{color:var(--p-ink) !important}
   <button class="geo-pause" type="button" aria-label="Pause the scrolling highlights" aria-pressed="false">&#10074;&#10074;</button>
 </div>
 
-<div id="ssBar" style="padding:10px 12px 0;max-width:640px;margin:0 auto;">
-  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:6px;padding:0 12px;">
-    <button onclick="openPlan()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#A8380A;color:#fff;border:2px solid #A8380A;">&#9636; Plan my day</button>
-    <button onclick="openMyList()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#fff;color:#7A3F0D;border:2px solid rgba(122,63,13,.28);">&#9825; My list</button>
-    <button onclick="floatWeekend()" style="border-radius:99px;padding:0 14px;min-height:44px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:Nunito,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:1;background:#fff;color:#7A3F0D;border:2px solid rgba(122,63,13,.28);">&#9638; Weekend</button>
-  </div>
-    <!-- removed: a second, display:none #ssChip. Duplicate ids meant
-       getElementById("ssChip") returned this hidden one, so every weather
-       update wrote to an element nobody could see. -->
-  <!-- NAV-03: removed a hidden duplicate of the Plan / My list pair. -->
-  <div style="background:#fff;border-radius:99px;border:1px solid #e0e0e0;display:flex;align-items:stretch;box-shadow:0 2px 12px rgba(0,0,0,.08);position:relative;font-family:Nunito,sans-serif;">
-    <div onclick="weatherChipClick()" style="flex:0 0 auto;padding:6px 10px 6px 14px;cursor:pointer;border-radius:99px 0 0 99px;display:flex;align-items:center;min-width:0;" title="Weather">
-      <span id="ssWeatherLabel" style="font-size:11px;font-weight:700;color:#A85200;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;display:block;">🌤️ Weather</span>
-    </div>
-    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-city" onclick="ssTog('city',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">📍 CITY</div>
-      <div id="ssv-city" style="font-size:11px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;">Pick city</div>
-      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
-        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci">☀️</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
-        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci">🏙️</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
-        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci">🍎</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci">⛰️</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
-        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci">🎓</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci">🌲</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
-        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci">🌉</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
-      </div>
-    </div>
-    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-explore" onclick="ssTog('explore',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;display:none;">
-      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;display:none;" class="hide-on-mobile">🎯 EXPLORE</div>
-      <div id="ssv-explore" style="font-size:12px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none;">Activity</div>
-      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">🆓 Free</div>
-          <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">💰 Paid</div>
-          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">&#10020; Outdoor</div>
-          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">&#9635; Indoor</div>
-          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">📅 Weekend</div>
-          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
-        </div>
-      </div>
-    </div>
-    <div style="width:1px;background:#e0e0e0;margin:8px 0;"></div>
-    <div id="ssc-age" onclick="ssTog('age',event)" style="flex:1;padding:9px 12px;cursor:pointer;position:relative;min-width:0;">
-      <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;">👶 AGE</div>
-      <div id="ssv-age" style="font-size:12px;font-weight:700;color:#6B6157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">All ages</div>
-      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All ages</div>
-          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">👶 0–2</div>
-          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">🧸 3–5</div>
-          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">🎒 6–12</div>
-          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">🛹 Teen</div>
-        </div>
-      </div>
-    </div>
-    <button onclick="ssSearch()" aria-label="Search activities" style="background:#FF9900;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin:auto 2px auto 0;" aria-label="Search">&#8981;</button>
-    <div style="position:relative;flex-shrink:0;margin:auto 5px auto 0;">
-      <button onclick="toggleSsMenu(event)" aria-label="Menu" style="background:#1a1a1a;border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" aria-label="Menu">&#8801;</button>
-      <div id="ssMenu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);padding:10px;min-width:200px;z-index:9999;font-family:Nunito,sans-serif;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:6px;padding:0 4px;">QUICK ACTIONS</div>
-        <div onclick="openPlan();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background='none'">&#9636; Plan my day</div>
-        <div onclick="floatWeekend();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6d28d9;" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='none'">&#9638; Weekend</div>
-        <div onclick="floatSurprise();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;" onmouseover="this.style.background='#FFFBEE'" onmouseout="this.style.background='none'">&#10022; Surprise</div>
-        <!-- Outdoor and Indoor moved here when the footer tabs became page
-             tabs. On a phone the bottom bar was their only route, and the
-             Explore segment of the search bar is desktop-only. -->
-        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;outdoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#15803d;" onmouseover="this.style.background='#F0FDF4'" onmouseout="this.style.background='none'">&#10020; Outdoor</div>
-        <div onclick="setTab(document.querySelector('.tab-btn[data-tab=&quot;indoor&quot;]'));toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#1d4ed8;" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">&#9635; Indoor</div>
-        <div onclick="openMyList();toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#ef4444;" onmouseover="this.style.background='#FFF5F5'" onmouseout="this.style.background='none'">&#9825; My list</div>
-        <div onclick="openPlan();switchTab('notes');toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#6366f1;" onmouseover="this.style.background='#EEF2FF'" onmouseout="this.style.background='none'">&#9998; Notes</div>
-        <div onclick="document.getElementById('about-modal').style.display='flex';toggleSsMenu(event)" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#FF9900;">&#9678; About</div>
-      </div>
-    </div>
-  </div>
-</div>
 <style>
-.sscr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;}
+.sscr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;min-height:44px;}
 .sscr:hover{background:#FFF3E0;}
 .ssci{width:32px;height:32px;border-radius:8px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
 .sscn{font-size:13px;font-weight:700;color:#1a1a1a;font-family:Nunito,sans-serif;}
-.sscs{font-size:10px;color:#999;font-family:Nunito,sans-serif;}
-.ssec{padding:10px 6px;border-radius:12px;border:0.5px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
-.ssac{padding:10px;border-radius:12px;border:0.5px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;}
+.sscs{font-size:12px;color:#6A5B4B;font-family:Nunito,sans-serif;}
+.ssec{padding:10px 6px;border-radius:12px;border:2px solid #eee;font-size:12px;font-weight:800;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;min-height:44px;display:flex;align-items:center;justify-content:center;}
+.ssac{padding:10px;border-radius:12px;border:2px solid #eee;background:#f9f9f9;font-size:12px;font-weight:700;cursor:pointer;text-align:center;font-family:Nunito,sans-serif;min-height:44px;display:flex;align-items:center;justify-content:center;}
 .ssac:hover{background:#FF9900;color:#fff;border-color:#FF9900;}.ssac.on{outline:3px solid currentColor;outline-offset:2px;filter:brightness(0.92);font-weight:900;}
 @media(max-width:640px){
   #ssd-city, #ssd-age {
@@ -3097,10 +3008,6 @@ function syncBnav(tab) {
       <span class="bnav-icon" aria-hidden="true">&#8962;</span>
       <span class="bnav-label">Home</span>
     </a>
-    <button class="bnav-btn" onclick="bnavTab('free',this)">
-      <span class="bnav-icon" aria-hidden="true">&#9719;</span>
-      <span class="bnav-label">Camps</span>
-    </button>
     <a class="bnav-btn" href="/local-table/">
       <span class="bnav-icon" aria-hidden="true">&#10045;</span>
       <span class="bnav-label">Local Table</span>
@@ -3683,10 +3590,7 @@ function weatherChipClick() {
     0 6px 14px -6px rgba(92,58,20,.14),
     0 26px 48px -22px rgba(92,58,20,.26);
 }
-.card,.p-weather,.p-pick,#ssBar > div:last-child,.no-results{
-  box-shadow:var(--p-shadow), inset 0 1px 0 rgba(255,255,255,.9) !important;
-}
-.card:hover{box-shadow:var(--p-lift), inset 0 1px 0 rgba(255,255,255,.95) !important}
+.card,.p-weather,.p-pick,.card:hover{box-shadow:var(--p-lift), inset 0 1px 0 rgba(255,255,255,.95) !important}
 
 *{-webkit-tap-highlight-color:transparent}
 .card:active,.btn:active,.tab-btn:active,.age-btn:active,.city-btn:active,
