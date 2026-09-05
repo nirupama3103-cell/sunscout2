@@ -566,7 +566,11 @@ html{overflow-x:hidden}
 .search-input{
   flex:1;min-width:0;border:none;background:transparent;outline:none;
   font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);
-  padding:10px 0;
+  /* Right padding and an ellipsis: on a phone the placeholder is longer
+     than the field and ran hard into the pill's edge, which read as a
+     clipped input rather than a truncated hint. */
+  padding:10px 12px 10px 0;
+  text-overflow:ellipsis;
 }
 .search-input::placeholder{color:var(--body);font-weight:600;opacity:.75}
 .search-input::-webkit-search-cancel-button{display:none}
@@ -993,8 +997,8 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
            where the bottom bar takes over cross-page travel. -->
       <a class="navlink navlink-cross" href="index.html">Home</a>
       <a class="navlink navlink-cross" href="local-table/">Local Table</a>
+      <a class="navlink navlink-cross is-here" href="diy.html" aria-current="page">DIY</a>
       <a class="navlink navlink-cross" href="seasons/halloween/">Halloween</a>
-      <a class="navcta" href="diy.html" aria-current="page">DIY</a>
     </nav>
   </header>
 

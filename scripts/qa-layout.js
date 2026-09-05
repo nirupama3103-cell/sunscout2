@@ -89,6 +89,77 @@ const A=(l,a,e)=>{const ok=JSON.stringify(a)===JSON.stringify(e); ok?pass++:fail
       });
       if (ratios.length) A('card art holds one aspect ratio', ratios.length <= 2, true);
 
+      /* 3b. One content column.
+
+            "Messy" turned out to be measurable: the Halloween hub put every
+            block on one pair of edges, and the other three had four
+            different left edges on a single screen — a 1408px hero over a
+            1440px grid over an 80px-inset section. This asserts that every
+            contained block shares one column, so that cannot drift back.
+
+            Full-bleed bands (sticky header, marquee, footer) are exempt by
+            design: they carry a background across the viewport and inset
+            their own content instead. */
+      if (w >= 1024) {
+        const cols = await page.evaluate(() => {
+          /* One root, not two. Measuring body's children AND .wrap's meant
+             the wrapper itself was compared against its own padded
+             children — a legitimate 16px difference that is not a
+             misalignment. */
+          const root = document.querySelector('.page, .wrap') || document.body;
+          const rootW = root.getBoundingClientRect().width;
+          const lefts = [];
+          [...root.children].forEach(e => {
+            const cs = getComputedStyle(e);
+            if (cs.display === 'none' || cs.position === 'fixed') return;
+            const b = e.getBoundingClientRect();
+            if (b.height < 20 || b.width < 50) return;
+            /* Bands are exempt: they carry a background edge to edge and
+               inset their own content instead. A band can span the viewport
+               (the home footer) or just its container — the hub's sticky
+               header breaks out of .wrap's padding to do exactly that. */
+            if (b.width >= document.documentElement.clientWidth - 1) return;
+            if (b.width >= rootW - 1) return;
+            lefts.push(Math.round(b.left));
+          });
+          return [...new Set(lefts)].sort((a, b) => a - b);
+        });
+        A('contained blocks share one left edge', cols.length <= 1, true);
+        if (cols.length > 1) console.log(`        left edges found: ${cols.join(', ')}`);
+      }
+
+      /* 3c. No control appears twice on one screen.
+
+            The same filter in two places means two states to keep in sync
+            and two things to read before you can act. Free and Paid were in
+            the header's Explore control AND as a chip pair a screen below
+            it; that is the shape this catches.
+
+            Two exemptions, both legitimate: a label repeated once per card
+            in a list ("Directions" on eighteen events), and a header link
+            that also appears in the footer, which is a convention rather
+            than a mistake. */
+      const dupes = await page.evaluate(() => {
+        const seen = e => { const c = getComputedStyle(e); const b = e.getBoundingClientRect();
+          return c.display !== 'none' && c.visibility !== 'hidden' && +c.opacity !== 0
+                 && b.width > 0 && b.height > 0 && !e.closest('[aria-hidden="true"]'); };
+        const map = {};
+        [...document.querySelectorAll('a[href],button,[role="option"],[onclick]')]
+          .filter(seen)
+          .filter(e => !e.closest('.card, article, .tile, .deal, li'))   /* per-row repeats */
+          .filter(e => !e.closest('footer, .footer, .ftr, .p-foot, .hh-foot'))
+          .forEach(e => {
+            const t = (e.getAttribute('aria-label') || e.textContent || '')
+              .replace(/\s+/g, ' ').trim().toLowerCase();
+            if (!t || t.length > 32) return;
+            const pop = e.closest('[id^="ssd-"],.pop,#hhSheet,#ssMenu');
+            if (pop && getComputedStyle(pop).display === 'none') return;
+            (map[t] = map[t] || []).push(1);
+          });
+        return Object.keys(map).filter(k => map[k].length > 1);
+      });
+      A('no control appears twice on one screen', dupes, []);
+
       /* 4. The page must reserve room for the fixed bottom bar.
 
             An earlier version of this check scrolled to the bottom and

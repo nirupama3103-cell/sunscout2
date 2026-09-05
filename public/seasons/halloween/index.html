@@ -891,9 +891,26 @@ body::before,body::after{content:'';position:fixed;inset:0;pointer-events:none}
 .hh-hero{--ed-pad-t:clamp(22px,3vw,34px);--ed-pad-x:clamp(20px,3vw,32px);
   padding:var(--ed-pad-t) var(--ed-pad-x)}
 @media(max-width:820px){
+  /* On a phone the text column is full width, so the desktop scrim's
+     "clear on the right" has nowhere to clear to. The previous fix ran a
+     vertical gradient at .78-.94 the whole way down, which made the hero a
+     flat dark panel — the house and the moon were gone entirely and the
+     space beside the heading read as empty.
+
+     Instead the scrim clears at the TOP and darkens downward, and the hero
+     gains enough top padding for that clear band to be a real slice of the
+     picture. The moon sits high in the tall crop, so that is what shows;
+     the copy starts below it on a surface dark enough to hold AA. */
   .hh-hero>*{max-width:100%}
+  .hh-hero{padding-top:clamp(150px,42vw,230px)!important}
   .hh-hero::before{background:linear-gradient(180deg,
-    rgba(7,14,26,.78) 0%, rgba(7,14,26,.90) 46%, rgba(7,14,26,.94) 100%)!important}
+    rgba(7,14,26,.12) 0%,
+    rgba(7,14,26,.20) 22%,
+    rgba(7,14,26,.72) 38%,
+    rgba(7,14,26,.92) 52%,
+    rgba(7,14,26,.95) 100%)!important}
+  /* The leaf band sits in that clear zone; keep it at the very top. */
+  .hh-hero.has-leaves .ed-leaves{top:0}
 }
 .hh-foot{background-color:rgba(9,20,32,.72);border:1px solid rgba(255,255,255,.10);
   border-bottom:none}
@@ -1484,6 +1501,26 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
   .hh-hero > .hh-lead,
   .hh-hero > .hh-stats{max-width:52%}
 }
+
+/* Cross-page nav on the hub header — the four items every page carries. */
+.hh-cross{display:flex;gap:clamp(8px,1.6vw,22px);align-items:center;flex-wrap:wrap}
+.hh-cross a{
+  /* min-width too: "DIY" is three characters and measured 27px on its short
+     side, which is the side the 44px rule is about. */
+  min-height:46px;min-width:44px;
+  display:inline-flex;align-items:center;justify-content:center;padding:0 6px;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:800;
+  color:#C9D6E4;text-decoration:none;border-bottom:2px solid transparent;
+}
+.hh-cross a:hover{color:#fff}
+.hh-cross a.is-here{color:var(--accent,#FC764A);border-bottom-color:var(--accent,#FC764A)}
+.hh-cross a:focus-visible{outline:3px solid #8FC2ED;outline-offset:3px}
+.hh-top{flex-wrap:wrap;row-gap:4px}
+@media(max-width:640px){
+  /* The bottom bar carries these four on a phone; two stacked nav rows in
+     the header would take half the first screen. */
+  .hh-cross{display:none}
+}
 </style>
 </head>
 <body>
@@ -1507,6 +1544,22 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
         <img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/>
       </picture>
     </a>
+    <!-- Two navs, and they do different jobs.
+
+         The cross-page one is the same four items, in the same order, as
+         every other page. It was missing here entirely: the bottom bar only
+         appears below 640px, so on a desktop this page had no route to
+         Local Table or DIY at all.
+
+         The in-page anchors stay, below it, and drop out on a phone where
+         the bottom bar already carries the four and two stacked nav rows
+         would own half the first screen. -->
+    <nav class="hh-cross" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/local-table/">Local Table</a>
+      <a href="/diy.html">DIY</a>
+      <a href="/seasons/halloween/" class="is-here" aria-current="page">Halloween</a>
+    </nav>
     <nav class="hh-nav" aria-label="On this page">
       <a href="#grid">Spooky picks</a>
       <a href="#filters">Sensory&#8209;friendly</a>

@@ -93,19 +93,9 @@ img{max-width:100%;display:block}
 .logo span{color:var(--sky)}.logo img{display:block;margin:0 auto;height:110px;width:auto}
 .tagline{font-size:.95rem;color:#666;font-weight:700;margin-top:4px}
 .countdown{display:inline-block;font-size:12px;color:#666;background:#fff;border:1px solid #eee;border-radius:99px;padding:3px 14px;margin-top:8px}
-#halloweenCard{display:flex;align-items:center;gap:14px;margin:14px 16px 0;padding:14px 18px;
-  border-radius:16px;text-decoration:none;color:#fff;
-  background:linear-gradient(135deg,#17324D,#24557d 60%,#4FA8DA);
-  box-shadow:0 2px 10px rgba(23,50,77,.18);transition:transform .15s}
-#halloweenCard:hover{transform:translateY(-2px)}
-#halloweenCard .hw-emoji{font-size:30px;flex:0 0 auto}
-#halloweenCard .hw-text{display:flex;flex-direction:column;gap:2px;min-width:0}
-#halloweenCard .hw-text b{font-size:14.5px;font-weight:900;line-height:1.25}
-#halloweenCard .hw-text span{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.82)}
-#halloweenCard .hw-go{margin-left:auto;font-size:20px;font-weight:900;color:#F2A93B;flex:0 0 auto}
-@media(max-width:700px){#halloweenCard{margin:10px 10px 0;padding:12px 14px;gap:11px}
-  #halloweenCard .hw-emoji{font-size:25px}#halloweenCard .hw-text b{font-size:13.5px}}
-@media(prefers-reduced-motion:reduce){#halloweenCard{transition:none}#halloweenCard:hover{transform:none}}
+/* The dark promo banner these rules styled is gone — it is three tiles
+   now, styled as .way in editorial.css. The id survives only because
+   applySeason() uses it to show or hide the seasonal one. */
 .rain-banner{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
 .rain-banner .rain-x{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:inherit;
   font-size:15px;font-weight:900;line-height:1;cursor:pointer;border-radius:99px;
@@ -657,10 +647,10 @@ html { scroll-behavior: smooth; }
 /* Hide old tab bar and old city/age bars on mobile */
 @media(max-width:640px){
     .tab-bar { display:none !important; }
-  #ssc-search { display:none !important; }
-  #ssc-explore { display:none !important; }
-  #ssc-city { flex: 3 !important; }
-  #ssc-age  { flex: 2 !important; }
+  /* These three are gone. #ssc-search no longer exists; Explore was hidden
+     on a phone back when the hamburger carried Outdoor, Indoor and Weekend,
+     and now it is their only route; and the flex values belong to a bar
+     that is a grid at this width. */
   /* Dropdowns: fixed full-width so they don't get clipped */
   #ssd-city, #ssd-age {
     position: fixed !important;
@@ -1264,10 +1254,10 @@ body{color:var(--p-ink) !important}
   <!-- Seasonal header art. Decorative; see .ed-leaves in editorial.css. -->
   <div class="ed-leaves" aria-hidden="true"></div>
   <div class="geo-grid" aria-hidden="true"></div>
-  <span class="geo-tick tl" aria-hidden="true"></span>
-  <span class="geo-tick tr" aria-hidden="true"></span>
-  <span class="geo-tick bl" aria-hidden="true"></span>
-  <span class="geo-tick br" aria-hidden="true"></span>
+  <!-- The four corner ticks are gone. They were meant to be positioned at
+       the hero's corners, but no rule places them any more, so they
+       collapsed into a stack of four 1px bars at the top left and read as
+       a rendering glitch. -->
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
@@ -1289,86 +1279,15 @@ body{color:var(--p-ink) !important}
 <div class="hdr">
   <a class="hdr-logo" href="/" aria-label="SunScout Kids home"><picture><source srcset="/images/sunscout-logo.webp" type="image/webp"><img src="/images/sunscout-logo.png" alt="SunScout Kids" width="230" height="220" loading="eager" decoding="async"/></picture></a>
 
-  <div class="hsearch">
-    <div class="hsearch-bar">
-      <span class="hsearch-mag" aria-hidden="true">&#8981;</span>
-      <div class="hsearch-field">
-        <!-- The caption is the live filter values themselves, so it can
-             never drift from what is actually applied. Uppercased in CSS. -->
-        <span class="hsearch-cap">
-          <span id="ssv-city">Sunnyvale</span>
-          <span aria-hidden="true">&#183;</span>
-          <span id="ssv-age">All ages</span>
-        </span>
-        <input type="search" id="desktopSearch" placeholder="Search parks, camps&hellip;"
-               aria-label="Search activities" autocomplete="off">
-      </div>
-      <button type="button" class="hsearch-go" onclick="ssSearch()" aria-label="Search activities">
-        <span aria-hidden="true">&#8981;</span>
-      </button>
-    </div>
+  <!-- One segmented bar, every filter visible at rest, matching the
+       Halloween hub's. The previous version hid City, Age and Explore
+       behind a focus-panel and lifted their values into a caption above the
+       placeholder, which left "CITY" and "AGE" reading as empty boxes when
+       the panel was open. The values live in their own segments again.
 
-    <div class="hsearch-panel">
-      <div class="hs-ctl">
-        <button type="button" id="ssc-city" onclick="ssTog('city',event)" aria-haspopup="listbox">
-          <span class="hs-l">City</span>
-        </button>
-      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
-        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
-        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
-        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
-        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
-        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
-        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
-      </div>
-      </div>
-      <div class="hs-ctl">
-        <button type="button" id="ssc-age" onclick="ssTog('age',event)" aria-haspopup="listbox">
-          <span class="hs-l">Age</span>
-        </button>
-      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All ages</div>
-          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">0–2</div>
-          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">3–5</div>
-          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">6–12</div>
-          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">Teen</div>
-        </div>
-      </div>
-      </div>
-      <div class="hs-ctl">
-        <button type="button" onclick="weatherChipClick()">
-          <span class="hs-l">Weather</span>
-          <span class="hs-v" id="ssWeatherLabel">Today</span>
-        </button>
-      </div>
-      <!-- Explore is the fourth control rather than the three the brief
-           asks for. Outdoor, Indoor and Weekend reached the page through
-           the hamburger, and the hamburger is gone; the desktop category
-           row is hidden below 768px. Without this they are unreachable on
-           a phone, which scripts/qa-nav.js fails the build over. -->
-      <div class="hs-ctl">
-        <button type="button" id="ssc-explore" onclick="ssTog('explore',event)" aria-haspopup="listbox">
-          <span class="hs-l">Explore</span>
-          <span class="hs-v" id="ssv-explore">Everything</span>
-        </button>
-      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
-        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">WHAT KIND OF FUN?</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-          <div class="ssec" style="color:#c05e00;border-color:#FFD580;background:#FFFBEE;" onclick="ssSelExplore('free','Free',event)">&#9671; Free</div>
-          <div class="ssec" style="color:#991b1b;border-color:#fca5a5;background:#FFF5F5;" onclick="ssSelExplore('paid','Paid',event)">&#9670; Paid</div>
-          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">&#10020; Outdoor</div>
-          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">&#9635; Indoor</div>
-          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">&#9638; Weekend</div>
-          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
+       Each segment is a real button that opens its existing listbox, so
+       ssTog / ssSelCity / ssSelAge / ssSelExplore / ssSearch /
+       weatherChipClick are untouched — only the markup around them. -->
 
   <nav class="hdr-nav" aria-label="Primary">
     <a href="/" class="is-here" aria-current="page">Home</a>
@@ -1377,6 +1296,10 @@ body{color:var(--p-ink) !important}
     <a href="/seasons/halloween/">Halloween</a>
   </nav>
 </div>
+<!-- The search bar is its own full-width row, first in the content and
+     above the hero, rather than a third thing squeezed into the header
+     beside the logo and the nav. That row is what made the desktop
+     header read as cramped. -->
     <!-- ── PAGE SWITCHER (mobile) ──
          The pills above are hide-on-mobile, and this page's bottom bar is the
          FILTER bar, not a page nav — so on a phone there was no way to reach
@@ -1445,30 +1368,103 @@ body{color:var(--p-ink) !important}
   </div>
 </section>
 
-<!-- Auto-scrolling highlights. Decorative and navigational only: it carries
-     no filter control, so the motion can never change what is on screen.
-     Pausable by button, hover, focus and tab-hide; fully still under
-     prefers-reduced-motion (WCAG 2.2.2). -->
-<div class="geo-ticker-wrap" id="geoTicker" data-paused="false">
-  <div class="geo-ticker">
-    <div class="geo-track">
-      <span>Hand-checked by a Bay Area family</span>
-      <span>7 South Bay cities</span>
-      <span>Free &amp; budget-friendly picks</span>
-      <span>Filtered by your kid&rsquo;s age</span>
-      <span>Sunnyvale</span>
-      <span>San Jose</span>
-      <span>Cupertino</span>
-      <span>Mountain View</span>
-      <span>Palo Alto</span>
-      <span>Saratoga</span>
-      <span>Fremont</span>
-      <span>Rainy day? We switch you indoors</span>
-      <span>No ads. No profiles.</span>
+<div class="hsearch-row">
+  <div class="hsearch">
+    <div class="hsearch-bar" role="search">
+      <div class="hseg hseg-search">
+        <span class="hseg-l">Search</span>
+        <input type="search" id="desktopSearch" placeholder="Parks, camps, splash pads&hellip;"
+               aria-label="Search activities" autocomplete="off">
+      </div>
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <div class="hseg hseg-city">
+        <button type="button" id="ssc-city" onclick="ssTog('city',event)" aria-haspopup="listbox">
+          <span class="hseg-l">City</span>
+          <span class="hseg-v" id="ssv-city">Sunnyvale</span>
+        </button>
+      <div id="ssd-city" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">SUGGESTED CITIES</div>
+        <div class="sscr" style="background:#FFF8E1;" onclick="ssSelCity('Sunnyvale',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Sunnyvale</div><div class="sscs">257 sunny days/year</div></div></div>
+        <div class="sscr" style="background:#EFF6FF;" onclick="ssSelCity('San Jose',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">San Jose</div><div class="sscs">200+ parks for families</div></div></div>
+        <div class="sscr" style="background:#FFF5F5;" onclick="ssSelCity('Cupertino',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Cupertino</div><div class="sscs">Great STEM activities</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Mountain View',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Mountain View</div><div class="sscs">Parks &amp; trails</div></div></div>
+        <div class="sscr" style="background:#F5F3FF;" onclick="ssSelCity('Palo Alto',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Palo Alto</div><div class="sscs">Museums &amp; camps</div></div></div>
+        <div class="sscr" style="background:#F0FDF4;" onclick="ssSelCity('Saratoga',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Saratoga</div><div class="sscs">Nature &amp; outdoor fun</div></div></div>
+        <div class="sscr" style="background:#FFF3E0;" onclick="ssSelCity('Fremont',event)"><span class="ssci" aria-hidden="true">&#9737;</span><div><div class="sscn">Fremont</div><div class="sscs">Parks &amp; family fun</div></div></div>
+      </div>
+      </div>
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <div class="hseg hseg-age">
+        <button type="button" id="ssc-age" onclick="ssTog('age',event)" aria-haspopup="listbox">
+          <span class="hseg-l">Age</span>
+          <span class="hseg-v" id="ssv-age">All ages</span>
+        </button>
+      <div id="ssd-age" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;max-height:55vh;overflow-y:auto;">
+        <div style="font-size:9px;font-weight:800;color:#6b6157;letter-spacing:.06em;margin-bottom:10px;">YOUR KID'S AGE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssac" style="background:#FFF8E1;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('all','All ages',event)">⭐ All ages</div>
+          <div class="ssac" style="background:#FFF3E0;color:#c05e00;border-color:#FFD580;" onclick="ssSelAge('0','0-2',event)">0–2</div>
+          <div class="ssac" style="background:#F0FDF4;color:#15803d;border-color:#86efac;" onclick="ssSelAge('1','3-5',event)">3–5</div>
+          <div class="ssac" style="background:#FFF5F5;color:#991b1b;border-color:#fca5a5;" onclick="ssSelAge('2','6-12',event)">6–12</div>
+          <div class="ssac" style="grid-column:span 2;background:#F5F3FF;color:#6d28d9;border-color:#c4b5fd;" onclick="ssSelAge('3','Teen',event)">Teen</div>
+        </div>
+      </div>
+      </div>
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <span class="hseg-div" aria-hidden="true"></span>
+
+      <div class="hseg hseg-cost">
+        <button type="button" id="ssc-cost" onclick="ssTog('cost',event)" aria-haspopup="listbox">
+          <span class="hseg-l">Cost</span>
+          <span class="hseg-v" id="ssv-cost">Any price</span>
+        </button>
+        <!-- Free and Paid live here and nowhere else on the page. They used
+             to sit inside Explore beside Outdoor and Indoor, which mixed
+             "how much" with "where". -->
+        <div id="ssd-cost" class="ss-dd" role="listbox" aria-label="Filter by cost">
+          <div class="ss-dd-h">How much</div>
+          <div class="ss-dd-grid">
+            <div class="ssec" role="option" onclick="ssSelCost('free','Free',event)">Free</div>
+            <div class="ssec" role="option" onclick="ssSelCost('paid','Paid',event)">Paid</div>
+          </div>
+        </div>
+      </div>
+      <div class="hseg hseg-explore">
+        <button type="button" id="ssc-explore" onclick="ssTog('explore',event)" aria-haspopup="listbox">
+          <span class="hseg-l">Explore</span>
+          <span class="hseg-v" id="ssv-explore">Everything</span>
+        </button>
+      <div id="ssd-explore" style="display:none;position:absolute;bottom:calc(100% + 8px);left:-40px;background:#fff;border-radius:16px;border:0.5px solid #e0e0e0;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:9999;padding:12px;min-width:220px;">
+        <div class="ss-dd-h">Where to</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div class="ssec" style="color:#15803d;border-color:#86efac;background:#F0FDF4;" onclick="ssSelExplore('outdoor','Outdoor',event)">&#10020; Outdoor</div>
+          <div class="ssec" style="color:#1d4ed8;border-color:#93c5fd;background:#EFF6FF;" onclick="ssSelExplore('indoor','Indoor',event)">&#9635; Indoor</div>
+          <div class="ssec" style="color:#6d28d9;border-color:#c4b5fd;background:#F5F3FF;" onclick="ssSelExplore('weekend','Weekend',event)">&#9638; Weekend</div>
+          <div class="ssec" style="color:#c05e00;border-color:#FF9900;background:#FFFBEE;" onclick="ssSelExplore('surprise','Surprise',event)">&#10022; Surprise</div>
+        </div>
+      </div>
+      </div>
+
+      <div class="hsearch-acts">
+        <button type="button" class="hsearch-go" onclick="ssSearch()" aria-label="Search activities">
+          <span aria-hidden="true">&#8981;</span>
+        </button>
+        <button type="button" class="hsearch-wx" onclick="weatherChipClick()"
+                aria-label="Switch to what the weather suits">
+          <span aria-hidden="true" id="ssWeatherLabel">&#9728;</span>
+        </button>
+      </div>
     </div>
   </div>
-  <button class="geo-pause" type="button" aria-label="Pause the scrolling highlights" aria-pressed="false">&#10074;&#10074;</button>
 </div>
+
+<!-- The scrolling highlights ticker is gone. It was the only full-bleed
+     element left breaking the content column, and it carried no filter —
+     it was decoration that cost a band of vertical space on every page
+     load and a marquee animation on every frame. -->
 
 <style>
 .sscr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;min-height:44px;}
@@ -1509,11 +1505,38 @@ body{color:var(--p-ink) !important}
 <div id="weatherBanner" class="weather-banner" style="display:none"></div>
 <div id="rainBanner" class="weather-banner rain-banner" style="display:none" role="status" aria-live="polite"></div>
 <!-- Shown by applySeason() only when SEASON.key === "fall". -->
-<a id="halloweenCard" href="/seasons/halloween/" style="display:none">
-  <span class="hw-emoji" aria-hidden="true">🎃</span>
-  <span class="hw-text"><b>Halloween in the South Bay, sorted by how scary it isn’t</b><span>Pumpkin patches, trunk-or-treats and sensory-friendly picks — rated 1 to 4.</span></span>
-  <span class="hw-go" aria-hidden="true">→</span>
-</a>
+<!-- Three ways in, the pattern the Halloween hub already uses for its
+     doors. This was a single dark promo banner, which sat in the column
+     like an advert rather than like part of the page. applySeason() still
+     owns whether the seasonal one shows, so the id stays on the first
+     tile. The eyebrows name the category rather than counting to three:
+     these are three choices, not three steps. -->
+<section class="ways" aria-label="Start here">
+  <a class="way" id="halloweenCard" href="/seasons/halloween/">
+    <span class="way-art way-art-hw" aria-hidden="true"></span>
+    <span class="way-b">
+      <span class="way-k">Halloween</span>
+      <b>Sorted by how scary it isn&rsquo;t</b>
+      <span>Pumpkin patches and trunk-or-treats, every one rated 1 to 4 for scare.</span>
+    </span>
+  </a>
+  <button type="button" class="way" onclick="ssSelCost('free','Free',event)">
+    <span class="way-art way-art-free" aria-hidden="true"></span>
+    <span class="way-b">
+      <span class="way-k">Free this weekend</span>
+      <b>Costs nothing at all</b>
+      <span>Parks, libraries and splash pads across all seven cities.</span>
+    </span>
+  </button>
+  <a class="way" href="/diy.html">
+    <span class="way-art way-art-diy" aria-hidden="true"></span>
+    <span class="way-b">
+      <span class="way-k">Rainy day</span>
+      <b>When the sky turns</b>
+      <span>Crafts and indoor projects you can start with what is in the cupboard.</span>
+    </span>
+  </a>
+</section>
 <!-- ── MOBILE SEARCH BAR: City + Age pill with upward dropdowns ── -->
 <div id="mobile-search-bar" style="display:none!important;" style="padding:10px 12px 6px;max-width:640px;margin:0 auto;">
 
@@ -1703,14 +1726,9 @@ function mobSearch() {
      them in sync with every other filter surface on its own — no new
      wiring. A11Y-03: the selected one carries a checkmark and a border, not
      just a colour. -->
-<div class="cost-bar" role="group" aria-label="Filter by cost">
-  <button class="tab-btn cost-chip on" data-tab="free" onclick="setTab(this)">
-    <span class="cost-check" aria-hidden="true"></span>Free
-  </button>
-  <button class="tab-btn cost-chip" data-tab="paid" onclick="setTab(this)">
-    <span class="cost-check" aria-hidden="true"></span>Paid
-  </button>
-</div>
+<!-- Free and Paid are in the header's Explore control and nowhere else.
+     This chip pair repeated them a screen further down, so the same filter
+     had two places to live and two states to keep in sync. -->
 <div class="age-bar" role="group" aria-label="Filter by age">
   <button class="age-btn" data-age="0" onclick="setAge(this)">0–2 <span class="age-desc">Infant/Toddler</span></button>
   <button class="age-btn" data-age="1" onclick="setAge(this)">3–5 <span class="age-desc">Preschool</span></button>
@@ -3299,17 +3317,28 @@ setTimeout(buildMobileCities, 500);
 
 
 
-function ssTog(id,e){e.stopPropagation();["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
+function ssTog(id,e){e.stopPropagation();["city","explore","age","cost"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display=d===id&&el.style.display==="none"?"block":"none";});}
 function ssSelCity(city,e){e.stopPropagation();ssApplyCity(city);var chip=document.getElementById("ssChip");if(chip)chip.textContent="🌤️ Loading weather for "+city+"...";var dchip=document.getElementById("desktopWeatherChip");if(dchip)dchip.textContent="🌤️ Loading weather for "+city+"...";fetch("https://api.open-meteo.com/v1/forecast?latitude="+({Sunnyvale:37.3688,SanJose:37.3382,Cupertino:37.3229,MountainView:37.3861,PaloAlto:37.4419,Saratoga:37.2638}[city.replace(" ","")]||37.3688)+"&longitude="+({Sunnyvale:-122.0363,SanJose:-121.8863,Cupertino:-122.0322,MountainView:-122.0839,PaloAlto:-122.143,Saratoga:-122.0231}[city.replace(" ","")]||-122.0363)+"&current_weather=true&temperature_unit=fahrenheit").then(function(r){return r.json();}).then(function(d){var t=Math.round(d.current_weather.temperature);var msg=t>=100?"🚨 "+t+"°F in "+city+" — Heat Wave! Stay indoors!":t>=90?"🥵 "+t+"°F in "+city+" — Hot! AC activities recommended!":t>=76?"☀️ "+t+"°F in "+city+" — Warm & sunny — splash pads!":t>=60?"🌤️ "+t+"°F in "+city+" — Perfect outdoor weather!":"🧥 "+t+"°F in "+city+" — Bit chilly — check Indoor tab!";var sc2=document.getElementById("ssChip");if(sc2)sc2.textContent=msg;var dc=document.getElementById("desktopWeatherChip");if(dc){dc.textContent=msg;dc.style.background=t>=100?"#FFF0F0":t>=90?"#FFF0F0":t>=76?"#FFF8E1":"#FFF8E1";dc.style.color=t>=90?"#991b1b":"#c05e00";dc.style.borderColor=t>=90?"#fca5a5":"#FFD580";}}).catch(function(){});}
+/* Mirrors ssSelExplore for the Cost segment. setTab stays the single
+   source of truth for which filter is applied; this only owns the
+   segment's own label and popup. */
+function ssSelCost(tab,label,e){
+  e.stopPropagation();
+  var v=document.getElementById("ssv-cost");
+  if(v){v.textContent=label;v.style.color="#1a1a1a";}
+  var d=document.getElementById("ssd-cost"); if(d)d.style.display="none";
+  var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");
+  if(btn&&typeof setTab==="function")setTab(btn);
+}
 function ssSelExplore(tab,label,e){e.stopPropagation();document.getElementById("ssv-explore").textContent=label;document.getElementById("ssv-explore").style.color="#1a1a1a";document.getElementById("ssd-explore").style.display="none";if(tab==="surprise"){if(typeof doSurprise==="function")doSurprise();return;}if(tab==="weekend"){var today=new Date().getDay();if(today!==5&&today!==6&&today!==0){alert("🗓️ Weekend activities unlock on Friday! Come back then for fun family events.");return;}}var btn=document.querySelector(".tab-btn[data-tab='"+tab+"']");if(btn&&typeof setTab==="function")setTab(btn);else if(typeof activeTab!=="undefined"){activeTab=tab;if(typeof loadActivities==="function"&&activeCity)loadActivities();}}
 function ssSelAge(val,label,e){e.stopPropagation();document.getElementById("ssv-age").textContent=label;document.getElementById("ssv-age").style.color="#1a1a1a";document.getElementById("ssd-age").style.display="none";document.querySelectorAll(".ssac").forEach(function(b){b.classList.remove("on");});var me=e.currentTarget||e.target;if(me)me.classList.add("on");if(typeof activeAge!=="undefined"){activeAge=val==="all"?"all":parseInt(val);if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();}}
-function ssSearch(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
-document.addEventListener("click",function(){["city","explore","age"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
+function ssSearch(){["city","explore","age","cost"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});if(typeof loadActivities==="function"&&typeof activeCity!=="undefined"&&activeCity)loadActivities();var c=document.getElementById("cards");if(c)c.scrollIntoView({behavior:"smooth"});}
+document.addEventListener("click",function(){["city","explore","age","cost"].forEach(function(d){var el=document.getElementById("ssd-"+d);if(el)el.style.display="none";});});
 /* Each panel is a child of the button that toggles it, so a tap on the panel's
    own padding or its heading bubbled to that button and closed the sheet again.
    Option rows already stopPropagation in ssSelCity/ssSelAge; this covers the
    rest of the panel so only a tap outside dismisses it. */
-["ssd-city","ssd-explore","ssd-age"].forEach(function(id){
+["ssd-city","ssd-explore","ssd-age","ssd-cost"].forEach(function(id){
   var el=document.getElementById(id);
   if(el)el.addEventListener("click",function(ev){ev.stopPropagation();});
 });

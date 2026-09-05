@@ -109,29 +109,35 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
     await page.route('**/*', r => r.request().url().startsWith(BASE) ? r.continue() : r.abort());
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1800);
-    /* The drawer is gone; its filters moved into the header search panel.
-       Two separate things are checked here.
-
-       First the contract a person actually meets: focusing the input must
-       open the panel. */
-    const opensOnFocus = await page.evaluate(() => {
-      const panel = document.querySelector('.hsearch-panel');
-      const shut = getComputedStyle(panel).display;
-      document.getElementById('desktopSearch').focus();
-      return { shut, open: getComputedStyle(panel).display };
+    /* The header bar shows every filter at rest — no panel to open. What
+       is checked here is that the values are actually on screen, not just
+       the labels: an earlier version lifted them into a caption and left
+       "CITY" and "AGE" reading as empty boxes. */
+    const atRest = await page.evaluate(() => {
+      const seg = s => {
+        const e = document.querySelector(s);
+        if (!e || e.offsetParent === null) return null;
+        return (e.textContent || '').trim();
+      };
+      return { city: seg('#ssv-city'), age: seg('#ssv-age'), explore: seg('#ssv-explore') };
     });
-    A('search panel is closed at rest', opensOnFocus.shut, 'none');
-    A('focusing the input opens it', opensOnFocus.open !== 'none', true);
+    A('city value is visible at rest', !!atRest.city, true);
+    A('age value is visible at rest', !!atRest.age, true);
+    A('explore value is visible at rest', !!atRest.explore, true);
 
-    /* Then reachability. Drive it from script rather than real focus and
-       clicks: card rendering finishes asynchronously and steals focus back,
-       which made a real-focus version of this check flaky rather than
-       wrong. Reachable means a person can get there in a tap or two, not
-       that it is already on screen. */
+    /* Explore's options live in a listbox that opens on demand. Driven from
+       script because card rendering finishes asynchronously and steals
+       focus back, which made a real-click version flaky rather than wrong. */
     await page.evaluate(() => {
-      document.getElementById('desktopSearch').focus();
-      const e = document.getElementById('ssc-explore');
-      if (e) e.click();
+      /* Free and Paid moved out of Explore into their own Cost segment, so
+         two listboxes now hold the five canonical filters. Clicking each in
+         turn does not work: ssTog closes the others, so only the last would
+         be open. Reveal both instead — the question is whether a person can
+         reach them, and each opens on its own tap. */
+      ['ssd-explore', 'ssd-cost'].forEach(id => {
+        const e = document.getElementById(id);
+        if (e) e.style.display = 'block';
+      });
     });
     await page.waitForTimeout(300);
     const reach = await page.evaluate(() => {
@@ -139,8 +145,10 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
          canonical .tab-btn row and the drawer are what must still carry
          them. Nothing may become unreachable on a phone. */
       const txt = [...document.querySelectorAll(
-          '#bottom-nav .bnav-label, .hsearch-panel button, .hsearch-panel [onclick], '
-          + '#ssd-explore [onclick], .tab-bar .tab-label, .cost-chip')]
+          /* .cost-chip is gone — Free and Paid live only in the header's
+             Explore listbox now, which this block opens above. */
+          '#bottom-nav .bnav-label, .hseg button, .hseg-v, '
+          + '#ssd-explore [onclick], #ssd-cost [onclick], .tab-bar .tab-label')]
         .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
       const has = w => txt.some(t => t.includes(w));
       return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),

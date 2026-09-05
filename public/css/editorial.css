@@ -219,7 +219,9 @@ body.ed-shell .hero .p-badge{background:rgba(255,255,255,.66)!important;
   border-color:#EFD4B4!important;color:#7A3A0B!important}
 body.ed-shell .hero .p-stat b{color:var(--ed-ink)!important}
 body.ed-shell .hero .p-stat.is-free b{color:var(--ed-accent)!important}
-body.ed-shell .hero .p-stat span{color:#6B5647!important}
+/* 4.48:1 against 4.5 once the taller header moved the hero onto a
+   lighter part of the backdrop. Two hundredths short is still short. */
+body.ed-shell .hero .p-stat span{color:#4A3B2E!important}
 body.ed-shell .hero .p-stat-rule{background:rgba(32,22,14,.18)!important}
 body.ed-shell .hero .p-wcard,body.ed-shell .hero .p-pick{
   background:rgba(255,255,255,.74)!important;border:1px solid rgba(255,255,255,.9)!important;
@@ -271,12 +273,10 @@ body.ed-shell .hero .hide-on-mobile > button:first-child{
 /* ── the seasonal cross-link ──────────────────────────────────────────────
    It was a saturated blue band directly under a warm page. Ink, with the
    accent doing the pointing. */
-body.ed-shell #halloweenCard{
-  background:#20160E!important;border:1px solid #3A2A1A!important;
-}
-body.ed-shell #halloweenCard .hw-text b{color:#FFFFFF!important}
-body.ed-shell #halloweenCard .hw-text span{color:#D3C7BB!important}
-body.ed-shell #halloweenCard .hw-go{color:var(--ed-accent)!important}
+/* The dark banner these rules painted is three .way tiles now. The id
+   survives only so applySeason() can show or hide the seasonal one, and an
+   !important dark background on it was covering the whole tile — the tile
+   text measured 2.7:1 and 2.1:1 against it. */
 
 /* Two pictographs were left in the card foot. */
 .ed .card-foot .btn[title],
@@ -566,28 +566,8 @@ body.ed-shell .dtec.on::before{
   font-weight:900;
 }
 
-/* ── Free / Paid cost chips ─────────────────────────────────────────────
-   Members of the canonical .tab-btn set (so setTab keeps them in sync),
-   but styled as chips rather than as the big desktop category cards. The
-   .tab-btn colour rules are per-[data-tab], so they are neutralised here. */
-body.ed-shell .cost-bar{
-  display:flex;gap:8px;padding:10px 16px 0;align-items:center;
-}
-body.ed-shell .tab-btn.cost-chip{
-  flex:0 0 auto;min-width:0;max-width:none;
-  flex-direction:row;align-items:center;justify-content:center;gap:6px;
-  min-height:44px;padding:0 18px;border-radius:99px;
-  font-size:13.5px;font-weight:800;
-  background:#fff!important;color:#7A3F0D!important;
-  border:2px solid rgba(122,63,13,.28);
-  box-shadow:none;transform:none;
-}
-body.ed-shell .tab-btn.cost-chip.on{
-  background:var(--ed-accent-fill,#AE5C0F)!important;color:#fff!important;
-  border-color:var(--ed-accent-fill,#AE5C0F);transform:none;box-shadow:none;
-}
-body.ed-shell .tab-btn.cost-chip.on::after{display:none}
-body.ed-shell .tab-btn.cost-chip.on .cost-check::before{content:"\2713";font-weight:900}
+/* The Free / Paid chip pair is gone: those two filters live in the
+   header's Explore control, and nowhere else. */
 
 /* ══════════════════════════════════════════════════════════════════════════
    PAGE BACKDROP — the autumn river behind home, Local Table and DIY.
@@ -633,10 +613,14 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   /* Two layers, top first: the sunset tint that keeps text legible, then
      the photograph under it. Putting the tint here rather than on body is
      what lets the photograph be seen at all. */
+  /* Tint raised now that the content sits in a 1048px column: with wide
+     margins the photograph was the loudest thing on the screen and the
+     column read as floating on top of a holiday snap. It should be
+     texture behind the page, not a competitor to it. */
   background-image:
     linear-gradient(180deg,
-      rgba(255,246,236,.80) 0%, rgba(255,237,217,.76) 12%, rgba(255,221,190,.72) 32%,
-      rgba(253,227,208,.74) 56%, rgba(237,242,250,.80) 82%, rgba(233,242,251,.84) 100%),
+      rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
+      rgba(253,227,208,.87) 56%, rgba(237,242,250,.90) 82%, rgba(233,242,251,.92) 100%),
     image-set(
       url("/images/seasonal/autumn-river.webp") type("image/webp"),
       url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
@@ -650,8 +634,8 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
   .ss-backdrop{
     background-image:
       linear-gradient(180deg,
-        rgba(255,246,236,.84) 0%, rgba(255,237,217,.80) 12%, rgba(255,221,190,.76) 32%,
-        rgba(253,227,208,.78) 56%, rgba(237,242,250,.84) 82%, rgba(233,242,251,.88) 100%),
+        rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
+        rgba(253,227,208,.88) 56%, rgba(237,242,250,.91) 82%, rgba(233,242,251,.93) 100%),
       image-set(
         url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
         url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
@@ -678,7 +662,11 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
    button — a div with an onclick cannot hold focus, and the panel would shut
    the instant you reached for a filter.
    ══════════════════════════════════════════════════════════════════════════ */
-.hdr{
+/* Scoped to the home page. Local Table and DIY use .hdr too, for a
+   full-bleed sticky bar of their own — unscoped, this max-width and
+   padding shrank both of them to 1200px with auto margins, which is what
+   made them read as white slabs floating over the backdrop. */
+body.ed-shell .hdr{
   display:flex;
   align-items:center;
   gap:clamp(10px,2vw,20px);
@@ -690,66 +678,135 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
 .hdr-logo{flex:0 0 auto;display:block;line-height:0}
 .hdr-logo img{height:clamp(42px,6vw,54px);width:auto;display:block}
 
-.hsearch{flex:1 1 320px;min-width:0;position:relative}
+/* The rainbow edge is the wrapper's background, with the white bar sitting
+   on top of it inset by the wrapper's own padding.
+
+   The first attempt used a ::before at z-index:-1. Within a stacking
+   context an element's background paints FIRST and negative-z children
+   paint after it, so the gradient landed on top of the white fill and the
+   whole bar came out rainbow with the labels tinted. Same painting-order
+   trap as the page backdrop.
+
+   The fill stays white: a rainbow behind these labels fails contrast at
+   every stop, and they are the four controls the page runs on. */
+.hsearch{
+  position:relative;width:100%;
+  padding:3px;
+  border-radius:999px;
+  background:linear-gradient(95deg,
+    #E4572E 0%, #F2A93B 20%, #6FBF73 44%, #2E9BD6 66%, #7A5FBF 86%, #E4572E 100%);
+  box-shadow:0 3px 16px rgba(70,45,10,.14);
+}
+
+/* Its own full-width row, directly under the hero. It carried a 1200px
+   max-width from when it lived inside the header; as a top-level block it
+   joins the same 1048px column as everything else, which qa-layout's
+   one-left-edge assertion requires. */
+.hsearch-row{
+  max-width:var(--shell,1048px);
+  margin:clamp(14px,2vw,22px) auto clamp(4px,1vw,10px);
+  padding:0;
+}
+
+/* The bar shows every filter at rest — no panel, no hover, no focus needed
+   to see what is applied. Same shape as the Halloween hub's bar so the two
+   pages read as one product. */
+/* The rainbow edge is a gradient painted behind the bar and revealed by a
+   3px inset, not a border-image: border-image cannot follow a 999px radius,
+   and a gradient border on a pill otherwise squares off at the ends.
+
+   The fill stays white. A rainbow behind the labels would fail contrast at
+   every stop, and these are the four controls the whole page runs on. */
 .hsearch-bar{
   display:flex;
-  align-items:center;
-  gap:10px;
+  align-items:stretch;
   background:#fff;
-  border:1px solid var(--ed-hair,#F0DCC4);
+  border:none;
   border-radius:999px;
-  padding:6px 6px 6px 16px;
-  min-height:56px;
-  box-shadow:0 2px 12px rgba(70,45,10,.08);
+  padding:5px 5px 5px 6px;
+  min-height:60px;
 }
-.hsearch-mag{
-  flex:0 0 auto;font-size:19px;line-height:1;color:#7A6A58;
-  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+.hseg{position:relative;min-width:0;display:flex;flex:1 1 0}
+.hseg-search{flex:1.8 1 0}
+.hseg-explore{flex:1.1 1 0}
+.hseg > button,.hseg-search{
+  width:100%;min-width:0;min-height:48px;
+  display:flex;flex-direction:column;justify-content:center;gap:1px;
+  padding:4px 14px;border:none;background:none;text-align:left;
+  font-family:Nunito,sans-serif;border-radius:999px;cursor:pointer;
 }
-.hsearch-field{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1px}
-.hsearch-cap{
-  /* 12px is the floor for anything that is not a nav label. */
-  font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  color:#6A5B4B;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.hseg-search{cursor:text}
+.hseg > button:hover{background:#FFF8F0}
+.hseg > button:focus-visible,.hseg-search:focus-within{
+  outline:3px solid #0F4C93;outline-offset:-2px;border-radius:999px;
 }
-.hsearch-cap > span{display:inline}
-.hsearch-field input{
-  border:none;outline:none;background:none;width:100%;min-width:0;
-  font-family:Nunito,sans-serif;font-size:14px;font-weight:600;color:var(--ed-ink,#20160E);
-  padding:0;line-height:1.25;
+.hseg-l{
+  font-size:12px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
+  color:#6A5B4B;line-height:1.1;
 }
-.hsearch-field input::placeholder{color:#8A7A68;font-weight:600}
-.hsearch-go{
-  flex:0 0 auto;width:44px;height:44px;min-height:44px;border:none;border-radius:50%;
-  background:var(--ed-accent-fill,#AE5C0F);color:#fff;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;font-size:19px;
-  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
+.hseg-v{
+  font-size:13.5px;font-weight:700;color:var(--ed-ink,#20160E);line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
 }
-.hsearch-go:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+.hseg-search input{
+  border:none;outline:none;background:none;width:100%;min-width:0;padding:0;
+  font-family:Nunito,sans-serif;font-size:13.5px;font-weight:700;
+  color:var(--ed-ink,#20160E);line-height:1.2;
+}
+.hseg-search input::placeholder{color:#8A7A68;font-weight:600}
+.hseg-div{width:1px;background:var(--ed-hair,#F0DCC4);margin:10px 0;flex:0 0 auto}
 
-/* The panel. Hidden until something inside the component takes focus. */
-.hsearch-panel{
-  display:none;
-  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:120;
-  background:#fff;border:1px solid var(--ed-hair,#F0DCC4);border-radius:18px;
-  box-shadow:0 12px 34px rgba(70,45,10,.16);
-  padding:10px;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:8px;
+.hsearch-acts{display:flex;align-items:center;gap:6px;padding-left:6px;flex:0 0 auto}
+.hsearch-go,.hsearch-wx{
+  width:48px;height:48px;min-height:44px;border:none;border-radius:50%;
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  font-size:19px;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;
 }
-.hsearch:focus-within .hsearch-panel{display:grid}
-.hs-ctl{position:relative;min-width:0}
-.hs-ctl > button{
-  width:100%;min-height:44px;
-  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;
-  background:#FFFBF5;border:2px solid var(--ed-hair,#F0DCC4);border-radius:12px;
-  padding:6px 12px;cursor:pointer;font-family:Nunito,sans-serif;text-align:left;
+.hsearch-go{background:var(--ed-accent-fill,#AE5C0F);color:#fff}
+.hsearch-wx{background:#FFF1DE;color:#8A5200;border:1px solid var(--ed-hair,#F0DCC4)}
+.hsearch-go:focus-visible,.hsearch-wx:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
+
+/* The dropdowns hang off their own segment. */
+.hseg > div[id^="ssd-"]{left:0;right:auto;min-width:250px}
+
+@media(max-width:720px){
+  /* Four segments will not fit a phone in one line, so the bar becomes a
+     card. Every row and column is placed explicitly: auto-placement put
+     Explore off the grid entirely and stretched the buttons down a whole
+     column. */
+  .hsearch{border-radius:24px}
+  .hsearch-bar{
+    border-radius:22px;
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    grid-template-rows:auto auto auto;
+    gap:8px;
+    padding:10px;
+    align-items:stretch;
+  }
+  .hseg-search{grid-column:1 / 3;grid-row:1}
+  /* Placed by class, not :nth-of-type — the hairline dividers are divs
+     too, so nth-of-type counted them and Explore fell off the grid. */
+  /* Five segments now, so row 3 is a pair like row 2. Explore was still on
+     1/-1 from the four-segment version, which pushed Cost to a fourth row
+     on its own. */
+  .hseg-city{grid-column:1;grid-row:2}
+  .hseg-age{grid-column:2;grid-row:2}
+  .hseg-cost{grid-column:1;grid-row:3}
+  .hseg-explore{grid-column:2;grid-row:3}
+  .hsearch-acts{
+    grid-column:3;grid-row:1 / 4;
+    flex-direction:column;justify-content:center;padding-left:0;
+  }
+  .hseg-div{display:none}
+  .hseg > button,.hseg-search{
+    border:1px solid var(--ed-hair,#F0DCC4);border-radius:14px;background:#FFFCF7;
+    min-height:52px;
+  }
+  .hsearch-go,.hsearch-wx{width:44px;height:44px;font-size:17px}
+  .hseg > div[id^="ssd-"]{min-width:0;left:0;right:0}
 }
-.hs-ctl > button:hover{border-color:var(--ed-accent,#A8380A)}
-.hs-ctl > button:focus-visible{outline:3px solid #0F4C93;outline-offset:2px}
-.hs-l{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#6A5B4B}
-.hs-v{font-size:13px;font-weight:700;color:var(--ed-ink,#20160E);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 
 /* ── Nav: four items, active carries the accent AND a 2px rule ─────────── */
 .hdr-nav{flex:1 1 100%;display:flex;gap:clamp(6px,1.6vw,22px);flex-wrap:wrap;align-items:center}
@@ -767,10 +824,9 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
 }
 .hdr-nav a:focus-visible{outline:3px solid #0F4C93;outline-offset:3px}
 
-@media(min-width:900px){
-  /* Nav sits on the same line as the logo and search once there is room. */
-  .hdr-nav{flex:0 0 auto}
-}
+/* Logo left, nav right — the whole row is only those two now. */
+body.ed-shell .hdr{justify-content:space-between}
+.hdr-nav{flex:0 1 auto;justify-content:flex-end}
 
 /* Selected options inside the header panel carry a checkmark and a 2px
    border, never colour alone. .ssac already used an outline for its on
@@ -835,7 +891,7 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
    the hero badge and stat captions, the ticker items, the footer column
    headings and the unverified-listing note on hub cards. */
 .p-badge,.p-badge span,#pHeroBadge,
-.p-stat span,.p-foot-col b,
+.p-foot-col b,
 .geo-ticker .geo-track span,
 .c-unver{
   font-size:12px!important;
@@ -873,3 +929,268 @@ p.c-unver{font-size:12px!important}
   min-height:44px!important;min-width:44px!important;
   display:inline-flex!important;align-items:center!important;justify-content:center!important;
 }
+
+/* Local Table and DIY header nav — same treatment as the home and hub navs:
+   accent plus a 2px bottom rule on the current page, and one style for the
+   four cross-page items rather than three pills and an orange CTA. */
+.navlink.navlink-cross{
+  border:none!important;border-bottom:2px solid transparent!important;
+  border-radius:0!important;background:none!important;
+  padding:0 2px!important;min-height:44px;
+  font-weight:800;
+}
+.navlink.navlink-cross.is-here{
+  color:var(--ed-accent,#A8380A)!important;
+  border-bottom-color:var(--ed-accent,#A8380A)!important;
+}
+.nav-cross{display:flex;gap:clamp(8px,1.6vw,20px);align-items:center}
+.nav-page{display:flex;gap:8px;align-items:center}
+@media(max-width:640px){
+  /* The bottom bar carries the four on a phone. */
+  .nav-cross{display:none}
+}
+
+/* The marquee edge fade is left to each page.
+
+   Widening it here made every label under the fade partly transparent, so
+   two Local Table tile labels dropped to 4.1:1 and 3.0:1 — the mask applies
+   to the band's content, not just its edges, and contrast under it cannot
+   be guaranteed. The tile labels keep the opaque chips added alongside;
+   those are worth having either way.
+   (Local Table's band hard-clips, DIY's fades 60px. Both are legible.) */
+
+/* The same rainbow edge on the other two pages' search controls, so the
+   three read as one component. Wrapper background plus inset fill, for the
+   painting-order reason noted on .hsearch above. */
+.fbar,
+.search-wrap{
+  position:relative;
+  padding:3px!important;
+  border:none!important;
+  border-radius:999px;
+  background:linear-gradient(95deg,
+    #E4572E 0%, #F2A93B 20%, #6FBF73 44%, #2E9BD6 66%, #7A5FBF 86%, #E4572E 100%)!important;
+  box-shadow:0 3px 16px rgba(70,45,10,.14);
+}
+/* The inner surface each one needs, since the wrapper now owns the edge. */
+.fbar > *,
+.search-wrap > *{position:relative;z-index:1}
+.fbar::after,
+.search-wrap::after{
+  content:"";position:absolute;inset:3px;border-radius:inherit;
+  background:#fff;z-index:0;
+}
+
+/* .p-stat's caption measured 4.48:1 against 4.5 once the taller header
+   moved the hero down onto a lighter part of the backdrop. Two hundredths
+   short is still short. */
+.p-stat span{font-size:12px!important;color:#4A3B2E!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ONE CONTENT COLUMN, ON ALL FOUR PAGES.
+
+   This is the difference between the Halloween hub and the other three, and
+   it is measurable rather than a matter of taste. On the hub every block
+   shares one pair of edges: .wrap sits at 180-1260 on a 1440 viewport and
+   all seven sections at 196-1244. On the home page nothing was contained at
+   all — the hero ran 1408px wide, and the ticker, cost chips, card grid and
+   footer all ran the full 1440 edge to edge. Local Table and DIY inset only
+   their hero and let everything else bleed. Four different left edges on one
+   screen is what "messy" looks like.
+
+   Two rules, not one, because full-bleed surfaces are not a mistake:
+     - blocks that ARE cards get a max-width and centre
+     - bands that carry a background across the viewport (sticky header,
+       marquee, footer) keep the bleed and inset their CONTENT to the same
+       column, with padding that collapses to a sane gutter on a phone
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{ --shell:1048px; --shell-gutter:16px; }
+
+/* — cards: constrain the box — */
+body.ed-shell > .hero,
+body.ed-shell > .city-fact,
+body.ed-shell > .ed,
+.page > section.hero,
+.page > section.filters,
+.page > section.deals,
+.page > section.projects,
+.page > section.sec{
+  max-width:var(--shell);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* — bands: keep the bleed, inset the content — */
+body.ed-shell > .geo-ticker-wrap,
+body.ed-shell > .footer,
+.page > .band,
+.page > .ftr,
+.page > .hdr{
+  padding-left:max(var(--shell-gutter), calc((100% - var(--shell)) / 2))!important;
+  padding-right:max(var(--shell-gutter), calc((100% - var(--shell)) / 2))!important;
+}
+/* The marquee is meant to run off both edges, so its track keeps the bleed
+   while the band around it holds the column. */
+.page > .band{padding-left:0!important;padding-right:0!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SEASONAL HERO PHOTOGRAPH, UNDER THE EDITORIAL HERO.
+
+   index.html's [data-hero-img="on"] rules belong to the hero this design
+   replaced: a navy ground, a heavy scrim and white text. That path had
+   never actually run, because hero-fall.jpg did not exist — the first time
+   a season's photograph landed it would have flipped the headline to white
+   over a pale sunset sky and made the hero panel transparent, taking the
+   logo, the nav and the search bar's ground with it.
+
+   So the photograph goes UNDER the sunset gradient instead of replacing it.
+   The gradient is already translucent, so the sky reads as warmth and
+   texture behind the panel, and not one text colour changes.
+   ══════════════════════════════════════════════════════════════════════════ */
+body.ed-shell .hero[data-hero-img="on"]{
+  /* top layer first: the panel's own tint, then the season's sky. */
+  background-image:
+    linear-gradient(135deg,
+      rgba(255,231,201,.88) 0%, rgba(255,214,174,.84) 36%,
+      rgba(251,217,206,.82) 62%, rgba(220,234,247,.88) 100%),
+    var(--hero-bg, none)!important;
+  background-size:auto, cover!important;
+  background-position:center, center 42%!important;
+  background-repeat:no-repeat, no-repeat!important;
+  background-color:#FFF6EC!important;
+  border-color:var(--ed-hair,#F0DCC4);
+}
+/* The dark text stays dark. Every one of these is white in index.html. */
+body.ed-shell .hero[data-hero-img="on"] .p-h1{color:var(--ed-ink,#20160E)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-h1 #heroLine2{color:var(--ed-accent,#A8380A)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat b{color:var(--ed-ink,#20160E)!important}
+body.ed-shell .hero[data-hero-img="on"] .p-lede{color:#4A3B2E!important}
+body.ed-shell .hero[data-hero-img="on"] .hero-sub{color:#6B5647!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat span{color:#4A3B2E!important}
+body.ed-shell .hero[data-hero-img="on"] .p-stat-rule{background:rgba(0,0,0,.09)!important}
+/* The halo exists to lift a dark logo off a dark photo; on this ground it
+   just smears. */
+body.ed-shell .hero[data-hero-img="on"] .hdr-logo img,
+body.ed-shell .hero[data-hero-img="on"] .hero-logo img{filter:none!important}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   THREE WAYS IN — replaces the dark promo banner.
+
+   Card treatment across the site moves to the shape a listing site uses:
+   the photograph carries the weight, the border goes, and the card lifts on
+   hover instead of sitting inside a box. A hairline is kept at rest so the
+   cards still read as separate objects on a photographic ground.
+   ══════════════════════════════════════════════════════════════════════════ */
+.ways{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,1.6vw,20px);
+  margin:clamp(18px,2.4vw,28px) 0 0;
+}
+.way{
+  /* display:flex, because applySeason() sets it inline on the first tile. */
+  display:flex;
+  flex-direction:column;
+  background:var(--ed-card,#fff);
+  border:1px solid var(--ed-hair,#F0DCC4);
+  border-radius:16px;
+  overflow:hidden;
+  text-decoration:none;
+  text-align:left;
+  color:inherit;
+  font-family:Nunito,sans-serif;
+  padding:0;
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.way:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(70,45,10,.14)}
+.way:focus-visible{outline:3px solid #0F4C93;outline-offset:3px}
+.way-art{
+  display:block;
+  height:clamp(124px,13vw,150px);
+  background:#2A1E14 center/cover no-repeat;
+  flex:0 0 auto;
+}
+.way-art-hw{background-image:url("/images/halloween/haunted-house.jpg")}
+.way-art-free{background-image:url("/park.jpg")}
+.way-art-diy{background-image:url("/stem.jpg")}
+.way-b{display:flex;flex-direction:column;gap:5px;padding:14px 16px 16px}
+.way-k{
+  font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ed-accent,#A8380A);
+}
+.way-b b{font-size:17px;font-weight:800;line-height:1.28;color:var(--ed-ink,#20160E)}
+.way-b > span:last-child{font-size:13.5px;font-weight:600;color:var(--ed-ink-2,#5C4A3A);line-height:1.5}
+
+@media(max-width:900px){ .ways{grid-template-columns:1fr 1fr} }
+@media(max-width:620px){ .ways{grid-template-columns:1fr} }
+@media(prefers-reduced-motion:reduce){
+  .way{transition:none}
+  .way:hover{transform:none}
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CARD TREATMENT — the listing-site shape.
+
+   The photograph carries the card, the frame gets out of the way: a hairline
+   at rest so cards still read as separate objects on a photographic ground,
+   a lift on hover instead of a heavier box, and the meta line stepped down
+   from the title so the two do not compete. Restrained on purpose — the
+   accent is already spent on the search bar's edge.
+   ══════════════════════════════════════════════════════════════════════════ */
+.ed .card{
+  border:1px solid var(--ed-hair,#F0DCC4);
+  border-radius:16px;
+  overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.ed .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(70,45,10,.14)}
+.ed .card:focus-within{box-shadow:0 0 0 3px rgba(15,76,147,.35)}
+.ed .card-body{padding:14px 16px 16px;gap:6px}
+.ed .card-title{font-size:15.5px;font-weight:800;line-height:1.3}
+.ed .card-foot{padding:12px 16px 14px}
+@media(prefers-reduced-motion:reduce){
+  .ed .card{transition:none}
+  .ed .card:hover{transform:none}
+}
+
+/* Section rules get more air, so the page breathes between blocks rather
+   than running one grid straight into the next. */
+.ed .geo-sec,.ed-sec{margin-top:clamp(28px,3.4vw,46px)}
+
+/* The Cost listbox. The other three dropdowns carry inline styles from the
+   original bar; this one is classed, so it needs the same treatment here —
+   without it the panel rendered in flow inside the segment and squashed the
+   button to 28px, which qa-a11y caught. */
+.ss-dd{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  min-width:230px;
+  background:#fff;
+  border:1px solid var(--ed-hair,#F0DCC4);
+  border-radius:16px;
+  box-shadow:0 12px 34px rgba(70,45,10,.18);
+  padding:12px;
+  z-index:9999;
+}
+.ss-dd-h{
+  font-size:12px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
+  color:#6A5B4B;margin-bottom:10px;
+}
+.ss-dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ss-dd .ssec{
+  color:#7A3F0D;background:#FFFBF5;border:2px solid var(--ed-hair,#F0DCC4);
+}
+.ss-dd .ssec:hover{border-color:var(--ed-accent,#A8380A)}
+@media(max-width:720px){ .ss-dd{left:0;right:0;min-width:0} }
+
+/* The three ways-in tiles are a top-level block, so they join the column. */
+body.ed-shell > .ways{
+  max-width:var(--shell);
+  margin-left:auto;margin-right:auto;
+  padding-left:var(--shell-gutter,16px);
+  padding-right:var(--shell-gutter,16px);
+}
+@media(min-width:1081px){ body.ed-shell > .ways{padding-left:0;padding-right:0} }

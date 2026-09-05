@@ -1019,7 +1019,13 @@ html,body{background:var(--p-cream)}
         <span class="live"><i></i>LIVE</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav nav-cross" aria-label="Primary">
+      <a class="navlink navlink-cross" href="/">Home</a>
+      <a class="navlink navlink-cross is-here" href="/local-table/" aria-current="page">Local Table</a>
+      <a class="navlink navlink-cross" href="/diy.html">DIY</a>
+      <a class="navlink navlink-cross" href="/seasons/halloween/">Halloween</a>
+    </nav>
+    <nav class="nav nav-page" aria-label="On this page">
       <a class="navlink" href="#lt-deals">Deals</a>
       <a class="navlink" href="#lt-pricing">List your business</a>
       <a class="navlink" href="#lt-about">About</a>
@@ -1027,9 +1033,6 @@ html,body{background:var(--p-cream)}
            past 390px, clipping "Halloween" to "lloween". They are hidden at
            the breakpoint where the bottom bar appears and kept above it,
            because there is no bottom bar on a desktop to carry them. -->
-      <a class="navlink navlink-cross" href="/diy.html">DIY</a>
-      <a class="navlink navlink-cross" href="/seasons/halloween/">Halloween</a>
-      <a class="navcta" href="/">SunScout Kids &#8594;</a>
     </nav>
   </header>
 
@@ -1046,17 +1049,10 @@ html,body{background:var(--p-cream)}
     </div>
     <div class="stats" id="stats"></div>
   </section>
-
-  <section class="band" aria-label="Featured deals">
-    <div class="band-glow"></div>
-    <div class="band-rows">
-      <div class="row row-a" id="rowA"></div>
-      <div class="row row-b" id="rowB"></div>
-    </div>
-    <div class="fade fade-l"></div>
-    <div class="fade fade-r"></div>
-  </section>
-
+<!-- The filter bar moved up to sit directly under the hero, ahead of the
+     featured strip. It used to come after the strip, so the first control
+     on the page was two screens down. This is the order the Halloween hub
+     uses: header, hero, bar, then content. -->
   <section class="filters" id="lt-deals">
     <!-- Phone-only trigger bar, mirroring diy.html and the homepage search bar.
          Above 700px it is hidden and the pill rows show as usual; the pillsets
@@ -1078,6 +1074,17 @@ html,body{background:var(--p-cream)}
     </div>
     <div class="fsheet-scrim" id="fscrim" hidden></div>
   </section>
+
+  <section class="band" aria-label="Featured deals">
+    <div class="band-glow"></div>
+    <div class="band-rows">
+      <div class="row row-a" id="rowA"></div>
+      <div class="row row-b" id="rowB"></div>
+    </div>
+    <div class="fade fade-l"></div>
+    <div class="fade fade-r"></div>
+  </section>
+
 
   <section class="deals">
     <div class="deals-head">
@@ -1215,8 +1222,8 @@ var CITIES = [{ k:"all", l:"All cities" }, { k:"Sunnyvale", l:"Sunnyvale, CA" },
 var SLOTS  = ["All slots","Lunch","Happy hour","Off-peak","Late night","All day"];
 
 var TIERS = [
-  { name:"Basic",    price:"$25",  flag:false, cta:"List your restaurant", feats:["2 active deals","Photo gallery on your listing","Included in the weekly email"] },
-  { name:"Featured", price:"$55",  flag:true,  cta:"List your restaurant", feats:["Unlimited deals","Priority placement in the grid","Included in our social posts"] },
+  { name:"Basic",    price:"$25",  flag:false, cta:"Choose Basic", feats:["2 active deals","Photo gallery on your listing","Included in the weekly email"] },
+  { name:"Featured", price:"$55",  flag:true,  cta:"Choose Featured", feats:["Unlimited deals","Priority placement in the grid","Included in our social posts"] },
   { name:"Sponsor",  price:"$130", flag:false, cta:"Ask about the slot",   feats:["One slot per city","Homepage hero placement","Deal-of-the-week feature","Monthly analytics report"] }
 ];
 
@@ -1777,6 +1784,26 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
   .hdr .navlink-cross,
   .hdr .navcta{display:none}
 }
+
+/* The marquee's edge fade means these two labels sit on a blend of photo
+   and page, not on a known colour, so contrast could not be guaranteed —
+   the same defect A11Y-02 named on the Halloween hero. Give each its own
+   opaque chip and the ground stops mattering. */
+.tile-title{
+  background:rgba(20,14,9,.82);
+  padding:3px 9px;border-radius:8px;
+  display:inline-block;max-width:100%;
+}
+.tile-price-b{
+  background:rgba(20,14,9,.82);
+  padding:3px 9px;border-radius:8px;
+  color:#FFD9A8!important;
+}
+
+/* .chip-loc sits on card artwork, so its ground is whatever the photo is
+   there. rgba(0,0,0,.55) over a light dish measured 3.84:1. Opaque, like
+   the tile labels above. */
+.chip-loc{background:rgba(20,14,9,.86)!important}
 </style>
 </body>
 </html>
