@@ -129,8 +129,15 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
        script because card rendering finishes asynchronously and steals
        focus back, which made a real-click version flaky rather than wrong. */
     await page.evaluate(() => {
-      const e = document.getElementById('ssc-explore');
-      if (e) e.click();
+      /* Free and Paid moved out of Explore into their own Cost segment, so
+         two listboxes now hold the five canonical filters. Clicking each in
+         turn does not work: ssTog closes the others, so only the last would
+         be open. Reveal both instead — the question is whether a person can
+         reach them, and each opens on its own tap. */
+      ['ssd-explore', 'ssd-cost'].forEach(id => {
+        const e = document.getElementById(id);
+        if (e) e.style.display = 'block';
+      });
     });
     await page.waitForTimeout(300);
     const reach = await page.evaluate(() => {
@@ -141,7 +148,7 @@ const A = (l, a, e) => { const ok = JSON.stringify(a) === JSON.stringify(e); ok 
           /* .cost-chip is gone — Free and Paid live only in the header's
              Explore listbox now, which this block opens above. */
           '#bottom-nav .bnav-label, .hseg button, .hseg-v, '
-          + '#ssd-explore [onclick], .tab-bar .tab-label')]
+          + '#ssd-explore [onclick], #ssd-cost [onclick], .tab-bar .tab-label')]
         .filter(e => e.offsetParent).map(e => e.textContent.trim().toLowerCase());
       const has = w => txt.some(t => t.includes(w));
       return { free: has('free'), paid: has('paid'), outdoor: has('outdoor'),
