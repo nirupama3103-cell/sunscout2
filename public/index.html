@@ -961,6 +961,8 @@ body{color:var(--p-ink) !important}
   margin:18px 0 0;font-size:clamp(30px,5.2vw,58px);font-weight:900;
   letter-spacing:-2px;line-height:1.03;color:var(--p-ink);text-wrap:balance;
 }
+.p-h1 em{font-style:normal;color:var(--p-sun)}
+.p-h1 em.p-h1-b{color:var(--p-sky,#1565c0)}
 .p-lede{margin:14px 0 0;max-width:520px;font-size:clamp(14px,1.6vw,18px);
   font-weight:600;line-height:1.5;color:var(--p-muted);text-wrap:pretty}
 .p-stats{display:flex;gap:clamp(18px,3vw,36px);margin-top:28px;align-items:stretch}
@@ -1306,8 +1308,8 @@ body{color:var(--p-ink) !important}
     <div class="p-hero-inner">
       <div class="p-hero-grid">
         <div class="p-hero-main">
-          <div class="p-badge"><span aria-hidden="true">&#9670;</span><span id="pHeroBadge">Fall 2026 · Bay Area</span></div>
-          <h1 class="p-h1"><span id="heroLine1">Your fall,</span><br><span id="heroLine2">already planned.</span></h1>
+          <div class="p-badge"><span aria-hidden="true">🌳</span><span id="pHeroBadge">Fall 2026 · Bay Area</span></div>
+          <h1 class="p-h1"><span id="heroLine1">Your <em>fall,</em></span><br><span id="heroLine2">already <em class="p-h1-b">planned.</em></span></h1>
           <p class="p-lede" id="heroSub">Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
             <div class="p-stat"><b id="pStatCount"></b><span>Activities live</span></div>

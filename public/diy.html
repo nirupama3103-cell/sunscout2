@@ -106,6 +106,7 @@ button{font-family:inherit}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 13px;border-radius:9999px;background:rgba(255,255,255,.78);border:1px solid rgba(60,40,20,.10);box-shadow:var(--lift-1);font-size:10.5px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--secondary)}
 .eyebrow i{width:7px;height:7px;border-radius:9999px;background:var(--green);display:block}
 .hero h1{margin:20px 0 0;font-size:clamp(40px,6vw,74px);font-weight:900;letter-spacing:-.035em;line-height:1.0;color:var(--ink);text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--orange)}
 .hero h1 span{color:#A8380A;display:block}  /* was var(--orange) #FF9900,
    which measured 2.76:1 against the 3.0:1 large-text minimum once the
    backdrop lightened the ground under it. #A8380A is the design
@@ -820,8 +821,8 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   </header>
 
   <section class="hero">
-    <div class="eyebrow"><i></i>50+ Activities · Always Free</div>
-    <h1>Free &amp; Fun<br><span>At-Home Projects</span></h1>
+    <div class="eyebrow"><span aria-hidden="true">🪨</span>50+ Projects · Always Free</div>
+    <h1><em>Free</em> &amp; Fun<br><span>At-Home Projects</span></h1>
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
 
     <div class="seg-bar" role="search" aria-label="Search and filter projects">
