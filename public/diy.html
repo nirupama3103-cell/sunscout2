@@ -541,15 +541,16 @@ html{overflow-x:hidden}
    this page's control language so it reads as one instrument with the filter
    strip below it. Search narrows first, pills refine - so it sits above them. */
 .search-wrap{
-  display:flex;align-items:center;gap:10px;
+  display:flex;flex-direction:column;align-items:stretch;
   width:min(560px, 100%);margin:26px auto 0;
-  padding:6px 6px 6px 16px;border-radius:9999px;
+  border-radius:9999px;overflow:hidden;
   background:rgba(255,255,255,.82);border:1px solid rgba(60,40,20,.10);
   box-shadow:var(--lift-1);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease);
 }
 .search-wrap:focus-within{border-color:var(--orange);box-shadow:var(--lift-2)}
+.search-row{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 16px}
 .search-icon{font-size:15px;line-height:1;flex:none;opacity:.75}
 .search-input{
   flex:1;min-width:0;border:none;background:transparent;outline:none;
@@ -570,7 +571,7 @@ html{overflow-x:hidden}
 .search-clear:hover{background:#FFF3E0;color:var(--ink)}
 .search-clear[hidden]{display:none}
 @media (max-width:520px){
-  .search-wrap{gap:8px;padding-left:14px}
+  .search-row{gap:8px;padding-left:14px}
   .search-input{font-size:16px}   /* 16px stops iOS zooming the page on focus */
 }
 
@@ -894,28 +895,20 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
      control. They are joined into one rounded bar here: the field sits on
      top, the two segments beneath it, sharing one border and one shadow, so
      the hero reads as one search control rather than two. */
+  /* search-wrap is a column: .search-row on top, .fbar below */
   .search-wrap{
     margin:0;                    /* .hero already applies the gutter */
-    border-radius:26px 26px 0 0;
-    border-bottom:0;
-    box-shadow:none;
+    border-radius:26px;
     background:#fff;
   }
-  .search-wrap:focus-within{box-shadow:none}
-  /* .filters brings its own top margin and gutter padding, which pushed the
-     bar 30px below the field and made it 80px narrower */
-  /* .filters is already inset to the measure's gutter by an ancestor rule, so
-     the bar's own margin double-inset it and left it 40px narrower than the
-     field above */
-  .filters{margin-top:0;padding:0}
   .fbar{
     margin:0;
-    border-radius:0 0 26px 26px;
+    border:none;
     border-top:1px solid rgba(60,40,20,.10);
-    box-shadow:0 1px 2px rgba(60,40,20,.05), 0 10px 26px -16px rgba(60,40,20,.45);
+    border-radius:0;
+    box-shadow:none;
+    background:transparent;
   }
-  /* the joined control is one unit, so the pair carries the outer shadow */
-  .hero .search-wrap{box-shadow:0 -1px 0 rgba(60,40,20,.06)}
 
   /* .hero animates with `ss-rise ... both`, and fill-mode:both keeps the final
      keyframe applied forever. An applied transform - even the identity matrix
@@ -996,17 +989,14 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
 
     <div class="search-wrap">
-      <span class="search-icon" aria-hidden="true">&#8981;</span>
-      <input id="searchInput" class="search-input" type="search" autocomplete="off"
-             placeholder="Search projects, supplies, materials…"
-             aria-label="Search projects" aria-describedby="countLabel">
-      <button type="button" id="searchClear" class="search-clear" hidden>Clear</button>
-    </div>
-
-    <div class="filters">
-      <!-- Phone-only trigger bar. Above 700px it is hidden and the pill rows
-           below show as usual; the pillsets are the same elements either way,
-           so filtering logic is untouched. -->
+      <div class="search-row">
+        <span class="search-icon" aria-hidden="true">&#8981;</span>
+        <input id="searchInput" class="search-input" type="search" autocomplete="off"
+               placeholder="Search projects, supplies, materials…"
+               aria-label="Search projects" aria-describedby="countLabel">
+        <button type="button" id="searchClear" class="search-clear" hidden>Clear</button>
+      </div>
+      <!-- Age/Level bar sits below the search row; hidden above 700px, shown on phones -->
       <div class="fbar" id="fbar" hidden>
         <button type="button" class="fbar-seg" id="fbarAge" aria-expanded="false" aria-controls="agePills">
           <span class="fbar-l">Age</span>
@@ -1018,6 +1008,9 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
           <span class="fbar-v" id="fbarDiffVal">All levels</span>
         </button>
       </div>
+    </div>
+
+    <div class="filters">
       <div class="filters-in">
         <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
         <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
