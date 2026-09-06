@@ -89,7 +89,7 @@ button{font-family:inherit}
 .navcta:hover{background:var(--orange-dark);color:#fff;transform:translateY(-2px)}
 
 /* ---- hero ---- */
-.hero{padding:clamp(38px,7vw,70px) clamp(16px,4vw,32px) clamp(26px,4vw,36px);max-width:1080px;margin:0 auto;text-align:center;animation:lt-rise 500ms var(--ease) both}
+.hero{padding:clamp(38px,7vw,70px) clamp(16px,4vw,32px) clamp(26px,4vw,36px);max-width:1080px;margin:0 auto;text-align:center;animation:lt-rise 500ms var(--ease) both;position:relative;background:linear-gradient(160deg,rgba(255,248,230,.80) 0%,rgba(255,235,190,.60) 50%,rgba(200,120,40,.20) 100%),url("../images/local-table-hero.jpg") center/cover no-repeat;border-radius:0 0 24px 24px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:9999px;background:#fff;border:var(--line);box-shadow:0 2px 12px rgba(0,0,0,.05);font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;color:var(--secondary)}
 .hero h1{margin:22px 0 0;font-size:clamp(38px,6.6vw,80px);font-weight:900;letter-spacing:-2.4px;line-height:.98}
 .hero h1 em{color:var(--orange);font-style:italic}
@@ -232,11 +232,13 @@ button{font-family:inherit}
 .act-save[aria-pressed="true"]{background:var(--saved)}
 
 /* ---- footer ---- */
-.ftr{border-top:1px solid rgba(60,40,20,.08);padding:44px clamp(16px,4vw,32px) 52px;text-align:center}
-.ftr img{height:44px;width:auto;display:block;margin:0 auto 16px}
-.ftr-lead{font-size:15px;font-weight:800;color:var(--secondary);max-width:520px;margin:0 auto}
-.ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
-.ftr-note{margin-top:14px;font-size:13px;font-weight:800;color:#999}
+.ftr{background:#0a1520;color:rgba(255,255,255,.8);border-radius:18px 18px 0 0;
+  padding:26px clamp(16px,3vw,28px);font-size:13.5px;margin-top:auto}
+.ftr-nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.ftr-nav a{color:#fff;font-weight:800;text-decoration:none}
+.ftr-nav a:hover{text-decoration:underline}
+.ftr-tagline{font-size:12px;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.15);
+  padding-top:12px;margin-top:12px}
 
 @media (prefers-reduced-motion:reduce){
   .row{animation:none}
@@ -1005,6 +1007,21 @@ html,body{background:var(--p-cream)}
 .more{background:#fff}
 .pill{background:#fff}
 .eyebrow,.deals-tag{background:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sub-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.sub-section{max-width:640px;margin:28px auto 0;padding:22px 24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px}
+.sub-section b{display:block;font-size:14px;font-weight:900;color:#fff;margin-bottom:6px}
+.sub-claim{font-size:13px;color:rgba(255,255,255,.7);margin:0 0 12px}
+.sub-form{display:flex;gap:8px;flex-wrap:wrap}
+.sub-form input[type=email]{flex:1 1 180px;min-width:0;min-height:46px;padding:0 15px;font:inherit;font-size:15px;font-weight:600;color:#2c1a00;background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px}
+.sub-form input[type=email]::placeholder{color:#8a7a6a}
+.sub-form input[type=email]:focus-visible{outline:3px solid #a66300;outline-offset:2px}
+.sub-form button{flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;font:inherit;font-size:15px;font-weight:900;color:#2c1a00;background:#FF9900;border:0;border-radius:99px}
+.sub-form button:disabled{opacity:.6;cursor:default}
+.sub-msg{margin:9px 0 0;font-size:13px;font-weight:700;min-height:1.2em}
+.sub-msg[data-state="ok"]{color:#6ee7b7}
+.sub-msg[data-state="err"]{color:#fca5a5}
+@media(max-width:600px){.sub-form input[type=email],.sub-form button{flex:1 1 100%}}
 </style>
 <link rel="stylesheet" href="/css/editorial.css">
 </head>
@@ -1040,7 +1057,7 @@ html,body{background:var(--p-cream)}
     <!-- Header art: the supplied food banner, cropped to its
          photographic region. Decorative only. -->
     <div class="lt-hero-art" aria-hidden="true"></div>
-    <div class="eyebrow">Lunch specials · Happy hours · Late-night bites</div>
+    <div class="eyebrow"><span aria-hidden="true">🍽</span>Lunch specials · Happy hours · Late-night bites</div>
     <h1>Good food nearby, at a <em>fair</em> price.</h1>
     <p class="hero-sub">Local Table tracks the live deals near your office — weekday lunch bowls downtown, 3pm happy hours on the Cupertino line, biryani family packs on El Camino, and pizza that is still taking orders past midnight.</p>
     <div class="hero-cta">
@@ -1124,15 +1141,25 @@ html,body{background:var(--p-cream)}
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal"></div>
   </div>
 
-  <footer class="ftr" id="lt-about">
-    <img src="../assets/local-table/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
-    <div class="ftr-lead">Sister brand of <a href="https://www.sunscoutkids.com/">SunScout Kids</a> — free summer activities for families.</div>
-    <div class="ftr-links">
-      <a href="https://www.sunscoutkids.com/local-table/">Local Table</a>
-      <a href="https://www.sunscoutkids.com/diy.html">DIY</a>
-      <a href="https://www.sunscoutkids.com/">SunScout home</a>
-    </div>
-    <div class="ftr-note">Updated weekly · Sunnyvale, CA &amp; Aubrey, TX</div>
+  <footer class="ftr">
+    <nav class="ftr-nav" aria-label="Footer">
+      <a href="../index.html">🌳 Home</a>
+      <a href="../diy.html">🪨 DIY</a>
+      <a href="../seasons/halloween/">🌙 Halloween</a>
+    </nav>
+    <section class="sub-section">
+  <b>Weekend picks</b>
+  <p class="sub-claim">One email a week with what is on. Unsubscribe any time.</p>
+  <form id="subForm" class="sub-form" novalidate>
+    <label class="sr-only" for="subEmail">Email address</label>
+    <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+           aria-label="Your email address" placeholder="you@example.com" required>
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
+    <button type="submit" id="subBtn">Subscribe</button>
+  </form>
+  <p id="subMsg" class="sub-msg" role="status" aria-live="polite"></p>
+</section>
+    <p class="ftr-tagline">SunScout Kids · Bay Area · Stop searching. Start playing.</p>
   </footer>
 
   <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
@@ -1140,19 +1167,19 @@ html,body{background:var(--p-cream)}
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="../index.html">
-        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
+        <span class="bnav-icon" aria-hidden="true">🌳</span>
         <span class="bnav-label">Home</span>
       </a>
       <a class="bnav-btn active" href="index.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
+        <span class="bnav-icon" aria-hidden="true">🍽</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn" href="../diy.html">
-        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
+        <span class="bnav-icon" aria-hidden="true">🪨</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="../seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
+        <span class="bnav-icon" aria-hidden="true">🌙</span>
         <span class="bnav-label">Halloween</span>
       </a>
     </div>
@@ -1637,6 +1664,29 @@ window.addEventListener("hashchange", function(){
   var id = location.hash.slice(1);
   if (id) openDeal(decodeURIComponent(id)); else closeDeal();
 });
+})();
+(function(){
+  var f=document.getElementById("subForm");
+  if(!f) return;
+  var msg=document.getElementById("subMsg"),btn=document.getElementById("subBtn"),
+      input=document.getElementById("subEmail");
+  function say(text,state){msg.textContent=text;msg.setAttribute("data-state",state||"");}
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var email=(input.value||"").trim();
+    if(!email){say("Enter an email address.","err");input.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say("Check the email address.","err");input.focus();return;}
+    btn.disabled=true;btn.textContent="Sending…";
+    fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email,source:document.title})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.ok){say("You're in! Check your inbox.","ok");f.reset();}
+        else say(d.message||"Something went wrong.","err");
+        btn.disabled=false;btn.textContent="Subscribe";
+      })
+      .catch(function(){say("Network error — try again.","err");btn.disabled=false;btn.textContent="Subscribe";});
+  });
 })();
 </script>
 <style>

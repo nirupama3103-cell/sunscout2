@@ -102,10 +102,12 @@ button{font-family:inherit}
 .navcta:hover{background:var(--orange-dark);color:#fff;transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,153,0,.38)}
 
 /* ---- hero ---- */
-.hero{padding:clamp(40px,7vw,76px) var(--gutter) clamp(20px,3vw,28px);max-width:var(--wrap);margin:0 auto;text-align:center;animation:ss-rise 500ms var(--ease) both}
+.hero{padding:clamp(40px,7vw,76px) var(--gutter) clamp(20px,3vw,28px);max-width:var(--wrap);margin:0 auto;text-align:center;animation:ss-rise 500ms var(--ease) both;position:relative;background:linear-gradient(160deg,rgba(255,249,240,.82) 0%,rgba(255,249,240,.65) 50%,rgba(255,230,180,.72) 100%),url("images/diy-rocks-hero.jpg") center/cover no-repeat;border-radius:0 0 24px 24px;margin-bottom:8px}
+.hero h1{text-shadow:0 1px 12px rgba(255,249,240,.6)}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 13px;border-radius:9999px;background:rgba(255,255,255,.78);border:1px solid rgba(60,40,20,.10);box-shadow:var(--lift-1);font-size:10.5px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--secondary)}
 .eyebrow i{width:7px;height:7px;border-radius:9999px;background:var(--green);display:block}
 .hero h1{margin:20px 0 0;font-size:clamp(40px,6vw,74px);font-weight:900;letter-spacing:-.035em;line-height:1.0;color:var(--ink);text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--orange)}
 .hero h1 span{color:#A8380A;display:block}  /* was var(--orange) #FF9900,
    which measured 2.76:1 against the 3.0:1 large-text minimum once the
    backdrop lightened the ground under it. #A8380A is the design
@@ -152,26 +154,65 @@ button{font-family:inherit}
 /* Fully opaque: no alpha, no backdrop-filter. See --surface-chip. */
 .tile-label{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:5px 11px;border-radius:9999px;background:var(--surface-chip);color:var(--chip-text);font-size:11px;font-weight:900;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ---- sticky filter bar ---- */
-/* Filter bar sits in the hero under the subhead: age left, difficulty right,
-   one row that wraps on narrow viewports. No longer sticky - it scrolls with
-   the hero rather than following the page. */
-/* One raised control strip rather than two loose rows of buttons, so the
-   filters read as a single instrument sitting between hero and results. */
-.filters{margin:30px auto 0;max-width:var(--wrap);padding:0 var(--gutter);text-align:center}
-/* inline-flex so the strip hugs its buttons instead of stretching to the full
-   measure and leaving a void between the two groups */
-.filters-in{
-  display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;
-  gap:6px;padding:8px;border-radius:9999px;max-width:100%;
-  background:rgba(255,255,255,.72);border:1px solid rgba(60,40,20,.09);
+/* ── Segmented search / filter bar (Halloween pattern, light theme) ── */
+.seg-bar{
+  position:relative;z-index:50;
+  display:flex;align-items:stretch;
+  width:min(640px,100%);margin:26px auto 0;
+  background:#fff;border:1px solid rgba(60,40,20,.12);
+  border-radius:99px;padding:4px;
   box-shadow:var(--lift-1);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease);
 }
+.seg-bar:focus-within{border-color:var(--orange);box-shadow:var(--lift-2)}
+.seg-bar > .seg{display:flex;flex-direction:column;justify-content:center;min-width:0;position:relative}
+.seg-search{flex:1.5 1 0;padding:7px 16px}
+.seg-menu{flex:1 1 0}
+.seg-bar .seg-div{width:1px;background:rgba(60,40,20,.12);margin:9px 0;flex:0 0 1px}
+.seg-l{font-size:9.5px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+  color:#8a7358;display:block;text-align:left}
+.seg-v{font-size:13px;font-weight:700;color:var(--ink);display:block;text-align:left;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg-search .search-row{display:flex;align-items:center;gap:6px;margin-top:2px}
+.search-input{
+  flex:1;min-width:0;border:none;outline:none;background:transparent;
+  font-family:Nunito,sans-serif;font-size:14px;font-weight:700;color:var(--ink);
+}
+.search-input::placeholder{color:#8a7358;font-weight:600;opacity:.85}
+.search-input::-webkit-search-cancel-button{display:none}
+.search-clear{
+  flex:none;padding:5px 12px;border-radius:9999px;border:1px solid rgba(60,40,20,.12);
+  background:#fff;color:var(--secondary);font-size:11px;font-weight:800;cursor:pointer;
+  transition:background 160ms var(--ease);
+}
+.search-clear:hover{background:#FFF3E0;color:var(--ink)}
+.search-clear[hidden]{display:none}
+.seg-btn{
+  display:block;width:100%;height:100%;min-height:44px;
+  background:none;border:none;border-radius:22px;cursor:pointer;
+  font-family:inherit;padding:7px 15px;text-align:left;
+}
+.seg-btn:hover{background:rgba(60,40,20,.04)}
+.seg-btn[aria-expanded="true"]{background:rgba(255,153,0,.08)}
+.bar-acts{display:flex;align-items:center;margin-left:4px;flex:0 0 auto}
+.bar-go{
+  width:44px;height:44px;border-radius:50%;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;font-size:17px;
+  border:none;background:var(--orange);color:#fff;cursor:pointer;
+  transition:filter 160ms var(--ease);
+}
+.bar-go:hover{filter:brightness(1.08)}
+/* pop dropdown */
+.pop{
+  position:absolute;top:calc(100% + 8px);left:0;min-width:200px;z-index:100;
+  background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:18px;
+  box-shadow:0 8px 32px rgba(60,40,20,.18);padding:12px;
+}
+.pop[hidden]{display:none}
+.pop .pillset{display:flex;flex-wrap:wrap;gap:7px;overflow-x:visible;
+  -webkit-mask-image:none;mask-image:none}
+/* pills */
 .pillset{display:flex;flex-wrap:wrap;gap:4px}
-/* hairline between the two groups; drops away when the strip wraps */
-.pillset-diff{position:relative;margin-left:10px;padding-left:14px}
-.pillset-diff::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:20px;background:rgba(60,40,20,.16)}
 /* Segmented-control feel: the group carries the container, each pill is flat
    until selected, so exactly one element per group is emphasised. */
 .pill{
@@ -185,11 +226,6 @@ button{font-family:inherit}
 .pill[aria-pressed="true"]:hover{color:#fff}
 .pillset-age .pill[aria-pressed="true"]{background:var(--orange);box-shadow:0 2px 10px rgba(255,153,0,.34)}
 .pillset-diff .pill[aria-pressed="true"]{background:var(--ink);box-shadow:0 2px 10px rgba(26,26,26,.24)}
-@media (max-width:720px){
-  .filters-in{justify-content:flex-start;border-radius:22px}
-  .pillset-diff{margin-left:0;padding-left:0}
-  .pillset-diff::before{display:none}
-}
 
 /* ---- project grid ---- */
 .projects{max-width:var(--wrap);margin:0 auto;padding:clamp(30px,4vw,46px) var(--gutter) 96px}
@@ -267,11 +303,13 @@ button{font-family:inherit}
 .act-save[aria-pressed="true"]{background:var(--saved)}
 
 /* ---- footer ---- */
-.ftr{border-top:1px solid rgba(0,0,0,.07);padding:34px clamp(16px,4vw,32px) 46px;text-align:center}
-.ftr img{height:44px;width:auto;display:block;margin:0 auto 14px}
-/* was #999: 2.26:1 on the cream ground, well under the 4.5:1 AA needs. Now 4.68:1 */
-.ftr-note{font-size:13px;font-weight:800;color:#6f6257}
-.ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
+.ftr{background:#0a1520;color:rgba(255,255,255,.8);border-radius:18px 18px 0 0;
+  padding:26px clamp(16px,3vw,28px);font-size:13.5px;margin-top:auto}
+.ftr-nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.ftr-nav a{color:#fff;font-weight:800;text-decoration:none}
+.ftr-nav a:hover{text-decoration:underline}
+.ftr-tagline{font-size:12px;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.15);
+  padding-top:12px;margin-top:12px}
 
 @media (max-width:600px){
   /* the brand mark and three nav pills crowd each other below ~600px */
@@ -323,7 +361,7 @@ button{font-family:inherit}
    wrapper to constrain, so the measure is applied as symmetric padding
    instead. Same result as `.site-header > *`, without touching markup. */
 .hdr,.ftr{padding-inline:max(var(--gutter), (100% - var(--measure)) / 2)}
-.hero,.filters,.count-row,.grid,.empty,.more-wrap{
+.hero,.count-row,.grid,.empty,.more-wrap{
   max-width:var(--measure);
   margin-inline:auto;
   padding-inline:var(--gutter);
@@ -341,24 +379,12 @@ button{font-family:inherit}
 .count-row,.grid,.empty,.more-wrap{max-width:var(--measure-wide)}
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:clamp(20px, 2vw, 32px);
   align-items:start;
 }
-/* Same grid as the homepage. index.html resolves to 4 columns at >=1560,
-   3 columns from 701-1559 and 1 column at <=700; matched exactly here so the
-   three pages step at the same widths.
-   (8 across was measured first and collapses the card: 156px columns at 1560
-   with the title on two lines and the tag row on three.) */
-@media (min-width:1560px){
-  .grid{grid-template-columns:repeat(4, minmax(0, 1fr))}
-}
-@media (min-width:701px) and (max-width:1559px){
-  .grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
-}
-@media (max-width:700px){
-  .grid{grid-template-columns:repeat(1, minmax(0, 1fr))}
-}
+@media(max-width:1023px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:639px){.grid{grid-template-columns:repeat(1,1fr)}}
 
 
 /* --- 2. Marquee: fade the clipped edges ------------------- */
@@ -389,45 +415,7 @@ button{font-family:inherit}
   display:block;
 }
 
-/* --- 3. Filter strip becomes one segmented control -------- */
-.filters-in{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  width:max-content;
-  max-width:min(var(--measure), 100% - (2 * var(--gutter)));
-  margin-inline:auto;
-  padding:8px;
-  border-radius:999px;
-  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 8px 24px -12px rgba(0,0,0,.18);
-  backdrop-filter:saturate(1.4) blur(8px);
-}
-.filters-in .pillset + .pillset{
-  position:relative;
-  padding-left:18px;
-  margin-left:8px;
-}
-.filters-in .pillset + .pillset::before{
-  content:"";
-  position:absolute;
-  left:0; top:50%;
-  transform:translateY(-50%);
-  width:1px; height:22px;
-  background:currentColor;
-  opacity:.14;
-}
-@media (max-width:820px){
-  .filters-in .pillset + .pillset{padding-left:0; margin-left:0}
-  .filters-in .pillset + .pillset::before{display:none}
-}
-.filters-in .pillset{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-}
+/* --- 3. (legacy filter-strip removed; using .seg-bar) --- */
 
 /* --- 4. Card interiors: fewer competing voices ------------ */
 .card{display:flex; flex-direction:column; overflow:hidden}
@@ -552,58 +540,17 @@ html{overflow-x:hidden}
 /* Same three-part anatomy as index.html (icon / input / clear), restyled to
    this page's control language so it reads as one instrument with the filter
    strip below it. Search narrows first, pills refine - so it sits above them. */
-.search-wrap{
-  display:flex;align-items:center;gap:10px;
-  width:min(560px, 100%);margin:26px auto 0;
-  padding:6px 6px 6px 16px;border-radius:9999px;
-  background:rgba(255,255,255,.82);border:1px solid rgba(60,40,20,.10);
-  box-shadow:var(--lift-1);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  transition:border-color 160ms var(--ease),box-shadow 160ms var(--ease);
-}
-.search-wrap:focus-within{border-color:var(--orange);box-shadow:var(--lift-2)}
-.search-icon{font-size:15px;line-height:1;flex:none;opacity:.75}
-.search-input{
-  flex:1;min-width:0;border:none;background:transparent;outline:none;
-  font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);
-  /* Right padding and an ellipsis: on a phone the placeholder is longer
-     than the field and ran hard into the pill's edge, which read as a
-     clipped input rather than a truncated hint. */
-  padding:10px 12px 10px 0;
-  text-overflow:ellipsis;
-}
-.search-input::placeholder{color:var(--body);font-weight:600;opacity:.75}
-.search-input::-webkit-search-cancel-button{display:none}
-.search-clear{
-  flex:none;padding:8px 15px;border-radius:9999px;border:1px solid rgba(60,40,20,.12);
-  background:#fff;color:var(--secondary);font-size:12.5px;font-weight:800;cursor:pointer;
-  transition:background 160ms var(--ease),color 160ms var(--ease);
-}
-.search-clear:hover{background:#FFF3E0;color:var(--ink)}
-.search-clear[hidden]{display:none}
-@media (max-width:520px){
-  .search-wrap{gap:8px;padding-left:14px}
-  .search-input{font-size:16px}   /* 16px stops iOS zooming the page on focus */
+@media(max-width:520px){
+  .seg-bar{margin:16px 0 0;width:100%;border-radius:22px}
+  .search-input{font-size:16px}   /* 16px stops iOS zoom on focus */
+  .seg-search{padding:7px 12px}
+  .seg-btn{padding:7px 12px}
 }
 
-/* ---- mobile: filter strip and nav -------------------------------------- */
-/* The strip is width:max-content with a 9999px radius. That reads as a pill
-   while it is one line; wrapped to four lines on a phone the radius resolves
-   against the full height and the whole thing renders as a circle with the
-   pills scattered inside it. Below 720px it becomes a full-width panel with a
-   sane corner radius. Declared last so nothing later re-rounds it. */
+/* ---- nav and pill mobile tweaks --------------------------------------- */
 @media (max-width:720px){
-  .filters-in{
-    width:100%;
-    max-width:100%;      /* the desktop rule caps it at 100% - 2*gutter */
-    border-radius:20px;
-    justify-content:flex-start;
-    gap:8px;
-    padding:10px;
-  }
   .pillset{gap:6px}
   .pill{padding:8px 14px;font-size:13px}
-  .search-wrap{margin-top:20px}
 }
 @media (max-width:700px){
   .nav{gap:5px}
@@ -661,35 +608,11 @@ html{scroll-padding-top:calc(var(--head-h,80px) + 8px)}
      like plain text rather than tappable controls - and the two groups
      wrapped into four ragged rows. Each group is one swipeable row now, and
      every pill carries a visible chip. */
-  /* .filters-in .pillset (0,2,0) sets flex-wrap:wrap higher up, so the
-     selector has to match its specificity to switch the row to scrolling */
-  .filters-in .pillset,.pillset{
-    flex-wrap:nowrap;overflow-x:auto;gap:7px;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;padding-block:2px;
-    /* fades the clipped edge so it reads as scrollable rather than cut off */
-    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
-            mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);
-  }
-  .pillset::-webkit-scrollbar{display:none}
   .pillset .pill{flex:none;min-height:40px;display:inline-flex;align-items:center}
   .pill:not([aria-pressed="true"]){
     background:rgba(255,255,255,.9);
     border-color:rgba(60,40,20,.12);
   }
-  /* The desktop divider rule `.filters-in .pillset + .pillset` sets
-     position:relative at 0,3,0 and is not inside a media query, so it beat the
-     mobile `.filters-in .pillset{position:fixed}` at 0,2,0 - the SECOND sheet
-     stayed relative and opened downward off the bottom of the screen while the
-     first opened upward. Both sheets are anchored to the bottom here. */
-  .filters-in .pillset + .pillset{
-    position:fixed;
-    left:10px;right:10px;top:auto;
-    bottom:calc(78px + env(safe-area-inset-bottom));
-    padding:14px;margin:0;
-  }
-
-  .pillset-diff::before{display:none}
 
   /* the placeholder was clipped mid-word with no ellipsis */
   .search-input::placeholder{text-overflow:ellipsis}
@@ -866,121 +789,32 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
    same pattern the homepage uses for City and Age. The pill buttons inside
    are the very same elements, so filtering behaviour is untouched - they are
    only re-presented. */
-.fbar{display:none}
-.fsheet-scrim{display:none}
 @media (max-width:700px){
-  .fbar[hidden]{display:flex}          /* JS unhides; this keeps it visible if JS is slow */
-  .fbar{
-    display:flex;align-items:stretch;margin:0 var(--gutter);
-    background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:999px;
-    box-shadow:0 1px 2px rgba(60,40,20,.05), 0 8px 22px -14px rgba(60,40,20,.4);
-    overflow:hidden;
-  }
-  .fbar-seg{
-    flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;
-    padding:9px 16px;background:none;border:0;cursor:pointer;text-align:left;
-    font-family:inherit;color:var(--ink);
-  }
-  .fbar-l{
-    font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-    color:#8a7358;
-  }
-  .fbar-v{
-    font-size:13.5px;font-weight:800;letter-spacing:-.01em;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-  .fbar-seg[aria-expanded="true"]{background:#FFF6EC}
-  .fbar-seg[aria-expanded="true"] .fbar-v{color:var(--orange-dark)}
-  .fbar-div{width:1px;background:rgba(60,40,20,.12);margin:9px 0}
-  .fbar-seg:focus-visible{outline:2px solid var(--orange-dark);outline-offset:-3px}
-
-  /* the pill rows become sheets, opened one at a time */
-  /* An ancestor forms a stacking context, so the sheet's z-index was scoped
-     inside it and the scrim (a sibling of .filters) painted over the options -
-     they looked tappable but swallowed every tap. Lifting .filters itself puts
-     its whole subtree above the scrim. */
-  .filters{position:relative;z-index:9996}
-  /* --- One bar, like the homepage ---------------------------------------
-     The search field and the AGE/LEVEL bar were two separate pills stacked
-     with a gap, where the homepage puts search, city and age in a single
-     control. They are joined into one rounded bar here: the field sits on
-     top, the two segments beneath it, sharing one border and one shadow, so
-     the hero reads as one search control rather than two. */
-  .search-wrap{
-    margin:0;                    /* .hero already applies the gutter */
-    border-radius:26px 26px 0 0;
-    border-bottom:0;
-    box-shadow:none;
-    background:#fff;
-  }
-  .search-wrap:focus-within{box-shadow:none}
-  /* .filters brings its own top margin and gutter padding, which pushed the
-     bar 30px below the field and made it 80px narrower */
-  /* .filters is already inset to the measure's gutter by an ancestor rule, so
-     the bar's own margin double-inset it and left it 40px narrower than the
-     field above */
-  .filters{margin-top:0;padding:0}
-  .fbar{
-    margin:0;
-    border-radius:0 0 26px 26px;
-    border-top:1px solid rgba(60,40,20,.10);
-    box-shadow:0 1px 2px rgba(60,40,20,.05), 0 10px 26px -16px rgba(60,40,20,.45);
-  }
-  /* the joined control is one unit, so the pair carries the outer shadow */
-  .hero .search-wrap{box-shadow:0 -1px 0 rgba(60,40,20,.06)}
-
-  /* .hero animates with `ss-rise ... both`, and fill-mode:both keeps the final
-     keyframe applied forever. An applied transform - even the identity matrix
-     the last keyframe resolves to - makes .hero the containing block for fixed
-     descendants, so the sheets inside it anchored to the hero rather than the
-     viewport and floated mid-page. Local Table was unaffected only because its
-     filters sit outside .hero. The entrance animation is decorative and the
-     hero is above the fold on load, so it is dropped on phones. */
-  .hero{animation:none}
-
-  /* backdrop-filter on .filters-in makes it a containing block, so the sheets'
-     position:fixed resolved against the bar rather than the viewport and they
-     floated mid-page instead of sitting above the tab bar. The blur is a
-     desktop nicety; on a phone the bar is opaque anyway. */
-  .filters-in{
-    display:block;margin:0;width:auto;
-    background:none;border:0;box-shadow:none;padding:0;border-radius:0;
-    -webkit-backdrop-filter:none;backdrop-filter:none;
-  }
-  .filters-in .pillset{
-    display:none;
-    position:fixed;left:10px;right:10px;
+  /* pop as bottom sheet on phones */
+  .pop{
+    position:fixed;left:10px;right:10px;top:auto;
     bottom:calc(78px + env(safe-area-inset-bottom));
-    z-index:9995;
-    flex-wrap:wrap;overflow:visible;gap:8px;padding:14px;
-    background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:18px;
-    box-shadow:0 -10px 44px rgba(60,40,20,.26);
-    max-height:58vh;overflow-y:auto;
-    -webkit-mask-image:none;mask-image:none;
-    margin:0;
+    min-width:0;
   }
-  .filters-in .pillset.is-open{display:flex}
-  .filters-in .pillset::before{
-    content:"";display:block;width:38px;height:4px;border-radius:99px;
-    background:rgba(60,40,20,.18);margin:-4px auto 10px;flex-basis:100%;
-  }
-  .filters-in .pillset + .pillset{padding-left:14px;margin-left:0;margin-top:0}
-  /* options are targets, not chips: one per row, full width, 46px tall */
-  .filters-in .pillset .pill{
-    flex:1 1 100%;min-height:46px;justify-content:center;
-    border:1px solid rgba(60,40,20,.12);
-  }
-  /* only unselected rows take the white ground - applying it to all of them
-     beat .pillset-age .pill[aria-pressed] on source order and left the
-     selected row as white text on a white background */
-  .filters-in .pillset .pill:not([aria-pressed="true"]){background:#fff}
-  .filters-in .pillset .pill[aria-pressed="true"]{border-color:transparent}
-  .fsheet-scrim{
-    display:block;position:fixed;inset:0;z-index:9994;
-    background:rgba(28,18,10,.42);backdrop-filter:blur(2px);
-  }
-  .fsheet-scrim[hidden]{display:none}
+
+  .hero{animation:none}
+  .pop{z-index:9995}
 }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sub-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.sub-section{max-width:640px;margin:28px auto 0;padding:22px 24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px}
+.sub-section b{display:block;font-size:14px;font-weight:900;color:#fff;margin-bottom:6px}
+.sub-claim{font-size:13px;color:rgba(255,255,255,.7);margin:0 0 12px}
+.sub-form{display:flex;gap:8px;flex-wrap:wrap}
+.sub-form input[type=email]{flex:1 1 180px;min-width:0;min-height:46px;padding:0 15px;font:inherit;font-size:15px;font-weight:600;color:#2c1a00;background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px}
+.sub-form input[type=email]::placeholder{color:#8a7a6a}
+.sub-form input[type=email]:focus-visible{outline:3px solid #a66300;outline-offset:2px}
+.sub-form button{flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;font:inherit;font-size:15px;font-weight:900;color:#2c1a00;background:#FF9900;border:0;border-radius:99px}
+.sub-form button:disabled{opacity:.6;cursor:default}
+.sub-msg{margin:9px 0 0;font-size:13px;font-weight:700;min-height:1.2em}
+.sub-msg[data-state="ok"]{color:#6ee7b7}
+.sub-msg[data-state="err"]{color:#fca5a5}
+@media(max-width:600px){.sub-form input[type=email],.sub-form button{flex:1 1 100%}}
 </style>
 <link rel="stylesheet" href="/css/editorial.css">
 </head>
@@ -1003,39 +837,46 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   </header>
 
   <section class="hero">
-    <div class="eyebrow"><i></i>50+ Activities · Always Free</div>
-    <h1>Free &amp; Fun<br><span>At-Home Projects</span></h1>
+    <div class="eyebrow"><span aria-hidden="true">🪨</span>50+ Projects · Always Free</div>
+    <h1><em>Free</em> &amp; Fun<br><span>At-Home Projects</span></h1>
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
 
-    <div class="search-wrap">
-      <span class="search-icon" aria-hidden="true">&#8981;</span>
-      <input id="searchInput" class="search-input" type="search" autocomplete="off"
-             placeholder="Search projects, supplies, materials…"
-             aria-label="Search projects" aria-describedby="countLabel">
-      <button type="button" id="searchClear" class="search-clear" hidden>Clear</button>
-    </div>
-
-    <div class="filters">
-      <!-- Phone-only trigger bar. Above 700px it is hidden and the pill rows
-           below show as usual; the pillsets are the same elements either way,
-           so filtering logic is untouched. -->
-      <div class="fbar" id="fbar" hidden>
-        <button type="button" class="fbar-seg" id="fbarAge" aria-expanded="false" aria-controls="agePills">
-          <span class="fbar-l">Age</span>
-          <span class="fbar-v" id="fbarAgeVal">All ages</span>
-        </button>
-        <span class="fbar-div" aria-hidden="true"></span>
-        <button type="button" class="fbar-seg" id="fbarDiff" aria-expanded="false" aria-controls="diffPills">
-          <span class="fbar-l">Level</span>
-          <span class="fbar-v" id="fbarDiffVal">All levels</span>
-        </button>
+    <div class="seg-bar" role="search" aria-label="Search and filter projects">
+      <div class="seg seg-search">
+        <label class="seg-l" for="searchInput">Search</label>
+        <div class="search-row">
+          <input id="searchInput" class="search-input" type="search" autocomplete="off"
+                 placeholder="Projects, supplies, materials…"
+                 aria-label="Search projects" aria-describedby="countLabel">
+          <button type="button" id="searchClear" class="search-clear" hidden aria-label="Clear search">✕</button>
+        </div>
       </div>
-      <div class="filters-in">
-        <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
-        <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
+      <span class="seg-div" aria-hidden="true"></span>
+      <div class="seg seg-menu">
+        <button type="button" class="seg-btn" id="segAge"
+                aria-expanded="false" aria-haspopup="listbox" aria-controls="popAge">
+          <span class="seg-l">Age</span>
+          <span class="seg-v" id="segAgeV">All ages</span>
+        </button>
+        <div class="pop" id="popAge" hidden>
+          <div class="pillset pillset-age" id="agePills" role="group" aria-label="Filter by age"></div>
+        </div>
+      </div>
+      <span class="seg-div" aria-hidden="true"></span>
+      <div class="seg seg-menu">
+        <button type="button" class="seg-btn" id="segDiff"
+                aria-expanded="false" aria-haspopup="listbox" aria-controls="popDiff">
+          <span class="seg-l">Level</span>
+          <span class="seg-v" id="segDiffV">All levels</span>
+        </button>
+        <div class="pop" id="popDiff" hidden>
+          <div class="pillset pillset-diff" id="diffPills" role="group" aria-label="Filter by difficulty"></div>
+        </div>
+      </div>
+      <div class="bar-acts">
+        <button type="button" class="bar-go" id="barGo" aria-label="Search projects">⌖</button>
       </div>
     </div>
-    <div class="fsheet-scrim" id="fscrim" hidden></div>
   </section>
 
   <section class="band" aria-label="Project video reel">
@@ -1075,13 +916,24 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   </div>
 
   <footer class="ftr">
-    <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
-    <div class="ftr-note">SunScout · Bay Area · Stop searching. Start playing.</div>
-    <div class="ftr-links">
-      <a href="index.html">Home</a>
-      <a href="diy.html">DIY</a>
-      <a href="local-table/">Local Table</a>
-    </div>
+    <nav class="ftr-nav" aria-label="Footer">
+      <a href="index.html">🌳 Home</a>
+      <a href="local-table/">🍽 Local Table</a>
+      <a href="seasons/halloween/">🌙 Halloween</a>
+    </nav>
+    <section class="sub-section">
+  <b>Weekend picks</b>
+  <p class="sub-claim">One email a week with what is on. Unsubscribe any time.</p>
+  <form id="subForm" class="sub-form" novalidate>
+    <label class="sr-only" for="subEmail">Email address</label>
+    <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+           aria-label="Your email address" placeholder="you@example.com" required>
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
+    <button type="submit" id="subBtn">Subscribe</button>
+  </form>
+  <p id="subMsg" class="sub-msg" role="status" aria-live="polite"></p>
+</section>
+    <p class="ftr-tagline">SunScout Kids · Bay Area · Stop searching. Start playing.</p>
   </footer>
 
   <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
@@ -1089,19 +941,19 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="index.html">
-        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
+        <span class="bnav-icon" aria-hidden="true">🌳</span>
         <span class="bnav-label">Home</span>
       </a>
       <a class="bnav-btn" href="local-table/">
-        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
+        <span class="bnav-icon" aria-hidden="true">🍽</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn active" href="diy.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
+        <span class="bnav-icon" aria-hidden="true">🪨</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
+        <span class="bnav-icon" aria-hidden="true">🌙</span>
         <span class="bnav-label">Halloween</span>
       </a>
     </div>
@@ -1520,44 +1372,35 @@ function scrollToY(y, behavior){
    is unchanged - this only controls which pillset is visible and keeps the
    bar's labels in sync with state. */
 (function(){
-  var bar = $("fbar"), scrim = $("fscrim");
-  if (!bar) return;
   var segs = [
-    { btn:$("fbarAge"),  set:$("agePills"),  val:$("fbarAgeVal") },
-    { btn:$("fbarDiff"), set:$("diffPills"), val:$("fbarDiffVal") }
+    { btn:$("segAge"),  pop:$("popAge"),  val:$("segAgeV"),  pills:$("agePills") },
+    { btn:$("segDiff"), pop:$("popDiff"), val:$("segDiffV"), pills:$("diffPills") }
   ];
-  bar.hidden = false;
-
-  function close(){
+  function closeAll(){
     segs.forEach(function(s){
-      s.set.classList.remove("is-open");
+      s.pop.hidden = true;
       s.btn.setAttribute("aria-expanded", "false");
     });
-    scrim.hidden = true;
   }
   function open(i){
-    var wasOpen = segs[i].set.classList.contains("is-open");
-    close();
+    var wasOpen = !segs[i].pop.hidden;
+    closeAll();
     if (wasOpen) return;
-    segs[i].set.classList.add("is-open");
+    segs[i].pop.hidden = false;
     segs[i].btn.setAttribute("aria-expanded", "true");
-    scrim.hidden = false;
   }
   segs.forEach(function(s, i){
     s.btn.addEventListener("click", function(e){ e.stopPropagation(); open(i); });
-    // picking an option closes the sheet; the pill's own handler still fires
-    s.set.addEventListener("click", function(e){ if (e.target.closest(".pill")) close(); });
+    s.pills.addEventListener("click", function(e){ if (e.target.closest(".pill")) closeAll(); });
   });
-  scrim.addEventListener("click", close);
-  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
-
-  // mirror the selected pill into the bar, after every render
+  document.addEventListener("click", function(e){
+    if (!e.target.closest(".seg-menu")) closeAll();
+  });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeAll(); });
   window.syncFilterBar = function(){
     segs.forEach(function(s){
-      var on = s.set.querySelector('.pill[aria-pressed="true"]');
+      var on = s.pills.querySelector('.pill[aria-pressed="true"]');
       if (!on) return;
-      // "All Difficulties" overflows the segment, and the label already reads
-      // LEVEL, so the catch-all is shortened in the bar only
       var t = on.textContent.trim();
       s.val.textContent = (t === "All Difficulties") ? "All levels" : t;
     });
@@ -1624,6 +1467,29 @@ window.addEventListener("hashchange", function(){
   if (id) openProject(decodeURIComponent(id)); else closeProject();
 });
 })();
+(function(){
+  var f=document.getElementById("subForm");
+  if(!f) return;
+  var msg=document.getElementById("subMsg"),btn=document.getElementById("subBtn"),
+      input=document.getElementById("subEmail");
+  function say(text,state){msg.textContent=text;msg.setAttribute("data-state",state||"");}
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var email=(input.value||"").trim();
+    if(!email){say("Enter an email address.","err");input.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say("Check the email address.","err");input.focus();return;}
+    btn.disabled=true;btn.textContent="Sending…";
+    fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email,source:document.title})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.ok){say("You're in! Check your inbox.","ok");f.reset();}
+        else say(d.message||"Something went wrong.","err");
+        btn.disabled=false;btn.textContent="Subscribe";
+      })
+      .catch(function(){say("Network error — try again.","err");btn.disabled=false;btn.textContent="Subscribe";});
+  });
+})();
 </script>
 <style>
 /* The hero's second line is orange text on the cream ground: 1.70:1, under
@@ -1670,7 +1536,7 @@ window.addEventListener("hashchange", function(){
 /* --- Lit surfaces -----------------------------------------------------
    A 1px inner highlight along the top edge is what makes a card look like
    an object catching light rather than a rectangle of colour. */
-.card,.step,.tier,.modal,.empty,.more,.fbar,.search-wrap{
+.card,.step,.tier,.modal,.empty,.more{
   box-shadow:var(--lift-1), inset 0 1px 0 rgba(255,255,255,.9);
 }
 .card:hover,.step:hover,.tier:hover{
@@ -1684,7 +1550,7 @@ window.addEventListener("hashchange", function(){
    thing gets a real one. */
 *{-webkit-tap-highlight-color:transparent}
 .card:active,.more:active,.pill:active,.btn-primary:active,.btn-ghost:active,
-.navcta:active,.navlink:active,.fbar-seg:active,.tier-cta:active,
+.navcta:active,.navlink:active,.tier-cta:active,
 .act-copy:active,.act-save:active,.bnav-btn:active{
   transform:translateY(1px) scale(.994);
   transition-duration:60ms;
@@ -1733,7 +1599,7 @@ h1,h2,h3{text-wrap:balance}
 .tile-label{background:#1D1510 !important;color:#F3ECE2 !important}
 /* 4.49:1 at 390px — a hundredth under. Not a rounding quibble: the gate is
    the gate, and a value that only passes at one breakpoint has not passed. */
-.fbar-l{color:#6A6158 !important}
+.seg-l{color:#6A6158}
 
 /* ── sunset ground ───────────────────────────────────────────────────────
    The site background, shared with the homepage: warm where the sun is,

@@ -143,10 +143,9 @@ img{max-width:100%;display:block}
 .status-bar strong{color:#1a1a1a}
 .spinner{display:inline-block;width:20px;height:20px;border:3px solid #eee;border-top-color:#FF9900;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:8px 16px 0}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:700px){.grid{grid-template-columns:repeat(1,1fr);gap:8px;padding:6px 10px 0}}
-@media(max-width:400px){.grid{grid-template-columns:repeat(1,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:14px 20px 0;align-items:stretch}
+@media(max-width:1023px){.grid{grid-template-columns:repeat(2,1fr);gap:18px}}
+@media(max-width:639px){.grid{grid-template-columns:repeat(1,1fr);gap:14px;padding:10px 14px 0}}
 .card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.11)}
 .card-img-wrap{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#f0f0f0;flex-shrink:0}
@@ -237,7 +236,7 @@ img{max-width:100%;display:block}
   .card-title{color:#f0f0f0}color:#1a1a1a!important!important;
   .info{color:#aaa}
 }
-@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:12px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}.diy-grid{grid-template-columns:1fr}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
+@media(max-width:700px){.card-skel{min-height:160px}.card-body{padding:7px 8px;gap:3px}.card-title{font-size:12px}.card-foot{padding:5px 8px 8px;gap:4px}.card-img-wrap{aspect-ratio:4/3}}@media(max-width:640px){.tab-bar{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.tab-bar::-webkit-scrollbar{display:none}.age-desc{display:none}.btn{min-height:36px}
   .tab-btn{min-width:90px;max-width:110px;padding:9px 10px 11px}
   .tab-sub{display:none}
   .logo{font-size:1.8rem}
@@ -962,6 +961,8 @@ body{color:var(--p-ink) !important}
   margin:18px 0 0;font-size:clamp(30px,5.2vw,58px);font-weight:900;
   letter-spacing:-2px;line-height:1.03;color:var(--p-ink);text-wrap:balance;
 }
+.p-h1 em{font-style:normal;color:var(--p-sun)}
+.p-h1 em.p-h1-b{color:var(--p-sky,#1565c0)}
 .p-lede{margin:14px 0 0;max-width:520px;font-size:clamp(14px,1.6vw,18px);
   font-weight:600;line-height:1.5;color:var(--p-muted);text-wrap:pretty}
 .p-stats{display:flex;gap:clamp(18px,3vw,36px);margin-top:28px;align-items:stretch}
@@ -1026,12 +1027,7 @@ body{color:var(--p-ink) !important}
 
 /* ── Cards ── */
 .status-bar{padding:14px 20px 4px !important}
-.grid{gap:24px !important;padding:14px 20px 0 !important}
-/* Mockup calls for a 3-up grid; only go 4-up on very wide screens */
-@media(min-width:701px){.grid{grid-template-columns:repeat(3,1fr) !important}}
-@media(min-width:1560px){.grid{grid-template-columns:repeat(4,1fr) !important}}
-@media(max-width:1100px){.grid{gap:18px !important}}
-@media(max-width:700px){.grid{gap:14px !important;padding:10px 14px 0 !important}}
+
 .card{
   background:var(--p-card) !important;
   border:1px solid var(--p-line) !important;
@@ -1134,6 +1130,18 @@ body{color:var(--p-ink) !important}
 .p-foot-claim{margin:0;font-size:12.5px;font-weight:600;line-height:1.45;
   color:rgba(255,255,255,.58);max-width:26ch}
 .p-foot-col a:hover{color:var(--p-sun)}
+/* ── standalone subscribe banner above footer ── */
+.home-sub-banner{background:var(--p-ink);padding:32px clamp(16px,3vw,40px);margin-top:0}
+.home-sub-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.home-sub-text{flex:1 1 220px}
+.home-sub-text b{display:block;font-size:16px;font-weight:900;color:#fff;margin-bottom:6px}
+.home-sub-text p{font-size:13px;color:rgba(255,255,255,.7);margin:0}
+.sub-form-banner{display:flex;gap:8px;flex:1 1 280px;flex-wrap:wrap}
+.sub-form-banner input[type=email]{flex:1 1 180px;min-width:0;min-height:46px;padding:0 15px;font:inherit;font-size:15px;font-weight:600;color:#2c1a00;background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px}
+.sub-form-banner input[type=email]::placeholder{color:#8a7a6a}
+.sub-form-banner button{flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;font:inherit;font-size:15px;font-weight:900;color:#2c1a00;background:#FF9900;border:0;border-radius:99px}
+.sub-form-banner button:disabled{opacity:.6;cursor:default}
+@media(max-width:600px){.sub-form-banner input[type=email],.sub-form-banner button{flex:1 1 100%}}
 .p-foot-fine{max-width:1200px;margin:26px auto 0;padding-top:18px;
   border-top:1px solid rgba(255,255,255,.12);font-size:12px;
   color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:8px 18px}
@@ -1312,11 +1320,11 @@ body{color:var(--p-ink) !important}
     <div class="p-hero-inner">
       <div class="p-hero-grid">
         <div class="p-hero-main">
-          <div class="p-badge"><span aria-hidden="true">&#9670;</span><span id="pHeroBadge">Fall 2026 · Bay Area</span></div>
-          <h1 class="p-h1"><span id="heroLine1">Your fall,</span><br><span id="heroLine2">already planned.</span></h1>
+          <div class="p-badge"><span aria-hidden="true">🌳</span><span id="pHeroBadge">Fall 2026 · Bay Area</span></div>
+          <h1 class="p-h1"><span id="heroLine1">Your <em>fall,</em></span><br><span id="heroLine2">already <em class="p-h1-b">planned.</em></span></h1>
           <p class="p-lede" id="heroSub">Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
-            <div class="p-stat"><b id="pStatCount">320+</b><span>Activities live</span></div>
+            <div class="p-stat"><b id="pStatCount"></b><span>Activities live</span></div>
             <div class="p-stat-rule"></div>
             <div class="p-stat"><b>7</b><span>Cities covered</span></div>
             <div class="p-stat-rule"></div>
@@ -1754,6 +1762,24 @@ function mobSearch() {
   </div>
 </main>
 </div>
+
+<section class="home-sub-banner" aria-label="Subscribe to weekend picks">
+  <div class="home-sub-inner">
+    <div class="home-sub-text">
+      <b>🌳 Weekend picks, delivered</b>
+      <p>One email a week with what is on for Bay Area families. Unsubscribe any time.</p>
+    </div>
+    <form id="subFormBanner" class="sub-form-banner" novalidate>
+      <label class="sr-only" for="subEmailBanner">Email address</label>
+      <input id="subEmailBanner" name="email" type="email" inputmode="email" autocomplete="email"
+             aria-label="Your email address" placeholder="you@example.com" required>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button type="submit" id="subBtnBanner">Subscribe</button>
+    </form>
+    <p id="subMsgBanner" class="sub-msg" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
 <div class="footer">
   <div class="p-foot">
     <div class="p-foot-brand">
@@ -2428,7 +2454,7 @@ async function loadActivities() {
       }
       sessionStorage.removeItem(ck);
     } else {
-      allActivities = JSON.parse(cd); showCount = getPageSize(); renderCards(); return;
+      allActivities = JSON.parse(cd); showCount = getPageSize(); if (allActivities.length > 0) ssPremiumStats(allActivities.length, allActivities); renderCards(); return;
     }
   }
   showSkeleton();
@@ -2441,6 +2467,7 @@ async function loadActivities() {
     allActivities = allActivities.filter(function(a) {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
+    if (allActivities.length > 0) ssPremiumStats(allActivities.length, allActivities);
     var toCache = allActivities.map(function(a){ var c=Object.assign({},a); delete c.image; return c; }); try { sessionStorage.setItem(ck, JSON.stringify(toCache)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
     showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
     var el = document.getElementById("lastUpdated");
@@ -2467,7 +2494,6 @@ function renderCards() {
   var total   = items.length;
   var visible = items.slice(0, showCount);
   status.innerHTML = "Showing <strong>"+visible.length+"</strong> of <strong>"+total+"</strong> activit"+(total===1?"y":"ies")+" in <strong>"+activeCity+"</strong>";
-  ssPremiumStats(total, items);
   updateCountdown();
   if (wrap) wrap.style.display = total > getPageSize() ? "block" : "none";
   if (mbtn) mbtn.disabled = visible.length >= total;
@@ -2719,7 +2745,7 @@ function ssPremiumWeather(city, t) {
 
 function ssPremiumStats(total, items) {
   var elS = document.getElementById("pStatCount");
-  if (elS) elS.textContent = total > 0 ? total + (total >= 100 ? "+" : "") : "—";
+  if (elS) elS.textContent = total > 0 ? total : "";
 
   var elT = document.getElementById("pPickTitle");
   var elM = document.getElementById("pPickMeta");
@@ -3024,19 +3050,19 @@ function syncBnav(tab) {
 <nav id="bottom-nav" aria-label="Site sections">
   <div class="bnav-items">
     <a class="bnav-btn active" href="/" aria-current="page">
-      <span class="bnav-icon" aria-hidden="true">&#8962;</span>
+      <span class="bnav-icon" aria-hidden="true">🌳</span>
       <span class="bnav-label">Home</span>
     </a>
     <a class="bnav-btn" href="/local-table/">
-      <span class="bnav-icon" aria-hidden="true">&#10045;</span>
+      <span class="bnav-icon" aria-hidden="true">🍽</span>
       <span class="bnav-label">Local Table</span>
     </a>
     <a class="bnav-btn" href="/diy.html">
-      <span class="bnav-icon" aria-hidden="true">&#10023;</span>
+      <span class="bnav-icon" aria-hidden="true">🪨</span>
       <span class="bnav-label">DIY</span>
     </a>
     <a class="bnav-btn" href="/seasons/halloween/">
-      <span class="bnav-icon" aria-hidden="true">&#9790;</span>
+      <span class="bnav-icon" aria-hidden="true">🌙</span>
       <span class="bnav-label">Halloween</span>
     </a>
   </div>
@@ -3738,6 +3764,31 @@ h1,h2,h3{text-wrap:balance}
 #bottom-nav .bnav-btn{min-height:44px;justify-content:center}
 </style>
 <script>
+(function(){
+  /* banner subscribe form */
+  var fb=document.getElementById("subFormBanner");
+  if(fb){
+    var msgb=document.getElementById("subMsgBanner"),btnb=document.getElementById("subBtnBanner"),
+        inputb=document.getElementById("subEmailBanner");
+    function sayb(t,s){msgb.textContent=t;msgb.setAttribute("data-state",s||"");}
+    fb.addEventListener("submit",function(e){
+      e.preventDefault();
+      var email=(inputb.value||"").trim();
+      if(!email){sayb("Enter an email address.","err");inputb.focus();return;}
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){sayb("Check the email address.","err");inputb.focus();return;}
+      btnb.disabled=true;btnb.textContent="Sending…";
+      fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({email:email,source:"SunScout Home"})})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d.ok){sayb("You're in! Check your inbox.","ok");fb.reset();}
+          else sayb(d.message||"Something went wrong.","err");
+          btnb.disabled=false;btnb.textContent="Subscribe";
+        })
+        .catch(function(){sayb("Network error — try again.","err");btnb.disabled=false;btnb.textContent="Subscribe";});
+    });
+  }
+})();
 (function(){
   var f=document.getElementById("subForm");
   if(!f) return;
