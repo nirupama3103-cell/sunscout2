@@ -232,11 +232,13 @@ button{font-family:inherit}
 .act-save[aria-pressed="true"]{background:var(--saved)}
 
 /* ---- footer ---- */
-.ftr{border-top:1px solid rgba(60,40,20,.08);padding:44px clamp(16px,4vw,32px) 52px;text-align:center}
-.ftr img{height:44px;width:auto;display:block;margin:0 auto 16px}
-.ftr-lead{font-size:15px;font-weight:800;color:var(--secondary);max-width:520px;margin:0 auto}
-.ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
-.ftr-note{margin-top:14px;font-size:13px;font-weight:800;color:#999}
+.ftr{background:#0a1520;color:rgba(255,255,255,.8);border-radius:18px 18px 0 0;
+  padding:26px clamp(16px,3vw,28px);font-size:13.5px;margin-top:auto}
+.ftr-nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.ftr-nav a{color:#fff;font-weight:800;text-decoration:none}
+.ftr-nav a:hover{text-decoration:underline}
+.ftr-tagline{font-size:12px;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.15);
+  padding-top:12px;margin-top:12px}
 
 @media (prefers-reduced-motion:reduce){
   .row{animation:none}
@@ -1124,15 +1126,13 @@ html,body{background:var(--p-cream)}
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modal"></div>
   </div>
 
-  <footer class="ftr" id="lt-about">
-    <img src="../assets/local-table/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
-    <div class="ftr-lead">Sister brand of <a href="https://www.sunscoutkids.com/">SunScout Kids</a> — free summer activities for families.</div>
-    <div class="ftr-links">
-      <a href="https://www.sunscoutkids.com/local-table/">Local Table</a>
-      <a href="https://www.sunscoutkids.com/diy.html">DIY</a>
-      <a href="https://www.sunscoutkids.com/">SunScout home</a>
-    </div>
-    <div class="ftr-note">Updated weekly · Sunnyvale, CA &amp; Aubrey, TX</div>
+  <footer class="ftr">
+    <nav class="ftr-nav" aria-label="Footer">
+      <a href="../index.html">🌳 Home</a>
+      <a href="../diy.html">🪨 DIY</a>
+      <a href="../seasons/halloween/">🌙 Halloween</a>
+    </nav>
+    <p class="ftr-tagline">SunScout Kids · Bay Area · Stop searching. Start playing.</p>
   </footer>
 
   <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
@@ -1140,19 +1140,19 @@ html,body{background:var(--p-cream)}
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="../index.html">
-        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
+        <span class="bnav-icon" aria-hidden="true">🌳</span>
         <span class="bnav-label">Home</span>
       </a>
       <a class="bnav-btn active" href="index.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
+        <span class="bnav-icon" aria-hidden="true">🍽</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn" href="../diy.html">
-        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
+        <span class="bnav-icon" aria-hidden="true">🪨</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="../seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
+        <span class="bnav-icon" aria-hidden="true">🌙</span>
         <span class="bnav-label">Halloween</span>
       </a>
     </div>

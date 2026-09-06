@@ -301,11 +301,13 @@ button{font-family:inherit}
 .act-save[aria-pressed="true"]{background:var(--saved)}
 
 /* ---- footer ---- */
-.ftr{border-top:1px solid rgba(0,0,0,.07);padding:34px clamp(16px,4vw,32px) 46px;text-align:center}
-.ftr img{height:44px;width:auto;display:block;margin:0 auto 14px}
-/* was #999: 2.26:1 on the cream ground, well under the 4.5:1 AA needs. Now 4.68:1 */
-.ftr-note{font-size:13px;font-weight:800;color:#6f6257}
-.ftr-links{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:14px;font-weight:900}
+.ftr{background:#0a1520;color:rgba(255,255,255,.8);border-radius:18px 18px 0 0;
+  padding:26px clamp(16px,3vw,28px);font-size:13.5px;margin-top:auto}
+.ftr-nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.ftr-nav a{color:#fff;font-weight:800;text-decoration:none}
+.ftr-nav a:hover{text-decoration:underline}
+.ftr-tagline{font-size:12px;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.15);
+  padding-top:12px;margin-top:12px}
 
 @media (max-width:600px){
   /* the brand mark and three nav pills crowd each other below ~600px */
@@ -897,13 +899,12 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   </div>
 
   <footer class="ftr">
-    <img src="assets/diy/sunscout-emblem.webp" alt="SunScout Kids" width="230" height="220" loading="lazy">
-    <div class="ftr-note">SunScout · Bay Area · Stop searching. Start playing.</div>
-    <div class="ftr-links">
-      <a href="index.html">Home</a>
-      <a href="diy.html">DIY</a>
-      <a href="local-table/">Local Table</a>
-    </div>
+    <nav class="ftr-nav" aria-label="Footer">
+      <a href="index.html">🌳 Home</a>
+      <a href="local-table/">🍽 Local Table</a>
+      <a href="seasons/halloween/">🌙 Halloween</a>
+    </nav>
+    <p class="ftr-tagline">SunScout Kids · Bay Area · Stop searching. Start playing.</p>
   </footer>
 
   <!-- mobile bottom nav: mirrors index.html's bar so the three pages share one
@@ -911,19 +912,19 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   <nav id="bottom-nav" aria-label="Primary, mobile">
     <div class="bnav-items">
       <a class="bnav-btn" href="index.html">
-        <span class="bnav-icon" aria-hidden="true">&#8962;</span>
+        <span class="bnav-icon" aria-hidden="true">🌳</span>
         <span class="bnav-label">Home</span>
       </a>
       <a class="bnav-btn" href="local-table/">
-        <span class="bnav-icon" aria-hidden="true">&#10045;</span>
+        <span class="bnav-icon" aria-hidden="true">🍽</span>
         <span class="bnav-label">Local Table</span>
       </a>
       <a class="bnav-btn active" href="diy.html" aria-current="page">
-        <span class="bnav-icon" aria-hidden="true">&#10023;</span>
+        <span class="bnav-icon" aria-hidden="true">🪨</span>
         <span class="bnav-label">DIY</span>
       </a>
       <a class="bnav-btn" href="seasons/halloween/">
-        <span class="bnav-icon" aria-hidden="true">&#9790;</span>
+        <span class="bnav-icon" aria-hidden="true">🌙</span>
         <span class="bnav-label">Halloween</span>
       </a>
     </div>
