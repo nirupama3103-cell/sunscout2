@@ -1130,6 +1130,18 @@ body{color:var(--p-ink) !important}
 .p-foot-claim{margin:0;font-size:12.5px;font-weight:600;line-height:1.45;
   color:rgba(255,255,255,.58);max-width:26ch}
 .p-foot-col a:hover{color:var(--p-sun)}
+/* ── standalone subscribe banner above footer ── */
+.home-sub-banner{background:var(--p-ink);padding:32px clamp(16px,3vw,40px);margin-top:0}
+.home-sub-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.home-sub-text{flex:1 1 220px}
+.home-sub-text b{display:block;font-size:16px;font-weight:900;color:#fff;margin-bottom:6px}
+.home-sub-text p{font-size:13px;color:rgba(255,255,255,.7);margin:0}
+.sub-form-banner{display:flex;gap:8px;flex:1 1 280px;flex-wrap:wrap}
+.sub-form-banner input[type=email]{flex:1 1 180px;min-width:0;min-height:46px;padding:0 15px;font:inherit;font-size:15px;font-weight:600;color:#2c1a00;background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px}
+.sub-form-banner input[type=email]::placeholder{color:#8a7a6a}
+.sub-form-banner button{flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;font:inherit;font-size:15px;font-weight:900;color:#2c1a00;background:#FF9900;border:0;border-radius:99px}
+.sub-form-banner button:disabled{opacity:.6;cursor:default}
+@media(max-width:600px){.sub-form-banner input[type=email],.sub-form-banner button{flex:1 1 100%}}
 .p-foot-fine{max-width:1200px;margin:26px auto 0;padding-top:18px;
   border-top:1px solid rgba(255,255,255,.12);font-size:12px;
   color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;gap:8px 18px}
@@ -1750,6 +1762,24 @@ function mobSearch() {
   </div>
 </main>
 </div>
+
+<section class="home-sub-banner" aria-label="Subscribe to weekend picks">
+  <div class="home-sub-inner">
+    <div class="home-sub-text">
+      <b>🌳 Weekend picks, delivered</b>
+      <p>One email a week with what is on for Bay Area families. Unsubscribe any time.</p>
+    </div>
+    <form id="subFormBanner" class="sub-form-banner" novalidate>
+      <label class="sr-only" for="subEmailBanner">Email address</label>
+      <input id="subEmailBanner" name="email" type="email" inputmode="email" autocomplete="email"
+             aria-label="Your email address" placeholder="you@example.com" required>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button type="submit" id="subBtnBanner">Subscribe</button>
+    </form>
+    <p id="subMsgBanner" class="sub-msg" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
 <div class="footer">
   <div class="p-foot">
     <div class="p-foot-brand">
@@ -3734,6 +3764,31 @@ h1,h2,h3{text-wrap:balance}
 #bottom-nav .bnav-btn{min-height:44px;justify-content:center}
 </style>
 <script>
+(function(){
+  /* banner subscribe form */
+  var fb=document.getElementById("subFormBanner");
+  if(fb){
+    var msgb=document.getElementById("subMsgBanner"),btnb=document.getElementById("subBtnBanner"),
+        inputb=document.getElementById("subEmailBanner");
+    function sayb(t,s){msgb.textContent=t;msgb.setAttribute("data-state",s||"");}
+    fb.addEventListener("submit",function(e){
+      e.preventDefault();
+      var email=(inputb.value||"").trim();
+      if(!email){sayb("Enter an email address.","err");inputb.focus();return;}
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){sayb("Check the email address.","err");inputb.focus();return;}
+      btnb.disabled=true;btnb.textContent="Sending…";
+      fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({email:email,source:"SunScout Home"})})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d.ok){sayb("You're in! Check your inbox.","ok");fb.reset();}
+          else sayb(d.message||"Something went wrong.","err");
+          btnb.disabled=false;btnb.textContent="Subscribe";
+        })
+        .catch(function(){sayb("Network error — try again.","err");btnb.disabled=false;btnb.textContent="Subscribe";});
+    });
+  }
+})();
 (function(){
   var f=document.getElementById("subForm");
   if(!f) return;
