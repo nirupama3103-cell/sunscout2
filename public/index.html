@@ -143,7 +143,7 @@ img{max-width:100%;display:block}
 .status-bar strong{color:#1a1a1a}
 .spinner{display:inline-block;width:20px;height:20px;border:3px solid #eee;border-top-color:#FF9900;border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:14px 20px 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:14px 20px 0;align-items:stretch}
 @media(max-width:1023px){.grid{grid-template-columns:repeat(2,1fr);gap:18px}}
 @media(max-width:639px){.grid{grid-template-columns:repeat(1,1fr);gap:14px;padding:10px 14px 0}}
 .card{background:#fff!important;color:#1a1a1a!important;border:1px solid rgba(0,0,0,.09);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
