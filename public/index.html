@@ -1310,7 +1310,7 @@ body{color:var(--p-ink) !important}
           <h1 class="p-h1"><span id="heroLine1">Your fall,</span><br><span id="heroLine2">already planned.</span></h1>
           <p class="p-lede" id="heroSub">Pumpkin patches, harvest festivals and rainy-day picks across seven South Bay cities — hand-checked, priced, and sorted by your kid&rsquo;s age.</p>
           <div class="p-stats">
-            <div class="p-stat"><b id="pStatCount">320+</b><span>Activities live</span></div>
+            <div class="p-stat"><b id="pStatCount"></b><span>Activities live</span></div>
             <div class="p-stat-rule"></div>
             <div class="p-stat"><b>7</b><span>Cities covered</span></div>
             <div class="p-stat-rule"></div>
@@ -2422,7 +2422,7 @@ async function loadActivities() {
       }
       sessionStorage.removeItem(ck);
     } else {
-      allActivities = JSON.parse(cd); showCount = getPageSize(); renderCards(); return;
+      allActivities = JSON.parse(cd); showCount = getPageSize(); if (allActivities.length > 0) ssPremiumStats(allActivities.length, allActivities); renderCards(); return;
     }
   }
   showSkeleton();
@@ -2435,6 +2435,7 @@ async function loadActivities() {
     allActivities = allActivities.filter(function(a) {
       return !a.city || a.city === activeCity || a.city === "regional";
     });
+    if (allActivities.length > 0) ssPremiumStats(allActivities.length, allActivities);
     var toCache = allActivities.map(function(a){ var c=Object.assign({},a); delete c.image; return c; }); try { sessionStorage.setItem(ck, JSON.stringify(toCache)); sessionStorage.setItem(ck+"_ts", Date.now().toString()); } catch(e) {}
     showCount = getPageSize(); updateTabBadge(activeTab, allActivities.length);
     var el = document.getElementById("lastUpdated");
@@ -2461,7 +2462,6 @@ function renderCards() {
   var total   = items.length;
   var visible = items.slice(0, showCount);
   status.innerHTML = "Showing <strong>"+visible.length+"</strong> of <strong>"+total+"</strong> activit"+(total===1?"y":"ies")+" in <strong>"+activeCity+"</strong>";
-  ssPremiumStats(total, items);
   updateCountdown();
   if (wrap) wrap.style.display = total > getPageSize() ? "block" : "none";
   if (mbtn) mbtn.disabled = visible.length >= total;
@@ -2713,7 +2713,7 @@ function ssPremiumWeather(city, t) {
 
 function ssPremiumStats(total, items) {
   var elS = document.getElementById("pStatCount");
-  if (elS) elS.textContent = total > 0 ? total + (total >= 100 ? "+" : "") : "—";
+  if (elS) elS.textContent = total > 0 ? total : "";
 
   var elT = document.getElementById("pPickTitle");
   var elM = document.getElementById("pPickMeta");
