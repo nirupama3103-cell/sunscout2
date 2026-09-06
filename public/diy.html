@@ -102,7 +102,8 @@ button{font-family:inherit}
 .navcta:hover{background:var(--orange-dark);color:#fff;transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,153,0,.38)}
 
 /* ---- hero ---- */
-.hero{padding:clamp(40px,7vw,76px) var(--gutter) clamp(20px,3vw,28px);max-width:var(--wrap);margin:0 auto;text-align:center;animation:ss-rise 500ms var(--ease) both}
+.hero{padding:clamp(40px,7vw,76px) var(--gutter) clamp(20px,3vw,28px);max-width:var(--wrap);margin:0 auto;text-align:center;animation:ss-rise 500ms var(--ease) both;position:relative;background:linear-gradient(160deg,rgba(255,249,240,.82) 0%,rgba(255,249,240,.65) 50%,rgba(255,230,180,.72) 100%),url("images/diy-rockpainting.jpg") center/cover no-repeat;border-radius:0 0 24px 24px;margin-bottom:8px}
+.hero h1{text-shadow:0 1px 12px rgba(255,249,240,.6)}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 15px 7px 13px;border-radius:9999px;background:rgba(255,255,255,.78);border:1px solid rgba(60,40,20,.10);box-shadow:var(--lift-1);font-size:10.5px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--secondary)}
 .eyebrow i{width:7px;height:7px;border-radius:9999px;background:var(--green);display:block}
 .hero h1{margin:20px 0 0;font-size:clamp(40px,6vw,74px);font-weight:900;letter-spacing:-.035em;line-height:1.0;color:var(--ink);text-wrap:balance}
@@ -799,6 +800,21 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   .hero{animation:none}
   .pop{z-index:9995}
 }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sub-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.sub-section{max-width:640px;margin:28px auto 0;padding:22px 24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px}
+.sub-section b{display:block;font-size:14px;font-weight:900;color:#fff;margin-bottom:6px}
+.sub-claim{font-size:13px;color:rgba(255,255,255,.7);margin:0 0 12px}
+.sub-form{display:flex;gap:8px;flex-wrap:wrap}
+.sub-form input[type=email]{flex:1 1 180px;min-width:0;min-height:46px;padding:0 15px;font:inherit;font-size:15px;font-weight:600;color:#2c1a00;background:#fff;border:1px solid rgba(60,40,20,.20);border-radius:99px}
+.sub-form input[type=email]::placeholder{color:#8a7a6a}
+.sub-form input[type=email]:focus-visible{outline:3px solid #a66300;outline-offset:2px}
+.sub-form button{flex:0 0 auto;min-height:46px;padding:0 22px;cursor:pointer;font:inherit;font-size:15px;font-weight:900;color:#2c1a00;background:#FF9900;border:0;border-radius:99px}
+.sub-form button:disabled{opacity:.6;cursor:default}
+.sub-msg{margin:9px 0 0;font-size:13px;font-weight:700;min-height:1.2em}
+.sub-msg[data-state="ok"]{color:#6ee7b7}
+.sub-msg[data-state="err"]{color:#fca5a5}
+@media(max-width:600px){.sub-form input[type=email],.sub-form button{flex:1 1 100%}}
 </style>
 <link rel="stylesheet" href="/css/editorial.css">
 </head>
@@ -905,6 +921,18 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
       <a href="local-table/">🍽 Local Table</a>
       <a href="seasons/halloween/">🌙 Halloween</a>
     </nav>
+    <section class="sub-section">
+  <b>Weekend picks</b>
+  <p class="sub-claim">One email a week with what is on. Unsubscribe any time.</p>
+  <form id="subForm" class="sub-form" novalidate>
+    <label class="sr-only" for="subEmail">Email address</label>
+    <input id="subEmail" name="email" type="email" inputmode="email" autocomplete="email"
+           aria-label="Your email address" placeholder="you@example.com" required>
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="sub-trap">
+    <button type="submit" id="subBtn">Subscribe</button>
+  </form>
+  <p id="subMsg" class="sub-msg" role="status" aria-live="polite"></p>
+</section>
     <p class="ftr-tagline">SunScout Kids · Bay Area · Stop searching. Start playing.</p>
   </footer>
 
@@ -1438,6 +1466,29 @@ window.addEventListener("hashchange", function(){
   var id = location.hash.slice(1);
   if (id) openProject(decodeURIComponent(id)); else closeProject();
 });
+})();
+(function(){
+  var f=document.getElementById("subForm");
+  if(!f) return;
+  var msg=document.getElementById("subMsg"),btn=document.getElementById("subBtn"),
+      input=document.getElementById("subEmail");
+  function say(text,state){msg.textContent=text;msg.setAttribute("data-state",state||"");}
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var email=(input.value||"").trim();
+    if(!email){say("Enter an email address.","err");input.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say("Check the email address.","err");input.focus();return;}
+    btn.disabled=true;btn.textContent="Sending…";
+    fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email,source:document.title})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.ok){say("You're in! Check your inbox.","ok");f.reset();}
+        else say(d.message||"Something went wrong.","err");
+        btn.disabled=false;btn.textContent="Subscribe";
+      })
+      .catch(function(){say("Network error — try again.","err");btn.disabled=false;btn.textContent="Subscribe";});
+  });
 })();
 </script>
 <style>
