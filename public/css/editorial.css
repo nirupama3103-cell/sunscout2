@@ -604,7 +604,15 @@ body.ss-bg{
    the layer just as body's background did. Cards and panels inside keep
    their own grounds, so clearing this one costs no contrast — the gate
    checks all four pages at both widths. */
-body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
+body.ss-bg > .page{
+  /* One band, exactly as wide as the content column and centred on it, so
+     the margins keep showing the backdrop while every section inside stays
+     on a solid ground. A flat colour here covered the whole viewport and
+     washed the artwork out to nothing. */
+  background:
+    linear-gradient(rgba(249,244,236,.90), rgba(249,244,236,.90))
+    top center / min(var(--shell), 100%) 100% no-repeat!important;
+}
 .ss-backdrop{
   position:fixed;
   inset:0;
@@ -617,28 +625,61 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
      margins the photograph was the loudest thing on the screen and the
      column read as floating on top of a holiday snap. It should be
      texture behind the page, not a competitor to it. */
-  background-image:
-    linear-gradient(180deg,
-      rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
-      rgba(253,227,208,.87) 56%, rgba(237,242,250,.90) 82%, rgba(233,242,251,.92) 100%),
-    image-set(
-      url("/images/seasonal/autumn-river.webp") type("image/webp"),
-      url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
+  background-image:var(--ss-tint),var(--ss-art);
   background-repeat:no-repeat,no-repeat;
-  background-position:center,center 28%;
+  background-position:center,var(--ss-art-pos,center 28%);
   background-size:100% 100%,cover;
+}
+/* Each page gets its own artwork in the margins, the way the Halloween hub
+   shows its house and moon either side of the column. The layer, the tint
+   and the reduced-data fallback are all shared; only these three custom
+   properties change. Home keeps the autumn river. */
+body.ss-bg{
+  --ss-tint:linear-gradient(180deg,
+    rgba(255,246,236,.62) 0%, rgba(255,237,217,.58) 12%, rgba(255,221,190,.55) 32%,
+    rgba(253,227,208,.57) 56%, rgba(237,242,250,.62) 82%, rgba(233,242,251,.66) 100%);
+  --ss-art:image-set(
+    url("/images/seasonal/autumn-river.webp") type("image/webp"),
+    url("/images/seasonal/autumn-river.jpg")  type("image/jpeg"));
+  --ss-art-tall:image-set(
+    url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
+    url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
+}
+/* DIY — painted rocks on grass. The tint drops the sunset orange, which
+   turned the grass a dead khaki, for cream into the same pale blue the
+   page's own ground ends on. */
+body.ss-bg-diy{
+  --ss-tint:linear-gradient(180deg,
+    rgba(255,250,242,.60) 0%, rgba(252,246,234,.58) 18%, rgba(246,246,236,.56) 42%,
+    rgba(241,246,240,.58) 64%, rgba(236,243,248,.62) 86%, rgba(233,242,251,.66) 100%);
+  --ss-art:image-set(
+    url("/images/seasonal/diy-rocks.webp") type("image/webp"),
+    url("/images/seasonal/diy-rocks.jpg")  type("image/jpeg"));
+  --ss-art-tall:image-set(
+    url("/images/seasonal/diy-rocks-tall.webp") type("image/webp"),
+    url("/images/seasonal/diy-rocks-tall.jpg")  type("image/jpeg"));
+  /* the rocks are along the bottom of the frame */
+  --ss-art-pos:center bottom;
+}
+/* Local Table — dishes on a wooden table, seen from above. The wood is the
+   darkest of the three backdrops, so this tint is the heaviest. */
+body.ss-bg-food{
+  --ss-tint:linear-gradient(180deg,
+    rgba(255,248,238,.70) 0%, rgba(255,240,224,.68) 20%, rgba(253,235,217,.66) 48%,
+    rgba(252,237,222,.68) 72%, rgba(244,241,240,.70) 90%, rgba(238,242,248,.74) 100%);
+  --ss-art:image-set(
+    url("/images/seasonal/local-food.webp") type("image/webp"),
+    url("/images/seasonal/local-food.jpg")  type("image/jpeg"));
+  --ss-art-tall:image-set(
+    url("/images/seasonal/local-food-tall.webp") type("image/webp"),
+    url("/images/seasonal/local-food-tall.jpg")  type("image/jpeg"));
+  --ss-art-pos:center center;
 }
 @media(max-width:700px){
   /* A portrait viewport shows a thin vertical slice of the wide crop, which
      is mostly water. The tall crop keeps the maple and the river. */
   .ss-backdrop{
-    background-image:
-      linear-gradient(180deg,
-        rgba(255,246,236,.90) 0%, rgba(255,237,217,.88) 12%, rgba(255,221,190,.86) 32%,
-        rgba(253,227,208,.88) 56%, rgba(237,242,250,.91) 82%, rgba(233,242,251,.93) 100%),
-      image-set(
-        url("/images/seasonal/autumn-river-tall.webp") type("image/webp"),
-        url("/images/seasonal/autumn-river-tall.jpg")  type("image/jpeg"));
+    background-image:var(--ss-tint),var(--ss-art-tall);
     background-position:center,center top;
   }
 }
