@@ -341,24 +341,12 @@ button{font-family:inherit}
 .count-row,.grid,.empty,.more-wrap{max-width:var(--measure-wide)}
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:clamp(20px, 2vw, 32px);
   align-items:start;
 }
-/* Same grid as the homepage. index.html resolves to 4 columns at >=1560,
-   3 columns from 701-1559 and 1 column at <=700; matched exactly here so the
-   three pages step at the same widths.
-   (8 across was measured first and collapses the card: 156px columns at 1560
-   with the title on two lines and the tag row on three.) */
-@media (min-width:1560px){
-  .grid{grid-template-columns:repeat(4, minmax(0, 1fr))}
-}
-@media (min-width:701px) and (max-width:1559px){
-  .grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
-}
-@media (max-width:700px){
-  .grid{grid-template-columns:repeat(1, minmax(0, 1fr))}
-}
+@media(max-width:1023px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:639px){.grid{grid-template-columns:repeat(1,1fr)}}
 
 
 /* --- 2. Marquee: fade the clipped edges ------------------- */
