@@ -836,11 +836,24 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
     </nav>
   </header>
 
+  <!-- Same shape as the Halloween hub's hero: an inset rounded panel over
+       the page backdrop, text in a left-hand column on a scrim that keeps
+       it legible over the photograph, and a stat row counted from the data
+       rather than typed in. The search bar sits below the panel, as it does
+       there, instead of inside the hero. -->
   <section class="hero">
-    <div class="eyebrow"><span aria-hidden="true">🪨</span>50+ Projects · Always Free</div>
-    <h1><em>Free</em> &amp; Fun<br><span>At-Home Projects</span></h1>
+    <div class="eyebrow"><span aria-hidden="true">🪨</span>Always free · No special supplies</div>
+    <p class="hero-kicker">Rainy afternoons, sorted</p>
+    <h1><em>Free</em> &amp; Fun <span>At-Home Projects</span></h1>
     <p class="hero-sub">Tap any project, watch the guide video, and follow the step-by-step. Kids make it, parents love it.</p>
+    <dl class="hero-stats">
+      <div><dt id="statProjects">—</dt><dd>Projects</dd></div>
+      <div><dt id="statVideos">—</dt><dd>Video guides</dd></div>
+      <div><dt id="statCost">$0</dt><dd>Always free</dd></div>
+    </dl>
+  </section>
 
+  <section class="bar-wrap" aria-label="Search and filter projects">
     <div class="seg-bar" role="search" aria-label="Search and filter projects">
       <div class="seg seg-search">
         <label class="seg-l" for="searchInput">Search</label>
@@ -1458,6 +1471,14 @@ $("overlay").addEventListener("click", function(e){
 });
 
 /* ---------------- boot ---------------- */
+/* Counted from PROJECTS, never typed in: a stat row that can drift from the
+   list under it is worse than no stat row. Same rule as the Halloween hub. */
+function renderHeroStats(){
+  var set = function(id, v){ var el = $(id); if (el) el.textContent = v; };
+  set("statProjects", PROJECTS.length);
+  set("statVideos", PROJECTS.filter(function(p){ return !!p.video; }).length);
+}
+renderHeroStats();
 renderReel();
 renderFilters();
 renderGrid();
@@ -1616,6 +1637,65 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
    stay on desktop, where there is no bottom bar, and go on a phone. */
 @media(max-width:640px){
   .hdr .navlink-cross{display:none}
+}
+
+/* ── HERO: the Halloween hub's panel, in the DIY register ────────────────
+   Was a full-bleed cream band with centred text, which read as a different
+   site from /seasons/halloween/. It is now the same component: an inset
+   rounded panel on the page backdrop, the photograph inside it under a
+   left-weighted scrim, and one left-aligned column of badge, kicker,
+   headline, lede and stats. Light text on the scrim, so the old dark-text
+   rules above are overridden here rather than deleted in place. */
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  max-width:var(--measure);margin:14px auto 0;
+  padding:clamp(26px,3.4vw,44px) clamp(22px,3.4vw,44px) clamp(28px,3.6vw,46px)!important;
+  border-radius:20px;text-align:left;
+  min-height:clamp(300px,32vw,420px);
+  display:flex;flex-direction:column;justify-content:center;
+  background:url("images/diy-rocks-hero.jpg") center 55%/cover no-repeat;
+  border:1px solid rgba(60,40,20,.14);
+}
+/* Clear on the right so the painted rocks stay visible beside the text,
+   dark enough on the left that the headline holds AA over the brightest
+   stone. Dimming the whole panel would lose the picture. */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:linear-gradient(96deg,
+    rgba(38,22,10,.90) 0%, rgba(38,22,10,.86) 42%,
+    rgba(38,22,10,.58) 70%, rgba(38,22,10,.10) 100%);
+}
+.hero > *{position:relative;z-index:1;max-width:min(620px,66%)}
+.hero .eyebrow{align-self:flex-start;width:auto;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34);
+  color:#FFF3E4;box-shadow:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.hero-kicker{margin:14px 0 0;font-size:12.5px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:#FFD9AE}
+.hero h1{margin:10px 0 0;color:#FFF8EF!important;text-shadow:0 2px 18px rgba(0,0,0,.45);
+  font-size:clamp(34px,5vw,60px);text-wrap:balance}
+.hero h1 em,.hero h1 .accent{font-style:normal;color:#FFB25C!important}
+.hero h1 span{display:block;color:#FFF8EF!important}
+.hero .hero-sub{margin:16px 0 0;max-width:56ch;color:#F6EADD!important;font-weight:600}
+.hero-stats{display:flex;gap:clamp(22px,4vw,42px);margin:22px 0 0;flex-wrap:wrap}
+.hero-stats div{min-width:64px}
+.hero-stats dt{font-size:clamp(22px,2.6vw,28px);font-weight:800;color:#FFB25C;line-height:1.05}
+.hero-stats dd{margin:2px 0 0;font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:#EBDCCB}
+/* "N Projects ready to build" now sits directly under the panel instead of
+   under a full-bleed cream band, so its label lands on the backdrop at some
+   widths. --body measured 2.98:1 there at 768; --ink clears at every width
+   the gate checks. */
+.count-l{color:var(--ink)}
+
+/* The search bar moved out of the hero and now needs the measure itself. */
+.bar-wrap{max-width:var(--measure);margin:0 auto;padding-inline:var(--gutter);box-sizing:border-box}
+.bar-wrap .seg-bar{margin-top:18px}
+@media(max-width:820px){
+  /* A phone's text column is full width, so a left-weighted scrim has
+     nowhere to clear to; it runs top to bottom instead. */
+  .hero{min-height:0;text-align:left}
+  .hero > *{max-width:100%}
+  .hero::before{background:linear-gradient(180deg,
+    rgba(38,22,10,.72) 0%, rgba(38,22,10,.88) 55%, rgba(38,22,10,.93) 100%)}
 }
 </style>
 </body>
