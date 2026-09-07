@@ -603,6 +603,10 @@ body.ss-bg{
    their own grounds, so clearing this one costs no contrast — the gate
    checks all four pages at both widths. */
 body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
+/* On the two pages whose backdrop IS their subject, the shell only needs to
+   soften the photograph, not hide it. Every text run over it is still gated
+   by scripts/check-page-contrast.js at 1440 and 390. */
+body.ss-bg[data-page="diy"] > .page{background:rgba(247,240,231,.30)!important}
 .ss-backdrop{
   position:fixed;
   inset:0;
@@ -640,11 +644,39 @@ body.ss-bg > .page{background:rgba(247,240,231,.62)!important}
     background-position:center,center top;
   }
 }
+/* ── the page's own subject, not the generic season ────────────────────
+   The Halloween hub reads instantly because its backdrop is its subject: a
+   haunted house behind a Halloween page. DIY and Local Table were both
+   showing the shared autumn river under a .86-.90 tint, so the page never
+   said what it was about. DIY now carries its own photograph — the painted
+   rocks — at a lighter tint, so the subject is legible behind the content.
+
+   The image is the page's existing hero art, already fetched by the time
+   this paints, so the backdrop costs no extra bytes.
+
+   Local Table is deliberately left on the seasonal backdrop: its hero frame
+   is translucent over the same food photograph, so a matching backdrop shows
+   through it and washes the hero copy out. */
+body.ss-bg[data-page="diy"] .ss-backdrop{
+  background-image:
+    linear-gradient(180deg,
+      rgba(255,246,236,.58) 0%, rgba(255,240,222,.52) 18%, rgba(255,231,203,.50) 40%,
+      rgba(253,231,214,.58) 64%, rgba(250,240,232,.70) 86%, rgba(248,242,236,.78) 100%),
+    url("/images/diy-rocks-hero.jpg");
+  background-position:center,center 22%;
+}
+@media(max-width:700px){
+  /* A portrait viewport crops hard; anchor on the subject rather than the
+     middle of a landscape frame, same reasoning as the seasonal tall crop. */
+  body.ss-bg[data-page="diy"] .ss-backdrop{background-position:center,center top}
+}
+
 /* Do not spend a visitor's data on decoration they have asked us not to
    send. Same rule the Halloween backdrop follows. */
 @media(prefers-reduced-data:reduce){
   /* Drop the photograph, keep the ground — body no longer paints one. */
-  .ss-backdrop{background-image:var(--ed-sunset)}
+  .ss-backdrop,
+  body.ss-bg[data-page="diy"] .ss-backdrop{background-image:var(--ed-sunset)}
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
