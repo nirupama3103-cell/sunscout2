@@ -232,7 +232,7 @@ button{font-family:inherit}
 .count-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:0 0 clamp(16px,2vw,22px);padding-bottom:14px;border-bottom:1px solid rgba(60,40,20,.10)}
 .count-n{font-size:clamp(21px,2.4vw,28px);font-weight:900;letter-spacing:-.03em}
 .count-l{font-size:13.5px;font-weight:700;color:var(--body)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:clamp(16px,1.8vw,26px)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,26px)}
 .card{cursor:pointer;background:var(--card);border:1px solid rgba(60,40,20,.09);border-radius:20px;overflow:hidden;box-shadow:var(--lift-1);transition:transform 220ms var(--ease),box-shadow 220ms var(--ease),border-color 220ms var(--ease);display:flex;flex-direction:column;text-align:left;padding:0;font:inherit;color:inherit;width:100%}
 .card:hover{transform:translateY(-6px);box-shadow:var(--lift-2);border-color:rgba(60,40,20,.14)}
 .card-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#FFF9E6,#E8F5FF)}
@@ -1021,7 +1021,7 @@ var AGES = [
 ];
 var DIFFS = ["All Difficulties","Easy","Medium","Hard"];
 
-var PER_PAGE = 8;   // 4 columns x 2 rows, same first page as index.html
+var PER_PAGE = 6;   // same first page as index.html: 1x6 phone, 2x3 tablet, 3x2 desktop
 var STORE_KEY = "diy.saved";
 
 /* ---------------- helpers ---------------- */

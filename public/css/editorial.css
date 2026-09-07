@@ -143,15 +143,13 @@
 .ed .card-src{color:#7A6E63!important;font-weight:700}
 .ed .card-details{color:var(--ed-accent)!important;font-weight:900!important}
 
-/* ── the lead card ────────────────────────────────────────────────────── */
+/* ── card grid alignment ────────────────────────────────────────────────────── */
 @media(min-width:980px){
-  /* align-items:start, or the card beside a double-width lead stretches to
-     match it and leaves a tall empty column. */
+  /* align-items:start so a short card never stretches to match a taller
+     neighbour and leave a tall empty column. */
+  /* Every card is the same size — no double-width lead. One grid rule for
+     the whole site: 3 across on desktop, 2 on tablet, 1 on phone. */
   .ed .grid{align-items:start}
-  .ed .grid > .card:first-child{grid-column:span 2}
-  .ed .grid > .card:first-child .card-img-wrap{
-    aspect-ratio:auto!important;height:clamp(230px,24vw,320px)!important}
-  .ed .grid > .card:first-child .card-title{font-size:21px!important}
 }
 
 /* ── the hero ─────────────────────────────────────────────────────────── */
