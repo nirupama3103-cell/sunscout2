@@ -682,8 +682,11 @@ a{color:inherit}
 .reset:hover{color:var(--navy)}
 
 /* ── cards ── */
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+/* Same grid as the homepage: 3 across on desktop, 2 on tablet, 1 on phone. */
+.grid{display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr));
   margin-bottom:26px}
+@media(max-width:1023px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){.grid{grid-template-columns:repeat(1,minmax(0,1fr))}}
 .card{background-color:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
 .card h3{font-size:16.5px;font-weight:900;color:var(--navy);line-height:1.25}
@@ -747,7 +750,6 @@ a{color:inherit}
   padding-top:12px;margin-top:12px}
 
 @media(max-width:700px){
-  .grid{grid-template-columns:1fr}
   .tip::after{width:190px;left:auto;right:0;transform:none}
   /* Phone-first audience: everything tappable clears 44px, matching the
      main site's mobile footer/nav sizing. */
