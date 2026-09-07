@@ -1025,7 +1025,7 @@ html,body{background:var(--p-cream)}
 </style>
 <link rel="stylesheet" href="/css/editorial.css">
 </head>
-<body class="ss-bg">
+<body class="ss-bg" data-page="local-table">
 <div class="ss-backdrop" aria-hidden="true"></div>
 <div class="page">
 
@@ -1796,7 +1796,9 @@ h1,h2,h3{text-wrap:balance}
    bottom of a photograph, so the "fix" took it to 1.44:1. */
 .hero h1 em{color:#8A4B00 !important}          /* was --orange, 1.74:1 on cream */
 .step-n{color:#8A4B00 !important}              /* was --orange, 2.14:1 on white */
-.ftr a{color:#5A3E1C !important}               /* was 3.82:1 */
+/* The footer is ink (#0a1520), not cream: the dark brown this used to carry
+   measured 1.88:1 on it at every width the page gate checks. */
+.ftr a{color:#E8EEF5 !important}
 .ftr-note{color:#4A443A !important}            /* was #999, 2.21:1 */
 .tile-price-b{color:#FFD9A8 !important}        /* dark ink on a dark photo: 1.44:1 */
 
@@ -1854,6 +1856,46 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
    there. rgba(0,0,0,.55) over a light dish measured 3.84:1. Opaque, like
    the tile labels above. */
 .chip-loc{background:rgba(20,14,9,.86)!important}
+
+/* ── HERO: the Halloween hub's panel ─────────────────────────────────────
+   Was a centred band the full width of the measure. Now the same component
+   as /seasons/halloween/ and diy.html: an inset rounded panel on the page
+   backdrop, the food photograph inside it under a left-weighted scrim, and
+   one left-aligned column of eyebrow, headline, lede, buttons and stats.
+   The panel stays opaque ink, so the backdrop passes behind it. */
+.hero.lt-hero{
+  max-width:var(--measure,1080px);
+  margin:14px auto 0;
+  padding:clamp(26px,3.4vw,44px) clamp(22px,3.4vw,44px) clamp(28px,3.6vw,46px);
+  border-radius:20px;text-align:left;
+  min-height:clamp(300px,32vw,420px);
+  display:flex;flex-direction:column;justify-content:center;
+}
+/* Clear on the right so the dishes stay visible beside the text, dark on the
+   left where the headline sits. Replaces the flat top-to-bottom wash. */
+.lt-hero .lt-hero-art::after{
+  background:linear-gradient(96deg,
+    rgba(23,19,16,.92) 0%, rgba(23,19,16,.86) 42%,
+    rgba(23,19,16,.52) 70%, rgba(23,19,16,.06) 100%)!important;
+}
+.lt-hero .lt-hero-art::before{opacity:.86!important}
+.lt-hero > *:not(.lt-hero-art){max-width:min(620px,64%)}
+.lt-hero .eyebrow{align-self:flex-start;width:auto}
+.lt-hero h1{margin:14px 0 0;font-size:clamp(32px,4.6vw,58px);letter-spacing:-1.4px;
+  text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.lt-hero .hero-sub{margin:16px 0 0;max-width:56ch}
+.lt-hero .hero-cta{justify-content:flex-start;margin-top:24px}
+.lt-hero .stats{justify-content:flex-start;margin-top:26px;gap:clamp(22px,4vw,42px)}
+@media(max-width:820px){
+  /* A phone's text column is full width, so a left-weighted scrim has
+     nowhere to clear to; it runs top to bottom instead. */
+  .hero.lt-hero{min-height:0}
+  .lt-hero > *:not(.lt-hero-art){max-width:100%}
+  .lt-hero .lt-hero-art::after{
+    background:linear-gradient(180deg,
+      rgba(23,19,16,.72) 0%, rgba(23,19,16,.88) 55%, rgba(23,19,16,.93) 100%)!important;
+  }
+}
 </style>
 </body>
 </html>
