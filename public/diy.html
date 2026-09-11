@@ -892,17 +892,41 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
     </div>
   </section>
 
-  <section class="band" aria-label="Project video reel">
-    <div class="band-glow"></div>
-    <div class="marquee">
-      <div class="marquee-track" id="rowA" role="group" aria-label="Featured projects, row 1"></div>
-    </div>
-    <div class="marquee" data-dir="rev" data-speed="slow">
-      <div class="marquee-track" id="rowB" role="group" aria-label="Featured projects, row 2"></div>
-    </div>
+  <!-- Three doors, same component as the Halloween hub's "Start here" row.
+       Each one sets the existing filters; no new filter logic. -->
+  <section class="doors" aria-label="Start here">
+    <button type="button" class="door" data-door="easy">
+      <span class="door-art" style="background-image:url('images/diy-rockpainting.jpg')" aria-hidden="true"></span>
+      <span class="door-body">
+        <span class="door-k">Door one</span>
+        <span class="door-h">Easy starts</span>
+        <span class="door-p">No tricky steps. Good for a first project or a short afternoon.</span>
+        <span class="door-go">Show me <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </button>
+    <button type="button" class="door" data-door="little">
+      <span class="door-art" style="background-image:url('images/diy-sockpuppet.jpg')" aria-hidden="true"></span>
+      <span class="door-body">
+        <span class="door-k">Door two</span>
+        <span class="door-h">Little hands</span>
+        <span class="door-p">Projects that work for ages 3 to 5, with a grown-up nearby.</span>
+        <span class="door-go">Show me <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </button>
+    <button type="button" class="door" data-door="hard">
+      <span class="door-art" style="background-image:url('images/diy-marble.png')" aria-hidden="true"></span>
+      <span class="door-body">
+        <span class="door-k">Door three</span>
+        <span class="door-h">Big-kid challenge</span>
+        <span class="door-p">The hard ones. Strategy, patience, and a real sense of done.</span>
+        <span class="door-go">Show me <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </button>
   </section>
 
+
   <section class="projects">
+    <p class="sec-label"><b>01</b> Every project</p>
     <div class="count-row">
       <!-- h2: the page ran h1 -> h3 with nothing between, so a screen reader's
            heading list jumped a level straight into the project cards. This row
@@ -922,6 +946,16 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
       <div class="empty-msg">No projects for this filter</div>
       <div class="empty-sub">Try a different age or difficulty.</div>
     </div>
+  </section>
+
+  <section class="tips" aria-labelledby="tipsH">
+    <h2 id="tipsH">Four things worth knowing before you start</h2>
+    <ul>
+      <li><strong>Cover the table first.</strong> Paint, glue and slime all travel. An old sheet or newspaper saves the cleanup.</li>
+      <li><strong>Check the supply list.</strong> Every project lists what it needs. Most of it is already in a kitchen drawer.</li>
+      <li><strong>Adult steps are marked.</strong> Irons, scissors and hot glue are called out in the steps. Read those first.</li>
+      <li><strong>Keep the scraps.</strong> Leftover beads, card and yarn become the next project.</li>
+    </ul>
   </section>
 
   <div class="overlay" id="overlay" hidden>
@@ -1034,7 +1068,6 @@ var AGES = [
 ];
 var DIFFS = ["All Difficulties","Easy","Medium","Hard"];
 
-var PER_PAGE = 6;   // same first page as index.html: 1x6 phone, 2x3 tablet, 3x2 desktop
 var STORE_KEY = "diy.saved";
 
 /* ---------------- helpers ---------------- */
@@ -1053,7 +1086,7 @@ function persist(){
   try { localStorage.setItem(STORE_KEY, JSON.stringify(state.saved)); } catch(e){}
 }
 
-var state = { age:"all", diff:"All Difficulties", q:"", open:null, copied:false, saved:loadSaved(), expanded:false };
+var state = { age:"all", diff:"All Difficulties", q:"", open:null, copied:false, saved:loadSaved(), limit:null };
 
 var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1075,80 +1108,6 @@ function byId(id){
   return null;
 }
 
-/* ---------------- video reel ---------------- */
-function renderReel(){
-  function tile(p, cls, dup){
-    return '<button type="button" class="tile ' + cls + '"' +
-      (dup ? ' tabindex="-1"' : ' data-open="' + esc(p.id) + '"') +
-      ' aria-label="' + esc(p.title) + ' — open details">' +
-      '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async" ' +
-        'onerror="this.closest(\'.tile\').classList.add(\'is-missing\')">' +
-      '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
-        'preload="none" aria-hidden="true" tabindex="-1"></video>' +
-      (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
-    '</button>';
-  }
-  // Each rail holds the item set twice: the second copy is what makes the -50%
-  // translate loop seamlessly. It is aria-hidden and every tile in it carries
-  // tabindex="-1", so Tab reaches each project exactly once.
-  function rail(list, cls){
-    return '<div class="marquee-set">' +
-             list.map(function(p){ return tile(p, cls, false); }).join("") +
-           '</div>' +
-           '<div class="marquee-dup" aria-hidden="true">' +
-             list.map(function(p){ return tile(p, cls, true); }).join("") +
-           '</div>';
-  }
-  $("rowA").innerHTML = rail(PROJECTS.slice(0,6), "tile-a");
-  $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
-
-  if (reduceMotion) return;
-
-  /* The reel showed posters but never video. Two reasons, both about weight:
-     rowA's first six clips are fuse-beads 12.4MB, lego 11.6, snakes 2.9,
-     chinese 11.3, marble 11.5, sock 2.6 - 52MB - and the old fixed 900ms
-     stagger started all eight regardless of whether the band was on screen or
-     whether any had finished. A tile only reveals its video on `loadeddata`,
-     so on a phone every tile stayed at opacity 0 showing its poster.
-
-     Now: nothing is fetched until the band is actually visible, and at most
-     two clips load at a time, advancing as each becomes ready. The light ones
-     surface in a second or two instead of queueing behind a 12MB download.
-     Scoped to the real set so duplicate tiles never fetch. */
-  var vids = Array.prototype.slice.call(document.querySelectorAll(".marquee-set video")).slice(0, 8);
-  if (!vids.length) return;
-
-  var next = 0, active = 0, MAX = 2;
-  function pump(){
-    while (active < MAX && next < vids.length) {
-      (function(v){
-        active++;
-        var done = false;
-        function advance(){
-          if (done) return;
-          done = true; active--; pump();
-        }
-        v.addEventListener("loadeddata", function(){ v.classList.add("on"); advance(); });
-        // a clip that stalls or fails must not hold the queue shut
-        v.addEventListener("error", advance);
-        setTimeout(advance, 6000);
-        v.preload = "auto";
-        var pr = v.play();
-        if (pr && pr.catch) pr.catch(function(){ advance(); });
-      })(vids[next++]);
-    }
-  }
-
-  var band = document.querySelector(".marquee") || document.querySelector(".band");
-  if (!band || typeof IntersectionObserver !== "function") { pump(); return; }
-  var io = new IntersectionObserver(function(entries){
-    for (var i = 0; i < entries.length; i++) {
-      if (entries[i].isIntersecting) { io.disconnect(); pump(); return; }
-    }
-  }, { rootMargin: "200px" });
-  io.observe(band);
-}
-
 /* ---------------- filters ---------------- */
 function renderFilters(){
   // labels are refreshed at the end of this function
@@ -1166,7 +1125,7 @@ function renderFilters(){
 /* ---------------- grid ---------------- */
 function renderGrid(){
   var list = filtered();
-  var shown = state.expanded ? list : list.slice(0, PER_PAGE);
+  var shown = list.slice(0, state.limit || batch().first);
 
   $("countLabel").textContent = list.length === 1 ? "1 Project" : list.length + " Projects";
 
@@ -1205,14 +1164,7 @@ function renderGrid(){
 
   $("empty").hidden = list.length !== 0;
 
-  var hasMore = list.length > PER_PAGE;
-  $("moreWrap").hidden = !hasMore;
-  if (hasMore) {
-    $("moreBtn").textContent = state.expanded
-      ? "Show Fewer ↑"
-      : "View More Projects (" + (list.length - PER_PAGE) + ") ↓";
-    $("moreBtn").setAttribute("aria-expanded", String(state.expanded));
-  }
+  syncMore(list.length, "project");
 }
 
 /* ---------------- modal ---------------- */
@@ -1307,12 +1259,12 @@ document.addEventListener("keydown", function(e){
 /* ---------------- delegated events ---------------- */
 $("agePills").addEventListener("click", function(e){
   var b = e.target.closest("[data-age]"); if (!b) return;
-  state.age = b.getAttribute("data-age"); state.expanded = false;
+  state.age = b.getAttribute("data-age"); state.limit = null;
   renderFilters(); renderGrid();
 });
 $("diffPills").addEventListener("click", function(e){
   var b = e.target.closest("[data-diff]"); if (!b) return;
-  state.diff = b.getAttribute("data-diff"); state.expanded = false;
+  state.diff = b.getAttribute("data-diff"); state.limit = null;
   renderFilters(); renderGrid();
 });
 
@@ -1338,7 +1290,7 @@ $("grid").addEventListener("keydown", function(e){
 
 $("searchInput").addEventListener("input", function(e){
   state.q = e.target.value;
-  state.expanded = false;                       // a new query starts at page one
+  state.limit = null;                       // a new query starts at page one
   $("searchClear").hidden = state.q === "";
   renderGrid();
 });
@@ -1346,7 +1298,7 @@ $("searchClear").addEventListener("click", function(){
   state.q = "";
   $("searchInput").value = "";
   $("searchClear").hidden = true;
-  state.expanded = false;
+  state.limit = null;
   renderGrid();
   $("searchInput").focus();
 });
@@ -1421,32 +1373,58 @@ function scrollToY(y, behavior){
   syncFilterBar();
 })();
 
-$("moreBtn").addEventListener("click", function(){
-  var btn = this;
+
+/* Show-more batches, per breakpoint (same breakpoints as the grid):
+   desktop 3 cols: first 6, then +6 · tablet 2 cols: first 2, then +2 ·
+   phone 1 col: first 1, then +5. Change the numbers here only. */
+function batch(){
+  var BATCH = { desktop:{ first:6, step:6 }, tablet:{ first:2, step:2 }, phone:{ first:1, step:5 } };
+  var mm = window.matchMedia;
+  if (mm && mm("(max-width:639px)").matches)  return BATCH.phone;
+  if (mm && mm("(max-width:1023px)").matches) return BATCH.tablet;
+  return BATCH.desktop;
+}
+function syncMore(total, noun){
+  var b = batch(), limit = state.limit || b.first, left = total - limit;
+  var wrap = $("moreWrap"), btn = $("moreBtn");
+  wrap.hidden = total <= b.first;
+  if (wrap.hidden) return;
+  if (left > 0) {
+    var n = Math.min(b.step, left);
+    btn.textContent = "Show " + n + " more " + noun + (n === 1 ? "" : "s") + " \u2193";
+    btn.setAttribute("aria-expanded", "false");
+  } else {
+    btn.textContent = "Show fewer \u2191";
+    btn.setAttribute("aria-expanded", "true");
+  }
+}
+function onMoreClick(){
+  var btn = $("moreBtn");
   var btnTopBefore = btn.getBoundingClientRect().top;
-
-  state.expanded = !state.expanded;
-  renderGrid();
-
-  if (state.expanded) {
-    var firstNew = $("grid").children[PER_PAGE];
+  var b = batch(), limit = state.limit || b.first, total = filtered().length;
+  if (limit < total) {
+    state.limit = limit + b.step;
+    renderGrid();
+    var firstNew = $("grid").children[limit];
     if (firstNew) {
-      scrollToY(window.pageYOffset + firstNew.getBoundingClientRect().top - stickyOffset(),
-                scrollBehavior());
+      scrollToY(window.pageYOffset + firstNew.getBoundingClientRect().top - stickyOffset(), scrollBehavior());
       if (firstNew.focus) firstNew.focus({ preventScroll:true });
     }
   } else {
+    state.limit = null;
+    renderGrid();
     scrollToY(window.pageYOffset + btn.getBoundingClientRect().top - btnTopBefore, "auto");
     btn.focus({ preventScroll:true });
   }
+}
+/* crossing a breakpoint restarts at that size's first batch */
+["(max-width:639px)","(max-width:1023px)"].forEach(function(q){
+  if (!window.matchMedia) return;
+  var m = window.matchMedia(q), f = function(){ state.limit = null; renderGrid(); };
+  if (m.addEventListener) m.addEventListener("change", f); else if (m.addListener) m.addListener(f);
 });
+$("moreBtn").addEventListener("click", onMoreClick);
 
-// Reel tiles are real buttons, so they open the same modal the grid cards do.
-// Duplicate tiles carry no data-open, so a click on one is simply ignored.
-document.querySelector(".band").addEventListener("click", function(e){
-  var t = e.target.closest("[data-open]");
-  if (t) openProject(t.getAttribute("data-open"));
-});
 
 $("overlay").addEventListener("click", function(e){
   if (e.target === $("overlay")) { closeProject(); return; }
@@ -1470,6 +1448,20 @@ $("overlay").addEventListener("click", function(e){
   }
 });
 
+
+/* ---------------- doors ---------------- */
+document.querySelector(".doors").addEventListener("click", function(e){
+  var d = e.target.closest("[data-door]"); if (!d) return;
+  var k = d.getAttribute("data-door");
+  state.q = ""; $("searchInput").value = ""; $("searchClear").hidden = true;
+  state.age  = (k === "little") ? "3-5" : "all";
+  state.diff = (k === "easy") ? "Easy" : (k === "hard") ? "Hard" : "All Difficulties";
+  state.limit = null;
+  renderFilters(); renderGrid();
+  var t = $("countLabel");
+  scrollToY(window.pageYOffset + t.getBoundingClientRect().top - stickyOffset() - 12, scrollBehavior());
+});
+
 /* ---------------- boot ---------------- */
 /* Counted from PROJECTS, never typed in: a stat row that can drift from the
    list under it is worse than no stat row. Same rule as the Halloween hub. */
@@ -1479,7 +1471,6 @@ function renderHeroStats(){
   set("statVideos", PROJECTS.filter(function(p){ return !!p.video; }).length);
 }
 renderHeroStats();
-renderReel();
 renderFilters();
 renderGrid();
 if (location.hash.length > 1) openProject(decodeURIComponent(location.hash.slice(1)));
@@ -1702,6 +1693,112 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
   .hero::before{background:linear-gradient(180deg,
     rgba(38,22,10,.72) 0%, rgba(38,22,10,.88) 55%, rgba(38,22,10,.93) 100%)}
 }
+</style>
+<style id="hh-pattern">
+/* ══ HALLOWEEN PATTERN ═══════════════════════════════════════════════════
+   One centred 1048px column over the page backdrop, exactly like
+   /seasons/halloween/: header, hero, bar, doors, grid, tips, subscribe and
+   footer are all panels in that column. Nothing bleeds edge to edge.
+   Last in the cascade on purpose; the page accent is set once, below. */
+:root{
+  --orange:#0F6E56; --orange-dark:#085041;
+  --pg-fill:#0F6E56; --pg-ink:#085041; --pg-light:#9FE1CB; --pg-tint:#E1F5EE; --pg-mid:#1D9E75;
+  --col:min(var(--shell,1048px), calc(100% - 2 * var(--shell-gutter,16px)));
+}
+
+/* — header: a panel in the column, not a full-width bar — */
+.page > .hdr{
+  width:var(--col);max-width:none;margin:10px auto 0;top:8px;
+  padding-left:16px!important;padding-right:16px!important;
+  border-radius:16px;border:1px solid rgba(60,40,20,.12);
+}
+.navlink.is-here,.navlink[aria-current="page"]{color:var(--pg-ink)!important;box-shadow:inset 0 -2px 0 var(--pg-mid);border-radius:0}
+
+/* — every block shares the one column — */
+.page > section.hero,
+.page > section.bar-wrap,
+.page > section.filters,
+.page > section.doors,
+.page > section.projects,
+.page > section.deals,
+.page > section.sec,
+.page > section.tips{width:var(--col);max-width:none;margin-left:auto;margin-right:auto}
+.page > section.hero{margin-top:14px}
+.page > section.doors{margin-top:18px;margin-bottom:0}
+.page > section.filters{border-radius:0 0 18px 18px}
+.page > section.deals{margin-top:28px}
+.page > section.projects{margin-top:4px}
+.projects .count-row,.projects .grid,.projects .empty,.projects .more-wrap,
+.deals .deals-head,.deals .grid,.deals .empty,.deals .more-wrap,
+.sec .sec-in{max-width:none;padding-inline:0;margin-inline:0}
+
+/* — hero accent in the page colour — */
+.hero h1 em,.hero h1 .accent{color:var(--pg-light)!important}
+.hero-kicker{color:var(--pg-light)}
+.hero-stats dt,.hero .stat-n{color:var(--pg-light)!important}
+.bar-go,.btn-primary{background:var(--pg-fill)!important;color:#fff!important;box-shadow:none!important}
+
+/* — doors: the hub's "start here" row — */
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.door{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;
+  background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:18px;overflow:hidden;
+  transition:transform .18s ease,border-color .18s ease}
+.door:hover{transform:translateY(-2px);border-color:var(--pg-mid)}
+.door:focus-visible{outline:3px solid var(--pg-ink);outline-offset:2px}
+.door-art{display:block;height:120px;background-size:cover;background-position:center}
+.door-body{display:block;padding:14px 16px 16px}
+.door-k{display:block;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-ink)}
+.door-h{display:block;margin-top:4px;font-size:19px;font-weight:800;color:var(--ink,#20160E)}
+.door-p{display:block;margin-top:6px;font-size:13.5px;font-weight:600;line-height:1.5;color:#5A4636}
+.door-go{display:block;margin-top:10px;font-size:13px;font-weight:800;color:var(--pg-ink)}
+.door-go span{display:inline-block;transition:margin-left .2s ease}
+.door:hover .door-go span{margin-left:4px}
+
+/* — "01 · Every project" label — */
+.sec-label{margin:26px 0 10px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink,#20160E)}
+.sec-label b{color:var(--pg-ink);margin-right:10px}
+.page > section.projects,.page > section.deals{padding-top:0}
+.projects .count-row{margin-top:0}
+
+/* — show more — */
+.more{background:#fff;border:1px solid rgba(60,40,20,.16);color:var(--ink,#20160E)}
+.more:hover{border-color:var(--pg-mid);color:var(--pg-ink)}
+
+/* — tips panel — */
+.tips{background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:18px;padding:20px 22px;margin-top:26px}
+.tips h2{font-size:clamp(19px,2.4vw,25px);font-weight:800;margin:0 0 12px;color:var(--ink,#20160E)}
+.tips ul{list-style:none;margin:0;padding:0;display:grid;gap:11px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.tips li{position:relative;padding-left:18px;font-size:14px;font-weight:600;line-height:1.55;color:#4A3B2E}
+.tips li::before{content:'';position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--pg-mid)}
+.tips strong{color:var(--ink,#20160E);font-weight:800}
+
+/* — content sections (Local Table) as panels — */
+.page > section.sec{background:#fff;border:1px solid rgba(60,40,20,.12);border-radius:18px;
+  padding:20px 22px!important;margin-top:18px}
+
+/* — footer: a panel in the column, subscribe inside it — */
+.page > .ftr{
+  width:var(--col);max-width:none;margin:18px auto 24px;
+  padding-left:22px!important;padding-right:22px!important;border-radius:18px;
+}
+.ftr .sub-section{max-width:none;margin:16px 0 0}
+.sub-form button{background:var(--pg-light);color:var(--pg-ink)}
+
+@media(max-width:1023px){
+  .doors{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .door-art{height:96px}
+  .door-p{display:none}
+}
+@media(max-width:639px){
+  .page > .hdr{margin-top:6px;top:6px}
+  .doors{grid-template-columns:1fr}
+  .door{flex-direction:row}
+  .door-art{width:96px;height:auto;min-height:96px;flex:none}
+  .door-p{display:block}
+  .tips ul{grid-template-columns:1fr}
+  .page > .ftr{margin-bottom:calc(84px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.door,.door-go span{transition:none}}
 </style>
 </body>
 </html>
