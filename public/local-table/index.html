@@ -1933,7 +1933,16 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
 
 /* — header: a panel in the column, not a full-width bar — */
 .page > .hdr{
-  width:var(--col);max-width:none;margin:10px auto 0;top:8px;
+  width:var(--col);max-width:none;margin:10px auto 0;top:0;
+  /* Opaque, not the site's .92/.94 frosted glass: as a full-bleed bar the
+     translucency read as depth, but as a floating panel the cards sliding
+     under it stayed legible straight through the header. */
+  background:var(--surface)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  /* top:0, not the 10px margin: the margin gives the panel breathing room
+     at scroll-top, but a sticky offset would leave a transparent strip that
+     scrolling cards show through, and would push the panel's bottom past the
+     var(--head-h) that .filters sticks to. Docked flush, the two butt exactly. */
   padding-left:16px!important;padding-right:16px!important;
   border-radius:16px;border:1px solid rgba(60,40,20,.12);
 }
@@ -2015,7 +2024,7 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
   .door-p{display:none}
 }
 @media(max-width:639px){
-  .page > .hdr{margin-top:6px;top:6px}
+  .page > .hdr{margin-top:6px;top:0}
   .doors{grid-template-columns:1fr}
   .door{flex-direction:row}
   .door-art{width:96px;height:auto;min-height:96px;flex:none}
