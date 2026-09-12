@@ -925,6 +925,16 @@ h2.count-n{margin:0;font-size:inherit;font-weight:inherit;letter-spacing:inherit
   </section>
 
 
+  <section class="band" aria-label="Project video reel">
+    <div class="band-glow"></div>
+    <div class="marquee">
+      <div class="marquee-track" id="rowA" role="group" aria-label="Featured projects, row 1"></div>
+    </div>
+    <div class="marquee" data-dir="rev" data-speed="slow">
+      <div class="marquee-track" id="rowB" role="group" aria-label="Featured projects, row 2"></div>
+    </div>
+  </section>
+
   <section class="projects">
     <p class="sec-label"><b>01</b> Every project</p>
     <div class="count-row">
@@ -1106,6 +1116,80 @@ function filtered(){
 function byId(id){
   for (var i=0;i<PROJECTS.length;i++) if (PROJECTS[i].id === id) return PROJECTS[i];
   return null;
+}
+
+/* ---------------- video reel ---------------- */
+function renderReel(){
+  function tile(p, cls, dup){
+    return '<button type="button" class="tile ' + cls + '"' +
+      (dup ? ' tabindex="-1"' : ' data-open="' + esc(p.id) + '"') +
+      ' aria-label="' + esc(p.title) + ' — open details">' +
+      '<img class="tile-poster" src="' + esc(p.img) + '" alt="" loading="lazy" decoding="async" ' +
+        'onerror="this.closest(\'.tile\').classList.add(\'is-missing\')">' +
+      '<video src="' + esc(p.video) + '" poster="' + esc(p.img) + '" muted loop playsinline ' +
+        'preload="none" aria-hidden="true" tabindex="-1"></video>' +
+      (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
+    '</button>';
+  }
+  // Each rail holds the item set twice: the second copy is what makes the -50%
+  // translate loop seamlessly. It is aria-hidden and every tile in it carries
+  // tabindex="-1", so Tab reaches each project exactly once.
+  function rail(list, cls){
+    return '<div class="marquee-set">' +
+             list.map(function(p){ return tile(p, cls, false); }).join("") +
+           '</div>' +
+           '<div class="marquee-dup" aria-hidden="true">' +
+             list.map(function(p){ return tile(p, cls, true); }).join("") +
+           '</div>';
+  }
+  $("rowA").innerHTML = rail(PROJECTS.slice(0,6), "tile-a");
+  $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
+
+  if (reduceMotion) return;
+
+  /* The reel showed posters but never video. Two reasons, both about weight:
+     rowA's first six clips are fuse-beads 12.4MB, lego 11.6, snakes 2.9,
+     chinese 11.3, marble 11.5, sock 2.6 - 52MB - and the old fixed 900ms
+     stagger started all eight regardless of whether the band was on screen or
+     whether any had finished. A tile only reveals its video on `loadeddata`,
+     so on a phone every tile stayed at opacity 0 showing its poster.
+
+     Now: nothing is fetched until the band is actually visible, and at most
+     two clips load at a time, advancing as each becomes ready. The light ones
+     surface in a second or two instead of queueing behind a 12MB download.
+     Scoped to the real set so duplicate tiles never fetch. */
+  var vids = Array.prototype.slice.call(document.querySelectorAll(".marquee-set video")).slice(0, 8);
+  if (!vids.length) return;
+
+  var next = 0, active = 0, MAX = 2;
+  function pump(){
+    while (active < MAX && next < vids.length) {
+      (function(v){
+        active++;
+        var done = false;
+        function advance(){
+          if (done) return;
+          done = true; active--; pump();
+        }
+        v.addEventListener("loadeddata", function(){ v.classList.add("on"); advance(); });
+        // a clip that stalls or fails must not hold the queue shut
+        v.addEventListener("error", advance);
+        setTimeout(advance, 6000);
+        v.preload = "auto";
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function(){ advance(); });
+      })(vids[next++]);
+    }
+  }
+
+  var band = document.querySelector(".marquee") || document.querySelector(".band");
+  if (!band || typeof IntersectionObserver !== "function") { pump(); return; }
+  var io = new IntersectionObserver(function(entries){
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { io.disconnect(); pump(); return; }
+    }
+  }, { rootMargin: "200px" });
+  io.observe(band);
 }
 
 /* ---------------- filters ---------------- */
@@ -1426,6 +1510,13 @@ function onMoreClick(){
 $("moreBtn").addEventListener("click", onMoreClick);
 
 
+// Reel tiles are real buttons, so they open the same modal the grid cards do.
+// Duplicate tiles carry no data-open, so a click on one is simply ignored.
+document.querySelector(".band").addEventListener("click", function(e){
+  var t = e.target.closest("[data-open]");
+  if (t) openProject(t.getAttribute("data-open"));
+});
+
 $("overlay").addEventListener("click", function(e){
   if (e.target === $("overlay")) { closeProject(); return; }
   if (e.target.closest("[data-close]")) { closeProject(); return; }
@@ -1471,6 +1562,7 @@ function renderHeroStats(){
   set("statVideos", PROJECTS.filter(function(p){ return !!p.video; }).length);
 }
 renderHeroStats();
+renderReel();
 renderFilters();
 renderGrid();
 if (location.hash.length > 1) openProject(decodeURIComponent(location.hash.slice(1)));

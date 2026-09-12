@@ -1126,6 +1126,16 @@ html,body{background:var(--p-cream)}
 
 
 
+  <section class="band" aria-label="Featured deals">
+    <div class="band-glow"></div>
+    <div class="band-rows">
+      <div class="row row-a" id="rowA"></div>
+      <div class="row row-b" id="rowB"></div>
+    </div>
+    <div class="fade fade-l"></div>
+    <div class="fade fade-r"></div>
+  </section>
+
   <section class="deals">
     <div class="deals-head">
       <div class="deals-tag">🍽 This week · Aug 17–23</div>
@@ -1353,6 +1363,42 @@ function renderStatic(){
       '<a class="tier-cta" href="#lt-pricing">' + esc(t.cta) + '</a></div>';
   }).join("");
 
+  // Marquee: each row's list is duplicated so the -50% keyframe loops seamlessly.
+  // deals with no photo are skipped in the reel - an empty tile scrolling past
+  // reads as a broken image, and the reel is decorative, so it can be shorter
+  var tick = DEALS.filter(function(d){ return !!d.img; })
+                  .map(function(d){ return { img:d.img, title:d.title, price:d.price }; });
+  function tileA(t){
+    // NOT loading="lazy": the row is moved by transform, and browsers decide
+    // lazy-loading from layout position, not transform. Tiles animating into
+    // view were therefore never fetched - 9 of 14 dishes scrolled past as
+    // empty boxes on a phone. fetchpriority keeps them behind the real content.
+    return '<div class="tile tile-a">' +
+      '<img src="' + esc(t.img) + '" alt="" decoding="async" fetchpriority="low">' +
+      '<div class="scrim"></div><div class="tile-cap">' +
+      '<span class="tile-title">' + esc(t.title) + '</span>' +
+      '<span class="tile-price">' + esc(t.price) + '</span></div></div>';
+  }
+  function tileB(t){
+    return '<div class="tile tile-b">' +
+      '<img src="' + esc(t.img) + '" alt="" decoding="async" fetchpriority="low">' +
+      '<div class="scrim"></div>' +
+      '<span class="tile-price-b">' + esc(t.price) + '</span></div>';
+  }
+  var a = tick.slice(0,6).map(tileA).join("");
+  var b = tick.slice(6).map(tileB).join("");
+  $("rowA").innerHTML = a + a;
+  $("rowB").innerHTML = b + b;
+
+  // A reel tile whose photo 404s scrolls past as a black rectangle, which is
+  // worse than a shorter reel. `error` does not bubble, so it is captured.
+  // Purely decorative: the grid below still lists every deal.
+  ["rowA","rowB"].forEach(function(id){
+    $(id).addEventListener("error", function(e){
+      var tile = e.target.closest(".tile");
+      if (tile) tile.remove();
+    }, true);
+  });
 }
 
 /* ---------------- filters ---------------- */
