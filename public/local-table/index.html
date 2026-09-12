@@ -2005,7 +2005,11 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
 .page > section.tips{width:var(--col);max-width:none;margin-left:auto;margin-right:auto}
 .page > section.hero{margin-top:14px}
 .page > section.doors{margin-top:18px;margin-bottom:0}
-.page > section.filters{border-radius:0 0 18px 18px}
+.page > section.filters{border-radius:0 0 18px 18px;
+  /* Opaque, for the same reason the header above is: .hdr,.filters were
+     both left on the site's 94% glass, so deal cards ghosted through the
+     filter bar the whole way down the page. */
+  background:var(--surface)}
 .page > section.deals{margin-top:28px}
 .page > section.projects{margin-top:4px}
 .projects .count-row,.projects .grid,.projects .empty,.projects .more-wrap,
