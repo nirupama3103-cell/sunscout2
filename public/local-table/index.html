@@ -725,10 +725,11 @@ html{scroll-padding-top:var(--head-h)}
    left each card its own height, so footers in a row sat at different levels.
    The card is already a column with `margin-top:auto` on its footer - it just
    needed permission to fill the row. */
-@media (min-width:701px){
-  .grid{align-items:stretch}
-  .card{height:100%}
-}
+/* Was min-width:701px, but the grid is still 2 columns down to 640px, so that
+   band kept the ragged bottoms this rule exists to remove. Applies at every
+   width now, matching the other pages; on a 1-column phone it is a no-op. */
+.grid{align-items:stretch}
+.grid > .card{height:100%}
 
 /* ======================================================================
    PREMIUM PASS

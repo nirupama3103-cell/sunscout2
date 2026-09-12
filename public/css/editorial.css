@@ -144,13 +144,18 @@
 .ed .card-details{color:var(--ed-accent)!important;font-weight:900!important}
 
 /* ── card grid alignment ────────────────────────────────────────────────────── */
-@media(min-width:980px){
-  /* align-items:start so a short card never stretches to match a taller
-     neighbour and leave a tall empty column. */
-  /* Every card is the same size — no double-width lead. One grid rule for
-     the whole site: 3 across on desktop, 2 on tablet, 1 on phone. */
-  .ed .grid{align-items:start}
-}
+/* One rule for the whole site: 3 across on desktop, 2 on tablet, 1 on phone,
+   every card the same size, and every card in a row the same height.
+
+   This used to be align-items:start above 980px, on the reasoning that a short
+   card should not stretch to match a taller neighbour. In practice it left the
+   row ragged - the Halloween hub ran 230/204/204px because one title wrapped to
+   two lines - and ragged bottoms read as broken rather than airy. Local Table
+   had already switched to stretch on its own; this makes every page agree.
+   height:100% is what actually fills the row: the grid item stretches, and the
+   card inside it has to follow. No effect on phones, where a row is one card. */
+.grid{align-items:stretch}
+.grid > .card{height:100%}
 
 /* ── the hero ─────────────────────────────────────────────────────────── */
 .ed-hero{
