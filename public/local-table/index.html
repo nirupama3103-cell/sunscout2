@@ -1138,7 +1138,7 @@ html,body{background:var(--p-cream)}
 
   <section class="deals">
     <div class="deals-head">
-      <div class="deals-tag">🍽 This week · Aug 17–23</div>
+      <div class="deals-tag" id="weekTag">🍽 This week</div>
       <h2>This week's table</h2>
       <p>Deals in Sunnyvale and Aubrey, gathered from restaurant sites, delivery apps and local guides. Confirm price and hours with the restaurant before you go.</p>
     </div>
@@ -1341,7 +1341,24 @@ function byId(id){
 }
 
 /* ---------------- static sections ---------------- */
+/* The week label was typed by hand and read "Aug 17-23" well into September,
+   which makes a page whose whole promise is "this week" look abandoned.
+   Computed from the clock instead, Monday to Sunday, so it cannot go stale.
+   Note this labels the week being shown - it does not date the deals, which
+   are recurring specials (Daily, Mon-Fri lunch) rather than week-bound offers. */
+function weekLabel(d){
+  var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var day = d.getDay();                        // 0 Sun ... 6 Sat
+  var mon = new Date(d); mon.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+  var sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+  var a = M[mon.getMonth()] + " " + mon.getDate();
+  var b = (mon.getMonth() === sun.getMonth() ? "" : M[sun.getMonth()] + " ") + sun.getDate();
+  return a + "\u2013" + b;                      // "Sep 7-13", or "Sep 28-Oct 4"
+}
 function renderStatic(){
+  var wt = $("weekTag");
+  if (wt) wt.textContent = "\uD83C\uDF7D This week \u00B7 " + weekLabel(new Date());
+
   var stats = [{ n:DEALS.length, l:"active deals" }, { n:"2", l:"cities" }, { n:"Weekly", l:"deal refresh" }];
   $("stats").innerHTML = stats.map(function(s){
     return '<div><div class="stat-n">' + esc(s.n) + '</div><div class="stat-l">' + esc(s.l) + '</div></div>';
