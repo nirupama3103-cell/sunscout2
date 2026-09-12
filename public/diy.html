@@ -1907,7 +1907,8 @@ body{background:var(--ed-sunset,linear-gradient(180deg,#FFF6EC 0%,#FFEDD9 12%,#F
    so the same column produced 330px / 332px / 340px cards. The pattern's
    gap is a flat 14px; matching it makes the card identical on every page
    at every breakpoint. minmax(0,1fr) stops a long word widening a column. */
-.grid{gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid{gap:14px;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.grid > .card{height:100%}
 @media(max-width:1023px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:639px){.grid{grid-template-columns:repeat(1,minmax(0,1fr))}}
 
