@@ -1942,7 +1942,18 @@ document.addEventListener("DOMContentLoaded", applySeason);
 
 /* One grid rule everywhere: 6 cards on the first page (1 col x 6 on phone,
    2 x 3 on tablet, 3 x 2 on desktop), then 6 more per "Show more". */
-function getPageSize() { return 6; }
+/* First page, and the size of each "Show more" step, per breakpoint - the
+   same breakpoints the grid uses:
+     desktop 3 cols: 6, two full rows
+     tablet  2 cols: 8
+     phone   1 col : 5
+   Every reset path already calls getPageSize(), so they all follow this. */
+function getPageSize() {
+  var mm = window.matchMedia;
+  if (mm && mm("(max-width:639px)").matches)  return 5;
+  if (mm && mm("(max-width:1023px)").matches) return 8;
+  return 6;
+}
 const PAGE_SIZE = getPageSize();
 window.addEventListener("scroll",function(){var b=document.getElementById("back-to-top");if(!b)return;if(window.scrollY>300){b.classList.add("visible");}else{b.classList.remove("visible");}},{passive:true});
 let activeTab     = "free";
@@ -1959,7 +1970,10 @@ function updateTabBadge(tab,count){var b=document.getElementById("badge-"+tab);i
    the affordance, not decoration. */
 const AGE_LABELS = { "0":"0–2", "1":"3–5", "2":"6–12", "3":"Teen" };
 const AGE_COLORS = { "0":"chip-a0", "1":"chip-a1", "2":"chip-a2", "3":"chip-a3" };
-const SRC_LABELS = { google:"📍 Google", eventbrite:"🎟 Eventbrite", ticketmaster:"🎫 Ticketmaster" };
+/* Ticketmaster is the only live source. Google Places and Eventbrite are
+   dead and must not come back - an unknown key still falls through to
+   the raw a.source below, so nothing breaks if old data turns up. */
+const SRC_LABELS = { ticketmaster:"🎫 Ticketmaster" };
 
 const CITY_COORDS = {
   "Sunnyvale":     [37.3688, -122.0363],
@@ -2552,7 +2566,7 @@ function renderCards() {
         "<a class=\"btn\" href=\"mailto:sunscout2026@gmail.com?subject=Report: "+encodeURIComponent(a.name||"")+"&body=This listing may be outdated or incorrect.\" style=\"opacity:0.5;font-size:10px\" title=\"Report outdated info\">📢</a>"+
       "</div>"+
       "<div class=\"card-meta-row\">"+
-        "<span class=\"card-src\">"+(a.source ? (SRC_LABELS[a.source]||a.source) : "Curated local data")+"</span>"+
+        "<span class=\"card-src\">"+(SRC_LABELS[a.source] || "Curated local data")+"</span>"+
         "<span class=\"card-details\">Details <span>→</span></span>"+
       "</div>"+
     "</article>";
@@ -2716,6 +2730,14 @@ function showMore() {
   showCount += getPageSize(); renderCards();
   window.scrollBy({top:400,behavior:"smooth"});
 }
+
+/* Crossing a breakpoint restarts at that size's first page, so a phone turned
+   sideways does not sit on a count that belongs to the narrower layout. */
+["(max-width:639px)","(max-width:1023px)"].forEach(function(q){
+  if (!window.matchMedia) return;
+  var m = window.matchMedia(q), f = function(){ showCount = getPageSize(); renderCards(); };
+  if (m.addEventListener) m.addEventListener("change", f); else if (m.addListener) m.addListener(f);
+});
 
 function updateCountdown() {
   var now  = new Date();

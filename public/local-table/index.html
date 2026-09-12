@@ -1639,10 +1639,11 @@ function scrollToY(y, behavior){
 
 
 /* Show-more batches, per breakpoint (same breakpoints as the grid):
-   desktop 3 cols: first 6, then +6 · tablet 2 cols: first 2, then +2 ·
-   phone 1 col: first 1, then +5. Change the numbers here only. */
+   desktop 3 cols: first 6 - two full rows - then +6 ·
+   tablet  2 cols: first 8, then +8 ·
+   phone   1 col : first 5, then +5. Change the numbers here only. */
 function batch(){
-  var BATCH = { desktop:{ first:6, step:6 }, tablet:{ first:2, step:2 }, phone:{ first:1, step:5 } };
+  var BATCH = { desktop:{ first:6, step:6 }, tablet:{ first:8, step:8 }, phone:{ first:5, step:5 } };
   var mm = window.matchMedia;
   if (mm && mm("(max-width:639px)").matches)  return BATCH.phone;
   if (mm && mm("(max-width:1023px)").matches) return BATCH.tablet;
