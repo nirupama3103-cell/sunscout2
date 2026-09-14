@@ -1523,6 +1523,27 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
      the header would take half the first screen. */
   .hh-cross{display:none}
 }
+
+/* ── hero stats on small screens ──────────────────────────────────────────
+   .hh-hero caps every child at min(640px,66%) so the headline clears the moon
+   and the roofline on the right. On a phone that art sits behind the scrim
+   anyway, and the cap squeezed the three stats - 318px of content - into
+   210px, so "14 No-scare picks" dropped onto its own line and left the rest
+   of the row empty. Below 600px the stats take the full column instead and
+   sit on one line. Above it nothing changes: 600px and up already fit.
+   At 320px the three still wrap; the content alone is 282px against a 288px
+   column, so one line there would mean shrinking the type. */
+@media(max-width:599px){
+  .hh-hero > .hh-stats{max-width:none}
+  /* Three equal columns rather than a wrapping flex row. Lifting the cap alone
+     fixed 390px and up, but at 320-360 the three labels are wider than the
+     column ("No-scare picks" alone is 124px against a 288px row), so they still
+     wrapped. As a grid the row always holds three; on the narrowest phones the
+     longest label wraps inside its own column instead of pushing a whole stat
+     onto a second line. */
+  .hh-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,2.6vw,16px)}
+  .hh-stats div{min-width:0}
+}
 </style>
 </head>
 <body>
