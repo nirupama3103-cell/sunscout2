@@ -1403,10 +1403,10 @@ function renderStatic(){
       '<div class="scrim"></div>' +
       '<span class="tile-price-b">' + esc(t.price) + '</span></div>';
   }
-  var a = tick.slice(0,6).map(tileA).join("");
-  var b = tick.slice(6).map(tileB).join("");
-  $("rowA").innerHTML = a + a;
-  $("rowB").innerHTML = b + b;
+  railA = tick.slice(0,6).map(tileA).join("");
+  railB = tick.slice(6).map(tileB).join("");
+  fillRail("rowA", railA);
+  fillRail("rowB", railB);
 
   // A reel tile whose photo 404s scrolls past as a black rectangle, which is
   // worse than a shorter reel. `error` does not bubble, so it is captured.
@@ -1418,6 +1418,36 @@ function renderStatic(){
     }, true);
   });
 }
+
+/* ---------------- reel ---------------- */
+/* The rail is two identical halves - that is what makes the -50% keyframe loop
+   without a jump - and each half has to be at least as wide as the viewport or
+   the band runs out of tiles and shows empty background on the right. Six tiles
+   come to roughly 1757px, so 1920 was already 163px short and a zoomed-out
+   window was short by thousands. Measure one set, then lay down 2k of them so
+   one half always covers the screen. */
+var railA = "", railB = "";
+function fillRail(id, html){
+  var row = $(id);
+  if (!row) return;
+  if (!html) { row.innerHTML = ""; return; }
+  row.innerHTML = html;                       // one set, to measure
+  /* Reduced motion stops the row dead, so everything past the first screenful
+     is clipped and repeats would be DOM for nothing. Two sets, as before. */
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var one = row.scrollWidth;
+  var k = (!still && one > 0) ? Math.max(1, Math.ceil(window.innerWidth / one)) : 1;
+  row.innerHTML = new Array(2 * k + 1).join(html);
+}
+/* A window widened past the current fill would show the gap again. */
+var railTimer;
+window.addEventListener("resize", function(){
+  clearTimeout(railTimer);
+  railTimer = setTimeout(function(){
+    fillRail("rowA", railA);
+    fillRail("rowB", railB);
+  }, 200);
+}, { passive:true });
 
 /* ---------------- filters ---------------- */
 function renderFilters(){

@@ -1131,19 +1131,48 @@ function renderReel(){
       (cls === "tile-a" ? '<div class="tile-label">' + esc(p.title) + '</div>' : "") +
     '</button>';
   }
-  // Each rail holds the item set twice: the second copy is what makes the -50%
+  // Each rail is two identical halves: the second is what makes the -50%
   // translate loop seamlessly. It is aria-hidden and every tile in it carries
   // tabindex="-1", so Tab reaches each project exactly once.
-  function rail(list, cls){
-    return '<div class="marquee-set">' +
-             list.map(function(p){ return tile(p, cls, false); }).join("") +
-           '</div>' +
-           '<div class="marquee-dup" aria-hidden="true">' +
-             list.map(function(p){ return tile(p, cls, true); }).join("") +
-           '</div>';
+  //
+  // A half also has to be at least as wide as the viewport, or the track runs
+  // out of tiles and the band shows empty background on the right - six tiles
+  // are about 1277px, so even a 1440 laptop was 163px short. k copies per half
+  // fixes that. Only the very first copy is the real, focusable one; every
+  // repeat is built with dup=true, so widening the rail never adds a tab stop
+  // or a second data-open for the same project.
+  function rail(list, cls, k){
+    var real  = list.map(function(p){ return tile(p, cls, false); }).join("");
+    var ghost = list.map(function(p){ return tile(p, cls, true);  }).join("");
+    return '<div class="marquee-set">' + real + new Array(k).join(ghost) + '</div>' +
+           '<div class="marquee-dup" aria-hidden="true">' + new Array(k + 1).join(ghost) + '</div>';
   }
-  $("rowA").innerHTML = rail(PROJECTS.slice(0,6), "tile-a");
-  $("rowB").innerHTML = rail(PROJECTS.slice(6),   "tile-b");
+  function fillRail(id, list, cls){
+    var row = $(id);
+    if (!row) return;
+    // Reduced motion swaps the track for a plain scroller and hides the dup
+    // half, so repeats there would just show the same projects again.
+    if (reduceMotion) { row.innerHTML = rail(list, cls, 1); return; }
+    row.innerHTML = rail(list, cls, 1);          // two sets, to measure
+    var one = row.scrollWidth / 2;
+    var k = one > 0 ? Math.max(1, Math.ceil(window.innerWidth / one)) : 1;
+    if (k > 1) row.innerHTML = rail(list, cls, k);
+  }
+  fillRail("rowA", PROJECTS.slice(0,6), "tile-a");
+  fillRail("rowB", PROJECTS.slice(6),   "tile-b");
+
+  /* A window widened past the current fill would show the gap again. */
+  clearTimeout(rail._t);
+  if (!rail._bound) {
+    rail._bound = true;
+    window.addEventListener("resize", function(){
+      clearTimeout(rail._t);
+      rail._t = setTimeout(function(){
+        fillRail("rowA", PROJECTS.slice(0,6), "tile-a");
+        fillRail("rowB", PROJECTS.slice(6),   "tile-b");
+      }, 200);
+    }, { passive:true });
+  }
 
   if (reduceMotion) return;
 
