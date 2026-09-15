@@ -1,6 +1,13 @@
 {
   "outputDirectory": "public",
   "buildCommand": "",
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "functions": {
     "api/activities.js": {
       "maxDuration": 10
