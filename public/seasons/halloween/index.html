@@ -1534,6 +1534,11 @@ body::after{ z-index:-2; background:var(--scrim-wide); }
    At 320px the three still wrap; the content alone is 282px against a 288px
    column, so one line there would mean shrinking the type. */
 @media(max-width:599px){
+  /* Same cap, same squeeze: at 390px the badge got 210px for 216px of
+     text, so "Halloween 2026 \u00b7 South Bay" broke into three lines and
+     the pill became a blob. It is inline-flex, so uncapped it simply
+     takes its content width and sits on one line. */
+  .hh-hero > .hh-badge{max-width:none}
   .hh-hero > .hh-stats{max-width:none}
   /* Three equal columns rather than a wrapping flex row. Lifting the cap alone
      fixed 390px and up, but at 320-360 the three labels are wider than the
